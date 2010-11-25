@@ -1,0 +1,77 @@
+package angstd.ui.util;
+
+import java.awt.Component;
+
+import javax.swing.JOptionPane;
+
+import angstd.ui.AngstdUI;
+
+/**
+ * An utility class defining methods which make it possible 
+ * to show basic warning or an informative message dialogs from any point 
+ * within Angstd.
+ * 
+ * @author Andreas Held
+ *
+ */
+public class MessageUtil {
+	
+	private static final String ANGSTD = "Angstd";
+	private static final String ERRORTITLE = "Angstd - Error occured";
+	
+	/**
+     * Shows a basic error message dialog with a specified message.
+     * 
+     * @param msg
+     * 		the error message to display
+     */
+    public static void showWarning(String msg) {
+    	showWarning(AngstdUI.getInstance(), msg);
+    }
+    
+    /**
+     * Shows a basic error message dialog with a specified message.
+     * 
+     * @param parent
+     * 		the component invoking the error message
+     * @param msg
+     * 		the error message to display
+     */
+    public static void showWarning(Component parent, String msg) {
+    	JOptionPane.showMessageDialog(parent, msg, ERRORTITLE, JOptionPane.ERROR_MESSAGE); 
+    }
+    
+    /**
+     * Shows a basic dialog containing a message which can be answered with
+     * yes or no.
+     * 
+     * @param msg
+     * 		the question to ask
+     * @return
+     * 		no (false) or yes (true)
+     */
+    public static boolean showDialog(String msg) {
+    	Object[] options = { "Yes", "No"};
+    	int choice = JOptionPane.showOptionDialog(AngstdUI.getInstance(), msg, ANGSTD, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+    	if (choice == JOptionPane.NO_OPTION)
+    		return false;
+    	return true;
+    }
+    
+    /**
+     * A dialog which gives the user three or more choices, for instance "Overwrite", 
+     * "Rename" and "Cancel". The question (message) as well as the choices
+     * are free configurable.
+     * 
+     * @param msg
+     * 		the question the user has to answer
+     * @param options
+     * 		three or more options for answering the question
+     * @return
+     * 		the users choice corresponding to order of given choices as integer
+     */
+    public static int show3ChoiceDialog(String msg, Object[] options) {
+    	return JOptionPane.showOptionDialog(AngstdUI.getInstance(), msg, ANGSTD, JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+    }
+    
+}

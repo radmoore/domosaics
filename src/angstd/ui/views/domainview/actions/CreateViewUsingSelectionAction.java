@@ -1,0 +1,81 @@
+package angstd.ui.views.domainview.actions;
+
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import angstd.model.arrangement.DomainArrangement;
+import angstd.model.sequence.Sequence;
+import angstd.model.sequence.SequenceI;
+import angstd.ui.ViewHandler;
+import angstd.ui.io.menureader.AbstractMenuAction;
+import angstd.ui.util.MessageUtil;
+import angstd.ui.views.ViewType;
+import angstd.ui.views.domainview.DomainViewI;
+import angstd.ui.views.domainview.components.ArrangementComponent;
+import angstd.ui.wizards.WizardManager;
+
+/**
+ * Creates a new view out of the current selected arrangements. Therefore
+ * the selected arrangements as well as their associated sequences are 
+ * cloned. 
+ * The new view is therefore totally independent.
+ * 
+ * @author Andreas Held
+ *
+ */
+public class CreateViewUsingSelectionAction extends AbstractMenuAction{
+	private static final long serialVersionUID = 1L;
+	
+	public void actionPerformed(ActionEvent e) {
+		// get a grip on the active domain view
+		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
+
+		// check the number of selected proteins, if its zero warn the user
+		int numDAs = view.getArrangementSelectionManager().getSelection().size();
+		if (numDAs == 0) {
+			MessageUtil.showWarning("No preoteins selected, please select at least one arrangement");
+			return;
+		}
+		
+		// take the active viewName + subset as default name
+		String defaultName = view.getViewInfo().getName()+"_subset";
+		
+		// ask the user to enter a valid name for the view
+		String viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
+		if (viewName == null) 
+			return;
+		
+		// clone selected arrangements as well as their sequences into a new dataset
+		DomainArrangement[] daSet = new DomainArrangement[numDAs];
+		List<SequenceI> seqs = new ArrayList<SequenceI>();
+		int i = 0;
+		Iterator<ArrangementComponent> iter = view.getArrangementSelectionManager().getSelectionIterator();
+		while (iter.hasNext()) {
+			try {
+				DomainArrangement da =  iter.next().getDomainArrangement();
+				if (da.getSequence() != null)
+					seqs.add((Sequence) da.getSequence().clone());
+				daSet[i] = (DomainArrangement)da.clone();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			i++;
+		}
+		
+		// clear the selection from this view
+		view.getArrangementSelectionManager().clearSelection();
+
+		// and create with the new dataset a new domainview with the selected name
+		DomainViewI newView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
+		newView.setDaSet(daSet);
+		
+		//if there are sequences loaded clone them as well
+		if (view.isSequenceLoaded()) 
+			newView.loadSequencesIntoDas(seqs.toArray(new SequenceI[seqs.size()]), newView.getDaSet());
+		
+		ViewHandler.getInstance().addView(newView, null);
+	}
+	
+}

@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Fri Aug 27 11:16:10 CEST 2010
+onejar.license.required=false
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=true
+jarname=Jangstd-rv173.jar
+manifest.mergeall=true
+manifest.mainclass=angstd.Angstd
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=<inc|JangstdFinal/lib>~ebiwebservices/;<inc|JangstdFinal/lib>~algo/;<inc|JangstdFinal/lib>~export/;<inc|JangstdFinal/lib>~prefuse/;<inc|JangstdFinal/lib>~ui/

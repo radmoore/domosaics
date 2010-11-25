@@ -1,0 +1,74 @@
+Major Bugs
+------------
+* ConfigurationPanel opens only once (thread?) -> DONE.
+* After the annotator is canceled, an annotation job cannot be restarted (JDK > 1.6.15) -> DONE
+* Annotation process never returns any results (JDK > 1.6.15) -> DONE
+* Closing the HMMer2 local service closes angstd ->
+
+
+- Wizard background ()
+- tooltips
+- test 4 internet connection, e.g. species tree
+- sequence parser: not sure => pop up
+- import project (overwrite)
+- Export view in main menu => chooser
+- new dataset: filebox length minimum size
+- forbid same names within the workspace => overwrite rename
+- show allowed formats in wizards sidebar 
+- annotator: put default email also in options
+- annotator: no resize
+- annotator: kick evlue
+- kick hmmer2 completly
+- default email
+- Show configuration action (works only once)
+- Help: About, Manual
+- check show inner nodes and collapse
+- change small example dataset raw data into distance > 0 
+- note bug: mark
+- add align function to domainview
+- before creating domain tree deselect all domains, nodes
+- domain composition dialog layout: restore buton
+- log file
+- domain composition editor: from and to integer limits
+- compare domain sequences => when changing reference arangement reset the hole manager
+
+
+
+Current ToDos:
+--------------
+- pfam clan mapping
+	=> options menu: show clans
+	=> how to retrieve the clan?
+- notes for arrangements
+	=> show notes for tree nodes
+	=> keep note information when exporting
+	=> keep note information when creating domain tree
+	=> optional mouse over on notes
+
+
+Topics for next meeting:
+-----------------------
+- menu structure
+- options menu
+- basic and advanced mode (viewer, editor, analysis) (binaries)
+- JNLP
+	=> Load with online resources
+- intro video
+- manual
+- window sizes
+- platform independency
+
+
+Andrews stuff:
+--------------
+- create species tree from sequence (interface ncbi)
+- blast
+
+Additional stuff:
+-----------------
+- (w8 for Hmmer3): cleaning of Andrews HMMER2 interface code and finish it. (take hmmer output as exceptable input format for domain view)
+- standalone for hmmer2
+- dotplot:all vs all => gray bar, percentage, option
+- weights for sankoff and alignment
+
+

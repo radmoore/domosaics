@@ -1,0 +1,7 @@
+<propertys>
+	<property id="name" value="Domain Matrix">
+	<property id="icon" value="">
+	<property id="isTool" value="true">
+	<property id="class" value="angstd.ui.tools.domainmatrix.DomainMatrixView">
+	<property id="frameclass" value="angstd.ui.tools.ToolFrame">
+</propertys>

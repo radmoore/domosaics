@@ -1,0 +1,67 @@
+<menubar>
+
+	<menu id="File">
+
+		<menu id="Image Export">
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As PNG"/> 
+				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As JPG"/> 
+				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/>
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As BMP"/>
+				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As PDF"/> 
+				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As SVG"/> 
+				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+		</menu>
+
+		<menuitem id="JSeparator"/>
+	
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Close"/> 
+			<parameter id="actionClass" value="angstd.ui.views.view.actions.CloseAction"/> 
+		</menuItem>
+		
+	</menu>
+	
+	<menu id="View">
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="ZoomMode"/> 
+			<parameter id="actionClass" value="angstd.ui.views.view.actions.ToggleZoomModeAction"/> 
+			<parameter id="tooltip" value="Makes zooming possible using the mouse wheel"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+	</menu>
+	
+	<menu id="Options">
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Sort Alphabetically"/> 
+			<parameter id="actionClass" value="angstd.ui.tools.domainlegend.actions.SortAlphabeticallyAction"/> 
+			<parameter id="tooltip" value="Sorts the domains alphabetically"/> 
+			<parameter id="isSelected" value="true"/>
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Sort By Frequency"/> 
+			<parameter id="actionClass" value="angstd.ui.tools.domainlegend.actions.SortByFrequenceAction"/> 
+			<parameter id="tooltip" value="Sorts the domains by their frequency in descending order"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+	</menu>
+	
+	
+</menubar>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Angstd menu entry definitions --> 
+
+<!-- menuItem: Specifies a menu entry -->
+<!-- name: The name of the menu entry -->
+<!-- parent: An optional parent element within the menu structure -->
+<!-- actionClass: An optional value to specify the linked action class -->
+<!-- tooltip: Specify a tooltip text -->
+<!-- icon: Specify an icon reference -->
+	
+<!--	<menuitem id="JMenuItem">-->
+<!--		<parameter id="name" value=""/> -->
+<!--		<parameter id="actionClass" value=""/> -->
+<!--		<parameter id="tooltip" value=""/> -->
+<!--		<parameter id="icon" value=""/> -->
+<!--		<parameter id="mnemonic" value=""/> -->
+<!--	</menuItem>	-->
+
+<!--	<menuitem id="JSeperator"/>  -->
+
+<menubar>
+	
+	<menu id="File">
+
+		<menu id="New...">
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Dataset"/> 
+				<parameter id="actionClass" value="angstd.ui.actions.ImportDataAction"/> 
+				<parameter id="tooltip" value="Opens a wizard which makes it possible to load various data types"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Tree"/> 
+				<parameter id="actionClass" value="angstd.ui.actions.CreateTreeAction"/> 
+				<parameter id="tooltip" value=""/> 
+			</menuItem>
+			
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Species Tree"/> 
+				<parameter id="actionClass" value="angstd.ui.actions.CreateSpeciesTreeAction"/> 
+				<parameter id="tooltip" value=""/> 
+			</menuItem>
+			
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Domain Tree"/> 
+				<parameter id="actionClass" value="angstd.ui.actions.CreateDomainTreeAction"/> 
+				<parameter id="tooltip" value="Fuses a tree and an arrangement view to a domain tree view"/> 
+			</menuItem>
+			
+			
+		</menu>
+		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Import View"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.ImportViewAction"/> 
+			<parameter id="tooltip" value="Load an exported view into the workspace"/> 
+		</menuItem>
+		
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Export View"/> 
+<!--			<parameter id="actionClass" value="angstd.ui.actions.ExportViewAction"/> 
+<!--			<parameter id="tooltip" value="Opens a wizard which makes it possible to save a view"/> 
+<!--		</menuItem>
+
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Import Project"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.LoadProjectAction"/> 
+			<parameter id="tooltip" value="Load an exported project into the workspace"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Export Project"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.SaveProjectAction"/> 
+			<parameter id="tooltip" value="Opens a wizard which makes it possible to save a project"/> 
+		</menuItem>
+		
+		<menuitem id="JSeparator"/>
+
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Quit"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.QuitAction"/> 
+			<parameter id="tooltip" value="Closes the application"/> 
+		</menuItem>
+
+	</menu>
+
+	<menu id="Tools">
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Annotator"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.ShowAnnotatorAction"/> 
+			<parameter id="tooltip" value="Opens a new window where annotation of sequences is possible"/> 
+		</menuItem>
+
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Hmmer2"/> 
+<!--			<parameter id="actionClass" value="angstd.ui.actions.Hmmer2Action"/> 
+<!--			<parameter id="tooltip" value="Opens a new window where annotation of sequences is possible"/> 
+<!--		</menuItem>
+
+	</menu>
+	
+	<menu id="Options">
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Configuration"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.ShowConfigurationAction"/> 
+			<parameter id="tooltip" value="Shows a new window for setting configuration settings"/> 
+		</menuItem>
+	</menu>
+
+<!-- Disabled help menu -->
+<!--
+<!--	<menu id="Help">
+	
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Manual"/> 
+<!--			<parameter id="actionClass" value="angstd.ui.actions.ShowManualAction"/> 
+<!--			<parameter id="tooltip" value="Shows the program manual"/> 
+<!--		</menuItem>
+	
+<!--		<menuitem id="JSeparator"/>
+	
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Load Small Example Dataset"/> 
+<!--			<parameter id="actionClass" value="angstd.ui.actions.LoadSmallExampleDataActon"/> 
+<!--			<parameter id="tooltip" value="Loads a small example data set"/> 
+<!--		</menuItem>
+		
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Load Big Example Dataset"/> 
+<!--			<parameter id="actionClass" value="angstd.ui.actions.LoadBigExampleDataAction"/> 
+<!--			<parameter id="tooltip" value="Loads a big example data set"/> 
+<!--		</menuItem>
+<!--	</menu>
+
+
+</menubar>

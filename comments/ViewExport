@@ -1,0 +1,14 @@
+When adding new features to a view which should be exported as well
+add them here.
+
+
+Project Export / Import:
+---------------------
+DomainView export - Unsopported preferences:
+	evalue colorization
+	shift positions
+	selections
+	
+DomainTree export - Unsopported preferences:
+	show tree / show arrangements flag
+	show insertion deletion flag

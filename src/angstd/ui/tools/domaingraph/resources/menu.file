@@ -1,0 +1,91 @@
+<menubar>
+
+	<menu id="File">
+	
+		<menu id="Image Export">
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As PNG"/> 
+				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As JPG"/> 
+				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/>
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As BMP"/>
+				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As PDF"/> 
+				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As SVG"/> 
+				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+		</menu>
+		
+		<menuitem id="JSeparator"/>
+	
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Close"/> 
+			<parameter id="actionClass" value="angstd.ui.views.view.actions.CloseAction"/> 
+		</menuItem>
+	</menu>
+	
+	<menu id="Layout">
+	
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Draw Circular Shapes"/> 
+			<parameter id="actionClass" value="angstd.ui.tools.domaingraph.actions.DrawCirclesAction"/> 
+			<parameter id="tooltip" value="Draws domains as circles"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Draw Domain Names"/> 
+			<parameter id="actionClass" value="angstd.ui.tools.domaingraph.actions.DrawDomainNamesAction"/> 
+			<parameter id="tooltip" value="Draws domains with their names"/> 
+			<parameter id="isSelected" value="true"/>
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Draw Domain Shapes"/> 
+			<parameter id="actionClass" value="angstd.ui.tools.domaingraph.actions.DrawDomainShapesAction"/> 
+			<parameter id="tooltip" value="Draws domains with their shapes"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Use ForceLayout"/> 
+			<parameter id="actionClass" value="angstd.ui.tools.domaingraph.actions.UseForceLayoutAction"/> 
+			<parameter id="tooltip" value="Uses a force driven layout in order to arrange the graph"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Disable Forces"/> 
+			<parameter id="actionClass" value="angstd.ui.tools.domaingraph.actions.DisableForcesAction"/> 
+			<parameter id="tooltip" value="Disable the forces"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Use Curved Edges"/> 
+			<parameter id="actionClass" value="angstd.ui.tools.domaingraph.actions.UseCurvedEdgesAction"/> 
+			<parameter id="tooltip" value="Switches between straight and curved lines for edges"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+		
+	</menu>
+	
+	
+</menubar>

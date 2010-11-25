@@ -1,0 +1,84 @@
+package angstd.localservices.executor;
+
+import javax.swing.SwingWorker;
+
+/**
+ * Class for process creation.
+ * 
+ * @author Andrew Moore, Andreas Held
+ *
+ */
+public class Executor extends SwingWorker<Integer, Void> {
+
+	protected Process p;
+	protected long startTime = 0;
+	
+	private String[] cmd;
+	private ProcessListener listener;
+	private int result;
+	
+	
+	public Executor(String[] cmd, ProcessListener listener) {
+		this.cmd = cmd;
+		this.listener = listener;
+	}
+	
+	protected Integer doInBackground() {
+		try {
+			
+			startTime = System.currentTimeMillis();
+			System.out.println("START: "+startTime);
+			ProcessBuilder hmmerProcess = new ProcessBuilder(cmd);
+			p = hmmerProcess.start();	
+		
+			StreamHandler errHandler = new StreamHandler(p.getErrorStream(), StreamHandler.ERROR, listener); 
+            StreamHandler outHandler = new StreamHandler(p.getInputStream(), StreamHandler.OUTPUT, listener);
+            
+            errHandler.start();
+            outHandler.start();
+            
+            result = p.waitFor();
+            
+            
+		} catch(Exception e) {
+//			e.printStackTrace();
+			result =  -1;
+		}
+		return null;		
+	}
+	
+	protected void done() {
+     	if (isCancelled()) {
+     		listener.setResult(-1);
+     		return;
+     	}
+     		
+		try {
+			listener.setResult(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+     }
+	
+	public boolean isRunning() {
+		if (getState().equals("STARTED") || getState().equals("PENDING"))
+			return true;
+		return false;
+	}
+	
+	public void stop() {
+		p.destroy();
+		this.cancel(true);
+	}
+	
+	public long getStartTime() {
+		return startTime;
+	}
+	
+	public long getEllapsedTime() {
+		return (System.currentTimeMillis()- startTime);
+	}
+	
+	
+	
+}

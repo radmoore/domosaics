@@ -1,0 +1,7 @@
+<propertys>
+	<property id="name" value="Change Arrangement">
+	<property id="icon" value="">
+	<property id="isTool" value="true">
+	<property id="class" value="angstd.ui.tools.changearrangement.ChangeArrangementView">
+	<property id="frameclass" value="angstd.ui.tools.changearrangement.ChangeArrangementFrame">
+</propertys>

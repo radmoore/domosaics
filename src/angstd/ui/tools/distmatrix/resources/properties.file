@@ -1,0 +1,7 @@
+<propertys>
+	<property id="name" value="Distance Matrix">
+	<property id="icon" value="">
+	<property id="isTool" value="true">
+	<property id="class" value="angstd.ui.tools.distmatrix.DistMatrixView">
+	<property id="frameclass" value="angstd.ui.tools.distmatrix.DistMatrixFrame">
+</propertys>

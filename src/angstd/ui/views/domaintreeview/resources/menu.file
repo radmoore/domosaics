@@ -1,0 +1,411 @@
+<menubar>
+
+	<menu id="File">
+
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Save Arrangements To File"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.SaveXdomFileAction"/> 
+			<parameter id="tooltip" value="Saves the arrangements to a file"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Save Tree To File"/> 
+			<parameter id="actionClass" value="angstd.ui.views.treeview.actions.SaveNewickFileAction"/> 
+			<parameter id="tooltip" value="Saves the tree to a file"/> 
+		</menuItem>
+
+		<menu id="Image Export">
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As PNG"/> 
+				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As JPG"/> 
+				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/>
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As BMP"/>
+				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As PDF"/> 
+				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As SVG"/> 
+				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+		</menu>
+		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Close"/> 
+			<parameter id="actionClass" value="angstd.ui.views.view.actions.CloseAction"/> 
+			<parameter id="tooltip" value="Closes the view"/> 
+		</menuItem>
+		
+	</menu>
+	
+	<menu id="View">
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="ZoomMode"/> 
+			<parameter id="actionClass" value="angstd.ui.views.view.actions.ToggleZoomModeAction"/> 
+			<parameter id="tooltip" value="Makes zooming possible using the mouse wheel"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Show Tree"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domaintreeview.actions.ShowTreeAction"/> 
+			<parameter id="tooltip" value="Displays the tree"/> 
+			<parameter id="isSelected" value="true"/>
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Show Arrangements"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domaintreeview.actions.ShowArrangementsAction"/> 
+			<parameter id="tooltip" value="Displays the domain arrangements"/> 
+			<parameter id="isSelected" value="true"/>
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Show Insertion / Deletions"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domaintreeview.actions.ShowInDelsAction"/> 
+			<parameter id="tooltip" value="Shows probable insertion and deletion events for domains within the tree"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Change Tree Space"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domaintreeview.actions.ChangeTreeSpaceAction"/> 
+			<parameter id="tooltip" value="Changes the space used to draw the tree"/> 
+		</menuItem>
+		
+	</menu>
+	
+	<menu id="Tree">
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Expand Leaves"/> 
+			<parameter id="actionClass" value="angstd.ui.views.treeview.actions.ExpandLeavesAction"/> 
+			<parameter id="tooltip" value="Aligns the labels to the right"/> 
+			<parameter id="isSelected" value="true"/> 
+		</menuItem>
+	
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Use Edge Weights"/> 
+			<parameter id="actionClass" value="angstd.ui.views.treeview.actions.UseDistancesAction"/> 
+			<parameter id="tooltip" value="Draws the tree edges using their weights"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+	
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Show Edge Weights"/> 
+			<parameter id="actionClass" value="angstd.ui.views.treeview.actions.ShowEdgeLabelsAction"/> 
+			<parameter id="tooltip" value="Shows the weights for edges"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+		
+		<menuitem id="JCheckBox"> 
+			<parameter id="name" value="Show Bootstrap Values"/>  
+			<parameter id="actionClass" value="angstd.ui.views.treeview.actions.ShowBootStrapValuesAction"/>  
+			<parameter id="tooltip" value="Shows the bootstrap values instead of the edge weights"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem> 
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Use Label As Bootstrap Value"/> 
+			<parameter id="actionClass" value="angstd.ui.views.treeview.actions.UseLabelAsBootstrapAction"/> 
+			<parameter id="tooltip" value="Uses numeric node labels as bootstrap values"/> 
+			<parameter id="isSelected" value="true"/>
+		</menuItem>
+	
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Show Inner Nodes"/> 
+			<parameter id="actionClass" value="angstd.ui.views.treeview.actions.ShowInnerNodesAction"/> 
+			<parameter id="tooltip" value="Shows the inner nodes to use menus on them"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Show Ruler"/> 
+			<parameter id="actionClass" value="angstd.ui.views.treeview.actions.ShowTreeRulerAction"/> 
+			<parameter id="tooltip" value="Shows a distance based ruler for the tree"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+	</menu>
+	
+	<menu id="Arrangements">
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Proportional View"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ProportionalViewAction"/> 
+			<parameter id="tooltip" value="Draws all domains by their real size"/> 
+			<parameter id="isSelected" value="true"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Unproportional View"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.UnproportionalViewAction"/> 
+			<parameter id="tooltip" value="Draws all domains using the same size"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="MSA View"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.MsaViewAction"/> 
+			<parameter id="tooltip" value="Shows the sequence instead of the drawn arrangement"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="FitToScreen"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.FitDomainsToScreenAction"/> 
+			<parameter id="tooltip" value="Fits the domains into screen size"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Evalue Colorization"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.EvalueColorizationAction"/> 
+			<parameter id="tooltip" value="Colorizes domains based on their evalues"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Show Shapes"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ShowShapesAction"/> 
+			<parameter id="tooltip" value="Shows shapes for domains instead of its name"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Show Notes"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ShowNotesAction"/> 
+			<parameter id="tooltip" value="Shows a note marker for arrangements which have a note assigned"/> 
+			<parameter id="isSelected" value="true"/> 
+		</menuItem>
+		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Align Domains"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domaintreeview.actions.AlignDomainsAction"/> 
+			<parameter id="tooltip" value="Aligns the domain within the proportional view."/> 
+		</menuItem>
+		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Show Legend"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ShowDomainLegendAction"/> 
+			<parameter id="icon" value="angstd/ui/views/domainview/resources/img/legend.png"/>
+			<parameter id="tooltip" value="Opens a new Window where the domain legend is displayed"/> 
+		</menuItem>
+		
+		
+<!--		<menuitem id="JCheckBox">
+<!--			<parameter id="name" value="Show Ruler"/> 
+<!--			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ShowDomainRulerAction"/> 
+<!--			<parameter id="tooltip" value="Shows a ruler below the domain view"/> 
+<!--			<parameter id="isSelected" value="false"/> 
+<!--		</menuItem>
+	</menu>
+
+
+
+	<menu id="Edit">
+	
+	<menu id="Tree">
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Default Font"/> 
+			<parameter id="actionClass" value="angstd.ui.views.treeview.actions.ChangeDefaultFontAction"/>
+			<parameter id="tooltip" value="Changes the default font and therefore all non edited node fonts at once"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Default Edge Style"/> 
+			<parameter id="actionClass" value="angstd.ui.views.treeview.actions.ChangeDefaultEdgeStyleAction"/>
+			<parameter id="tooltip" value="Changes the default edge style and therefore all non edited edge styles at once"/> 
+		</menuItem>
+		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Font for Selection"/> 
+			<parameter id="actionClass" value="angstd.ui.views.treeview.actions.ChangeFontForSelectionAction"/>
+			<parameter id="tooltip" value="Changes the font for all selected nodes"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Edge Style for Selection"/> 
+			<parameter id="actionClass" value="angstd.ui.views.treeview.actions.ChangeEdgeStyleForSelectionAction"/> 
+			<parameter id="tooltip" value="Changes the style for all selected edges"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Colorize Selected Edges"/> 
+			<parameter id="actionClass" value="angstd.ui.views.treeview.actions.ColorizeSelectionAction"/>
+			<parameter id="tooltip" value="Colorizes all selected edges"/> 
+		</menuItem>
+	</menu>
+		
+	<menu id="Arrangements">
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Edit Arrangement"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ChangeArrangementAction"/> 
+			<parameter id="tooltip" value="Opens a new window where the domain arrangement can be changed"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Associate With Sequences"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.AssociateWithSeqsAction"/> 
+			<parameter id="tooltip" value="Gives the opportunity to associate sequences to the arrangements"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Delete Selected Arrangements"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.DeleteArrangementAction"/> 
+			<parameter id="tooltip" value="Removes the selected arrangements from the view"/> 
+		</menuItem>
+		
+		<menuitem id="JSeparator"/>
+	
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Collapse Same Arrangements"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.CollapseSameArrangementsAction"/> 
+			<parameter id="tooltip" value="Shows only non redundant domain compositions"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Collapse By Similarity"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.SimilarityColorizationAction"/> 
+			<parameter id="tooltip" value="Colorizes arrangements based on a similarity measure"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Domain Sequence Comparison"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.DomainCompareAction"/> 
+			<parameter id="tooltip" value="Uses the NW algorithm to compare domain sequences for all domains within the selected arrangement"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+	</menu>
+	
+	</menu>
+	
+	<menu id="Select">
+	
+	<menu id="Tree">
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="All"/> 
+			<parameter id="actionClass" value="angstd.ui.views.treeview.actions.SelectAllAction"/> 
+			<parameter id="tooltip" value="Selects all nodes within the tree"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="None"/> 
+			<parameter id="actionClass" value="angstd.ui.views.treeview.actions.ClearSelectionAction"/> 
+			<parameter id="tooltip" value="Deselects all nodes within the tree"/> 
+		</menuItem>
+	</menu>
+	
+	<menu id="Arrangements">
+				<menuitem id="JCheckBox">
+			<parameter id="name" value="Select Domain Arrangements"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.SelectDomainArrangementsAction"/> 
+			<parameter id="tooltip" value="Gives the opportunity to select Domain Arrangements"/> 
+			<parameter id="isSelected" value="true"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Select Sequences"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.SelectSequencesAction"/> 
+			<parameter id="tooltip" value="Gives the opportunity to select parts of sequences"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Reset Shift positions"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ResetShiftAction"/> 
+			<parameter id="tooltip" value="Automatically position all arrangements at the left side"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Export Selection to new View"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.CreateViewUsingSelectionAction"/> 
+			<parameter id="tooltip" value="Opens a new domain view containing the selected arrangements"/> 
+		</menuItem>
+	</menu>
+		
+	</menu>
+	
+<!--	<menu id="Search">
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Arrangement"/> 
+<!--			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.FindArrangementAction"/> 
+<!--			<parameter id="tooltip" value="Searches for arrangements with the specified name"/> 
+<!--	</menuItem>
+		
+<!--	<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Domain"/> 
+<!--			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.FindDomainAction"/> 
+<!--		<parameter id="tooltip" value="Opens a search Window to highlight a specific domain family"/> 
+<!--	</menuItem>
+<!--	</menu>
+
+	
+	<menu id="Tools">
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Statistics"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ShowStatisticsAction"/> 
+			<parameter id="icon" value="angstd/ui/views/domainview/resources/img/tools/stats.png"/>
+			<parameter id="tooltip" value="Opens a new window where some data set statistics are displayed"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Domain Matrix"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ShowDomainMatrixAction"/> 
+			<parameter id="icon" value="angstd/ui/views/domainview/resources/img/tools/domainmatrix.png"/>
+			<parameter id="tooltip" value="Opens a new window where a domain matrix is displayed"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Distance Matrix"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ShowDistMatrixAction"/> 
+			<parameter id="icon" value="angstd/ui/views/domainview/resources/img/tools/distancematrix.png"/>
+			<parameter id="tooltip" value="Opens a new window where the domain distance is calculated for each arrangement"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Domain Graph"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ShowDomainGraphAction"/> 
+			<parameter id="icon" value="angstd/ui/views/domainview/resources/img/tools/domgraph.png"/>
+			<parameter id="tooltip" value="Opens a new window where a domain graph is displayed"/> 
+		</menuItem>
+	
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Domain Dotplot"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ShowDotplotAction"/> 
+			<parameter id="icon" value="angstd/ui/views/domainview/resources/img/tools/dotplot.png"/>
+			<parameter id="tooltip" value="Opens a new window where a domain dotplot is displayed"/> 
+		</menuItem>
+	
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Evalue Slider"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ShowEvalueSliderAction"/> 
+			<parameter id="icon" value="angstd/ui/views/domainview/resources/img/tools/evalslider.png"/>
+			<parameter id="tooltip" value="Opens a new window where an evalue slider can be used to adjust the domain compositions"/> 
+		</menuItem>
+	
+	
+	</menu>
+		
+	
+</menubar>

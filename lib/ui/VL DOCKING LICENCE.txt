@@ -1,0 +1,3 @@
+VLDocking is available with dual licensing : Open Source and Commercial. 
+
+The CeCILL License is a french GPL compatible license : For those developing open source applications, it allows you to use, modify and distribute VLDocking 2.1 freely (under CeCILL or GPL license).
