@@ -19,6 +19,15 @@ import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.io.AbstractDataReader;
 
+
+/**
+ * Class for reading various hmmout like formats. Currently
+ * supports:
+ * - pfam_scan.pl (part of pfam pipeline, see ftp://ftp.sanger.ac.uk/pub/databases/Pfam/Tools/)
+ * 
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
+ *
+ */
 public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 
 	protected Map<String, DomainFamily> domFamilyMap = new HashMap<String, DomainFamily>();
@@ -32,8 +41,6 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 		List<DomainArrangement> arrList = new ArrayList<DomainArrangement>();
 		
 		BufferedReader in = new BufferedReader(reader);
-		
-		System.out.println("Ready to read.");
 		
 		int from, to;
 		double evalue;
@@ -52,26 +59,22 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 			if (line.startsWith("#"))			
 				continue;
 			
-			System.out.println("Splitting....");
 			String[] entryFields = line.split("\\s+");
 			currentProtID = entryFields[0];
-			System.out.println(currentProtID);
-			
+						
 			from 		= Integer.parseInt(entryFields[1]);
 			to	 		= Integer.parseInt(entryFields[2]);
 			evalue		= Double.parseDouble(entryFields[12]);
 			acc			= entryFields[6];
 			domFamily 	= domFamilyMap.get(acc);
 			
-			
-			
 			if (domFamily == null) {
 				domFamily = new DomainFamily(acc);
-				//domFamilyMap.put(dom.getID(), domFamily);
+				domFamilyMap.put(domFamily.getID(), domFamily);
 			}
-			System.out.println("curremt prot: "+currentProtID+", last prot: "+prevProtID);
+			
 			if ( !currentProtID.equals(prevProtID) ) {
-				System.out.println("I am creating a new protein...!");
+			
 				if (prot != null)
 					arrList.add(prot);					// save last protein
 				
@@ -83,12 +86,10 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 			dom = new Domain(from, to, domFamily); 		// same protein as last entry
 			dom.setEvalue(evalue);
 			prot.addDomain(dom);
-			System.out.println("protein: "+prot.toString());
 			
 			prevProtID = currentProtID;
 			
 		}
-		
 		
 		return arrList.toArray(new DomainArrangement[arrList.size()]);
 		
