@@ -225,7 +225,7 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 		private static final long serialVersionUID = 1L;
 		
 		public WrongFormatException () {
-		    super("Wrong Format! Not enough token in domain line");
+		    super("Wrong Format! Not enough tokens in domain line");
 		}
 	}
 }

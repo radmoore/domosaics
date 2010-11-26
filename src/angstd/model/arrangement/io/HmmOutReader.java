@@ -1,29 +1,31 @@
 package angstd.model.arrangement.io;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
-
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.io.AbstractDataReader;
+import angstd.ui.util.MessageUtil;
 
 
 /**
  * Class for reading various hmmout like formats. Currently
  * supports:
  * - pfam_scan.pl (part of pfam pipeline, see ftp://ftp.sanger.ac.uk/pub/databases/Pfam/Tools/)
+ * - hmmscan (see http://hmmer.janelia.org/, using conditional evalue and alignment coordinates)
+ * 
+ * 
+ * TODO
+ * handel exceptions properly
+ * warn RE: end position?
  * 
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
@@ -32,27 +34,47 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 
 	protected Map<String, DomainFamily> domFamilyMap = new HashMap<String, DomainFamily>();
 
+	/**
+	 * Checks whether first non-comment, non empty line in 
+	 * file can be split on whitespaces producing at least 12 fields
+	 * 
+	 * @param file
+	 * @return
+	 */
 	public static boolean checkFileFormat(File file) {
-		return true;
+		try {
+			
+			BufferedReader in = new BufferedReader(new FileReader(file));
+			String line;
+			
+			while ((line = in.readLine()) != null) {
+				if (line.isEmpty())					
+					continue;
+				if (line.startsWith("#"))			
+					continue;
+				
+				in.close(); // only read first 'meaningful' line
+				if (line.split("\\s+").length >= 15)
+					return true;
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 
 	public DomainArrangement[] getData(Reader reader) throws IOException {
 		
 		List<DomainArrangement> arrList = new ArrayList<DomainArrangement>();
-		
 		BufferedReader in = new BufferedReader(reader);
+		String line;
+		boolean read = true;
 		
-		int from, to;
-		double evalue;
-		String line, acc;
-		String prevProtID 		= null;
-		String currentProtID 	= null;
-		DomainArrangement prot 	= null;
-		DomainFamily domFamily 	= null;
-		Domain dom 				= null;
-		
-		while((line = in.readLine()) != null) {
+		while(read) {
 			
+			line = in.readLine();
 			
 			if (line.isEmpty())					
 				continue;
@@ -60,39 +82,154 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				continue;
 			
 			String[] entryFields = line.split("\\s+");
-			currentProtID = entryFields[0];
-						
-			from 		= Integer.parseInt(entryFields[1]);
-			to	 		= Integer.parseInt(entryFields[2]);
-			evalue		= Double.parseDouble(entryFields[12]);
-			acc			= entryFields[6];
-			domFamily 	= domFamilyMap.get(acc);
-			
-			if (domFamily == null) {
-				domFamily = new DomainFamily(acc);
-				domFamilyMap.put(domFamily.getID(), domFamily);
-			}
-			
-			if ( !currentProtID.equals(prevProtID) ) {
-			
-				if (prot != null)
-					arrList.add(prot);					// save last protein
-				
-				prot = new DomainArrangement(); 		// new protein
-				prot.setName(currentProtID);
-				System.out.println("Protein ID: "+currentProtID);
-			}
-			
-			dom = new Domain(from, to, domFamily); 		// same protein as last entry
-			dom.setEvalue(evalue);
-			prot.addDomain(dom);
-			
-			prevProtID = currentProtID;
+			arrList = (entryFields.length == 24) ? parseHmmerScan(in) : parsePfamScan(in);
+			read = false;
 			
 		}
-		
+		in.close();
 		return arrList.toArray(new DomainArrangement[arrList.size()]);
 		
 	}
 
+	
+	private List<DomainArrangement> parsePfamScan(BufferedReader in) {
+		
+		List<DomainArrangement> arrList = new ArrayList<DomainArrangement>();
+		int from, to;
+		double evalue;
+		String line, acc;
+		String prevProtID		= null;
+		String currentProtID 	= null;
+		DomainArrangement prot 	= null;
+		DomainFamily domFamily 	= null;
+		Domain dom 				= null;
+		
+		try {
+			
+			while((line = in.readLine()) != null) {
+						
+						
+				if (line.isEmpty())					
+					continue;
+				if (line.startsWith("#"))			
+					continue;
+						
+				String[] entryFields = line.split("\\s+");
+					
+				currentProtID = entryFields[0];
+								
+				from 		= Integer.parseInt(entryFields[1]);
+				to	 		= Integer.parseInt(entryFields[2]);
+				evalue		= Double.parseDouble(entryFields[12]);
+				acc			= entryFields[6];
+				domFamily 	= domFamilyMap.get(acc);
+				
+				if (domFamily == null) {
+					domFamily = new DomainFamily(acc);
+					domFamilyMap.put(domFamily.getID(), domFamily);
+				}
+					
+				if ( !currentProtID.equals(prevProtID) ) {
+				
+					if (prot != null)
+						arrList.add(prot);					// save last protein
+					
+					prot = new DomainArrangement(); 		// new protein
+					prot.setName(currentProtID);
+				}
+				
+				dom = new Domain(from, to, domFamily); 		// same protein as last entry
+				dom.setEvalue(evalue);
+				prot.addDomain(dom);
+				
+				prevProtID = currentProtID;
+			}
+			
+		} 
+		catch (NumberFormatException e) {
+			MessageUtil.showWarning("Error while parsing pfam_scan output file. Please check file format.");
+			e.printStackTrace();
+		} 
+		catch (IOException e) {
+			MessageUtil.showWarning("Error while reading/parsing pfam_scan output.");
+			e.printStackTrace();
+		}
+
+		return arrList;
+	}
+	
+	
+	private List<DomainArrangement> parseHmmerScan(BufferedReader in) {
+		List<DomainArrangement> arrList = new ArrayList<DomainArrangement>();
+		
+		int protLength, from, to;
+		double evalue;
+		String line, acc;
+		String prevProtID		= null;
+		String currentProtID 	= null;
+		DomainArrangement prot 	= null;
+		DomainFamily domFamily 	= null;
+		Domain dom 				= null;
+		
+		try {
+			
+			while((line = in.readLine()) != null) {
+						
+						
+				if (line.isEmpty())					
+					continue;
+				if (line.startsWith("#"))			
+					continue;
+						
+				String[] entryFields = line.split("\\s+");
+				
+				
+				currentProtID = entryFields[3];
+				protLength 	= Integer.parseInt(entryFields[5]); 
+				from 		= Integer.parseInt(entryFields[17]);
+				to	 		= Integer.parseInt(entryFields[18]);
+				evalue		= Double.parseDouble(entryFields[12]);
+				acc			= entryFields[0]; // actually: name
+				domFamily 	= domFamilyMap.get(acc);
+				
+				if (evalue > 10)
+					continue;
+				
+				
+				if (domFamily == null) {
+					domFamily = new DomainFamily(acc);
+					domFamilyMap.put(domFamily.getID(), domFamily);
+				}
+					
+				if ( !currentProtID.equals(prevProtID) ) {
+				
+					if (prot != null)
+						arrList.add(prot);					// save last protein
+					
+					prot = new DomainArrangement(); 		// new protein
+					prot.setName(currentProtID);
+					prot.setSeqLen(protLength);
+				}
+				
+				dom = new Domain(from, to, domFamily); 		// same protein as last entry
+				dom.setEvalue(evalue);
+				prot.addDomain(dom);
+				
+				prevProtID = currentProtID;
+			}
+				
+		}
+		catch (NumberFormatException e) {
+			MessageUtil.showWarning("Error while parsing hmmscan output file. Please check file format.");
+			e.printStackTrace();
+		} 
+		catch (IOException e) {
+			MessageUtil.showWarning("Error while reading/parsing hmmscan output.");
+			e.printStackTrace();
+		}
+			
+		return arrList;
+	}
+	
+	
 }

@@ -18,6 +18,7 @@ public class MessageUtil {
 	
 	private static final String ANGSTD = "Angstd";
 	private static final String ERRORTITLE = "Angstd - Error occured";
+	private static final String INFORMTITLE = "Angstd - Information";
 	
 	/**
      * Shows a basic error message dialog with a specified message.
@@ -39,6 +40,14 @@ public class MessageUtil {
      */
     public static void showWarning(Component parent, String msg) {
     	JOptionPane.showMessageDialog(parent, msg, ERRORTITLE, JOptionPane.ERROR_MESSAGE); 
+    }
+    
+    /** 
+     * Shows a generic information dialog with the specified message
+     * @param msg
+     */
+    public static void showInformation(String msg) {
+    	JOptionPane.showMessageDialog(AngstdUI.getInstance(), msg, INFORMTITLE, JOptionPane.INFORMATION_MESSAGE);
     }
     
     /**

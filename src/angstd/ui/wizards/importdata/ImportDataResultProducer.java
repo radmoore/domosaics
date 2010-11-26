@@ -21,6 +21,7 @@ import angstd.model.tree.io.NewickTreeReader;
 import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.ViewElement;
 import angstd.ui.ViewHandler;
+import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.domainview.DomainViewI;
@@ -31,8 +32,10 @@ import angstd.ui.views.treeview.TreeViewI;
  * Class producing the resulting view based on the ImportData wizard.
  * 
  * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
+
 @SuppressWarnings("unchecked")
 public class ImportDataResultProducer extends DeferredWizardResult  implements WizardResultProducer{
 	
@@ -127,6 +130,13 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		if (daSet == null)
 			return false;
 		
+		int importedProts = daSet.length;
+		if (importedProts < 1) {
+			MessageUtil.showWarning("0 proteins imported");
+			return false;
+		}
+			
+
 		// create view
 		DomainViewI domView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
 		domView.setDaSet(daSet);
@@ -145,9 +155,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 			domTreeView.setBackendViews(treeView, domView);
 			ViewHandler.getInstance().addView(domTreeView, null);
 		}
-		
-		
-		
+		MessageUtil.showInformation(importedProts+" proteins successfully imported.");
 		return true;
 	}
 	

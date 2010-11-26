@@ -13,9 +13,7 @@ public class ArrangementImporterUtil {
 		if (XdomReader.checkFormat(file))
 			arrangementSet  = new XdomReader().getDataFromFile(file); 
 		else {
-			System.out.println("Not an xdom file, checking format");
 			if (HmmOutReader.checkFileFormat(file));
-				System.out.println("Readig hmmout file... ");
 				arrangementSet = new HmmOutReader().getDataFromFile(file);	
 		}
 		
