@@ -49,7 +49,8 @@ import angstd.webservices.interproscan.Method;
  * 2. a valid email address <br>
  * 3. a signature method for annotation, e.g. hmmpfam. <br>
  * 
- * @author Andreas Held, Andrew Moore
+ * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
 public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
@@ -193,7 +194,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	/**
 	 * cancels the annotation spawner and disposes the GUI.
 	 * TODO: ensure that the swing worker disposes of the
-	 * AnnotationThreas that are running (ADM)
+	 * AnnotationThreads that are running (ADM)
 	 */
 	public void cancel() {
 		dispose();
@@ -280,7 +281,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		   )								// x.xx
 			return false;
 		
-		// x@x.xx
 		return true;
 	}
 	

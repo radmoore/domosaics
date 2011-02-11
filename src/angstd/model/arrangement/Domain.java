@@ -33,6 +33,8 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
     /** assigned sequence data */
     protected SequenceI seq;
     
+  //  protected boolean putative;
+    
 	/**
 	 * constructor for a new domain object without e-value specification.
 	 * 

@@ -5,7 +5,8 @@ package angstd.localservices.executor;
  * A class implementing this interface can be assigned as listener
  * to the streams created by a process object.
  * 
- * @author Andrew Moore, Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
+ * @author Andreas Held
  *
  */
 public interface ProcessListener {

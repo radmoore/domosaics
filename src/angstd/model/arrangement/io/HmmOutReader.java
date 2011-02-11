@@ -19,10 +19,6 @@ import angstd.ui.util.MessageUtil;
 /**
  * Class for reading various hmmout like formats. Currently
  * supports:
- * - pfam_scan.pl (part of pfam pipeline, see ftp://ftp.sanger.ac.uk/pub/databases/Pfam/Tools/)
- * - hmmscan (see http://hmmer.janelia.org/, using conditional evalue and alignment coordinates)
- * 
- * 
  * TODO
  * handel exceptions properly
  * warn RE: end position?
@@ -43,15 +39,17 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 	 */
 	public static boolean checkFileFormat(File file) {
 		try {
-			
+				
 			BufferedReader in = new BufferedReader(new FileReader(file));
 			String line;
 			
 			while ((line = in.readLine()) != null) {
+				
 				if (line.isEmpty())					
 					continue;
 				if (line.startsWith("#"))			
 					continue;
+				
 				
 				in.close(); // only read first 'meaningful' line
 				if (line.split("\\s+").length >= 15)
@@ -61,7 +59,6 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return false;
 	}
 
@@ -76,13 +73,18 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 			
 			line = in.readLine();
 			
-			if (line.isEmpty())					
-				continue;
-			if (line.startsWith("#"))			
+			if (line.isEmpty())			
 				continue;
 			
-			String[] entryFields = line.split("\\s+");
-			arrList = (entryFields.length == 24) ? parseHmmerScan(in) : parsePfamScan(in);
+			if (line.startsWith("#")){			
+				if (line.contains("pfam_scan.pl")) {
+					arrList = parsePfamScan(in);
+				}
+				else {
+					System.out.println("Parsing hmmscan output.");
+					arrList = parseHmmerScan(in);
+				}
+			}
 			read = false;
 			
 		}
@@ -117,7 +119,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				String[] entryFields = line.split("\\s+");
 					
 				currentProtID = entryFields[0];
-								
+				
 				from 		= Integer.parseInt(entryFields[1]);
 				to	 		= Integer.parseInt(entryFields[2]);
 				evalue		= Double.parseDouble(entryFields[12]);
@@ -160,6 +162,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 	
 	
 	private List<DomainArrangement> parseHmmerScan(BufferedReader in) {
+		
 		List<DomainArrangement> arrList = new ArrayList<DomainArrangement>();
 		
 		int protLength, from, to;
@@ -171,10 +174,10 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 		DomainFamily domFamily 	= null;
 		Domain dom 				= null;
 		
+		
 		try {
 			
-			while((line = in.readLine()) != null) {
-						
+			while((line = in.readLine()) != null) {		
 						
 				if (line.isEmpty())					
 					continue;
@@ -189,7 +192,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				from 		= Integer.parseInt(entryFields[17]);
 				to	 		= Integer.parseInt(entryFields[18]);
 				evalue		= Double.parseDouble(entryFields[12]);
-				acc			= entryFields[0]; // actually: name
+				acc			= entryFields[0]; // actually: name:
 				domFamily 	= domFamilyMap.get(acc);
 				
 				if (evalue > 10)

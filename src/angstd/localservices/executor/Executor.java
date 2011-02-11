@@ -3,10 +3,11 @@ package angstd.localservices.executor;
 import javax.swing.SwingWorker;
 
 /**
- * Class for process creation.
  * 
- * @author Andrew Moore, Andreas Held
- *
+ * Class for process creation
+ * 
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
+ * @author Andreas Held
  */
 public class Executor extends SwingWorker<Integer, Void> {
 
@@ -39,9 +40,9 @@ public class Executor extends SwingWorker<Integer, Void> {
             
             result = p.waitFor();
             
-            
-		} catch(Exception e) {
-//			e.printStackTrace();
+		} 
+		catch(Exception e) {
+			//e.printStackTrace();
 			result =  -1;
 		}
 		return null;		
@@ -55,20 +56,25 @@ public class Executor extends SwingWorker<Integer, Void> {
      		
 		try {
 			listener.setResult(result);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} 
+		catch (Exception e) {
+		//	e.printStackTrace();
 		} 
      }
 	
 	public boolean isRunning() {
-		if (getState().equals("STARTED") || getState().equals("PENDING"))
+		if (getState().equals(StateValue.STARTED) || getState().equals(StateValue.PENDING))
 			return true;
 		return false;
 	}
 	
 	public void stop() {
-		p.destroy();
-		this.cancel(true);
+		try { 
+			p.destroy();
+			this.cancel(true);
+		}
+		catch (Exception  e){ }
+		
 	}
 	
 	public long getStartTime() {
