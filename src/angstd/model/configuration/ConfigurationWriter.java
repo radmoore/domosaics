@@ -13,7 +13,10 @@ public class ConfigurationWriter {
 	public static final String PFAM_URL = "pfam search:";
 	public static final String UNIPROT_URL = "uniprot search:";
 	public static final String EMAIL_ADDR = "email address:";
+	public static final String HMMER_BINS = "hmmer3 bins:";
+	public static final String HMMER_PROFILE_DB = "hmmer3 profile db:";
 	public static final String SHOWADVISES = "show advice:";
+	
 	
 	public static void write(File file) {
 		try {
@@ -28,6 +31,8 @@ public class ConfigurationWriter {
 		    out.write(PFAM_URL+config.getPfamUrl()+"\n");
 		    out.write(UNIPROT_URL+config.getUniprotUrl()+"\n");
 		    out.write(EMAIL_ADDR+config.getEmailAddr()+"\n");
+		    out.write(HMMER_BINS+config.getHmmerBins()+"\n");
+		    out.write(HMMER_PROFILE_DB+config.getHmmerDB()+"\n");
 		    out.write(SHOWADVISES+config.isShowAdvices()+"\n");
 		    		
 		    out.flush();

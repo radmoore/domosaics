@@ -2,28 +2,27 @@ package angstd.model.configuration;
 
 import java.io.File;
 
-
 /**
  * Configuration holds all specified URLs to look up nodes in trees and 
  * domains from an arrangement. The entrys can be changed using the 
  * configuration module.
  * 
- * 
- * @author Andreas Held, Andrew Moore
+ * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
 public class Configuration {
 	
 	public static final String CONFIGFILE = "config";
-	
 	public static final String DEF_FILE_LOCATION = System.getProperty("user.home");
-	
 	public static final String DEF_GOOGLE_SEARCH = "http://www.google.com/search?q=XXX";
 	public static final String DEF_NCBI_SEARCH = "http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&cmd=search&term=XXX";
 	public static final String DEF_PFAM_SEARCH = "http://pfam.sanger.ac.uk/family?acc=XXX";
 	public static final String DEF_SWISSPROT_SEARCH = "http://www.expasy.org/cgi-bin/sprot-search-de?XXX";
 	public static final String DEF_EMAIL_ADDR = "";
-
+	public static final String DEF_HMMERBINS = "/usr/share/Hmmer3/binaries/";
+	public static final String DEF_HMMERDB = "";
+	
 	public static final boolean DEF_SHOW_ADVICES = true;
 	
 
@@ -34,6 +33,8 @@ public class Configuration {
 	protected String pfamUrl; 
 	protected String swissprotUrl;
 	protected String emailAddr;
+	protected String hmmBinDir;
+	protected String hmmDB;
 
 	protected boolean showAdvices;
 	
@@ -62,6 +63,8 @@ public class Configuration {
 		pfamUrl = DEF_PFAM_SEARCH; 
 		swissprotUrl = DEF_SWISSPROT_SEARCH;
 		emailAddr = DEF_EMAIL_ADDR;
+		hmmBinDir = DEF_HMMERBINS;
+		hmmDB = DEF_HMMERDB;
 		showAdvices = DEF_SHOW_ADVICES;
 	}
 	
@@ -167,4 +170,19 @@ public class Configuration {
 		return emailAddr;
 	}
 	
+	public void setHmmerBins(String path2HmmerBins) {
+		hmmBinDir = path2HmmerBins; 
+	}
+	
+	public String getHmmerBins() {
+		return hmmBinDir;
+	}
+	
+	public void setHmmerDB(String path2HmmerDB) {
+		hmmDB = path2HmmerDB;
+	}
+	
+	public String getHmmerDB() {
+		return hmmDB;
+	}
 }

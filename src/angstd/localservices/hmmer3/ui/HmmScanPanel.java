@@ -31,6 +31,7 @@ import org.jdesktop.swingx.JXTitledSeparator;
 import angstd.localservices.hmmer3.Hmmer3Engine;
 import angstd.localservices.hmmer3.programs.HmmPress;
 import angstd.localservices.hmmer3.programs.HmmScan;
+import angstd.model.configuration.Configuration;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.util.MessageUtil;
 
@@ -83,8 +84,13 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * components
 	 */
 	private void initComponents() {
+		
+		Configuration config = Configuration.getInstance();
+		
 		binTF = new JTextField(35);
+		binTF.setText(config.getHmmerBins());
 		hmmTF = new JTextField(35);
+		hmmTF.setText(config.getHmmerDB());
 		fastaTF = new JTextField(35);
 		evalueTF = new JTextField(5);
 		evalueTF.setText("0.1"); // default evalue
@@ -294,7 +300,6 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			return;
 		
 		fastaFile = file;
-		namedArgs.put("fasta", file.getPath());
 		fastaTF.setText(file.getAbsolutePath());
 	}
 	
