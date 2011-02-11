@@ -58,4 +58,5 @@ public abstract class HmmerServicePanel extends JPanel {
 	 */
 	public abstract JProgressBar getProgressBar();
 	
+	
 }

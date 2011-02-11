@@ -45,6 +45,7 @@ import angstd.ui.util.MessageUtil;
  * - progressbar issue (inkl. proper calc)
  * - unhandled exceptions
  * - Runtime can only return number of CPUs available to JVM (not System)
+ * - After the run, we should be able to attach sequences _directly_ to the arrangements
  * 
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
@@ -64,7 +65,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	protected JTextArea console;
 	protected JProgressBar progressBar;
 	protected JPanel ePane;
-	protected File hmmDBFile, fastaFile;
+	protected File hmmBinDir, hmmDBFile, fastaFile;
 
 	 
 	public HmmScanPanel(Hmmer3Frame parent) {
@@ -227,37 +228,17 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	}
 	
 	/**
-	 * Loads all required binaries into Angstd and ensures that binaries
-	 * are executable.
+	 * Triggered when the load bin button is pressed
+	 * The input fields are check for validity at a later point
+	 * (before launching the job)
 	 */
 	private void loadBinAction() {
-		
-		hmmer3bins = new HashMap<String, File>();
+
 		File binDir = FileDialogs.openChooseDirectoryDialog(this);
 		if (binDir == null || !binDir.canRead())
 			return;
 		
-		File[] files = binDir.listFiles();
-		if (files.length == 0) {
-			MessageUtil.showWarning("Could not find any HMMER programs.");
-			return;
-		}
-		for (int i=0; i < files.length; i++) {	
-			
-			if ( Hmmer3Engine.isValidService(files[i].getName()) ) {
-				if (!files[i].canExecute()) {
-					MessageUtil.showWarning(this, files[i].getAbsoluteFile()+" is not executable. Exiting.");
-					return;
-				}
-				hmmer3bins.put(files[i].getName(), files[i]);
-			}
-			
-		}	
-		if (hmmer3bins.isEmpty()) {
-			MessageUtil.showWarning(this, "Could not find all required HMMER programs (hmmscan, hmmpress).");
-			return;
-		}
-		Hmmer3Engine.getInstance().setValidServices(hmmer3bins);
+		hmmBinDir = binDir;
 		binTF.setText(binDir.getAbsolutePath());	
 	}
 	
@@ -271,23 +252,6 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			return;
 		
 		hmmDBFile = file;
-		
-		// check if pressed files are available
-		if (!HmmPress.hmmFilePressed(file)) {
-			if (MessageUtil.showDialog("The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {
-				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-				
-				// TODO: I would like to disable GUI components here
-				// and enable them _after_ the run is complete.
-				// See also angstd.localservices.hmmer3.programs.HmmPress
-				HmmPress hmmPress = new HmmPress(Hmmer3Engine.getInstance().getValidServicePath("hmmpress"), file, this);
-				Hmmer3Engine.getInstance().launch(hmmPress);
-				progressBar.setIndeterminate(true);
-			}
-			else {
-				// do something else.
-			}	
-		}
 		hmmTF.setText(hmmDBFile.getAbsolutePath());
 	}
 	
@@ -325,8 +289,14 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			return;
 		}
 		
+		// if the user has set these fields globally, we
+		// still have to check them again and setup the 
+		// hmmer3engine instance with the progs
+		checkBins(new File(binTF.getText()));
+		checkDbDir(new File(hmmTF.getText()));
+		
 		hmmScan = new HmmScan(
-				Hmmer3Engine.getInstance().getValidServicePath("hmmscan"), 
+				Hmmer3Engine.getInstance().getAvailableServicePath("hmmscan"), 
 				fastaFile, hmmDBFile, this);
 		hmmScan.setCpu((String)cpuCB.getSelectedItem());
 		// clear console
@@ -351,7 +321,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				hmmScan.setBiasFilter(false);
 		
 		// Launches the hmmscan job
-		Hmmer3Engine.getInstance().launch(hmmScan);
+		Hmmer3Engine.getInstance().launchInBackground(hmmScan);
 
 		run.setText("Running");
 		run.setEnabled(false);
@@ -368,6 +338,8 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			progressBar.setValue(0);
 			run.setEnabled(true);
 			progressBar.setIndeterminate(false);
+			console.setText("");
+			writeToConsole("hmmscan run canceled by user!");
 		} 
 		else {
 			close();
@@ -402,5 +374,62 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	public JProgressBar getProgressBar() {
 		return this.progressBar;
 	}
+	
+	/**
+	 * Check that the selected bin dir contains a excutable HMMER program
+	 * @param binDir
+	 */
+	private void checkBins(File binDir) {
+		
+		File[] files = binDir.listFiles();
+		hmmer3bins = new HashMap<String, File>();
+		
+		if (files.length == 0) {
+			MessageUtil.showWarning("Could not find any HMMER programs.");
+			binTF.setText("");
+			return;
+		}
+		for (int i=0; i < files.length; i++) {	
+			
+			if ( Hmmer3Engine.isSupportedService(files[i].getName()) ) {
+				if (!files[i].canExecute()) {
+					MessageUtil.showWarning(this, files[i].getAbsoluteFile()+" is not executable. Exiting.");
+					binTF.setText("");
+					return;
+				}
+				hmmer3bins.put(files[i].getName(), files[i]);
+			}
+		}	
+		if (hmmer3bins.isEmpty()) {
+			MessageUtil.showWarning(this, "Could not find all required HMMER programs (hmmscan, hmmpress).");
+			binTF.setText("");
+			return;
+		}
+		hmmBinDir = binDir;
+		Hmmer3Engine.getInstance().setAvailableServices(hmmer3bins);
+
+	}
+	
+	
+	private void checkDbDir(File dbFile) {
+		// check if pressed files are available
+		if (!HmmPress.hmmFilePressed(dbFile)) {
+			if (MessageUtil.showDialog("The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {
+				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+				
+				// TODO: I would like to disable GUI components here
+				// and enable them _after_ the run is complete.
+				// See also angstd.localservices.hmmer3.programs.HmmPress
+				HmmPress hmmPress = new HmmPress(Hmmer3Engine.getInstance().getAvailableServicePath("hmmpress"), dbFile, this);
+				Hmmer3Engine.getInstance().launchInBackground(hmmPress);
+				progressBar.setIndeterminate(true);
+			}
+			else {
+				return;
+			}	
+		}
+		hmmDBFile = dbFile;
+	}
+	
 	
 }

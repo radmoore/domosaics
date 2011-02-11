@@ -7,6 +7,7 @@ import angstd.localservices.executor.Executor;
 import angstd.localservices.executor.ProcessListener;
 import angstd.localservices.executor.StreamHandler;
 import angstd.localservices.hmmer3.programs.Hmmer3Program;
+import angstd.localservices.hmmer3.ui.HmmerServicePanel;
 import angstd.model.arrangement.io.HmmOutReader;
 
 /**
@@ -15,6 +16,7 @@ import angstd.model.arrangement.io.HmmOutReader;
  * {@link Executor}
  * 
  * TODO
+ * - implement start() (behaves exactly as startInBackground())
  * - proper console messages
  * - write output to STDOUT to a logfile
  * - consider implementing Hmmer3Program.validate() and use here
@@ -39,7 +41,7 @@ public class Hmmer3Service implements ProcessListener{
 	protected HmmOutReader parser;
 		
 	protected Hmmer3Program hmmerProgram;
-	protected angstd.localservices.hmmer3.ui.HmmerServicePanel hmmPanel;
+	protected HmmerServicePanel hmmPanel;
 	
 	
 	/**
@@ -48,7 +50,7 @@ public class Hmmer3Service implements ProcessListener{
 	 */
 	public Hmmer3Service(Hmmer3Program program) {
 		this.hmmerProgram = program;
-		this.hmmPanel = program.getParentPanel();
+		this.hmmPanel = program.getParentServicePanel();
 	}
 
 	/**
@@ -72,12 +74,14 @@ public class Hmmer3Service implements ProcessListener{
 	/**
 	 * Prepares the arguments for execution and 
 	 * invokes the program by a call to {@link Executor}.
+	 * This starts a worker thread and executes in the background,
+	 * without waiting for results
 	 * 
 	 * TODO
 	 * - consider using validation method
 	 * 
 	 */
-	public void start() {
+	public void startInBackground() {
 			
 		hmmerProgram.prepare(); // prepare the argument for the Executor
 		String[] cmd = hmmerProgram.getArgs(); // gets the arguments for the Executor
@@ -94,6 +98,35 @@ public class Hmmer3Service implements ProcessListener{
 		}
 	}
 
+	/**
+	 * TODO
+	 * !!currently not implemented!!
+	 * -consider using validation
+	 * 
+	 * Prepares the arguments for execution and 
+	 * invokes the program by a call to {@link Executor}.
+	 * This method waits for the results before continuing.
+	 * 
+	 * 
+	 */
+	public int start() {
+			
+		hmmerProgram.prepare(); // prepare the argument for the Executor
+		String[] cmd = hmmerProgram.getArgs(); // gets the arguments for the Executor
+		int retValue = 0; 
+		
+		try {		
+			executor = new Executor(cmd, this);
+			executor.execute();
+		} 
+		catch(Exception e) {
+			e.printStackTrace();
+			executor.stop();
+			return 1;
+		}
+		return retValue;
+	}
+	
 	/**
 	 * Handels error and std output 
 	 */
@@ -124,7 +157,8 @@ public class Hmmer3Service implements ProcessListener{
 	/**
 	 * If the programs terminates normally (0)
 	 * this method invokes the parser of the current
-	 * program
+	 * program (called by executor.done() once the SwingWorker
+	 * thread has terminated) 
 	 */
 	public void setResult(int res) {
 		if (res == 0) {

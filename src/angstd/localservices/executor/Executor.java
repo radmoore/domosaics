@@ -24,6 +24,7 @@ public class Executor extends SwingWorker<Integer, Void> {
 		this.listener = listener;
 	}
 	
+	@Override
 	protected Integer doInBackground() {
 		try {
 			
@@ -42,23 +43,23 @@ public class Executor extends SwingWorker<Integer, Void> {
             
 		} 
 		catch(Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			result =  -1;
 		}
 		return null;		
 	}
-	
+
+	// called when the worker is complete
 	protected void done() {
-     	if (isCancelled()) {
+		if (isCancelled()) {
      		listener.setResult(-1);
      		return;
-     	}
-     		
+     	}	
 		try {
 			listener.setResult(result);
 		} 
 		catch (Exception e) {
-		//	e.printStackTrace();
+			e.printStackTrace();
 		} 
      }
 	

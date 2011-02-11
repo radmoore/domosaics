@@ -274,7 +274,7 @@ public class HmmScan implements Hmmer3Program {
 	 * Get the panel that hosts / triggers this
 	 * program
 	 */
-	public HmmerServicePanel getParentPanel() {
+	public HmmerServicePanel getParentServicePanel() {
 		return this.parent;
 	}
 	
@@ -331,6 +331,10 @@ public class HmmScan implements Hmmer3Program {
 			MessageUtil.showInformation("No hits found in "+ fasta.getName() +" or malformed output file");
 			parent.close();
 		}
+	}
+	
+	public int returnValue(int result) {
+		return result;
 	}
 	
 	/**

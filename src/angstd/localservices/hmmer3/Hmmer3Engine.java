@@ -11,6 +11,9 @@ import angstd.localservices.hmmer3.programs.Hmmer3Program;
  * {@link Hmmer3Program}. This class also maintains services that are currently
  * supported. These can be called statically.
  *  
+ *  TODO
+ *	launchInBackground() and launch currently do not differ
+ *  
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
@@ -32,7 +35,7 @@ public class Hmmer3Engine {
 	protected Hmmer3Service service;
 	
 	// maps a valid service to its repective executable 
-	protected HashMap<String, File> validServices;
+	protected HashMap<String, File> availableServices;
 	
 	/**
 	 * Contructor for a new Hmmer3Engine. The constructor is protected to 
@@ -64,13 +67,25 @@ public class Hmmer3Engine {
 	}
 	
 	/**
-	 * Checks whether this service is supported
+	 * Checks whether this service is generally supported
 	 * 
 	 * @param serviceName
 	 * @return
 	 */
-	public static boolean isValidService(String serviceName) {
+	public static boolean isSupportedService(String serviceName) {
 		return supportedServices.containsKey(serviceName);
+	}
+
+	/**
+	 * Checks whether this service is actually available
+	 * (that is, a bin file has been set)
+	 * @param serviceName
+	 * @return
+	 */
+	public boolean isAvailableService(String serviceName) {
+		if (availableServices == null)
+			return false;
+		return availableServices.containsKey(serviceName);
 	}
 	
 	/**
@@ -78,7 +93,7 @@ public class Hmmer3Engine {
 	 * @param serviceName
 	 * @return
 	 */
-	public static String getValidServiceDescription(String serviceName) {
+	public static String getSupportedServiceDescription(String serviceName) {
 		return (supportedServices.containsKey(serviceName)) ? 
 				supportedServices.get(serviceName) : 
 					"Unknown service.";
@@ -90,29 +105,40 @@ public class Hmmer3Engine {
 	 * @param serviceName
 	 * @return
 	 */
-	public File getValidServicePath(String serviceName) {
-		return (validServices.containsKey(serviceName)) ? 
-				validServices.get(serviceName) : 
+	public File getAvailableServicePath(String serviceName) {
+		return (availableServices.containsKey(serviceName)) ? 
+				availableServices.get(serviceName) : 
 					null;
 	}
 	
 	/**
 	 * Sets a valid service
-	 * @param validServices
+	 * @param availableServices
 	 */
-	public void setValidServices(HashMap<String, File> validServices) {
-		this.validServices = validServices;
+	public void setAvailableServices(HashMap<String, File> validServices) {
+		this.availableServices = validServices;
 	}
 	
 	
 	/**
 	 * Launches a program of type {@link Hmmer3Program} via
-	 * the programs start() method
+	 * {@link Hmmer3Service}.startInBackground()
 	 * @param program
 	 */
-	public void launch (Hmmer3Program program) {
+	public void launchInBackground(Hmmer3Program program) {
 		service = new Hmmer3Service(program);
-		service.start();
+		service.startInBackground();
+	}
+	
+	/**
+	 * Launches a program of type {@link Hmmer3Program} via
+	 * {@link Hmmer3Service}.start(). This method
+	 * will wait for the return value
+	 * @param program
+	 */
+	public int launch(Hmmer3Program program) {
+		service = new Hmmer3Service(program);
+		return service.start();
 	}
 	
 	/**

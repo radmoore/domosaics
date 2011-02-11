@@ -3,9 +3,13 @@ package angstd.localservices.hmmer3.programs;
 import java.awt.Cursor;
 import java.io.File;
 
+import javax.swing.JPanel;
+
 import angstd.localservices.executor.Executor;
+import angstd.localservices.hmmer3.Hmmer3Engine;
 import angstd.localservices.hmmer3.Hmmer3Service;
 import angstd.localservices.hmmer3.ui.HmmerServicePanel;
+import angstd.ui.util.MessageUtil;
 
 /**
  * Class to run a local version of hmmpress (Hmmer3).
@@ -16,6 +20,7 @@ import angstd.localservices.hmmer3.ui.HmmerServicePanel;
  * which expects a program of type {@link Hmmer3Program}.
  * 
  * TODO
+ * - the interaction with the calling parent panel is a serious mess and must be cleaned up
  * - parse results to display the number of successfull pressed models
  * 
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
@@ -31,12 +36,26 @@ public class HmmPress implements Hmmer3Program {
 	
 	protected File hmmPressBin, hmmDBFile;
 	protected String[] args;
-	protected HmmerServicePanel parent;	
+	protected HmmerServicePanel parentServicePanel;
+	protected JPanel parentPanel;
 	protected String name;
 	
+
 	
 	/**
-	 * Default construtor
+	 * Default constructor to be used by any class
+	 * @param hmmPressBin
+	 * @param hmmDBFile
+	 * @param parent
+	 */
+	public HmmPress (File hmmPressBin, File hmmDBFile) {
+		this.hmmPressBin = hmmPressBin;
+		this.hmmDBFile = hmmDBFile;
+		this.name = "HMMPRESS";
+	}
+	
+	/**
+	 * Constructor to be from a HmmerServicePanel
 	 * @param hmmPressBin
 	 * @param hmmDBFile
 	 * @param parent
@@ -45,7 +64,22 @@ public class HmmPress implements Hmmer3Program {
 		this.hmmPressBin = hmmPressBin;
 		this.hmmDBFile = hmmDBFile;
 		this.name = "HMMPRESS";
-		this.parent = parent;
+		this.parentServicePanel = parent;
+		this.parentPanel = null;
+	}
+
+	/**
+	 * Constructor to be called from any JPanel
+	 * @param hmmPressBin
+	 * @param hmmDBFile
+	 * @param parent
+	 */
+	public HmmPress (File hmmPressBin, File hmmDBFile, JPanel parent) {
+		this.hmmPressBin = hmmPressBin;
+		this.hmmDBFile = hmmDBFile;
+		this.name = "HMMPRESS";
+		this.parentPanel = parent;
+		this.parentServicePanel = null;
 	}
 	
 	/**
@@ -99,23 +133,40 @@ public class HmmPress implements Hmmer3Program {
 	 * Implementation required by {@link Hmmer3Program} interface.
 	 * 
 	 * TODO
+	 * - Process communication sucks here big time
 	 * - Clean up messages back to console 
 	 * 
 	 */
 	public void parseResults() {
 		System.out.println("hmmpress run successful.");
-		parent.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		parent.getProgressBar().setIndeterminate(false);
-		parent.writeToConsole("=================================");
-		parent.writeToConsole(getName()+ " run successful.");
+		if (parentPanel != null) {
+			parentPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			MessageUtil.showInformation("HMMERDB sucessfully pressed");
+		}
+		else if (parentServicePanel != null) {
+			parentServicePanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			parentServicePanel.getProgressBar().setIndeterminate(false);
+			parentServicePanel.writeToConsole("=================================");
+			parentServicePanel.writeToConsole(getName()+ " run successful.");
+			MessageUtil.showInformation("HMMERDB sucessfully pressed");
+		}
 	}
 
 	/**
-	 * The invoking panel
+	 * The invoking panel hmmerServicePanel. If not invoked
+	 * by a hmmerServicePanel, but by a regular JPanel, use
+	 * getParentPanel();
 	 * Implementation required by {@link Hmmer3Program} interface.
 	 */
-	public HmmerServicePanel getParentPanel() {
-		return this.parent;
+	public HmmerServicePanel getParentServicePanel() {
+		return this.parentServicePanel;
+	}
+	
+	/**
+	 * The invoking JPanel (not hmmerServicePanel)
+	 */
+	public JPanel getParentPanel() {
+		return this.parentPanel;
 	}
 
 	/**
@@ -125,5 +176,6 @@ public class HmmPress implements Hmmer3Program {
 	public String getName() {
 		return this.name;
 	}
+
 	
 }

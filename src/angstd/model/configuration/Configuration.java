@@ -20,7 +20,7 @@ public class Configuration {
 	public static final String DEF_PFAM_SEARCH = "http://pfam.sanger.ac.uk/family?acc=XXX";
 	public static final String DEF_SWISSPROT_SEARCH = "http://www.expasy.org/cgi-bin/sprot-search-de?XXX";
 	public static final String DEF_EMAIL_ADDR = "";
-	public static final String DEF_HMMERBINS = "/usr/share/Hmmer3/binaries/";
+	public static final String DEF_HMMERBINS = "";
 	public static final String DEF_HMMERDB = "";
 	
 	public static final boolean DEF_SHOW_ADVICES = true;

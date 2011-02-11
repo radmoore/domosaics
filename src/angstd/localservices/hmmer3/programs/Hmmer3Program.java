@@ -32,7 +32,6 @@ public interface Hmmer3Program {
 	
 	/**
 	 * Parse results produced by this program.
-	 * Not always applicable.
 	 */
 	public void parseResults();
 	
@@ -42,7 +41,7 @@ public interface Hmmer3Program {
 	 * the GUI elements for the current program
 	 * @return
 	 */
-	public HmmerServicePanel getParentPanel();
+	public HmmerServicePanel getParentServicePanel();
 	
 	
 	/**
