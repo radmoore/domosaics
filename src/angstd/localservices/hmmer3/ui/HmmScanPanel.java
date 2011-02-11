@@ -126,7 +126,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	    
 		// TODO: this only returns the number of CPUs
 		// available to the JVM.
-		int availProc = Runtime.getRuntime().availableProcessors()-1;
+		int availProc = Runtime.getRuntime().availableProcessors();
 		String[] cpuNo = new String[availProc];
 		for (int i = 0; i < availProc; i++) {
 			int cno = i+1;
@@ -292,8 +292,10 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		// if the user has set these fields globally, we
 		// still have to check them again and setup the 
 		// hmmer3engine instance with the progs
-		checkBins(new File(binTF.getText()));
-		checkDbDir(new File(hmmTF.getText()));
+		if (!checkBins(new File(binTF.getText())))
+			return;
+		if (!checkDbDir(new File(hmmTF.getText())))
+			return;
 		
 		hmmScan = new HmmScan(
 				Hmmer3Engine.getInstance().getAvailableServicePath("hmmscan"), 
@@ -379,7 +381,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * Check that the selected bin dir contains a excutable HMMER program
 	 * @param binDir
 	 */
-	private void checkBins(File binDir) {
+	private boolean checkBins(File binDir) {
 		
 		File[] files = binDir.listFiles();
 		hmmer3bins = new HashMap<String, File>();
@@ -387,7 +389,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		if (files.length == 0) {
 			MessageUtil.showWarning("Could not find any HMMER programs.");
 			binTF.setText("");
-			return;
+			return false;
 		}
 		for (int i=0; i < files.length; i++) {	
 			
@@ -395,7 +397,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				if (!files[i].canExecute()) {
 					MessageUtil.showWarning(this, files[i].getAbsoluteFile()+" is not executable. Exiting.");
 					binTF.setText("");
-					return;
+					return false;
 				}
 				hmmer3bins.put(files[i].getName(), files[i]);
 			}
@@ -403,15 +405,16 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		if (hmmer3bins.isEmpty()) {
 			MessageUtil.showWarning(this, "Could not find all required HMMER programs (hmmscan, hmmpress).");
 			binTF.setText("");
-			return;
+			return false;
 		}
 		hmmBinDir = binDir;
 		Hmmer3Engine.getInstance().setAvailableServices(hmmer3bins);
+		return true;
 
 	}
 	
 	
-	private void checkDbDir(File dbFile) {
+	private boolean checkDbDir(File dbFile) {
 		// check if pressed files are available
 		if (!HmmPress.hmmFilePressed(dbFile)) {
 			if (MessageUtil.showDialog("The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {
@@ -425,10 +428,11 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				progressBar.setIndeterminate(true);
 			}
 			else {
-				return;
+				return false;
 			}	
 		}
 		hmmDBFile = dbFile;
+		return true;
 	}
 	
 	
