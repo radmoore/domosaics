@@ -1,2 +1,2 @@
 This is some change
-This is another massive change!
+This is another massive change, which may now lead to a conflict!
