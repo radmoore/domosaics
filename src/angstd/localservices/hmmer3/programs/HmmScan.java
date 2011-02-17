@@ -3,12 +3,15 @@ package angstd.localservices.hmmer3.programs;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 import angstd.localservices.executor.Executor;
 import angstd.localservices.hmmer3.ui.HmmerServicePanel;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.io.ArrangementImporterUtil;
 import angstd.model.arrangement.io.HmmOutReader;
+import angstd.model.sequence.SequenceI;
+import angstd.model.sequence.io.FastaReader;
 import angstd.model.workspace.ProjectElement;
 import angstd.ui.ViewHandler;
 import angstd.ui.util.MessageUtil;
@@ -299,18 +302,22 @@ public class HmmScan implements Hmmer3Program {
 	 * Parses the results of a hmmscan run. If hits were
 	 * found, results are parsed into a set {@link DomainArrangement}.
 	 * The {@link WizardManager} is used to create (and name)
-	 * a new view.
+	 * a new view, and the sequences corresponding to the arrangements
+	 * with domains are attached to the DomainView.
 	 */
 	public void parseResults() {
 		if (HmmOutReader.checkFileFormat(outfile)) {
-
+			
 			arrangementSet = ArrangementImporterUtil.importData(outfile);
-			System.out.println("Seemed to have worked.");
 			int importedProts = arrangementSet.length;
-			String defaultName = fasta.getName()+"-hmmscan-results";
 			parent.close();
 			
 			if (importedProts > 0) {
+				
+				String defaultName = fasta.getName()+"-hmmscan-results";	
+				// read the sequences in the source fasta file
+				SequenceI[] seqs = new FastaReader().getDataFromFile(fasta);
+								
 				String viewName = null;
 				while (viewName == null) {
 					viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
@@ -320,6 +327,8 @@ public class HmmScan implements Hmmer3Program {
 				
 				DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
 				domResultView.setDaSet(arrangementSet);
+				// associate sequences with the found arrangements
+				domResultView.loadSequencesIntoDas(seqs, domResultView.getDaSet());
 				ViewHandler.getInstance().addView(domResultView, null);
 				MessageUtil.showInformation(importedProts+" proteins successfully imported.");
 			}
@@ -328,7 +337,7 @@ public class HmmScan implements Hmmer3Program {
 			}
 		}
 		else {		
-			MessageUtil.showInformation("No hits found in "+ fasta.getName() +" or malformed output file");
+			MessageUtil.showInformation("No hits found in "+ fasta.getName());
 			parent.close();
 		}
 	}

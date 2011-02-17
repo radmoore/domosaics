@@ -17,6 +17,7 @@ import angstd.ui.util.MessageUtil;
  * input stream.
  * 
  * @author Andreas Held
+ * @author Andrew Moore
  * 
  */
 public class FastaReader extends AbstractDataReader<SequenceI>{
@@ -115,7 +116,7 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 	 */
 	private String getNameFromHeader(String header) {
 		header = header.replace(">", "");
-		String[] token = header.split("\\|");
+		String[] token = header.split("\\s+");
 		
 		// we are only interested in the sequence name, which is the first word within the header
 		String name = token[0];
