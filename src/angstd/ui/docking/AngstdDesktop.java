@@ -70,7 +70,7 @@ public class AngstdDesktop extends DockingDesktop {
 
 		addDockable(viewDesktopDockable);
 		split(viewDesktopDockable, dataDesktopDockable, DockingConstants.SPLIT_LEFT);
-		setDockableWidth(viewDesktopDockable, 0.8);
+		setDockableWidth(viewDesktopDockable, 0.7);
 	}
 	
 	/**

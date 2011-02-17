@@ -26,9 +26,9 @@ import angstd.ui.views.view.View;
  * A docking desktop is added to the main frame using the external 
  * library VLDocking. Within this docking desktop the workspace and the view 
  * space are managed (if you are interested in the details take a look at 
- * {@link AngstdDesktop}. 
+ * {@link AngstdDesktop}). 
  * <p>
- * Also an important point here is the menu creation. the {@link JMenuBarFactory}
+ * Also an important point here is the menu creation. The {@link JMenuBarFactory}
  * class is used to automatically create menus from xml formatted files.
  * The menu items are defined by actions. To get control over the status 
  * of an action, an {@link MenuActionManager} is used. Therefore it is possible

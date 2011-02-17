@@ -3,7 +3,6 @@ package angstd.localservices.hmmer3.programs;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
 
 import angstd.localservices.executor.Executor;
 import angstd.localservices.hmmer3.ui.HmmerServicePanel;
@@ -12,7 +11,6 @@ import angstd.model.arrangement.io.ArrangementImporterUtil;
 import angstd.model.arrangement.io.HmmOutReader;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
-import angstd.model.workspace.ProjectElement;
 import angstd.ui.ViewHandler;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
