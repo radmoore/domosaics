@@ -316,11 +316,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				hmmScan.setEvalue(evalueTF.getText());
 			}
 		}
-		
-		if (biasCkb.isSelected())
-			hmmScan.setBiasFilter(true);
-			else
-				hmmScan.setBiasFilter(false);
+		hmmScan.setBiasFilter(biasCkb.isSelected());
 		
 		// Launches the hmmscan job
 		Hmmer3Engine.getInstance().launchInBackground(hmmScan);
