@@ -34,7 +34,12 @@ public interface Hmmer3Program {
 	 * Parse results produced by this program.
 	 */
 	public void parseResults();
-	
+
+	/**
+	 * Call to obtain the command string passed to the executor 
+	 * @return formatted string correpsonding to the command call
+	 */
+	public String getCommandCall();
 
 	/**
 	 * Method for getting the parent panel harboring

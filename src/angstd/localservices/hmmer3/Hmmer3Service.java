@@ -2,6 +2,9 @@ package angstd.localservices.hmmer3;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import angstd.localservices.executor.Executor;
 import angstd.localservices.executor.ProcessListener;
@@ -9,6 +12,9 @@ import angstd.localservices.executor.StreamHandler;
 import angstd.localservices.hmmer3.programs.Hmmer3Program;
 import angstd.localservices.hmmer3.ui.HmmerServicePanel;
 import angstd.model.arrangement.io.HmmOutReader;
+import angstd.model.configuration.Configuration;
+import angstd.model.workspace.ProjectElement;
+import angstd.ui.WorkspaceManager;
 
 /**
  * A generic class for handeling a {@link Hmmer3Program}. Provides
@@ -34,7 +40,7 @@ public class Hmmer3Service implements ProcessListener{
 	protected long duration, estimate;
 		
 	protected BufferedWriter STDOUT;
-	protected File tmpOutput;
+	protected File tmpOutput, logFile;
 		
 	protected String progPath, progName;
 	protected String[] args;
@@ -42,6 +48,13 @@ public class Hmmer3Service implements ProcessListener{
 		
 	protected Hmmer3Program hmmerProgram;
 	protected HmmerServicePanel hmmPanel;
+	
+	protected Date startTime;
+	
+	protected Configuration config;
+	protected ProjectElement currentProject;
+	
+	protected BufferedWriter logFileWriter;
 	
 	
 	/**
@@ -51,6 +64,9 @@ public class Hmmer3Service implements ProcessListener{
 	public Hmmer3Service(Hmmer3Program program) {
 		this.hmmerProgram = program;
 		this.hmmPanel = program.getParentServicePanel();
+		currentProject = WorkspaceManager.getInstance().getSelectionManager().getSelectedProject();
+		config = Configuration.getInstance();
+		
 	}
 
 	/**
@@ -71,6 +87,12 @@ public class Hmmer3Service implements ProcessListener{
 		return executor.isRunning();
 	}
 	
+	
+	public File getLogFile() {
+		return this.logFile;
+	}
+	
+	
 	/**
 	 * Prepares the arguments for execution and 
 	 * invokes the program by a call to {@link Executor}.
@@ -85,15 +107,23 @@ public class Hmmer3Service implements ProcessListener{
 			
 		hmmerProgram.prepare(); // prepare the argument for the Executor
 		String[] cmd = hmmerProgram.getArgs(); // gets the arguments for the Executor
+		createLogFileWriter(new Date());
+		
+		//logFile = new File()
 		
 		try {		
 			executor = new Executor(cmd, this);
+			logFileWriter.write("##################################\n");
+			logFileWriter.write("## Run triggered by AnGSTD\n");
+			logFileWriter.write("## Command: "+hmmerProgram.getCommandCall()+"\n");
+			logFileWriter.write("##################################"+"\n");
+			logFileWriter.write("\n");
+			logFileWriter.write("\n");
 			executor.execute();
-			hmmPanel.writeToConsole("Running "+hmmerProgram.getName());
-			hmmPanel.writeToConsole("=================================");
+			hmmPanel.writeToConsole("*** I: Started "+hmmerProgram.getName()+" run\n");
 		} 
 		catch(Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			executor.stop();
 		}
 	}
@@ -113,9 +143,16 @@ public class Hmmer3Service implements ProcessListener{
 			
 		hmmerProgram.prepare(); // prepare the argument for the Executor
 		String[] cmd = hmmerProgram.getArgs(); // gets the arguments for the Executor
+		createLogFileWriter(new Date());
 		int retValue = 0; 
 		
-		try {		
+		try {
+			logFileWriter.write("##################################\n");
+			logFileWriter.write("## Run triggered by AnGSTD\n");
+			logFileWriter.write("## Command: "+hmmerProgram.getCommandCall()+"\n");
+			logFileWriter.write("##################################"+"\n");
+			logFileWriter.write("\n");
+			logFileWriter.write("\n");
 			executor = new Executor(cmd, this);
 			executor.execute();
 		} 
@@ -135,21 +172,24 @@ public class Hmmer3Service implements ProcessListener{
 		if (type.equals(StreamHandler.ERROR)) {
 			System.out.println("ERROR>"+out);
 			hmmPanel.writeToConsole("ERROR occurred while running Hmmer3Service: ");
-			hmmPanel.writeToConsole(out);
+			hmmPanel.writeToConsole("*** E: "+ out);
+			hmmPanel.writeToConsole("\n");
 			executor.stop();
 			return;
 		}
 		
 		try {
+			
 			// TODO: write this to logfile
 			// instead of STDOUT
-			System.out.println(out);
-				
-			// writing to the panel is _very_ slow
+		    logFileWriter.write(out+"\n");
+	        System.out.println(out);
+	        // writing to the panel is _very_ slow
 			//hmmPanel.writeToConsole(out);
 			}
 			catch(Exception e) {
-				System.out.println("*** Problem handling output.");
+				System.out.println("*** E: Problem handling output.");
+				e.printStackTrace();
 			}
 			
 	}
@@ -161,6 +201,15 @@ public class Hmmer3Service implements ProcessListener{
 	 * thread has terminated) 
 	 */
 	public void setResult(int res) {
+		
+		try {		
+			logFileWriter.flush();
+			logFileWriter.close();
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		if (res == 0) {
 			hmmerProgram.parseResults();
 		}
@@ -168,4 +217,41 @@ public class Hmmer3Service implements ProcessListener{
 			System.out.println(hmmerProgram.getName() + " was closed or died unexpectedly.");	
 	}
 
+	
+	private void createLogFileWriter(Date startTime) {
+		// IMPLEMENT
+		File logFile = null;
+		BufferedWriter writer = null;
+		
+		SimpleDateFormat dateformatYYYYMMDD = new SimpleDateFormat("yyMMddHHmmssZ");
+		StringBuilder dateString = new StringBuilder( dateformatYYYYMMDD.format( startTime ) );
+
+		String workspace = config.getWorkspaceDir();
+		String logDir = workspace+"/logs";
+		String projectDir = logDir+"/"+currentProject.getTitle();
+		
+		try {
+			if (!new File(logDir).exists())
+				new File(logDir).mkdir();
+			
+			if (!new File(projectDir).exists())
+				new File(projectDir).mkdir();
+		
+			logFile = new File(projectDir+"/"+hmmerProgram.getName()+"_"+dateString+".log");
+			
+			FileWriter fstream = new FileWriter(logFile.getAbsolutePath());
+	        writer = new BufferedWriter(fstream);
+			
+		} catch(Exception e) {
+			System.out.println("*** E: Problem creating log file: ");
+			e.printStackTrace();
+		}
+		System.out.println("This is the log file: "+logFile.getAbsolutePath());
+		this.logFile = logFile;
+		logFileWriter = writer;
+	
+	}
+	
+	
+	
 }

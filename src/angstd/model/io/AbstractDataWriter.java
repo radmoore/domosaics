@@ -39,5 +39,20 @@ public abstract class AbstractDataWriter<T extends AngstdData> implements DataWr
 	/**
 	 * See interface {@link DataWriter}.
 	 */
+	public void wrappedWrite(File file, T[] data, int wrapAfter) {
+        try {
+            BufferedWriter out = new BufferedWriter(new FileWriter(file));
+            wrappedWrite(out, data, wrapAfter);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	/**
+	 * See interface {@link DataWriter}.
+	 */
 	public abstract void write(BufferedWriter out, T[] data);
+	
+	//public abstract void wrappedWrite(BufferedWriter out, T[] data, int wrapAfter);
 }

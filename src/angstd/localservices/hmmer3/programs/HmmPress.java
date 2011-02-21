@@ -138,7 +138,7 @@ public class HmmPress implements Hmmer3Program {
 	 * 
 	 */
 	public void parseResults() {
-		System.out.println("hmmpress run successful.");
+		System.out.println("*** I: hmmpress run successful.");
 		if (parentPanel != null) {
 			parentPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			MessageUtil.showInformation("HMMERDB sucessfully pressed");
@@ -146,8 +146,7 @@ public class HmmPress implements Hmmer3Program {
 		else if (parentServicePanel != null) {
 			parentServicePanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			parentServicePanel.getProgressBar().setIndeterminate(false);
-			parentServicePanel.writeToConsole("=================================");
-			parentServicePanel.writeToConsole(getName()+ " run successful.");
+			parentServicePanel.writeToConsole("*** I: "+getName()+ " run successful.\n");
 			MessageUtil.showInformation("HMMERDB sucessfully pressed");
 		}
 	}
@@ -169,6 +168,14 @@ public class HmmPress implements Hmmer3Program {
 		return this.parentPanel;
 	}
 
+	public String getCommandCall() {
+		StringBuffer commandString = new StringBuffer();
+		for (String arg: args)
+			commandString.append(arg+" ");
+		
+		return commandString.toString();
+	}
+	
 	/**
 	 * The name of this program
 	 * Implementation required by {@link Hmmer3Program} interface.
