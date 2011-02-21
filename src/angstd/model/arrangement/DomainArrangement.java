@@ -353,6 +353,7 @@ public class DomainArrangement implements Cloneable, AngstdData{
 		target.setFrom(vals.getFrom());
 		target.setTo(vals.getTo());
 		target.setEvalue(vals.getEvalue());
+		target.setScore(vals.getScore());
 		
 		if (target.getTo() > seqLen)
 			seqLen = target.getTo();

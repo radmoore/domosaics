@@ -3,9 +3,12 @@ package angstd.localservices.hmmer3.programs;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.Iterator;
 
+import angstd.localservices.codd.ConditionallyDependentDomainPairMap;
 import angstd.localservices.executor.Executor;
 import angstd.localservices.hmmer3.ui.HmmerServicePanel;
+import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.io.ArrangementImporterUtil;
 import angstd.model.arrangement.io.HmmOutReader;
@@ -312,6 +315,9 @@ public class HmmScan implements Hmmer3Program {
 			
 			if (importedProts > 0) {
 				
+				//launch the CODD procedure
+				ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet);
+				
 				String defaultName = fasta.getName()+"-hmmscan-results";	
 				// read the sequences in the source fasta file
 				SequenceI[] seqs = new FastaReader().getDataFromFile(fasta);
@@ -368,6 +374,5 @@ public class HmmScan implements Hmmer3Program {
 		}
 		return entries;
 	}
-
 	
 }

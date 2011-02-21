@@ -49,8 +49,7 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 	 * a map storing all parsed domains. (Used to ensure that the same 
 	 * domain family object is used for domains with identically names
 	 */
-	protected Map<String, DomainFamily> domFamilyMap = new HashMap<String, DomainFamily>();
-
+	
 	public static boolean checkFormat(File file) {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(file)); 
@@ -197,12 +196,13 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 		
 		// first get the domain family id and check whether or not the domain family already occurred within the document
 		String domFamilyID = token[actToken+2];
-		domFamily = domFamilyMap.get(domFamilyID);
-		if (domFamily == null) { 				// domainFamily does not exist
+		domFamily = GatheringThresholdsReader.getInstance().get(domFamilyID);
+		if (domFamily == null) { 				
 			domFamily = new DomainFamily(domFamilyID);
-			domFamilyMap.put(domFamily.getID(), domFamily);
+//			domFamily.setPfamID(pfamID);
+			GatheringThresholdsReader.getInstance().put(domFamilyID, domFamily);
 		}
-
+		
 		// "from", "to" must be the first two tokens
 		int from = Integer.parseInt(token[actToken]);
 		int to = Integer.parseInt(token[actToken+1]);

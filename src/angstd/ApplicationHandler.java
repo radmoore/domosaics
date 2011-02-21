@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
+import angstd.model.arrangement.io.GatheringThresholdsReader;
 import angstd.model.configuration.Configuration;
 import angstd.model.configuration.ConfigurationReader;
 import angstd.model.configuration.ConfigurationWriter;
@@ -158,6 +159,10 @@ public class ApplicationHandler {
 //		startUpProgress.setProgress("Restore the publication data", 75);
 		initLastWorkspace();
 
+		//Reading the gathering thresholds
+		startUpProgress.setProgress("Reading thresholds ", 85);
+		GatheringThresholdsReader.read();
+		
 		startUpProgress.setProgress("Enjoy... ", 100);
 //		startUpProgress.setProgress("Set sails", 100);
 		startUpProgress.dispose();

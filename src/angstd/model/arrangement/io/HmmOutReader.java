@@ -28,8 +28,6 @@ import angstd.ui.util.MessageUtil;
  */
 public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 
-	protected Map<String, DomainFamily> domFamilyMap = new HashMap<String, DomainFamily>();
-
 	/**
 	 * Checks whether first non-comment, non empty line in 
 	 * file can be split on whitespaces producing at least 12 fields
@@ -124,12 +122,8 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				to	 		= Integer.parseInt(entryFields[2]);
 				evalue		= Double.parseDouble(entryFields[12]);
 				acc			= entryFields[6];
-				domFamily 	= domFamilyMap.get(acc);
+				domFamily 	= GatheringThresholdsReader.getInstance().get(acc);
 				
-				if (domFamily == null) {
-					domFamily = new DomainFamily(acc);
-					domFamilyMap.put(domFamily.getID(), domFamily);
-				}
 					
 				if ( !currentProtID.equals(prevProtID) ) {
 				
@@ -193,16 +187,16 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				to	 		= Integer.parseInt(entryFields[18]);
 				evalue		= Double.parseDouble(entryFields[12]);
 				acc			= entryFields[0]; // actually: name:
-				domFamily 	= domFamilyMap.get(acc);
+				domFamily 	= GatheringThresholdsReader.getInstance().get(acc);
+				if (domFamily == null) { 				
+					domFamily = new DomainFamily(acc);
+//					domFamily.setPfamID(pfamID);
+					GatheringThresholdsReader.getInstance().put(acc, domFamily);
+				}
 				
 				if (evalue > 10)
 					continue;
 				
-				
-				if (domFamily == null) {
-					domFamily = new DomainFamily(acc);
-					domFamilyMap.put(domFamily.getID(), domFamily);
-				}
 					
 				if ( !currentProtID.equals(prevProtID) ) {
 				

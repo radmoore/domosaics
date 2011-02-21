@@ -23,6 +23,9 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
     
     /** e-value of the annotation */
     protected double evalue = 0;
+
+    /** logg odds score of the annotation */
+    protected double score;
     
     /** domain family */
     protected DomainFamily fam;
@@ -32,8 +35,9 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
     
     /** assigned sequence data */
     protected SequenceI seq;
-    
-  //  protected boolean putative;
+
+    /** if the domain bit score does not satisfy the Pfam gathering threshold */
+    protected boolean putative;
     
 	/**
 	 * constructor for a new domain object without e-value specification.
@@ -181,6 +185,26 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 	public double getEvalue() {
 		return evalue;
 	}
+
+	/**
+	 * Sets the evalue for this domain
+	 * 
+	 * @param evalue
+	 * 		evalue for this domain
+	 */
+	public void setScore (double score) {
+		this.score = score;
+	}
+	
+	/**
+	 * Return the log odds score for this domain
+	 * 
+	 * @return
+	 * 		score for this domain
+	 */
+	public double getScore() {
+		return score;
+	}
 	
 	/**
 	 * Changes the beginning of the domain within the arrangement
@@ -261,6 +285,20 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 	
 	public String toString() {
 		return getFrom()+"\\t"+getTo()+"\\t"+getID()+"\\t"+getEvalue();
+	}
+	
+	/**
+	 * Putting the "putative" flag
+	 */
+	public void setPutative(boolean b) {
+		putative=b;
+	}
+	
+	/**
+	 * Checks if the domain is known (below Pfam thresholds) or not.
+	 */
+	public boolean isPutative() {
+		return putative;
 	}
 	
 }

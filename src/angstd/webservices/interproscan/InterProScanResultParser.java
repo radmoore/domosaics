@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
+import angstd.model.arrangement.io.GatheringThresholdsReader;
 
 /**
  * Parses the result produces by WSInterproScan package into
@@ -84,14 +85,14 @@ public class InterProScanResultParser {
 			if (prot.getName() == null)
 				prot.setName(token[0]);
 	
-			String pfamID = token[4];
+			String acc = token[4];
 			String id = token[5];
 	
-			DomainFamily domFamily = domFamilyMap.get(id);
+			DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(id);
 			if (domFamily == null) { 				
-				domFamily = new DomainFamily(id);
+				domFamily = new DomainFamily(acc);
 //				domFamily.setPfamID(pfamID);
-				domFamilyMap.put(domFamily.getID(), domFamily);
+				GatheringThresholdsReader.getInstance().put(acc, domFamily);
 			}
 
 			int from = Integer.parseInt(token[6]);
