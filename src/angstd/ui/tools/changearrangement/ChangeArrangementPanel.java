@@ -17,6 +17,7 @@ import org.jdesktop.swingx.JXTitledSeparator;
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
+import angstd.model.arrangement.io.GatheringThresholdsReader;
 import angstd.ui.util.MessageUtil;
 import angstd.util.StringUtils;
 
@@ -149,7 +150,7 @@ public class ChangeArrangementPanel extends JPanel {
 		Domain selectedDom = view.getSelectedDomain();
 		
 		// values for new/changing domain
-		DomainFamily fam = new DomainFamily(name.getText()); 
+		DomainFamily fam = GatheringThresholdsReader.getInstance().get(name.getText()); 
 		int fromVal = Integer.parseInt(from.getText());
 		int toVal = Integer.parseInt(to.getText());
 		

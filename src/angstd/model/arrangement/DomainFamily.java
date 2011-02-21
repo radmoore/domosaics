@@ -11,15 +11,41 @@ public class DomainFamily  {
 
 	/** family id */
 	protected String id;
+	/** family accession number */
+	protected String acc;
+	/** Required threshold to detect the domain occurrence */
+	private double gathThreshByDom;
+	/** Required threshold to detect the family (adding all occurrences) */
+	private double gathThreshByFam;
 	
 	/**
-	 * Constructor for a new DomainFamily with a specified id.
+	 * Constructor for a new DomainFamily of Pfam database.
+	 * 
+	 * @param id
+	 * 		family id
+	 * @param acc
+	 * 		family acc
+	 * @param gath1
+	 * 		Required threshold to detect the domain occurrence
+	 * @param gath2
+	 * 		Required threshold to detect the family (adding all occurrences)
+	 */
+	public DomainFamily(String id, String acc, double gath1, double gath2) {
+		this.id = id;
+		this.acc = acc;
+		this.gathThreshByDom = gath1;
+		this.gathThreshByFam = gath2;
+	}
+	
+	/**
+	 * Constructor for a new DomainFamily with a specified id (from Interpro databese
+	 * except Pfam).
 	 * 
 	 * @param id
 	 * 		family id
 	 */
-	public DomainFamily(String id) {
-		this.id = id;
+	public DomainFamily(String acc) {
+		this.id = acc;
 	}
 	
 	/**
