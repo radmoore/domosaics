@@ -34,4 +34,36 @@ public class FastaWriter extends AbstractDataWriter<SequenceI> {
             e.printStackTrace();
         }
     }
+	
+	
+	public void wrappedWrite(BufferedWriter out, SequenceI[] seqs, int wrapChars) {
+		try {
+    		for (int i = 0; i < seqs.length; i++) {
+    			
+    			int pos = 0; // number of written chars
+    			
+    			out.write(">"+seqs[i].getName()+"\r\n");
+    			byte[] chars = seqs[i].getSeq(false).getBytes();
+    			
+    			for (int j = 0; j < chars.length; j++) {
+    				if (pos >= wrapChars) {
+    					pos = 0;
+    					out.write("\n\r");
+    				}
+    				out.write(chars[j]);
+    				pos ++;
+    			}
+    			
+    			out.write("\r\n");
+    		}
+    		out.flush();
+			
+		}
+		catch (Exception e) {
+			System.out.println("*** Error writing fasta file:");
+			e.printStackTrace();
+		}
+	}
+	
+	
 }

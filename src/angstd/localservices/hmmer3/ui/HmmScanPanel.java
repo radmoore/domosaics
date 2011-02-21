@@ -9,6 +9,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -31,9 +32,18 @@ import org.jdesktop.swingx.JXTitledSeparator;
 import angstd.localservices.hmmer3.Hmmer3Engine;
 import angstd.localservices.hmmer3.programs.HmmPress;
 import angstd.localservices.hmmer3.programs.HmmScan;
+import angstd.localservices.hmmer3.programs.Hmmer3Program;
 import angstd.model.configuration.Configuration;
+import angstd.model.sequence.SequenceI;
+import angstd.model.sequence.io.FastaWriter;
+import angstd.model.workspace.ViewElement;
+import angstd.model.workspace.WorkspaceElement;
+import angstd.ui.ViewHandler;
+import angstd.ui.WorkspaceManager;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.util.MessageUtil;
+import angstd.ui.views.sequenceview.SequenceView;
+import angstd.ui.wizards.WizardListCellRenderer;
 
 /**
  * HmmScanPanel holds the GUI components necessary to start local
@@ -53,19 +63,19 @@ import angstd.ui.util.MessageUtil;
 public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
-	protected Hmmer3Frame parent;
-	protected HashMap<String, File> hmmer3bins;
-	protected HashMap<String, String> namedArgs;
-	protected HmmScan hmmScan;
-	protected JTextField binTF, hmmTF, fastaTF, evalueTF;
-	protected JCheckBox gaCkb, biasCkb; 
-	protected JButton loadBinDir, loadHmmDB, loadFastaFile, run, cancel;
-	protected JComboBox cpuCB;
-	protected JLabel thresholdLabel, evalLabel, cpuLabel, biasFilterLabel, gaLabel;
-	protected JTextArea console;
-	protected JProgressBar progressBar;
-	protected JPanel ePane;
-	protected File hmmBinDir, hmmDBFile, fastaFile;
+	private Hmmer3Frame parent;
+	private HashMap<String, File> hmmer3bins;
+	private HashMap<String, String> namedArgs;
+	private HmmScan hmmScan;
+	private JTextField binTF, hmmTF, fastaTF, evalueTF;
+	private JCheckBox gaCkb, biasCkb; 
+	private JButton loadBinDir, loadHmmDB, loadFastaFile, run, cancel;
+	private JComboBox cpuCB, selectView;
+	private JLabel thresholdLabel, evalLabel, cpuLabel, biasFilterLabel, gaLabel;
+	private JTextArea console;
+	private JProgressBar progressBar;
+	private JPanel ePane;
+	private File hmmBinDir, hmmDBFile, fastaFile;
 
 	 
 	public HmmScanPanel(Hmmer3Frame parent) {
@@ -87,6 +97,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private void initComponents() {
 		
 		Configuration config = Configuration.getInstance();
+		initSelectViewBox();
 		
 		binTF = new JTextField(35);
 		binTF.setText(config.getHmmerBins());
@@ -115,17 +126,12 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	    gaCkb = new JCheckBox("Model defined", true);
 	    gaCkb.addItemListener(new ItemListener() {	
 			public void itemStateChanged(ItemEvent e) {
-				if (gaCkb.isSelected())
-					ePane.setVisible(false); 
-					else
-						ePane.setVisible(true);
+				ePane.setVisible(!(gaCkb.isSelected()));
 			}
 		});
 	
 	    biasCkb = new JCheckBox("Bias filter", true);
 	    
-		// TODO: this only returns the number of CPUs
-		// available to the JVM.
 		int availProc = Runtime.getRuntime().availableProcessors();
 		String[] cpuNo = new String[availProc];
 		for (int i = 0; i < availProc; i++) {
@@ -180,13 +186,12 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		add(hmmTF, "gap 10, span2, growX, wrap");
 		
 		add(new JXTitledSeparator("Sequences"), "growx, span, wrap, gaptop 10");
-		
-		add(loadFastaFile, "gap 10");
-		add(fastaTF, "gap 10, span 2, growX, wrap");
-//		add(new JLabel("Or Select Loaded View:"),"gap 10");
-//		add(selectView, "gap 10, span 2, growX, wrap");
+	
 		add(loadFastaFile, "gap 10");
 		add(fastaTF, "gap 10, span2, growX, wrap");
+		
+		add(new JLabel("Or Select Loaded View:"),"gap 10");
+		add(selectView, "gap 10, span 2, growX, wrap");
 		
 		add(new JXTitledSeparator("Options"), "growX, span, wrap, gaptop 10");
 		
@@ -227,6 +232,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			System.out.println("Unknown component tried to trigger an action @ HmmScanPanel");
 	}
 	
+	
 	/**
 	 * Triggered when the load bin button is pressed
 	 * The input fields are check for validity at a later point
@@ -259,6 +265,9 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * Triggered when the load Fasta button is pressed.
 	 */
 	private void loadFastaAction() {
+		if (selectView.getSelectedItem() != null)
+			selectView.setSelectedItem(null);
+		
 		File file = FileDialogs.showOpenDialog(this);
 		if(file == null || !file.canRead())
 			return;
@@ -301,8 +310,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				Hmmer3Engine.getInstance().getAvailableServicePath("hmmscan"), 
 				fastaFile, hmmDBFile, this);
 		hmmScan.setCpu((String)cpuCB.getSelectedItem());
-		// clear console
-		console.setText("");
+		//console.setText("");
 		
 		if (gaCkb.isSelected()) 
 			hmmScan.setGA(true); 
@@ -336,8 +344,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			progressBar.setValue(0);
 			run.setEnabled(true);
 			progressBar.setIndeterminate(false);
-			console.setText("");
-			writeToConsole("hmmscan run canceled by user!");
+			writeToConsole("*** I: hmmscan run canceled by user.\n");
 		} 
 		else {
 			close();
@@ -359,7 +366,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * 		the message to be printed
 	 */
 	public void writeToConsole(String msg) {
-		console.append(msg+"\n");
+		console.append(msg);
 	}
 	
 	
@@ -422,6 +429,9 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				HmmPress hmmPress = new HmmPress(Hmmer3Engine.getInstance().getAvailableServicePath("hmmpress"), dbFile, this);
 				Hmmer3Engine.getInstance().launchInBackground(hmmPress);
 				progressBar.setIndeterminate(true);
+				// we must return false, even if the press was successful to ensure that the engine instance is free
+				// before we init the actual scan
+				return false;
 			}
 			else {
 				return false;
@@ -429,6 +439,57 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		}
 		hmmDBFile = dbFile;
 		return true;
+	}
+	
+	
+	private void initSelectViewBox() {
+
+		// get loaded sequence views
+		List<WorkspaceElement> viewList = WorkspaceManager.getInstance().getSequenceViews();
+		WorkspaceElement[] seqViews = viewList.toArray(new ViewElement[viewList.size()]);
+		
+		if (seqViews.length == 0) {
+			selectView = new JComboBox(seqViews);
+			selectView.setSelectedItem(null);
+			selectView.setEnabled(false);
+			return;
+		}
+		
+		selectView = new JComboBox(seqViews);
+		selectView.setSelectedItem(null);
+		selectView.setRenderer(new WizardListCellRenderer());
+		selectView.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent evt) {
+				File fastaTmpFile = null;
+				if (fastaTF.getText().length() > 0) {
+					fastaTF.setText("");
+				}
+				JComboBox cb = (JComboBox)evt.getSource();
+				
+				ViewElement selected = (ViewElement)cb.getSelectedItem();
+				if (selected == null)
+					return;
+				
+				SequenceView view = ViewHandler.getInstance().getView(selected.getViewInfo());
+				SequenceI[] seqs = view.getSeqs();
+				
+				// write sequences to tmp file and internally set the sequences file
+				try {
+					console.setText("");
+					fastaTmpFile = File.createTempFile(selected.getTitle()+"_", ".fasta");
+					writeToConsole("*** I: Writing sequence view to tmpfile... ");
+					new FastaWriter().wrappedWrite(fastaTmpFile, seqs, 60);
+					writeToConsole("done.\n");
+				}
+				catch (Exception e) {
+					System.out.println("Something went wrong when creating the tmp file.");
+					e.printStackTrace();
+				}
+				fastaTF.setText(fastaTmpFile.getAbsolutePath());
+				fastaFile = fastaTmpFile;
+				
+			}
+		});
 	}
 	
 	

@@ -42,4 +42,20 @@ public interface DataWriter <T extends AngstdData> {
 	 * 		the data to be written
 	 */
 	public abstract void write(BufferedWriter out, T[] data);
+	
+	
+	/**
+	 * Same as write(), except that the data is translated into
+	 * byte[] and the line is wrapped after wrapAfter chars have been 
+	 * written  
+	 * 
+	 * @param out
+	 * 		the created BufferedWriter used to write into the file
+	 * @param data
+	 * 		the data to be written
+	 * @param wrapAfter
+	 * 		number of charaters of data that are written before the line is wrapped 
+	 */
+	public abstract void wrappedWrite(BufferedWriter out, T[] data, int wrapAfter);
+	
 }

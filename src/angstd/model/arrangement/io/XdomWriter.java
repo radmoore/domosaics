@@ -55,5 +55,14 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
             e.printStackTrace();
         }
     }
+
+	/**
+	 * Implemention required as defined by {@link DataWriter}. The wrapAfter int
+	 * has no effect (line wrapping is not required in xdoms)
+	 */
+	public void wrappedWrite(BufferedWriter out, DomainArrangement[] data, int wrapAfter) {
+		write(out, data);
+		
+	}
 	
 }

@@ -98,7 +98,8 @@ public class HmmScan implements Hmmer3Program {
 			outfile = File.createTempFile("hmmerJob_", ".hmmout");
 		}
 		catch (Exception e) {
-			System.out.println("Something went wrong when creating the tmp file.");
+			System.out.println("*** E: Something went wrong when creating the tmp file.");
+			e.printStackTrace();
 		}
 		
 		if (biasFilter) {
@@ -298,6 +299,15 @@ public class HmmScan implements Hmmer3Program {
 		return this.name;
 	}
 	
+	public String getCommandCall() {
+		StringBuffer commandString = new StringBuffer();
+		for (String arg: args)
+			commandString.append(arg+" ");
+		
+		return commandString.toString();
+	}
+	
+	
 	/**
 	 * Method of {@link Hmmer3Program} interface.
 	 * Parses the results of a hmmscan run. If hits were
@@ -310,6 +320,7 @@ public class HmmScan implements Hmmer3Program {
 		if (HmmOutReader.checkFileFormat(outfile)) {
 			
 			arrangementSet = ArrangementImporterUtil.importData(outfile);
+			
 			int importedProts = arrangementSet.length;
 			parent.close();
 			
