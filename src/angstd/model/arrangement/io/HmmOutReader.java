@@ -32,11 +32,10 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 	 * static parameter: evalue required by the user for each domain
 	 * @return
 	 */
-	protected static double userThresh=10;
+	protected static double userThresh = 10;
 	
-	public static void setThreshold(double userT)
-	{
-		userThresh=userT;
+	public static void setThreshold (double userT) {
+		userThresh = userT;
 	}
 	
 	/**
@@ -135,6 +134,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				evalue		= Double.parseDouble(entryFields[12]);
 				acc			= entryFields[6];
 				domFamily 	= GatheringThresholdsReader.getInstance().get(acc);
+				
 				if (domFamily == null) { 				
 					domFamily = new DomainFamily(acc);
 //					domFamily.setPfamID(pfamID);
@@ -172,8 +172,10 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 			MessageUtil.showWarning("Error while reading/parsing pfam_scan output.");
 			e.printStackTrace();
 		}
+		
 		if (prot != null)
 		 arrList.add(prot);
+		
 		return arrList;
 	}
 	
@@ -217,7 +219,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 					GatheringThresholdsReader.getInstance().put(acc, domFamily);
 				}
 				
-				if (evalue > 10 || evalue>userThresh)
+				if (evalue > 10 || evalue > userThresh)
 					continue;
 				
 					
@@ -235,13 +237,12 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				dom.setEvalue(evalue);
 				System.out.println(dom.toString());
 				dom.setScore(score);   // log odds score
-				if(!domFamily.getAcc().equals("")) {
-					if(Double.parseDouble(entryFields[13]) < domFamily.getGathThreshByFam() || score < domFamily.getGathThreshByDom())
-					{
+				if (!domFamily.getAcc().equals("")) {
+					if (Double.parseDouble(entryFields[13]) < domFamily.getGathThreshByFam() || score < domFamily.getGathThreshByDom()) {
 						dom.setPutative(true);
 						System.out.println("Putative");
-					}else
-					{
+					}
+					else {
 						System.out.println("Asserted");
 					}
 				}
@@ -259,8 +260,10 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 			MessageUtil.showWarning("Error while reading/parsing hmmscan output.");
 			e.printStackTrace();
 		}
+		
 		if (prot != null)
 		 arrList.add(prot);
+		
 		return arrList;
 	}
 	

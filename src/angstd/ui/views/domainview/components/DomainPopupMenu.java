@@ -9,6 +9,7 @@ import angstd.ui.views.domaintreeview.actions.TraceDomainAction;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.actions.context.ChangeShapeAction;
 import angstd.ui.views.domainview.actions.context.ColorizeDomainAction;
+import angstd.ui.views.domainview.actions.context.ConfirmPutativeDomain;
 import angstd.ui.views.domainview.actions.context.ExportDomainSequencesAction;
 import angstd.ui.views.domainview.actions.context.HideDomainAction;
 import angstd.ui.views.domainview.actions.context.LookupDomainInGoogle;
@@ -61,6 +62,8 @@ public class DomainPopupMenu extends JPopupMenu {
 		add(new JSeparator());
 		add(new LookupDomainInGoogle());
 		add(new LookupDomainInPfamAction());
+		add(new JSeparator());
+		add(new ConfirmPutativeDomain());
 	}
 
 }

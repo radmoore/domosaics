@@ -61,6 +61,7 @@ public class DomainComponent extends AbstractViewComponent {
     	this.visible = status;
     }
     
+    
     /**
      * Return the label for this domain.
      * 
@@ -105,8 +106,6 @@ public class DomainComponent extends AbstractViewComponent {
 				getHeight(), 
 				20, 20);
 	}
-    
-	
 	
 	
 	

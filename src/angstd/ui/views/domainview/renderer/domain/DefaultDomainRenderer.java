@@ -16,7 +16,7 @@ import angstd.ui.views.domainview.components.DomainComponent;
  * Default domain renderer which draws domains with their normal shapes
  * and labels.
  * 
- * @author Andreas Held
+ * @author Andreas Held, Andrew Moore
  *
  */
 public class DefaultDomainRenderer extends AbstractDomainRenderer{
@@ -25,11 +25,17 @@ public class DefaultDomainRenderer extends AbstractDomainRenderer{
 	 * @see AbstractDomainRenderer
 	 */
 	public Color getColor(DomainComponent dc, DomainViewI view) {
+		
 		int alpha = 255; 
 		
 		// make overlaps transparent
 		if (dc.getDomain().getArrangement().hasOverlap(dc.getDomain())) 
 			alpha = 150;
+		
+		// check if dom is putative, and draw white if so
+		if (dc.getDomain().isPutative()) {
+			return ColorUtil.createAlphaColor(Color.white, alpha);
+		}
 		
 		Color color = view.getDomainColorManager().getDomainColor(dc);
 		
@@ -61,9 +67,13 @@ public class DefaultDomainRenderer extends AbstractDomainRenderer{
 	 * @see AbstractDomainRenderer
 	 */
 	public Stroke getStroke(DomainComponent dc, DomainViewI view) {
+		if (dc.getDomain().isPutative()) {
+			float dash[] = { 5.0f, 10.0f };
+			return new BasicStroke(1.375f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+		}
 		return new BasicStroke(1.375f);
 	}
-
+	
 	/**
 	 * @see AbstractDomainRenderer
 	 */
@@ -75,6 +85,9 @@ public class DefaultDomainRenderer extends AbstractDomainRenderer{
 	 * @see AbstractDomainRenderer
 	 */
 	public Color getLabelColor(DomainComponent dc, DomainViewI view) {
+		if (dc.getDomain().isPutative())
+			return Color.black;
+		
 		return Color.white;
 	}
 	
@@ -86,6 +99,7 @@ public class DefaultDomainRenderer extends AbstractDomainRenderer{
 			return view.getDomainShapeManager().getDomainShape(dc);
 		return dc.getDisplayedShape();
 	}
+
 	
 }
 

@@ -17,7 +17,7 @@ import angstd.ui.views.domainview.components.DomainComponent;
  * The domains of interest are gradually transparent and their labels
  * correspond to percentage of similarity.
  * 
- * @author Andreas Held
+ * @author Andreas Held, Andrew Moore
  *
  */
 public class OrthologousDomainRenderer extends AbstractDomainRenderer {
@@ -58,6 +58,10 @@ public class OrthologousDomainRenderer extends AbstractDomainRenderer {
 	 * @see AbstractDomainRenderer
 	 */
 	public Stroke getStroke(DomainComponent dc, DomainViewI view) {
+		if (dc.getDomain().isPutative()) {
+			float dash[] = { 5.0f, 10.0f };
+			return new BasicStroke(1.375f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+		}
 		return new BasicStroke(1.375f);
 	}
 
@@ -126,4 +130,5 @@ public class OrthologousDomainRenderer extends AbstractDomainRenderer {
 		else 
 			return 255;
 	}
+
 }

@@ -37,7 +37,7 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
     protected SequenceI seq;
 
     /** if the domain bit score does not satisfy the Pfam gathering threshold */
-    protected boolean putative=false;
+    protected boolean putative = false;
     
 	/**
 	 * constructor for a new domain object without e-value specification.
@@ -212,7 +212,7 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 	 * @param from
 	 * 		the beginning of the domain within the arrangement
 	 */
-	public void setFrom(int from) {
+	public void setFrom (int from) {
 		this.from = from;
 	}
 
@@ -222,7 +222,7 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 	 * @param from
 	 * 		the end position of the domain within the arrangement
 	 */
-	public void setTo(int to) {
+	public void setTo (int to) {
 		this.to = to;
 	}
 	
@@ -279,7 +279,7 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 	 * Checks what domain comes before the other within
 	 * an arrangement.
 	 */
-	public int compareTo(Domain dom) {
+	public int compareTo (Domain dom) {
 		return this.from - dom.from;
 	}
 	
@@ -290,8 +290,8 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 	/**
 	 * Putting the "putative" flag
 	 */
-	public void setPutative(boolean b) {
-		putative=b;
+	public void setPutative (boolean b) {
+		putative = b;
 	}
 	
 	/**

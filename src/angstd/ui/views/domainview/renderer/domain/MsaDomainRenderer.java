@@ -17,7 +17,7 @@ import angstd.ui.views.domainview.components.DomainComponent;
  * it just draws a colored and transparent rectangle for each domain.
  * Because the underlying sequence is drawn, no domain label is returned.
  * 
- * @author Andreas Held
+ * @author Andreas Held, Andrew Moore
  *
  */
 public class MsaDomainRenderer extends AbstractDomainRenderer {
@@ -43,6 +43,10 @@ public class MsaDomainRenderer extends AbstractDomainRenderer {
 	 * @see AbstractDomainRenderer
 	 */
 	public Stroke getStroke(DomainComponent dc, DomainViewI view) {
+		if (dc.getDomain().isPutative()) {
+			float dash[] = { 5.0f, 10.0f };
+			return new BasicStroke(1.375f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+		}
 		return new BasicStroke(1.375f);
 	}
 
@@ -73,5 +77,6 @@ public class MsaDomainRenderer extends AbstractDomainRenderer {
 	public void hightlightDomain(DomainComponent dc, DomainViewI view, Graphics2D g2) {
 		;
 	}
-	
+
+
 }

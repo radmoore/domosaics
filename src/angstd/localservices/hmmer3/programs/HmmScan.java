@@ -19,6 +19,9 @@ import angstd.ui.ViewHandler;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
+import angstd.ui.views.domainview.components.ArrangementComponent;
+import angstd.ui.views.domainview.components.DomainComponent;
+import angstd.ui.views.domainview.manager.DomainArrangementComponentManager;
 import angstd.ui.wizards.WizardManager;
 
 /**
@@ -343,22 +346,22 @@ public class HmmScan implements Hmmer3Program {
 			
 			parent.close();
 			
-			//If the CODD procedure is required, launch it
-			if(coddFilter)
-			{
-			 //System.out.println("codd Filtering");
-			 arrangementSet=ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet);
-			}else
-			{
-			 //Test for another post-processing filter
-			 if(overlapResolvMethod.equals("OverlapFilterEvalue") || overlapResolvMethod.equals("OverlapFilterCoverage") )
-			 {
-			  arrangementSet=OverlapResolver.resolveOverlaps(arrangementSet,overlapResolvMethod);
-			 }else
-			 {
-			  //System.out.println("There");
-			 }
+			// If the CODD procedure is required, launch it
+			if(coddFilter) {
+				// System.out.println("codd Filtering");
+				arrangementSet = ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet);
 			}
+			else {
+			 
+				// Test for another post-processing filter
+				if(overlapResolvMethod.equals("OverlapFilterEvalue") || overlapResolvMethod.equals("OverlapFilterCoverage") ) {
+					arrangementSet = OverlapResolver.resolveOverlaps(arrangementSet, overlapResolvMethod);
+				}
+				else {
+					// System.out.println("There");
+				}
+			}
+			
 			int importedProts = arrangementSet.length;
 			
 			if (importedProts > 0) {
@@ -375,7 +378,21 @@ public class HmmScan implements Hmmer3Program {
 					}
 				
 					DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
+					
+//					if (coddFilter) {
+//					
+//						// TODO domInterator to set dashed lines to putatives
+//						DomainArrangementComponentManager dacm = domResultView.getArrangementComponentManager();
+//						Iterator<DomainComponent> domcIter = dacm.getDomainComponentsIterator();
+//						while(domcIter.hasNext()) {
+//							DomainComponent domc = domcIter.next();
+//							domc.setPutative(true);
+//						}
+//						
+//					}
+						
 					domResultView.setDaSet(arrangementSet);
+					
 					// associate sequences with the found arrangements
 					domResultView.loadSequencesIntoDas(seqs, domResultView.getDaSet());
 					ViewHandler.getInstance().addView(domResultView, null);
