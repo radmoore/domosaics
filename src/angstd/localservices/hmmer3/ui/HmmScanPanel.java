@@ -78,7 +78,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private JLabel thresholdLabel, evalLabel, cpuLabel, biasFilterLabel, gaLabel;
 	private JTextArea console;
 	private JProgressBar progressBar;
-	private JPanel ePane;
+	private JPanel ePane, radioPane;
 	private File hmmBinDir, hmmDBFile, fastaFile;
 
 	 
@@ -139,13 +139,18 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	    
 	    //RadioButton to choose (or not) a post processing method
 	    //to resolve overlaps
-	    groupRadio = new ButtonGroup();
-	    overlapRadioNone = new JRadioButton("None", true);
-	    overlapRadioEvalue = new JRadioButton("E-value based");
+	    radioPane = new JPanel();
+		groupRadio = new ButtonGroup();
+	    overlapRadioNone = new JRadioButton("None      ", true);
+	    overlapRadioEvalue = new JRadioButton("E-value based        ");
 	    overlapRadioCoverage = new JRadioButton("Max. coverage");
+	    radioPane.add(overlapRadioNone);
+	    radioPane.add(overlapRadioEvalue);
+	    radioPane.add(overlapRadioCoverage);
 	    groupRadio.add(overlapRadioNone);
 	    groupRadio.add(overlapRadioEvalue);
 	    groupRadio.add(overlapRadioCoverage);
+	    overlapRadioNone.setActionCommand("None");
 	    overlapRadioEvalue.setActionCommand("OverlapFilterEvalue");
 	    overlapRadioCoverage.setActionCommand("OverlapFilterCoverage");
 	    /*overlapRadioNone.addActionListener(this);
@@ -243,9 +248,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		
 		add(new JXTitledSeparator("Post-Processing Results"), "growX, span, wrap, gaptop 10");
 		add(new JLabel("Overlap Resolver:"), "gap 10");
-		add(overlapRadioNone, "gap 2");
-		add(overlapRadioEvalue, "gap 2");
-		add(overlapRadioCoverage, "gap 2, wrap");
+		add(radioPane, "gap 2, growX, wrap");
 
 		add(new JLabel("Co-Occurring Domain Filter:"), "gap 10");
 		add(coddCkb, "gap 10, span 2, growX, wrap");

@@ -62,7 +62,7 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
     					out.write("\t;putative");
     				else
     					out.write("\t;asserted");
-    				out.write("\t hidden\r\n");
+    				out.write(";hidden\r\n");
     			}
     			
     			out.flush(); 

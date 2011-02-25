@@ -154,7 +154,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				dom = new Domain(from, to, domFamily); 		// same protein as last entry
 				dom.setEvalue(evalue);
 				dom.setScore(score);   // log odds score
-				if(domFamily.getAcc() != "") {
+				if(!domFamily.getAcc().equals("")) {
 					if(score < domFamily.getGathThreshByDom())
 						dom.setPutative(true);
 				}
@@ -235,7 +235,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				dom.setEvalue(evalue);
 				System.out.println(dom.toString());
 				dom.setScore(score);   // log odds score
-				if(domFamily.getAcc() != "") {
+				if(!domFamily.getAcc().equals("")) {
 					if(Double.parseDouble(entryFields[13]) < domFamily.getGathThreshByFam() || score < domFamily.getGathThreshByDom())
 					{
 						dom.setPutative(true);

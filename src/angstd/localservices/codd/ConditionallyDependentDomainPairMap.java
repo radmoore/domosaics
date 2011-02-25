@@ -139,6 +139,7 @@ public class ConditionallyDependentDomainPairMap implements AngstdData
   
   for(int i=0; i<arrangeSets.length; i++)
   {
+   List<Domain> toRemove = new ArrayList<Domain>();
    /*System.out.println("Arrangement "+i+" Prot "+arrangeSets[i].getName());
    System.out.println("Dom. number with overlaps "+arrangeSets[i].countDoms());
    List<Domain> toRemove = OverlapResolver.resolveOverlapsByBestEvalue(arrangeSets[i]);
@@ -196,13 +197,19 @@ public class ConditionallyDependentDomainPairMap implements AngstdData
     	 //System.out.println("Certified");
      }else
      {
-    	 //System.out.println("Not certified");    
-      domIt.remove();  	 
+      //System.out.println("Not certified");    
+      toRemove.add(dom);
+      //domIt.remove();  	 
      }
     }else
     {
     	//System.out.println("Asserted"); 
     }
+   }
+   for(int j=0; j<toRemove.size(); j++)
+   {
+    Domain dom=toRemove.get(j);
+    arrangeSets[i].hideDomain(dom);
    }
    if(arrangeSets[i].countDoms()!=0)
    {

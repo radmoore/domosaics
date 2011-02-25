@@ -62,6 +62,7 @@ public class HmmScan implements Hmmer3Program {
 	 * @param parent
 	 */
 	public HmmScan(File bin, File fasta, File hmmDB, HmmerServicePanel parent) {
+		this.overlapResolvMethod=new String("None");
 		this.hmmScanBin = bin;
 		this.fasta = fasta;
 		this.hmmDB = hmmDB;
@@ -350,9 +351,8 @@ public class HmmScan implements Hmmer3Program {
 			}else
 			{
 			 //Test for another post-processing filter
-			 if(overlapResolvMethod=="OverlapFilterEvalue" || overlapResolvMethod=="OverlapFilterCoverage")
+			 if(overlapResolvMethod.equals("OverlapFilterEvalue") || overlapResolvMethod.equals("OverlapFilterCoverage") )
 			 {
-			  System.out.println("here "+overlapResolvMethod);
 			  arrangementSet=OverlapResolver.resolveOverlaps(arrangementSet,overlapResolvMethod);
 			 }else
 			 {

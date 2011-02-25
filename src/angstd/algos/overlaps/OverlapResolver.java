@@ -34,11 +34,11 @@ public class OverlapResolver {
 	 List<Domain> toRemove = new ArrayList<Domain>();
 	 for (DomainArrangement da : daSet)
 	 {
-	  if(method=="OverlapFilterCoverage")
+	  if(method.equals("OverlapFilterCoverage"))
 	  {
-	   System.out.println(toRemove.size());
+	   //System.out.println(toRemove.size());
 	   toRemove = resolveOverlapsByBestCoverage(da);
-	   System.out.println(toRemove.size());
+	   //System.out.println(toRemove.size());
 	  }else
 	  {
 	   toRemove = resolveOverlapsByBestEvalue(da);

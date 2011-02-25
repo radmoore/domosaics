@@ -219,28 +219,28 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 		// if so... parse it
 		double evalue = Double.parseDouble(token[actToken+3]);
 		dom.setEvalue(evalue);
-		
+
         //Also record if the domain is putative or not (known)
 		if (token.length == actToken+5)
         {
-	     String[] comment = token[actToken+4].split(";");
-	     for(int i=0; i< comment.length; i++)
+		 String[] comment = token[actToken+4].split(";");
+		 for(int i=1; i< comment.length; i++)
 		 {
-	      if(comment[i]=="putative" || comment[i]=="asserted")
+		  if(comment[i].equals("putative") || comment[i].equals("asserted"))
 	      {
-	       dom.setPutative(comment[i]=="putative");
-	      }else
+	       dom.setPutative(comment[i].equals("putative"));
+		  }else
 	      {
-	       if(comment[i]=="hidden")
+		   if(comment[i].equals("hidden"))
 		   {
 	        prot.addDomain(dom);
 	        prot.hideDomain(dom);
-			return prot;
 		   }   
 	      }
 		 }
         }
-		prot.addDomain(dom);
+		if(!prot.getHiddenDoms().contains(dom))
+		 prot.addDomain(dom);
 		return prot;
 	}
 	
