@@ -15,8 +15,8 @@ import javax.swing.plaf.metal.MetalSliderUI;
 public class EvalueSlider extends JSlider{
 	private static final long serialVersionUID = 1L;
 	
-	/** the old threshold */
-	protected int oldThreshold = 1;
+	/** static variable used to memorize the Evalue threshold */
+	protected static int oldThreshold = 10;
 	
 	/** the actual threshold */
 	protected int threshold = 1;
@@ -36,9 +36,42 @@ public class EvalueSlider extends JSlider{
 		setPaintLabels(true); 
 		setUI(new MySliderUI(this));
 	}
-	
+
+	/**
+	 * Give the index of the current evalue threshold.
+	 */
 	public double getEvalue() {
 		return threshold2value.get(getValue());
+	}
+	
+	/**
+	 * Give the index of the memorized evalue threshold.
+	 */
+	public double getEvalueOldThreshold() {
+		return threshold2value.get(oldThreshold);
+	}
+	
+	/**
+	 * Give the index of the memorized evalue threshold.
+	 */
+	public int getOldThreshold() {
+		return oldThreshold;
+	}
+	
+	/**
+	 * Set the index for the memorized evalue threshold.
+	 * 
+	 */
+	public void setOldThreshold(double evalue)
+	{
+	 for(int i=0; i<threshold2value.size(); i++)
+	 {
+	  if(threshold2value.get(i)==evalue)
+	  {
+	   oldThreshold=i;
+	   break;
+	  }
+	 }
 	}
 	
 	private void initThresholdValues() {
@@ -91,8 +124,7 @@ public class EvalueSlider extends JSlider{
 	private void initSliderLabels() {
 		threshold2label = new Hashtable<Integer, JLabel>();
 		threshold2label.put(new Integer(0), new JLabel("0"));
-		threshold2label.put(new Integer(6), new JLabel("1E-50"));
-		threshold2label.put(new Integer(14), new JLabel("1E-6"));
+		threshold2label.put(new Integer(10), new JLabel("1E-10"));
 		threshold2label.put(new Integer(19), new JLabel("0.1"));
 		threshold2label.put(new Integer(28), new JLabel("1"));
 		threshold2label.put(new Integer(32), new JLabel("5"));

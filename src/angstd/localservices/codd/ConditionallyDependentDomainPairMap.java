@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+
+import angstd.algos.overlaps.OverlapResolver;
 import angstd.model.AngstdData;
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
@@ -56,7 +58,7 @@ public class ConditionallyDependentDomainPairMap implements AngstdData
   BufferedReader in;
   try
   {
-   URL path = GatheringThresholdsReader.class.getResource(file);
+   URL path = ConditionallyDependentDomainPairMap.class.getResource(file);
    in = new BufferedReader(new FileReader(path.getFile()));
    String line;
    while((line = in.readLine()) != null)
@@ -107,7 +109,7 @@ public class ConditionallyDependentDomainPairMap implements AngstdData
  {
   if (instance == null)
   {
-   instance = new ConditionallyDependentDomainPairMap("CDP_Pfam-v24.0",0.001);
+   instance = new ConditionallyDependentDomainPairMap("resources/CDP_Pfam-v24.0",0.001);
   }
   return instance;
  }
@@ -125,48 +127,94 @@ public class ConditionallyDependentDomainPairMap implements AngstdData
   */
  public static DomainArrangement[] coddProcedure(DomainArrangement[] arrangeSets)
  {
-  boolean certified;
-  HashSet<String> domFamilies=new HashSet<String>();
+  boolean certified, hasCertified=false;
+  String cooccur;
+  List<DomainArrangement> arrList = new ArrayList<DomainArrangement>();
   
   //Instantiation of the CDP if not yet done 
   ConditionallyDependentDomainPairMap cdp=ConditionallyDependentDomainPairMap.getInstance();
   
+  //Filtering overlaps based on E-value
+  arrangeSets=OverlapResolver.resolveOverlaps(arrangeSets,"OverlapFilterEvalue");
+  
   for(int i=0; i<arrangeSets.length; i++)
   {
-   Iterator<Domain> domIt=arrangeSets[i].getDomainIter();
-   while(domIt.hasNext())
+   /*System.out.println("Arrangement "+i+" Prot "+arrangeSets[i].getName());
+   System.out.println("Dom. number with overlaps "+arrangeSets[i].countDoms());
+   List<Domain> toRemove = OverlapResolver.resolveOverlapsByBestEvalue(arrangeSets[i]);
+   for (Domain domToRemove : toRemove)
    {
+    //arrangeSets[i].getDomains().removeElement(domToRemove);
+    arrangeSets[i].hideDomain(domToRemove);
+   }
+   System.out.println("Dom. number without overlaps "+arrangeSets[i].countDoms());*/
+   
+   //Collecting domain families used to co-occurrency certification
+   Iterator<Domain> domIt=arrangeSets[i].getDomainIter();
+   HashSet<String> domFamilies=new HashSet<String>();
+   while(domIt.hasNext())
+   {       
     domFamilies.add(domIt.next().getFamID());
    }
+   
+   /*Iterator<String> it=domFamilies.iterator();
+   while(it.hasNext())
+   {
+	System.out.println("Families "+it.next()); 
+   }*/
    domIt=arrangeSets[i].getDomainIter();
    while(domIt.hasNext())
    {
 	Domain dom=domIt.next();
+	//System.out.println("Domaine "+dom.toString()); 
     if(dom.isPutative())
     {
+     hasCertified=true;
+     //System.out.println("Putative"); 
      Iterator<String> domFamIt=domFamilies.iterator();
      certified=false;
      while(domFamIt.hasNext())
      {
-      if(cdp.getCDP(domIt.next().getFamID()).contains(domFamIt.next()))
+      cooccur=domFamIt.next();
+      HashSet<String> CDPdom=cdp.getCDP(dom.getFamID());
+      if(CDPdom!=null)
       {
-       certified=true;
+       /*Iterator<String> testIt=CDPdom.iterator();
+       while(testIt.hasNext())
+       {
+      	System.out.println("Cdp "+testIt.next()); 
+       }*/
+       if(cdp.getCDP(dom.getFamID()).contains(cooccur))
+       {
+        //System.out.println("Certified by "+cooccur); 
+        certified=true;
+       }
       }
      }
      if(certified)
      {
-      domIt.remove();
+    	 //System.out.println("Certified");
+     }else
+     {
+    	 //System.out.println("Not certified");    
+      domIt.remove();  	 
      }
     }else
     {
+    	//System.out.println("Asserted"); 
     }
-   //Si oui mettre le flag putative a false
-    //Si non boucle sur le meme vect pour certif si appartient aux cdp
-    // si oui putative a true
-      // si non erase
+   }
+   if(arrangeSets[i].countDoms()!=0)
+   {
+    arrList.add(arrangeSets[i]);
    }
   }
-  return arrangeSets;
+  if(!hasCertified)
+  {
+   MessageUtil.showWarning("No putative domains in this data set. Try to Hmmscan with higher E-values.");	
+  }
+  return arrList.toArray(new DomainArrangement[arrList.size()]);
  }
+ 
  
 }

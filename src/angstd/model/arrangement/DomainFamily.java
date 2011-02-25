@@ -12,7 +12,7 @@ public class DomainFamily  {
 	/** family id */
 	protected String id;
 	/** family accession number */
-	protected String acc;
+	protected String acc="";
 	/** Required threshold to detect the domain occurrence */
 	private double gathThreshByDom;
 	/** Required threshold to detect the family (adding all occurrences) */
@@ -57,6 +57,37 @@ public class DomainFamily  {
 	public void setID(String id) {
 		this.id = id;
 	}
+
+	/**
+	 * Returns the family accession number
+	 * 
+	 * @return
+	 * 		accession number acc
+	 */
+	public String getAcc() {
+		return acc;
+	}
+	
+	/**
+	 * Returns the family gathThreshByDom
+	 * 
+	 * @return
+	 * 		gathThreshByDom gath1
+	 */
+	public double getGathThreshByDom() {
+		return gathThreshByDom;
+	}
+	
+	/**
+	 * Returns the family gathThreshByFam
+	 * 
+	 * @return
+	 * 		gathThreshByFam gath2
+	 */
+	public double getGathThreshByFam() {
+		return gathThreshByDom;
+	}
+	
 	
 	/**
 	 * Returns the family id

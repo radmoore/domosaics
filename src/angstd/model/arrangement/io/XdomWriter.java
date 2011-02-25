@@ -46,7 +46,23 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
     				out.write(dom.getFrom()+"\t"+dom.getTo()+"\t"+StringUtils.convertSpaces(dom.getID()));
     				if (dom.getEvalue() != Double.POSITIVE_INFINITY)
     					out.write("\t"+dom.getEvalue());
+                    if (dom.isPutative()) // Specifying the putative aspect
+    					out.write("\t;putative");
+    				else
+    					out.write("\t;asserted");
     				out.write("\r\n");
+    			}
+    			
+    			// write hidden domain lines		
+    			for (Domain dom : daSet[i].getHiddenDoms()) {
+    				out.write(dom.getFrom()+"\t"+dom.getTo()+"\t"+StringUtils.convertSpaces(dom.getID()));
+    				if (dom.getEvalue() != Double.POSITIVE_INFINITY)
+    					out.write("\t"+dom.getEvalue());
+                    if (dom.isPutative()) // Specifying the putative aspect
+    					out.write("\t;putative");
+    				else
+    					out.write("\t;asserted");
+    				out.write("\t hidden\r\n");
     			}
     			
     			out.flush(); 

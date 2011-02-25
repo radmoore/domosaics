@@ -37,7 +37,7 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
     protected SequenceI seq;
 
     /** if the domain bit score does not satisfy the Pfam gathering threshold */
-    protected boolean putative;
+    protected boolean putative=false;
     
 	/**
 	 * constructor for a new domain object without e-value specification.

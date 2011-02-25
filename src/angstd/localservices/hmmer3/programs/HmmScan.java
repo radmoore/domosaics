@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.Iterator;
 
+import angstd.algos.overlaps.OverlapResolver;
 import angstd.localservices.codd.ConditionallyDependentDomainPairMap;
 import angstd.localservices.executor.Executor;
 import angstd.localservices.hmmer3.ui.HmmerServicePanel;
@@ -43,10 +44,10 @@ public class HmmScan implements Hmmer3Program {
 
 	
 	protected File hmmScanBin, fasta, hmmDB, outfile;
-	protected boolean ga, biasFilter;
+	protected boolean ga, biasFilter, coddFilter;
 	
 	protected int totalFastaEntries, completedScans;
-	protected String name, evalue, cpu;
+	protected String name, evalue, cpu, overlapResolvMethod;
 	protected String[] args;
 	protected HmmerServicePanel parent;
 	
@@ -234,6 +235,23 @@ public class HmmScan implements Hmmer3Program {
 	public void setBiasFilter(boolean biasFilter) {
 		this.biasFilter = biasFilter;
 	}
+
+	/**
+	 * Toggle CODD procedure filter
+	 * @param coddFilter
+	 */
+	public void setCoddFilter(boolean coddFilter) {
+		this.coddFilter = coddFilter;
+	}
+	
+	/**
+	 * Toggle CODD procedure filter
+	 * @param coddFilter
+	 */
+	public void setOverlapMethod(String method) {
+		this.overlapResolvMethod = method;
+	}
+	
 	
 	/**
 	 * Get HmmerDB file
@@ -318,34 +336,50 @@ public class HmmScan implements Hmmer3Program {
 	 */
 	public void parseResults() {
 		if (HmmOutReader.checkFileFormat(outfile)) {
-			
+			if (!ga)
+			 HmmOutReader.setThreshold(Double.parseDouble(evalue));
 			arrangementSet = ArrangementImporterUtil.importData(outfile);
 			
-			int importedProts = arrangementSet.length;
 			parent.close();
 			
+			//If the CODD procedure is required, launch it
+			if(coddFilter)
+			{
+			 //System.out.println("codd Filtering");
+			 arrangementSet=ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet);
+			}else
+			{
+			 //Test for another post-processing filter
+			 if(overlapResolvMethod=="OverlapFilterEvalue" || overlapResolvMethod=="OverlapFilterCoverage")
+			 {
+			  System.out.println("here "+overlapResolvMethod);
+			  arrangementSet=OverlapResolver.resolveOverlaps(arrangementSet,overlapResolvMethod);
+			 }else
+			 {
+			  //System.out.println("There");
+			 }
+			}
+			int importedProts = arrangementSet.length;
+			
 			if (importedProts > 0) {
-				
-				//launch the CODD procedure
-				ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet);
-				
-				String defaultName = fasta.getName()+"-hmmscan-results";	
-				// read the sequences in the source fasta file
-				SequenceI[] seqs = new FastaReader().getDataFromFile(fasta);
+
+					String defaultName = fasta.getName()+"-hmmscan-results";	
+					// read the sequences in the source fasta file
+					SequenceI[] seqs = new FastaReader().getDataFromFile(fasta);
 								
-				String viewName = null;
-				while (viewName == null) {
-					viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
-					if (viewName == null) 
+					String viewName = null;
+					while (viewName == null) {
+						viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
+						if (viewName == null) 
 						MessageUtil.showWarning("A valid view name is needed to complete this action");
-				}
+					}
 				
-				DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
-				domResultView.setDaSet(arrangementSet);
-				// associate sequences with the found arrangements
-				domResultView.loadSequencesIntoDas(seqs, domResultView.getDaSet());
-				ViewHandler.getInstance().addView(domResultView, null);
-				MessageUtil.showInformation(importedProts+" proteins successfully imported.");
+					DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
+					domResultView.setDaSet(arrangementSet);
+					// associate sequences with the found arrangements
+					domResultView.loadSequencesIntoDas(seqs, domResultView.getDaSet());
+					ViewHandler.getInstance().addView(domResultView, null);
+					MessageUtil.showInformation(importedProts+" proteins successfully imported.");
 			}
 			else {		
 				MessageUtil.showInformation("No hits found in "+fasta.getName());

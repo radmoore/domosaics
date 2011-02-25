@@ -12,12 +12,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -68,7 +70,9 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private HashMap<String, String> namedArgs;
 	private HmmScan hmmScan;
 	private JTextField binTF, hmmTF, fastaTF, evalueTF;
-	private JCheckBox gaCkb, biasCkb; 
+	private JCheckBox gaCkb, biasCkb, coddCkb; 
+	ButtonGroup groupRadio;
+	private JRadioButton overlapRadioNone, overlapRadioEvalue, overlapRadioCoverage;
 	private JButton loadBinDir, loadHmmDB, loadFastaFile, run, cancel;
 	private JComboBox cpuCB, selectView;
 	private JLabel thresholdLabel, evalLabel, cpuLabel, biasFilterLabel, gaLabel;
@@ -106,7 +110,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		fastaTF = new JTextField(35);
 		evalueTF = new JTextField(5);
 		evalueTF.setText("0.1"); // default evalue
-		evalLabel = new JLabel("Static cutoff (E-value)");
+		evalLabel = new JLabel("Use E-value");
 		biasFilterLabel = new JLabel("Filter");
 		// the evalue label and field
 		// are conditionally shown if ga is not selected
@@ -115,7 +119,8 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		ePane.add(evalLabel);
 		ePane.add(evalueTF);
 		ePane.setVisible(false); // only visible if ga is deselected
-		thresholdLabel = new JLabel("Match threshold");
+		thresholdLabel = new JLabel("Hit Threshold");
+		
 		cpuLabel = new JLabel("Number of CPUs");
 		progressBar = new JProgressBar();
 		progressBar.setBorderPainted(true);
@@ -123,7 +128,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 
 		// gathering threshold checkbox. If disabled,
 		// the panel for the evalue is set to visible
-	    gaCkb = new JCheckBox("Model defined", true);
+	    gaCkb = new JCheckBox("Confidence cutoff", true);
 	    gaCkb.addItemListener(new ItemListener() {	
 			public void itemStateChanged(ItemEvent e) {
 				ePane.setVisible(!(gaCkb.isSelected()));
@@ -131,6 +136,37 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		});
 	
 	    biasCkb = new JCheckBox("Bias filter", true);
+	    
+	    //RadioButton to choose (or not) a post processing method
+	    //to resolve overlaps
+	    groupRadio = new ButtonGroup();
+	    overlapRadioNone = new JRadioButton("None", true);
+	    overlapRadioEvalue = new JRadioButton("E-value based");
+	    overlapRadioCoverage = new JRadioButton("Max. coverage");
+	    groupRadio.add(overlapRadioNone);
+	    groupRadio.add(overlapRadioEvalue);
+	    groupRadio.add(overlapRadioCoverage);
+	    overlapRadioEvalue.setActionCommand("OverlapFilterEvalue");
+	    overlapRadioCoverage.setActionCommand("OverlapFilterCoverage");
+	    /*overlapRadioNone.addActionListener(this);
+	    overlapRadioEvalue.addActionListener(this);
+	    overlapRadioCoverage.addActionListener(this);*/
+	    
+	    
+	    // gathering threshold checkbox. If disabled,
+		// the panel for the evalue is set to visible
+	    coddCkb = new JCheckBox(" (See [Terrapon et al., Bioinformatics, 2009] for details)", false);
+	    coddCkb.addItemListener(new ItemListener() {	
+			public void itemStateChanged(ItemEvent e) {
+				gaCkb.setSelected(!coddCkb.isSelected());
+				gaCkb.setEnabled(!coddCkb.isSelected());
+				overlapRadioEvalue.setSelected(coddCkb.isSelected());
+				overlapRadioNone.setEnabled(!coddCkb.isSelected());
+				overlapRadioCoverage.setEnabled(!coddCkb.isSelected());
+				//groupRadio.setSelected(overlapRadioEvalue,coddCkb.isSelected());
+				//ePane.setVisible(coddCkb.isSelected());
+			}
+		});
 	    
 		int availProc = Runtime.getRuntime().availableProcessors();
 		String[] cpuNo = new String[availProc];
@@ -204,6 +240,15 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		
 		add(cpuLabel, "gap 10");
 		add(cpuCB, "gap 10, span2, wrap");
+		
+		add(new JXTitledSeparator("Post-Processing Results"), "growX, span, wrap, gaptop 10");
+		add(new JLabel("Overlap Resolver:"), "gap 10");
+		add(overlapRadioNone, "gap 2");
+		add(overlapRadioEvalue, "gap 2");
+		add(overlapRadioCoverage, "gap 2, wrap");
+
+		add(new JLabel("Co-Occurring Domain Filter:"), "gap 10");
+		add(coddCkb, "gap 10, span 2, growX, wrap");
 
 		add(new JXTitledSeparator("Progress"), "growX, span, wrap, gaptop 10");
 		add(progressBar, "gap 10, span3, growX, wrap");
@@ -325,6 +370,9 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			}
 		}
 		hmmScan.setBiasFilter(biasCkb.isSelected());
+		//System.out.println(groupRadio.getSelection().getActionCommand());
+		hmmScan.setOverlapMethod(groupRadio.getSelection().getActionCommand());
+		hmmScan.setCoddFilter(coddCkb.isSelected());
 		
 		// Launches the hmmscan job
 		Hmmer3Engine.getInstance().launchInBackground(hmmScan);
@@ -460,6 +508,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		selectView.setRenderer(new WizardListCellRenderer());
 		selectView.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt) {
+				
 				File fastaTmpFile = null;
 				if (fastaTF.getText().length() > 0) {
 					fastaTF.setText("");

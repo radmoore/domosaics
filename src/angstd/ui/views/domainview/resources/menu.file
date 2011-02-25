@@ -273,6 +273,13 @@
 			<parameter id="tooltip" value="Opens a new window where an evalue slider can be used to adjust the domain compositions"/> 
 		</menuItem>
 	
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Overlap Resolver"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ShowOverlapFilterAction"/> 
+			<parameter id="icon" value="angstd/ui/views/domainview/resources/img/tools/overlaps.png"/>
+			<parameter id="tooltip" value="Opens a new window where several heuristics can be used to resolve the overlaps between domains"/> 
+		</menuItem>
+	
 	
 	</menu>
 	

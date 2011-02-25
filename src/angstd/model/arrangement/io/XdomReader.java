@@ -108,8 +108,7 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 				prot = parseHeader(line);
 			} else {							// parse domain line
 				try {
-					dom = parseDomain(line);
-					prot.addDomain(dom);
+					prot = parseDomain(line, prot);
 				} catch (NumberFormatException nfe) {
 					MessageUtil.showWarning("Error while parsing domain line. Make sure the format fullfills: \"name from to [evalue]\"");
 					return null;
@@ -178,7 +177,7 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 	 * @param domainStr
 	 * @return
 	 */
-	private Domain parseDomain(String domainStr) throws NumberFormatException, WrongFormatException {
+	private DomainArrangement parseDomain(String domainStr, DomainArrangement prot) throws NumberFormatException, WrongFormatException {
 		DomainFamily domFamily = null;
 		Domain dom = null;
 		int actToken = 0;
@@ -191,7 +190,7 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 			actToken++;
 		
 		// check if the line has enough tokens, otherwise the format is wrong
-		if (token.length-actToken < 3) 
+        if (token.length-actToken < 3) 
 			throw new WrongFormatException();
 		
 		// first get the domain family id and check whether or not the domain family already occurred within the document
@@ -212,13 +211,37 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 				
 		// check if the e-value is present within the format
 		if (token.length == actToken+3)
-			return dom;
+		{
+		 prot.addDomain(dom);
+	     return prot;
+		}
 
 		// if so... parse it
 		double evalue = Double.parseDouble(token[actToken+3]);
 		dom.setEvalue(evalue);
 		
-		return dom;
+        //Also record if the domain is putative or not (known)
+		if (token.length == actToken+5)
+        {
+	     String[] comment = token[actToken+4].split(";");
+	     for(int i=0; i< comment.length; i++)
+		 {
+	      if(comment[i]=="putative" || comment[i]=="asserted")
+	      {
+	       dom.setPutative(comment[i]=="putative");
+	      }else
+	      {
+	       if(comment[i]=="hidden")
+		   {
+	        prot.addDomain(dom);
+	        prot.hideDomain(dom);
+			return prot;
+		   }   
+	      }
+		 }
+        }
+		prot.addDomain(dom);
+		return prot;
 	}
 	
 	private class WrongFormatException extends Exception {

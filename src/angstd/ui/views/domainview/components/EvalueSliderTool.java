@@ -28,7 +28,7 @@ import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.swingx.JXTitledSeparator;
 
-import angstd.algos.OverlapResolver;
+import angstd.algos.overlaps.OverlapResolver;
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.ui.views.domainview.DomainViewI;
@@ -36,11 +36,7 @@ import angstd.ui.views.domainview.DomainViewI;
 public class EvalueSliderTool extends JDialog implements ChangeListener, ActionListener {
 	private static final long serialVersionUID = 1L;
 	
-//	protected JButton jbtCancel;
-	
 	protected JButton jbtApply;
-	
-	protected JButton jbtCoverage; //, jbtQuality, jbtEvalue;
 	
 	/** threshold slider */
 	protected EvalueSlider slider;
@@ -55,22 +51,13 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 		this.view = view;
 		JPanel componentHolder = new JPanel();
 		componentHolder.setLayout(new MigLayout());
-		
-		// create components
-//		jbtCancel = new JButton("Cancel");
-//		jbtCancel.addActionListener(this);
-		jbtApply = new JButton("Apply");
-		jbtApply.addActionListener(this);
-		
-		jbtCoverage = new JButton("Coverage");
-		jbtCoverage.addActionListener(this);
-		
-//		jbtEvalue = new JButton("E-Value");
-//		jbtEvalue.addActionListener(this);
-//		
-//		jbtQuality = new JButton("Quality");
-//		jbtQuality.addActionListener(this);
-	
+
+		 // create components
+	 //    jbtCancel = new JButton("Cancel");
+	 //    jbtCancel.addActionListener(this);
+	    jbtApply = new JButton("Apply");
+	    jbtApply.addActionListener(this);
+	     
 		slider = new EvalueSlider();
 		slider.addChangeListener(this);
 		
@@ -78,13 +65,6 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 		sliderBox.add(slider);
 		sliderBox.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); 
 		
-		// layout the main panel
-		componentHolder.add(new JXTitledSeparator("Resolve overlaps by "),"growx, span, wrap, gaptop 10");
-//		componentHolder.add(new JLabel(" "), "gap 10");
-		componentHolder.add(jbtCoverage, "gap 60, wrap");
-//		componentHolder.add(new JLabel(" "), "gap 10, wrap");
-//		componentHolder.add(jbtEvalue, "gap 10");
-//		componentHolder.add(jbtQuality, "gap 10, wrap");
 		
 		componentHolder.add(new JXTitledSeparator("Adjust evalue "),"growx, span, wrap, gaptop 10");
 		componentHolder.add(sliderBox, "gap 10, growx, span, wrap");
@@ -119,7 +99,8 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 		this.setLocationRelativeTo(parent);
 		setLocation(10, getLocation().y);
 		this.setVisible(true);
-		processSlider(slider.getEvalue());
+		slider.setValue(slider.getOldThreshold());
+		processSlider(slider.getEvalueOldThreshold());
 		return 0;
 	}
 	
@@ -158,26 +139,10 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 	 * Handles the button events
 	 */
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == jbtCoverage)
-			resolveOverlapsByCoverage();
-		if(e.getSource() == jbtApply) {
-			dispose();
-		}
-	}
-	
-	private void resolveOverlapsByCoverage() {
-		DomainArrangement[] daSet = view.getDaSet();
-		for (DomainArrangement da : daSet) {
-			List<Domain> toRemove = new OverlapResolver().resolveOverlaps(da);
-			for (Domain dom : toRemove) {
-				da.hideDomain(dom);
-				DomainComponent dc = view.getDomainComponentManager().getComponent(dom);
-				dc.setVisible(false);
-			}
-		}
-		
-		// in proportional view it has to be a structural change
-		view.getDomainLayoutManager().structuralChange(); 
+				if(e.getSource() == jbtApply) {
+					slider.setOldThreshold(slider.getEvalue());
+					dispose();
+				}
 	}
 
 }
