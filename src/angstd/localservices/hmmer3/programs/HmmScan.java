@@ -378,19 +378,7 @@ public class HmmScan implements Hmmer3Program {
 					}
 				
 					DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
-					
-//					if (coddFilter) {
-//					
-//						// TODO domInterator to set dashed lines to putatives
-//						DomainArrangementComponentManager dacm = domResultView.getArrangementComponentManager();
-//						Iterator<DomainComponent> domcIter = dacm.getDomainComponentsIterator();
-//						while(domcIter.hasNext()) {
-//							DomainComponent domc = domcIter.next();
-//							domc.setPutative(true);
-//						}
-//						
-//					}
-						
+				
 					domResultView.setDaSet(arrangementSet);
 					
 					// associate sequences with the found arrangements

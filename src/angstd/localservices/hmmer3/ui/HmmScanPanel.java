@@ -56,8 +56,6 @@ import angstd.ui.wizards.WizardListCellRenderer;
  * TODO:
  * - progressbar issue (inkl. proper calc)
  * - unhandled exceptions
- * - Runtime can only return number of CPUs available to JVM (not System)
- * - After the run, we should be able to attach sequences _directly_ to the arrangements
  * 
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
