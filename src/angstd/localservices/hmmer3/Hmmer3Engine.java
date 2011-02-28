@@ -12,7 +12,7 @@ import angstd.localservices.hmmer3.programs.Hmmer3Program;
  * supported. These can be called statically.
  *  
  *  TODO
- *	launchInBackground() and launch currently do not differ
+ *	- launchInBackground() and launch() currently do not differ
  *  
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
@@ -34,11 +34,11 @@ public class Hmmer3Engine {
 	// the running hmmer3 service 
 	protected Hmmer3Service service;
 	
-	// maps a valid service to its repective executable 
+	// maps a valid service to its respective executable 
 	protected HashMap<String, File> availableServices;
 	
 	/**
-	 * Contructor for a new Hmmer3Engine. The constructor is protected to 
+	 * Constructor for a new Hmmer3Engine. The constructor is protected to 
 	 * support the singleton pattern. 
 	 * Use getInstance().
 	 */

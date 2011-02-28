@@ -15,11 +15,6 @@ public interface Hmmer3Program {
 	/**
 	 * Prepares the arguments for the executor.
 	 * Sets up the arguments in a String[]
-	 * 
-	 * TODO: to ensure design consistency,
-	 * we should probably enfore the return of 
-	 * String[] as that is what the executor
-	 * expects. 
 	 */
 	public void prepare();
 	

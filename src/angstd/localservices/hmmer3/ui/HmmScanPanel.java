@@ -56,6 +56,10 @@ import angstd.ui.wizards.WizardListCellRenderer;
  * TODO:
  * - progressbar issue (inkl. proper calc)
  * - unhandled exceptions
+ * - consider enclosing hmmscan and hmmpress, or,
+ * - ensure that hmmscan and hmmpress are available (not
+ *   only any executable)
+ * - add hmmdb format check
  * 
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
@@ -65,22 +69,22 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private Hmmer3Frame parent;
 	private HashMap<String, File> hmmer3bins;
-	private HashMap<String, String> namedArgs;
 	private HmmScan hmmScan;
 	private JTextField binTF, hmmTF, fastaTF, evalueTF;
 	private JCheckBox gaCkb, biasCkb, coddCkb; 
-	ButtonGroup groupRadio;
+	private ButtonGroup groupRadio;
 	private JRadioButton overlapRadioNone, overlapRadioEvalue, overlapRadioCoverage;
 	private JButton loadBinDir, loadHmmDB, loadFastaFile, run, cancel;
 	private JComboBox cpuCB, selectView;
-	private JLabel thresholdLabel, evalLabel, cpuLabel, biasFilterLabel, gaLabel;
+	private JLabel thresholdLabel, evalLabel, cpuLabel, biasFilterLabel;
 	private JTextArea console;
-	private JProgressBar progressBar;
 	private JPanel ePane, radioPane;
-	private File hmmBinDir, hmmDBFile, fastaFile;
+	private File hmmDBFile, fastaFile;
+	private HashMap<Integer, File> view2file; 
 
 	 
 	public HmmScanPanel(Hmmer3Frame parent) {
+		super();
 		this.parent = parent;
 		setLayout(new MigLayout("", "[left]"));
 		
@@ -110,6 +114,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		evalueTF.setText("0.1"); // default evalue
 		evalLabel = new JLabel("Use E-value");
 		biasFilterLabel = new JLabel("Filter");
+		
 		// the evalue label and field
 		// are conditionally shown if ga is not selected
 		// easier for layout when they are in a seperate Panel
@@ -120,7 +125,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		thresholdLabel = new JLabel("Hit Threshold");
 		
 		cpuLabel = new JLabel("Number of CPUs");
-		progressBar = new JProgressBar();
+		
 		progressBar.setBorderPainted(true);
 		progressBar.setPreferredSize(new Dimension(500,20));
 
@@ -135,8 +140,8 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	
 	    biasCkb = new JCheckBox("Bias filter", true);
 	    
-	    //RadioButton to choose (or not) a post processing method
-	    //to resolve overlaps
+	    // RadioButton to choose (or not) a post processing method
+	    // to resolve overlaps
 	    radioPane = new JPanel();
 		groupRadio = new ButtonGroup();
 	    overlapRadioNone = new JRadioButton("None      ", true);
@@ -151,10 +156,6 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	    overlapRadioNone.setActionCommand("None");
 	    overlapRadioEvalue.setActionCommand("OverlapFilterEvalue");
 	    overlapRadioCoverage.setActionCommand("OverlapFilterCoverage");
-	    /*overlapRadioNone.addActionListener(this);
-	    overlapRadioEvalue.addActionListener(this);
-	    overlapRadioCoverage.addActionListener(this);*/
-	    
 	    
 	    // gathering threshold checkbox. If disabled,
 		// the panel for the evalue is set to visible
@@ -171,6 +172,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			}
 		});
 	    
+	    // available processors to run the job on
 		int availProc = Runtime.getRuntime().availableProcessors();
 		String[] cpuNo = new String[availProc];
 		for (int i = 0; i < availProc; i++) {
@@ -178,7 +180,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			cpuNo[i] = " "+cno;
 		}
 		cpuCB = new JComboBox(cpuNo);
-		cpuCB.setSelectedIndex(0); //default to one proc
+		cpuCB.setSelectedIndex(0); //default to one processor
 		
 		loadBinDir = new JButton("HMMER3 binaries");
 		loadBinDir.setActionCommand("LoadBins");
@@ -290,7 +292,6 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		if (binDir == null || !binDir.canRead())
 			return;
 		
-		hmmBinDir = binDir;
 		binTF.setText(binDir.getAbsolutePath());	
 	}
 	
@@ -352,6 +353,8 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		if (!checkDbDir(new File(hmmTF.getText())))
 			return;
 		
+		// if we have passed all tests, then we are
+		// ready to run hmmer
 		hmmScan = new HmmScan(
 				Hmmer3Engine.getInstance().getAvailableServicePath("hmmscan"), 
 				fastaFile, hmmDBFile, this);
@@ -371,7 +374,6 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			}
 		}
 		hmmScan.setBiasFilter(biasCkb.isSelected());
-		//System.out.println(groupRadio.getSelection().getActionCommand());
 		hmmScan.setOverlapMethod(groupRadio.getSelection().getActionCommand());
 		hmmScan.setCoddFilter(coddCkb.isSelected());
 		
@@ -420,17 +422,24 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	
 	
 	/**
-	 * TODO
-	 * Crude: dunno how to get my hand on the ProgressBar
-	 * to update the bastard, so I declared it as an
-	 * abstract method in HmmerServicePanel. Sucks.
+	 * resets the components of this panel
+	 * is case of an error during a run
+	 * (ie something that is not triggered at start
+	 * or end of a job - non zero exit code)
 	 */
-	public JProgressBar getProgressBar() {
-		return this.progressBar;
+	public void resetPanel() {
+		run.setText("  Run  ");
+		progressBar.setValue(0);
+		progressBar.setIndeterminate(false);
+		run.setEnabled(true);
 	}
 	
+	
+	
+	
 	/**
-	 * Check that the selected bin dir contains a excutable HMMER program
+	 * Check that the selected bin dir contains an executable HMMER program
+	 * (at least one - it should actually check for hmmscan and hmmpress)
 	 * @param binDir
 	 */
 	private boolean checkBins(File binDir) {
@@ -459,13 +468,21 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			binTF.setText("");
 			return false;
 		}
-		hmmBinDir = binDir;
 		Hmmer3Engine.getInstance().setAvailableServices(hmmer3bins);
 		return true;
 
 	}
 	
 	
+	/**
+	 * checks if the selected DB dir contains a pressed
+	 * version of the model database, and allows the user
+	 * to press it if not. NOTE: this does no
+	 * format checking
+	 * 
+	 * @param dbFile
+	 * @return true, if the the DB dir contains necessary files
+	 */
 	private boolean checkDbDir(File dbFile) {
 		// check if pressed files are available
 		if (!HmmPress.hmmFilePressed(dbFile)) {
@@ -491,11 +508,18 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	}
 	
 	
+	/**
+	 * Initiates the sequence views to select from. Creates a
+	 * a temporary fasta file if a sequence view is selected
+	 */
 	private void initSelectViewBox() {
 
 		// get loaded sequence views
 		List<WorkspaceElement> viewList = WorkspaceManager.getInstance().getSequenceViews();
 		WorkspaceElement[] seqViews = viewList.toArray(new ViewElement[viewList.size()]);
+		
+		// initiate the map between seqviews and tmpfiles
+		view2file = new HashMap<Integer, File>();
 		
 		if (seqViews.length == 0) {
 			selectView = new JComboBox(seqViews);
@@ -509,8 +533,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		selectView.setRenderer(new WizardListCellRenderer());
 		selectView.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt) {
-				
-				File fastaTmpFile = null;
+			
 				if (fastaTF.getText().length() > 0) {
 					fastaTF.setText("");
 				}
@@ -523,20 +546,31 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				SequenceView view = ViewHandler.getInstance().getView(selected.getViewInfo());
 				SequenceI[] seqs = view.getSeqs();
 				
+				// check if we already created the tmp fasta for the selected view
+				if ( view2file.containsKey(selected.getViewID()) ) {
+					fastaFile = view2file.get( selected.getViewID() );
+					if (fastaFile.exists() && fastaFile.canRead()) {
+						fastaTF.setText(fastaFile.getAbsolutePath());
+						return;
+					}
+				}
+					
 				// write sequences to tmp file and internally set the sequences file
 				try {
 					console.setText("");
-					fastaTmpFile = File.createTempFile(selected.getTitle()+"_", ".fasta");
+					fastaFile = File.createTempFile(selected.getTitle()+"_", ".fasta");
 					writeToConsole("*** I: Writing sequence view to tmpfile... ");
-					new FastaWriter().wrappedWrite(fastaTmpFile, seqs, 60);
+					new FastaWriter().wrappedWrite(fastaFile, seqs, 60);
 					writeToConsole("done.\n");
 				}
 				catch (Exception e) {
-					System.out.println("Something went wrong when creating the tmp file.");
+					writeToConsole("*** E: Something went wrong while creating the tmp file.\n");
+					writeToConsole("*** I: Please ensure sufficient space and permissions on the system temp dir\n");
+					System.out.println("*** E: Something went wrong when creating the tmp file.");
 					e.printStackTrace();
 				}
-				fastaTF.setText(fastaTmpFile.getAbsolutePath());
-				fastaFile = fastaTmpFile;
+				fastaTF.setText(fastaFile.getAbsolutePath());
+				view2file.put(selected.getViewID(), fastaFile);
 				
 			}
 		});

@@ -23,6 +23,7 @@ public class Hmmer3Frame extends JFrame{
 	 * Constructor for a new Hmmer3Frame
 	**/	
 	public Hmmer3Frame() {
+		super("Local HMMER job");
 		content = new JPanel(new BorderLayout());
 		content.add(new HmmScanPanel(this), BorderLayout.CENTER);
 		getContentPane().add(content);
@@ -31,6 +32,7 @@ public class Hmmer3Frame extends JFrame{
 		setResizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setVisible(true);
+        setAlwaysOnTop(true);
 	}
 		
 }
