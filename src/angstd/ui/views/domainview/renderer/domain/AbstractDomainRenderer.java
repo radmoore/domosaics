@@ -25,7 +25,7 @@ import angstd.ui.views.domainview.layout.DomainLayout;
  * which are needed to do so. The getMethods to those attributes must
  * be implemented by the subclasses and nothing more.
  * 
- * @author Andreas Held
+ * @author Andreas Held, Andrew Moore
  *
  */
 public abstract class AbstractDomainRenderer implements DomainRenderer {
@@ -184,6 +184,18 @@ public abstract class AbstractDomainRenderer implements DomainRenderer {
 	 * 		the stroke used on the domain edge
 	 */
 	public abstract Stroke getStroke(DomainComponent dc, DomainViewI view);
+	
+	/**
+	 * Return the stroke used on the domain edge
+	 * 
+	 * @param dc
+	 * 		the domain component to be rendered
+	 * @param view
+	 * 		the view containing the domain component
+	 * @return
+	 * 		the stroke used on the domain edge
+	 */
+	//public abstract Stroke getPutativeStroke(DomainComponent dc, DomainViewI view);
 	
 	/**
 	 * Return the domains shape

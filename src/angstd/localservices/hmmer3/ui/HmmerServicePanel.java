@@ -11,8 +11,6 @@ import angstd.localservices.hmmer3.programs.Hmmer3Program;
  * in particular for access to the progress bar and console 
  * of the calling panel.
  * 
- * TODO
- * this method is currently in limbo
  * 
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
@@ -22,41 +20,48 @@ public abstract class HmmerServicePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	protected boolean progressable;
-	//protected JProgressBar progressBar;
+	protected JProgressBar progressBar;
 	
 	public HmmerServicePanel() {
-		//progressBar = new JProgressBar();
+		progressBar = new JProgressBar();
 	}
 	
 	public void updateProgress(int val) {
-		//progressBar.setValue(val);
+		progressBar.setValue(val);
 	}
 	
+	
 	public void setIndetermindateProgressBar(boolean value) {
-		//progressBar.setIndeterminate(value);
+		progressBar.setIndeterminate(value);
 	}
 	
 	public boolean isProgressable() {
 		return progressable;
 	}
 
-	public void setProgressable(boolean progressable) {
-		this.progressable = progressable;
+	public void setProgressable(int min, int max) {
+		this.progressable = true;
+		progressBar.setMinimum(min);
+		progressBar.setMaximum(max);
 	}
 	
+	/**
+	 * Write to the console of the calling panel
+	 * @param msg
+	 */
 	public abstract void writeToConsole(String msg);
 	
+	
+	/**
+	 * Enables closing the calling panel
+	 */
 	public abstract void close();
 	
 	/**
-	 * TODO:
-	 * this doesnt seem right, but I simply could not
-	 * get my hands on a the eg. hmmscan panels progress bar
-	 * to be able to change it.
-	 * 
-	 * @return
+	 * Resets all components of the calling panel
+	 * (eg. in case of an error while running the program)
 	 */
-	public abstract JProgressBar getProgressBar();
+	public abstract void resetPanel();
 	
 	
 }

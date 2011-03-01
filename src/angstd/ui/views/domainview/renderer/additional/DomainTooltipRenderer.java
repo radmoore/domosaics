@@ -24,6 +24,9 @@ import angstd.ui.views.view.renderer.Renderer;
  * 
  * @author Andreas Held
  *
+ * TODO:
+ *  * complete the CODD intergration 
+ *
  */
 public class DomainTooltipRenderer implements Renderer {
     
@@ -124,7 +127,7 @@ public class DomainTooltipRenderer implements Renderer {
             g2d.setFont(font);
         }
         elements++;
-        g2d.drawString("From-To: "+dc.getDomain().getFrom()+" - "+dc.getDomain().getTo(),b.x+2,2+b.y+vertical_row_height*elements-4);
+        g2d.drawString("From - To: "+dc.getDomain().getFrom()+" - "+dc.getDomain().getTo(),b.x+2,2+b.y+vertical_row_height*elements-4);
         
         elements++;
         String eval = "E-Value: ";
@@ -134,6 +137,13 @@ public class DomainTooltipRenderer implements Renderer {
         	eval += "not assigned";
         
         g2d.drawString(eval,b.x+2,2+b.y+vertical_row_height*elements-4);
+        
+        
+        if (dc.getDomain().isPutative()) {
+        	elements++;
+            String codd = "CODD STATUS: putative";
+            g2d.drawString(codd,b.x+2,2+b.y+vertical_row_height*elements-4);
+        }
         
         if (view.getDomainLayoutManager().isCompareDomainsMode()  && view.getDomainSearchOrthologsManager().getDomainScore(dc) != -1) {
         	 elements++;
@@ -169,7 +179,7 @@ public class DomainTooltipRenderer implements Renderer {
             elements++;
         }   
         
-        String fromTo = "From-To: "+dc.getDomain().getFrom()+" - "+dc.getDomain().getTo();
+        String fromTo = "From - To: "+dc.getDomain().getFrom()+" - "+dc.getDomain().getTo();
         labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), fromTo);
         width = labelWidth > width ? labelWidth : width;
         elements++;
@@ -182,6 +192,14 @@ public class DomainTooltipRenderer implements Renderer {
         labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), eval);
         width = labelWidth > width ? labelWidth : width;
         elements++;
+        
+        if (dc.getDomain().isPutative()) {
+            String codd = "CODD STATUS: putative";
+            labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), codd);
+            width = labelWidth > width ? labelWidth : width;
+            elements++;
+        }
+        
         
         if (view.getDomainLayoutManager().isCompareDomainsMode() && view.getDomainSearchOrthologsManager().getDomainScore(dc) != -1) {
         	String identity = "Percent identity: "+view.getDomainSearchOrthologsManager().getDomainScore(dc)+"%";

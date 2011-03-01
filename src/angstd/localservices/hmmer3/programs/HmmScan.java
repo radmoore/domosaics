@@ -19,6 +19,9 @@ import angstd.ui.ViewHandler;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
+import angstd.ui.views.domainview.components.ArrangementComponent;
+import angstd.ui.views.domainview.components.DomainComponent;
+import angstd.ui.views.domainview.manager.DomainArrangementComponentManager;
 import angstd.ui.wizards.WizardManager;
 
 /**
@@ -337,49 +340,53 @@ public class HmmScan implements Hmmer3Program {
 	 */
 	public void parseResults() {
 		if (HmmOutReader.checkFileFormat(outfile)) {
+			
 			if (!ga)
-			 HmmOutReader.setThreshold(Double.parseDouble(evalue));
+				HmmOutReader.setThreshold(Double.parseDouble(evalue));
+			
 			arrangementSet = ArrangementImporterUtil.importData(outfile);
 			
 			parent.close();
 			
-			//If the CODD procedure is required, launch it
-			if(coddFilter)
-			{
-			 //System.out.println("codd Filtering");
-			 arrangementSet=ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet);
-			}else
-			{
-			 //Test for another post-processing filter
-			 if(overlapResolvMethod.equals("OverlapFilterEvalue") || overlapResolvMethod.equals("OverlapFilterCoverage") )
-			 {
-			  arrangementSet=OverlapResolver.resolveOverlaps(arrangementSet,overlapResolvMethod);
-			 }else
-			 {
-			  //System.out.println("There");
-			 }
+			// If the CODD procedure is required, launch it
+			if(coddFilter) {
+				// System.out.println("codd Filtering");
+				arrangementSet = ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet);
 			}
+			else {
+			 
+				// Test for another post-processing filter
+				if(overlapResolvMethod.equals("OverlapFilterEvalue") || overlapResolvMethod.equals("OverlapFilterCoverage") ) {
+					arrangementSet = OverlapResolver.resolveOverlaps(arrangementSet, overlapResolvMethod);
+				}
+				else {
+					// System.out.println("There");
+				}
+			}
+			
 			int importedProts = arrangementSet.length;
 			
 			if (importedProts > 0) {
 
-					String defaultName = fasta.getName()+"-hmmscan-results";	
-					// read the sequences in the source fasta file
-					SequenceI[] seqs = new FastaReader().getDataFromFile(fasta);
+				String defaultName = fasta.getName()+"-hmmscan-results";	
+				// read the sequences in the source fasta file
+				SequenceI[] seqs = new FastaReader().getDataFromFile(fasta);
 								
-					String viewName = null;
-					while (viewName == null) {
-						viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
-						if (viewName == null) 
-						MessageUtil.showWarning("A valid view name is needed to complete this action");
-					}
+				String viewName = null;
+				while (viewName == null) {
+					viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
+					if (viewName == null) 
+					MessageUtil.showWarning("A valid view name is needed to complete this action");
+				}
+			
+				DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
+			
+				domResultView.setDaSet(arrangementSet);
 				
-					DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
-					domResultView.setDaSet(arrangementSet);
-					// associate sequences with the found arrangements
-					domResultView.loadSequencesIntoDas(seqs, domResultView.getDaSet());
-					ViewHandler.getInstance().addView(domResultView, null);
-					MessageUtil.showInformation(importedProts+" proteins successfully imported.");
+				// associate sequences with the found arrangements
+				domResultView.loadSequencesIntoDas(seqs, domResultView.getDaSet());
+				ViewHandler.getInstance().addView(domResultView, null);
+				MessageUtil.showInformation(importedProts+" proteins successfully imported.");
 			}
 			else {		
 				MessageUtil.showInformation("No hits found in "+fasta.getName());

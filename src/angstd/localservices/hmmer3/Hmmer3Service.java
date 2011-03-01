@@ -15,6 +15,7 @@ import angstd.model.arrangement.io.HmmOutReader;
 import angstd.model.configuration.Configuration;
 import angstd.model.workspace.ProjectElement;
 import angstd.ui.WorkspaceManager;
+import angstd.ui.util.MessageUtil;
 
 /**
  * A generic class for handeling a {@link Hmmer3Program}. Provides
@@ -105,11 +106,9 @@ public class Hmmer3Service implements ProcessListener{
 	 */
 	public void startInBackground() {
 			
-		hmmerProgram.prepare(); // prepare the argument for the Executor
-		String[] cmd = hmmerProgram.getArgs(); // gets the arguments for the Executor
-		createLogFileWriter(new Date());
-		
-		//logFile = new File()
+		hmmerProgram.prepare(); 				// prepare the argument for the Executor
+		String[] cmd = hmmerProgram.getArgs(); 	// gets the arguments for the Executor
+		createLogFileWriter(new Date()); 		// creates a log file with a writer
 		
 		try {		
 			executor = new Executor(cmd, this);
@@ -141,9 +140,9 @@ public class Hmmer3Service implements ProcessListener{
 	 */
 	public int start() {
 			
-		hmmerProgram.prepare(); // prepare the argument for the Executor
-		String[] cmd = hmmerProgram.getArgs(); // gets the arguments for the Executor
-		createLogFileWriter(new Date());
+		hmmerProgram.prepare(); 				// prepare the argument for the Executor
+		String[] cmd = hmmerProgram.getArgs(); 	// gets the arguments for the Executor
+		createLogFileWriter(new Date()); 		// creates a log file with a writer
 		int retValue = 0; 
 		
 		try {
@@ -170,27 +169,21 @@ public class Hmmer3Service implements ProcessListener{
 	public void outputRecieved(String out, String type) {
 		
 		if (type.equals(StreamHandler.ERROR)) {
-			System.out.println("ERROR>"+out);
-			hmmPanel.writeToConsole("ERROR occurred while running Hmmer3Service: ");
+			System.out.println("*** E: "+out);
+			//hmmPanel.writeToConsole("*** E: occurred while running Hmmer3Service: ");
 			hmmPanel.writeToConsole("*** E: "+ out);
 			hmmPanel.writeToConsole("\n");
 			executor.stop();
 			return;
 		}
-		
 		try {
-			
-			// TODO: write this to logfile
-			// instead of STDOUT
-		    logFileWriter.write(out+"\n");
-	        System.out.println(out);
-	        // writing to the panel is _very_ slow
-			//hmmPanel.writeToConsole(out);
-			}
-			catch(Exception e) {
-				System.out.println("*** E: Problem handling output.");
-				e.printStackTrace();
-			}
+			logFileWriter.write(out+"\n");
+		    System.out.println(out);
+		}
+		catch(Exception e) {
+			System.out.println("*** E: Problem handling output.");
+			e.printStackTrace();
+		}
 			
 	}
 
@@ -213,13 +206,15 @@ public class Hmmer3Service implements ProcessListener{
 		if (res == 0) {
 			hmmerProgram.parseResults();
 		}
-		else
-			System.out.println(hmmerProgram.getName() + " was closed or died unexpectedly.");	
+		else {
+			MessageUtil.showWarning(hmmPanel, hmmerProgram.getName()+" was killed or died unexpectedly.");
+			hmmPanel.resetPanel();
+			System.out.println(hmmerProgram.getName() + " was closed or died unexpectedly.");
+		}
 	}
 
 	
 	private void createLogFileWriter(Date startTime) {
-		// IMPLEMENT
 		File logFile = null;
 		BufferedWriter writer = null;
 		
@@ -246,7 +241,7 @@ public class Hmmer3Service implements ProcessListener{
 			System.out.println("*** E: Problem creating log file: ");
 			e.printStackTrace();
 		}
-		System.out.println("This is the log file: "+logFile.getAbsolutePath());
+		System.out.println("*** I: log file of run: "+logFile.getAbsolutePath());
 		this.logFile = logFile;
 		logFileWriter = writer;
 	
