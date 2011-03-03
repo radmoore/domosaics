@@ -252,7 +252,9 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		
 		//System.out.println("shoot!");
 		//annotationSpawner.startMultiThreadSpawn();
+		
 		annotationSpawner.startSingleThreadSpawn();
+		apply.setEnabled(true);
 	}
 		
 
@@ -301,47 +303,46 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * Layouts the panels components using MigLayout.
 	 */
 	private void initPanel() {
+		//add(loadBinDir, "gap 5, w 165!");
+		//add(binTF, "h 25!, gap 5, span2, growX, wrap");
+		
+		
 		// sequences
 		add(new JXTitledSeparator("Sequences"), "growx, span, wrap, gaptop 10");
-		add(loadSeqs,     						"gap 10");
-		add(seqPath,							"gap 10, span 2, growX, wrap");
-		add(new JLabel("Or Select Loaded View:"),"gap 10");
-		add(selectView,     					"gap 10, span 2, growX, wrap");
+		
+		add(loadSeqs, "w 165!, gap 5");
+		add(seqPath, "h 25!, span, growX, wrap");
+		
+		add(new JLabel("Or select view:"), "gap 5");
+		add(selectView, "h 25!, span, growX, wrap");
+		//add(selectView,     					"gap 10, span 2, growX, wrap");
 		
 		// parameter
-		add(new JXTitledSeparator("Parameters"),"growx, span, wrap, gaptop 10");
-		add(new JLabel("Your e-mail:"),  		"gap 10");
-		add(email,     							"span, growx, wrap");
-		add(new JLabel("Evalue Threshold:"),	"gap 10");
-		add(evalue,     						"growx, wrap");
+		add(new JXTitledSeparator("Parameters"),"growX, span, wrap, gaptop 10");
+		add(new JLabel("Your e-mail:"), "gap 5");
+		add(email, "h 25!, span, growX, wrap");
 	 
-		// methods 
-		add(new JXTitledSeparator("Methods"),	"growx, span, wrap, gaptop 10");
-		for (Method m : Method.values()) {
-			if ((m.ordinal()+1) % 4 != 0)
-				add(methods[m.ordinal()],		"gap 10");
-			else
-				add(methods[m.ordinal()],		"gap 10, wrap");
-		}
-		add(new JLabel(""),						"wrap");					
-		 
-		// buttons
 		add(new JXTitledSeparator("Submit job to Interpro / EBI"),  "growx, span, wrap, gaptop 10");
-		add(new JLabel(""));
-		add(submit,  							"gaptop 10, span 2, center, wrap");
+		
+		JPanel methodPane = new JPanel();
+		for (Method m : Method.values())
+			methodPane.add(methods[m.ordinal()]);
+
+		add(methodPane, "span");
+		add(submit, "w 165!, wrap");
 
 		// console
 		add(new JXTitledSeparator("Console"),	"growx, span, wrap, gaptop 10");
-		add(new JScrollPane(console),			"gap 10, span, wrap");	
+		add(new JScrollPane(console),			"span, align center, wrap");	
 		 
 		// progressbar
 		add(new JXTitledSeparator("Progress"), "growx, span, wrap, gaptop 10");
-		add(progressBar,						"gap 10, span, growx, wrap");
+		add(progressBar,						"h 25!, gap 10, span, growX, wrap");
 		
 		// apply
 		add(new JXTitledSeparator("Apply Results"), "growx, span, wrap, gaptop 10");
-		add(apply,								"gap 10");
-		add(cancel,								"gap 10, wrap");	
+		add(apply, "gap 5, split 2");
+		add(cancel, "wrap");	
 	}
 	
 	/* ************************************************************* *
@@ -357,6 +358,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		});
 		
 		apply = new JButton ("Apply");
+		apply.setEnabled(false);
 		apply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				apply();
@@ -449,7 +451,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	}
 	
 	private void initEvalText() {
-		evalue = new JTextField("2.04E-4");
+		evalue = new JTextField("2.04E-4", 25);
 //		evalue.setForeground(new Color(60, 120, 30));
 		evalue.setEditable(false);
 //		evalue.getDocument().addDocumentListener(new DocumentListener() {
@@ -475,9 +477,9 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	}
 	
 	private void initConsole() {
-		console = new JTextArea ();
-		console.setFont(new Font ("Courier", 0, 14));	// style plain, size 14
-		console.setColumns(50);
+		console = new JTextArea();
+		console.setFont(new Font ("Courier", 0, 12));	// style plain, size 14
+		console.setColumns(70);
 		console.setLineWrap(true);
 		console.setRows(8);
 		console.setWrapStyleWord(false);				// wrap on chars
