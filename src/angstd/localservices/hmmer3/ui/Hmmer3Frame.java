@@ -27,6 +27,7 @@ public class Hmmer3Frame extends JFrame{
 		content = new JPanel(new BorderLayout());
 		content.add(new HmmScanPanel(this), BorderLayout.CENTER);
 		getContentPane().add(content);
+		setSize(500, 500);
 		pack();
 		setLocationRelativeTo(null);
 		setResizable(true);

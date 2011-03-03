@@ -20,7 +20,7 @@ import angstd.model.arrangement.io.GatheringThresholdsReader;
  * 
  * @author Andreas Held
  * 
- * TODO ask if pfam or normal id should be used
+ * 
  *
  */
 public class InterProScanResultParser {
