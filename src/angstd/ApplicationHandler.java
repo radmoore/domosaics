@@ -17,6 +17,7 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 import angstd.model.arrangement.io.GatheringThresholdsReader;
+import angstd.model.arrangement.io.Pfam2GOreader;
 import angstd.model.configuration.Configuration;
 import angstd.model.configuration.ConfigurationReader;
 import angstd.model.configuration.ConfigurationWriter;
@@ -118,11 +119,9 @@ public class ApplicationHandler {
 		startUpProgress = new StartupPage();
 		
 		startUpProgress.setProgress("Loading ANGSTD", 5);
-//		startUpProgress.setProgress("Teach english vocabularies", 5);
 		initPreferences();
 		
-		startUpProgress.setProgress("Loading ANGSTD", 25);
-//		startUpProgress.setProgress("Draw a map to the workspace", 25);
+		startUpProgress.setProgress("Initiating workspace", 25);
 		initWorkspaceDir();
 		
 		startUpProgress.setProgress("Checking Java version", 60);
@@ -160,11 +159,11 @@ public class ApplicationHandler {
 		initLastWorkspace();
 
 		//Reading the gathering thresholds
-		startUpProgress.setProgress("Reading thresholds ", 85);
+		startUpProgress.setProgress("Reading thresholds and annotation data ", 85);
 		GatheringThresholdsReader.read();
+		Pfam2GOreader.readFile();
 		
-		startUpProgress.setProgress("Enjoy... ", 100);
-//		startUpProgress.setProgress("Set sails", 100);
+		startUpProgress.setProgress("Have fun... ", 100);
 		startUpProgress.dispose();
 		
 		

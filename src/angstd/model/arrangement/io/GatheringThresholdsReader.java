@@ -14,38 +14,58 @@ import java.util.Map;
 
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainFamily;
+import angstd.model.arrangement.DomainType;
 import angstd.ui.util.MessageUtil;
 
-public class GatheringThresholdsReader
-{
+public class GatheringThresholdsReader {
 
- protected static Map<String, DomainFamily> domFamilyMap = new HashMap<String, DomainFamily>();
+	protected static Map<String, DomainFamily> domFamilyMap;
+	protected static Map<String, String> id2acc, acc2id;
 
- public static void read()
- {
-  domFamilyMap = new HashMap<String , DomainFamily >();
-	   
-  BufferedReader in;
-  try
-  {
-   URL path = GatheringThresholdsReader.class.getResource("resources/gath-Thresholds_Pfam-v24.0");
-   in = new BufferedReader(new FileReader(path.getFile()));
-   String line;
-   while((line = in.readLine()) != null)
-   {
-    if(!line.isEmpty())			
-    {
-     String[] entryFields = line.split(" ");
-     DomainFamily d=new DomainFamily(entryFields[1], entryFields[0], Double.parseDouble(entryFields[2]), Double.parseDouble(entryFields[3]));
-     domFamilyMap.put(entryFields[1], d);
-    }
-   }
-  }
-  catch(Exception e1)
-  {
-   MessageUtil.showWarning("No corresponding Gathering threshold file");
-   e1.printStackTrace();
-  }
+	
+	 /**
+	  * REturns the only allowed instance of the domFamilyMap.
+	  * 
+	  */
+	 public static Map<String, DomainFamily> getInstance() {
+		 if (domFamilyMap == null)
+			 read();
+		 
+		 return domFamilyMap;
+	 }
+	
+	 
+	public static void read() {
+		
+		domFamilyMap = new HashMap<String , DomainFamily >();
+		acc2id = new HashMap<String, String>();
+		id2acc = new HashMap<String, String>();
+		
+		BufferedReader in;
+		
+		try {
+			URL path = GatheringThresholdsReader.class.getResource("resources/gath-Thresholds_Pfam-v24.0");
+			in = new BufferedReader(new FileReader(path.getFile()));
+			String line;
+			while((line = in.readLine()) != null) {
+				if(!line.isEmpty()) {
+					String[] entryFields = line.split(" ");
+					DomainFamily d=new DomainFamily(entryFields[1], entryFields[0], DomainType.PFAM, Double.parseDouble(entryFields[2]), Double.parseDouble(entryFields[3]));
+					domFamilyMap.put(entryFields[0], d);
+				}
+			}
+		}
+  
+		catch(Exception e1) {
+			MessageUtil.showWarning("No corresponding Gathering threshold file");
+			e1.printStackTrace();
+		}
+	}
+
+	
+
+	
+	
  /* catch(NumberFormatException e2)
   {
    MessageUtil.showWarning("Error while parsing Gathering threshold file.");
@@ -56,19 +76,7 @@ public class GatheringThresholdsReader
    MessageUtil.showWarning("Error while reading/parsing Gathering threshold file.");
    e3.printStackTrace();
   }*/
- }
+
  
- /**
-  * REturns the only allowed instance of the domFamilyMap.
-  * 
-  */
- public static Map<String, DomainFamily> getInstance()
- {
-  if (domFamilyMap == null)
-  {
-   read();
-  }
-  return domFamilyMap;
- }
- 
+
 }

@@ -1,7 +1,13 @@
 package angstd.model.arrangement;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
+import angstd.model.GO.GeneOntologyTerm;
+
 /**
- * Class DomainFamily represents just represents the attributes
+ * Class DomainFamily represents the attributes
  * of a domain family.
  * 
  * @author Andreas Held
@@ -9,14 +15,26 @@ package angstd.model.arrangement;
  */
 public class DomainFamily  {
 
-	/** family id */
+	/** family id, secondary id */
 	protected String id;
-	/** family accession number */
-	protected String acc="";
+	
+	/** family accession number, primary id */
+	protected String acc;
+	
 	/** Required threshold to detect the domain occurrence */
 	private double gathThreshByDom;
+	
 	/** Required threshold to detect the family (adding all occurrences) */
 	private double gathThreshByFam;
+	
+    /** Pfam, SMART, superfamily, pir **/
+    protected DomainType type;
+    
+    /** GO Terms **/
+    protected HashMap<String, GeneOntologyTerm> goTerms;
+    
+    
+    
 	
 	/**
 	 * Constructor for a new DomainFamily of Pfam database.
@@ -30,11 +48,13 @@ public class DomainFamily  {
 	 * @param gath2
 	 * 		Required threshold to detect the family (adding all occurrences)
 	 */
-	public DomainFamily(String id, String acc, double gath1, double gath2) {
+	public DomainFamily(String id, String acc, DomainType type, double gath1, double gath2) {
 		this.id = id;
 		this.acc = acc;
+		this.type = type;
 		this.gathThreshByDom = gath1;
 		this.gathThreshByFam = gath2;
+		
 	}
 	
 	/**
@@ -42,10 +62,12 @@ public class DomainFamily  {
 	 * except Pfam).
 	 * 
 	 * @param id
-	 * 		family id
+	 * 		family acc
 	 */
-	public DomainFamily(String acc) {
-		this.id = acc;
+	public DomainFamily(String acc, String id, DomainType type) {
+		this.acc = acc;
+		this.id = null;
+		this.type = type;
 	}
 	
 	/**
@@ -98,6 +120,37 @@ public class DomainFamily  {
 	public String getID() {
 		return id;
 	}
+	
+	
+	public DomainType getDomainType() {
+		return this.type;
+	}
+	
+	
+	public void addGoTerm(GeneOntologyTerm goTerm) {
+		if (goTerms == null)
+			goTerms = new HashMap<String, GeneOntologyTerm>();
+		
+		goTerms.put(goTerm.getID(), goTerm);
+	}
+	
+	public boolean hasGoAnnotation() {
+		return (! (goTerms == null) );
+	}
+	
+	public boolean hasGoTerm(String gid) {
+		return (goTerms == null) ? false : goTerms.containsKey(gid);
+	}
+	
+	
+	public int totalGoTerms() {
+		return (goTerms == null) ? 0 : goTerms.size(); 
+	}
+	
+	public Iterator getGoTerms() {
+		return this.goTerms.values().iterator();
+	}
+	
 	
 	/**
 	 * Checks if two domain families are equal. <b>

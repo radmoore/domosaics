@@ -261,7 +261,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		add(coddCkb, "gap 5, span 2, growX, wrap");
 
 		add(new JXTitledSeparator("Progress"), "growX, span, wrap, gaptop 10");
-		add(progressBar, "gap 5, span3, growX, wrap");
+		add(progressBar, "h 25!, gap 5, span3, growX, wrap");
 		
 		add(new JXTitledSeparator("Console"), "growX, span, wrap, gaptop 10");
 		add(new JScrollPane(console), "align center, span, wrap");	

@@ -78,10 +78,6 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 		this.evalue = evalue;
 	}
 	
-	public String getFamID() {
-		return fam.getID();
-	}
-	
 	/**
 	 * Sets the amino acid sequence for this domain and a new starting point.
 	 * This is because the parameters from xdom files never take gaps into
@@ -144,6 +140,10 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 	 */
 	public String getID() {
 		return fam.getID();
+	}
+	
+	public String getAcc() {
+		return fam.getAcc();
 	}
 	
 	/**

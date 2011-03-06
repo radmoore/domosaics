@@ -12,6 +12,7 @@ import java.util.Map;
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
+import angstd.model.arrangement.DomainType;
 import angstd.model.io.AbstractDataReader;
 import angstd.ui.util.MessageUtil;
 
@@ -143,13 +144,13 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 		
 	}
 
-	
+	// TODO: change this to acc!
 	private List<DomainArrangement> parsePfamScan(BufferedReader in) {
 		
 		List<DomainArrangement> arrList = new ArrayList<DomainArrangement>();
 		int from, to;
 		double evalue, score;
-		String line, acc;
+		String line, id;
 		String prevProtID		= null;
 		String currentProtID 	= null;
 		DomainArrangement prot 	= null;
@@ -174,13 +175,13 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				to	 		= Integer.parseInt(entryFields[2]);
 				score		= Double.parseDouble(entryFields[11]);
 				evalue		= Double.parseDouble(entryFields[12]);
-				acc			= entryFields[6];
-				domFamily 	= GatheringThresholdsReader.getInstance().get(acc);
+				id			= entryFields[6];
+				domFamily 	= GatheringThresholdsReader.getInstance().get(id);
 				
 				if (domFamily == null) { 				
-					domFamily = new DomainFamily(acc);
+					domFamily = new DomainFamily(id, null, DomainType.PFAM);
 //					domFamily.setPfamID(pfamID);
-					GatheringThresholdsReader.getInstance().put(acc, domFamily);
+					GatheringThresholdsReader.getInstance().put(id, domFamily);
 				}
 				
 					
@@ -231,12 +232,13 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 		
 		int protLength, from, to;
 		double evalue, score;
-		String line, acc;
+		String line, acc, id;
 		String prevProtID		= null;
 		String currentProtID 	= null;
 		DomainArrangement prot 	= null;
 		DomainFamily domFamily 	= null;
 		Domain dom 				= null;
+		DomainType dType		= null;
 		
 		
 		try {
@@ -256,10 +258,13 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				to	 		= Integer.parseInt(entryFields[18]);
 				evalue		= Double.parseDouble(entryFields[12]);
 				score		= Double.parseDouble(entryFields[13]);
-				acc			= entryFields[0]; // actually: name:
+				id			= entryFields[0];
+				acc 		= entryFields[1].split(".")[0];
 				domFamily 	= GatheringThresholdsReader.getInstance().get(acc);
+				dType 		= DomainType.getType(acc);
+				
 				if (domFamily == null) { 				
-					domFamily = new DomainFamily(acc);
+					domFamily = new DomainFamily(acc, id, dType);
 //					domFamily.setPfamID(pfamID);
 					GatheringThresholdsReader.getInstance().put(acc, domFamily);
 				}

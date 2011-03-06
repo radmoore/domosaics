@@ -24,6 +24,7 @@ import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.swingx.JXTitledSeparator;
 
+import angstd.model.arrangement.DomainArrangement;
 import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
@@ -38,6 +39,7 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.wizards.WizardListCellRenderer;
 import angstd.ui.wizards.WizardManager;
+import angstd.util.CheckConnectivity;
 import angstd.webservices.interproscan.AnnotationThreadSpawner;
 import angstd.webservices.interproscan.AnnotatorProcessWriter;
 import angstd.webservices.interproscan.Method;
@@ -164,15 +166,17 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		File dummy = new File(seqPath.getText());
 		String defaultName = dummy.getName().split("\\.")[0];
 		
-		// create sequence view if it comes from a file
-		if (seqPath.getText().length() > 0) {
-			SequenceView view = ViewHandler.getInstance().createView(ViewType.SEQUENCE, defaultName+"_seqs");
-			view.setSeqs(annotationSpawner.getSeqs());
-			ViewHandler.getInstance().addView(view, null);
+		
+		DomainArrangement[] domArrs = annotationSpawner.getResult().get();
+		
+		if (domArrs == null) {
+			progressBar.setValue(100);
+			MessageUtil.showInformation("No siginificant hits found.");
+			return;
 		}
 		
 		// add annotated domain view
-		if (annotationSpawner.getResult().get().length != 0) {
+		if (domArrs.length != 0) {
 			// force the user to enter a valid name for the view
 			String viewName = null;
 			while (viewName == null) {
@@ -180,10 +184,19 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				if (viewName == null) 
 					MessageUtil.showWarning("A valid view name is needed to complete this action");
 			}
-			
+		
+		
 			DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
-			domResultView.setDaSet(annotationSpawner.getResult().get());
-			domResultView.loadSequencesIntoDas(annotationSpawner.getSeqs(), annotationSpawner.getResult().get());
+			domResultView.setDaSet(domArrs);
+			domResultView.loadSequencesIntoDas(annotationSpawner.getSeqs(), domArrs);
+			
+			// create sequence view if it comes from a file
+			if (seqPath.getText().length() > 0) {
+				SequenceView view = ViewHandler.getInstance().createView(ViewType.SEQUENCE, defaultName+"_seqs");
+				view.setSeqs(domResultView.getSequences());
+				ViewHandler.getInstance().addView(view, null);
+			}
+			
 			ViewHandler.getInstance().addView(domResultView, null);
 		}
 		
@@ -214,6 +227,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * Submits a new annotation job for all sequences
 	 */
 	public void submitJob() {
+			
 		console.setText("");
 	//	System.out.println("Want to submit!");
 		if(annotationSpawner.isRunning()) {
@@ -250,8 +264,20 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		annotationSpawner.setEmail(email.getText());
 		annotationSpawner.setMethod(methodStr.toString());
 		
+		// check inet connectivity
+		if (!CheckConnectivity.checkInternetConnectivity()) {
+			MessageUtil.showWarning("Please check your intenet connection (connection failed)");
+			return;
+		}
+		if (!CheckConnectivity.addressAvailable("http://www.ebi.ac.uk/Tools/webservices/wsdl/WSsInterProScan.wsdl")) {
+			MessageUtil.showWarning("Cannot connect to EBI webservices. Please try again later.");
+			return;
+		}
+		
+		
 		//System.out.println("shoot!");
 		//annotationSpawner.startMultiThreadSpawn();
+		
 		
 		annotationSpawner.startSingleThreadSpawn();
 		apply.setEnabled(true);
@@ -349,6 +375,9 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * 					COMPONENTS INITIALIZATION					 *
 	 * ************************************************************* */
 
+	
+	
+	
 	private void initFinalButtons() {
 		submit = new JButton("Submit Job");
 		submit.addActionListener(new ActionListener() {
@@ -378,20 +407,28 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		List<WorkspaceElement> viewList = WorkspaceManager.getInstance().getSequenceViews();
 		WorkspaceElement[] seqViews = viewList.toArray(new ViewElement[viewList.size()]);
 		
+		if (seqViews.length == 0) {
+			selectView = new JComboBox(seqViews);
+			selectView.setSelectedItem(null);
+			selectView.setEnabled(false);
+			return;
+		}
+		
 		selectView = new JComboBox(seqViews);
 		selectView.setSelectedItem(null);
 		selectView.setRenderer(new WizardListCellRenderer());
 		selectView.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt) {
-				if (seqPath.getText().length() > 0) {
-					print("Already loaded a sequence file");
-					selectView.setSelectedItem(null);
-					return;
-				}
+				seqPath.setText("");
 				JComboBox cb = (JComboBox)evt.getSource();
 				ViewElement selected = (ViewElement)cb.getSelectedItem();
+				if (selected == null) {
+					return;
+				}
 				SequenceView view = ViewHandler.getInstance().getView(selected.getViewInfo());
 				annotationSpawner.setSeqs(view.getSeqs());
+
+				
 			}
 		});
 	}
@@ -400,11 +437,13 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		loadSeqs = new JButton("Load Sequences");
 		loadSeqs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
+				if (!(selectView.getSelectedItem() == null)) {
+					//MessageUtil.showWarning("You have already loaded sequences, deselecting.");
+					selectView.setSelectedItem(null);
+				}
 				File file = FileDialogs.showOpenDialog(instance);
-				if(file != null) 
+				if(file != null && file.canRead()) {
 					seqPath.setText(file.getAbsolutePath());
-				if(file != null) { 
-					// load seqs
 					annotationSpawner.setSeqs((SequenceI[]) new FastaReader().getDataFromFile(file));
 				}
 			}
@@ -485,7 +524,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		console.setWrapStyleWord(false);				// wrap on chars
 		console.setEditable(false);
 	}
-
 
 
 }

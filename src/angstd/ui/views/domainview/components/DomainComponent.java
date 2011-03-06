@@ -69,7 +69,11 @@ public class DomainComponent extends AbstractViewComponent {
      * 		label for the domain
      */
     public String getLabel(){
-		String label = getDomain().getID();
+    	String label = getDomain().getID();
+    	if (label == null) {
+    		label = getDomain().getAcc();
+    	}
+    	
 		if(label != null && !label.trim().isEmpty()) 
 			return label;
 		return null;

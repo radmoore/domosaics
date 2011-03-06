@@ -13,6 +13,7 @@ import java.util.Map;
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
+import angstd.model.arrangement.DomainType;
 import angstd.model.io.AbstractDataReader;
 import angstd.model.io.DataReader;
 import angstd.ui.util.MessageUtil;
@@ -195,9 +196,11 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 		
 		// first get the domain family id and check whether or not the domain family already occurred within the document
 		String domFamilyID = token[actToken+2];
+		DomainType dType = DomainType.getType(domFamilyID);
 		domFamily = GatheringThresholdsReader.getInstance().get(domFamilyID);
+		
 		if (domFamily == null) { 				
-			domFamily = new DomainFamily(domFamilyID);
+			domFamily = new DomainFamily(domFamilyID, null, dType);
 //			domFamily.setPfamID(pfamID);
 			GatheringThresholdsReader.getInstance().put(domFamilyID, domFamily);
 		}

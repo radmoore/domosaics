@@ -70,7 +70,7 @@ public class DomainGraph extends prefuse.data.Graph {
 	 */
 	public Node addNode(Domain domain) {
     	Node n = this.addNode(); 
-    	n.setString("name", domain.getFamID());
+    	n.setString("name", domain.getID());
 		n.set("image", getImage4Domain(domain.getFamily()));
 		n.setInt("connectivity", 0);
 		n.setInt("status", 0);

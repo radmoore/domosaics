@@ -72,23 +72,23 @@ public class DomainGraphFactory {
 			Domain actDom = null;
 			if (iter.hasNext()) {
 				actDom = iter.next();
-				if(addedNodes.get(actDom.getFamID())==null) {
+				if(addedNodes.get(actDom.getID())==null) {
 					Node node = graph.addNode(actDom);
-					addedNodes.put(actDom.getFamID(), node);
+					addedNodes.put(actDom.getID(), node);
 				}
 			}
 			
 			while(iter.hasNext()) {
 				Domain nextDom = iter.next();
 				Node target = null;
-				if(addedNodes.get(nextDom.getFamID())==null) {
+				if(addedNodes.get(nextDom.getID())==null) {
 					target = graph.addNode(nextDom);
-					addedNodes.put(nextDom.getFamID(), target);
+					addedNodes.put(nextDom.getID(), target);
 				} else
-					target = addedNodes.get(nextDom.getFamID());
+					target = addedNodes.get(nextDom.getID());
 				
 				// check if there already exists an edge
-				Node source = addedNodes.get(actDom.getFamID());
+				Node source = addedNodes.get(actDom.getID());
 				
 				// no connection to a node itself
 				if (source.equals(target)) {
