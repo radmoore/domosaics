@@ -147,6 +147,7 @@ public class InterProScanResultParser {
 				
 				while (m.find()) {
 					String gid = m.group();
+					// TODO: what if term does not exist?
 					GeneOntology go = GeneOntology.getInstance();
 					GeneOntologyTerm term = go.getTerm(gid);
 					if (!(dFam.hasGoTerm(gid)))

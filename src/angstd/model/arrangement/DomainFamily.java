@@ -66,7 +66,7 @@ public class DomainFamily  {
 	 */
 	public DomainFamily(String acc, String id, DomainType type) {
 		this.acc = acc;
-		this.id = null;
+		this.id = id;
 		this.type = type;
 	}
 	
@@ -118,6 +118,9 @@ public class DomainFamily  {
 	 * 		family id
 	 */
 	public String getID() {
+		if (id == null)
+			return acc;
+		
 		return id;
 	}
 	

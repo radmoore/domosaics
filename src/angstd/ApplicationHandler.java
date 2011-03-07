@@ -124,11 +124,11 @@ public class ApplicationHandler {
 		startUpProgress.setProgress("Initiating workspace", 25);
 		initWorkspaceDir();
 		
-		startUpProgress.setProgress("Checking Java version", 60);
+		startUpProgress.setProgress("Checking Java version", 50);
 //		startUpProgress.setProgress("Paint the main frame", 60);
 		initGUI();
 		
-		startUpProgress.setProgress("Checking Java version", 75);
+		startUpProgress.setProgress("Checking Java version", 60);
 		
 		/**
 		 * TODO
@@ -154,14 +154,17 @@ public class ApplicationHandler {
 			//System.exit(-1);
 		}	
 		
-		// END of workaround
-//		startUpProgress.setProgress("Restore the publication data", 75);
-		initLastWorkspace();
-
 		//Reading the gathering thresholds
-		startUpProgress.setProgress("Reading thresholds and annotation data ", 85);
+		startUpProgress.setProgress("Reading data files", 70);
 		GatheringThresholdsReader.read();
 		Pfam2GOreader.readFile();
+		
+		
+		// END of workaround
+		startUpProgress.setProgress("Restoring projects", 85);
+		initLastWorkspace();
+
+
 		
 		startUpProgress.setProgress("Have fun... ", 100);
 		startUpProgress.dispose();

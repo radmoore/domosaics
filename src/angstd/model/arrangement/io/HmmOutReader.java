@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
@@ -259,7 +261,14 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				evalue		= Double.parseDouble(entryFields[12]);
 				score		= Double.parseDouble(entryFields[13]);
 				id			= entryFields[0];
-				acc 		= entryFields[1].split(".")[0];
+				
+				//PF\d+\.\d+ issue
+				String accF = entryFields[1];
+				acc			= accF.split("\\.")[0];
+				
+				
+				
+				
 				domFamily 	= GatheringThresholdsReader.getInstance().get(acc);
 				dType 		= DomainType.getType(acc);
 				
