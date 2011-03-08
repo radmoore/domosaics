@@ -57,7 +57,7 @@ public class DomainCluster  {
 		res.append("Cluster with "+doms.size()+" domains: \n");
 		res.append("Coverage "+from+"-"+to+" \n");
 		for (Domain dom: doms)
-			res.append("Entry: "+dom.getFamID()+" \n");
+			res.append("Entry: "+dom.getID()+" \n");
 		res.append("\n");
 		return res.toString();
 	}

@@ -15,14 +15,20 @@ import angstd.model.arrangement.io.ArrangementImporterUtil;
 import angstd.model.arrangement.io.HmmOutReader;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
+import angstd.model.workspace.ProjectElement;
+import angstd.model.workspace.ViewElement;
 import angstd.ui.ViewHandler;
+import angstd.ui.WorkspaceManager;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.domainview.manager.DomainArrangementComponentManager;
+import angstd.ui.views.sequenceview.SequenceView;
+import angstd.ui.views.view.View;
 import angstd.ui.wizards.WizardManager;
+
 
 /**
  * Class to run a local version of hmmscan (Hmmer3).
@@ -46,16 +52,17 @@ import angstd.ui.wizards.WizardManager;
 public class HmmScan implements Hmmer3Program {
 
 	
-	protected File hmmScanBin, fasta, hmmDB, outfile;
-	protected boolean ga, biasFilter, coddFilter;
+	private File hmmScanBin, fasta, hmmDB, outfile;
+	private boolean ga, biasFilter, coddFilter;
 	
-	protected int totalFastaEntries, completedScans;
-	protected String name, evalue, cpu, overlapResolvMethod;
-	protected String[] args;
-	protected HmmerServicePanel parent;
+	private int totalFastaEntries, completedScans;
+	private String name, evalue, cpu, overlapResolvMethod;
+	private String[] args;
+	private HmmerServicePanel parent;
 	
-	protected DomainArrangement[] arrangementSet;
-	protected HmmOutReader parser;
+	private DomainArrangement[] arrangementSet;
+	private ViewElement seqView;
+//	private HmmOutReader parser;
 	
 	/**
 	 * Default constructor
@@ -71,6 +78,7 @@ public class HmmScan implements Hmmer3Program {
 		this.hmmDB = hmmDB;
 		this.parent = parent;
 		this.name = "HMMSCAN";
+		this.seqView = null;
 	}
 	
 	/**
@@ -88,6 +96,7 @@ public class HmmScan implements Hmmer3Program {
 		this.parent = parent;
 		this.cpu = cpu;
 		this.name = "HMMSCAN";
+		this.seqView = null;
 	}
 	
 	/**
@@ -182,6 +191,17 @@ public class HmmScan implements Hmmer3Program {
 	public void setParentPanel(HmmerServicePanel parentPanel) {
 		this.parent = parentPanel;
 	}
+	
+
+	/**
+	 * set the sequence view from which the sequences were extracted
+	 * (if from seq not from view, create an according sequence view)
+	 * @param fromView
+	 */
+	public void setSeqView(ViewElement seqView) {
+		this.seqView = seqView;
+	}
+	
 	
 	/**
 	 * Set the executable of this service
@@ -339,28 +359,23 @@ public class HmmScan implements Hmmer3Program {
 	 * with domains are attached to the DomainView.
 	 */
 	public void parseResults() {
+		
 		if (HmmOutReader.checkFileFormat(outfile)) {
 			
 			if (!ga)
 				HmmOutReader.setThreshold(Double.parseDouble(evalue));
 			
 			arrangementSet = ArrangementImporterUtil.importData(outfile);
-			
 			parent.close();
 			
-			// If the CODD procedure is required, launch it
+			// If the CODD procedure was requested, launch
 			if(coddFilter) {
-				// System.out.println("codd Filtering");
 				arrangementSet = ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet);
 			}
 			else {
-			 
-				// Test for another post-processing filter
+				// test for another post-processing filter
 				if(overlapResolvMethod.equals("OverlapFilterEvalue") || overlapResolvMethod.equals("OverlapFilterCoverage") ) {
 					arrangementSet = OverlapResolver.resolveOverlaps(arrangementSet, overlapResolvMethod);
-				}
-				else {
-					// System.out.println("There");
 				}
 			}
 			
@@ -368,7 +383,16 @@ public class HmmScan implements Hmmer3Program {
 			
 			if (importedProts > 0) {
 
-				String defaultName = fasta.getName()+"-hmmscan-results";	
+				String defaultName;
+				
+				// external fasta was used
+				if (seqView == null) {
+					defaultName = fasta.getName() + "-hmmscan-results";
+				}
+				else {
+					defaultName = seqView.getTitle()+"-hmmscan-results";
+				}
+					
 				// read the sequences in the source fasta file
 				SequenceI[] seqs = new FastaReader().getDataFromFile(fasta);
 								
@@ -376,31 +400,47 @@ public class HmmScan implements Hmmer3Program {
 				while (viewName == null) {
 					viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
 					if (viewName == null) 
-					MessageUtil.showWarning("A valid view name is needed to complete this action");
+						if (MessageUtil.showDialog("You will loose the hmmscan results. Are you sure?"))
+							// will not tmp files, just in case
+							return;
 				}
 			
-				DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
-			
-				domResultView.setDaSet(arrangementSet);
+				DomainViewI resultDAView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
+				resultDAView.setDaSet(arrangementSet);
+				resultDAView.loadSequencesIntoDas(seqs, resultDAView.getDaSet());
 				
-				// associate sequences with the found arrangements
-				domResultView.loadSequencesIntoDas(seqs, domResultView.getDaSet());
-				ViewHandler.getInstance().addView(domResultView, null);
+				
+				// only create a sequence view if the sequences came from a file
+				if (seqView == null) {
+					SequenceView resultSeqView = ViewHandler.getInstance().createView(ViewType.SEQUENCE, defaultName+"_seqs");
+					resultSeqView.setSeqs(resultDAView.getSequences());
+					ViewHandler.getInstance().addView(resultSeqView, null);
+				}
+				// add domain view now, so that it is active
+				ViewHandler.getInstance().addView(resultDAView, null);
 				MessageUtil.showInformation(importedProts+" proteins successfully imported.");
 			}
-			else {		
-				MessageUtil.showInformation("No hits found in "+fasta.getName());
+			else {
+				String name = (seqView == null) ? fasta.getName() : seqView.getTitle();
+				MessageUtil.showInformation("No significant hits found in "+ name);
 			}
 		}
-		else {		
-			MessageUtil.showInformation("No hits found in "+ fasta.getName());
+		else {
+			String name = (seqView == null) ? fasta.getName() : seqView.getTitle();
 			parent.close();
+			MessageUtil.showInformation("No hits found in "+ name);
+			
 		}
+		outfile.delete();
+		// if seqs came from a view, delete the tmp fasta file
+		if (!(seqView == null))
+			fasta.delete();
 	}
 	
 	public int returnValue(int result) {
 		return result;
 	}
+	
 	
 	/**
 	 * Counts the number of fasta entries that will

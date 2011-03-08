@@ -90,7 +90,7 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 		params.setAsync(new Boolean(true));     // Async submission
 		params.setSeqtype("P");                 // Protein input sequence
 		params.setCrc(new Boolean(true));       // Use IprMatches lookup
-		params.setGoterms(false);
+		params.setGoterms(true);
 		params.setOutformat("toolraw");
 		
         /* A space separated list of InterPro signature methods to run.
@@ -156,8 +156,10 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 		try {
 			spawner.processResults(this, get());
 		} catch (InterruptedException e) {
+			System.out.println("Interrupted.");
 			e.printStackTrace();
 		} catch (ExecutionException e) {
+			System.out.println("Some other executaion exception.");
 			e.printStackTrace();
 		}
      }

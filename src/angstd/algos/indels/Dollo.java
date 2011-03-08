@@ -101,7 +101,7 @@ public class Dollo extends AbstractReconstructionAlgo {
 		for (int i = 0; i < parent.childCount(); i++) {
 			DomainVector childDomains = node2da.get(parent.getChildAt(i));
 				
-			if (childDomains.get(actCol).getFamID().equals(domCols.get(actCol).getFamID())) {
+			if (childDomains.get(actCol).getID().equals(domCols.get(actCol).getID())) {
 				toAdd = true;
 				break;
 			}

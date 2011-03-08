@@ -18,7 +18,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -81,6 +80,8 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private JPanel ePane, radioPane;
 	private File hmmDBFile, fastaFile;
 	private HashMap<Integer, File> view2file; 
+	
+	private ViewElement seqView;
 
 	 
 	public HmmScanPanel(Hmmer3Frame parent) {
@@ -105,14 +106,15 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		Configuration config = Configuration.getInstance();
 		initSelectViewBox();
 		
-		binTF = new JTextField(35);
+		binTF = new JTextField(25);
 		binTF.setText(config.getHmmerBins());
-		hmmTF = new JTextField(35);
+		hmmTF = new JTextField(25);
 		hmmTF.setText(config.getHmmerDB());
-		fastaTF = new JTextField(35);
+		fastaTF = new JTextField(25);
 		evalueTF = new JTextField(5);
 		evalueTF.setText("0.1"); // default evalue
-		evalLabel = new JLabel("Use E-value");
+		evalueTF.setToolTipText("Max: 10");
+		evalLabel = new JLabel("E-value:");
 		biasFilterLabel = new JLabel("Filter");
 		
 		// the evalue label and field
@@ -127,7 +129,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		cpuLabel = new JLabel("Number of CPUs");
 		
 		progressBar.setBorderPainted(true);
-		progressBar.setPreferredSize(new Dimension(500,20));
+		progressBar.setPreferredSize(new Dimension(300,20));
 
 		// gathering threshold checkbox. If disabled,
 		// the panel for the evalue is set to visible
@@ -159,7 +161,8 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	    
 	    // gathering threshold checkbox. If disabled,
 		// the panel for the evalue is set to visible
-	    coddCkb = new JCheckBox(" (See [Terrapon et al., Bioinformatics, 2009] for details)", false);
+	    coddCkb = new JCheckBox("", false);
+	    coddCkb.setToolTipText("Context dependant annotation, see Terrapon et al., Bioinformatics, 2009");
 	    coddCkb.addItemListener(new ItemListener() {	
 			public void itemStateChanged(ItemEvent e) {
 				gaCkb.setSelected(!coddCkb.isSelected());
@@ -167,6 +170,10 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				overlapRadioEvalue.setSelected(coddCkb.isSelected());
 				overlapRadioNone.setEnabled(!coddCkb.isSelected());
 				overlapRadioCoverage.setEnabled(!coddCkb.isSelected());
+				if (coddCkb.isSelected())
+					evalueTF.setText("10");
+					else 
+						evalueTF.setText("0.1");
 				//groupRadio.setSelected(overlapRadioEvalue,coddCkb.isSelected());
 				//ePane.setVisible(coddCkb.isSelected());
 			}
@@ -197,7 +204,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		// init console
 		console = new JTextArea ();
 		console.setFont(new Font ("Courier", 0, 12));
-		console.setColumns(75);
+		console.setColumns(85);
 		console.setLineWrap(true);
 		console.setRows(8);
 		console.setWrapStyleWord(false);
@@ -220,45 +227,45 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 */
 	private void initPanel() {
 		
-		add(loadBinDir, "gap 10");
-		add(binTF, "gap 10, span2, growX, wrap");
+		add(loadBinDir, "gap 5, w 165!");
+		add(binTF, "h 25!, gap 5, span2, growX, wrap");
 		
-		add(loadHmmDB, "gap 10");
-		add(hmmTF, "gap 10, span2, growX, wrap");
+		add(loadHmmDB, "gap 5, w 165!");
+		add(hmmTF, "h 25!, gap 5, span2, growX, wrap");
 		
 		add(new JXTitledSeparator("Sequences"), "growx, span, wrap, gaptop 10");
 	
-		add(loadFastaFile, "gap 10");
-		add(fastaTF, "gap 10, span2, growX, wrap");
+		add(loadFastaFile, "gap 5, w 165!");
+		add(fastaTF, "h 25!, gap 5, span2, growX, wrap");
 		
-		add(new JLabel("Or Select Loaded View:"),"gap 10");
-		add(selectView, "gap 10, span 2, growX, wrap");
+		add(new JLabel("Or Select Loaded View:"),"gap 5");
+		add(selectView, "h 25!, gap 5, span2, growX, wrap");
 		
 		add(new JXTitledSeparator("Options"), "growX, span, wrap, gaptop 10");
 		
-		add(thresholdLabel,	"gap 10");
-		add(gaCkb, "gap 10");
-		add(ePane, "gap 10, span 2, growX, wrap");
+		add(thresholdLabel,	"gap 5");
+		add(gaCkb, "gap 5, split 2");
+		add(ePane, "growX, wrap");
 		
-		add(biasFilterLabel, "gap 10");
-		add(biasCkb, "gap 10, span2, growX, wrap");
+		add(biasFilterLabel, "gap 5");
+		add(biasCkb, "gap 5, span2, growX, wrap");
 		
-		add(cpuLabel, "gap 10");
-		add(cpuCB, "gap 10, span2, wrap");
+		add(cpuLabel, "gap 5");
+		add(cpuCB, "gap 5, span2, wrap");
 		
-		add(new JXTitledSeparator("Post-Processing Results"), "growX, span, wrap, gaptop 10");
-		add(new JLabel("Overlap Resolver:"), "gap 10");
+		add(new JXTitledSeparator("Post processing"), "growX, span, wrap, gaptop 10");
+		add(new JLabel("Overlap Resolver:"), "gap 5");
 		add(radioPane, "gap 2, growX, wrap");
 
-		add(new JLabel("Co-Occurring Domain Filter:"), "gap 10");
-		add(coddCkb, "gap 10, span 2, growX, wrap");
+		add(new JLabel("Co-Occurring Domain Filter:"), "gap 5");
+		add(coddCkb, "gap 5, span 2, growX, wrap");
 
 		add(new JXTitledSeparator("Progress"), "growX, span, wrap, gaptop 10");
-		add(progressBar, "gap 10, span3, growX, wrap");
+		add(progressBar, "h 25!, gap 5, span3, growX, wrap");
 		
 		add(new JXTitledSeparator("Console"), "growX, span, wrap, gaptop 10");
-		add(new JScrollPane(console), "gap 10, span, wrap");	
-		add(run, "gap 10");
+		add(new JScrollPane(console), "align center, span, wrap");	
+		add(run, "gap 5, split 2");
 		add(cancel);
 	}
 	
@@ -319,6 +326,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		if(file == null || !file.canRead())
 			return;
 		
+		seqView = null; // sequences come from fasta file
 		fastaFile = file;
 		fastaTF.setText(file.getAbsolutePath());
 	}
@@ -376,6 +384,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		hmmScan.setBiasFilter(biasCkb.isSelected());
 		hmmScan.setOverlapMethod(groupRadio.getSelection().getActionCommand());
 		hmmScan.setCoddFilter(coddCkb.isSelected());
+		hmmScan.setSeqView(seqView);
 		
 		// Launches the hmmscan job
 		Hmmer3Engine.getInstance().launchInBackground(hmmScan);
@@ -383,6 +392,8 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		run.setText("Running");
 		run.setEnabled(false);
 		progressBar.setIndeterminate(true);
+		progressBar.setStringPainted(true);
+		progressBar.setString("Waiting for hmmscan job to complete.");
 	}
 	
 	/**
@@ -395,6 +406,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			progressBar.setValue(0);
 			run.setEnabled(true);
 			progressBar.setIndeterminate(false);
+			progressBar.setStringPainted(false);
 			writeToConsole("*** I: hmmscan run canceled by user.\n");
 		} 
 		else {
@@ -523,6 +535,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		
 		if (seqViews.length == 0) {
 			selectView = new JComboBox(seqViews);
+			
 			selectView.setSelectedItem(null);
 			selectView.setEnabled(false);
 			return;
@@ -571,6 +584,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				}
 				fastaTF.setText(fastaFile.getAbsolutePath());
 				view2file.put(selected.getViewID(), fastaFile);
+				seqView = selected; // so we can access the view info later
 				
 			}
 		});

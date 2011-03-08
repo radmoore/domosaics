@@ -109,7 +109,7 @@ public class DomainColorManager extends DefaultViewManager {
 	 * 		the new color for the specified DomainFamily
 	 */
 	public void setDomainColor(DomainComponent dc, Color color) {
-		doms2colors.put(dc.getDomain().getFamily().getID(), color);
+		doms2colors.put(dc.getDomain().getFamily().getAcc(), color);
 		visualChange();
 	}	
 	
@@ -124,7 +124,7 @@ public class DomainColorManager extends DefaultViewManager {
 	 * 		the new color for the specified DomainFamily
 	 */
 	public void setDomainColor(DomainFamily fam, Color color) {
-		doms2colors.put(fam.getID(), color);
+		doms2colors.put(fam.getAcc(), color);
 	}	
 
 }

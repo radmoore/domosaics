@@ -59,9 +59,9 @@ public class ConsensusAlignment {
 		int id = 0;
 		for (DomainArrangement da : daSet) 
 			for (Domain dom : da.getDomains()) 
-				if (dom2id.get(dom.getFamID()) == null) {
-					dom2id.put(dom.getFamID(), id);
-					id2dom.put(id, dom.getFamID());
+				if (dom2id.get(dom.getID()) == null) {
+					dom2id.put(dom.getID(), id);
+					id2dom.put(id, dom.getID());
 					id++;
 				}
 		
@@ -76,8 +76,8 @@ public class ConsensusAlignment {
 			
 			// TODO take only non redundant combinations for an arrangement
 			for (int i = 0; i < doms.size()-1; i++) {
-				int x = dom2id.get(doms.get(i).getFamID());
-				int y = dom2id.get(doms.get(i+1).getFamID());
+				int x = dom2id.get(doms.get(i).getID());
+				int y = dom2id.get(doms.get(i+1).getID());
 				Point domPair = new Point(x, y);
 				
 				if (nonRedundantCombis.contains(domPair))
@@ -105,8 +105,8 @@ public class ConsensusAlignment {
 				// count the score for da1
 				int score1 = 0;
 				for (int i = 0; i < da1.getDomains().size()-1; i++) {
-					int x = dom2id.get(da1.getDomains().get(i).getFamID());
-					int y = dom2id.get(da1.getDomains().get(i+1).getFamID());
+					int x = dom2id.get(da1.getDomains().get(i).getID());
+					int y = dom2id.get(da1.getDomains().get(i+1).getID());
 					Point comb = new Point(x, y);
 					score1 += comb2count.get(comb);
 				}
@@ -114,8 +114,8 @@ public class ConsensusAlignment {
 				// count the score for da2
 				int score2 = 0;
 				for (int i = 0; i < da2.getDomains().size()-1; i++) {
-					int x = dom2id.get(da2.getDomains().get(i).getFamID());
-					int y = dom2id.get(da2.getDomains().get(i+1).getFamID());
+					int x = dom2id.get(da2.getDomains().get(i).getID());
+					int y = dom2id.get(da2.getDomains().get(i+1).getID());
 					Point comb = new Point(x, y);
 					score2 += comb2count.get(comb);
 				}

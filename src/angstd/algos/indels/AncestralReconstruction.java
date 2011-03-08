@@ -189,9 +189,9 @@ public class AncestralReconstruction extends SwingWorker<String, Void> {
 //				System.out.print(aligned[1].get(i).getFamID()+ " ");
 //			System.out.println("");
 			
-			if (val == 1 && aligned[1].get(actCol).getFamID().equals(dom.getFamID()))
+			if (val == 1 && aligned[1].get(actCol).getID().equals(dom.getID()))
 				return true;
-			if (val == 0 && !aligned[1].get(actCol).getFamID().equals(dom.getFamID()))
+			if (val == 0 && !aligned[1].get(actCol).getID().equals(dom.getID()))
 				return true;
 			return false;
 		}

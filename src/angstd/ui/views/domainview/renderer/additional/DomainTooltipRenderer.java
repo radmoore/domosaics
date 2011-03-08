@@ -8,9 +8,13 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.SwingUtilities;
 
+import angstd.model.GO.GeneOntology;
+import angstd.model.GO.GeneOntologyTerm;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.view.renderer.Renderer;
@@ -138,11 +142,37 @@ public class DomainTooltipRenderer implements Renderer {
         
         g2d.drawString(eval,b.x+2,2+b.y+vertical_row_height*elements-4);
         
+        elements++;
+        String domType = "Source DB: "+dc.getDomain().getFamily().getDomainType().getName();
+        g2d.drawString(domType,b.x+2,2+b.y+vertical_row_height*elements-4);
         
         if (dc.getDomain().isPutative()) {
         	elements++;
             String codd = "CODD STATUS: putative";
             g2d.drawString(codd,b.x+2,2+b.y+vertical_row_height*elements-4);
+        }
+        
+        if (dc.getDomain().getFamily().hasGoAnnotation()) {
+        	
+            elements++;
+        	g2d.setFont(font.deriveFont(Font.BOLD));
+            g2d.drawString("GO-Terms: ",b.x+2,2+b.y+vertical_row_height*elements-4);
+            g2d.setFont(font);
+        
+            //Iterator<Gen> goTerms = dc.getDomain().getFamily().getGoTerms();
+			//@SuppressWarnings("unchecked")
+			//Iterator<GeneOntologyTerm> iter = dc.getDomain().getFamily().getGoTerms();
+            Iterator<?> iter = dc.getDomain().getFamily().getGoTerms();
+            GeneOntologyTerm term;
+            while(iter.hasNext()) {
+            	elements++;
+            	term = (GeneOntologyTerm)iter.next();
+            	String goTerm = "- "+term.getName();
+            	g2d.drawString(goTerm,b.x+2,2+b.y+vertical_row_height*elements-4);
+
+            }
+            
+            
         }
         
         if (view.getDomainLayoutManager().isCompareDomainsMode()  && view.getDomainSearchOrthologsManager().getDomainScore(dc) != -1) {
@@ -193,6 +223,11 @@ public class DomainTooltipRenderer implements Renderer {
         width = labelWidth > width ? labelWidth : width;
         elements++;
         
+        String domType = "Source DB: "+dc.getDomain().getFamily().getDomainType().getName();
+        labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), domType);
+        width = labelWidth > width ? labelWidth : width;
+        elements++;
+        
         if (dc.getDomain().isPutative()) {
             String codd = "CODD STATUS: putative";
             labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), codd);
@@ -200,6 +235,22 @@ public class DomainTooltipRenderer implements Renderer {
             elements++;
         }
         
+        if (dc.getDomain().getFamily().hasGoAnnotation()) {
+            
+        	elements++ ; // add the "GO terms:" text
+        	
+            Iterator<?> iter = dc.getDomain().getFamily().getGoTerms();
+            GeneOntologyTerm term;
+            while(iter.hasNext()) {
+            	term = (GeneOntologyTerm)iter.next();
+            	String goTerm = "- "+term.getName();
+            	labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), goTerm);
+            	width = labelWidth > width ? labelWidth : width;
+            	elements++;
+            }
+            
+            
+        }
         
         if (view.getDomainLayoutManager().isCompareDomainsMode() && view.getDomainSearchOrthologsManager().getDomainScore(dc) != -1) {
         	String identity = "Percent identity: "+view.getDomainSearchOrthologsManager().getDomainScore(dc)+"%";

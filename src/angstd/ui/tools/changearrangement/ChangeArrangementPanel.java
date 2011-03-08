@@ -137,6 +137,9 @@ public class ChangeArrangementPanel extends JPanel {
 	
 	/**
 	 * Apples the changes for a domain or uses the values to create a new domain
+	 * TODO
+	 * - there is an exception thrown here
+	 * - double check DomainFamily issue
 	 */
 	public void apply() {
 		if (!checkCorrectness()) 

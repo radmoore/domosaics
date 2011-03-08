@@ -17,6 +17,7 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 import angstd.model.arrangement.io.GatheringThresholdsReader;
+import angstd.model.arrangement.io.Pfam2GOreader;
 import angstd.model.configuration.Configuration;
 import angstd.model.configuration.ConfigurationReader;
 import angstd.model.configuration.ConfigurationWriter;
@@ -118,18 +119,16 @@ public class ApplicationHandler {
 		startUpProgress = new StartupPage();
 		
 		startUpProgress.setProgress("Loading ANGSTD", 5);
-//		startUpProgress.setProgress("Teach english vocabularies", 5);
 		initPreferences();
 		
-		startUpProgress.setProgress("Loading ANGSTD", 25);
-//		startUpProgress.setProgress("Draw a map to the workspace", 25);
+		startUpProgress.setProgress("Initiating workspace", 25);
 		initWorkspaceDir();
 		
-		startUpProgress.setProgress("Checking Java version", 60);
+		startUpProgress.setProgress("Checking Java version", 50);
 //		startUpProgress.setProgress("Paint the main frame", 60);
 		initGUI();
 		
-		startUpProgress.setProgress("Checking Java version", 75);
+		startUpProgress.setProgress("Checking Java version", 60);
 		
 		/**
 		 * TODO
@@ -155,16 +154,19 @@ public class ApplicationHandler {
 			//System.exit(-1);
 		}	
 		
+		//Reading the gathering thresholds
+		startUpProgress.setProgress("Reading data files", 70);
+		GatheringThresholdsReader.read();
+		Pfam2GOreader.readFile();
+		
+		
 		// END of workaround
-//		startUpProgress.setProgress("Restore the publication data", 75);
+		startUpProgress.setProgress("Restoring projects", 85);
 		initLastWorkspace();
 
-		//Reading the gathering thresholds
-		startUpProgress.setProgress("Reading thresholds ", 85);
-		GatheringThresholdsReader.read();
+
 		
-		startUpProgress.setProgress("Enjoy... ", 100);
-//		startUpProgress.setProgress("Set sails", 100);
+		startUpProgress.setProgress("Have fun... ", 100);
 		startUpProgress.dispose();
 		
 		

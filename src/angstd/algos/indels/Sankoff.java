@@ -216,9 +216,9 @@ public class Sankoff extends AbstractReconstructionAlgo {
 			for (State state : State.values()) {
 				// check if state is observed
 				boolean observed = false;
-				if (state.getVal() == 1 && node2da.get(actNode).get(actCol).getFamID().equals(dom.getFamID()))
+				if (state.getVal() == 1 && node2da.get(actNode).get(actCol).getID().equals(dom.getID()))
 					observed = true;
-				if (state.getVal() == 0 && !node2da.get(actNode).get(actCol).getFamID().equals(dom.getFamID()))
+				if (state.getVal() == 0 && !node2da.get(actNode).get(actCol).getID().equals(dom.getID()))
 					observed = true;
 				
 //				if (state.observed(da, dom))

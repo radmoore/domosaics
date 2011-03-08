@@ -184,19 +184,27 @@ public class AnnotationThreadSpawner implements AnnotatorProcessWriter{
 	 * 		the result of the annotation thread
 	 */
 	public void processResults(AnnotationThread annotator, String res) {
+
 		if (annotator.isCancelled()) {
 			out.print("annotation cancelled. \n");
 			return;
 		}
 		
-		DomainArrangement da = new InterProScanResultParser().parseResult(res);
-		SequenceI seq = annotator.getQuerySequence();
-		da.setSequence(seq);
-		da.setName(seq.getName());
-		da.setSeqLen(seq.getLen(true));
-		
-		daSet.add(da);
-		out.print(da.getName() + " annotated. \n");
+		if (!(res == null) ) {	
+			DomainArrangement da = new InterProScanResultParser().parseResult(res);
+			SequenceI seq = annotator.getQuerySequence();
+			da.setSequence(seq);
+			da.setName(seq.getName());
+			da.setSeqLen(seq.getLen(true));
+			
+			daSet.add(da);
+			out.print(da.getName() + " annotated. \n");
+		}
+		else {
+			System.out.println("*** I: No hits found.");
+			out.print("no hits found.\n");
+		}
+
 		activeThreads--;
 		activeQuerys.remove(annotator);
 		

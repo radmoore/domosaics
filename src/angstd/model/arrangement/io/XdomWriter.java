@@ -2,9 +2,12 @@ package angstd.model.arrangement.io;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.Iterator;
 
+import angstd.model.GO.GeneOntologyTerm;
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
+import angstd.model.arrangement.DomainFamily;
 import angstd.model.io.AbstractDataWriter;
 import angstd.model.io.DataWriter;
 import angstd.util.StringUtils;
@@ -40,35 +43,63 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
     			// end header
     			out.write("\r\n");
     					
-    			// write domain lines		
+    			// write domain lines
+    			// 41	90	PPV_E2_C	0.054	;putative;hidden
     			for (int j = 0; j < daSet[i].countDoms(); j++) {
     				Domain dom = daSet[i].getDomain(j);
-    				out.write(dom.getFrom()+"\t"+dom.getTo()+"\t"+StringUtils.convertSpaces(dom.getID()));
+    				DomainFamily dFam = dom.getFamily();
+    				String domInfo = dom.getAcc()+";"+dom.getID();
+    				//out.write(dom.getFrom()+"\t"+dom.getTo()+"\t"+StringUtils.convertSpaces(dom.getAcc()));
+    				out.write(dom.getFrom()+"\t"+dom.getTo()+"\t"+StringUtils.convertSpaces(domInfo));
     				if (dom.getEvalue() != Double.POSITIVE_INFINITY)
     					out.write("\t"+dom.getEvalue());
                     if (dom.isPutative()) // Specifying the putative aspect
     					out.write("\t;putative");
     				else
     					out.write("\t;asserted");
+                    if (dFam.hasGoAnnotation()) {
+                    	Iterator<?> iter = dFam.getGoTerms();
+                    	String gTermStr = "";  
+                    	while(iter.hasNext()) {
+                    		GeneOntologyTerm term = (GeneOntologyTerm)iter.next();
+                    		gTermStr += ";"+term.getID();
+                    	}
+                    	out.write(gTermStr);
+                    }
+                    	
+                    
     				out.write("\r\n");
     			}
     			
     			// write hidden domain lines		
     			for (Domain dom : daSet[i].getHiddenDoms()) {
-    				out.write(dom.getFrom()+"\t"+dom.getTo()+"\t"+StringUtils.convertSpaces(dom.getID()));
+    				DomainFamily dFam = dom.getFamily();
+    				String domInfo = dom.getAcc()+";"+dom.getID();
+    				out.write(dom.getFrom()+"\t"+dom.getTo()+"\t"+StringUtils.convertSpaces(domInfo));
     				if (dom.getEvalue() != Double.POSITIVE_INFINITY)
     					out.write("\t"+dom.getEvalue());
                     if (dom.isPutative()) // Specifying the putative aspect
     					out.write("\t;putative");
     				else
     					out.write("\t;asserted");
+                    
+                    if (dFam.hasGoAnnotation()) {
+                    	Iterator<?> iter = dFam.getGoTerms();
+                    	String gTermStr = "";  
+                    	while(iter.hasNext()) {
+                    		GeneOntologyTerm term = (GeneOntologyTerm)iter.next();
+                    		gTermStr += ";"+term.getID();
+                    	}
+                    	out.write(gTermStr);
+                    }
     				out.write(";hidden\r\n");
     			}
     			
     			out.flush(); 
     		}
-        } catch (IOException e) {
-            e.printStackTrace();
+        } 
+        catch (IOException e) {
+        	e.printStackTrace();
         }
     }
 

@@ -115,9 +115,9 @@ public class DomainShapeManager extends DefaultViewManager {
 	 * 		the shape associated to the domain components family
 	 */
 	public Shape getUnsetShape (DomainComponent dc) {
-		if (doms2shapes.get(dc.getDomain().getFamily().getID()) == null) 
+		if (doms2shapes.get(dc.getDomain().getFamily().getAcc()) == null) 
    			setDomainShape(dc, getNextShapeIndex());
-  		return getShape(doms2shapes.get(dc.getDomain().getFamily().getID()));
+  		return getShape(doms2shapes.get(dc.getDomain().getFamily().getAcc()));
 	}
 	
 	/**
@@ -130,13 +130,13 @@ public class DomainShapeManager extends DefaultViewManager {
 	 */
   	public Shape getDomainShape(DomainComponent dc) {	
   		Shape shape;
-  		if (doms2shapes.get(dc.getDomain().getFamily().getID()) == null) {
+  		if (doms2shapes.get(dc.getDomain().getFamily().getAcc()) == null) {
   			int shapeIndex = getNextShapeIndex();
   			shape = DomainShapes.values()[shapeIndex].getShape();
    			setDomainShape(dc, shapeIndex);
    		}
    		else
-   			shape =  getShape(doms2shapes.get(dc.getDomain().getFamily().getID()));
+   			shape =  getShape(doms2shapes.get(dc.getDomain().getFamily().getAcc()));
   		
   		convert2DomainDim(shape, dc);
   		
@@ -170,7 +170,7 @@ public class DomainShapeManager extends DefaultViewManager {
 	 * 		the new shape for the specified DomainFamily
 	 */
 	public void setDomainShape(DomainComponent dc, int shapeIndex) {
-		doms2shapes.put(dc.getDomain().getFamily().getID(), shapeIndex);
+		doms2shapes.put(dc.getDomain().getFamily().getAcc(), shapeIndex);
 		visualChange();
 	}
 	

@@ -36,7 +36,7 @@ public class DomainVector extends Vector<Domain>{
 	
 	public boolean contains(Domain dom) {
 		for (Domain d : this)
-			if (d.getFamID().equals(dom.getFamID()))
+			if (d.getID().equals(dom.getID()))
 				return true;
 		return false;
 	}

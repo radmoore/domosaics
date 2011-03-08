@@ -155,7 +155,7 @@ public class ConditionallyDependentDomainPairMap implements AngstdData
    HashSet<String> domFamilies=new HashSet<String>();
    while(domIt.hasNext())
    {       
-    domFamilies.add(domIt.next().getFamID());
+    domFamilies.add(domIt.next().getID());
    }
    
    /*Iterator<String> it=domFamilies.iterator();
@@ -177,7 +177,7 @@ public class ConditionallyDependentDomainPairMap implements AngstdData
      while(domFamIt.hasNext())
      {
       cooccur=domFamIt.next();
-      HashSet<String> CDPdom=cdp.getCDP(dom.getFamID());
+      HashSet<String> CDPdom=cdp.getCDP(dom.getID());
       if(CDPdom!=null)
       {
        /*Iterator<String> testIt=CDPdom.iterator();
@@ -185,7 +185,7 @@ public class ConditionallyDependentDomainPairMap implements AngstdData
        {
       	System.out.println("Cdp "+testIt.next()); 
        }*/
-       if(cdp.getCDP(dom.getFamID()).contains(cooccur))
+       if(cdp.getCDP(dom.getID()).contains(cooccur))
        {
         //System.out.println("Certified by "+cooccur); 
         certified=true;

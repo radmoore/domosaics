@@ -41,8 +41,8 @@ public class ArrangementManager {
 	 * @return
 	 * 		domain family object for the given family id
 	 */
-	public DomainFamily getFamily(String id) {
-		return domFams.get(id);
+	public DomainFamily getFamily(String acc) {
+		return domFams.get(acc);
 	}
 	
 	/**
@@ -64,10 +64,10 @@ public class ArrangementManager {
 	 */
 	public void add(DomainArrangement da) {
 		for (int i = 0; i < da.countDoms(); i++) {
-			if (domFams.get(da.getDomain(i).getID()) != null)
-				da.getDomain(i).setFamily(domFams.get(da.getDomain(i).getID()));
+			if (domFams.get(da.getDomain(i).getAcc()) != null)
+				da.getDomain(i).setFamily(domFams.get(da.getDomain(i).getAcc()));
 			else
-				domFams.put(da.getDomain(i).getID(), da.getDomain(i).getFamily());
+				domFams.put(da.getDomain(i).getAcc(), da.getDomain(i).getFamily());
 		}
 		das.add(da);
 	}

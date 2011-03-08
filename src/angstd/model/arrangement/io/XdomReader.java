@@ -9,10 +9,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
+import angstd.model.GO.GeneOntology;
+import angstd.model.GO.GeneOntologyTerm;
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
+import angstd.model.arrangement.DomainType;
 import angstd.model.io.AbstractDataReader;
 import angstd.model.io.DataReader;
 import angstd.ui.util.MessageUtil;
@@ -173,11 +177,15 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 	}
 	
 	/**
+	 *TODO: bug in here, seems to always create the same domain!
 	 * read domains: "From, To, DomainID, [e-value]"
 	 * @param domainStr
 	 * @return
 	 */
 	private DomainArrangement parseDomain(String domainStr, DomainArrangement prot) throws NumberFormatException, WrongFormatException {
+		
+		
+		
 		DomainFamily domFamily = null;
 		Domain dom = null;
 		int actToken = 0;
@@ -194,12 +202,21 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 			throw new WrongFormatException();
 		
 		// first get the domain family id and check whether or not the domain family already occurred within the document
-		String domFamilyID = token[actToken+2];
-		domFamily = GatheringThresholdsReader.getInstance().get(domFamilyID);
+        // DACC;DID (DID may be null, in which case a call to getID() returns the ACC; ergo ACC and DID may be equal)
+        String domInfo = token[actToken+2];
+        String dAcc = domInfo.split(";")[0];
+        String dId = domInfo.split(";")[1];
+        
+		DomainType dType = DomainType.getType(dAcc);
+		domFamily = GatheringThresholdsReader.getInstance().get(dAcc);
+		
 		if (domFamily == null) { 				
-			domFamily = new DomainFamily(domFamilyID);
+			if (dAcc == dId)
+				dId = null;
+			
+			domFamily = new DomainFamily(dAcc, dId, dType);
 //			domFamily.setPfamID(pfamID);
-			GatheringThresholdsReader.getInstance().put(domFamilyID, domFamily);
+			GatheringThresholdsReader.getInstance().put(dAcc, domFamily);
 		}
 		
 		// "from", "to" must be the first two tokens
@@ -210,8 +227,7 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 		dom = new Domain(from, to, domFamily);
 				
 		// check if the e-value is present within the format
-		if (token.length == actToken+3)
-		{
+		if (token.length == actToken+3) {
 		 prot.addDomain(dom);
 	     return prot;
 		}
@@ -220,29 +236,35 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 		double evalue = Double.parseDouble(token[actToken+3]);
 		dom.setEvalue(evalue);
 
-        //Also record if the domain is putative or not (known)
-		if (token.length == actToken+5)
-        {
-		 String[] comment = token[actToken+4].split(";");
-		 for(int i=1; i< comment.length; i++)
-		 {
-		  if(comment[i].equals("putative") || comment[i].equals("asserted"))
-	      {
-	       dom.setPutative(comment[i].equals("putative"));
-		  }else
-	      {
-		   if(comment[i].equals("hidden"))
-		   {
-	        prot.addDomain(dom);
-	        prot.hideDomain(dom);
-		   }   
-	      }
-		 }
-        }
-		if(!prot.getHiddenDoms().contains(dom))
-		 prot.addDomain(dom);
+		if ( token.length == actToken+5 ) {
+			String[] comment = token[actToken+4].split(";");
+			for (int i=0; i < comment.length; i++) {
+				String c = comment[i];
+				if ( c.equals("putative") || c.equals("asserted") ) {
+					dom.setPutative(c.equals("putative"));
+				}
+				else if ( Pattern.matches("GO:\\d+", c) ) {
+					
+					if (! (domFamily.hasGoTerm(c)) ) {
+						GeneOntology go = GeneOntology.getInstance();
+						GeneOntologyTerm term = go.getTerm(c);
+						domFamily.addGoTerm(term);
+					}
+				}
+				
+				else if ( c.equals("hidden") ) {
+					prot.addDomain(dom);
+				    prot.hideDomain(dom);
+				}
+			}	
+		}
+		if(!prot.getHiddenDoms().contains(dom)) {
+			prot.addDomain(dom);
+		}
+		
 		return prot;
 	}
+		
 	
 	private class WrongFormatException extends Exception {
 		private static final long serialVersionUID = 1L;
