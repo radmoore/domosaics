@@ -276,10 +276,10 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		
 		
 		//System.out.println("shoot!");
-		//annotationSpawner.startMultiThreadSpawn();
+		annotationSpawner.startMultiThreadSpawn();
 		
 		
-		annotationSpawner.startSingleThreadSpawn();
+		//annotationSpawner.startSingleThreadSpawn();
 		apply.setEnabled(true);
 	}
 		

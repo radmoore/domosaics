@@ -36,8 +36,6 @@ public enum DomainType {
     
     public static DomainType getType(String id) {
     	
-    	
-    	
     	try {
     	
 	    	if ( Pattern.matches(PFAM.getPattern().toString(), id) ) {

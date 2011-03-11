@@ -92,7 +92,8 @@ public class InterProScanResultParser {
 			if (line.isEmpty())					// ignore empty lines
 				continue;
 						
-			//System.out.println("Result string: "+ line);
+			System.out.println("Result string: "+ line);
+			
 			String[] token = line.split("\\t+");
 			
 			if (prot.getName() == null)
