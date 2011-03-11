@@ -1,5 +1,7 @@
 package angstd.model.arrangement;
 
+import java.text.DecimalFormat;
+
 import angstd.model.AngstdData;
 import angstd.model.sequence.SequenceI;
 
@@ -35,6 +37,10 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
     
     /** assigned sequence data */
     protected SequenceI seq;
+
+    /** Double format */
+    protected DecimalFormat df = new DecimalFormat("0.00E0");
+
 
     /** if the domain bit score does not satisfy the Pfam gathering threshold */
     protected boolean putative = false;
@@ -75,7 +81,7 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 		this.to = to;
 		this.from = from;
 		this.fromWithGaps = from;
-		this.evalue = evalue;
+		this.evalue = Double.parseDouble(df.format(evalue));
 	}
 	
 	/**
@@ -173,7 +179,7 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 	 * 		evalue for this domain
 	 */
 	public void setEvalue (double evalue) {
-		this.evalue = evalue;
+		this.evalue = Double.parseDouble(df.format(evalue));;
 	}
 	
 	/**

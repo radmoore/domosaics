@@ -9,18 +9,18 @@ package angstd.webservices.interproscan;
  */
 public enum Method {
 
-//	blastprodom 	("blastprodom",	false), 
-//	gene3d			("gene3d",		false), 
-//	hmmpanther		("hmmpanther",	false), 
+	blastprodom 	("blastprodom",	false), 
+	gene3d			("gene3d",		false), 
+	hmmpanther		("hmmpanther",	false), 
 	hmmpir			("hmmpir",		false), 
 	hmmpfam			("hmmpfam",		true), 
 	hmmsmart		("hmmsmart",	false), 
 //	signalp			("signalp",		false), 
 //	tmhmm			("tmhmm",		false), 
-//	hmmtigr			("hmmtigr",		false), 
-//	fprintscan		("fprintscan",	false),
+	hmmtigr			("hmmtigr",		false), 
+	fprintscan		("fprintscan",	false),
 //	scanregexp		("scanregexp",	false), 
-//	profilescan		("profilescan",	false), 
+	profilescan		("profilescan",	false), 
 	superfamily		("superfamily",	false);
 
 	private String title;

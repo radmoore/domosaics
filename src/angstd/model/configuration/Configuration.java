@@ -27,7 +27,7 @@ public class Configuration {
 	
 
 	protected String defaultFileLocation;
-	
+
 	protected String googleUrl;
 	protected String ncbiUrl; 
 	protected String pfamUrl; 
@@ -42,10 +42,19 @@ public class Configuration {
 	protected String workspace_dir; // this is null and seems to cause an exception, see below
 	
 	protected boolean visible = false;
+	protected static boolean idRatherThanAcc = false;
 	
 	
 	public Configuration() {
 		restoreDefaults();
+	}
+
+	public static boolean isIdPreferedToAcc() {
+		return idRatherThanAcc;
+	}
+	
+	public static void setIdPreferedToAcc(boolean b) {
+		idRatherThanAcc = b;
 	}
 	
 	public boolean isVisible() {
