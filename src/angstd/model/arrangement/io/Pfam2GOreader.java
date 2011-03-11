@@ -6,10 +6,10 @@ import angstd.model.arrangement.DomainFamily;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
+//import java.text.DateFormat;
+//import java.text.SimpleDateFormat;
+//import java.util.Date;
+//import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,14 +34,14 @@ public class Pfam2GOreader {
 		Map<String, DomainFamily> domFamMap = GatheringThresholdsReader.getInstance();
 		
 		//!version date: 2011/02/05 07:20:28
-		DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		//DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		// comment line
 		Pattern cLine = Pattern.compile("^!.+");
 		// relevant line
 		// Pfam:PF00178 Ets > GO:sequence-specific DNA binding transcription factor activity ; GO:0003700
 		Pattern pfam2GOline = Pattern.compile("Pfam:(PF\\d+) (\\w+) > GO:(.+) ; (GO:\\d+)");
 		Matcher m;
-		Date versionDate;
+		//Date versionDate;
 		boolean firstLine = true;
 
 		GeneOntology go = GeneOntology.getInstance();
@@ -55,9 +55,9 @@ public class Pfam2GOreader {
 			while((line = in.readLine()) != null) {
 				
 				if (firstLine) {
-					String [] fields = line.split(": ");
-					versionDate = (Date)formatter.parse(fields[1]);
-					go.setVersionDate(versionDate);
+					//String [] fields = line.split(": ");
+					//versionDate = (Date)formatter.parse(fields[1]);
+					//go.setVersionDate(versionDate);
 					firstLine = false;
 					continue;
 				}
@@ -70,13 +70,14 @@ public class Pfam2GOreader {
 				if (m.matches()) {
 					
 					String gid 		= m.group(4);
-					String term 	= m.group(3);
-					String pfamID	= m.group(2);
+					//String term 	= m.group(3);
+					//String pfamID	= m.group(2);
 					String pfamAcc	= m.group(1);
 					
 					DomainFamily fam = domFamMap.get(pfamAcc);
 					
-					go.addTerm(gid, term);
+					//go.addTerm(gid, term);
+					//System.out.println(line);
 					fam.addGoTerm(go.getTerm(gid));
 				}
 			}

@@ -1,5 +1,6 @@
 package angstd.ui.views.domainview.manager;
 
+import angstd.model.configuration.Configuration;
 import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.views.domainview.actions.ChangeArrangementAction;
 import angstd.ui.views.domainview.actions.CollapseSameArrangementsAction;
@@ -13,12 +14,14 @@ import angstd.ui.views.domainview.actions.ResetShiftAction;
 import angstd.ui.views.domainview.actions.SaveXdomFileAction;
 import angstd.ui.views.domainview.actions.SelectDomainArrangementsAction;
 import angstd.ui.views.domainview.actions.SelectSequencesAction;
+import angstd.ui.views.domainview.actions.ShowAccAction;
 import angstd.ui.views.domainview.actions.ShowDistMatrixAction;
 import angstd.ui.views.domainview.actions.ShowDomainGraphAction;
 import angstd.ui.views.domainview.actions.ShowDomainLegendAction;
 import angstd.ui.views.domainview.actions.ShowDomainMatrixAction;
 import angstd.ui.views.domainview.actions.ShowDomainRulerAction;
 import angstd.ui.views.domainview.actions.ShowDotplotAction;
+import angstd.ui.views.domainview.actions.ShowIdAction;
 import angstd.ui.views.domainview.actions.ShowNotesAction;
 import angstd.ui.views.domainview.actions.ShowShapesAction;
 import angstd.ui.views.domainview.actions.SimilarityColorizationAction;
@@ -69,6 +72,8 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		COMPARE_DOMSEQUENCES 	(DomainCompareAction.class),
 		EVALUE_COLORIZATION 	(EvalueColorizationAction.class),
 		FIT_TO_SCREEN 			(FitDomainsToScreenAction.class),
+		ID_RATHER_THAN_ACC		(ShowIdAction.class),
+		ACC_RATHER_THAN_ID		(ShowAccAction.class),
 		MSA_VIEW 				(MsaViewAction.class),
 		PROP_VIEW 				(ProportionalViewAction.class),
 		UNPROP_VIEW 			(UnproportionalViewAction.class),
@@ -121,6 +126,15 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	public DomainLayoutManager(ViewActionManager manager) {
 		super(manager);
 		
+		if (Configuration.isIdPreferedToAcc())
+		{
+			setState(DomainAction.ID_RATHER_THAN_ACC,false);
+			setState(DomainAction.ACC_RATHER_THAN_ID,true);
+			disable(DomainAction.ACC_RATHER_THAN_ID);
+		}else
+		{
+			disable(DomainAction.ID_RATHER_THAN_ACC);
+		}
 		if (isProportionalView())
 			disable(DomainAction.PROP_VIEW);
 		if (isUnproportionalView())
@@ -161,6 +175,25 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	 */
 	public boolean isCompare4Domain() {
 		return compare4Domain;
+	}
+	
+	/**
+	 * switches the domain view by ID.
+	 */
+	public void changeIdOrAccView() {
+		Configuration.setIdPreferedToAcc(!Configuration.isIdPreferedToAcc());
+		if(Configuration.isIdPreferedToAcc())
+		{
+			setState(DomainAction.ID_RATHER_THAN_ACC,false);
+			disable(DomainAction.ACC_RATHER_THAN_ID);
+			enable(DomainAction.ID_RATHER_THAN_ACC);
+		}
+		else
+		{
+			setState(DomainAction.ACC_RATHER_THAN_ID,false);
+			disable(DomainAction.ID_RATHER_THAN_ACC);
+			enable(DomainAction.ACC_RATHER_THAN_ID);
+		}
 	}
 	
 	/**

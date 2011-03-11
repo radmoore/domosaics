@@ -120,11 +120,8 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	            
 	        // Check status and wait if not finished
 	        while(status.equals("RUNNING") || status.equals("PENDING")) {
+        		Thread.sleep(1000); // Wait before polling again.
 	        	status = interProScan.checkStatus(jobId);
-
-	        	if(status.equals("RUNNING") || status.equals("PENDING")) {
-	        		Thread.sleep(2000); // Wait before polling again.
-	        	}
 	        }
 	       
 	        // Get results
@@ -138,7 +135,7 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	       return result;
 	       
 		} catch (Exception e) {
-			e.printStackTrace();
+			//System.out.println("->Job "+seq.getName()+" cancelled<-");
 		} 
 		return null;
     }
@@ -148,19 +145,21 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	 * ended.
 	 */
 	 @Override
-	 // Check here for cancelation error (ADM)
      protected void done() {
-     	if (isCancelled()) {
-     		return;
-     	}
-		try {
-			spawner.processResults(this, get());
-		} catch (InterruptedException e) {
-			System.out.println("Interrupted.");
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			System.out.println("Some other executaion exception.");
-			e.printStackTrace();
+		if(!isCancelled())
+		{
+			//System.out.println("->Job "+seq.getName()+" finished<-");
+			try {
+				spawner.processResults(this, get());
+			}
+			catch (InterruptedException e) {
+				System.out.println("Interrupted.");
+				e.printStackTrace();
+			}
+			catch (ExecutionException e) {
+				System.out.println("Some other executaion exception.");
+     		e.printStackTrace();
+			}
 		}
      }
 	
