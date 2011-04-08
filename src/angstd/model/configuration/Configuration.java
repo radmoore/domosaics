@@ -23,6 +23,8 @@ public class Configuration {
 	public static final String DEF_HMMERBINS = "";
 	public static final String DEF_HMMERDB = "";
 	
+	public static final String LOCKFILE = ".lock";
+	
 	public static final boolean DEF_SHOW_ADVICES = true;
 	
 
@@ -95,6 +97,11 @@ public class Configuration {
 		return workspace_dir;
 	}
 	
+	public boolean workspaceInUse() {
+		File lockfile = getLockFile();
+		return lockfile.exists();
+	}
+	
 	public void setShowAdvices(boolean showAdvices) {
 		this.showAdvices = showAdvices;
 	}
@@ -117,6 +124,18 @@ public class Configuration {
 			ConfigurationWriter.write(getConfigFile());
 		this.defaultFileLocation = location;
 		
+	}
+
+	public void setLockFile() {
+		ConfigurationWriter.setLockFile();
+	}
+	
+	public File getLockFile() {
+		return new File(workspace_dir+"/"+LOCKFILE);
+	}
+	
+	public void removeLockFile() {
+		Configuration.getInstance().getLockFile().delete();
 	}
 	
 	public String getDefaultLocation() {
