@@ -14,6 +14,7 @@ import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.swingx.JXTitledSeparator;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.ui.wizards.pages.ClustalW2Page;
 import angstd.webservices.UiUtil;
@@ -52,6 +53,7 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 	/** the embedding wizard page if there is any */
 	private ClustalW2Page wizardPage;
 	
+	private Configuration config;
 	
 	public ClustalW2Panel(SequenceI[] seqs, ClustalW2Page wizardPage) {
 		this.wizardPage = wizardPage;
@@ -85,7 +87,9 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 	}
 	
 	private void initComponents() {
-		email = UiUtil.createEmailField(DEFAULT_EMAIL);
+		config = Configuration.getInstance();
+		String email_text = (config.getEmailAddr().isEmpty()) ? DEFAULT_EMAIL : config.getEmailAddr() ;
+		email = UiUtil.createEmailField(email_text);
 		console = UiUtil.createConsole();
 
 		submit = new JButton("Submit Job");
