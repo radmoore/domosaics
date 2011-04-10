@@ -21,7 +21,7 @@ import angstd.model.sequence.SequenceI;
  * @author Andreas Held
  *
  */
-public class AnnotationThreadSpawner implements AnnotatorProcessWriter{
+public class AnnotationThreadSpawner {
 
 	/** query sequences */
 	protected SequenceI[] seqs;
@@ -35,28 +35,19 @@ public class AnnotationThreadSpawner implements AnnotatorProcessWriter{
 	/** object which prints the process information */
 	protected AnnotatorProcessWriter out;
 	
-	/** main thread which spawns annotation threads for all query sequences */
-	protected SwingWorker<Boolean, Void> annotationThread;
+	/** list of all annotation threads */
+	//protected ArrayList<AnnotationThread> activeQuerys;
+	protected ArrayList<AnnotationThreadII> activeQuerys;
 	
 	/** list of all annotation threads */
-	protected ArrayList<AnnotationThread> activeQuerys;
-	
-	/** number of active annotation threads */
-	protected int activeThreads = 0;
+	protected SwingWorker<String, Void> jobLauncher;
 	
 	/** number of finished sequences */
-	protected int seqsFinished;
+	protected int seqsWaitingForAnnotation;
 	
 	/** manager holding the resulting annotated arrangements */
 	protected ArrangementManager daSet = new ArrangementManager();
 	
-	/**
-	 * Constructor for a new AnnotationThreadSpawner. The standard
-	 * output is used for messages about the annotation process.
-	 */
-	public AnnotationThreadSpawner() {
-		this(null);
-	}
 	
 	/**
 	 * Constructor for a new AnnotationThreadSpawner
@@ -66,10 +57,9 @@ public class AnnotationThreadSpawner implements AnnotatorProcessWriter{
 	 * 		annotation process
 	 */
 	public AnnotationThreadSpawner(AnnotatorProcessWriter out) {
-		if (out == null)
-			out = this;
-		else
-			this.out = out;
+		//activeQuerys = new ArrayList<AnnotationThread>();
+		activeQuerys = new ArrayList<AnnotationThreadII>();
+		this.out = out;
 	}
 	
 	/**
@@ -90,9 +80,7 @@ public class AnnotationThreadSpawner implements AnnotatorProcessWriter{
 	 * 		whether or not annotation threads are still running.
 	 */
 	public boolean isRunning() {
-		if(	annotationThread != null && annotationThread.getState().equals(SwingWorker.StateValue.STARTED)) 
-			return true;
-		return false;
+			return activeQuerys.size()!=0;
 	}
 	
 	/**
@@ -136,13 +124,22 @@ public class AnnotationThreadSpawner implements AnnotatorProcessWriter{
 	}
 	
 	/**
+	 * Cancel the jobLauncher
+	 * 
+	 */
+	public void cancel() {
+		jobLauncher.cancel(true);
+	}
+	
+	/**
 	 * Spawns a new annotation thread with the parameters set.
 	 * 
 	 * @param seq
 	 * 		the query sequence to be annotated
 	 */
 	protected void spawnAnnotation(SequenceI seq) {
-		AnnotationThread annotator = new AnnotationThread(this);
+		//AnnotationThread annotator = new AnnotationThreadII(this);
+		AnnotationThreadII annotator = new AnnotationThreadII(this);
 		annotator.setParams(email, method);
 		annotator.setQuerySequence(seq);
 		activeQuerys.add(annotator);
@@ -163,13 +160,6 @@ public class AnnotationThreadSpawner implements AnnotatorProcessWriter{
 			System.out.println("->cancelled<-");
 		}
 	}
-	
-	/**
-	 * Cancels all active annotation threads against Interpro.
-	 */
-	public void cancel() {
-		annotationThread.cancel(true);
-	}
 
 	/**
 	 * Processes the results of an annotation thread.
@@ -183,170 +173,81 @@ public class AnnotationThreadSpawner implements AnnotatorProcessWriter{
 	 * @param res
 	 * 		the result of the annotation thread
 	 */
-	public void processResults(AnnotationThread annotator, String res) {
+	//public void processResults(AnnotationThread annotator, String res) {
+	public void processResults(AnnotationThreadII annotator, String res) {
 
-		if (annotator.isCancelled()) {
-			out.print("annotation cancelled. \n");
-			return;
-		}
-		
 		if (!(res == null) ) {	
 			DomainArrangement da = new InterProScanResultParser().parseResult(res);
 			SequenceI seq = annotator.getQuerySequence();
 			da.setSequence(seq);
 			da.setName(seq.getName());
 			da.setSeqLen(seq.getLen(true));
-			
 			daSet.add(da);
 			out.print(da.getName() + " annotated. \n");
 		}
 		else {
-			System.out.println("*** I: No hits found.");
-			out.print("no hits found.\n");
+			//System.out.println("*** I: No hits found.");
+			out.print(annotator.getQuerySequence().getName()+": no hits found.\n");
 		}
-
-		activeThreads--;
 		activeQuerys.remove(annotator);
 		
 		// update progressbar
-		seqsFinished++;
-		int progress = (int) Math.round( (100/(double)getSeqs().length)*seqsFinished);
-			out.updateProgress(Math.min(5+progress, 105));
-	}
-	
-	/**
-	 * Spawns for a number of sequence annotation threads up to 25 threads 
-	 * simultaniesly.
-	 * <p>
-	 * Time estimation for 21 sequences and hmmpfam: 2.38 minutes
-	 */
-	public void startMultiThreadSpawn() {
-		activeQuerys = new ArrayList<AnnotationThread>();
-		System.out.println("Executing multi thread annotation!");
+		int progress = (int) Math.round( (100/(double)getSeqs().length)*(seqsWaitingForAnnotation-activeQuerys.size()));
+		out.updateProgress(Math.min(5+progress, 105));
 		
-		annotationThread = new SwingWorker<Boolean, Void>() {	  
-			public Boolean doInBackground() {
-				int seqsFinished = 0;
-				System.out.println("Executing multi thread annotation!");
-				
-				// number of times where up to 25 sequences are queried simoultaniesly
-				int neededRuns = (int) Math.ceil(getSeqs().length / (double) 25);
-
-				out.updateProgress(5);
-			
-				for (int r = 0; r < neededRuns; r++) {
-					
-					out.print("I am up to something here");
-					// spawn up to 25 annotation threads for the next round
-					if (r == neededRuns - 1) { 		// lastrun
-						out.print("Annotate next "+(getSeqs().length-seqsFinished)+" proteins... \n");
-						
-						// spawn x annotation threads
-						while (seqsFinished < getSeqs().length) {
-							out.print("Start annotation for "+getSeqs()[seqsFinished].getName()+" ("+(seqsFinished+1)+"/"+getSeqs().length+")\n");
-							spawnAnnotation(getSeqs()[seqsFinished]);
-							seqsFinished++;
-							activeThreads++;
-						}
-
-					} else {
-						out.print("Annotate next 25 proteins... \n");
-						
-						// spawn 25 annotation threads
-						for (int s = 0; s < 25; s++) {
-							out.print("Start Annotation for  protein "+getSeqs()[seqsFinished].getName()+" ("+(seqsFinished+1)+"/"+getSeqs().length+")\n");
-							spawnAnnotation(getSeqs()[seqsFinished]);
-							seqsFinished++;
-							activeThreads++;
-						}
-					}
-					
-					// wait for the results until spawning the next threads
-					while (activeThreads != 0) {
-						out.print("please wait for annotations to finish...\n");
-						sleep(4000);	// wait for threads to finish
-					}
-				}
-				return true;
+		if(jobLauncher.isDone()) {
+			if(activeQuerys.size()==0)
+				out.print("---------------------------------\nAll sequences annotated, click apply to create resulting view.");
+			else
+			{
+				out.print("Wait for results (last "+activeQuerys.size()+" job");
+				if(seqsWaitingForAnnotation!=getSeqs().length)
+					out.print("s");
+				out.print(" running)... \n");
 			}
-			
-			public void done() {
-				if (isCancelled()) {
-					out.print("Annotation process aborted, aborting all InterProScans..");
-					for (int i = 0; i < activeQuerys.size(); i++) 
-						activeQuerys.get(i).cancel(true);
-					return;
-				}
-				out.print("All sequences annotated, click apply to create resulting view.");
-			}
-		};
-		annotationThread.execute();
+		}
 	}
 	
-	/**
-	 * Spawns sequence annotation threads one-by-one
-	 * After each thread is spawned, the spawner waits until the annotation is complete.
-	 * <p>
-	 * Time estimation for 21 sequences and hmmpfam: 8.56 minutes 
-	 * (that is, this is considerably slower)
-	 */
-	public void startSingleThreadSpawn() {
-		activeQuerys = new ArrayList<AnnotationThread>();
-		annotationThread = new SwingWorker<Boolean, Void>() {	  
+
+	public void startMultipleThreadSpawn()
+	{
+		jobLauncher = new SwingWorker<String, Void>() {
+			public String doInBackground() {
+				try {
+					seqsWaitingForAnnotation = 0;
+					out.updateProgress(5);
 			
-			public Boolean doInBackground() {
-				seqsFinished = 0;
-				int i = 0;
-				activeThreads = 0;
-				out.updateProgress(5);
-				
-				while (i < seqs.length) {
-					
-					if (activeThreads == 0) {
-						out.print("Start Annotation for  protein "+seqs[i].getName()+" ("+(i+1)+"/"+seqs.length+")\n");
-						spawnAnnotation(seqs[i]);
-						i++;
-						activeThreads++;
-					} else {
-						sleep(2000);	// wait for threads to finish
+					while (seqsWaitingForAnnotation < getSeqs().length && !isCancelled()) {
+						for (int s = activeQuerys.size(); s < 25 && s < getSeqs().length; s++) {
+							out.print("Start Annotation for protein "+getSeqs()[seqsWaitingForAnnotation].getName()+" ("+(seqsWaitingForAnnotation+1)+"/"+getSeqs().length+")\n");
+							spawnAnnotation(getSeqs()[seqsWaitingForAnnotation]);
+							seqsWaitingForAnnotation++;
+						}
+						out.print("Waiting for results...\n");
+						sleep(10000);	// wait for new threading
 					}
 				}
-				
-				// wait for last thread to finish
-				while (activeThreads != 0) {
-					sleep(2000);
+				catch(Exception e){
+					e.printStackTrace();
 				}
-				
-				
-				return true;
+				return null;
 			}
-			
-			// TODO: check here to solve 'cancel' problem (ADM)
+		
 			public void done() {
 				if (isCancelled()) {
-					out.print("Annotation process aborted, aborting all InterProScans..");
+					out.updateProgress(0);
+					out.print("Annotation process aborted, aborting all InterProScans...\n");
 					for (int i = 0; i < activeQuerys.size(); i++) 
+					{
 						activeQuerys.get(i).cancel(true);
-					return;
+						out.print(activeQuerys.get(i).getQuerySequence().getName()+" aborted! \n");
+					}
+					activeQuerys.clear();
+					out.print("------------------------------\nReady to a new job submission!");
 				}
-				out.print("All sequences annotated, click apply to create resulting view.");
 			}
 		};
 		
-		annotationThread.execute();
+		jobLauncher.execute();
 	}
-
-	/**
-	 * Prints textual messages about the annotation progress to the standard 
-	 * output.
-	 * 
-	 * @param msg
-	 * 		the message to be printed
-	 */
-	public void print(String msg) {
-		System.out.println(msg);
-	}
-
-	public void updateProgress(int val) {}
-	
 }

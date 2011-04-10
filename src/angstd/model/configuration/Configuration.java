@@ -23,11 +23,13 @@ public class Configuration {
 	public static final String DEF_HMMERBINS = "";
 	public static final String DEF_HMMERDB = "";
 	
+	public static final String LOCKFILE = ".lock";
+	
 	public static final boolean DEF_SHOW_ADVICES = true;
 	
 
 	protected String defaultFileLocation;
-	
+
 	protected String googleUrl;
 	protected String ncbiUrl; 
 	protected String pfamUrl; 
@@ -42,10 +44,19 @@ public class Configuration {
 	protected String workspace_dir; // this is null and seems to cause an exception, see below
 	
 	protected boolean visible = false;
+	protected static boolean idRatherThanAcc = false;
 	
 	
 	public Configuration() {
 		restoreDefaults();
+	}
+
+	public static boolean isIdPreferedToAcc() {
+		return idRatherThanAcc;
+	}
+	
+	public static void setIdPreferedToAcc(boolean b) {
+		idRatherThanAcc = b;
 	}
 	
 	public boolean isVisible() {
@@ -86,6 +97,11 @@ public class Configuration {
 		return workspace_dir;
 	}
 	
+	public boolean workspaceInUse() {
+		File lockfile = getLockFile();
+		return lockfile.exists();
+	}
+	
 	public void setShowAdvices(boolean showAdvices) {
 		this.showAdvices = showAdvices;
 	}
@@ -108,6 +124,18 @@ public class Configuration {
 			ConfigurationWriter.write(getConfigFile());
 		this.defaultFileLocation = location;
 		
+	}
+
+	public void setLockFile() {
+		ConfigurationWriter.setLockFile();
+	}
+	
+	public File getLockFile() {
+		return new File(workspace_dir+"/"+LOCKFILE);
+	}
+	
+	public void removeLockFile() {
+		Configuration.getInstance().getLockFile().delete();
 	}
 	
 	public String getDefaultLocation() {

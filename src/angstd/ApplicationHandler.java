@@ -82,6 +82,9 @@ public class ApplicationHandler {
 			}
 		}
 		
+		// remove lockfile
+		Configuration.getInstance().removeLockFile();
+		
 //		if (export && MessageUtil.showDialog("Restore workspace in next session?")) {
 //			for (ProjectElement project : WorkspaceManager.getInstance().getProjects())
 //				ProjectExporter.write(project);
@@ -208,6 +211,22 @@ public class ApplicationHandler {
 				System.exit(0);
 			workspace.mkdir();
 		}
+		
+		// TODO In next version 
+//		else {
+//			// check if alread in use
+//			boolean choose = MessageUtil.showDialog("The default workspace is in use. Would you like to choose a new workspace?");
+//			if (choose){
+//				workspace = WizardManager.getInstance().showWorkingDirectoyWizard(startUpProgress, workspace_dir);
+//				if (workspace == null) // user aborted wizard
+//					System.exit(0);
+//				workspace.mkdir();
+//			}
+//			else{
+//				System.exit(0);
+//			}
+//			
+//		}
 		// check for configuration file 
 		startUpProgress.setProgress("", 35);
 //		startUpProgress.setProgress("Configure proclivities", 35);
@@ -219,6 +238,13 @@ public class ApplicationHandler {
 			ConfigurationReader.read(configFile);
 		
 		Configuration.getInstance().setWorkspaceDir(workspace_dir);
+		if (!Configuration.getInstance().workspaceInUse()) { 
+			Configuration.getInstance().setLockFile();
+		}
+		else {
+			MessageUtil.showWarning(startUpProgress, "The default workspace is in use. Please close all AnGSTD instances and try again. ");
+			System.exit(0);
+		}
 	}
 	
 	/**
@@ -288,6 +314,8 @@ public class ApplicationHandler {
 				e.printStackTrace();
 			}
 		}
+
+		
 	}
 }
 

@@ -83,7 +83,6 @@ public class InterProScanResultParser {
 	 */
 	public DomainArrangement getArrangement(Reader reader) throws IOException {
 		DomainArrangement prot = new DomainArrangement();
-		Map<String, DomainFamily> domFamilyMap = new HashMap<String, DomainFamily>();
 		
 		// parse each line of the document
 		BufferedReader in = new BufferedReader(reader); 
@@ -92,15 +91,15 @@ public class InterProScanResultParser {
 			if (line.isEmpty())					// ignore empty lines
 				continue;
 						
-			//System.out.println("Result string: "+ line);
 			String[] token = line.split("\\t+");
 			
 			if (prot.getName() == null)
 				prot.setName(token[0]);
 	
 			String acc = token[4];
-			String id = token[5];
-			String scanMethod = token[3];
+			String name = token[5];
+			//String scanMethod = token[3];
+			String interproEntry = token[11];
 
 			ArrayList<String> goStrings = null;
 			
@@ -110,12 +109,21 @@ public class InterProScanResultParser {
 					goStrings.add(token[i]);
 			}
 	
+			//Irrelevant: DomainType cleaned and following comment lines switched
+			//DomainType domType=DomainType.getTypeByMethod(scanMethod);
+			
 			DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(acc);
 			if (domFamily == null) {
-				domFamily = new DomainFamily(acc, id, DomainType.getTypeByMethod(scanMethod));
-//				domFamily.setPfamID(pfamID);
+				
+				//domFamily = new DomainFamily(acc, name, domType);
+				domFamily = new DomainFamily(acc, name, DomainType.getType(acc));
+
 				GatheringThresholdsReader.getInstance().put(acc, domFamily);
 			}
+			if(domFamily.getInterproEntry()==null)
+				domFamily.setInterproEntry(interproEntry);
+				//GatheringThresholdsReader.getInstance().get(acc).setInterproEntry(interproEntry);
+			
 			if (! (goStrings == null) )
 				parseGOString(goStrings, domFamily);
 

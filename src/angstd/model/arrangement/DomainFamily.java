@@ -20,6 +20,9 @@ public class DomainFamily  {
 	
 	/** family accession number, primary id */
 	protected String acc;
+
+	/** Interpro entry */
+	protected String interproEntry;
 	
 	/** Required threshold to detect the domain occurrence */
 	private double gathThreshByDom;
@@ -79,7 +82,41 @@ public class DomainFamily  {
 	public void setID(String id) {
 		this.id = id;
 	}
-
+	
+	/**
+	 * Returns the family id
+	 * 
+	 * @return
+	 * 		family id
+	 */
+	public String getID() {
+		if (id == null)
+			return acc;
+		
+		return id;
+	}
+	
+	
+	/**
+	 * Set the Interpro Entry
+	 * 
+	 * @param id
+	 * 		Interpro Entry
+	 */
+	public void setInterproEntry(String ie) {
+		this.interproEntry = ie;
+	}
+	
+	/**
+	 * Returns the Interpro Entry
+	 * 
+	 * @return
+	 * 		Interpro Entry
+	 */
+	public String getInterproEntry() {
+		return interproEntry;
+	}
+	
 	/**
 	 * Returns the family accession number
 	 * 
@@ -108,20 +145,6 @@ public class DomainFamily  {
 	 */
 	public double getGathThreshByFam() {
 		return gathThreshByDom;
-	}
-	
-	
-	/**
-	 * Returns the family id
-	 * 
-	 * @return
-	 * 		family id
-	 */
-	public String getID() {
-		if (id == null)
-			return acc;
-		
-		return id;
 	}
 	
 	

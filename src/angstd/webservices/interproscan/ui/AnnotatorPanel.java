@@ -80,7 +80,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	private JRadioButton[] methods;
 
 	/** Buttons for load sequence file, submit job, apply results and cancel */
-	private JButton loadSeqs, submit, apply, cancel;
+	private JButton loadSeqs, submit, apply, cancel, close;
 	
 	/** console to update user about the annotation status */
 	private JTextArea console;
@@ -93,7 +93,9 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	
 	/** instance of configurator (for email) **/
 	private Configuration config;
-	
+
+	/** Selected view **/
+	private String defaultName;
 	
 	/**
 	 * Constructor for a new Annotator panel
@@ -163,9 +165,11 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 */
 	public void apply() {
 		// the name is equal to the file + seqs
-		File dummy = new File(seqPath.getText());
-		String defaultName = dummy.getName().split("\\.")[0];
-		
+		if(defaultName==null)
+		{
+			File dummy = new File(seqPath.getText());
+			defaultName = dummy.getName().split("\\.")[0];
+		}
 		
 		DomainArrangement[] domArrs = annotationSpawner.getResult().get();
 		
@@ -178,7 +182,12 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		// add annotated domain view
 		if (domArrs.length != 0) {
 			// force the user to enter a valid name for the view
-			String viewName = null;
+
+			// external fasta was used
+			if (defaultName != null) {
+				defaultName = defaultName+"-interproscan-"+methodsGroup.getSelection().getActionCommand()+"-results";
+			}
+			String viewName=null;
 			while (viewName == null) {
 				viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
 				if (viewName == null) 
@@ -205,11 +214,16 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	}
 	
 	/**
-	 * cancels the annotation spawner and disposes the GUI.
-	 * TODO: ensure that the swing worker disposes of the
-	 * AnnotationThreads that are running (ADM)
+	 * cancels the annotation spawner.
 	 */
 	public void cancel() {
+		dispose();
+	}
+	
+	/**
+	 * cancels the annotation spawner and disposes the GUI.
+	 */
+	public void close() {
 		dispose();
 		parent.dispose();
 	}
@@ -229,11 +243,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	public void submitJob() {
 			
 		console.setText("");
-	//	System.out.println("Want to submit!");
-		if(annotationSpawner.isRunning()) {
-			print("Annotator is currently running please wait! \n");
-			return;
-		}
 		
 		if (annotationSpawner.getSeqs() == null) {
 			print("Please load sequences first! \n");
@@ -276,10 +285,16 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		
 		
 		//System.out.println("shoot!");
-		//annotationSpawner.startMultiThreadSpawn();
+		annotationSpawner.startMultipleThreadSpawn();
 		
+		submit.setEnabled(false);
+		loadSeqs.setEnabled(false);
+		seqPath.setEnabled(false);
+		selectView.setEnabled(false);
+		email.setEnabled(false);
+		for (Method m : Method.values())
+			methods[m.ordinal()].setEnabled(false);
 		
-		annotationSpawner.startSingleThreadSpawn();
 		apply.setEnabled(true);
 	}
 		
@@ -368,7 +383,8 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		// apply
 		add(new JXTitledSeparator("Apply Results"), "growx, span, wrap, gaptop 10");
 		add(apply, "gap 5, split 2");
-		add(cancel, "wrap");	
+		add(cancel, "gap 5, split 2");
+		add(close, "wrap");	
 	}
 	
 	/* ************************************************************* *
@@ -393,11 +409,25 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				apply();
 			}
 		});
-		
+
 		cancel = new JButton ("Cancel");
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				cancel();
+				submit.setEnabled(true);
+				loadSeqs.setEnabled(true);
+				seqPath.setEnabled(true);
+				selectView.setEnabled(true);
+				email.setEnabled(true);
+				for (Method m : Method.values())
+					methods[m.ordinal()].setEnabled(true);
+			}
+		});
+				
+		close = new JButton ("Close");
+		close.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				close();
 			}
 		});
 	}
@@ -424,10 +454,13 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				ViewElement selected = (ViewElement)cb.getSelectedItem();
 				if (selected == null) {
 					return;
+				}else
+				{
+					defaultName=selected.getTitle();
+					//System.out.println(selected.getTitle());
 				}
 				SequenceView view = ViewHandler.getInstance().getView(selected.getViewInfo());
 				annotationSpawner.setSeqs(view.getSeqs());
-
 				
 			}
 		});
@@ -439,6 +472,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			public void actionPerformed(ActionEvent evt) {
 				if (!(selectView.getSelectedItem() == null)) {
 					//MessageUtil.showWarning("You have already loaded sequences, deselecting.");
+					defaultName=null;
 					selectView.setSelectedItem(null);
 				}
 				File file = FileDialogs.showOpenDialog(instance);
@@ -455,6 +489,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		methods = new JRadioButton[Method.values().length];
 		for (Method m : Method.values()) {
 			methods[m.ordinal()] = new JRadioButton(m.getTitle(), m.getInitialState());
+			methods[m.ordinal()].setActionCommand(m.getTitle());
 			methodsGroup.add(methods[m.ordinal()]);
 		}
 	}

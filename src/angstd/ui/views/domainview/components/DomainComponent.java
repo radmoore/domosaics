@@ -4,6 +4,7 @@ import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
 
 import angstd.model.arrangement.Domain;
+import angstd.model.configuration.Configuration;
 import angstd.ui.views.view.components.AbstractViewComponent;
 
 /**
@@ -69,10 +70,17 @@ public class DomainComponent extends AbstractViewComponent {
      * 		label for the domain
      */
     public String getLabel(){
-    	String label = getDomain().getID();
-    	if (label == null) {
-    		label = getDomain().getAcc();
+    	String label;
+    	if(Configuration.isIdPreferedToAcc())
+    	{
+    		label = getDomain().getID();
+    		if (label == null) {
+        		label = getDomain().getAcc();
+        	}
     	}
+    	else
+    		label = getDomain().getAcc();	
+    	
     	
 		if(label != null && !label.trim().isEmpty()) 
 			return label;

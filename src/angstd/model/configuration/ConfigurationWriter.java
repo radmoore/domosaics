@@ -43,4 +43,22 @@ public class ConfigurationWriter {
 			//e.printStackTrace();
 		}
 	}
+	
+	public static void setLockFile() {
+		Configuration config = Configuration.getInstance();
+		
+		try {
+			BufferedWriter lockfile = new BufferedWriter(new FileWriter(config.getLockFile())); 
+			lockfile.write("");
+			lockfile.flush();
+			lockfile.close();
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 }

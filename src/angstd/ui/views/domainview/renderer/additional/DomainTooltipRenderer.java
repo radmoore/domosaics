@@ -222,7 +222,6 @@ public class DomainTooltipRenderer implements Renderer {
         labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), eval);
         width = labelWidth > width ? labelWidth : width;
         elements++;
-        
         String domType = "Source DB: "+dc.getDomain().getFamily().getDomainType().getName();
         labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), domType);
         width = labelWidth > width ? labelWidth : width;
