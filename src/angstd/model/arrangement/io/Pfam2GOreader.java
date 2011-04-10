@@ -1,18 +1,19 @@
 package angstd.model.arrangement.io;
 
-import angstd.model.GO.*;
-import angstd.model.arrangement.DomainFamily;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import angstd.model.GO.GeneOntology;
+import angstd.model.arrangement.DomainFamily;
+import angstd.util.CheckConnectivity;
 
 
 
@@ -27,8 +28,21 @@ public class Pfam2GOreader {
 		return instance;
 	}
 	
-	
 	public static void readFile() {
+		try {
+			URL localFile = Pfam2GOreader.class.getResource("resources/pfam2go");
+			BufferedReader localIn = new BufferedReader(new FileReader(localFile.getFile()));
+			URL remoteFile = new URL("http://www.geneontology.org/external2go/pfam2go");
+			BufferedReader remoteIn = new BufferedReader(new InputStreamReader(remoteFile.openStream()));
+		}
+		catch (Exception e) {
+			
+		}
+	}
+	
+	
+	
+	public static void readGOFile() {
 		
 		
 		Map<String, DomainFamily> domFamMap = GatheringThresholdsReader.getInstance();
@@ -57,6 +71,9 @@ public class Pfam2GOreader {
 				if (firstLine) {
 					String [] fields = line.split(": ");
 					versionDate = (Date)formatter.parse(fields[1]);
+					if (CheckConnectivity.checkInternetConnectivity())
+						updatePfam2GO();
+					
 					go.setVersionDate(versionDate);
 					firstLine = false;
 					continue;
@@ -87,10 +104,21 @@ public class Pfam2GOreader {
 	}
 	
 	//TODO
-	public void updateGOmap() {
-		
+	public static void updatePfam2GO() {
+		URL pfam2go = new URL("http://www.geneontology.org/external2go/pfam2go");
+		BufferedReader in = new BufferedReader(new InputStreamReader(pfam2go.openStream()));
+
+		String inputLine;
+
+		while ((inputLine = in.readLine()) != null)
+			System.out.println(inputLine);
+
+			in.close();
+		}
 	}
 	
+
+
 	
 	
 	
