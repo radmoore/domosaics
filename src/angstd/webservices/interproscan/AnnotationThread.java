@@ -1,44 +1,44 @@
 package angstd.webservices.interproscan;
+
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.SwingWorker;
+import javax.xml.rpc.ServiceException;
 
-import uk.ac.ebi.webservices.wsinterproscan.Data;
-import uk.ac.ebi.webservices.wsinterproscan.InputParams;
-import uk.ac.ebi.webservices.wsinterproscan.WSInterProScan;
-import uk.ac.ebi.webservices.wsinterproscan.WSInterProScanService;
-import uk.ac.ebi.webservices.wsinterproscan.WSInterProScanServiceLocator;
+import org.apache.axis.AxisFault;
+
+import uk.ac.ebi.webservices.axis1.stubs.iprscan.InputParameters;
+import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_PortType;
+import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_Service;
+import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_ServiceLocator;
+
 import angstd.model.sequence.SequenceI;
 
 /**
- * AnnotationThread is the interface between the WSInterproScan library 
- * and AnGSTD. 
+ * AnnotationThread is the interface between the iprscan API 
+ * and AnGSTD.
+ * (see http://www.ebi.ac.uk/Tools/webservices/services/pfa/iprscan_soap#getresult_jobid_type_parameters)
  * <p>
  * Annotation threads are created by a {@link AnnotationThreadSpawner}. <br>
- * A valid email address and the signature method must be set to run the 
+ * A valid email address and method must be set to run the 
  * annotation thread successfully.
  * <p>
- * The result is the output of WSInterproScan in raw format.
+ * The result is the raw output, see
+ * (see http://www.ebi.ac.uk/Tools/webservices/services/pfa/iprscan_soap#getresult_jobid_type_parameters)
  * 
- * @author Andreas Held, Andrew Moore
+ * 
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
+ * @author Andreas Held
+ * 
  *
  */
 public class AnnotationThread extends SwingWorker<String, Void> {
 
-	/** input parameters needed for a query against InterPro, such as email address */
-	protected InputParams params;
-	
-	/**	query sequence */
-	protected Data[] content;
-	
-	/**	output of WSInterproScan for the query sequence */
-	protected String result;
-	
-	/** the query sequence */
-	protected SequenceI seq;		
-	
-	/** spawner object which created the annotation thread */
-	protected AnnotationThreadSpawner spawner;
+	private InputParameters params;
+	private JDispatcherService_PortType srvProxy = null;
+	private String result, email, fasta;
+	private SequenceI seq;		
+	private AnnotationThreadSpawner spawner;
 	
 	/**
 	 * Constructor for an annotation against InterPro.
@@ -68,12 +68,7 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	 */
 	public void setQuerySequence(SequenceI seq) {
 		this.seq = seq;
-		
-		// The input data
-        content = new Data[1];
-        content[0] = new Data();
-        content[0].setType("sequence");
-        content[0].setContent(">"+seq.getName()+"\n"+seq.getSeq(false));
+		this.fasta = ">"+seq.getName()+"\n"+seq.getSeq(false);
 	}
 	
 	/**
@@ -84,22 +79,14 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	 * @param methods
 	 * 		an annotation method, e.g. hmmpfam
 	 */
-	public void setParams(String email, String methods) {
-		params = new InputParams();
-		params.setEmail(email);                 // User e-mail address
-		params.setAsync(new Boolean(true));     // Async submission
-		params.setSeqtype("P");                 // Protein input sequence
-		params.setCrc(new Boolean(true));       // Use IprMatches lookup
+	public void setParams(String email, String methodname) {
+		this.email = email;
+		params = new InputParameters();
+		params.setNocrc(true);
 		params.setGoterms(true);
-		params.setOutformat("toolraw");
-		
-        /* A space separated list of InterPro signature methods to run.
-         * Valid method names are:
-         * blastprodom, gene3d, hmmpanther, hmmpir, hmmpfam, hmmsmart,
-         * signalp, tmhmm, hmmtigr, fprintscan, scanregexp, profilescan,
-         * superfamily
-         */
-		params.setApp(methods);
+		String[] methods = new String[1];
+		methods[0] = methodname;
+		params.setAppl(methods);
 	}
 	
 	/**
@@ -112,31 +99,47 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	@Override
     protected String doInBackground() {
 		try {
-			WSInterProScanService service = new WSInterProScanServiceLocator();
-			WSInterProScan interProScan = service.getWSInterProScan();
-	        String jobId = interProScan.runInterProScan(params, content);
-	        
-	        String status = "PENDING";
+			
+			params.setSequence(fasta);
+			srvProxyConnect();
+			String jobId = srvProxy.run(email, "test run", params);
+			String status = srvProxy.getStatus(jobId);
+			spawner.out.print("Starting scan [ JOBID " + jobId +" ]\n");
 	            
-	        // Check status and wait if not finished
-	        while(status.equals("RUNNING") || status.equals("PENDING")) {
-        		Thread.sleep(1000); // Wait before polling again.
-	        	status = interProScan.checkStatus(jobId);
+	        while(status.equals("RUNNING")) {
+	        	spawner.out.print("waiting for results... \n");
+        		Thread.sleep(1000);
+	        	status = srvProxy.getStatus(jobId);
 	        }
 	       
-	        // Get results
-	        byte[] res;
-	        res = interProScan.poll(jobId, "toolraw");
-	        
-	        if (res == null)
+	        if (status.equals("ERROR")) {
+	        	spawner.out.print("[ ERROR occurred when obtaining job status for job " + jobId +" ]\n");
+	        	System.err.println("*** E: an error occurred attempting to get the job status [jobid: "+ jobId +"]");
 	        	return null;
+			}
+	        else if (status.equals("FAILURE")) {
+	        	spawner.out.print("[ ERROR job " + jobId +"  failed ]\n");
+	        	System.err.println("*** E: The job failed [jobid: "+ jobId +"]");
+	        	return null;
+			}
+	        else if (status.equals("NOT_FOUND")) {
+	        	spawner.out.print("[ NOT_FOUND could not find job with id " + jobId +" ]\n");
+	        	System.err.println("*** E: job not found [jobid: "+ jobId +"]");
+	        	return null;
+	        }  
 	        
-	       result = new String(res);
-	       return result;
+	        // AXIS exception can be thrown here
+	        byte[] resultBytes = srvProxy.getResult(jobId, "out", null);
+	        return (resultBytes == null) ? null : new String(resultBytes);
+	        
 	       
-		} catch (Exception e) {
-			//System.out.println("->Job "+seq.getName()+" cancelled<-");
-		} 
+		}
+		// axis fault caught, but not handled 
+		catch (AxisFault af) {}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return null;
     }
 	
@@ -146,32 +149,42 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	 */
 	 @Override
      protected void done() {
-		if(!isCancelled())
-		{
-			//System.out.println("->Job "+seq.getName()+" finished<-");
-//			try {
-//				spawner.processResults(this, get());
-//			}
-//			catch (InterruptedException e) {
-//				System.out.println("Interrupted.");
-//				e.printStackTrace();
-//			}
-//			catch (ExecutionException e) {
-//				System.out.println("Some other executaion exception.");
-//     		e.printStackTrace();
-//			}
+		if(!isCancelled()) {
+			try {
+				spawner.processResults(this, get());
+			}
+			catch (InterruptedException e) {
+				System.out.println("Interrupted.");
+				e.printStackTrace();
+			}
+			catch (ExecutionException e) {
+				System.out.println("Some other executaion exception.");
+				e.printStackTrace();
+			}
 		}
      }
 	
 
 	 /**
 	  * Return the query result for the input sequence.
-	  * 
+	  *  
 	  * @return
 	  * 	annotation result
 	  */
     public String getResult() {
     	return result;
     }
+    
+    
+    /**
+     * Ensure that there is a connection to the service proxy
+     * @throws ServiceException
+     */
+	protected void srvProxyConnect() throws ServiceException {
+		if (this.srvProxy == null) {
+			JDispatcherService_Service service = new JDispatcherService_ServiceLocator();
+			this.srvProxy = service.getJDispatcherServiceHttpPort();
+		}
+	}
     
 }

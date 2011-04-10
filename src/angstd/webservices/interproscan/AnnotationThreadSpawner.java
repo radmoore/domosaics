@@ -10,7 +10,7 @@ import angstd.model.sequence.SequenceI;
 
 /**
  * AnnotationThreadSpawner spawns for a set of query sequences 
- * {@link AnnotationThread}s to annotate the sequences against InterPro using
+ * {@link AnnotationThread_old}s to annotate the sequences against InterPro using
  * a signature method, such as hmmpfam.
  * <p>
  * The thread spawner can be used multithreaded, creating up to 25 threads at a time
@@ -37,7 +37,7 @@ public class AnnotationThreadSpawner {
 	
 	/** list of all annotation threads */
 	//protected ArrayList<AnnotationThread> activeQuerys;
-	protected ArrayList<AnnotationThreadII> activeQuerys;
+	protected ArrayList<AnnotationThread> activeQuerys;
 	
 	/** list of all annotation threads */
 	protected SwingWorker<String, Void> jobLauncher;
@@ -58,7 +58,7 @@ public class AnnotationThreadSpawner {
 	 */
 	public AnnotationThreadSpawner(AnnotatorProcessWriter out) {
 		//activeQuerys = new ArrayList<AnnotationThread>();
-		activeQuerys = new ArrayList<AnnotationThreadII>();
+		activeQuerys = new ArrayList<AnnotationThread>();
 		this.out = out;
 	}
 	
@@ -139,7 +139,7 @@ public class AnnotationThreadSpawner {
 	 */
 	protected void spawnAnnotation(SequenceI seq) {
 		//AnnotationThread annotator = new AnnotationThreadII(this);
-		AnnotationThreadII annotator = new AnnotationThreadII(this);
+		AnnotationThread annotator = new AnnotationThread(this);
 		annotator.setParams(email, method);
 		annotator.setQuerySequence(seq);
 		activeQuerys.add(annotator);
@@ -174,7 +174,7 @@ public class AnnotationThreadSpawner {
 	 * 		the result of the annotation thread
 	 */
 	//public void processResults(AnnotationThread annotator, String res) {
-	public void processResults(AnnotationThreadII annotator, String res) {
+	public void processResults(AnnotationThread annotator, String res) {
 
 		if (!(res == null) ) {	
 			DomainArrangement da = new InterProScanResultParser().parseResult(res);
@@ -197,11 +197,10 @@ public class AnnotationThreadSpawner {
 		
 		if(jobLauncher.isDone()) {
 			if(activeQuerys.size()==0)
-				out.print("---------------------------------\nAll sequences annotated, click apply to create resulting view.");
-			else
-			{
-				out.print("Wait for results (last "+activeQuerys.size()+" job");
-				if(seqsWaitingForAnnotation!=getSeqs().length)
+				out.print("---------------------------------\nAll sequences annotated, click apply to create view of results.");
+			else {
+				out.print("Wait for results (last " + activeQuerys.size() + " job");
+				if (seqsWaitingForAnnotation != getSeqs().length)
 					out.print("s");
 				out.print(" running)... \n");
 			}
@@ -209,8 +208,8 @@ public class AnnotationThreadSpawner {
 	}
 	
 
-	public void startMultipleThreadSpawn()
-	{
+	public void startMultipleThreadSpawn(){
+		
 		jobLauncher = new SwingWorker<String, Void>() {
 			public String doInBackground() {
 				try {
@@ -219,12 +218,11 @@ public class AnnotationThreadSpawner {
 			
 					while (seqsWaitingForAnnotation < getSeqs().length && !isCancelled()) {
 						for (int s = activeQuerys.size(); s < 25 && s < getSeqs().length; s++) {
-							out.print("Start Annotation for protein "+getSeqs()[seqsWaitingForAnnotation].getName()+" ("+(seqsWaitingForAnnotation+1)+"/"+getSeqs().length+")\n");
+							out.print("Preparing annotation for "+getSeqs()[seqsWaitingForAnnotation].getName()+" ("+(seqsWaitingForAnnotation+1)+"/"+getSeqs().length+")\n");
 							spawnAnnotation(getSeqs()[seqsWaitingForAnnotation]);
 							seqsWaitingForAnnotation++;
 						}
-						out.print("Waiting for results...\n");
-						sleep(10000);	// wait for new threading
+						sleep(10000);	// wait before respawn
 					}
 				}
 				catch(Exception e){
@@ -236,18 +234,19 @@ public class AnnotationThreadSpawner {
 			public void done() {
 				if (isCancelled()) {
 					out.updateProgress(0);
-					out.print("Annotation process aborted, aborting all InterProScans...\n");
+					out.print("Annotation process aborted, aborting all scans...\n");
 					for (int i = 0; i < activeQuerys.size(); i++) 
 					{
 						activeQuerys.get(i).cancel(true);
 						out.print(activeQuerys.get(i).getQuerySequence().getName()+" aborted! \n");
 					}
 					activeQuerys.clear();
-					out.print("------------------------------\nReady to a new job submission!");
+					out.print("------------------------------\nReady to submit a new job");
 				}
 			}
 		};
 		
 		jobLauncher.execute();
 	}
+	
 }

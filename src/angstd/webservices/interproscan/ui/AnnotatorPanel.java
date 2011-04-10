@@ -71,13 +71,13 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	private JTextField seqPath, email, evalue;
 	
 	/** view selection box */
-	private JComboBox selectView;
+	private JComboBox selectView, selectMethod;
 	
 	/** ButtonGroup for methods **/
 	private ButtonGroup methodsGroup;
 	
 	/** Method radio buttons */
-	private JRadioButton[] methods;
+	//private JRadioButton[] methods;
 
 	/** Buttons for load sequence file, submit job, apply results and cancel */
 	private JButton loadSeqs, submit, apply, cancel, close;
@@ -123,7 +123,8 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		progressBar.setValue(0);
 		initSelectViewBox();
 		initLoadSeqBtn();
-		initMethodCheckBoxes();
+		initMethodSelection();
+		//initMethodCheckBoxes();
 		initEmailText();
 		initEvalText();
 		initFinalButtons();
@@ -185,7 +186,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 
 			// external fasta was used
 			if (defaultName != null) {
-				defaultName = defaultName+"-interproscan-"+methodsGroup.getSelection().getActionCommand()+"-results";
+				defaultName = defaultName+"-interproscan-"+selectMethod.getSelectedItem().toString()+"-results";
 			}
 			String viewName=null;
 			while (viewName == null) {
@@ -260,18 +261,18 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		}
 		
 		// gather selected methods
-		StringBuffer methodStr = new StringBuffer();
-		for (Method m : Method.values()) 
-			if (methods[m.ordinal()].isSelected())
-				methodStr.append(""+m.getTitle()+" ");
-		if (methodStr.length() == 0) {
-			print("Please select a method! \n");
-			return;
-		}
+//		StringBuffer methodStr = new StringBuffer();
+//		for (Method m : Method.values()) 
+//			if (methods[m.ordinal()].isSelected())
+//				methodStr.append(""+m.getTitle()+" ");
+//		if (methodStr.length() == 0) {
+//			print("Please select a method! \n");
+//			return;
+//		}
 			
 		//System.out.println("... and am about to do that!");
 		annotationSpawner.setEmail(email.getText());
-		annotationSpawner.setMethod(methodStr.toString());
+		annotationSpawner.setMethod(selectMethod.getSelectedItem().toString());
 		
 		// check inet connectivity
 		if (!CheckConnectivity.checkInternetConnectivity()) {
@@ -291,9 +292,10 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		loadSeqs.setEnabled(false);
 		seqPath.setEnabled(false);
 		selectView.setEnabled(false);
+		selectMethod.setEnabled(false);
 		email.setEnabled(false);
-		for (Method m : Method.values())
-			methods[m.ordinal()].setEnabled(false);
+//		for (Method m : Method.values())
+//			methods[m.ordinal()].setEnabled(false);
 		
 		apply.setEnabled(true);
 	}
@@ -365,11 +367,16 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 
 		add(new JXTitledSeparator("Submit job to Interpro / EBI"),  "growx, span, wrap, gaptop 10");
 		
-		JPanel methodPane = new JPanel();
-		for (Method m : Method.values())
-			methodPane.add(methods[m.ordinal()]);
+		//JPanel methodPane = new JPanel();
+		//for (Method m : Method.values())
+		//	methodPane.add(methods[m.ordinal()]);
+		//JPanel methodPane = new JPanel();
+		add(new JLabel("Select method:"), "gap 5");
+		add(selectMethod, "h 25!, span, wrap");
+		
+		
 
-		add(methodPane, "span");
+		//add(methodPane, "span");
 		add(submit, "w 165!, wrap");
 
 		// console
@@ -418,9 +425,10 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				loadSeqs.setEnabled(true);
 				seqPath.setEnabled(true);
 				selectView.setEnabled(true);
+				selectMethod.setEnabled(true);
 				email.setEnabled(true);
-				for (Method m : Method.values())
-					methods[m.ordinal()].setEnabled(true);
+//				for (Method m : Method.values())
+//					methods[m.ordinal()].setEnabled(true);
 			}
 		});
 				
@@ -484,15 +492,22 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		});
 	}
 	
-	private void initMethodCheckBoxes() {
-		methodsGroup = new ButtonGroup();
-		methods = new JRadioButton[Method.values().length];
-		for (Method m : Method.values()) {
-			methods[m.ordinal()] = new JRadioButton(m.getTitle(), m.getInitialState());
-			methods[m.ordinal()].setActionCommand(m.getTitle());
-			methodsGroup.add(methods[m.ordinal()]);
-		}
+	private void initMethodSelection() {
+		selectMethod = new JComboBox(Method.values());
+		// preselect hmmpfam
+		selectMethod.setSelectedIndex(4);
 	}
+	
+	
+//	private void initMethodCheckBoxes() {
+//		methodsGroup = new ButtonGroup();
+//		methods = new JRadioButton[Method.values().length];
+//		for (Method m : Method.values()) {
+//			methods[m.ordinal()] = new JRadioButton(m.getTitle(), m.getInitialState());
+//			methods[m.ordinal()].setActionCommand(m.getTitle());
+//			methodsGroup.add(methods[m.ordinal()]);
+//		}
+//	}
 	
 	private void initEmailText() {
 		String email_text = (config.getEmailAddr().isEmpty()) ? DEFAULT_EMAIL : config.getEmailAddr() ;
