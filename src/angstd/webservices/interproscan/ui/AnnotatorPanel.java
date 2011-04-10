@@ -7,13 +7,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -73,12 +71,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	/** view selection box */
 	private JComboBox selectView, selectMethod;
 	
-	/** ButtonGroup for methods **/
-	private ButtonGroup methodsGroup;
-	
-	/** Method radio buttons */
-	//private JRadioButton[] methods;
-
 	/** Buttons for load sequence file, submit job, apply results and cancel */
 	private JButton loadSeqs, submit, apply, cancel, close;
 	
@@ -124,7 +116,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		initSelectViewBox();
 		initLoadSeqBtn();
 		initMethodSelection();
-		//initMethodCheckBoxes();
 		initEmailText();
 		initEvalText();
 		initFinalButtons();
@@ -166,8 +157,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 */
 	public void apply() {
 		// the name is equal to the file + seqs
-		if(defaultName==null)
-		{
+		if(defaultName==null) {
 			File dummy = new File(seqPath.getText());
 			defaultName = dummy.getName().split("\\.")[0];
 		}
@@ -194,7 +184,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				if (viewName == null) 
 					MessageUtil.showWarning("A valid view name is needed to complete this action");
 			}
-		
 		
 			DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
 			domResultView.setDaSet(domArrs);
@@ -260,17 +249,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			return;
 		}
 		
-		// gather selected methods
-//		StringBuffer methodStr = new StringBuffer();
-//		for (Method m : Method.values()) 
-//			if (methods[m.ordinal()].isSelected())
-//				methodStr.append(""+m.getTitle()+" ");
-//		if (methodStr.length() == 0) {
-//			print("Please select a method! \n");
-//			return;
-//		}
-			
-		//System.out.println("... and am about to do that!");
 		annotationSpawner.setEmail(email.getText());
 		annotationSpawner.setMethod(selectMethod.getSelectedItem().toString());
 		
@@ -279,13 +257,11 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			MessageUtil.showWarning("Please check your intenet connection (connection failed)");
 			return;
 		}
-		if (!CheckConnectivity.addressAvailable("http://www.ebi.ac.uk/Tools/webservices/wsdl/WSsInterProScan.wsdl")) {
+		if (!CheckConnectivity.addressAvailable("http://www.ebi.ac.uk/Tools/services/soap/iprscan?wsdl")) {
 			MessageUtil.showWarning("Cannot connect to EBI webservices. Please try again later.");
 			return;
 		}
 		
-		
-		//System.out.println("shoot!");
 		annotationSpawner.startMultipleThreadSpawn();
 		
 		submit.setEnabled(false);
@@ -294,9 +270,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		selectView.setEnabled(false);
 		selectMethod.setEnabled(false);
 		email.setEnabled(false);
-//		for (Method m : Method.values())
-//			methods[m.ordinal()].setEnabled(false);
-		
 		apply.setEnabled(true);
 	}
 		
@@ -346,10 +319,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * Layouts the panels components using MigLayout.
 	 */
 	private void initPanel() {
-		//add(loadBinDir, "gap 5, w 165!");
-		//add(binTF, "h 25!, gap 5, span2, growX, wrap");
-		
-		
 		// sequences
 		add(new JXTitledSeparator("Sequences"), "growx, span, wrap, gaptop 10");
 		
@@ -358,7 +327,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		
 		add(new JLabel("Or select view:"), "gap 5");
 		add(selectView, "h 25!, span, growX, wrap");
-		//add(selectView,     					"gap 10, span 2, growX, wrap");
 		
 		// parameter
 		add(new JXTitledSeparator("Parameters"),"growX, span, wrap, gaptop 10");
@@ -367,14 +335,8 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 
 		add(new JXTitledSeparator("Submit job to Interpro / EBI"),  "growx, span, wrap, gaptop 10");
 		
-		//JPanel methodPane = new JPanel();
-		//for (Method m : Method.values())
-		//	methodPane.add(methods[m.ordinal()]);
-		//JPanel methodPane = new JPanel();
 		add(new JLabel("Select method:"), "gap 5");
 		add(selectMethod, "h 25!, span, wrap");
-		
-		
 
 		//add(methodPane, "span");
 		add(submit, "w 165!, wrap");
@@ -567,7 +529,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	
 	private void initConsole() {
 		console = new JTextArea();
-		console.setFont(new Font ("Courier", 0, 12));	// style plain, size 14
+		console.setFont(new Font ("Courier", 0, 12));
 		console.setColumns(70);
 		console.setLineWrap(true);
 		console.setRows(8);

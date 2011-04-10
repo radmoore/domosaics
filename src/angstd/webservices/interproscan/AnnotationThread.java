@@ -102,7 +102,7 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 			
 			params.setSequence(fasta);
 			srvProxyConnect();
-			String jobId = srvProxy.run(email, "test run", params);
+			String jobId = srvProxy.run(email, seq.getName(), params);
 			String status = srvProxy.getStatus(jobId);
 			spawner.out.print("Starting scan [ JOBID " + jobId +" ]\n");
 	            
@@ -136,12 +136,22 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 		}
 		// axis fault caught, but not handled 
 		catch (AxisFault af) {}
+		catch (InterruptedException ie){}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return null;
     }
+	
+	// cancel and close connection
+	protected void purgeAllJobs() {
+		if (srvProxy != null) {
+			this.cancel(true);
+			srvProxy = null;
+		}
+	}
+	
 	
 	/**
 	 * SwingWorker method which is triggered when the annotation process 

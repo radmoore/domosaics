@@ -26,6 +26,7 @@ import angstd.model.arrangement.io.GatheringThresholdsReader;
  * {@link DomainArrangement} objects.
  * 
  * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  * 
  * 
  *
@@ -109,9 +110,7 @@ public class InterProScanResultParser {
 					goStrings.add(token[i]);
 			}
 	
-			//Irrelevant: DomainType cleaned and following comment lines switched
-			//DomainType domType=DomainType.getTypeByMethod(scanMethod);
-			
+		
 			DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(acc);
 			if (domFamily == null) {
 				
@@ -155,7 +154,6 @@ public class InterProScanResultParser {
 				
 				while (m.find()) {
 					String gid = m.group();
-					// TODO: what if term does not exist?
 					GeneOntology go = GeneOntology.getInstance();
 					GeneOntologyTerm term = go.getTerm(gid);
 					if (!(dFam.hasGoTerm(gid)))

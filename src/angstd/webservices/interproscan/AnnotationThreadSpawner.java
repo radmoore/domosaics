@@ -129,6 +129,12 @@ public class AnnotationThreadSpawner {
 	 */
 	public void cancel() {
 		jobLauncher.cancel(true);
+		for (int i = 0; i < activeQuerys.size(); i++) {
+			activeQuerys.get(i).cancel(true);
+			out.print(activeQuerys.get(i).getQuerySequence().getName()+" aborted! \n");
+		}
+		activeQuerys.clear();
+		out.updateProgress(0);
 	}
 	
 	/**
@@ -138,7 +144,6 @@ public class AnnotationThreadSpawner {
 	 * 		the query sequence to be annotated
 	 */
 	protected void spawnAnnotation(SequenceI seq) {
-		//AnnotationThread annotator = new AnnotationThreadII(this);
 		AnnotationThread annotator = new AnnotationThread(this);
 		annotator.setParams(email, method);
 		annotator.setQuerySequence(seq);

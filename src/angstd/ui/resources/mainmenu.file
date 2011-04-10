@@ -88,15 +88,15 @@
 
 	<menu id="Tools">
 		<menuitem id="JMenuItem">
-			<parameter id="name" value="Annotator"/> 
+			<parameter id="name" value="InterProScan"/> 
 			<parameter id="actionClass" value="angstd.ui.actions.ShowAnnotatorAction"/> 
-			<parameter id="tooltip" value="Opens a new window where annotation of sequences is possible"/> 
+			<parameter id="tooltip" value="Run InterProScan to search for domains. Requires internet connection."/> 
 		</menuItem>
 
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Hmmer3"/> 
 			<parameter id="actionClass" value="angstd.ui.actions.Hmmer3Action"/> 
-			<parameter id="tooltip" value="Opens a new window where annotation of sequences is possible"/> 
+			<parameter id="tooltip" value="Run a local installation of HMMER3 to annotate sequences."/> 
 		</menuItem>
 
 	</menu>
