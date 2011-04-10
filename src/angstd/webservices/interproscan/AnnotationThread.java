@@ -149,17 +149,17 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 		if(!isCancelled())
 		{
 			//System.out.println("->Job "+seq.getName()+" finished<-");
-			try {
-				spawner.processResults(this, get());
-			}
-			catch (InterruptedException e) {
-				System.out.println("Interrupted.");
-				e.printStackTrace();
-			}
-			catch (ExecutionException e) {
-				System.out.println("Some other executaion exception.");
-     		e.printStackTrace();
-			}
+//			try {
+//				spawner.processResults(this, get());
+//			}
+//			catch (InterruptedException e) {
+//				System.out.println("Interrupted.");
+//				e.printStackTrace();
+//			}
+//			catch (ExecutionException e) {
+//				System.out.println("Some other executaion exception.");
+//     		e.printStackTrace();
+//			}
 		}
      }
 	

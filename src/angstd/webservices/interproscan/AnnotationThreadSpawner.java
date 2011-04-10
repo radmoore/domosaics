@@ -36,8 +36,9 @@ public class AnnotationThreadSpawner {
 	protected AnnotatorProcessWriter out;
 	
 	/** list of all annotation threads */
-	protected ArrayList<AnnotationThread> activeQuerys;
-
+	//protected ArrayList<AnnotationThread> activeQuerys;
+	protected ArrayList<AnnotationThreadII> activeQuerys;
+	
 	/** list of all annotation threads */
 	protected SwingWorker<String, Void> jobLauncher;
 	
@@ -56,7 +57,8 @@ public class AnnotationThreadSpawner {
 	 * 		annotation process
 	 */
 	public AnnotationThreadSpawner(AnnotatorProcessWriter out) {
-		activeQuerys = new ArrayList<AnnotationThread>();
+		//activeQuerys = new ArrayList<AnnotationThread>();
+		activeQuerys = new ArrayList<AnnotationThreadII>();
 		this.out = out;
 	}
 	
@@ -136,7 +138,8 @@ public class AnnotationThreadSpawner {
 	 * 		the query sequence to be annotated
 	 */
 	protected void spawnAnnotation(SequenceI seq) {
-		AnnotationThread annotator = new AnnotationThread(this);
+		//AnnotationThread annotator = new AnnotationThreadII(this);
+		AnnotationThreadII annotator = new AnnotationThreadII(this);
 		annotator.setParams(email, method);
 		annotator.setQuerySequence(seq);
 		activeQuerys.add(annotator);
@@ -170,7 +173,8 @@ public class AnnotationThreadSpawner {
 	 * @param res
 	 * 		the result of the annotation thread
 	 */
-	public void processResults(AnnotationThread annotator, String res) {
+	//public void processResults(AnnotationThread annotator, String res) {
+	public void processResults(AnnotationThreadII annotator, String res) {
 
 		if (!(res == null) ) {	
 			DomainArrangement da = new InterProScanResultParser().parseResult(res);
@@ -223,7 +227,9 @@ public class AnnotationThreadSpawner {
 						sleep(10000);	// wait for new threading
 					}
 				}
-				catch(Exception e){}
+				catch(Exception e){
+					e.printStackTrace();
+				}
 				return null;
 			}
 		
@@ -241,6 +247,7 @@ public class AnnotationThreadSpawner {
 				}
 			}
 		};
+		
 		jobLauncher.execute();
 	}
 }
