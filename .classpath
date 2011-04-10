@@ -44,7 +44,6 @@
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/xmlrpc-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/WSClustalW2.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/WSDbfetch.jar"/>
-	<classpathentry kind="lib" path="lib/ebiwebservices/WSInterProScan.jar"/>
 	<classpathentry kind="lib" path="lib/export/csv/javacsv.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/IPRScan_Axis1.jar"/>
 	<classpathentry kind="output" path="bin"/>

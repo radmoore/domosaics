@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 
 import angstd.model.GO.GeneOntology;
 import angstd.model.GO.GeneOntologyTerm;
@@ -46,8 +46,8 @@ public class InterProScanResultParser {
 		try {
 			return getArrangement(new StringReader(arrangementsStr));
 		} catch (IOException ioe) {
-			Logger.getLogger("logger").warn("IO Exception: could not read domain arrangement from string");
-			Logger.getLogger("logger").warn("Reading InterproScan result  aborted");
+	//		Logger.getLogger("logger").warn("IO Exception: could not read domain arrangement from string");
+	//		Logger.getLogger("logger").warn("Reading InterproScan result  aborted");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
