@@ -13,9 +13,9 @@ public class UiUtil {
 	public static JTextArea createConsole() {
 		JTextArea console = new JTextArea ();
 		console.setFont(new Font ("Courier", 0, 12));	// style plain, size 14
-		console.setColumns(50);
+		console.setColumns(55);
 		console.setLineWrap(true);
-		console.setRows(8);
+		console.setRows(10);
 		console.setWrapStyleWord(false);				// wrap on chars
 		console.setEditable(false);
 		return console;
@@ -23,7 +23,7 @@ public class UiUtil {
 	
 	
 	public static JTextField createEmailField (String address) {
-		final JTextField email = new JTextField(address);
+		final JTextField email = new JTextField(address, 20);
 		Color color = ( isValidEmail(address) ) ? new Color(60, 120, 30) : new Color(210, 60, 60);
 		email.setForeground(color);
 		

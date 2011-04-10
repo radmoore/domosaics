@@ -389,8 +389,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				selectView.setEnabled(true);
 				selectMethod.setEnabled(true);
 				email.setEnabled(true);
-//				for (Method m : Method.values())
-//					methods[m.ordinal()].setEnabled(true);
 			}
 		});
 				
@@ -460,16 +458,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		selectMethod.setSelectedIndex(4);
 	}
 	
-	
-//	private void initMethodCheckBoxes() {
-//		methodsGroup = new ButtonGroup();
-//		methods = new JRadioButton[Method.values().length];
-//		for (Method m : Method.values()) {
-//			methods[m.ordinal()] = new JRadioButton(m.getTitle(), m.getInitialState());
-//			methods[m.ordinal()].setActionCommand(m.getTitle());
-//			methodsGroup.add(methods[m.ordinal()]);
-//		}
-//	}
 	
 	private void initEmailText() {
 		String email_text = (config.getEmailAddr().isEmpty()) ? DEFAULT_EMAIL : config.getEmailAddr() ;

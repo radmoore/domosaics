@@ -72,15 +72,11 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 		setLayout(new MigLayout());
 		
 		// parameter
-		add(new JXTitledSeparator("Parameters"),"growx, span, wrap, gaptop 10");
-		add(new JLabel("Your e-mail:"),  		"gap 10");
-		add(email,     							"span, growx, wrap");
+		add(new JLabel("Your e-mail:"), "gap 5");
+		add(email, "h 25!, span, growX, wrap");
 	 
 		// buttons
-		add(new JXTitledSeparator("Start ClustalW2"),  "growx, span, wrap, gaptop 10");
-		add(new JLabel(""));
-		add(submit,  							"gaptop 10, span 2, center, wrap");
-
+		add(submit, "gaptop 10, w 165!, wrap");
 		// console
 		add(new JXTitledSeparator("Console"),	"growx, span, wrap, gaptop 10");
 		add(new JScrollPane(console),			"gap 10, span, wrap");	
