@@ -63,7 +63,7 @@ public class CreateProjectPage extends WizardPage {
 		if (projectName.equals("Default Project"))
 			return "Default Project name disallowed";
 		
-		if (WorkspaceManager.getInstance().ProjectExists(projectName))
+		if (WorkspaceManager.getInstance().projectExists(projectName))
 			return "Name taken - choose new name";
 			
 		return null;   

@@ -9,6 +9,13 @@ import net.miginfocom.swing.MigLayout;
 
 import org.netbeans.spi.wizard.WizardPage;
 
+import angstd.model.workspace.CategoryElement;
+import angstd.model.workspace.ProjectElement;
+import angstd.model.workspace.WorkspaceElement;
+import angstd.ui.ViewHandler;
+import angstd.ui.WorkspaceManager;
+import angstd.ui.workspace.WorkspaceSelectionManager;
+
 /**
  * WizardPage shown within the SelectViewNameDialog.
  * 
@@ -23,6 +30,7 @@ public class SelectNamePage extends WizardPage {
 	
 	/** text field to enter the objects name */
 	protected JTextField name;
+	private String objectName;
 	
 	
 	/**
@@ -35,7 +43,7 @@ public class SelectNamePage extends WizardPage {
 	 */
 	public SelectNamePage(String defaultName, String objectName) {
 		super(objectName+" name selection");
-		
+		this.objectName = objectName;
 		setLayout(new MigLayout());
 		
 		name = new JTextField(20);
@@ -43,7 +51,7 @@ public class SelectNamePage extends WizardPage {
 		name.setText(defaultName);
 		name.setName(ELEMENT_KEY);
 
-		add(new JLabel("Select "+objectName+" name. "), "gap 10");
+		add(new JLabel("Select "+objectName+" name "), "gap 10");
 		add(name, "gap 10");
 	}
 
@@ -51,8 +59,29 @@ public class SelectNamePage extends WizardPage {
      * Checks if all necessary inputs are made.
      */
     protected String validateContents (Component component, Object o) {
-		if(name.getText().trim().isEmpty())
-			return "Please select a view Name";
+		
+		String newName = name.getText().trim();
+		if (objectName.equals("project")) {
+			if (newName.isEmpty())
+				return "Select a name";
+			
+			if (newName.equals("Default Project"))
+				return "Default Project name disallowed";
+			
+			if (WorkspaceManager.getInstance().projectExists(newName))
+				return "Name taken - choose new name";
+		}
+		
+		if (objectName.equals("view")) {
+			WorkspaceSelectionManager wsm = WorkspaceManager.getInstance().getSelectionManager();
+			ProjectElement project = wsm.getSelectedProject();
+			WorkspaceElement wse = wsm.getSelectedElement();
+			
+			if (project.viewExists(newName, (CategoryElement)wse.getParent()))
+				return "Name taken - choose new name";
+			
+		}
+
         return null;
     }
  

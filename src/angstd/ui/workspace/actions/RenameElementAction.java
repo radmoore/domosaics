@@ -34,12 +34,12 @@ public class RenameElementAction extends AbstractAction{
 		WorkspaceElement selected = WorkspaceManager.getInstance().getSelectionManager().getSelectedElement();
 		
 		if (selected == null){
-			MessageUtil.showWarning("Please select a workspace element first");
+			MessageUtil.showWarning("Please first select a workspace element");
 			return;
 		}
 		
 		if (selected.isCategory()) {
-			MessageUtil.showWarning("Categorys are not allowed to be renamed");
+			MessageUtil.showWarning("Categories cannot be renamed");
 			return;
 		}
 		

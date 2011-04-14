@@ -198,11 +198,11 @@ public class Workspace extends WorkspaceElement {
 	 * 		all projects	
 	 */
 	public List<WorkspaceElement> getProjects() {
-		return childs;
+		return children;
 	}
 	
 	public ProjectElement getProject(String name) {
-		for (WorkspaceElement element : childs)
+		for (WorkspaceElement element : children)
 			if (element.getTitle().equals(name))
 				return (ProjectElement) element;
 		return null;
@@ -215,8 +215,8 @@ public class Workspace extends WorkspaceElement {
 	 * @return 
 	 * 		true if a project exists with name, false otherwise
 	 */
-	public boolean ProjectExists(String name) {
-		for (WorkspaceElement element : childs)
+	public boolean projectExists(String name) {
+		for (WorkspaceElement element : children)
 			if (element.getTitle().equals(name))
 				return true;
 		
@@ -230,7 +230,7 @@ public class Workspace extends WorkspaceElement {
 	 * 		number of all assigned projects
 	 */
 	public int countProjects() {
-		return childs.size();
+		return children.size();
 	}
 
 	/**

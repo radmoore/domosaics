@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 
+import angstd.model.workspace.CategoryElement;
 import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.ViewElement;
 import angstd.model.workspace.Workspace;
@@ -26,6 +27,7 @@ import angstd.ui.workspace.WorkspaceView;
  * manipulations of the workspace.
  * 
  * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
 public class WorkspaceManager {
@@ -212,8 +214,14 @@ public class WorkspaceManager {
 	}
 	
 	
-	public boolean ProjectExists(String name) {
-		return workspace.ProjectExists(name);
+	public boolean projectExists(String name) {
+		return workspace.projectExists(name);
+	}
+	
+	public boolean viewExists(String projectName, CategoryElement cat, String name) {
+		ProjectElement project = workspace.getProject(projectName);
+	//	project.viewExists(name, cat);
+		return false;
 	}
 	
 	

@@ -82,9 +82,9 @@ public class ProjectExporter {
         			
         			// if view exists ask if it should be overwritten
         			File viewFile = new File(catDir+"/"+viewElt.getTitle());
-//            		if (viewFile.exists()) 
-//                    	if (!MessageUtil.showDialog("View "+viewElt.getTitle()+" already exists. Overwrite it?"))
-//                    		continue;
+            		if (viewFile.exists()) 
+                    	if (!MessageUtil.showDialog("View "+viewElt.getTitle()+" already exists. Overwrite it?"))
+                    		continue;
                     
                     // export the view
                     ViewHandler.getInstance().getView(viewElt.getViewInfo()).export(viewFile);
