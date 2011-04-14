@@ -54,14 +54,16 @@ class SaveProjectProgress extends DeferredWizardResult implements WizardResultPr
 		try{
 			// get selected project and destination file
 			ProjectElement project = (ProjectElement) m.get(ChooseProjectToSavePage.PROJECT_KEY);
+			String exportName = (String) m.get(ChooseProjectToSavePage.FILE_NAME);
 			File file = new File((String) m.get(SaveProjectFilePage.FILE_KEY));
 		
 			//write project file
-			ProjectExporter.write(file, project);
+			ProjectExporter.write(file, project, exportName);
 		
 			p.finished(null);
 			return;
-		}catch(Exception e){
+		}
+		catch(Exception e){
 			p.failed("Error while saving project, please try again.", false);
 		}
 

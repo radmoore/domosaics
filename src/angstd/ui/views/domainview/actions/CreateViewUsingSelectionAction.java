@@ -8,21 +8,26 @@ import java.util.List;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.sequence.Sequence;
 import angstd.model.sequence.SequenceI;
+import angstd.model.workspace.ProjectElement;
+import angstd.model.workspace.ViewElement;
 import angstd.ui.ViewHandler;
+import angstd.ui.WorkspaceManager;
 import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.wizards.WizardManager;
+import angstd.ui.workspace.WorkspaceSelectionManager;
 
 /**
  * Creates a new view out of the current selected arrangements. Therefore
  * the selected arrangements as well as their associated sequences are 
  * cloned. 
- * The new view is therefore totally independent.
+ * The new view is independent (except that by default its added to the active view).
  * 
  * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
 public class CreateViewUsingSelectionAction extends AbstractMenuAction{
@@ -35,7 +40,7 @@ public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 		// check the number of selected proteins, if its zero warn the user
 		int numDAs = view.getArrangementSelectionManager().getSelection().size();
 		if (numDAs == 0) {
-			MessageUtil.showWarning("No preoteins selected, please select at least one arrangement");
+			MessageUtil.showWarning("No proteins selected, please select at least one arrangement");
 			return;
 		}
 		
@@ -69,13 +74,16 @@ public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 
 		// and create with the new dataset a new domainview with the selected name
 		DomainViewI newView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
+		ViewElement elem = WorkspaceManager.getInstance().getViewElement(view.getViewInfo());
+		ProjectElement project = elem.getProject();
+		
 		newView.setDaSet(daSet);
 		
 		//if there are sequences loaded clone them as well
 		if (view.isSequenceLoaded()) 
 			newView.loadSequencesIntoDas(seqs.toArray(new SequenceI[seqs.size()]), newView.getDaSet());
 		
-		ViewHandler.getInstance().addView(newView, null);
+		ViewHandler.getInstance().addView(newView, project);
 	}
 	
 }
