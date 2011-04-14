@@ -68,7 +68,7 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	 */
 	public void setQuerySequence(SequenceI seq) {
 		this.seq = seq;
-		this.fasta = ">"+seq.getName()+"\n"+seq.getSeq(false);
+		this.fasta = seq.toFasta();
 	}
 	
 	/**
@@ -107,9 +107,10 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 			spawner.out.print("Starting scan [ JOBID " + jobId +" ]\n");
 	            
 	        while(status.equals("RUNNING")) {
-	        	spawner.out.print("waiting for results... \n");
-        		Thread.sleep(1000);
+	        	Thread.sleep(1000);
 	        	status = srvProxy.getStatus(jobId);
+	        	if (status.equals("RUNNING"))
+	        		spawner.out.print("waiting for results... \n");
 	        }
 	       
 	        if (status.equals("ERROR")) {

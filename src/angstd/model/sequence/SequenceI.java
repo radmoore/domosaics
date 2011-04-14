@@ -83,4 +83,11 @@ public interface SequenceI extends AngstdData{
 	
 	public String toOutputString();
 	
+	/**
+	 * Returns the fasta formatted sequence
+	 * 
+	 * @return FASTA representation of the sequence
+	 */
+	public String toFasta();
+	
 }

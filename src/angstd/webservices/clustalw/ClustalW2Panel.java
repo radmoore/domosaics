@@ -45,7 +45,8 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 	private JTextArea console;
 	
 	/** clustalW2 web service interface */
-	private ClustalW2Service clustalW2;
+	//private ClustalW2Service clustalW2;
+	private ClustalW2ServiceII clustalW2;
 	
 	/** controller if the service is finished */
 	private boolean jobDone = false;
@@ -58,7 +59,7 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 	public ClustalW2Panel(SequenceI[] seqs, ClustalW2Page wizardPage) {
 		this.wizardPage = wizardPage;
 		initComponents();
-		clustalW2 = new ClustalW2Service(ClustalW2Service.type1, this);
+		clustalW2 = new ClustalW2ServiceII(ClustalW2ServiceII.type1, this);
 		clustalW2.setQuerySequences(seqs);
 		initPanel();
 	}

@@ -119,6 +119,10 @@ public class Sequence implements SequenceI, Cloneable{
 		return ">"+name+"\n"+getSeq(true)+"\n";
 	}
 	
+	public String toFasta() {
+		return ">"+name+"\n"+getSeq(true)+"\n";
+	}
+	
 	public String toString() {
 		return getName();
 	}

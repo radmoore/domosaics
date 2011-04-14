@@ -1,6 +1,9 @@
 package angstd.ui.wizards.createtree;
 
 import java.awt.EventQueue;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 
 import org.netbeans.spi.wizard.DeferredWizardResult;
@@ -10,14 +13,20 @@ import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
 import pal.alignment.Alignment;
 import pal.alignment.AlignmentUtils;
+import pal.datatype.DataType;
+import pal.datatype.DataTypeTool;
 import pal.distance.DistanceMatrix;
+import pal.distance.DistanceParseException;
 import pal.distance.DistanceTool;
+import pal.distance.ReadDistanceMatrix;
 import pal.substmodel.BLOSUM62;
 import pal.substmodel.CPREV;
 import pal.substmodel.Dayhoff;
+import pal.substmodel.JTT;
 import pal.substmodel.MTREV24;
 import pal.substmodel.RateMatrix;
 import pal.substmodel.SubstitutionModel;
+import pal.substmodel.SubstitutionTool;
 import pal.substmodel.VT;
 import pal.substmodel.WAG;
 import angstd.algos.distance.DistanceMeasureType;
@@ -66,14 +75,21 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 			String clustalOutput = (String) m.get(ClustalW2Page.ALIGNMENT_KEY);
 
 	   		// create tree and view
-			if (seqView != null)
-				p.finished(createBasedOnSeqs(seqView, subst, algo, clustalOutput, p ));
-			else if (useUnderlyingSeqs)
-				p.finished(createBasedOnSeqs(domView, subst, algo, clustalOutput, p ));
-			else
-				p.finished(createBasedOnDomains(domView, measure, algo, p ));
+			if (seqView != null) {
+				p.finished(createBasedOnSeqs(seqView, subst, algo, clustalOutput, p));
+//				p.finished(createBasedOnSeqs(seqView, subst, algo, p ));
+			}
+			else if (useUnderlyingSeqs) {
+				p.finished(createBasedOnSeqs(domView, subst, algo, clustalOutput, p));
+//				p.finished(createBasedOnSeqs(domView, subst, algo, p ));
+			}
+			else {
+				p.finished(createBasedOnDomains(domView, measure, algo, p));
+			}
 
 		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("This is where the exception occurred");
 			p.failed("Error while creating Project, please try again.", false);
 			p.finished(null);
 		}	
@@ -125,6 +141,7 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		return true;
 	}
 
+	
 	/**
 	 * Helper method creating the tree based on sequences
 	 * 
@@ -153,27 +170,49 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		p.setProgress ("Process clustal output", 1, 5);
 		if (clustalOutput != null) {
 			seqs = new ClustalW2ResultParser().parseResult(clustalOutput);
-	
-			if (view instanceof DomainViewI)
+			
+			if (view instanceof DomainViewI) {
 				((DomainViewI)view).loadSequencesIntoDas(seqs, ((DomainViewI)view).getDaSet());
+			}
 		}
 		
+		// NOTE: this does not actually align sequences
 		Alignment alignment = PALAdapter.createAlignment(seqs);
-
+		DataType dt = DataTypeTool.getNucleotides();
+		SubstitutionModel sm = SubstitutionTool.createJC69Model();
+		
+		
+		
+		try {
+			// TODO: write to logfile
+			PrintWriter out = new PrintWriter(new File("/home/radmoore/Desktop/test/alntest.aln"));
+			PrintWriter out2 = new PrintWriter(new File("/home/radmoore/Desktop/test/alntest2.aln"));
+			AlignmentUtils.printCLUSTALW(alignment, out);
+			AlignmentUtils.printInterleaved(alignment, out2);
+			out.flush();
+			out.close();
+			out2.flush();
+			out2.close();
+		}
+		catch (Exception e) {
+			
+		}
+		
 		// get number of different states
 		double[] freqs = AlignmentUtils.estimateFrequencies( alignment );
 
 		// create a substitutionmatrix for amino acid
 		p.setProgress ("Create substitution matrix", 2, 5);
 		RateMatrix subMatrix;
+		
 		if (subMatrixStr.equals("BLOSUM62"))
 			subMatrix = new BLOSUM62(freqs);
 		else if(subMatrixStr.equals("CPREV"))
 			subMatrix = new CPREV(freqs);
 		else if(subMatrixStr.equals("Dayhoff"))
-			subMatrix = new BLOSUM62(freqs);
-		else if(subMatrixStr.equals("JTT"))
 			subMatrix = new Dayhoff(freqs);
+		else if(subMatrixStr.equals("JTT"))
+			subMatrix = new JTT(freqs);
 		else if(subMatrixStr.equals("MTREV24"))
 			subMatrix = new MTREV24(freqs);
 		else if(subMatrixStr.equals("VT"))
@@ -186,13 +225,44 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		// create the substituion model
 		SubstitutionModel model = SubstitutionModel.Utils.createSubstitutionModel(subMatrix);
 		
+		
+		
 		// create the distance matrix
 		p.setProgress ("Create distance matrix (this may take some time)", 3, 5);
+		
+		// ADM: HERE: dm looks pretty wierd
 		DistanceMatrix dm = DistanceTool.constructEvolutionaryDistances(alignment, model);
+		// dm2 now has rates (after call above) 
+		DistanceMatrix dm2 = DistanceTool.constructEvolutionaryDistances(alignment, model);
+		
+		ReadDistanceMatrix rdm = null;
+		try {
+			rdm = new ReadDistanceMatrix("/home/radmoore/Desktop/test/dmel_test.dist");
+			System.out.println("This is the read dm: "+rdm);
+			PrintWriter pw = new PrintWriter("/home/radmoore/Desktop/test/smatrix_report.txt");
+			subMatrix.report(pw);
+			pw.flush();
+			pw.close();
+			
+		} catch (DistanceParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		
+		
+		double distance = dm2.getDistance(1, 2);
+		System.out.println("This is the distance between 1 and 2: "+distance);
+
 		
 		// create unrooted tree
 		p.setProgress ("Create tree (this may take some time)", 4, 5);
-		TreeI tree = TreeCreationUtil.createTree(dm, algo);
+		TreeI tree = TreeCreationUtil.createTree(dm2, algo);
+		//TreeI tree = TreeCreationUtil.createTree(rdm, algo);
 		
 		// name the views which are going to be created
 		p.setProgress ("Creating resulting views", 5, 5);
@@ -228,3 +298,4 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		return this;
 	}	
 }
+

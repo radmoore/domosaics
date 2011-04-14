@@ -4,6 +4,7 @@ import pal.alignment.Alignment;
 import pal.alignment.AlignmentUtils;
 import pal.alignment.SimpleAlignment;
 import pal.datatype.DataType;
+import pal.datatype.DataTypeTool;
 import pal.distance.DistanceMatrix;
 import pal.misc.IdGroup;
 import pal.misc.Identifier;
@@ -61,15 +62,14 @@ public class PALAdapter {
 	public static Alignment createAlignment(SequenceI[] seqs) {
 		Identifier[] identifers = new Identifier[seqs.length];
 		String[] seqStrs = new String[seqs.length];
+	
 		
 		for (int i = 0; i < seqs.length; i++) {
 			identifers[i] = new Identifier(seqs[i].getName());
 			seqStrs[i] = seqs[i].getSeq(true);
 		}
 		
-		// guess the suitable Datatype (should be Aminoacid)
 		DataType type = AlignmentUtils.getSuitableInstance(seqStrs);
-		
 		return new SimpleAlignment(identifers, seqStrs, type);
 	}
 	
