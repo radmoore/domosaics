@@ -143,6 +143,8 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 
 	
 	/**
+	 * TODO this is still questionable
+	 * 
 	 * Helper method creating the tree based on sequences
 	 * 
 	 * @param viewElt
@@ -178,25 +180,25 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		
 		// NOTE: this does not actually align sequences
 		Alignment alignment = PALAdapter.createAlignment(seqs);
-		DataType dt = DataTypeTool.getNucleotides();
-		SubstitutionModel sm = SubstitutionTool.createJC69Model();
+//		DataType dt = DataTypeTool.getNucleotides();
+//		SubstitutionModel sm = SubstitutionTool.createJC69Model();
 		
 		
 		
-		try {
-			// TODO: write to logfile
-			PrintWriter out = new PrintWriter(new File("/home/radmoore/Desktop/test/alntest.aln"));
-			PrintWriter out2 = new PrintWriter(new File("/home/radmoore/Desktop/test/alntest2.aln"));
-			AlignmentUtils.printCLUSTALW(alignment, out);
-			AlignmentUtils.printInterleaved(alignment, out2);
-			out.flush();
-			out.close();
-			out2.flush();
-			out2.close();
-		}
-		catch (Exception e) {
-			
-		}
+//		try {
+//			// TODO: write to logfile
+//			PrintWriter out = new PrintWriter(new File("/home/radmoore/Desktop/test/alntest.aln"));
+//			PrintWriter out2 = new PrintWriter(new File("/home/radmoore/Desktop/test/alntest2.aln"));
+//			AlignmentUtils.printCLUSTALW(alignment, out);
+//			AlignmentUtils.printInterleaved(alignment, out2);
+//			out.flush();
+//			out.close();
+//			out2.flush();
+//			out2.close();
+//		}
+//		catch (Exception e) {
+//			
+//		}
 		
 		// get number of different states
 		double[] freqs = AlignmentUtils.estimateFrequencies( alignment );
@@ -235,28 +237,25 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		// dm2 now has rates (after call above) 
 		DistanceMatrix dm2 = DistanceTool.constructEvolutionaryDistances(alignment, model);
 		
-		ReadDistanceMatrix rdm = null;
-		try {
-			rdm = new ReadDistanceMatrix("/home/radmoore/Desktop/test/dmel_test.dist");
-			System.out.println("This is the read dm: "+rdm);
-			PrintWriter pw = new PrintWriter("/home/radmoore/Desktop/test/smatrix_report.txt");
-			subMatrix.report(pw);
-			pw.flush();
-			pw.close();
-			
-		} catch (DistanceParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		ReadDistanceMatrix rdm = null;
+//		try {
+//			rdm = new ReadDistanceMatrix("/home/radmoore/Desktop/test/dmel_test.dist");
+//			System.out.println("This is the read dm: "+rdm);
+//			PrintWriter pw = new PrintWriter("/home/radmoore/Desktop/test/smatrix_report.txt");
+//			subMatrix.report(pw);
+//			pw.flush();
+//			pw.close();
+//			
+//		} catch (DistanceParseException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		
-		
-		
-		
-		double distance = dm2.getDistance(1, 2);
-		System.out.println("This is the distance between 1 and 2: "+distance);
+//		double distance = dm2.getDistance(1, 2);
+//		System.out.println("This is the distance between 1 and 2: "+distance);
 
 		
 		// create unrooted tree
