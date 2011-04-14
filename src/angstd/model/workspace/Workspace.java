@@ -209,6 +209,21 @@ public class Workspace extends WorkspaceElement {
 	}
 	
 	/**
+	 * Checks whether a Project with Name already exists
+	 * in the workspace
+	 * @param name
+	 * @return 
+	 * 		true if a project exists with name, false otherwise
+	 */
+	public boolean ProjectExists(String name) {
+		for (WorkspaceElement element : childs)
+			if (element.getTitle().equals(name))
+				return true;
+		
+		return false;
+	}
+	
+	/**
 	 * Number of all assigned projects
 	 * 
 	 * @return

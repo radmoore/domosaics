@@ -212,6 +212,11 @@ public class WorkspaceManager {
 	}
 	
 	
+	public boolean ProjectExists(String name) {
+		return workspace.ProjectExists(name);
+	}
+	
+	
 	/* *************************************************************** *
 	 * 			Methods for communicating with the ViewHandler 		   *
 	 * *************************************************************** */

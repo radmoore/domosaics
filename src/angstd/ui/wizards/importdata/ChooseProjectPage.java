@@ -15,6 +15,7 @@ import net.miginfocom.swing.MigLayout;
 import org.netbeans.spi.wizard.WizardPage;
 
 import angstd.model.workspace.ProjectElement;
+import angstd.ui.WorkspaceManager;
 import angstd.ui.wizards.GUIComponentFactory;
 import angstd.ui.wizards.WizardManager;
 
