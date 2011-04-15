@@ -45,9 +45,14 @@ public class ConfigurationReader {
 							line.replace(ConfigurationWriter.EMAIL_ADDR, "").trim()
 					);
 				
-				if (line.contains(ConfigurationWriter.HMMER_BINS)) 
-					Configuration.getInstance().setHmmerBins(
-							line.replace(ConfigurationWriter.HMMER_BINS, "").trim()
+				if (line.contains(ConfigurationWriter.HMMER_SCAN_BIN)) 
+					Configuration.getInstance().setHmmScanBin(
+							line.replace(ConfigurationWriter.HMMER_SCAN_BIN, "").trim()
+					);
+				
+				if (line.contains(ConfigurationWriter.HMMER_PRESS_BIN)) 
+					Configuration.getInstance().setHmmPressBin(
+							line.replace(ConfigurationWriter.HMMER_PRESS_BIN, "").trim()
 					);
 				
 				if (line.contains(ConfigurationWriter.HMMER_PROFILE_DB)) 

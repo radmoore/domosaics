@@ -50,7 +50,6 @@ public class SelectNameDialog {
 	}
 }
 
-@SuppressWarnings("unchecked")
 class SelectViewNameProgress implements WizardResultProducer{
 	
 	public boolean cancel(Map m) {

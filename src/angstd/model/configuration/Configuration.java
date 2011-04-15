@@ -20,7 +20,9 @@ public class Configuration {
 	public static final String DEF_PFAM_SEARCH = "http://pfam.sanger.ac.uk/family?acc=XXX";
 	public static final String DEF_SWISSPROT_SEARCH = "http://www.expasy.org/cgi-bin/sprot-search-de?XXX";
 	public static final String DEF_EMAIL_ADDR = "";
-	public static final String DEF_HMMERBINS = "";
+	public static final String DEF_HMMPRESS_BIN = "";
+	public static final String DEF_HMMSCAN_BIN = "";
+//	public static final String DEF_HMMERBINS = "";
 	public static final String DEF_HMMERDB = "";
 	
 	public static final String LOCKFILE = ".lock";
@@ -38,7 +40,7 @@ public class Configuration {
 	protected String pfamUrl; 
 	protected String swissprotUrl;
 	protected String emailAddr;
-	protected String hmmBinDir;
+	protected String hmmScanBin, hmmPressBin;
 	protected String hmmDB;
 
 	protected boolean showAdvices;
@@ -78,7 +80,8 @@ public class Configuration {
 		pfamUrl = DEF_PFAM_SEARCH; 
 		swissprotUrl = DEF_SWISSPROT_SEARCH;
 		emailAddr = DEF_EMAIL_ADDR;
-		hmmBinDir = DEF_HMMERBINS;
+		hmmScanBin = DEF_HMMSCAN_BIN;
+		hmmPressBin = DEF_HMMPRESS_BIN;
 		hmmDB = DEF_HMMERDB;
 		showAdvices = DEF_SHOW_ADVICES;
 		saveWSOnExit = DEF_SAVE_ON_EXIT;
@@ -212,12 +215,20 @@ public class Configuration {
 		return emailAddr;
 	}
 	
-	public void setHmmerBins(String path2HmmerBins) {
-		hmmBinDir = path2HmmerBins; 
+	public void setHmmScanBin(String path2HmmScan) {
+		this.hmmScanBin = path2HmmScan;
+	}	
+	
+	public String getHmmScanBin() {
+		return hmmScanBin;
 	}
 	
-	public String getHmmerBins() {
-		return hmmBinDir;
+	public void setHmmPressBin(String path2HmmPress) {
+		this.hmmPressBin = path2HmmPress;
+	}
+	
+	public String getHmmPressBin() {
+		return hmmPressBin;
 	}
 	
 	public void setHmmerDB(String path2HmmerDB) {

@@ -398,10 +398,10 @@ public class HmmScan implements Hmmer3Program {
 								
 				String viewName = null;
 				while (viewName == null) {
-					viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
+					viewName = WizardManager.getInstance().selectNameWizard(defaultName, "domain view");
 					if (viewName == null) 
 						if (MessageUtil.showDialog("You will loose the hmmscan results. Are you sure?"))
-							// will not tmp files, just in case
+							// will not delete tmp files, just in case
 							return;
 				}
 			

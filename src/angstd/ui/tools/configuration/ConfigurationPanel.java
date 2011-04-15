@@ -47,9 +47,9 @@ public class ConfigurationPanel extends JPanel{
 	protected JPanel configPanel;
 	
 	/** textfields for lookup addresses */
-	protected JTextField googleField, ncbiField, pfamField, uniprotField, emailField, hmmer3binTF, hmmer3dbTF;
+	protected JTextField googleField, ncbiField, pfamField, uniprotField, emailField, hmmerScanTF, hmmerPressTF, hmmer3dbTF;
 	
-	protected JButton loadHmmBins, loadHmmDB;
+	protected JButton loadHmmScanBin, loadHmmPressBin, loadHmmDB;
 	
 	/** buttons for apply and cancel */
 	protected JButton apply, cancel, restore;
@@ -58,6 +58,7 @@ public class ConfigurationPanel extends JPanel{
 	protected JCheckBox showAdvices, saveOnExit;
 	
 	protected Hmmer3Engine hmmer3Engine;
+	private HashMap<String, File> hmmer3bins;
 	
 	
 	/**
@@ -74,6 +75,8 @@ public class ConfigurationPanel extends JPanel{
 		layoutComponents();
 		this.configPanel = this;
 		hmmer3Engine = Hmmer3Engine.getInstance();
+		hmmer3bins = new HashMap<String, File>();
+		
 	}
 	
 	/**
@@ -86,7 +89,8 @@ public class ConfigurationPanel extends JPanel{
 		config.setPfamUrl(pfamField.getText());
 		config.setUniprotUrl(uniprotField.getText());
 		config.setEmailAddr(emailField.getText());
-		config.setHmmerBins(hmmer3binTF.getText());
+		config.setHmmScanBin(hmmerScanTF.getText());
+		config.setHmmPressBin(hmmerPressTF.getText());
 		config.setHmmerDB(hmmer3dbTF.getText());
 		config.setShowAdvices(showAdvices.isSelected());
 		config.setSaveOnExit(saveOnExit.isSelected());
@@ -102,7 +106,8 @@ public class ConfigurationPanel extends JPanel{
 	private void restore() {
 		Configuration config = Configuration.getInstance();
 		config.restoreDefaults();
-		hmmer3binTF.setText(config.getHmmerBins());
+		hmmerScanTF.setText(config.getHmmScanBin());
+		hmmerPressTF.setText(config.getHmmPressBin());
 		hmmer3dbTF.setText(config.getHmmerDB());
 		googleField.setText(config.getGoogleUrl());
 		ncbiField.setText(config.getNcbiUrl());
@@ -125,7 +130,8 @@ public class ConfigurationPanel extends JPanel{
 	 */
 	private void initComponents() {
 		Configuration config = Configuration.getInstance();
-		hmmer3binTF = new JTextField(config.getHmmerBins());
+		hmmerScanTF = new JTextField(config.getHmmScanBin());
+		hmmerPressTF = new JTextField(config.getHmmPressBin());
 		hmmer3dbTF = new JTextField(config.getHmmerDB());
 		googleField = new JTextField(config.getGoogleUrl(), 50);
 		ncbiField = new JTextField(config.getNcbiUrl(), 50);
@@ -133,24 +139,38 @@ public class ConfigurationPanel extends JPanel{
 		uniprotField = new JTextField(config.getUniprotUrl(), 50);
 		emailField = new JTextField(config.getEmailAddr(), 50);
 		
-		loadHmmBins = new JButton("Load binaries");
-		loadHmmBins.addActionListener(new ActionListener() {	
+		loadHmmScanBin = new JButton("hmmscan bin");
+		loadHmmScanBin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				File binDir = FileDialogs.openChooseDirectoryDialog(parentFrame);
-				if (binDir == null || !binDir.canRead())
+				File scanBin = FileDialogs.showOpenDialog(parentFrame);
+				if (scanBin == null || !scanBin.canRead())
 					return;
-				if (checkHmmBinDir(binDir))
-					hmmer3binTF.setText(binDir.getAbsolutePath());
+				if (checkHmmBin(scanBin))
+					hmmerScanTF.setText(scanBin.getAbsolutePath());
 					else return;
 			}
 		});
 		
-		loadHmmDB = new JButton("Load models");
+		loadHmmPressBin = new JButton("hmmpress bin");
+		loadHmmPressBin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File pressBin = FileDialogs.showOpenDialog(parentFrame);
+				if (pressBin == null || !pressBin.canExecute())
+					return;
+				if (checkHmmBin(pressBin))
+					hmmerPressTF.setText(pressBin.getAbsolutePath());
+					else return;
+			}
+		});
+		
+		
+		loadHmmDB = new JButton("Load profiles");
 		loadHmmDB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File file = FileDialogs.showOpenDialog(parentFrame);
 				if (file == null || !file.canRead())
 					return;
+
 				if (checkHmmDBDir(file, true))
 					hmmer3dbTF.setText(file.getAbsolutePath());
 					else return;
@@ -166,13 +186,18 @@ public class ConfigurationPanel extends JPanel{
 			public void actionPerformed(ActionEvent evt) {
 				
 				// user can only save a valid config
-				if (!hmmer3binTF.getText().equals("")) {
-					if (!checkHmmBinDir(new File(hmmer3binTF.getText())))
-						return;
-					
+				if (!hmmerScanTF.getText().equals("")) {
+					if (!checkHmmBin(new File(hmmerScanTF.getText())))
+						return;	
 				}
-				else if (!hmmer3dbTF.getText().equals("")) {
-					if (!checkHmmDBDir(new File(hmmer3binTF.getText()), false))
+				
+				if (!hmmerPressTF.getText().equals("")) {
+					if (!checkHmmBin(new File(hmmerPressTF.getText())))
+						return;	
+				}
+				
+				if (!hmmer3dbTF.getText().equals("")) {
+					if (!checkHmmDBDir(new File(hmmer3dbTF.getText()), false))
 						return;
 				
 				}	
@@ -205,8 +230,11 @@ public class ConfigurationPanel extends JPanel{
 		add(emailField, "h 25!, gap 10, span, growx, wrap");
 		
 		add(new JXTitledSeparator("Local HMMER3 setup"),"growx, span, wrap, gaptop 10");
-		add(loadHmmBins, "h 25!, w 165!, gap 10");
-		add(hmmer3binTF, "h 25!, gap 10, span, growX, wrap");
+		add(loadHmmScanBin, "h 25!, w 165!, gap 10");
+		add(hmmerScanTF, "h 25!, gap 10, span, growX, wrap");
+		add(loadHmmPressBin, "h 25!, w 165!, gap 10");
+		add(hmmerPressTF, "h 25!, gap 10, span, growX, wrap");
+		
 		add(loadHmmDB, "h 25!, w 165!, gap 10");
 		add(hmmer3dbTF, "h 25!, gap 10, span, growX, wrap");
 				
@@ -232,39 +260,26 @@ public class ConfigurationPanel extends JPanel{
 		
 	}
 	/**
-	 * Check whether the current HMMER3 binary dir
-	 * is contains a HMMER3 program
+	 * Check whether the current HMMER3 binary
+	 * is a supported HMMER3 program
 	 * 
-	 * @param dir
+	 * @param hmmer binary
 	 * @return
 	 */
-	private boolean checkHmmBinDir(File dir) {
+	private boolean checkHmmBin(File bin) {
 
-		if (!dir.exists()) {
-			MessageUtil.showWarning("Warning: could not find required HMMER programs in "+dir.getName());
+		if ( Hmmer3Engine.isSupportedService(bin.getName()) ) {
+			if (!(bin.canExecute())) {
+				MessageUtil.showWarning(parentFrame, bin.getAbsoluteFile()+" is not executable. Exiting.");
+				return false;
+			}
+		}
+		else {
+			MessageUtil.showWarning(parentFrame, bin.getAbsoluteFile()+" is not supported");
 			return false;
 		}
-		
-		File[] files = dir.listFiles();
-		HashMap<String, File> hmmer3bins = new HashMap<String, File>();
 			
-		if (files.length == 0) {
-			MessageUtil.showWarning("Could not find any HMMER programs.");
-			return false;
-		}
-		for (int i=0; i < files.length; i++) {	
-			if ( Hmmer3Engine.isSupportedService(files[i].getName()) ) {
-				if (!files[i].canExecute()) {
-					MessageUtil.showWarning(parentFrame, files[i].getAbsoluteFile()+" is not executable. Exiting.");
-					return false;
-				}
-				hmmer3bins.put(files[i].getName(), files[i]);
-			}	
-		}	
-		if (hmmer3bins.isEmpty()) {
-			MessageUtil.showWarning(parentFrame, "Could not find all required HMMER programs (hmmscan, hmmpress).");
-			return false;
-		}
+		hmmer3bins.put(bin.getName(), bin);	
 		Hmmer3Engine.getInstance().setAvailableServices(hmmer3bins);
 		return true;
 	
@@ -290,17 +305,18 @@ public class ConfigurationPanel extends JPanel{
 		
 		// check if hmmpress service is available
 		if (!hmmer3Engine.isAvailableService("hmmpress")) {
-			// if not, check whether all required bins are in the selected hmm3bin textfield Dir
-			if (!hmmer3binTF.getText().equals("")) {
-				pressAvail = checkHmmBinDir(new File(hmmer3binTF.getText()));
+			// if not, check whether press bin in the selected textfield is valid
+			if (!hmmerPressTF.getText().equals("")) {
+				pressAvail = checkHmmBin(new File(hmmerPressTF.getText()));
 			}
 		}
 		
 		// check if pressed files are available
 		if (!HmmPress.hmmFilePressed(file) && initPress) {
 			if (MessageUtil.showDialog("The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {
-				if (!pressAvail) {
-					MessageUtil.showInformation("Please first choose a directory with the HMMER3 binaries");
+				if (!pressAvail || (hmmerPressTF.getText().isEmpty())) {
+					MessageUtil.showInformation("Please first provide hmmpress binary");
+					hmmer3dbTF.setText("");
 					return false; 
 				}
 				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
