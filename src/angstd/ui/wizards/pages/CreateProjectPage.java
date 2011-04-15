@@ -10,6 +10,9 @@ import net.miginfocom.swing.MigLayout;
 
 import org.netbeans.spi.wizard.WizardPage;
 
+import angstd.ui.WorkspaceManager;
+import angstd.ui.util.MessageUtil;
+
 /**
  * WizardPage allowing the user to enter a name for a project which is
  * going to be created.
@@ -51,8 +54,19 @@ public class CreateProjectPage extends WizardPage {
      * Checks if all necessary input is made.
      */
 	protected String validateContents(Component component, Object o) {
-		if (input.getText().trim().isEmpty())
+		
+		String projectName = input.getText().trim();
+		
+		if (projectName.isEmpty())
 			return "Select a name";
+		
+		if (projectName.equals("Default Project"))
+			return "Default Project name disallowed";
+		
+		if (WorkspaceManager.getInstance().projectExists(projectName))
+			return "Name taken - choose new name";
+			
 		return null;   
     }
+	
 }

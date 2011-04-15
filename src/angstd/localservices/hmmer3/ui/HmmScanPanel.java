@@ -559,6 +559,13 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				SequenceView view = ViewHandler.getInstance().getView(selected.getViewInfo());
 				SequenceI[] seqs = view.getSeqs();
 				
+//				for (int i = 0; i < seqs.length; i++) {
+//	    			
+//	    			System.out.println("At position: "+i);
+//	    			System.out.println("Sequence name: "+seqs[i].getName());
+//	    			System.out.println("Sequence: "+seqs[i].getSeq(false));
+//				}
+				
 				// check if we already created the tmp fasta for the selected view
 				if ( view2file.containsKey(selected.getViewID()) ) {
 					fastaFile = view2file.get( selected.getViewID() );

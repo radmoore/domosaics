@@ -42,6 +42,7 @@ import angstd.ui.wizards.WizardManager;
  * the export details like opening a file dialog and so on.
  * 
  * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
 public class SequenceSelectionMouseController extends MouseAdapter {
@@ -142,7 +143,7 @@ public class SequenceSelectionMouseController extends MouseAdapter {
 		if (choice == 0) { 		// create new sequence view
 			
 			String defaultName = view.getViewInfo().getName()+"_seqs";
-			String viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
+			String viewName = WizardManager.getInstance().selectNameWizard(defaultName, "sequence view");
 			if (viewName == null) 
 				return; 
 			

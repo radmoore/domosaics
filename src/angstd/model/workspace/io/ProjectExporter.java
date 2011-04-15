@@ -54,12 +54,14 @@ public class ProjectExporter {
         }
     }
 	
-	public static void write(File file, ProjectElement project) {
+	public static void write(File file, ProjectElement project, String exportName) {
+		
         try {
         	// check for the project within the workspace directory, create it if necessary
         	String fileDir = file.getPath();
         	
-        	String projectDir = fileDir+"/"+project.getTitle();
+        	//String projectDir = fileDir+"/"+project.getTitle();
+        	String projectDir = fileDir+"/"+exportName;
         	if (!new File(projectDir).exists()) {
         		System.out.println("created project directory: "+project.getTitle());
         		new File(projectDir).mkdir();
@@ -82,9 +84,9 @@ public class ProjectExporter {
         			
         			// if view exists ask if it should be overwritten
         			File viewFile = new File(catDir+"/"+viewElt.getTitle());
-//            		if (viewFile.exists()) 
-//                    	if (!MessageUtil.showDialog("View "+viewElt.getTitle()+" already exists. Overwrite it?"))
-//                    		continue;
+            		if (viewFile.exists()) 
+                    	if (!MessageUtil.showDialog("View "+viewElt.getTitle()+" already exists. Overwrite it?"))
+                    		continue;
                     
                     // export the view
                     ViewHandler.getInstance().getView(viewElt.getViewInfo()).export(viewFile);

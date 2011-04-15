@@ -42,19 +42,19 @@ public class FastaWriter extends AbstractDataWriter<SequenceI> {
     			
     			int pos = 0; // number of written chars
     			
-    			out.write(">"+seqs[i].getName()+"\r\n");
+    			out.write(">"+seqs[i].getName()+"\n");
     			byte[] chars = seqs[i].getSeq(false).getBytes();
     			
     			for (int j = 0; j < chars.length; j++) {
     				if (pos >= wrapChars) {
     					pos = 0;
-    					out.write("\n\r");
+    					out.write("\n");
     				}
     				out.write(chars[j]);
     				pos ++;
     			}
-    			
-    			out.write("\r\n");
+
+    			out.write("\n");
     		}
     		out.flush();
 			

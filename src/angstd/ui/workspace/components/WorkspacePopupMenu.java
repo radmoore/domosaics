@@ -4,6 +4,9 @@ import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 
+import angstd.model.workspace.WorkspaceElement;
+import angstd.ui.WorkspaceManager;
+import angstd.ui.workspace.WorkspaceSelectionManager;
 import angstd.ui.workspace.actions.CreateProjectAction;
 import angstd.ui.workspace.actions.DeleteElementAction;
 import angstd.ui.workspace.actions.ExportViewAction;
@@ -29,8 +32,12 @@ public class WorkspacePopupMenu extends JPopupMenu {
 	public WorkspacePopupMenu() {
 		super("Workspace Menu");
 
+		WorkspaceSelectionManager wsm = WorkspaceManager.getInstance().getSelectionManager();
+		WorkspaceElement elem = wsm.getSelectedElement();
+		
+		
 		// add title
-		String str = "<html><b><i>Workspace Menu";
+		String str = "<html><b><i>"+elem.getTitle();
 		JLabel title = new JLabel(str);
 		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setVerticalAlignment(JLabel.CENTER);
@@ -41,8 +48,12 @@ public class WorkspacePopupMenu extends JPopupMenu {
 		
 		add(new JSeparator());
 		add(new ShowViewAction());
-		add(new RenameElementAction());
-		add(new DeleteElementAction());
+		
+		// Renaming and deleting of default not allowed
+		if (! (elem.getTitle().equals("Default Project")) ) {
+			add(new RenameElementAction());
+			add(new DeleteElementAction());
+		}
 		
 		add(new JSeparator());
 		add(new ExportViewAction());
