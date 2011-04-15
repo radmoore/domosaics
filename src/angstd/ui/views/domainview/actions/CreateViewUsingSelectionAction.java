@@ -48,7 +48,7 @@ public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 		String defaultName = view.getViewInfo().getName()+"_subset";
 		
 		// ask the user to enter a valid name for the view
-		String viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
+		String viewName = WizardManager.getInstance().selectNameWizard(defaultName, "domain view");
 		if (viewName == null) 
 			return;
 		

@@ -26,6 +26,9 @@ public class Configuration {
 	public static final String LOCKFILE = ".lock";
 	
 	public static final boolean DEF_SHOW_ADVICES = true;
+	public static final boolean DEF_SAVE_ON_EXIT = false;
+	
+	private boolean service_running = false;
 	
 
 	protected String defaultFileLocation;
@@ -39,6 +42,7 @@ public class Configuration {
 	protected String hmmDB;
 
 	protected boolean showAdvices;
+	protected boolean saveWSOnExit;
 	
 	protected static Configuration instance;
 	protected String workspace_dir; // this is null and seems to cause an exception, see below
@@ -77,6 +81,7 @@ public class Configuration {
 		hmmBinDir = DEF_HMMERBINS;
 		hmmDB = DEF_HMMERDB;
 		showAdvices = DEF_SHOW_ADVICES;
+		saveWSOnExit = DEF_SAVE_ON_EXIT;
 	}
 	
 	public static Configuration getInstance() {
@@ -109,6 +114,15 @@ public class Configuration {
 	public boolean isShowAdvices() {
 		return showAdvices;
 	}
+	
+	public void setSaveOnExit(boolean save) {
+		this.saveWSOnExit = save;
+	}
+	
+	public boolean saveOnExit() {
+		return saveWSOnExit;
+	}
+	
 	
 	/**
 	 * TODO:
@@ -213,4 +227,15 @@ public class Configuration {
 	public String getHmmerDB() {
 		return hmmDB;
 	}
+	
+	public boolean isServiceRunning() {
+		return service_running;
+	}
+
+	public void setServiceRunning(boolean running) {
+		this.service_running = running;
+	}
+	
 }
+
+

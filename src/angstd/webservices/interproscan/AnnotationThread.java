@@ -12,6 +12,7 @@ import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_PortType;
 import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_Service;
 import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_ServiceLocator;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 
 /**
@@ -105,7 +106,8 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 			String jobId = srvProxy.run(email, seq.getName(), params);
 			String status = srvProxy.getStatus(jobId);
 			spawner.out.print("Starting scan [ JOBID " + jobId +" ]\n");
-	            
+			Configuration.getInstance().setServiceRunning(true);
+			
 	        while(status.equals("RUNNING")) {
 	        	Thread.sleep(1000);
 	        	status = srvProxy.getStatus(jobId);
@@ -150,6 +152,7 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 		if (srvProxy != null) {
 			this.cancel(true);
 			srvProxy = null;
+			Configuration.getInstance().setServiceRunning(false);
 		}
 	}
 	
@@ -160,6 +163,7 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	 */
 	 @Override
      protected void done() {
+		 Configuration.getInstance().setServiceRunning(false);
 		if(!isCancelled()) {
 			try {
 				spawner.processResults(this, get());

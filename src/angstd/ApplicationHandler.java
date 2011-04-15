@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
+import sun.misc.MessageUtils;
+
 import angstd.model.arrangement.io.GatheringThresholdsReader;
 import angstd.model.arrangement.io.Pfam2GOreader;
 import angstd.model.configuration.Configuration;
@@ -56,6 +58,13 @@ public class ApplicationHandler {
 	}
 	
 	public void end () {
+		
+		if (Configuration.getInstance().isServiceRunning()) {
+			boolean close = MessageUtil.showDialog("You are running a service and will loose the results if you close. Are you sure?");
+			if (!close)
+				return;
+		}
+		
 		// ask the user if he likes to export the current desktop bring restored in the next session
 		boolean export = false;
 		for (ProjectElement project : WorkspaceManager.getInstance().getProjects())
@@ -65,9 +74,15 @@ public class ApplicationHandler {
 			}
 		
 		
+		
 		if (export) {
-			Object[] options = {"Yes", "No", "Cancel", "Restore original"};
-			int choice = MessageUtil.show3ChoiceDialog("Restore workspace in next session?", options);
+			int choice = 0;
+			// if the user has not set save on default in configurator
+			// ask (defaults to save)
+			if (!(Configuration.getInstance().saveOnExit())) {
+				Object[] options = {"Yes", "No", "Cancel", "Restore original"};
+				choice = MessageUtil.show3ChoiceDialog("Restore workspace in next session?", options);
+			}
 			
 			if (choice == 0) { 		// save workspace
 				for (ProjectElement project : WorkspaceManager.getInstance().getProjects())

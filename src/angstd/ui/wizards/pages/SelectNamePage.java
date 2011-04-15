@@ -53,7 +53,7 @@ public class SelectNamePage extends WizardPage {
 		name.setName(ELEMENT_KEY);
 
 		add(new JLabel("Select "+objectName+" name "), "gap 10");
-		add(name, "gap 10");
+		add(name, "h 25!, gap 10");
 	}
 
     /**
@@ -61,21 +61,23 @@ public class SelectNamePage extends WizardPage {
      * Checks if all necessary inputs are made.
      * Selection can be one of the following:
      * 
-     * - selection in tree
+     * - selection in workspace tree
      * - active view
-     * - selection in tree and active view
+     * - selection in workspace tree and active view
      * - no selection at all
-     * => selection in view overrides selection in tree
+     * => selection in view overrides selection in workspace tree
      * 
      * Selection can also come from multiple spots
-     * - from arrangement (arrangement subselection)
-     * - from arrangement (select sequences)
+     * - from arrangement (arrangement subselection) (-> view)
+     * - from arrangement (select sequences) (-> view)
+     * - project creation (-> project)
      * - ...?
      */
     protected String validateContents (Component component, Object o) {
 		
 		String newName = name.getText().trim();
 		
+		// in any case, a name is required
 		if (newName.isEmpty())
 			return "Select a name";
 		
@@ -86,62 +88,33 @@ public class SelectNamePage extends WizardPage {
 			if (WorkspaceManager.getInstance().projectExists(newName))
 				return "Name taken - choose new name";
 		}
-		
-		// get some info about active project and view
-		WorkspaceSelectionManager wsm = WorkspaceManager.getInstance().getSelectionManager();
-		ProjectElement project = wsm.getSelectedProject();
-		WorkspaceElement wse = wsm.getSelectedElement();
-		CategoryElement category = null;
-		
-		if (wse == null) {
-			
-		}
-		
-		if  (objectName.equals("sequence view")) {
-			
-		}
-			
-		if (objectName.equals("domain view")) {
-			
-			
-		}
-		
-		// a view is to be (re) named
+		// we are dealing with a view element
 		else {
+
 			// get some info about active project and view
-			WorkspaceSelectionManager wsm = WorkspaceManager.getInstance().getSelectionManager();
-			ProjectElement project = wsm.getSelectedProject();
-			WorkspaceElement wse = wsm.getSelectedElement();
+//			WorkspaceSelectionManager wsm = WorkspaceManager.getInstance().getSelectionManager();
+//			ProjectElement project1 = wsm.getSelectedProject();
+//			WorkspaceElement wse = wsm.getSelectedElement();
+			View view = ViewHandler.getInstance().getActiveView();
+			ViewElement elem = WorkspaceManager.getInstance().getViewElement(view.getViewInfo());
+			ProjectElement project = elem.getProject();
 			CategoryElement category = null;
 			
-			if (objectName.equals("sequence view"))
+			if  (objectName.equals("sequence view")) {
+		
 				category = project.getCategory(ViewType.SEQUENCE);
-			else if (true) {
-				category = (CategoryElement)wse.getParent();
-			}
-			
-			// if element selected and selected element is a view
-			if ( (!(wse == null)) && (wse.getTypeName().equals("view")) ) {
-				
-				// ensure that within the category, such view name does not exist
-				if (project.viewExists(newName, (CategoryElement)wse.getParent())){
+				if (project.viewExists(newName, category)){
 					return "Name taken - choose new name";
 				}
 			}
-			// nothing selected, get active view and check within current category
-			else {
-				View view = ViewHandler.getInstance().getActiveView();
-				ViewElement elem = WorkspaceManager.getInstance().getViewElement(view.getViewInfo());
-				project = elem.getProject();
-
-				// check that no node under the current active category has this name
-				if (project.viewExists(newName, (CategoryElement)elem.getParent() )){
+			else if (objectName.equals("domain view")) {
+				category = project.getCategory(ViewType.DOMAINS);
+				if (project.viewExists(newName, category)){
 					return "Name taken - choose new name";
 				}
-				
 			}
 		}
-	
+		
 		return null;
     }
 	

@@ -36,8 +36,11 @@ import angstd.algos.treecreation.TreeCreationUtil;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.sequence.SequenceI;
 import angstd.model.tree.TreeI;
+import angstd.model.workspace.CategoryElement;
+import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.ViewElement;
 import angstd.ui.ViewHandler;
+import angstd.ui.WorkspaceManager;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.domainview.DomainViewI;
@@ -268,16 +271,23 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		String treeViewName = view.getViewInfo().getName()+"_"+algo.name();
 		String domTreeViewName = view.getViewInfo().getName()+"_tree";
 		
+		// get currently active view
+		View activeView = ViewHandler.getInstance().getActiveView();
+		ViewElement elem = WorkspaceManager.getInstance().getViewElement(activeView.getViewInfo());
+		ProjectElement activeProject = elem.getProject();
+		//CategoryElement category = null;
+		
+		
 		// and create the tree view
 		TreeViewI treeView = ViewHandler.getInstance().createView(ViewType.TREE, treeViewName);
 		treeView.setTree(tree);
-		ViewHandler.getInstance().addView(treeView, null);
+		ViewHandler.getInstance().addView(treeView, activeProject);
 		
 		// and eventually the domain tree view
 		if (view instanceof DomainViewI) {
 			DomainTreeViewI domTreeView =  ViewHandler.getInstance().createView(ViewType.DOMAINTREE, domTreeViewName);
 			domTreeView.setBackendViews(treeView, (DomainViewI)view);
-			ViewHandler.getInstance().addView(domTreeView, null);
+			ViewHandler.getInstance().addView(domTreeView, activeProject);
 		}
 		
 		return true;

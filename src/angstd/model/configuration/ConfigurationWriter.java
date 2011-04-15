@@ -16,6 +16,7 @@ public class ConfigurationWriter {
 	public static final String HMMER_BINS = "hmmer3 bins:";
 	public static final String HMMER_PROFILE_DB = "hmmer3 profile db:";
 	public static final String SHOWADVISES = "show advice:";
+	public static final String SAVEONEXIT = "save WS:";
 	
 	
 	public static void write(File file) {
@@ -34,6 +35,7 @@ public class ConfigurationWriter {
 		    out.write(HMMER_BINS+config.getHmmerBins()+"\n");
 		    out.write(HMMER_PROFILE_DB+config.getHmmerDB()+"\n");
 		    out.write(SHOWADVISES+config.isShowAdvices()+"\n");
+		    out.write(SAVEONEXIT+config.saveOnExit()+"\n");
 		    		
 		    out.flush();
 		    out.close();

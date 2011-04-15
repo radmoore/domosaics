@@ -10,7 +10,7 @@ import angstd.ui.tools.configuration.ConfigurationFrame;
 /**
  * Opens the configuration frame to specify lookup adresses
  * 
- * @author Andreas Held, Andrew Moore
+ * @author Andreas Held
  *
  */
 public class ShowConfigurationAction extends AbstractMenuAction{

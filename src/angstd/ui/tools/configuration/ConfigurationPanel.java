@@ -55,7 +55,7 @@ public class ConfigurationPanel extends JPanel{
 	protected JButton apply, cancel, restore;
 	
 	/** checkbox indicating whether or not advises should be shown */
-	protected JCheckBox showAdvices;
+	protected JCheckBox showAdvices, saveOnExit;
 	
 	protected Hmmer3Engine hmmer3Engine;
 	
@@ -89,6 +89,7 @@ public class ConfigurationPanel extends JPanel{
 		config.setHmmerBins(hmmer3binTF.getText());
 		config.setHmmerDB(hmmer3dbTF.getText());
 		config.setShowAdvices(showAdvices.isSelected());
+		config.setSaveOnExit(saveOnExit.isSelected());
 
 		ConfigurationWriter.write(config.getConfigFile());
 		
@@ -109,6 +110,7 @@ public class ConfigurationPanel extends JPanel{
 		uniprotField.setText(config.getUniprotUrl());
 		emailField.setText(config.getEmailAddr());
 		showAdvices.setSelected(config.isShowAdvices());
+		saveOnExit.setSelected(config.saveOnExit());
 	}
 	
 	/**
@@ -131,7 +133,7 @@ public class ConfigurationPanel extends JPanel{
 		uniprotField = new JTextField(config.getUniprotUrl(), 50);
 		emailField = new JTextField(config.getEmailAddr(), 50);
 		
-		loadHmmBins = new JButton("Load hmm binaries");
+		loadHmmBins = new JButton("Load binaries");
 		loadHmmBins.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
 				File binDir = FileDialogs.openChooseDirectoryDialog(parentFrame);
@@ -143,7 +145,7 @@ public class ConfigurationPanel extends JPanel{
 			}
 		});
 		
-		loadHmmDB = new JButton("Load hmmer3 model DB");
+		loadHmmDB = new JButton("Load models");
 		loadHmmDB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File file = FileDialogs.showOpenDialog(parentFrame);
@@ -157,6 +159,7 @@ public class ConfigurationPanel extends JPanel{
 		
 		
 		showAdvices = new JCheckBox("Show Advices", config.isShowAdvices());
+		saveOnExit = new JCheckBox("Save Workspace on Exit", config.saveOnExit());
 		
 		apply = new JButton ("Apply");
 		apply.addActionListener(new ActionListener() {
@@ -198,32 +201,34 @@ public class ConfigurationPanel extends JPanel{
 	private void layoutComponents() {
 		
 		add(new JXTitledSeparator("General Settings"),"growx, span, wrap, gaptop 10");
-		add(new JLabel("Email: "), "gap 10");
-		add(emailField, "gap 10, span, growx, wrap");
+		add(new JLabel("Email: "), "h 25!, gap 10");
+		add(emailField, "h 25!, gap 10, span, growx, wrap");
 		
-		add(new JXTitledSeparator("Local annotation"),"growx, span, wrap, gaptop 10");
-		add(loadHmmBins, "gap 10");
-		add(hmmer3binTF, "gap 10, span, growX, wrap");
-		add(loadHmmDB, "gap 10");
-		add(hmmer3dbTF, "gap 10, span, growX, wrap");
+		add(new JXTitledSeparator("Local HMMER3 setup"),"growx, span, wrap, gaptop 10");
+		add(loadHmmBins, "h 25!, w 165!, gap 10");
+		add(hmmer3binTF, "h 25!, gap 10, span, growX, wrap");
+		add(loadHmmDB, "h 25!, w 165!, gap 10");
+		add(hmmer3dbTF, "h 25!, gap 10, span, growX, wrap");
 				
 		add(new JXTitledSeparator("URLs"),"growx, span, wrap, gaptop 10");
-		add(new JLabel("Google Url: "), "gap 10");
-		add(googleField, "gap 10, span, growx, wrap");
-		add(new JLabel("NCBI Url: "), "gap 10");
-		add(ncbiField, "gap 10, span, growx, wrap");
-		add(new JLabel("Pfam Url: "), "gap 10");
-		add(pfamField, "gap 10, span, growx, wrap");
-		add(new JLabel("Uniprot Url: "), "gap 10");
-		add(uniprotField, "gap 10, span, growx, wrap");
+		add(new JLabel("Google Url: "), "h 25!, gap 10");
+		add(googleField, "h 25!, gap 10, span, growx, wrap");
+		add(new JLabel("NCBI Url: "), "h 25!, gap 10");
+		add(ncbiField, "h 25!, gap 10, span, growx, wrap");
+		add(new JLabel("Pfam Url: "), "h 25!, gap 10");
+		add(pfamField, "h 25!, gap 10, span, growx, wrap");
+		add(new JLabel("Uniprot Url: "), "h 25!, gap 10");
+		add(uniprotField, "h 25!, gap 10, span, growx, wrap");
 		
 		add(new JXTitledSeparator("Advice"),"growx, span, wrap, gaptop 10");
-		add(showAdvices, 	"gap 10, wrap");
+		add(showAdvices, 	"h 25!, gap 10, wrap");
+		add(new JXTitledSeparator("Workspace"),"growx, span, wrap, gaptop 10");
+		add(saveOnExit, 	"h 25!, gap 10, wrap");
 		
 		add(new JXTitledSeparator("Apply"),"growx, span, wrap, gaptop 10");
-		add(apply, 			"gap 10");
-		add(cancel, 		"gap 10");
-		add(restore, 		"gap 20");
+		add(apply, "h 25!, gap 10");
+		add(cancel, "h 25!, gap 10");
+		add(restore, "h 25!, gap 20");
 		
 	}
 	/**

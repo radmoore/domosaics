@@ -211,6 +211,7 @@ public class Hmmer3Service implements ProcessListener{
 			hmmPanel.resetPanel();
 			System.out.println(hmmerProgram.getName() + " was closed or died unexpectedly.");
 		}
+		
 	}
 
 	

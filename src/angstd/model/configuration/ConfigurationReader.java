@@ -55,10 +55,16 @@ public class ConfigurationReader {
 							line.replace(ConfigurationWriter.HMMER_PROFILE_DB, "").trim()
 					);
 				
-				if (line.contains(ConfigurationWriter.SHOWADVISES)) 
+				if (line.contains(ConfigurationWriter.SHOWADVISES))
 					Configuration.getInstance().setShowAdvices(
-							Boolean.getBoolean(line.replace(ConfigurationWriter.SHOWADVISES, "").trim())
+							Boolean.parseBoolean(line.replace(ConfigurationWriter.SHOWADVISES, "").trim())
 					);
+				
+				if (line.contains(ConfigurationWriter.SAVEONEXIT)) {
+					Configuration.getInstance().setSaveOnExit(
+							Boolean.parseBoolean(line.replace(ConfigurationWriter.SAVEONEXIT, "").trim())
+					);
+				}
 				
 			}
 		    in.close();
