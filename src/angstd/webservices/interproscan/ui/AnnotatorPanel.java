@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -26,6 +27,7 @@ import angstd.model.arrangement.DomainArrangement;
 import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
+import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.ViewElement;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.ViewHandler;
@@ -37,6 +39,7 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.wizards.WizardListCellRenderer;
 import angstd.ui.wizards.WizardManager;
+import angstd.ui.wizards.pages.SelectNamePage;
 import angstd.util.CheckConnectivity;
 import angstd.webservices.interproscan.AnnotationThreadSpawner;
 import angstd.webservices.interproscan.AnnotatorProcessWriter;
@@ -88,6 +91,8 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 
 	/** Selected view **/
 	private String defaultName;
+	
+	private SequenceView selectedSequenceView;
 	
 	/**
 	 * Constructor for a new Annotator panel
@@ -157,7 +162,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 */
 	public void apply() {
 		// the name is equal to the file + seqs
-		if(defaultName==null) {
+		if(defaultName == null) {
 			File dummy = new File(seqPath.getText());
 			defaultName = dummy.getName().split("\\.")[0];
 		}
@@ -178,9 +183,23 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			if (defaultName != null) {
 				defaultName = defaultName+"-interproscan-"+selectMethod.getSelectedItem().toString()+"-results";
 			}
-			String viewName=null;
+			
+			String viewName = null;
+			String projectName = null;
+			ProjectElement project = null;
+			
+			if (selectedSequenceView != null) {
+				ViewElement elem = WorkspaceManager.getInstance().getViewElement(selectedSequenceView.getViewInfo());
+				project = elem.getProject();
+			}
+			
 			while (viewName == null) {
-				viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
+				
+				Map m = WizardManager.getInstance().selectNameWizard(defaultName, "view", project);
+				viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+				projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+				project = WorkspaceManager.getInstance().getProject(projectName);
+				
 				if (viewName == null) 
 					MessageUtil.showWarning("A valid view name is needed to complete this action");
 			}
@@ -193,10 +212,10 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			if (seqPath.getText().length() > 0) {
 				SequenceView view = ViewHandler.getInstance().createView(ViewType.SEQUENCE, defaultName+"_seqs");
 				view.setSeqs(domResultView.getSequences());
-				ViewHandler.getInstance().addView(view, null);
+				ViewHandler.getInstance().addView(view, project);
 			}
 			
-			ViewHandler.getInstance().addView(domResultView, null);
+			ViewHandler.getInstance().addView(domResultView, project);
 		}
 		
 		dispose();
@@ -422,13 +441,13 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				ViewElement selected = (ViewElement)cb.getSelectedItem();
 				if (selected == null) {
 					return;
-				}else
-				{
+				}
+				else {
 					defaultName=selected.getTitle();
 					//System.out.println(selected.getTitle());
 				}
-				SequenceView view = ViewHandler.getInstance().getView(selected.getViewInfo());
-				annotationSpawner.setSeqs(view.getSeqs());
+				selectedSequenceView = ViewHandler.getInstance().getView(selected.getViewInfo());
+				annotationSpawner.setSeqs(selectedSequenceView.getSeqs());
 				
 			}
 		});

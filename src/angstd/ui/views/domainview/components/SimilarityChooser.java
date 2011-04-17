@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -34,12 +35,16 @@ import angstd.algos.distance.DistanceMeasureType;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.sequence.Sequence;
 import angstd.model.sequence.SequenceI;
+import angstd.model.workspace.ProjectElement;
+import angstd.model.workspace.ViewElement;
 import angstd.ui.ViewHandler;
+import angstd.ui.WorkspaceManager;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.manager.DomainSimilarityManager;
 import angstd.ui.wizards.WizardManager;
+import angstd.ui.wizards.pages.SelectNamePage;
 
 /**
  * The similarity chooser dialog is used in compination with the 
@@ -56,6 +61,8 @@ import angstd.ui.wizards.WizardManager;
  * DomainSimilarityManager after a change.
  * 
  * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
+ * 
  *
  */
 public class SimilarityChooser extends JDialog implements ChangeListener, ActionListener {
@@ -287,7 +294,19 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		String defaultName = view.getViewInfo().getName()+"_subset";
 		
 		// ask the user to enter a valid name for the view
-		String viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
+		String viewName, projectName;
+		
+		// get active project 
+		ViewElement elem = WorkspaceManager.getInstance().getViewElement(view.getViewInfo());
+		ProjectElement project = elem.getProject();
+		
+		// get user settings
+		Map m = WizardManager.getInstance().selectNameWizard(defaultName, "domain view", project);
+		viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+		projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+		
+		project = WorkspaceManager.getInstance().getProject(projectName);
+		
 		if (viewName == null) 
 			return;
 
@@ -299,7 +318,7 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		if (view.isSequenceLoaded()) 
 			newView.loadSequencesIntoDas(seqs.toArray(new SequenceI[seqs.size()]), newView.getDaSet());
 		
-		ViewHandler.getInstance().addView(newView, null);
+		ViewHandler.getInstance().addView(newView, project);
 		
 		close();
 	}

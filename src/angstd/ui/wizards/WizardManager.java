@@ -14,6 +14,7 @@ import org.netbeans.api.wizard.WizardDisplayer;
 
 import angstd.model.sequence.SequenceI;
 import angstd.model.workspace.ProjectElement;
+import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.wizards.createtree.CreateTreeBranchController;
@@ -27,6 +28,7 @@ import angstd.ui.wizards.dialogs.CreateSpeciesTreeDialog;
 import angstd.ui.wizards.dialogs.EditDatasetWizard;
 import angstd.ui.wizards.dialogs.SaveProjectDialog;
 import angstd.ui.wizards.dialogs.SelectNameDialog;
+import angstd.ui.wizards.dialogs.SelectRenameDialog;
 import angstd.ui.wizards.dialogs.WorkspaceDirectoryWizard;
 import angstd.ui.wizards.importdata.ImportDataBranchController;
 import angstd.ui.wizards.importdata.ImportDataResultProducer;
@@ -98,8 +100,14 @@ public class WizardManager {
 	 * @return
 	 * 		the name chosen by the user
 	 */
-	public String selectNameWizard(String defaultName, String objectName) {
-		return (String) new SelectNameDialog(defaultName, objectName).show();
+	public String selectRenameWizard(String defaultName, String objectName, WorkspaceElement elem) {
+		return (String) new SelectRenameDialog(defaultName, objectName, elem).show();
+	}
+	
+	
+	//TODO: new
+	public Map selectNameWizard(String defaultName, String objectName, ProjectElement project) {
+		return (Map) new SelectNameDialog(defaultName, objectName, project).show();
 	}
 	
 	/**

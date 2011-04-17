@@ -2,7 +2,6 @@ package angstd.ui.wizards.pages;
 
 import java.awt.Component;
 
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -13,11 +12,9 @@ import org.netbeans.spi.wizard.WizardPage;
 import angstd.model.workspace.CategoryElement;
 import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.ViewElement;
-import angstd.ui.ViewHandler;
+import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.views.ViewType;
-import angstd.ui.views.view.View;
-import angstd.ui.views.view.ViewInfo;
 
 /**
  * WizardPage shown within the SelectViewNameDialog.
@@ -25,15 +22,15 @@ import angstd.ui.views.view.ViewInfo;
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
-public class SelectNamePage extends WizardPage {
+public class SelectRenamePage extends WizardPage {
 	private static final long serialVersionUID = 1L;
 	
-	public static final String VIEWNAME_KEY = "viewName";
-	public static final String PROJECTNAME_KEY = "projectName";
+	public static final String ELEMENT_KEY = "viewName";
+	public static final String PROJECT_KEY = "projectName";
 
 	protected JTextField name;
-	private JComboBox selectProject;
 	private String objectName;
+	private WorkspaceElement elem;
 	
 	
 	/**
@@ -44,30 +41,19 @@ public class SelectNamePage extends WizardPage {
 	 * @param objectName
 	 * 		the object to name e.g. view or project
 	 */
-	public SelectNamePage(String defaultName, String objectName, ProjectElement project) {
+	public SelectRenamePage(String defaultName, String objectName, WorkspaceElement elem) {
 		super(objectName+" name selection");
 		this.objectName = objectName;
+		this.elem = elem;
 		setLayout(new MigLayout());
 		
 		name = new JTextField(20);
 		name.setEditable(true);
 		name.setText(defaultName);
-		name.setName(VIEWNAME_KEY);
-		
-		ProjectElement[] projectList = WorkspaceManager.getInstance().getProjects();
-		String[] projectNames = new String[projectList.length];
-		for (int i = 0; i < projectList.length; i++) {
-			projectNames[i] = projectList[i].getTitle();
-		}
-		selectProject = new JComboBox(projectNames);
-		selectProject.setName(PROJECTNAME_KEY);
-		if (project != null)
-			selectProject.setSelectedItem(project.getTitle());
+		name.setName(ELEMENT_KEY);
 		
 		add(new JLabel("Select "+objectName+" name "), "gap 10");
 		add(name, "h 25!, gap 10, wrap");
-		add(new JLabel("Associate with project"), "gap 10");
-		add(selectProject, "h 25!, gap 10, span");
 
 	}
 
@@ -78,20 +64,20 @@ public class SelectNamePage extends WizardPage {
     protected String validateContents (Component component, Object o) {
 		
 		String newName = name.getText().trim();
-		String projectName = (String) selectProject.getSelectedItem();
-		ProjectElement project = WorkspaceManager.getInstance().getProject(projectName);
+		ProjectElement project = elem.getProject();
+		String categoryType = elem.getParent().getTitle();
 		CategoryElement category;
 		
 		// in any case, a name is required
 		if (newName.isEmpty())
 			return "Select a name";
-					
-		if  (objectName.equals("sequence view")) {
+		
+		if  (categoryType.equals("Sequences")) {
 			category = project.getCategory(ViewType.SEQUENCE);
 			if (project.viewExists(newName, category))
 				return "Name taken - choose new name";
 		}	
-		else if (objectName.equals("domain view")) {
+		else if (categoryType.equals("Arrangements")) {
 			category = project.getCategory(ViewType.DOMAINS);
 			if (project.viewExists(newName, category))
 				return "Name taken - choose new name";

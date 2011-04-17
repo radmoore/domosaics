@@ -18,8 +18,9 @@ import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
+import angstd.ui.views.view.View;
 import angstd.ui.wizards.WizardManager;
-import angstd.ui.workspace.WorkspaceSelectionManager;
+import angstd.ui.wizards.pages.SelectNamePage;
 
 /**
  * Creates a new view out of the current selected arrangements. Therefore
@@ -47,9 +48,20 @@ public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 		
 		// take the active viewName + subset as default name
 		String defaultName = view.getViewInfo().getName()+"_subset";
+		String viewName, projectName;
+		
+		// get currently active project
+		ViewElement elem = WorkspaceManager.getInstance().getViewElement(view.getViewInfo());
+		ProjectElement project = elem.getProject();
+		
+		// get info provided by the user
+		Map m = WizardManager.getInstance().selectNameWizard(defaultName, "domain view", project);
+		viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+		projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+		project = WorkspaceManager.getInstance().getProject(projectName);
+		
 		
 		// ask the user to enter a valid name for the view
-		String viewName = WizardManager.getInstance().selectNameWizard(defaultName, "domain view");
 		if (viewName == null) 
 			return;
 		
@@ -75,8 +87,6 @@ public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 
 		// and create with the new dataset a new domainview with the selected name
 		DomainViewI newView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
-		ViewElement elem = WorkspaceManager.getInstance().getViewElement(view.getViewInfo());
-		ProjectElement project = elem.getProject();
 		
 		newView.setDaSet(daSet);
 		

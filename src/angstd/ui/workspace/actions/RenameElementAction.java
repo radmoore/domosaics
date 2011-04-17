@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
+import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.ViewElement;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.AngstdUI;
@@ -32,19 +33,14 @@ public class RenameElementAction extends AbstractAction{
 	public void actionPerformed(ActionEvent e) {
 		// get selected Workspace element
 		WorkspaceElement selected = WorkspaceManager.getInstance().getSelectionManager().getSelectedElement();
-		
-		if (selected == null){
-			MessageUtil.showWarning("Please first select a workspace element");
-			return;
-		}
-		
+
 		if (selected.isCategory()) {
 			MessageUtil.showWarning("Categories cannot be renamed");
 			return;
 		}
 		
 		// let the user choose the new name
-		String newTitle = WizardManager.getInstance().selectNameWizard(selected.getTitle(), selected.getTypeName());
+		String newTitle = WizardManager.getInstance().selectRenameWizard(selected.getTitle(), selected.getTypeName(), selected);
 		
 		if(newTitle == null)  // canceled
 			return;
@@ -60,7 +56,8 @@ public class RenameElementAction extends AbstractAction{
 			view.getParentPane().setName(newTitle);
 			
 			// if it is also the active view within the AngstdDektop the dockable name has to be updated as well
-			if (ViewHandler.getInstance().getActiveView().equals(view))
+			View activeView = ViewHandler.getInstance().getActiveView();
+			if ( (activeView != null) && (ViewHandler.getInstance().getActiveView().equals(view)) )
 				AngstdUI.getInstance().changeViewName(newTitle);
 		}
 	}
