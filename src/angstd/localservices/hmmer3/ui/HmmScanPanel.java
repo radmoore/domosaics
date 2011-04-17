@@ -267,7 +267,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		add(cpuCB, "gap 5, span2, wrap");
 		
 		add(new JXTitledSeparator("Post processing"), "growX, span, wrap, gaptop 10");
-		add(new JLabel("Overlap Resolver:"), "gap 5");
+		add(new JLabel("Resolve overlaps by:"), "gap 5");
 		add(radioPane, "gap 2, growX, wrap");
 
 		add(new JLabel("Co-Occurring Domain Filter:"), "gap 5");

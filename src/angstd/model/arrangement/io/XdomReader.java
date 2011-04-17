@@ -184,8 +184,6 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 	 */
 	private DomainArrangement parseDomain(String domainStr, DomainArrangement prot) throws NumberFormatException, WrongFormatException {
 		
-		
-		
 		DomainFamily domFamily = null;
 		Domain dom = null;
 		int actToken = 0;
@@ -204,9 +202,17 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 		// first get the domain family id and check whether or not the domain family already occurred within the document
         // DACC;DID (DID may be null, in which case a call to getID() returns the ACC; ergo ACC and DID may be equal)
         String domInfo = token[actToken+2];
-        String dAcc = domInfo.split(";")[0];
-        String dId = domInfo.split(";")[1];
+        String dAcc, dId; 
         
+        if (domInfo.indexOf(';') > 0) {
+        	dAcc = domInfo.split(";")[0];
+        	dId = domInfo.split(";")[1];
+        }
+        else {
+        	dAcc = domInfo;
+        	dId = domInfo;
+        }
+        	
 		DomainType dType = DomainType.getType(dAcc);
 		domFamily = GatheringThresholdsReader.getInstance().get(dAcc);
 		

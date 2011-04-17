@@ -81,7 +81,11 @@ public class SelectRenamePage extends WizardPage {
 			category = project.getCategory(ViewType.DOMAINS);
 			if (project.viewExists(newName, category))
 				return "Name taken - choose new name";
-			
+		}
+		else {
+			category = project.getCategory(ViewType.DOMAINTREE);
+			if (project.viewExists(newName, category))
+				return "Name taken - choose new name";
 		}
 		
 		return null;

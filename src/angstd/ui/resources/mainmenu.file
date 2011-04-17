@@ -111,28 +111,35 @@
 
 <!-- Disabled help menu -->
 <!--
-<!--	<menu id="Help">
+	<menu id="Help">
+
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Manual"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.ShowManualAction"/> 
+			<parameter id="tooltip" value="Shows the program manual"/> 
+		</menuItem>
 	
-<!--		<menuitem id="JMenuItem">
-<!--			<parameter id="name" value="Manual"/> 
-<!--			<parameter id="actionClass" value="angstd.ui.actions.ShowManualAction"/> 
-<!--			<parameter id="tooltip" value="Shows the program manual"/> 
-<!--		</menuItem>
-	
-<!--		<menuitem id="JSeparator"/>
-	
-<!--		<menuitem id="JMenuItem">
-<!--			<parameter id="name" value="Load Small Example Dataset"/> 
-<!--			<parameter id="actionClass" value="angstd.ui.actions.LoadSmallExampleDataActon"/> 
-<!--			<parameter id="tooltip" value="Loads a small example data set"/> 
-<!--		</menuItem>
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Load Small Example Dataset"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.LoadSmallExampleDataActon"/> 
+			<parameter id="tooltip" value="Loads a small example data set"/> 
+		</menuItem>
 		
-<!--		<menuitem id="JMenuItem">
-<!--			<parameter id="name" value="Load Big Example Dataset"/> 
-<!--			<parameter id="actionClass" value="angstd.ui.actions.LoadBigExampleDataAction"/> 
-<!--			<parameter id="tooltip" value="Loads a big example data set"/> 
-<!--		</menuItem>
-<!--	</menu>
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Load Large Example Dataset"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.LoadBigExampleDataAction"/> 
+			<parameter id="tooltip" value="Loads a large example data set"/> 
+		</menuItem>
+		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="About"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.ShowManualAction"/> 
+			<parameter id="tooltip" value="Shows the program manual"/> 
+		</menuItem>
+		
+	</menu>
 
 
 </menubar>
