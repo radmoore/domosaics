@@ -22,12 +22,11 @@ public class Configuration {
 	public static final String DEF_EMAIL_ADDR = "";
 	public static final String DEF_HMMPRESS_BIN = "";
 	public static final String DEF_HMMSCAN_BIN = "";
-//	public static final String DEF_HMMERBINS = "";
 	public static final String DEF_HMMERDB = "";
 	
 	public static final String LOCKFILE = ".lock";
 	
-	public static final boolean DEF_SHOW_ADVICES = true;
+	public static final boolean DEF_SHOW_ADVICES = false;
 	public static final boolean DEF_SAVE_ON_EXIT = false;
 	
 	private boolean service_running = false;

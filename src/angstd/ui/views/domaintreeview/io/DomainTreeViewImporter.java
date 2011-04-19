@@ -134,7 +134,7 @@ public class DomainTreeViewImporter extends ViewImporter<DomainTreeViewI>  {
 							}
 						}
 						
-						// if it is not a parameterline, skip it
+						// if it is not a parameter line, skip it
 						if (!line.contains("parameter"))	
 							continue;
 						
@@ -292,7 +292,7 @@ public class DomainTreeViewImporter extends ViewImporter<DomainTreeViewI>  {
 	}
 	
 	private static void readFamilySetting(String line, DomainViewI view, ArrangementManager manager) {
-		if(idEquals(line, "ID"))
+		if(idEquals(line, "ACC"))
 			fam = manager.getFamily(getValue(line));
 		else if(idEquals(line, "COLOR"))
 			view.getDomainColorManager().setDomainColor(fam, str2color(getValue(line)));

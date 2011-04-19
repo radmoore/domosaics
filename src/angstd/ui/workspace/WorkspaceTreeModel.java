@@ -93,10 +93,20 @@ public class WorkspaceTreeModel implements TreeModel, WorkspaceChangeListener {
 	/**
 	 * Triggers a refresh of the model which uncollapses all nodes within 
 	 * the tree.
+	 * FIXME (see expandAll() in workspaceView)
+	 * there is a seemingly random runtime error here upon startup/project import
+	 * which may be due to changes in other nodes of the tree triggering
+	 * this method _before_ all children have been added to the tree
+	 * (that is, refresh triggered while tree is still in buildup).
+	 * As this has no real effects, for now the exception is caught 
+	 * but not dealt with
 	 */
 	public void refresh(){	
-		fireTreeStructureChanged(this, new TreePath(new Object[]{workspace}));		
-		view.expandAll();
+		fireTreeStructureChanged(this, new TreePath(new Object[]{workspace}));
+		try {
+			view.expandAll();
+		}
+		catch (Exception e) {}
 	}
 	
 	/* ***************************************************************** *

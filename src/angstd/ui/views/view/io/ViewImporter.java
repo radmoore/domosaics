@@ -28,6 +28,12 @@ import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.treeview.io.TreeViewImporter;
 import angstd.ui.views.view.View;
 
+/**
+ * Importer for views
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
+ *
+ * @param <V>
+ */
 public abstract class ViewImporter<V extends View> {
 	
 	protected String viewName = null;

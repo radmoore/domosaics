@@ -56,14 +56,17 @@ public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 		
 		// get info provided by the user
 		Map m = WizardManager.getInstance().selectNameWizard(defaultName, "domain view", project);
+		
+		// in case user canceled renaming
+		if (m == null) 
+			return;
+		
 		viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
 		projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
 		project = WorkspaceManager.getInstance().getProject(projectName);
 		
 		
-		// ask the user to enter a valid name for the view
-		if (viewName == null) 
-			return;
+
 		
 		// clone selected arrangements as well as their sequences into a new dataset
 		DomainArrangement[] daSet = new DomainArrangement[numDAs];

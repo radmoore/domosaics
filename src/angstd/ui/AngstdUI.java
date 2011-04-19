@@ -67,7 +67,7 @@ public class AngstdUI extends JFrame implements WindowListener{
      * method. 
      */
     protected AngstdUI() {
-		super("Angstd");
+		super("[AnGSTD]");
 		 
 		// add the docking desktop (the workspace is created in here)
 		desktop = new AngstdDesktop();
@@ -107,7 +107,7 @@ public class AngstdUI extends JFrame implements WindowListener{
 	public static AngstdUI getInstance() {
 		if(instance == null) {
 			instance = new AngstdUI();
-			HelpManager.showHelpDialog("AngstdUI", "You can disable advice dialogs in the configuration menu.");
+			//HelpManager.showHelpDialog("AngstdUI", "You can disable advice dialogs in the configuration menu.");
 		}
 		return instance;
 	}   

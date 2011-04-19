@@ -42,6 +42,7 @@ import angstd.ui.wizards.WizardManager;
  * 
  * 
  * @author Andrew Moore, Andreas Held
+ * 
  */
 public class ApplicationHandler {
 
@@ -80,7 +81,8 @@ public class ApplicationHandler {
 			// if the user has not set save on default in configurator
 			// ask (defaults to save)
 			if (!(Configuration.getInstance().saveOnExit())) {
-				Object[] options = {"Yes", "No", "Cancel", "Restore original"};
+//				Object[] options = {"Yes", "No", "Cancel", "Restore original"};
+				Object[] options = {"Yes", "No", "Cancel"};
 				choice = MessageUtil.show3ChoiceDialog("Restore workspace in next session?", options);
 			}
 			
@@ -136,7 +138,7 @@ public class ApplicationHandler {
 	public void start() {
 		startUpProgress = new StartupPage();
 		
-		startUpProgress.setProgress("Loading ANGSTD", 5);
+		startUpProgress.setProgress("Loading AnGSTD", 5);
 		initPreferences();
 		
 		startUpProgress.setProgress("Initiating workspace", 25);
@@ -278,7 +280,8 @@ public class ApplicationHandler {
 	private class StartupPage extends Frame {
 		private static final long serialVersionUID = 1L;
 		
-		private static final String LOGOPATH = "ui/resources/Logo2.jpg";
+		//private static final String LOGOPATH = "ui/resources/Logo2.jpg";
+		private static final String LOGOPATH = "ui/resources/angstd_logo_small.png";
 		
 		protected JProgressBar progressBar;
 		

@@ -81,6 +81,7 @@ public class DomainTreeViewExporter extends ViewExporter<DomainTreeViewI>{
     			DomainFamily fam = famIter.next();
         		writeTag(out, 4, "DOMAINFAMILY", true);
         		writeParam(out, 5, "ID", fam.getID());
+        		writeParam(out, 5, "ACC", fam.getAcc());
         		writeParam(out, 5, "COLOR", color2str(view.getDomainColorManager().getDomainColor(fam)));
         		writeParam(out, 5, "SHAPE", ""+view.getDomainShapeManager().getShapeID(fam));
         		writeTag(out, 4, "DOMAINFAMILY", false);

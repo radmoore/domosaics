@@ -30,12 +30,6 @@ import angstd.ui.util.MessageUtil;
  * for instance lookup addresses. The changed data is stored
  * within the backend data type {@link Configuration}
  * 
- * TODO
- * - This is currently a hack!
- * - ActionListner implemented as anonyomous inner class -> change?
- * - Process communiction with the Hmmer3Engine sucks.
- * 
- * @author Andreas Held
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
@@ -92,7 +86,7 @@ public class ConfigurationPanel extends JPanel{
 		config.setHmmScanBin(hmmerScanTF.getText());
 		config.setHmmPressBin(hmmerPressTF.getText());
 		config.setHmmerDB(hmmer3dbTF.getText());
-		config.setShowAdvices(showAdvices.isSelected());
+		//config.setShowAdvices(showAdvices.isSelected());
 		config.setSaveOnExit(saveOnExit.isSelected());
 
 		ConfigurationWriter.write(config.getConfigFile());
@@ -114,7 +108,7 @@ public class ConfigurationPanel extends JPanel{
 		pfamField.setText(config.getPfamUrl());
 		uniprotField.setText(config.getUniprotUrl());
 		emailField.setText(config.getEmailAddr());
-		showAdvices.setSelected(config.isShowAdvices());
+		//showAdvices.setSelected(config.isShowAdvices());
 		saveOnExit.setSelected(config.saveOnExit());
 	}
 	
@@ -178,7 +172,7 @@ public class ConfigurationPanel extends JPanel{
 		});
 		
 		
-		showAdvices = new JCheckBox("Show Advices", config.isShowAdvices());
+//		showAdvices = new JCheckBox("Show Advices", config.isShowAdvices());
 		saveOnExit = new JCheckBox("Save Workspace on Exit", config.saveOnExit());
 		
 		apply = new JButton ("Apply");
@@ -248,8 +242,8 @@ public class ConfigurationPanel extends JPanel{
 		add(new JLabel("Uniprot Url: "), "h 25!, gap 10");
 		add(uniprotField, "h 25!, gap 10, span, growx, wrap");
 		
-		add(new JXTitledSeparator("Advice"),"growx, span, wrap, gaptop 10");
-		add(showAdvices, 	"h 25!, gap 10, wrap");
+//		add(new JXTitledSeparator("Advice"),"growx, span, wrap, gaptop 10");
+//		add(showAdvices, 	"h 25!, gap 10, wrap");
 		add(new JXTitledSeparator("Workspace"),"growx, span, wrap, gaptop 10");
 		add(saveOnExit, 	"h 25!, gap 10, wrap");
 		
