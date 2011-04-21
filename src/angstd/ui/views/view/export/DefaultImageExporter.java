@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
 
+import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.view.View;
 
@@ -65,10 +66,11 @@ public class DefaultImageExporter implements ImageExporter{
 			writer.write(img);
 			writer.dispose();
 			stream.close();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
+       	 	Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Unable to export image to " + file.getName());
 			writer.abort();
-			e.printStackTrace();
 		}
 		
 	}

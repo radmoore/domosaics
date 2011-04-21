@@ -16,6 +16,7 @@ import uk.ac.ebi.webservices.axis1.stubs.clustalw2.*;
 //import uk.ac.ebi.webservices.wsclustalw2.WSClustalW2Service;
 //import uk.ac.ebi.webservices.wsclustalw2.WSClustalW2ServiceLocator;
 //import uk.ac.ebi.webservices.wsclustalw2.WSClustalW2_PortType;
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.webservices.AbstractEBIWebservice;
 import angstd.webservices.EBIServiceType;
@@ -108,7 +109,7 @@ public class ClustalW2ServiceII extends AbstractEBIWebservice {
 			srvProxyConnect();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 		}
 		params.setSequence(this.sequences);
 		String jobId = srvProxy.run(email, "", params);

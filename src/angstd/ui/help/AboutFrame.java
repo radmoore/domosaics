@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import angstd.model.configuration.Configuration;
+
 
 
 public class AboutFrame extends JFrame{
@@ -32,8 +34,9 @@ public class AboutFrame extends JFrame{
 		try {
 			about = new ImageIcon(ImageIO.read(is));
 			panel.add(new JLabel(about), BorderLayout.CENTER);
-		} catch (IOException e) {
-			System.out.println("Failed to load about image");
+		} 
+		catch (IOException e) {
+			Configuration.getLogger().debug(e.toString());
 		}
 		
 		

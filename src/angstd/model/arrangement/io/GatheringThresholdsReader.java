@@ -8,6 +8,7 @@ import java.util.Map;
 
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainType;
+import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 
 public class GatheringThresholdsReader {
@@ -51,7 +52,7 @@ public class GatheringThresholdsReader {
   
 		catch(Exception e1) {
 			MessageUtil.showWarning("No corresponding Gathering threshold file");
-			e1.printStackTrace();
+			Configuration.getLogger().debug(e1.toString());
 		}
 	}
 

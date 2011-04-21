@@ -36,7 +36,9 @@ public class SweepWorkspaceAction {
 				try {
 					FileUtils.cleanDirectory(bckDir);
 				} 
-				catch (IOException e) {}
+				catch (IOException e) {
+					Configuration.getLogger().debug(e.toString());
+				}
 			}
 			// copy all non-active projects into bckdir
 			// and delete if successfull
@@ -49,6 +51,7 @@ public class SweepWorkspaceAction {
 					FileUtils.copyDirectoryToDirectory(projectDir, bckDir);
 					FileUtils.deleteDirectory(projectDir);
 				} catch (IOException e) {
+					Configuration.getLogger().debug(e.toString());
 					continue;
 				}
 			}

@@ -8,6 +8,7 @@ import angstd.model.GO.GeneOntologyTerm;
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
+import angstd.model.configuration.Configuration;
 import angstd.model.io.AbstractDataWriter;
 import angstd.model.io.DataWriter;
 import angstd.util.StringUtils;
@@ -99,7 +100,7 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
     		}
         } 
         catch (IOException e) {
-        	e.printStackTrace();
+        	Configuration.getLogger().debug(e.toString());
         }
     }
 

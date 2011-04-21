@@ -107,7 +107,7 @@ public class LastUsedWorkspaceImporter {
 				}
 	    	});
 		} catch (Exception e) {
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 		}
 	}
 	

@@ -14,6 +14,7 @@ import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.io.ArrangementImporterUtil;
 import angstd.model.arrangement.io.HmmOutReader;
 import angstd.model.arrangement.io.XdomReader;
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
 import angstd.model.tree.TreeI;
@@ -65,8 +66,10 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 
 			p.finished(null);
 			
-		}catch(Exception e){
-			p.failed("Error while creating Project, please try again.", false);
+		}
+		catch(Exception e){
+			Configuration.getLogger().debug(e.toString());
+			p.failed("Error while creating project", false);
 			p.finished(null);
 		}	
 	}

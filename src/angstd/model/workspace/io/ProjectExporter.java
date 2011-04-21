@@ -26,6 +26,7 @@ public class ProjectExporter {
         			FileUtils.cleanDirectory(projectDir);
         		}
         		catch (Exception e) {
+        			Configuration.getLogger().debug(e.toString());
         			MessageUtil.showWarning("Could not remove old project directory - will append");
         		}
         	}
@@ -64,7 +65,7 @@ public class ProjectExporter {
  
         } 
         catch (Exception e) {
-        	e.printStackTrace();
+        	Configuration.getLogger().debug(e.toString());
         	return false;
         }
         return true;

@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import angstd.model.configuration.Configuration;
+
 /**
  * Supported domain types
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
@@ -88,6 +90,7 @@ public enum DomainType {
     	}	
     	catch (Exception e) {
     	//	e.printStackTrace();
+    		Configuration.getLogger().debug(e.toString());
     		return UNKNOWN;
 		}
   

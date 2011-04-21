@@ -12,6 +12,7 @@ import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainVector;
 import angstd.model.arrangement.GapDomain;
+import angstd.model.configuration.Configuration;
 import angstd.model.tree.TreeI;
 import angstd.model.tree.TreeNodeI;
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
@@ -168,8 +169,9 @@ public class Sankoff extends AbstractReconstructionAlgo {
 				sankoff_Down(tree.getRoot(), costs, domCols.get(actCol));
 			}
 			
-		}catch(Exception e) {
-			;
+		}
+		catch(Exception e) {
+			Configuration.getLogger().debug(e.toString());
 		}
 		
 		return null;

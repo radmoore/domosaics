@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.tree.TreeNodeI;
 import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
@@ -53,8 +54,9 @@ public class TreeViewExporter extends ViewExporter<TreeViewI>{
 			writeTag(out, 1, "TREEVIEW", false);
 
         	out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } 
+        catch (IOException e) {
+			Configuration.getLogger().debug(e.toString());
         }
     }
 

@@ -8,6 +8,7 @@ import java.util.Iterator;
 import angstd.model.arrangement.ArrangementManager;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.io.XdomWriter;
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaWriter;
 import angstd.model.tree.TreeNodeI;
@@ -93,7 +94,7 @@ public class DomainTreeViewExporter extends ViewExporter<DomainTreeViewI>{
 
     		out.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());	
         }
     }
 	

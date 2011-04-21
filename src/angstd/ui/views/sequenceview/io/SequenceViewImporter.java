@@ -3,6 +3,7 @@ package angstd.ui.views.sequenceview.io;
 import java.io.BufferedReader;
 import java.io.StringReader;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
 import angstd.ui.ViewHandler;
@@ -63,9 +64,10 @@ public class SequenceViewImporter extends ViewImporter<SequenceView>{
 			}
 			
 			in.close();
-		} catch (Exception e) {
-			System.out.println("Error occured during project import - reading attribute file for view: "+view.getViewInfo().getName());
-			e.printStackTrace();
+		} 
+		catch (Exception e) {
+			Configuration.getLogger().debug(e.toString());
+			Configuration.getLogger().debug("Error occured during project import - reading attribute file for view: "+view.getViewInfo().getName());
 		}
 		
 	}

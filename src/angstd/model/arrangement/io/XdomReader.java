@@ -17,6 +17,7 @@ import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainType;
+import angstd.model.configuration.Configuration;
 import angstd.model.io.AbstractDataReader;
 import angstd.model.io.DataReader;
 import angstd.ui.util.MessageUtil;
@@ -73,7 +74,7 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 			
 			return false;
 		} catch (IOException e) {
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 			return false;
 		}
 	}
@@ -113,10 +114,14 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 			} else {							// parse domain line
 				try {
 					prot = parseDomain(line, prot);
-				} catch (NumberFormatException nfe) {
+				} 
+				catch (NumberFormatException nfe) {
+					Configuration.getLogger().debug(nfe.toString());
 					MessageUtil.showWarning("Error while parsing domain line. Make sure the format fullfills: \"name from to [evalue]\"");
 					return null;
-				} catch (WrongFormatException wfe) {
+				} 
+				catch (WrongFormatException wfe) {
+					Configuration.getLogger().debug(wfe.toString());
 					MessageUtil.showWarning("Error while parsing domain line. Make sure the format fullfills: \"name from to [evalue]\"");
 					return null;
 				}

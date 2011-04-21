@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 
 import angstd.model.GO.GeneOntology;
 import angstd.model.arrangement.DomainFamily;
+import angstd.model.configuration.Configuration;
 import angstd.util.CheckConnectivity;
 
 
@@ -41,7 +42,7 @@ public class Pfam2GOreader {
 			BufferedReader remoteIn = new BufferedReader(new InputStreamReader(remoteFile.openStream()));
 		}
 		catch (Exception e) {
-			
+			Configuration.getLogger().debug(e.toString());
 		}
 	}
 	
@@ -102,7 +103,7 @@ public class Pfam2GOreader {
 			}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 		}
 	}
 	

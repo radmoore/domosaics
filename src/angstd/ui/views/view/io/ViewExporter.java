@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import angstd.model.configuration.Configuration;
 import angstd.ui.views.view.View;
 
 public abstract class ViewExporter<V extends View> {
@@ -17,8 +18,9 @@ public abstract class ViewExporter<V extends View> {
         	BufferedWriter out = new BufferedWriter(new FileWriter(file));
         	write(out, view);
         	out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } 
+        catch (IOException e) {
+       	 	Configuration.getLogger().debug(e.toString());
         }
     }
 	

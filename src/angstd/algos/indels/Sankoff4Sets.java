@@ -9,6 +9,7 @@ import java.util.Map;
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainSet;
+import angstd.model.configuration.Configuration;
 import angstd.model.tree.TreeI;
 import angstd.model.tree.TreeNodeI;
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
@@ -158,8 +159,9 @@ public class Sankoff4Sets extends AbstractReconstructionAlgo {
 				sankoff_Down(lca, costs, doms.get(i));
 			}
 			
-		}catch(Exception e) {
-			;
+		}
+		catch(Exception e) {
+			Configuration.getLogger().debug(e.toString());
 		}
 		
 		return null;

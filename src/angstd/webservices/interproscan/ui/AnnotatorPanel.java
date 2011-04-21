@@ -325,7 +325,9 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		try {
 			Double.parseDouble(word);
 			return true;
-		} catch (Exception e){
+		} 
+		catch (Exception e){
+			Configuration.getLogger().debug(e.toString());
 			return false;
 		}
 	}

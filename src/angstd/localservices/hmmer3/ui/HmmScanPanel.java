@@ -607,8 +607,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				catch (Exception e) {
 					writeToConsole("*** E: Something went wrong while creating the tmp file.\n");
 					writeToConsole("*** I: Please ensure sufficient space and permissions on the system temp dir\n");
-					System.out.println("*** E: Something went wrong when creating the tmp file.");
-					e.printStackTrace();
+					Configuration.getLogger().debug(e.toString());
 				}
 				fastaTF.setText(fastaFile.getAbsolutePath());
 				view2file.put(selected.getViewID(), fastaFile);

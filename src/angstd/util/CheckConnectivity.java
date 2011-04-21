@@ -5,6 +5,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import angstd.model.configuration.Configuration;
+
 public abstract class CheckConnectivity {
 	
 	private final static String DEFAULT_URL = "http://www.google.com";  
@@ -29,7 +31,7 @@ public abstract class CheckConnectivity {
 			Object objData = urlConnect.getContent();
 		}
 		catch (MalformedURLException e) {
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 			return false;
 		}
 		catch (IOException e) {

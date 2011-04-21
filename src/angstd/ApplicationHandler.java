@@ -18,13 +18,14 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
+import org.apache.log4j.Logger;
+
 import angstd.model.arrangement.io.GatheringThresholdsReader;
 import angstd.model.arrangement.io.Pfam2GOreader;
 import angstd.model.configuration.Configuration;
 import angstd.model.configuration.ConfigurationReader;
 import angstd.model.configuration.ConfigurationWriter;
 import angstd.model.workspace.ProjectElement;
-import angstd.model.workspace.WorkspaceElement;
 import angstd.model.workspace.io.LastUsedWorkspaceImporter;
 import angstd.model.workspace.io.LastUsedWorkspaceWriter;
 import angstd.model.workspace.io.ProjectExporter;
@@ -353,7 +354,7 @@ public class ApplicationHandler {
 				logo = new ImageIcon(ImageIO.read(is));
 				startupPanel.add(new JLabel(logo), BorderLayout.CENTER);
 			} catch (IOException e) {
-				System.out.println("Failed to load logo image");
+				Configuration.getLogger().debug(e.toString());
 			}
 			
 			// create and display progressbar
@@ -385,8 +386,9 @@ public class ApplicationHandler {
 		public void wait4me(long ms) {
 			try {
 				Thread.sleep(ms);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			} 
+			catch (Exception e) {
+				Configuration.getLogger().debug(e.toString());
 			}
 		}
 	}

@@ -5,6 +5,7 @@ import java.io.InputStream;
 
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.io.XdomReader;
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
 import angstd.model.tree.TreeI;
@@ -85,6 +86,7 @@ public class ExampleDatasetLoader {
 			xdomFile.close();
 			seqFile.close();
 		} catch (IOException e) {
+			Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Failed to load example dataset");
 			e.printStackTrace();
 		}
@@ -113,9 +115,10 @@ public class ExampleDatasetLoader {
 			treeFile.close();
 			xdomFile.close();
 			seqFile.close();
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
+			Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Failed to load example dataset");
-			e.printStackTrace();
 		}
 	}
 	

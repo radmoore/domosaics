@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import angstd.ApplicationHandler;
+import angstd.model.configuration.Configuration;
 import angstd.ui.docking.AngstdDesktop;
 import angstd.ui.io.menureader.DefaultMenuActionManager;
 import angstd.ui.io.menureader.JMenuBarFactory;
@@ -90,8 +91,8 @@ public class AngstdUI extends JFrame implements WindowListener{
 			URL menuURL = this.getClass().getResource(MENUFILE);
 			setJMenuBar(JMenuBarFactory.createMenuBar(menuURL, actionManager));
 		} catch (Exception e) {
+			Configuration.getLogger().debug(e.toString());
 			JOptionPane.showMessageDialog(this, e.toString(), "Menu loading FAILED!", JOptionPane.ERROR_MESSAGE); 
-			e.printStackTrace();
 		} 
 	}
     

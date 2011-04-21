@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import angstd.ui.util.MessageUtil;
+
 public class ConfigurationWriter {
 
 	public static final String DEFAULT_LOCATION = "default file location:";
@@ -45,8 +47,8 @@ public class ConfigurationWriter {
 		    out.close();
 		   
 		} catch (IOException e) {
-	    	System.out.println("Configuration file "+file.getAbsolutePath()+" not found");
-			//e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
+			MessageUtil.showWarning("Configuration file "+file.getAbsolutePath()+" not found");
 		}
 	}
 	
@@ -61,7 +63,7 @@ public class ConfigurationWriter {
 			
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 		}
 	}
 	

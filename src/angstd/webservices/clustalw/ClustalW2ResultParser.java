@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.Sequence;
 import angstd.model.sequence.SequenceI;
 
@@ -16,8 +17,9 @@ public class ClustalW2ResultParser {
 	public SequenceI[] parseResult(String alignmentStr) {
 		try {
 			return getSequences(new StringReader(alignmentStr));
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
+		}
+		catch (IOException ioe) {
+			Configuration.getLogger().debug(ioe.toString());
 		}
 		return null;
 	}

@@ -34,6 +34,7 @@ import angstd.algos.treecreation.PALAdapter;
 import angstd.algos.treecreation.TreeCreationAlgoType;
 import angstd.algos.treecreation.TreeCreationUtil;
 import angstd.model.arrangement.DomainArrangement;
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.tree.TreeI;
 import angstd.model.workspace.CategoryElement;
@@ -90,10 +91,10 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 				p.finished(createBasedOnDomains(domView, measure, algo, p));
 			}
 
-		}catch(Exception e){
-			e.printStackTrace();
-			System.out.println("This is where the exception occurred");
-			p.failed("Error while creating Project, please try again.", false);
+		}
+		catch(Exception e){
+			Configuration.getLogger().debug(e.toString());
+			p.failed("Error while creating Project", false);
 			p.finished(null);
 		}	
 	}
