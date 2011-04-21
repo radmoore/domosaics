@@ -39,7 +39,7 @@ public class ConfigurationWriter {
 		    out.write(HMMER_PROFILE_DB+config.getHmmerDB()+"\n");
 		    //out.write(SHOWADVISES+config.isShowAdvices()+"\n");
 		    out.write(SAVEONEXIT+config.saveOnExit()+"\n");
-		    out.write(OVERWRITEPROJECTS+config.saveOnExit()+"\n");
+		    out.write(OVERWRITEPROJECTS+config.getOverwriteProjects()+"\n");
 		    		
 		    out.flush();
 		    out.close();

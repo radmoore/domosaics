@@ -86,7 +86,8 @@ public class ApplicationHandler {
 			
 			// save workspace
 			if (choice == 0)
-				handelProjectExport();
+				 if (!handelProjectExport()) // if something goes wrong during export, do not exit program
+					 return; 
 			
 			// delete previous stored workspace
 			else if (choice == 1) {
@@ -109,7 +110,7 @@ public class ApplicationHandler {
 	}
 
 	
-	private void handelProjectExport() {
+	private boolean handelProjectExport() {
 		
     	String workspaceDir = Configuration.getInstance().getWorkspaceDir();
     	boolean overwriteAll = false;
@@ -132,7 +133,7 @@ public class ApplicationHandler {
 				// first rename project
 				String newName = WizardManager.getInstance().selectRenameWizard(project.getTitle(), project.getTypeName(), project);
         		if(newName == null)  // canceled
-        			return;
+        			return false;
         	
         		WorkspaceManager.getInstance().changeElementName(project, newName);  
 
@@ -149,7 +150,7 @@ public class ApplicationHandler {
         			(!overwriteAll) && 
         			(!Configuration.getInstance().getOverwriteProjects())) {
         		
-				Object[] options = {"Yes", "No", "Overwrite all"};
+				Object[] options = {"Yes", "No", "Overwrite all", "Cancel"};
 				int choice = 0; 
 				
 				// ask if we are to overwrite...
@@ -160,7 +161,7 @@ public class ApplicationHandler {
         			// get new name for project
 	        		String newTitle = WizardManager.getInstance().selectRenameWizard(project.getTitle(), project.getTypeName(), project);
 	        		if(newTitle == null)  // canceled
-	        			return;
+	        			return false;
 	        		
 	        		// change the name in the workspace
 	        		WorkspaceManager.getInstance().changeElementName(project, newTitle);  			
@@ -169,18 +170,21 @@ public class ApplicationHandler {
         		else if(choice == 2) {
         			overwriteAll = true;
         		}
+        		else if (choice == 3)
+        			return false;
         		
         	}
 			// then export (check if it worked)
 			if (!ProjectExporter.write(project)) {
 				if (!MessageUtil.showDialog("Unable to export "+project.getTitle()+". Continue?"))
-					return;
+					return false;
 			}
 				
 		} // end of each project
 		
 		
 		LastUsedWorkspaceWriter.write();
+		return true;
 	} 
 
 
