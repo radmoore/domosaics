@@ -71,10 +71,17 @@ public class ConfigurationReader {
 					);
 				}
 				
+				if (line.contains(ConfigurationWriter.OVERWRITEPROJECTS)) {
+					Configuration.getInstance().setOverwriteProjects(
+							Boolean.parseBoolean(line.replace(ConfigurationWriter.OVERWRITEPROJECTS, "").trim())
+					);
+				}
+				
 			}
 		    in.close();
-		    } catch (Exception e) {
+		 } 
+		 catch (Exception e) {
 		        e.printStackTrace();
-		    }
+		 }
 	}
 }

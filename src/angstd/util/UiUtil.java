@@ -1,4 +1,4 @@
-package angstd.webservices;
+package angstd.util;
 
 import java.awt.Color;
 import java.awt.Font;

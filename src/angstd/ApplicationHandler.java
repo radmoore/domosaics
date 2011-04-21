@@ -1,6 +1,7 @@
 package angstd;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Frame;
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,14 +18,13 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
-import sun.misc.MessageUtils;
-
 import angstd.model.arrangement.io.GatheringThresholdsReader;
 import angstd.model.arrangement.io.Pfam2GOreader;
 import angstd.model.configuration.Configuration;
 import angstd.model.configuration.ConfigurationReader;
 import angstd.model.configuration.ConfigurationWriter;
 import angstd.model.workspace.ProjectElement;
+import angstd.model.workspace.WorkspaceElement;
 import angstd.model.workspace.io.LastUsedWorkspaceImporter;
 import angstd.model.workspace.io.LastUsedWorkspaceWriter;
 import angstd.model.workspace.io.ProjectExporter;
@@ -66,7 +67,7 @@ public class ApplicationHandler {
 				return;
 		}
 		
-		// ask the user if he likes to export the current desktop bring restored in the next session
+		// only attempt to export if at least one project has a view
 		boolean export = false;
 		for (ProjectElement project : WorkspaceManager.getInstance().getProjects())
 			if (project.getChildCount() > 0) {
@@ -74,64 +75,115 @@ public class ApplicationHandler {
 				break;
 			}
 		
-		
-		
 		if (export) {
 			int choice = 0;
-			// if the user has not set save on default in configurator
+			// if the user has not set default save in configurator
 			// ask (defaults to save)
 			if (!(Configuration.getInstance().saveOnExit())) {
-//				Object[] options = {"Yes", "No", "Cancel", "Restore original"};
 				Object[] options = {"Yes", "No", "Cancel"};
 				choice = MessageUtil.show3ChoiceDialog("Restore workspace in next session?", options);
 			}
 			
-			if (choice == 0) { 		// save workspace
-				for (ProjectElement project : WorkspaceManager.getInstance().getProjects())
-					ProjectExporter.write(project);
-				LastUsedWorkspaceWriter.write();
-			} else if (choice == 1) {// delete previous stored workspace
+			// save workspace
+			if (choice == 0)
+				handelProjectExport();
+			
+			// delete previous stored workspace
+			else if (choice == 1) {
 				File workspaceFile = new File (Configuration.getInstance().getWorkspaceDir()+"/lastusedworkspace.file");
 	        	if (workspaceFile.exists())
 	        		workspaceFile.delete();
-			} else if (choice == 2) {// cancel quit
-				return;
 			}
+			// cancel
+			else if (choice == 2)
+				return;
 		}
-		
+			
 		// remove lockfile
 		Configuration.getInstance().removeLockFile();
 		
-//		if (export && MessageUtil.showDialog("Restore workspace in next session?")) {
-//			for (ProjectElement project : WorkspaceManager.getInstance().getProjects())
-//				ProjectExporter.write(project);
-//			LastUsedWorkspaceWriter.write();
-//		} else {
-//			File workspaceFile = new File (Configuration.getInstance().getWorkspaceDir()+"/lastusedworkspace.file");
-//        	if (workspaceFile.exists())
-//        		workspaceFile.delete();
-//		}
-
 		if (AngstdUI.getInstance().isShowing())
 			AngstdUI.getInstance().dispose();
 		
-		System.exit(0);
-
-		// export the workspace then
-		
-//		for (View view : ViewHandler.getInstance().getViews()) {
-//			if (view.isChanged()) 
-//				if (MessageUtil.showDialog("Workspace contains unsaved changes, save them now?")) {
-//					for (ProjectElement project : WorkspaceManager.getInstance().getProjects())
-//						ProjectExporter.write(project);
-//					break;
-//				}		
-//		}
-		
-		// export only saved views
-		
+		System.exit(0);		
 	}
+
 	
+	private void handelProjectExport() {
+		
+    	String workspaceDir = Configuration.getInstance().getWorkspaceDir();
+    	boolean overwriteAll = false;
+    	
+		for (ProjectElement project : WorkspaceManager.getInstance().getProjects()) {
+
+			// only export projects that have views
+			if (project.getChildCount() < 1)
+				continue;
+			
+			String projectDirPath = workspaceDir+"/"+project.getTitle();
+        	File projectDir = new File(projectDirPath);
+			
+        	
+			// default project is not exported
+			if (project.getTitle().equals("Default Project")) {
+				
+				MessageUtil.showWarning("The Default Project cannot be exported. Please export to different name.");
+				
+				// first rename project
+				String newName = WizardManager.getInstance().selectRenameWizard(project.getTitle(), project.getTypeName(), project);
+        		if(newName == null)  // canceled
+        			return;
+        	
+        		WorkspaceManager.getInstance().changeElementName(project, newName);  
+
+        		// then export project under that name
+				ProjectExporter.write(new File(workspaceDir), project, newName);
+				
+				// ... and then recreate an empty Default Project (incase the exiting is stopped)
+				WorkspaceManager.getInstance().addProject("Default Project", false);
+				
+				continue;
+			}
+			// project dir exists and we have not 'always overwrite'... 
+        	else if (projectDir.exists() && 
+        			(!overwriteAll) && 
+        			(!Configuration.getInstance().getOverwriteProjects())) {
+        		
+				Object[] options = {"Yes", "No", "Overwrite all"};
+				int choice = 0; 
+				
+				// ask if we are to overwrite...
+				choice = MessageUtil.show3ChoiceDialog("Project "+project.getTitle()+" exists in workspace. Do you want to overwrite?", options);
+        		
+        		//... if not, 
+        		if (choice == 1) {
+        			// get new name for project
+	        		String newTitle = WizardManager.getInstance().selectRenameWizard(project.getTitle(), project.getTypeName(), project);
+	        		if(newTitle == null)  // canceled
+	        			return;
+	        		
+	        		// change the name in the workspace
+	        		WorkspaceManager.getInstance().changeElementName(project, newTitle);  			
+        		}
+        		// otherwise dont ask again (always overwrite)
+        		else if(choice == 2) {
+        			overwriteAll = true;
+        		}
+        		
+        	}
+			// then export (check if it worked)
+			if (!ProjectExporter.write(project)) {
+				if (!MessageUtil.showDialog("Unable to export "+project.getTitle()+". Continue?"))
+					return;
+			}
+				
+		} // end of each project
+		
+		
+		LastUsedWorkspaceWriter.write();
+	} 
+
+
 	/**
 	 * 
 	 */
@@ -281,13 +333,14 @@ public class ApplicationHandler {
 		private static final long serialVersionUID = 1L;
 		
 		//private static final String LOGOPATH = "ui/resources/Logo2.jpg";
-		private static final String LOGOPATH = "ui/resources/angstd_logo_small.png";
+		private static final String LOGOPATH = "ui/resources/angstd_logo4.png";
 		
 		protected JProgressBar progressBar;
 		
 		public StartupPage() {
 			// init components
 			JPanel startupPanel = new JPanel(new BorderLayout());
+			startupPanel.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
 			
 			// load and display logo
 			InputStream is = this.getClass().getResourceAsStream(LOGOPATH);
@@ -332,8 +385,6 @@ public class ApplicationHandler {
 				e.printStackTrace();
 			}
 		}
-
-		
 	}
 }
 

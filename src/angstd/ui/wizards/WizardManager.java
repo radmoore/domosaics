@@ -105,7 +105,6 @@ public class WizardManager {
 	}
 	
 	
-	//TODO: new
 	public Map selectNameWizard(String defaultName, String objectName, ProjectElement project) {
 		return (Map) new SelectNameDialog(defaultName, objectName, project).show();
 	}

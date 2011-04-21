@@ -17,7 +17,7 @@ import org.jdesktop.swingx.JXTitledSeparator;
 import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.ui.wizards.pages.ClustalW2Page;
-import angstd.webservices.UiUtil;
+import angstd.util.UiUtil;
 import angstd.webservices.WebservicePrinter;
 
 /**

@@ -174,6 +174,8 @@ public class ProjectElement extends WorkspaceElement{
 		return null;
 	}
 	
+	
+	
 //	public boolean hasSeqs() {
 //	for (int i = 0; i < getChildCount(); i++)
 //		if (((CategoryElement) getChildAt(i)).getType() == ViewType.SEQUENCE)
