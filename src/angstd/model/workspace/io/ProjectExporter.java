@@ -43,7 +43,6 @@ public class ProjectExporter {
         		
         		// check if category folder exists else create it
         		if (!new File(catDir).exists()) {
-                	System.out.println("created category directory: "+cat.getTitle());
                 	if (!new File(catDir).mkdir())
                 		return false;
                 }
@@ -80,7 +79,6 @@ public class ProjectExporter {
         	//String projectDir = fileDir+"/"+project.getTitle();
         	String projectDir = fileDir+"/"+exportName;
         	if (!new File(projectDir).exists()) {
-        		System.out.println("created project directory: "+project.getTitle());
         		new File(projectDir).mkdir();
         	}
         	
@@ -91,7 +89,6 @@ public class ProjectExporter {
         		
         		// check if category folder exists else create it
         		if (!new File(catDir).exists()) {
-                	System.out.println("created category directory: "+cat.getTitle());
                 	new File(catDir).mkdir();
                 }
         		
