@@ -2,12 +2,15 @@ package angstd.ui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.net.URL;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import angstd.ApplicationHandler;
 import angstd.model.configuration.Configuration;
@@ -60,6 +63,7 @@ public class AngstdUI extends JFrame implements WindowListener{
 	/** the Angstd desktop managing the workspace and the view dockings */
 	protected AngstdDesktop desktop;
 
+	private JPanel glassPane;
 	
 	/**
      * Constructor which creates a new AngstdUI instance. 
@@ -83,6 +87,19 @@ public class AngstdUI extends JFrame implements WindowListener{
 		addWindowListener(this);
 		setVisible(true);
 		
+		// for disabling input
+		glassPane = new JPanel();
+	    glassPane.setOpaque(false);
+	    glassPane.setLayout(null);
+	    // catch all mouse actions
+	    glassPane.addMouseListener(new MouseListener() {
+			public void mouseReleased(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseClicked(MouseEvent e) {}
+		});
+	    this.setGlassPane(glassPane);
 		
 		
 		// create MenuBar after frame is visible
@@ -113,7 +130,22 @@ public class AngstdUI extends JFrame implements WindowListener{
 		return instance;
 	}   
    
-    
+    /**
+     * Disables the main frame by enabled a glasspane
+     * with an attached mouse listener
+     */
+	public void disableFrame(){
+		glassPane.setVisible(true);
+	}
+	
+	/**
+     * Enables the main frame by disabling the glasspane
+     */
+	public void enableFrame() {
+		glassPane.setVisible(false);
+	}
+	
+	
     /**
      * Adds a new view to {@link AngstdDesktop}. This one is invoked 
      * by the ViewHandler and works only as wrapper for the addView method

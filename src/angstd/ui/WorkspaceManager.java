@@ -220,8 +220,7 @@ public class WorkspaceManager {
 	
 	public boolean viewExists(String projectName, CategoryElement cat, String name) {
 		ProjectElement project = workspace.getProject(projectName);
-	//	project.viewExists(name, cat);
-		return false;
+		return project.viewExists(name, cat);
 	}
 	
 	

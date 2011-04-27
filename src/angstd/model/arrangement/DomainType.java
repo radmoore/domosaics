@@ -37,6 +37,7 @@ public enum DomainType {
 	TIGRFAMs ("TIGRFAMs", "http://www.jcvi.org/cgi-bin/tigrfams/index.cgi", "TIGR.+"),
 	PRINTS ("PRINTS", "http://www.bioinf.manchester.ac.uk/dbbrowser/PRINTS/index.php", "PR.+"),
 	PRODOM ("ProDom", "http://prodom.prabi.fr/prodom/current/html/home.php", "PD.+"),
+	GAPDOM ("gapdom", null, null),
 	UNKNOWN ("unknown", null, null);
 
 /*	private static Map<String, DomainType> ipr2type = new HashMap<String, DomainType>();

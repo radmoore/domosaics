@@ -17,7 +17,7 @@ import angstd.ui.util.MessageUtil;
  * Welcome to the main class of Angstd. All initialization is delegated 
  * to the {@link ApplicationHandler}. So no fun here.
  * 
- * @author Andrew Moore, Andreas Held, Nicolas Terrapon
+ * @author Andrew D. Moore, Andreas Held, Nicolas Terrapon
  *
  */
 public class Angstd {
@@ -30,10 +30,10 @@ public class Angstd {
 	 */
 	public static void main(String[] args) {
 		
-//        Thread.setDefaultUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler(){
-//        	
-//            public void uncaughtException(Thread t, Throwable e) {
-//            	
+        Thread.setDefaultUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler(){
+        	
+            public void uncaughtException(Thread t, Throwable e) {
+            	
 //            	Logger log = Logger.getLogger("angstdlog");
 ////            	RollingFileAppender rfl = (RollingFileAppender)log.getAppender("angstdlog");
 ////				rfl.setFile(Configuration.DEF_LOG_LOCATION);
@@ -41,14 +41,16 @@ public class Angstd {
 //		    	log.info("Starting AnGSTD");
 //            	log.info("Exception in main: ");
 //            	log.info(e.toString());
+            	Configuration.getLogger().debug("Uncaught exception");
+            	Configuration.getLogger().debug(e.toString());
 //            	MessageUtil.showWarning("There was a problem starting AnGSTD. Please consult log file.");
-//            	System.out.println("*****Yeah, Caught the Exception*****");
-////                e.printStackTrace(); // you can use e.printStackTrace ( printstream ps )
-//                System.exit(1);
-//            }
-//        });
+//              System.exit(1);
+            }
+        });
         
 		try {
+			Configuration.getLogger().info("=============================================");
+			Configuration.getLogger().info("Starting AnGSTD.");
 			ApplicationHandler.getInstance().start();
 		}
 		catch (Exception e) {

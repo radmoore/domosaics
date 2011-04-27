@@ -36,13 +36,15 @@ public class CreateProjectPage extends WizardPage {
 	/**
 	 * Constructor for a new CreateProjectPage
 	 */
-	public CreateProjectPage() {
+	public CreateProjectPage(String name) {
 		super("Select a name");
 		
 		setLayout(new MigLayout());
 		setPreferredSize(p_size);
 		
 		input = new JTextField();
+		if (! (name == null))
+			input.setText(name);
 		input.setName("name");
 
 		add(new JLabel("Select a name for the new Project."), "gap 10, wrap");

@@ -58,7 +58,6 @@ import angstd.webservices.clustalw.ClustalW2ResultParser;
  * @author Andreas Held
  *
  */
-@SuppressWarnings("unchecked")
 public class CreateTreeResultProducer extends DeferredWizardResult  implements WizardResultProducer{
 	
 	/**
@@ -93,6 +92,7 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 
 		}
 		catch(Exception e){
+			Configuration.getLogger().debug("There is a problem here.");
 			Configuration.getLogger().debug(e.toString());
 			p.failed("Error while creating Project", false);
 			p.finished(null);

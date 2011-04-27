@@ -9,13 +9,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import angstd.model.configuration.Configuration;
+import angstd.ui.util.DigestUtil;
 import angstd.ui.views.view.View;
 
 public abstract class ViewExporter<V extends View> {
 	
+	public static String PROJECTFILE = ".angstd_view";
+	
 	public void write(File file, V view) {
         try {
         	BufferedWriter out = new BufferedWriter(new FileWriter(file));
+        	String digest = DigestUtil.createDigest(view.getViewInfo().getName());
+        	out.write("# angstd_view: "+digest+" // do not remove\r\n"); // add mark to recognize valid view
+        	//out.write("\n");
         	write(out, view);
         	out.close();
         } 
@@ -23,6 +29,7 @@ public abstract class ViewExporter<V extends View> {
        	 	Configuration.getLogger().debug(e.toString());
         }
     }
+	
 	
 	public abstract void write(BufferedWriter out, V view);
 

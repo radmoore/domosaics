@@ -42,6 +42,7 @@ import angstd.ui.wizards.importdata.ImportDataResultProducer;
  * at any place within the program.
  * 
  * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
 public class WizardManager {
@@ -118,8 +119,8 @@ public class WizardManager {
 	 * @return
 	 * 		the created project element.
 	 */
-	public ProjectElement showCreateProjectWizard() {
-		return (ProjectElement) CreateProjectDialog.show();
+	public ProjectElement showCreateProjectWizard(String projectName) {	
+		return (ProjectElement) CreateProjectDialog.show(projectName);
 	}
 
 	/**

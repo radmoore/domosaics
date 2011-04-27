@@ -2,6 +2,8 @@ package angstd.model.sequence.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Some sequence utils which are useful to convert DNA, CDNA and 
@@ -30,6 +32,8 @@ public class SeqUtil {
 	/** the genetic code which can be used to convert codons into amino acids */
 	public static GeneticCodeMap geneticCode = new GeneticCodeMap();
 	
+	public static final String NONVALIDRESEXP =  "[^FLIMVSPTAYHQNKDECWRGX*-]";
+	
 	/**
 	 * Method automatically checking the type of a sequence, 
 	 * e.g. DNA, Protein ... .
@@ -45,14 +49,25 @@ public class SeqUtil {
 		// first create a list with all occuring letters within the sequence
 		List<Character> letters = new ArrayList<Character>();
 		char[] charSeq = seq.toCharArray();
-		for (int i = 0; i < charSeq.length; i++)
+		for (int i = 0; i < charSeq.length; i++) {
 			if (!letters.contains(charSeq[i]))
 				letters.add(charSeq[i]);
+		}
 		
-		// check for PROTEIN
-		if (letters.size() > 4)		
-			return PROT;
-		
+		// check for PROTEIN (all AA + '-', '*', 'X')
+		if ( (letters.size() > 4) && (letters.size() <= 23) ) {
+			
+			Pattern nonRes = Pattern.compile(NONVALIDRESEXP);
+		    Matcher m = nonRes.matcher(seq);
+			
+		    // find *non-valid* characters
+		    if (m.find())
+		    	return UNKNOWN;
+			else
+				return PROT;
+				
+		}
+			
 		// check for RNA
 		if (letters.contains('U') && !letters.contains('T'))
 			return RNA;
@@ -93,4 +108,64 @@ public class SeqUtil {
 	public static String cdna2amino(String seq) {
 		return rna2as(seq.replace("T", "U"));
 	}
+	
+	
+//	public static boolean checkFastaFileFormat(File fastaFile) {
+//		
+//		FileReader reader = new FileReader(fastaFile);
+//		BufferedReader in = new BufferedReader(reader);
+//		
+//		String line, entry;
+//		
+//		// the initial sequence type before guessing the format
+//		int type = UNKNOWN;
+//		
+//		// do the parsing now
+//		while((line = in.readLine()) != null) {
+//			if (line.isEmpty())				// skip empty lines
+//				continue;
+//			if (line.startsWith(";"))		// skip comment lines
+//				continue;
+//			
+//			if (line.startsWith(">")) {		// parse header line
+//				
+//					
+//			// guess the format
+//			type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
+//
+//			}
+//		
+//		seq = seq.toUpperCase();
+//		
+//		// first create a list with all occuring letters within the sequence
+//		List<Character> letters = new ArrayList<Character>();
+//		char[] charSeq = seq.toCharArray();
+//		for (int i = 0; i < charSeq.length; i++)
+//			if (!letters.contains(charSeq[i]))
+//				letters.add(charSeq[i]);
+//		
+//		// check for PROTEIN
+//		if (letters.size() > 4)		
+//			return PROT;
+//		
+//		// check for RNA
+//		if (letters.contains('U') && !letters.contains('T'))
+//			return RNA;
+//		
+//		// check for DNA
+//		if (letters.contains('T') && !letters.contains('U')) 
+//			return CDNA;
+//		
+//		return UNKNOWN;
+//		
+//		
+//		if (type == SeqUtil.UNKNOWN) {
+//			MessageUtil.showWarning("Can't determine the sequence format.");
+//			return false;
+//		}
+//
+//
+//		
+//	}
+	
 }

@@ -73,9 +73,8 @@ public class SelectRenamePage extends WizardPage {
 			return "Select a name";
 		
 		
-		
-		if (objectName.equals("project")) {
-			
+		// we are renaming a project
+		if (objectName.equals("project")) {		
 			if (newName.equals("Default Project"))
 				return "Default project name not allowed";
 
@@ -83,11 +82,9 @@ public class SelectRenamePage extends WizardPage {
 				if (newName.equals(pe.getTitle()))
 					return "Project name taken - choose new name";
 			}
-			
-			
-			
 		}
 		
+		// we are renaming a view, determine category
 		if  (categoryType.equals("Sequences")) {
 			category = project.getCategory(ViewType.SEQUENCE);
 			if (project.viewExists(newName, category))

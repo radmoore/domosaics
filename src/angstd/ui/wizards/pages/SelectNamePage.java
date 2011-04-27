@@ -97,6 +97,11 @@ public class SelectNamePage extends WizardPage {
 				return "Name taken - choose new name";
 			
 		}
+		else if (objectName.equals("tree view")) {
+			category = project.getCategory(ViewType.TREE);
+			if (project.viewExists(newName, category))
+				return "Name taken - choose new name";
+		}
 		
 		return null;
     }

@@ -30,9 +30,9 @@ public class CreateProjectDialog {
 	 * 
 	 * @return the created project element
 	 */
-	public static Object show() {
+	public static Object show(String name) {
 		Wizard wiz = WizardPage.createWizard(
-				new WizardPage[] { new CreateProjectPage() },
+				new WizardPage[] { new CreateProjectPage(name) },
 				new ProjectProgress());
 		return WizardDisplayer.showWizard(wiz);
 	}

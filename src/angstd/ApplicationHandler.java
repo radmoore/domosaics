@@ -12,6 +12,7 @@ import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -107,6 +108,8 @@ public class ApplicationHandler {
 		if (AngstdUI.getInstance().isShowing())
 			AngstdUI.getInstance().dispose();
 		
+		Configuration.getLogger().info("Closing AnGSTD");
+		Configuration.getLogger().info("=============================================");
 		System.exit(0);		
 	}
 
@@ -245,6 +248,7 @@ public class ApplicationHandler {
 		
 		startUpProgress.setProgress("Have fun... ", 100);
 		startUpProgress.dispose();
+		AngstdUI.getInstance().enableFrame();
 		
 		
 	}
@@ -328,7 +332,8 @@ public class ApplicationHandler {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				
-				AngstdUI.getInstance(); 
+				AngstdUI angstd = AngstdUI.getInstance();
+				angstd.disableFrame();
 				
 			 }
 		 });

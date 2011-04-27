@@ -15,6 +15,7 @@ import javax.swing.SwingUtilities;
 import angstd.model.configuration.Configuration;
 import angstd.model.workspace.ProjectElement;
 import angstd.ui.ViewHandler;
+import angstd.ui.util.MessageUtil;
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.domaintreeview.actions.CollapseSameArrangementsAtNodeAction;
 import angstd.ui.views.domaintreeview.io.DomainTreeViewImporter;
@@ -88,10 +89,21 @@ public abstract class ViewImporter<V extends View> {
 	public V read(File file) {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(file));
+			
+			// this is acutally not necessary, as a view must adhear to a certain format
+//			String validityStamp = in.readLine();
+//			
+//			if (!validityStamp.startsWith("# angstd_view: ")) {
+//				if (!MessageUtil.showDialog(file.getName()+" does not appear to describe a valid view. Import anyways?"))
+//					return null;
+//			}
+				
+			
 			V res = importView(in);
 			in.close();
 			return res;
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			Configuration.getLogger().debug(e.toString());
 		}
 		return null;
@@ -103,7 +115,8 @@ public abstract class ViewImporter<V extends View> {
 			V res = importView(in);
 			in.close();
 			return res;
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			Configuration.getLogger().debug(e.toString());
 		}
 		return null;
@@ -111,12 +124,13 @@ public abstract class ViewImporter<V extends View> {
 
 	public V importView(BufferedReader in) {
 		// create data and attribute string
+		
 		try {
 			String line;
 			V view = null;
 
 			while ((line = in.readLine()) != null) {
-
+				
 				// get the views name
 				if (line.contains("parameter") && idEquals(line, "VIEWNAME")) {
 					viewName = getValue(line);
