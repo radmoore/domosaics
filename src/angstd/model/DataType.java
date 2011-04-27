@@ -6,6 +6,8 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import angstd.model.configuration.Configuration;
+
 /**
  * Enumeration of loadable data types storing the types name and icon. 
  * Can be used for instance within the import data wizard.
@@ -50,7 +52,7 @@ public enum DataType {
 		try {
 			icon = new ImageIcon(ImageIO.read(is));
 		} catch (IOException e) {
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 		}
 		return icon;
 	}

@@ -59,7 +59,7 @@ public class ImportDataBranchController extends WizardBranchController {
      */
     public ImportDataBranchController() {
     	//create the base pages
-    	super(new WizardPage[]{new ChooseProjectPage(), new ChooseDataTypePage()});
+    	super(new WizardPage[]{new ChooseProjectPage(null), new ChooseDataTypePage()});
         
         // optional pages
         treeWiz = WizardPage.createWizard( new Class[]{SelectTreeDataPage.class}, new ImportDataResultProducer());

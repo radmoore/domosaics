@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.view.View;
 
@@ -40,9 +41,10 @@ public class PDFImageExporter implements ImageExporter{
              graphics2d.dispose();
              pdfcontentbyte.addTemplate(pdftemplate, 0.0F, 0.0F);
              document.close();
-         } catch(Exception e) {
+         } 
+         catch(Exception e) {
         	 MessageUtil.showWarning("Error while writing PDF document.");
-        	 e.printStackTrace();
+        	 Configuration.getLogger().debug(e.toString());
          }
 	}
 

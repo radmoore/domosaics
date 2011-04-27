@@ -7,6 +7,7 @@ import java.util.Iterator;
 import angstd.model.arrangement.ArrangementManager;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.io.XdomWriter;
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaWriter;
 import angstd.ui.views.domainview.DomainViewI;
@@ -68,8 +69,9 @@ public class DomainViewExporter extends ViewExporter<DomainViewI> {
 			writeTag(out, 1, "DOMAINVIEW", false);
 
         	out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } 
+        catch (IOException e) {
+        	Configuration.getLogger().debug(e.toString());
         }
     }
 	

@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import angstd.ui.util.MessageUtil;
+
 public class ConfigurationWriter {
 
 	public static final String DEFAULT_LOCATION = "default file location:";
@@ -18,6 +20,7 @@ public class ConfigurationWriter {
 	public static final String HMMER_PROFILE_DB = "hmmer3 profile db:";
 	public static final String SHOWADVISES = "show advice:";
 	public static final String SAVEONEXIT = "save WS:";
+	public static final String OVERWRITEPROJECTS = "overwrite projects:";
 	
 	
 	public static void write(File file) {
@@ -38,13 +41,14 @@ public class ConfigurationWriter {
 		    out.write(HMMER_PROFILE_DB+config.getHmmerDB()+"\n");
 		    //out.write(SHOWADVISES+config.isShowAdvices()+"\n");
 		    out.write(SAVEONEXIT+config.saveOnExit()+"\n");
+		    out.write(OVERWRITEPROJECTS+config.getOverwriteProjects()+"\n");
 		    		
 		    out.flush();
 		    out.close();
 		   
 		} catch (IOException e) {
-	    	System.out.println("Configuration file "+file.getAbsolutePath()+" not found");
-			//e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
+			MessageUtil.showWarning("Configuration file "+file.getAbsolutePath()+" not found");
 		}
 	}
 	
@@ -59,7 +63,7 @@ public class ConfigurationWriter {
 			
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 		}
 	}
 	

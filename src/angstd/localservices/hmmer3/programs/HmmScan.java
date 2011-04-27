@@ -13,6 +13,7 @@ import angstd.localservices.hmmer3.ui.HmmerServicePanel;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.io.ArrangementImporterUtil;
 import angstd.model.arrangement.io.HmmOutReader;
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
 import angstd.model.workspace.ProjectElement;
@@ -109,8 +110,7 @@ public class HmmScan implements Hmmer3Program {
 			outfile = File.createTempFile("hmmerJob_", ".hmmout");
 		}
 		catch (Exception e) {
-			System.out.println("*** E: Something went wrong when creating the tmp file.");
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 		}
 		
 		if (biasFilter) {
@@ -414,7 +414,7 @@ public class HmmScan implements Hmmer3Program {
 				
 				DomainViewI resultDAView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
 				resultDAView.setDaSet(arrangementSet);
-				resultDAView.loadSequencesIntoDas(seqs, resultDAView.getDaSet());
+				//resultDAView.loadSequencesIntoDas(seqs, resultDAView.getDaSet());
 				
 				
 				// only create a sequence view if the sequences came from a file
@@ -469,7 +469,7 @@ public class HmmScan implements Hmmer3Program {
 				br.close();
 		} 
 		catch (Exception e) {
-			// TODO: handle exception
+			Configuration.getLogger().debug(e.toString());
 		}
 		return entries;
 	}

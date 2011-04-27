@@ -122,7 +122,7 @@ public class Hmmer3Service implements ProcessListener{
 			hmmPanel.writeToConsole("*** I: Started "+hmmerProgram.getName()+" run\n");
 		} 
 		catch(Exception e) {
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 			executor.stop();
 		}
 	}

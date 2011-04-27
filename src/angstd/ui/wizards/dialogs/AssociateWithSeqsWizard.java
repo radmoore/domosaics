@@ -13,6 +13,7 @@ import org.netbeans.spi.wizard.WizardException;
 import org.netbeans.spi.wizard.WizardPage;
 import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
 import angstd.model.workspace.ViewElement;
@@ -43,7 +44,7 @@ public class AssociateWithSeqsWizard {
 	 */
 	public Object show() {
 		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new AssociateWithSeqsPage()}, new AssociateWithSeqsProgress(view));
-		return WizardDisplayer.showWizard(wiz, new Rectangle (20, 20, 720, 400));	
+		return WizardDisplayer.showWizard(wiz);	
 	}
 }
 
@@ -106,7 +107,9 @@ class AssociateWithSeqsProgress extends DeferredWizardResult implements WizardRe
 				ViewHandler.getInstance().removeView(assocView.getViewInfo());
 
 			p.finished(null);		
-		}catch(Exception e){
+		}
+		catch(Exception e){
+			Configuration.getLogger().debug(e.toString());
 			p.failed("Error while editing data set.", false);
 			p.finished(null);
 		}	

@@ -1,5 +1,7 @@
 package angstd.ui.views;
 
+import angstd.model.configuration.Configuration;
+
 
 /**
  * An enumeration of all possible views, defined by their class path.
@@ -40,9 +42,10 @@ public enum ViewType {
 		this.fileExt = fileExt;
 		try {
 			clazz = Class.forName(classURL);
-		} catch (ClassNotFoundException e) {
-			System.out.println("Could not find view class: "+classURL);
-			e.printStackTrace();
+		} 
+		catch (ClassNotFoundException e) {
+			Configuration.getLogger().debug(e.toString());
+			Configuration.getLogger().debug("Could not find view class: "+classURL);
 		}
 	}
 	

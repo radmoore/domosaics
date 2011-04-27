@@ -7,6 +7,7 @@ import angstd.model.arrangement.ArrangementManager;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.io.XdomReader;
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
 import angstd.ui.ViewHandler;
@@ -60,8 +61,9 @@ public class DomainViewImporter extends ViewImporter<DomainViewI> {
 				}
 			}
 			return view;
-		} catch(Exception e) {
-			e.printStackTrace();
+		} 
+		catch(Exception e) {
+			Configuration.getLogger().debug(e.toString());
 			return null;
 		}
 	}
@@ -119,17 +121,14 @@ public class DomainViewImporter extends ViewImporter<DomainViewI> {
 							continue;
 						
 						readFamilySetting(line, view, manager);
-					}
-						
+					}		
 				}
-				
-
 			}
-		} catch (Exception e) {
-			System.out.println("Error occured during project import - reading attribute file for view: "+view.getViewInfo().getName());
-			e.printStackTrace();
+		} 
+		catch (Exception e) {
+			Configuration.getLogger().debug("Error occured during project import - reading attribute file for view: "+view.getViewInfo().getName());
+			Configuration.getLogger().debug(e.toString());
 		}
-		
 	}
 
 	private static void readLayoutSetting(String line, DomainViewI view) {

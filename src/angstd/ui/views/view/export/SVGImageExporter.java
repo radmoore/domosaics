@@ -11,6 +11,7 @@ import org.apache.batik.svggen.SVGGraphics2D;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 
+import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.view.View;
 
@@ -53,8 +54,8 @@ public class SVGImageExporter implements ImageExporter{
 			out.close();
 			stream.close();
 		}catch (IOException e) {
-			 MessageUtil.showWarning("Error while writing PDF document.");
-			e.printStackTrace();
+       	 	Configuration.getLogger().debug(e.toString());
+			MessageUtil.showWarning("Error while writing PDF document.");
 		}
 
 	}

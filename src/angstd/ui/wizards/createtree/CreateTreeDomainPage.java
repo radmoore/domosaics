@@ -1,6 +1,7 @@
 package angstd.ui.wizards.createtree;
 
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -22,7 +23,10 @@ import angstd.ui.wizards.GUIComponentFactory;
  */
 public class CreateTreeDomainPage extends WizardPage {
 	private static final long serialVersionUID = 1L;
-
+	
+	/** size of the page */
+	//private final static Dimension p_size = new Dimension(300,200);
+	
 	/** list displaying the available distance measures */
 	protected JComboBox selectDistanceMeasure;
 	
@@ -41,14 +45,18 @@ public class CreateTreeDomainPage extends WizardPage {
 		
 		selectDistanceMeasure.setName(CreateTreeBranchController.MEASURE_KEY);
 		selectAlgo.setName(CreateTreeBranchController.ALGO_KEY);
+
+		//setPreferredSize(p_size);
 		
 		add(new JXTitledSeparator("Select similarity measure for distance measure"), "growx, span, wrap, gaptop 10");
 		add(new JLabel("Select measure:"), 		"gap 10");
-		add(selectDistanceMeasure, 			"gap 10, span, growx, wrap");
+		add(selectDistanceMeasure, 			"w 150!, gap 10");
+		add(new JLabel(""), 		"w 101!, gap 10, wrap");
 		
-		add(new JXTitledSeparator("Select algorithm used for tree creation"), "growx, span, wrap, gaptop 40");
+		add(new JXTitledSeparator("Select algorithm used for tree creation"), "growx, span, wrap, gaptop 25");
 		add(new JLabel("Select measure:"), 		"gap 10");
-		add(selectAlgo, 						"gap 10, span, growx, wrap");
+		add(selectAlgo, 						"w 150!, gap 10, wrap");
+		
 	}
 
 	/**

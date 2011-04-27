@@ -7,6 +7,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import angstd.model.configuration.Configuration;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.view.ViewInfo;
 
@@ -151,8 +152,9 @@ public class ProjectElement extends WorkspaceElement{
 		ImageIcon icon = null;
 		try {
 			icon = new ImageIcon(ImageIO.read(is));
-		} catch (IOException e) {
-			e.printStackTrace();
+		} 
+		catch (IOException e) {
+			Configuration.getLogger().debug(e.toString());
 		}
 		return icon;
 	}
@@ -173,6 +175,8 @@ public class ProjectElement extends WorkspaceElement{
 		}
 		return null;
 	}
+	
+	
 	
 //	public boolean hasSeqs() {
 //	for (int i = 0; i < getChildCount(); i++)

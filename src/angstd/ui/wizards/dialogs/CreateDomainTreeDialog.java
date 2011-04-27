@@ -11,6 +11,7 @@ import org.netbeans.spi.wizard.WizardException;
 import org.netbeans.spi.wizard.WizardPage;
 import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.workspace.ViewElement;
 import angstd.ui.ViewHandler;
 import angstd.ui.views.ViewType;
@@ -54,7 +55,9 @@ class CreateDomTreeProgress extends DeferredWizardResult implements WizardResult
 			
 			p.finished(domTreeView);
 			return;
-		}catch(Exception e){
+		}
+		catch(Exception e){
+			Configuration.getLogger().debug(e.toString());
 			p.failed("Error while creating DomainTree view, please try again.", false);
 		}
 

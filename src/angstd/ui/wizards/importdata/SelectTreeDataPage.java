@@ -60,16 +60,17 @@ public class SelectTreeDataPage extends WizardPage implements ActionListener {
 		selectViewList.setName(ImportDataBranchController.DOMVIEW_KEY);
 
 		// layout panel
-		add(new JLabel("Select file to import."), "gap 10");
-		add(path, "gap 10");
+		add(new JXTitledSeparator("Select tree file"),"growx, span, wrap");
+		add(new JLabel("Select file:"), "gap 10");
+		add(path, "w 150!, gap 10");
 		add(browse, "gap 10, wrap");
 		
-		add(new JLabel("Select the views name:"), "gap 10");
-		add(viewName, "gap 10, gaptop 5, wrap");
+		add(new JLabel("Enter a name:"), "gap 10");
+		add(viewName, "w 150!, gap 10, gaptop 5, wrap");
 		
 		add(new JXTitledSeparator("Associate with arrangements to domain tree"),"growx, span, wrap, gaptop 25");
 		add(new JLabel("Select view: "), 	"gap 10");
-		add(selectViewList, 				"gap 10, span, wrap");
+		add(selectViewList, 				"w 270!, gap 10, span, wrap");
 	}
 
 	/**
@@ -79,7 +80,6 @@ public class SelectTreeDataPage extends WizardPage implements ActionListener {
 		File file = FileDialogs.showOpenDialog(this);
 		if(file != null) {
 			path.setText(file.getAbsolutePath());
-			if (viewName.getText().trim().isEmpty())
 				viewName.setText(file.getName().split("\\.")[0]);
 		}
 	}	

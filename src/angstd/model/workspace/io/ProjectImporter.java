@@ -67,18 +67,46 @@ public class ProjectImporter {
 //	}
 	
 	public static void read(File file) {
-    	String projectDir = file.getAbsolutePath();
+    	String projectDirPath = file.getAbsolutePath();
+    	File projectDir = new File(projectDirPath);
+    	boolean validProject = false;
+    	String projectName = file.getName();
     	
-		if (!new File(projectDir).isDirectory())
+		if (! projectDir.isDirectory())
 			return;
 		
-		project = WorkspaceManager.getInstance().addProject(file.getName(), false);
+		// ensure that no 'Default Project' is being imported
+//		if (projectName.equals("Default Project")) {
+//			MessageUtil.showInformation("The name >Default Project< is disallowed. Please choose a different name.");
+//			
+//			projectName = WizardManager.getInstance().selectRenameWizard("Default Project", "project", null);
+//			if (projectName == null)
+//				return;
+//		}
+		
+		
+		//check if this is a valid project
+		String[] projectFiles = projectDir.list();
+		for (String elem : projectFiles) {
+			if (elem.equals(ProjectExporter.PROJECTFILE)) {
+				validProject = true;
+				break;
+			}
+		}
+		
+		if (!validProject)
+			if (!MessageUtil.showDialog(file.getName() + " does not appear to be a valid project. Do you want to import anyways?"))
+				return;
+			
+		
+		project = WizardManager.getInstance().showCreateProjectWizard(projectName);
+		//project = WorkspaceManager.getInstance().addProject(projectName, false);
 		
 		
 		// create categorys and load views
-		String[] categories = new File(projectDir).list();
+		String[] categories = new File(projectDirPath).list();
 		for (String c : categories) {
-			String catDir = projectDir+"/"+c;
+			String catDir = projectDirPath+"/"+c;
 			if (!new File(catDir).isDirectory())
     			continue;
 			
@@ -113,6 +141,7 @@ public class ProjectImporter {
 	}
 	
 	// returns true, if the import action should be canceled
+	@SuppressWarnings("unused")
 	private static boolean createProject(String projectName) {
 		project = WorkspaceManager.getInstance().getProject(projectName);
 		if (project != null) { // project already exists
@@ -124,7 +153,7 @@ public class ProjectImporter {
 					WorkspaceManager.getInstance().removeFromAngstd(project); 
 					project = WorkspaceManager.getInstance().addProject(project.getTitle(), true);
 					break;  	// overwrite;
-				case 1: WizardManager.getInstance().showCreateProjectWizard();	break; 	// rename
+				case 1: WizardManager.getInstance().showCreateProjectWizard(projectName);	break; 	// rename
 				case 2: return true; 	// cancel
 			}
 			project = WorkspaceManager.getInstance().getSelectionManager().getSelectedProject();

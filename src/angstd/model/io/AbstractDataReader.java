@@ -11,6 +11,7 @@ import java.io.Reader;
 import java.io.StringReader;
 
 import angstd.model.AngstdData;
+import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 
 /**
@@ -41,6 +42,7 @@ public abstract class AbstractDataReader <T extends AngstdData> implements DataR
 			in.close();
 			return data;
 		} catch (Exception e) {
+			Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Reading file aborted");
 		} 
 		return null;
@@ -56,8 +58,10 @@ public abstract class AbstractDataReader <T extends AngstdData> implements DataR
 			in.close();
 			return data;
 		} catch (FileNotFoundException fnfe) {
+			Configuration.getLogger().debug(fnfe.toString());
 			MessageUtil.showWarning("could not find file:"+ file.getPath());
 		} catch (IOException ioe) {
+			Configuration.getLogger().debug(ioe.toString());
 			MessageUtil.showWarning("could not read file:"+ file.getName());
 		}
 		return null;
@@ -73,6 +77,7 @@ public abstract class AbstractDataReader <T extends AngstdData> implements DataR
 			in.close();
 			return data;
 		} catch (IOException ioe) {
+			Configuration.getLogger().debug(ioe.toString());
 			MessageUtil.showWarning("Reading file aborted");
 		}
 		return null;

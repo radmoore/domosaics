@@ -10,6 +10,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import angstd.model.arrangement.ArrangementManager;
+import angstd.model.configuration.Configuration;
 import angstd.ui.AngstdUI;
 import angstd.ui.tools.stats.Stats;
 import angstd.ui.util.FileDialogs;
@@ -46,8 +47,9 @@ public class SaveStatsToCSVAction extends AbstractAction {
 			
 			csvWriter.flush();
 			csvWriter.close();
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} 
+		catch (IOException e1) {
+			Configuration.getLogger().debug(e1.toString());	
 		}
 	}
 		

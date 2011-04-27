@@ -11,6 +11,7 @@ import org.netbeans.spi.wizard.WizardException;
 import org.netbeans.spi.wizard.WizardPage;
 import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.wizards.pages.ClustalW2Page;
@@ -66,7 +67,9 @@ class ClustalW2Progress extends DeferredWizardResult implements WizardResultProd
 				return;
 			}
 			p.finished(new ClustalW2ResultParser().parseResult(alignmentStr));
-		}catch(Exception e){
+		}
+		catch(Exception e){
+			Configuration.getLogger().debug(e.toString());
 			p.failed("Error while creating Project, please try again.", false);
 			p.finished(null);
 		}

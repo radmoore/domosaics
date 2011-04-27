@@ -46,7 +46,7 @@ public class Executor extends SwingWorker<Integer, Void> {
             
 		} 
 		catch(Exception e) {
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 			result =  -1;
 		}
 		return null;		

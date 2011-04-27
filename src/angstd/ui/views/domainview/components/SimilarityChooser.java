@@ -33,6 +33,7 @@ import javax.swing.plaf.metal.MetalSliderUI;
 
 import angstd.algos.distance.DistanceMeasureType;
 import angstd.model.arrangement.DomainArrangement;
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.Sequence;
 import angstd.model.sequence.SequenceI;
 import angstd.model.workspace.ProjectElement;
@@ -279,8 +280,9 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 				if (da.getSequence() != null)
 					seqs.add((Sequence) da.getSequence().clone());
 				daSet.add((DomainArrangement)da.clone());
-			} catch (CloneNotSupportedException e) {
-				e.printStackTrace();
+			} 
+			catch (CloneNotSupportedException e) {
+				Configuration.getLogger().debug(e.toString());
 			}
 			
 		}

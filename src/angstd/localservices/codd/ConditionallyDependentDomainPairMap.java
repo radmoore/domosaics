@@ -16,6 +16,7 @@ import angstd.model.AngstdData;
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.io.GatheringThresholdsReader;
+import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 
 /**
@@ -85,17 +86,17 @@ public class ConditionallyDependentDomainPairMap implements AngstdData
   }catch(FileNotFoundException e1)
   {
    MessageUtil.showWarning("No corresponding CDP file: "+file);
-   e1.printStackTrace();
+   Configuration.getLogger().debug(e1.toString());
   }
   catch(NumberFormatException e2)
   {
    MessageUtil.showWarning("Error while parsing CDP file.");
-   e2.printStackTrace();
+   Configuration.getLogger().debug(e2.toString());
   } 
   catch (IOException e3)
   {
    MessageUtil.showWarning("Error while reading/parsing CDP file.");
-   e3.printStackTrace();
+   Configuration.getLogger().debug(e3.toString());
   }
  }
  

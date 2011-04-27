@@ -7,6 +7,7 @@ import angstd.algos.align.ConsensusAlignment;
 import angstd.algos.align.nw.NW4DomainsAffine;
 import angstd.model.arrangement.DomainVector;
 import angstd.model.arrangement.GapDomain;
+import angstd.model.configuration.Configuration;
 import angstd.model.tree.TreeI;
 import angstd.model.tree.TreeNodeI;
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
@@ -70,8 +71,9 @@ public class Dollo extends AbstractReconstructionAlgo {
 				dollo_down(tree.getRoot(), lca);
 			}
 				
-		}catch(Exception e) {
-			;
+		}
+		catch(Exception e) {
+			Configuration.getLogger().debug(e.toString());
 		}
 		
 		return null;

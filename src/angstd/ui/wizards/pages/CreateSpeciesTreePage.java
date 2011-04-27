@@ -20,7 +20,7 @@ public class CreateSpeciesTreePage extends WizardPage {
 	public static final String DOMVIEW_KEY = "domview";
 	
 	/** size of the page */
-	private final static Dimension p_size = new Dimension(300,200);
+	//private final static Dimension p_size = new Dimension(300,200);
 	
 	protected JComboBox selectDomViewList;
 
@@ -31,11 +31,12 @@ public class CreateSpeciesTreePage extends WizardPage {
 		selectDomViewList = GUIComponentFactory.createSelectDomViewBox(true);
 		selectDomViewList.setName(DOMVIEW_KEY);
 		
-		setPreferredSize(p_size);
+		//setPreferredSize(p_size);
 		
 		add(new JXTitledSeparator("Select arrangement view"),"growx, span, wrap, gaptop 10");
 		add(new JLabel("Select view:"), "gap 10");
-		add(selectDomViewList, 			"gap 10, span, growx, wrap");
+		add(selectDomViewList, 			"w 270!, gap 10, span, growx, wrap");
+		add(new JLabel(""), 		"h 161!, gap 10, wrap");
 		
 	}
 

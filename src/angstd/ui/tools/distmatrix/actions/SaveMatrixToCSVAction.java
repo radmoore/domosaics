@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import angstd.model.configuration.Configuration;
 import angstd.ui.ViewHandler;
 import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.tools.distmatrix.DistMatrixView;
@@ -58,7 +59,7 @@ public class SaveMatrixToCSVAction  extends AbstractMenuAction {
 			csvWriter.flush();
 			csvWriter.close();
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			Configuration.getLogger().debug(e1.toString());
 		}
 	}
 		

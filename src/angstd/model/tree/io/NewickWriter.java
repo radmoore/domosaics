@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.tree.TreeI;
 import angstd.model.tree.TreeNodeI;
 
@@ -33,7 +34,7 @@ public class NewickWriter {
             write(out, tree);        
             out.close();
         } catch (IOException e) {
-            e.printStackTrace();
+        	Configuration.getLogger().debug(e.toString());
         }
     }
 	
@@ -44,7 +45,7 @@ public class NewickWriter {
             out.write("\r\n");
             out.flush();            
         } catch (IOException e) {
-            e.printStackTrace();
+        	Configuration.getLogger().debug(e.toString());
         }
     }
 	

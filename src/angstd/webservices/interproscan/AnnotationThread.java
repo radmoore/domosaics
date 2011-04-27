@@ -138,10 +138,14 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	       
 		}
 		// axis fault caught, but not handled 
-		catch (AxisFault af) {}
-		catch (InterruptedException ie){}
+		catch (AxisFault af) {
+			Configuration.getLogger().debug(af.toString());
+		}
+		catch (InterruptedException ie){
+			Configuration.getLogger().debug(ie.toString());
+		}
 		catch (Exception e) {
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 		}
 
 		return null;
@@ -169,12 +173,10 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 				spawner.processResults(this, get());
 			}
 			catch (InterruptedException e) {
-				System.out.println("Interrupted.");
-				e.printStackTrace();
+				Configuration.getLogger().debug(e.toString());
 			}
 			catch (ExecutionException e) {
-				System.out.println("Some other executaion exception.");
-				e.printStackTrace();
+				Configuration.getLogger().debug(e.toString());
 			}
 		}
      }

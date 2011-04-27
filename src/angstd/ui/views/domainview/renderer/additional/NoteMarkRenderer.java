@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import angstd.model.arrangement.DomainArrangement;
+import angstd.model.configuration.Configuration;
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
@@ -51,7 +52,7 @@ public class NoteMarkRenderer implements Renderer {
 		try {
 			logo = new ImageIcon(ImageIO.read(is));
 		} catch (IOException e) {
-			System.out.println("Failed to load note marker image");
+			Configuration.getLogger().debug(e.toString());
 			return;
 		}
 		

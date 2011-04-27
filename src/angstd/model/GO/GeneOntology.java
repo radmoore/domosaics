@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import angstd.model.configuration.Configuration;
+
 public class GeneOntology {
 
 	private static String url="resources/gene_ontology.1_2.obo";
@@ -112,14 +114,11 @@ public class GeneOntology {
 					}
 				 }
 			} catch (FileNotFoundException e) {
-				System.out.println("File .obo : File Not Found");
-				e.printStackTrace();
+				Configuration.getLogger().debug(e.toString());
 			} catch (MalformedURLException e) {
-				System.out.println("File .obo : URL malformed");
-				e.printStackTrace();
+				Configuration.getLogger().debug(e.toString());
 			} catch (IOException e) {
-				System.out.println("File .obo : IO exepction");
-				e.printStackTrace();
+				Configuration.getLogger().debug(e.toString());
 			}
 		       
 	}

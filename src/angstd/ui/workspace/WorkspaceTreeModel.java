@@ -10,6 +10,7 @@ import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.workspace.Workspace;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.workspace.components.WorkspaceChangeEvent;
@@ -106,7 +107,9 @@ public class WorkspaceTreeModel implements TreeModel, WorkspaceChangeListener {
 		try {
 			view.expandAll();
 		}
-		catch (Exception e) {}
+		catch (Exception e) {
+			Configuration.getLogger().debug(e.toString());
+		}
 	}
 	
 	/* ***************************************************************** *

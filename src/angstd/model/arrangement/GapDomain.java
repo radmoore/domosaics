@@ -23,4 +23,9 @@ public class GapDomain extends Domain{
 		super(0, 0, GatheringThresholdsReader.getInstance().get(ID));
 		setArrangement(da);
 	}
+	
+	public static String getGapID() {
+		return ID;
+	}
+	
 }

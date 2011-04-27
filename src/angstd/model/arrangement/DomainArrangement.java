@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import angstd.model.AngstdData;
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.Sequence;
 import angstd.model.sequence.SequenceI;
 import angstd.model.tree.TreeNodeI;
@@ -174,8 +175,9 @@ public class DomainArrangement implements Cloneable, AngstdData{
 					lenWithGaps++;
 				}
 				dom.setSequence(start, new Sequence(dom.getID(), seq.getSeq(start, start+lenWithGaps, true)));
-			} catch(Exception e) {
-				e.printStackTrace();
+			} 
+			catch(Exception e) {
+				Configuration.getLogger().debug(e.toString());
 			}
 			
 		}

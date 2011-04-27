@@ -2,6 +2,8 @@ package angstd.model.arrangement;
 
 import java.util.Vector;
 
+import angstd.model.configuration.Configuration;
+
 /**
  * Class DomainVector is the basic data structure to store Domains within an
  * arrangement. <br>
@@ -28,8 +30,9 @@ public class DomainVector extends Vector<Domain>{
 			for (Domain dom : this)
 				res.addDomain((Domain) dom.clone());
 			return res;
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
+		} 
+		catch (CloneNotSupportedException e) {
+			Configuration.getLogger().debug(e.toString());
 			return null;
 		}
 	}

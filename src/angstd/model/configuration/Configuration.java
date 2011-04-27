@@ -2,6 +2,8 @@ package angstd.model.configuration;
 
 import java.io.File;
 
+import org.apache.log4j.Logger;
+
 /**
  * Configuration holds all specified URLs to look up nodes in trees and 
  * domains from an arrangement. The entrys can be changed using the 
@@ -15,6 +17,7 @@ public class Configuration {
 	
 	public static final String CONFIGFILE = "config";
 	public static final String DEF_FILE_LOCATION = System.getProperty("user.home");
+	public static final String DEF_LOG_LOCATION = DEF_FILE_LOCATION+"/"+"Desktop/angstd2.log";
 	public static final String DEF_GOOGLE_SEARCH = "http://www.google.com/search?q=XXX";
 	public static final String DEF_NCBI_SEARCH = "http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&cmd=search&term=XXX";
 	public static final String DEF_PFAM_SEARCH = "http://pfam.sanger.ac.uk/family?acc=XXX";
@@ -28,6 +31,7 @@ public class Configuration {
 	
 	public static final boolean DEF_SHOW_ADVICES = false;
 	public static final boolean DEF_SAVE_ON_EXIT = false;
+	public static final boolean OVERWRITEPROJECTS = false;
 	
 	private boolean service_running = false;
 	
@@ -42,8 +46,7 @@ public class Configuration {
 	protected String hmmScanBin, hmmPressBin;
 	protected String hmmDB;
 
-	protected boolean showAdvices;
-	protected boolean saveWSOnExit;
+	protected boolean showAdvices, saveWSOnExit, overwriteProjects;
 	
 	protected static Configuration instance;
 	protected String workspace_dir; // this is null and seems to cause an exception, see below
@@ -84,6 +87,7 @@ public class Configuration {
 		hmmDB = DEF_HMMERDB;
 		showAdvices = DEF_SHOW_ADVICES;
 		saveWSOnExit = DEF_SAVE_ON_EXIT;
+		overwriteProjects = OVERWRITEPROJECTS;
 	}
 	
 	public static Configuration getInstance() {
@@ -125,6 +129,13 @@ public class Configuration {
 		return saveWSOnExit;
 	}
 	
+	public void setOverwriteProjects(boolean overwrite) {
+		this.overwriteProjects = overwrite;
+	}
+	
+	public boolean getOverwriteProjects() {
+		return overwriteProjects;
+	}
 	
 	/**
 	 * TODO:
@@ -245,6 +256,12 @@ public class Configuration {
 	public void setServiceRunning(boolean running) {
 		this.service_running = running;
 	}
+	
+	public static Logger getLogger() {
+    	return Logger.getLogger("angstdlog");
+    	
+	}
+	
 	
 }
 

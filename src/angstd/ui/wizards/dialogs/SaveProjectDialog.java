@@ -13,6 +13,7 @@ import org.netbeans.spi.wizard.WizardException;
 import org.netbeans.spi.wizard.WizardPage;
 import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.io.ProjectExporter;
 import angstd.ui.wizards.pages.ChooseProjectToSavePage;
@@ -31,7 +32,7 @@ public class SaveProjectDialog {
 //		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new ChooseProjectToSavePage()}, new SaveProjectProgress());
 
 		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new ChooseProjectToSavePage(), new SaveProjectFilePage()}, new SaveProjectProgress());
-		return WizardDisplayer.showWizard(wiz, new Rectangle (20, 20, 700, 400));				 
+		return WizardDisplayer.showWizard(wiz);				 
 	}
 }
 
@@ -64,7 +65,8 @@ class SaveProjectProgress extends DeferredWizardResult implements WizardResultPr
 			return;
 		}
 		catch(Exception e){
-			p.failed("Error while saving project, please try again.", false);
+			Configuration.getLogger().debug(e.toString());
+			p.failed("Error while saving project", false);
 		}
 
 		p.finished(null);

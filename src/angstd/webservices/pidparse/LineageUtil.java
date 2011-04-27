@@ -3,6 +3,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+import angstd.model.configuration.Configuration;
+
 /**
  * 
  * @author Andrew Moore
@@ -47,8 +49,7 @@ public class LineageUtil {
 			in.close();
 		}
 		catch (Exception e) {
-			System.out.println("*** ERROR: Bad voodoo here!");
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 		} 
 		return lineage;
 	}

@@ -5,7 +5,7 @@ import java.awt.Component;
 import org.netbeans.spi.wizard.WizardPage;
 
 import angstd.model.sequence.SequenceI;
-import angstd.webservices.UiUtil;
+import angstd.util.UiUtil;
 import angstd.webservices.clustalw.ClustalW2Panel;
 
 /**

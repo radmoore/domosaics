@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.workspace.ProjectElement;
 import angstd.ui.AngstdUI;
 import angstd.ui.WorkspaceManager;
@@ -45,7 +46,8 @@ public class ImportViewAction extends AbstractMenuAction{
 				
 			}
 		} catch(Exception ex) {
-			System.out.println("view import aborted");
+			Configuration.getLogger().debug(e.toString());
+			MessageUtil.showWarning("view import aborted");
 		}
 	}
 

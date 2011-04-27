@@ -4,6 +4,7 @@ import java.net.URL;
 
 import javax.swing.JMenuBar;
 
+import angstd.model.configuration.Configuration;
 import angstd.ui.io.menureader.JMenuBarFactory;
 import angstd.ui.io.menureader.MenuReader;
 import angstd.ui.tools.Tool;
@@ -117,9 +118,10 @@ public class AngstdViewFactory {
 			// add the tool frame to the view, the tool is completed then
 			((Tool) view).setToolFrame(frame);	
 			return (V) view;
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
+       	 	Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Failed to create View!");
-			e.printStackTrace();
 			return null;
 		}
 	}

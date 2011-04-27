@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 
 import javax.swing.JOptionPane;
 
+import angstd.model.configuration.Configuration;
+
 /**
  * Opens a browser window to a specified url.
  *
@@ -36,6 +38,7 @@ public class BrowserLauncher {
 					Runtime.getRuntime().exec(new String[] {browser, url});
 			}
 		} catch (Exception e) {
+			Configuration.getLogger().debug(e.toString());
 			JOptionPane.showMessageDialog(null, errMsg + ":\n" + e.getLocalizedMessage());
 		}
 	}

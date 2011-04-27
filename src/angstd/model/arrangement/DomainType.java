@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import angstd.model.configuration.Configuration;
+
 /**
  * Supported domain types
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
@@ -35,6 +37,7 @@ public enum DomainType {
 	TIGRFAMs ("TIGRFAMs", "http://www.jcvi.org/cgi-bin/tigrfams/index.cgi", "TIGR.+"),
 	PRINTS ("PRINTS", "http://www.bioinf.manchester.ac.uk/dbbrowser/PRINTS/index.php", "PR.+"),
 	PRODOM ("ProDom", "http://prodom.prabi.fr/prodom/current/html/home.php", "PD.+"),
+	GAPDOM ("gapdom", null, null),
 	UNKNOWN ("unknown", null, null);
 
 /*	private static Map<String, DomainType> ipr2type = new HashMap<String, DomainType>();
@@ -88,6 +91,7 @@ public enum DomainType {
     	}	
     	catch (Exception e) {
     	//	e.printStackTrace();
+    		Configuration.getLogger().debug(e.toString());
     		return UNKNOWN;
 		}
   

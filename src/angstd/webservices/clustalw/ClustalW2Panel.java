@@ -17,7 +17,7 @@ import org.jdesktop.swingx.JXTitledSeparator;
 import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.ui.wizards.pages.ClustalW2Page;
-import angstd.webservices.UiUtil;
+import angstd.util.UiUtil;
 import angstd.webservices.WebservicePrinter;
 
 /**
@@ -79,7 +79,7 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 		// buttons
 		add(submit, "gaptop 10, w 165!, wrap");
 		// console
-		add(new JXTitledSeparator("Console"),	"growx, span, wrap, gaptop 10");
+		add(new JXTitledSeparator("Console"),	"growx, span, wrap, gaptop 25");
 		add(new JScrollPane(console),			"gap 10, span, wrap");	
 	}
 	
@@ -88,6 +88,7 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 		String email_text = (config.getEmailAddr().isEmpty()) ? DEFAULT_EMAIL : config.getEmailAddr() ;
 		email = UiUtil.createEmailField(email_text);
 		console = UiUtil.createConsole();
+		console.setSize(console.getWidth(), 20);
 
 		submit = new JButton("Submit Job");
 		submit.addActionListener(new ActionListener() {

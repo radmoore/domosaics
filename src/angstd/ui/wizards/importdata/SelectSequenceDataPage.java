@@ -1,6 +1,7 @@
 package angstd.ui.wizards.importdata;
 
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -8,6 +9,7 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
@@ -35,12 +37,14 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 	/** the text field for choosing a view name */
 	protected JTextField viewName;
 
-	
+	/**  list displaying all domain views of all projects */
+	protected JComboBox selectViewList;
+
 	/**
 	 * Constructor for a new SelectSequenceDataPage
 	 */
 	public SelectSequenceDataPage() {
-		super("Select Sequence Data");
+		//super("Select Sequence Data");
 		setLayout(new MigLayout());
 		
 		// init components
@@ -52,7 +56,7 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 		
 		JButton browse = new JButton("Browse...");
 		browse.addActionListener(this);	
-		JComboBox selectViewList = GUIComponentFactory.createSelectDomViewBox(false);
+		selectViewList = GUIComponentFactory.createSelectDomViewBox(false);
 		
 		// associate names
 		path.setName(ImportDataBranchController.FILEPATH_KEY);
@@ -62,15 +66,15 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 		// layout panel
 		add(new JXTitledSeparator("Select sequence file"),"growx, span, wrap");
 		add(new JLabel("Select file: "), 	"gap 10");
-		add(path, 							"gap 10");
+		add(path, 							"w 150!, gap 10");
 		add(browse, 						"gap 10, wrap");
 		
-		add(new JLabel("Select the views name:"), "gap 10");
-		add(viewName, "gap 10, gaptop 5, wrap");
+		add(new JLabel("Enter a name:"), "gap 10");
+		add(viewName,  "w 150!, gap 10, gaptop 5, wrap");
 		
 		add(new JXTitledSeparator("Associate with arrangement view"),"growx, span, wrap, gaptop 25");
 		add(new JLabel("Select view: "), 	"gap 10");
-		add(selectViewList, 				"gap 10, span, wrap");
+		add(selectViewList, 				"w 270!, gap 10, span 2, wrap");
 	}
 	
 	/**
@@ -80,7 +84,6 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 		File file = FileDialogs.showOpenDialog(this);
 		if(file != null) {
 			path.setText(file.getAbsolutePath());
-			if (viewName.getText().trim().isEmpty())
 				viewName.setText(file.getName().split("\\.")[0]);
 		}
 	}	

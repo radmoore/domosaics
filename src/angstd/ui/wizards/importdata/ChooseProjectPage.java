@@ -32,12 +32,15 @@ public class ChooseProjectPage extends WizardPage implements ActionListener{
 	/** the list displaying the available projects */
 	protected JList list;
 	
+	private String projectName;
 	
 	/**
 	 * Constructor for a new ChooseProjectPage
 	 */
-	public ChooseProjectPage() {
+	public ChooseProjectPage(String projectName) {
 		super("Project Selection");
+		
+		this.projectName = projectName; // can be null 
 		
 		setLayout(new MigLayout());
 		
@@ -61,7 +64,7 @@ public class ChooseProjectPage extends WizardPage implements ActionListener{
 	 * list afterwards.
 	 */
 	public void actionPerformed(ActionEvent evt) {
-		ProjectElement created = WizardManager.getInstance().showCreateProjectWizard();
+		ProjectElement created = WizardManager.getInstance().showCreateProjectWizard(projectName);
 		if (created != null) {
 			((DefaultListModel)list.getModel()).addElement(created);
 			list.setSelectedValue(created, true);

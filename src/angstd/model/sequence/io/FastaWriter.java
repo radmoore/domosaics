@@ -3,6 +3,7 @@ package angstd.model.sequence.io;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.io.AbstractDataWriter;
 import angstd.model.sequence.SequenceI;
 
@@ -30,8 +31,9 @@ public class FastaWriter extends AbstractDataWriter<SequenceI> {
     			out.write("\r\n");
     		}
     		out.flush();  
-        } catch (IOException e) {
-            e.printStackTrace();
+        } 
+        catch (IOException e) {
+        	Configuration.getLogger().debug(e.toString());
         }
     }
 	

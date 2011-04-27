@@ -40,7 +40,7 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	 * Constructor for a new SelectArrangementDataPage
 	 */
 	public SelectArrangementDataPage() {
-		super("Select Protein Data");
+		super("Select Arrangement Data");
 		setLayout(new MigLayout());
 		
 		// init components
@@ -62,20 +62,21 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 		selectSeqViewList.setName(ImportDataBranchController.SEQVIEW_KEY);
 		
 		// layout panel
-		add(new JLabel("Select file to import:"), "gap 10");
-		add(path, "gap 10");
+		add(new JXTitledSeparator("Select arrangement file"),"growx, span, wrap");
+		add(new JLabel("Select file:"), "gap 10");
+		add(path, "w 150!, gap 10");
 		add(browse, "gap 10, wrap");
 		
-		add(new JLabel("Select the views name:"), "gap 10");
-		add(viewName, "gap 10, gaptop 5, wrap");
+		add(new JLabel("Enter a name:"), "gap 10");
+		add(viewName, "w 150!, gap 10, gaptop 5, wrap");
 		
 		add(new JXTitledSeparator("Associate with tree to domain tree"),"growx, span, wrap, gaptop 25");
 		add(new JLabel("Select view: "), 	"gap 10");
-		add(selectTreeViewList, 				"gap 10, span, wrap");
+		add(selectTreeViewList, 				"w 270!, gap 10, span, wrap");
 		
 		add(new JXTitledSeparator("Associate with sequence view"),"growx, span, wrap, gaptop 25");
 		add(new JLabel("Select view: "), 	"gap 10");
-		add(selectSeqViewList, 				"gap 10, span, wrap");
+		add(selectSeqViewList, 				"w 270!, gap 10, span, wrap");
 	}
 
 	/**
@@ -85,7 +86,6 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 		File file = FileDialogs.showOpenDialog(this);
 		if(file != null) {
 			path.setText(file.getAbsolutePath());
-			if (viewName.getText().trim().isEmpty())
 				viewName.setText(file.getName().split("\\.")[0]);
 		}
 	}	
@@ -97,7 +97,7 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	 * 		description for the page
 	 */
 	public static final String getDescription() {
-        return "Select Protein Data";
+        return "Select Arrangement Data";
     }
     
 	/**

@@ -23,6 +23,7 @@ import angstd.model.configuration.Configuration;
 import angstd.model.configuration.ConfigurationWriter;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.util.MessageUtil;
+import angstd.util.UiUtil;
 
 
 /**
@@ -49,7 +50,7 @@ public class ConfigurationPanel extends JPanel{
 	protected JButton apply, cancel, restore;
 	
 	/** checkbox indicating whether or not advises should be shown */
-	protected JCheckBox showAdvices, saveOnExit;
+	protected JCheckBox showAdvices, saveOnExit, overwriteProject;
 	
 	protected Hmmer3Engine hmmer3Engine;
 	private HashMap<String, File> hmmer3bins;
@@ -88,6 +89,7 @@ public class ConfigurationPanel extends JPanel{
 		config.setHmmerDB(hmmer3dbTF.getText());
 		//config.setShowAdvices(showAdvices.isSelected());
 		config.setSaveOnExit(saveOnExit.isSelected());
+		config.setOverwriteProjects(overwriteProject.isSelected());
 
 		ConfigurationWriter.write(config.getConfigFile());
 		
@@ -110,6 +112,7 @@ public class ConfigurationPanel extends JPanel{
 		emailField.setText(config.getEmailAddr());
 		//showAdvices.setSelected(config.isShowAdvices());
 		saveOnExit.setSelected(config.saveOnExit());
+		overwriteProject.setSelected(config.getOverwriteProjects());
 	}
 	
 	/**
@@ -131,7 +134,8 @@ public class ConfigurationPanel extends JPanel{
 		ncbiField = new JTextField(config.getNcbiUrl(), 50);
 		pfamField = new JTextField(config.getPfamUrl(), 50);
 		uniprotField = new JTextField(config.getUniprotUrl(), 50);
-		emailField = new JTextField(config.getEmailAddr(), 50);
+		//emailField = new JTextField(config.getEmailAddr(), 50);
+		emailField = UiUtil.createEmailField(config.getEmailAddr());
 		
 		loadHmmScanBin = new JButton("hmmscan bin");
 		loadHmmScanBin.addActionListener(new ActionListener() {
@@ -174,12 +178,20 @@ public class ConfigurationPanel extends JPanel{
 		
 //		showAdvices = new JCheckBox("Show Advices", config.isShowAdvices());
 		saveOnExit = new JCheckBox("Save Workspace on Exit", config.saveOnExit());
+		overwriteProject = new JCheckBox("Overwrite exiting projects by default", config.getOverwriteProjects());
 		
 		apply = new JButton ("Apply");
 		apply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				
 				// user can only save a valid config
+				
+				if (!emailField.getText().equals(""))
+					if (!UiUtil.isValidEmail(emailField.getText())) {
+						MessageUtil.showWarning("Please enter a valid email (or non at all)");
+						return;
+					}
+				
 				if (!hmmerScanTF.getText().equals("")) {
 					if (!checkHmmBin(new File(hmmerScanTF.getText())))
 						return;	
@@ -246,6 +258,7 @@ public class ConfigurationPanel extends JPanel{
 //		add(showAdvices, 	"h 25!, gap 10, wrap");
 		add(new JXTitledSeparator("Workspace"),"growx, span, wrap, gaptop 10");
 		add(saveOnExit, 	"h 25!, gap 10, wrap");
+		add(overwriteProject, 	"h 25!, gap 10, wrap");
 		
 		add(new JXTitledSeparator("Apply"),"growx, span, wrap, gaptop 10");
 		add(apply, "h 25!, gap 10");

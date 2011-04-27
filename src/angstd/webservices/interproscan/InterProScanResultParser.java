@@ -20,6 +20,7 @@ import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainType;
 import angstd.model.arrangement.io.GatheringThresholdsReader;
+import angstd.model.configuration.Configuration;
 
 /**
  * Parses the result produces by WSInterproScan package into
@@ -46,12 +47,12 @@ public class InterProScanResultParser {
 		try {
 			return getArrangement(new StringReader(arrangementsStr));
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			Configuration.getLogger().debug(ioe.toString());
 		//	Logger.getLogger("logger").warn("IO Exception: could not read domain arrangement from string");
 		//	Logger.getLogger("logger").warn("Reading InterproScan result  aborted");
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 			return null;
 		}
 		return null;
@@ -163,7 +164,7 @@ public class InterProScanResultParser {
 			
 			}
 			catch (Exception e) {
-				e.printStackTrace();
+				Configuration.getLogger().debug(e.toString());
 			}
 			
 		}
