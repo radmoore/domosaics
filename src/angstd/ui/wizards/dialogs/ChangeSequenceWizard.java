@@ -47,7 +47,7 @@ public class ChangeSequenceWizard {
 	public Object show() {
 		String initSeq = (selectedDA.getDomainArrangement().hasSeq()) ? selectedDA.getDomainArrangement().getSequence().getSeq(false) : "";
 		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new ChangeSequencePage(initSeq)}, new ChangeSequenceProgress(view, selectedDA));
-		return WizardDisplayer.showWizard(wiz, new Rectangle (20, 20, 720, 400));	
+		return WizardDisplayer.showWizard(wiz);	
 	}
 }
 

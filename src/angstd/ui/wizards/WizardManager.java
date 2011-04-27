@@ -118,7 +118,7 @@ public class WizardManager {
 	 * view using the {@link ImportDataResultProducer}.
 	 */
 	public void startImportDataWizard() {
-		WizardDisplayer.showWizard (new ImportDataBranchController().createWizard(), new Rectangle (20, 20, 700, 400));
+		WizardDisplayer.showWizard (new ImportDataBranchController().createWizard());
 	}
 	
 	/**
@@ -129,7 +129,7 @@ public class WizardManager {
 	 * created tree as tree view to the workspace.
 	 */
 	public void startCreateTreeWizard() {
-		WizardDisplayer.showWizard (new CreateTreeBranchController().createWizard(), new Rectangle (20, 20, 760, 460));
+		WizardDisplayer.showWizard (new CreateTreeBranchController().createWizard());
 	}
 	
 	/**

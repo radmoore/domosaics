@@ -49,7 +49,7 @@ public class EditDatasetWizard {
 	 */
 	public Object show() {
 		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new EditDatasetPage()}, new EditDatasetProgress(view));
-		return WizardDisplayer.showWizard(wiz, new Rectangle (20, 20, 720, 400));	
+		return WizardDisplayer.showWizard(wiz);	
 	}
 }
 

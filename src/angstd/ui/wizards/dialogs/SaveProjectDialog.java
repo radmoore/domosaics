@@ -31,7 +31,7 @@ public class SaveProjectDialog {
 //		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new ChooseProjectToSavePage()}, new SaveProjectProgress());
 
 		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new ChooseProjectToSavePage(), new SaveProjectFilePage()}, new SaveProjectProgress());
-		return WizardDisplayer.showWizard(wiz, new Rectangle (20, 20, 700, 400));				 
+		return WizardDisplayer.showWizard(wiz);				 
 	}
 }
 

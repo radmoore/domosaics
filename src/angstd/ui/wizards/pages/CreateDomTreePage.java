@@ -22,7 +22,7 @@ public class CreateDomTreePage extends WizardPage {
 	/** the key used to access the domain view after the wizard finished */
 	public static final String TREEVIEW_KEY = "treeview";
 	
-	protected static final Dimension p_size = new Dimension(350,300);
+	//protected static final Dimension p_size = new Dimension(300,200);
 
 	protected JComboBox selectTreeViewList;
 	protected JComboBox selectDomViewList;
@@ -37,15 +37,16 @@ public class CreateDomTreePage extends WizardPage {
 		selectTreeViewList.setName(TREEVIEW_KEY);
 		selectDomViewList.setName(DOMVIEW_KEY);
 		
-		setPreferredSize(p_size);
+		//setPreferredSize(p_size);
 
-		add(new JXTitledSeparator("Select tree view"),"growx, span, wrap, gaptop 40");
+		add(new JXTitledSeparator("Select tree view"),"growx, span, wrap, gaptop 10");
 		add(new JLabel("Select view:"), "gap 10");
-		add(selectTreeViewList, 		"gap 10, span, growx, wrap");
+		add(selectTreeViewList, 		"w 270!, gap 10, span, growx, wrap");
 		
-		add(new JXTitledSeparator("Select arrangement view"),"growx, span, wrap, gaptop 40");
+		add(new JXTitledSeparator("Select arrangement view"),"growx, span, wrap, gaptop 25");
 		add(new JLabel("Select view:"), "gap 10");
-		add(selectDomViewList, 			"gap 10, span, growx, wrap");
+		add(selectDomViewList, 			"w 270!, gap 10, span, growx, wrap");
+		add(new JLabel(""), 		"h 82!, gap 10, wrap");
 		
 		
 	}

@@ -72,17 +72,18 @@ public class ChooseViewDataPage extends WizardPage implements ItemListener{
 		selectDomViewList.setName(CreateTreeBranchController.DOMVIEW_KEY);
 		useUnderlayingSeqs.setName(CreateTreeBranchController.USEUNDERLYINGSEQS_KEY);
 
-		add(new JXTitledSeparator("Select arrangement view"),"growx, span, wrap, gaptop 20");
+		add(new JXTitledSeparator("Select arrangement view"),"growx, span, wrap");
 		add(new JLabel("Select view:"), "gap 10");
-		add(selectDomViewList, 			"gap 10, span, growx, wrap");
+		add(selectDomViewList, 			"w 270!, gap 10, span, growx, wrap");
 		
-		add(new JXTitledSeparator("Use underlaying sequences instead of domains?"),"growx, span, wrap, gaptop 10");
+		add(new JXTitledSeparator("Use underlying sequences instead of domains?"),"growx, span, wrap, gaptop 25");
 		add(new JLabel("Use Sequences:"), "gap 10");
 		add(useUnderlayingSeqs, 		"gap 10, wrap");
 	
-		add(new JXTitledSeparator("Select sequence view"),"growx, span, wrap, gaptop 40");
+		add(new JXTitledSeparator("Select sequence view"),"growx, span, wrap, gaptop 25");
 		add(new JLabel("Select view:"), "gap 10");
-		add(selectSeqViewList, 		"gap 10, span, growx, wrap");
+		add(selectSeqViewList, 		"w 270!, gap 10, span, growx, wrap");
+		add(new JLabel(""), 		"h 21!, gap 10, wrap");
 	}
 	
 	/**

@@ -43,7 +43,7 @@ public class AssociateWithSeqsWizard {
 	 */
 	public Object show() {
 		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new AssociateWithSeqsPage()}, new AssociateWithSeqsProgress(view));
-		return WizardDisplayer.showWizard(wiz, new Rectangle (20, 20, 720, 400));	
+		return WizardDisplayer.showWizard(wiz);	
 	}
 }
 

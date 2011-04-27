@@ -42,7 +42,7 @@ public class CreateProjectPage extends WizardPage {
 		input = new JTextField();
 		input.setName("name");
 
-		add(new JLabel("Select a name for the new Project."), "gap 10, wrap");
+		add(new JLabel("Select a name for the new Project"), "gap 10, wrap");
 		add(new JLabel("Project Name:"), "gap 10, split");
 		add(input, "gap 10, growx");
 	}

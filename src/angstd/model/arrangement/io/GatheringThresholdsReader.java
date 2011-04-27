@@ -13,7 +13,7 @@ import angstd.ui.util.MessageUtil;
 public class GatheringThresholdsReader {
 
 	protected static Map<String, DomainFamily> domFamilyMap;
-	protected static Map<String, String> id2acc, acc2id;
+	protected static Map<String, String> id2acc/*, acc2id*/;
 
 	
 	 /**
@@ -31,7 +31,7 @@ public class GatheringThresholdsReader {
 	public static void read() {
 		
 		domFamilyMap = new HashMap<String , DomainFamily >();
-		acc2id = new HashMap<String, String>();
+		//acc2id = new HashMap<String, String>();
 		id2acc = new HashMap<String, String>();
 		
 		BufferedReader in;
@@ -45,6 +45,7 @@ public class GatheringThresholdsReader {
 					String[] entryFields = line.split(" ");
 					DomainFamily d=new DomainFamily(entryFields[1], entryFields[0], DomainType.PFAM, Double.parseDouble(entryFields[2]), Double.parseDouble(entryFields[3]));
 					domFamilyMap.put(entryFields[0], d);
+					id2acc.put(entryFields[1],entryFields[0]);
 				}
 			}
 		}
@@ -54,8 +55,10 @@ public class GatheringThresholdsReader {
 			e1.printStackTrace();
 		}
 	}
-
 	
+	public static String getAccFromID(String id) {
+     return id2acc.get(id);
+	}
 
 	
 	

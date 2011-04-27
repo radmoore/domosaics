@@ -17,6 +17,7 @@ import org.jdesktop.swingx.JXTitledSeparator;
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
+import angstd.model.arrangement.DomainType;
 import angstd.model.arrangement.io.GatheringThresholdsReader;
 import angstd.ui.util.MessageUtil;
 import angstd.util.StringUtils;
@@ -31,7 +32,7 @@ public class ChangeArrangementPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	/** textfields to edit the from, to, evalue, and name attribute */
-	protected JTextField name, from, to, evalue;
+	protected JTextField id, from, to, evalue;
 	
 	/** buttons to apply the changes and reset the form */
 	protected JButton add, reset, restore;
@@ -53,8 +54,8 @@ public class ChangeArrangementPanel extends JPanel {
 		
 		add(new JXTitledSeparator("Change/Add Domains "),"growx, span, wrap, gaptop 45");
 
-		add(new JLabel("Name: "), "gap 10");
-		add(name, "wrap");
+		add(new JLabel("ID/Name: "), "gap 10");
+		add(id, "wrap");
 		
 		add(new JLabel("From: "), "gap 10");
 		add(from, "wrap");
@@ -74,7 +75,7 @@ public class ChangeArrangementPanel extends JPanel {
 	 * Helper method to initialize the panel components 
 	 */
 	private void initComponents() {
-		name = new JTextField(20);
+		id = new JTextField(20);
 		from = new JTextField(6);
 		to = new JTextField(6);
 		evalue = new JTextField(6);
@@ -109,7 +110,7 @@ public class ChangeArrangementPanel extends JPanel {
 	 * 		the selected domain which attributes should be filled into the forms
 	 */
 	public void refreshDomain(Domain dom) {
-		name.setText(dom.getID());
+		id.setText(dom.getAcc());
 		from.setText(""+dom.getFrom());
 		to.setText(""+dom.getTo());
 		if (dom.getEvalue() == Double.POSITIVE_INFINITY)
@@ -122,7 +123,7 @@ public class ChangeArrangementPanel extends JPanel {
 	 * Resets the domain attribute fields
 	 */
 	public void reset() {
-		name.setText("");
+		id.setText("");
 		from.setText("");
 		to.setText("");
 		evalue.setText("");
@@ -153,7 +154,13 @@ public class ChangeArrangementPanel extends JPanel {
 		Domain selectedDom = view.getSelectedDomain();
 		
 		// values for new/changing domain
-		DomainFamily fam = GatheringThresholdsReader.getInstance().get(name.getText()); 
+		DomainFamily fam = GatheringThresholdsReader.getInstance().get(id.getText()); 
+		if(fam==null) {
+		 fam = GatheringThresholdsReader.getInstance().get(GatheringThresholdsReader.getAccFromID(id.getText()));
+		}
+		if(fam==null)
+			fam=new DomainFamily(id.getText(), id.getText(), DomainType.UNKNOWN);
+		GatheringThresholdsReader.getInstance().put(id.getText(), fam);
 		int fromVal = Integer.parseInt(from.getText());
 		int toVal = Integer.parseInt(to.getText());
 		
@@ -201,8 +208,8 @@ public class ChangeArrangementPanel extends JPanel {
 			return false;
 		}
 
-		if(name.getText().isEmpty()){
-			MessageUtil.showWarning(this, "The domains name is empty.");
+		if(id.getText().isEmpty()){
+			MessageUtil.showWarning(this, "Please indicates an ID/name for the domain.");
 			return false;
 		}
 
