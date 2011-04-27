@@ -7,6 +7,7 @@ package angstd;
  * to the {@link ApplicationHandler}. So no fun here.
  * 
  * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
 public class Angstd {
