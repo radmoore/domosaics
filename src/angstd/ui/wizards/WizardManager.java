@@ -12,6 +12,7 @@ import javax.swing.UIManager;
 
 import org.netbeans.api.wizard.WizardDisplayer;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.WorkspaceElement;
@@ -41,6 +42,7 @@ import angstd.ui.wizards.importdata.ImportDataResultProducer;
  * at any place within the program.
  * 
  * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
 public class WizardManager {
@@ -61,8 +63,9 @@ public class WizardManager {
 		try {
 			img = ImageIO.read (getClass().getResourceAsStream(SIDE_IMAGE));
 			UIManager.put ("wizard.sidebar.image", img);
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} 
+		catch (IOException e1) {
+			Configuration.getLogger().debug(e1.toString());
 		}
 	}
 	
@@ -116,8 +119,8 @@ public class WizardManager {
 	 * @return
 	 * 		the created project element.
 	 */
-	public ProjectElement showCreateProjectWizard() {
-		return (ProjectElement) CreateProjectDialog.show();
+	public ProjectElement showCreateProjectWizard(String projectName) {	
+		return (ProjectElement) CreateProjectDialog.show(projectName);
 	}
 
 	/**

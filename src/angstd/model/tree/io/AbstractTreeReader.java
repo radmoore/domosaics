@@ -6,7 +6,9 @@ import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.tree.TreeI;
+import angstd.ui.util.MessageUtil;
 
 /**
  * The AbstractTreeReader class handles the file reading for tree-format 
@@ -45,8 +47,10 @@ public abstract class AbstractTreeReader implements TreeReader{
 			is.close();
 			in.close();	
 			return getTreeFromString(strBuffer.toString());
-		} catch (Exception e) {
-			System.out.println("Reading Tree file aborted");
+		} 
+		catch (Exception e) {
+			Configuration.getLogger().debug(e.toString());
+			MessageUtil.showWarning("Reading Tree file aborted");
 		}
 		return null;
 	}
@@ -73,7 +77,8 @@ public abstract class AbstractTreeReader implements TreeReader{
 			in.close();	
 			return getTreeFromString(strBuffer.toString());
 		} catch (Exception e) {
-			System.out.println("Reading Tree file aborted");
+			Configuration.getLogger().debug(e.toString());
+			MessageUtil.showWarning("Reading Tree file aborted");
 		}
 		return null;
 	}

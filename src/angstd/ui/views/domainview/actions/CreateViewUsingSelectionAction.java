@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import angstd.model.arrangement.DomainArrangement;
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.Sequence;
 import angstd.model.sequence.SequenceI;
 import angstd.model.workspace.ProjectElement;
@@ -79,8 +80,9 @@ public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 				if (da.getSequence() != null)
 					seqs.add((Sequence) da.getSequence().clone());
 				daSet[i] = (DomainArrangement)da.clone();
-			} catch (Exception ex) {
-				ex.printStackTrace();
+			} 
+			catch (Exception ex) {
+				Configuration.getLogger().debug(ex.toString());
 			}
 			i++;
 		}

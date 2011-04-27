@@ -12,6 +12,7 @@ import javax.swing.border.Border;
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.Sequence;
 import angstd.model.sequence.SequenceI;
 import angstd.ui.ViewHandler;
@@ -97,8 +98,9 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 		
 		try {
 			this.backupDA = (DomainArrangement) da.getDomainArrangement().clone();
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
+		} 
+		catch (CloneNotSupportedException e) {
+			Configuration.getLogger().debug(e.toString());
 		}
 		
 		// create a domain view with just one arrangement
@@ -172,7 +174,7 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 			if (da.getSequence() != null)
 				da.setSequence(seq);
 		} catch(Exception e) {
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 		}
 		
 		// structural change on both views

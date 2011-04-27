@@ -13,6 +13,7 @@ import angstd.localservices.executor.Executor;
 import angstd.localservices.hmmer3.Hmmer3Engine;
 import angstd.localservices.hmmer3.Hmmer3Service;
 import angstd.localservices.hmmer3.ui.HmmerServicePanel;
+import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 
 /**
@@ -118,7 +119,7 @@ public class HmmPress implements Hmmer3Program {
 		
         }
 		catch (Exception e) {
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 		}
 		
 		return false;

@@ -3,6 +3,7 @@ package angstd.ui.views.sequenceview.io;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.io.FastaWriter;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.views.view.io.ViewExporter;
@@ -36,8 +37,9 @@ public class SequenceViewExporter extends ViewExporter<SequenceView> {
 			writeTag(out, 0, "SEQUENCEVIEW", false);
 
     		out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } 
+        catch (IOException e) {
+        	Configuration.getLogger().debug(e.toString());
         }
     }
 }

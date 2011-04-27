@@ -15,6 +15,7 @@ import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainType;
+import angstd.model.configuration.Configuration;
 import angstd.model.io.AbstractDataReader;
 import angstd.ui.util.MessageUtil;
 
@@ -72,10 +73,8 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 			
 		}
 		catch (Exception e) {
-			System.out.println("*** E: Something went wrong counting the positives.");
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
 		}
-	
 		return totalHits;
 	}
 	

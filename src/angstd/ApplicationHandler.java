@@ -12,11 +12,14 @@ import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
+
+import org.apache.log4j.Logger;
 
 import angstd.model.arrangement.io.GatheringThresholdsReader;
 import angstd.model.arrangement.io.Pfam2GOreader;
@@ -24,7 +27,6 @@ import angstd.model.configuration.Configuration;
 import angstd.model.configuration.ConfigurationReader;
 import angstd.model.configuration.ConfigurationWriter;
 import angstd.model.workspace.ProjectElement;
-import angstd.model.workspace.WorkspaceElement;
 import angstd.model.workspace.io.LastUsedWorkspaceImporter;
 import angstd.model.workspace.io.LastUsedWorkspaceWriter;
 import angstd.model.workspace.io.ProjectExporter;
@@ -106,6 +108,8 @@ public class ApplicationHandler {
 		if (AngstdUI.getInstance().isShowing())
 			AngstdUI.getInstance().dispose();
 		
+		Configuration.getLogger().info("Closing AnGSTD");
+		Configuration.getLogger().info("=============================================");
 		System.exit(0);		
 	}
 
@@ -244,6 +248,7 @@ public class ApplicationHandler {
 		
 		startUpProgress.setProgress("Have fun... ", 100);
 		startUpProgress.dispose();
+		AngstdUI.getInstance().enableFrame();
 		
 		
 	}
@@ -327,7 +332,8 @@ public class ApplicationHandler {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				
-				AngstdUI.getInstance(); 
+				AngstdUI angstd = AngstdUI.getInstance();
+				angstd.disableFrame();
 				
 			 }
 		 });
@@ -337,7 +343,7 @@ public class ApplicationHandler {
 		private static final long serialVersionUID = 1L;
 		
 		//private static final String LOGOPATH = "ui/resources/Logo2.jpg";
-		private static final String LOGOPATH = "ui/resources/angstd_logo4.png";
+		private static final String LOGOPATH = "ui/resources/domosaic_startup.png";
 		
 		protected JProgressBar progressBar;
 		
@@ -353,7 +359,7 @@ public class ApplicationHandler {
 				logo = new ImageIcon(ImageIO.read(is));
 				startupPanel.add(new JLabel(logo), BorderLayout.CENTER);
 			} catch (IOException e) {
-				System.out.println("Failed to load logo image");
+				Configuration.getLogger().debug(e.toString());
 			}
 			
 			// create and display progressbar
@@ -385,8 +391,9 @@ public class ApplicationHandler {
 		public void wait4me(long ms) {
 			try {
 				Thread.sleep(ms);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			} 
+			catch (Exception e) {
+				Configuration.getLogger().debug(e.toString());
 			}
 		}
 	}

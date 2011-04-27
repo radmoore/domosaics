@@ -11,6 +11,7 @@ import java.awt.geom.Point2D;
 
 import javax.swing.SwingUtilities;
 
+import angstd.model.configuration.Configuration;
 import angstd.ui.views.view.AbstractView;
 import angstd.ui.views.view.View;
 
@@ -145,8 +146,8 @@ public class ZoomController extends MouseAdapter {
 			try {
 				p2 = zoom.inverseTransform(p1, null);
 			} catch (NoninvertibleTransformException ex) {
-				System.out.println("Zoom calculation failed");
-				ex.printStackTrace();
+				Configuration.getLogger().debug(ex.toString());
+				Configuration.getLogger().debug("Zoom calculation failed");
 				return;
 			}
 

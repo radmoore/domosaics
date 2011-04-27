@@ -6,6 +6,7 @@ import java.util.Map;
 
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainSet;
+import angstd.model.configuration.Configuration;
 import angstd.model.tree.TreeI;
 import angstd.model.tree.TreeNodeI;
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
@@ -74,8 +75,9 @@ public class Dollo4Sets extends AbstractReconstructionAlgo {
 			
 			// bottom up add domains to its parents until lca is found
 			evalNode(tree.getRoot());
-		}catch(Exception e) {
-			;
+		}
+		catch(Exception e) {
+			Configuration.getLogger().debug(e.toString());
 		}
 		
 		return null;

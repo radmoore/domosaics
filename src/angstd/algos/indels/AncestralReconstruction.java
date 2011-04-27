@@ -13,6 +13,7 @@ import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainVector;
 import angstd.model.arrangement.GapDomain;
+import angstd.model.configuration.Configuration;
 import angstd.model.domainevent.DomainEvent;
 import angstd.model.tree.TreeEdgeI;
 import angstd.model.tree.TreeI;
@@ -268,8 +269,9 @@ public class AncestralReconstruction extends SwingWorker<String, Void> {
 				sankoff_Down(lca, costs, domCols.get(actCol));
 			}
 			
-		}catch(Exception e) {
-			;
+		}
+		catch(Exception e) {
+			Configuration.getLogger().debug(e.toString());
 		}
 		
 		return null;

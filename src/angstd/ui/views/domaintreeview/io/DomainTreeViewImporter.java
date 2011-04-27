@@ -13,6 +13,7 @@ import angstd.model.arrangement.ArrangementManager;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.io.XdomReader;
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
 import angstd.model.tree.Tree;
@@ -225,7 +226,7 @@ public class DomainTreeViewImporter extends ViewImporter<DomainTreeViewI>  {
 
 			return domTreeView;
 		} catch (Exception e) {
-			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());	
 			return null;
 		}
 	}
@@ -272,8 +273,9 @@ public class DomainTreeViewImporter extends ViewImporter<DomainTreeViewI>  {
 				}
 			}
 			
-		} catch (Exception e) {
-			e.printStackTrace();
+		} 
+		catch (Exception e) {
+			Configuration.getLogger().debug(e.toString());
 		}
 		
 	}

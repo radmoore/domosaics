@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import angstd.model.AngstdData;
+import angstd.model.configuration.Configuration;
 
 /**
  * Abstract class AbstractDataWriter is the basic implementation
@@ -31,8 +32,9 @@ public abstract class AbstractDataWriter<T extends AngstdData> implements DataWr
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
             write(out, data);
             out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } 
+        catch (IOException e) {
+        	Configuration.getLogger().debug(e.toString());
         }
     }
 	

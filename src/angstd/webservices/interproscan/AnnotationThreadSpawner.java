@@ -6,6 +6,7 @@ import javax.swing.SwingWorker;
 
 import angstd.model.arrangement.ArrangementManager;
 import angstd.model.arrangement.DomainArrangement;
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 
 /**
@@ -161,8 +162,9 @@ public class AnnotationThreadSpawner {
 	protected void sleep (long ms) {
 		try {
 			Thread.sleep(ms);
-		} catch (InterruptedException e) {
-			System.out.println("->cancelled<-");
+		} 
+		catch (InterruptedException e) {
+			Configuration.getLogger().debug(e.toString());
 		}
 	}
 
@@ -231,7 +233,7 @@ public class AnnotationThreadSpawner {
 					}
 				}
 				catch(Exception e){
-					e.printStackTrace();
+					Configuration.getLogger().debug(e.toString());
 				}
 				return null;
 			}

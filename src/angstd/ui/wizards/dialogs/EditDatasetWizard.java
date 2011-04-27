@@ -16,6 +16,7 @@ import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.io.ArrangementImporterUtil;
 import angstd.model.arrangement.io.XdomReader;
+import angstd.model.configuration.Configuration;
 import angstd.model.workspace.ViewElement;
 import angstd.ui.ViewHandler;
 import angstd.ui.views.domainview.DomainViewI;
@@ -121,7 +122,9 @@ class EditDatasetProgress extends DeferredWizardResult implements WizardResultPr
 				ViewHandler.getInstance().removeView(mergeView.getViewInfo());
 
 			p.finished(null);		
-		}catch(Exception e){
+		}
+		catch(Exception e){
+			Configuration.getLogger().debug(e.toString());
 			p.failed("Error while editing data set.", false);
 			p.finished(null);
 		}	

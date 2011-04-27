@@ -9,6 +9,8 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
 
+import angstd.model.configuration.Configuration;
+
 
 /**
  * The abstract class AbstractMenuAction makes it possible to set all 
@@ -58,8 +60,9 @@ public abstract class AbstractMenuAction extends AbstractAction {
 				ImageIcon icon = new ImageIcon(ImageIO.read(is));
 				putValue(Action.SMALL_ICON, icon);
 				is.close();
-			} catch(Exception e) {
-				
+			} 
+			catch(Exception e) {
+				Configuration.getLogger().debug(e.toString());
 			}
 		}
 	}

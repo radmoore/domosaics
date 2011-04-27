@@ -148,6 +148,12 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 		return fam.getID();
 	}
 	
+	/**
+	 * Returns the domain acc
+	 * 
+	 * @return domain accession
+	 * 
+	 */
 	public String getAcc() {
 		return fam.getAcc();
 	}

@@ -14,6 +14,7 @@ import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
 import angstd.algos.treecreation.SpeciesTreeCreationUtil;
 import angstd.model.arrangement.DomainArrangement;
+import angstd.model.configuration.Configuration;
 import angstd.model.tree.TreeI;
 import angstd.model.workspace.ViewElement;
 import angstd.ui.ViewHandler;
@@ -93,8 +94,9 @@ class CreateSpeciesTreeProgress extends DeferredWizardResult implements WizardRe
 			try {
 				for (int i = 0; i< clonedSet.length; i++)
 					clonedSet[i] = (DomainArrangement) daSet[i].clone();
-			} catch (Exception e) {
-				e.printStackTrace();
+			} 
+			catch (Exception e) {
+				Configuration.getLogger().debug(e.toString());
 			}
 			
 			DomainViewI domView = ViewHandler.getInstance().createView(ViewType.DOMAINS, treeViewName+"2");
@@ -113,7 +115,9 @@ class CreateSpeciesTreeProgress extends DeferredWizardResult implements WizardRe
 			domTreeView.getDomainLayoutManager().structuralChange();
 
 			p.finished(domTreeView);
-		}catch(Exception e){
+		}
+		catch(Exception e){
+			Configuration.getLogger().debug(e.toString());
 			p.failed("Error while creating species tree, please try again.", false);
 			p.finished(null);
 		}

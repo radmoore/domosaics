@@ -10,6 +10,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.view.ViewInfo;
 
@@ -69,7 +70,11 @@ public class ViewPropertyReader {
 							viewInfo.setDefaultIcon(icon);
 							viewInfo.setUsedIcon(icon);
 							is.close();
-						} catch(Exception e) {}
+						} 
+						catch(Exception e) {
+				        	 Configuration.getLogger().debug(e.toString());
+						}
+						
 						continue;
 					}
 					
@@ -80,7 +85,10 @@ public class ViewPropertyReader {
 							ImageIcon icon = new ImageIcon(ImageIO.read(is));
 							viewInfo.setAssociatedIcon(icon);
 							is.close();
-						} catch(Exception e) {}
+						} 
+						catch(Exception e) {
+							Configuration.getLogger().debug(e.toString());
+						}
 						continue;
 					}
 					
@@ -91,7 +99,10 @@ public class ViewPropertyReader {
 							ImageIcon icon = new ImageIcon(ImageIO.read(is));
 							viewInfo.setWorkspaceFolderIcon(icon);
 							is.close();
-						} catch(Exception e) {}
+						} 
+						catch(Exception e) {
+							Configuration.getLogger().debug(e.toString());
+						}
 						continue;
 					}
 					
@@ -102,7 +113,10 @@ public class ViewPropertyReader {
 							ImageIcon icon = new ImageIcon(ImageIO.read(is));
 							viewInfo.setDataImportIcon(icon);
 							is.close();
-						} catch(Exception e) {}
+						} 
+						catch(Exception e) {
+							Configuration.getLogger().debug(e.toString());	
+						}
 						continue;
 					}
 					
@@ -142,9 +156,10 @@ public class ViewPropertyReader {
 						try {
 							Class<?> frameClazz = Class.forName(getValue(line));
 							viewInfo.setFrameClazz(frameClazz);
-						} catch (ClassNotFoundException e) {
-							System.out.println("ClassURL for tool frame "+getValue(line)+" not found");
-							e.printStackTrace();
+						} 
+						catch (ClassNotFoundException e) {
+				        	Configuration.getLogger().debug(e.toString());
+				        	Configuration.getLogger().debug("ClassURL for tool frame "+getValue(line)+" not found");
 						}
 						continue;
 					}
@@ -154,9 +169,13 @@ public class ViewPropertyReader {
 				
 			in.close();	
 			return viewInfo;	
-		} catch (FileNotFoundException fnfe) {
+		} 
+		catch (FileNotFoundException fnfe) {
+       	 	Configuration.getLogger().debug(fnfe.toString());
 			MessageUtil.showWarning("Property file not found");
-		}catch (IOException ioe) {
+		}
+		catch (IOException ioe) {
+       	 	Configuration.getLogger().debug(ioe.toString());
 			MessageUtil.showWarning("Property file couldnt be parsed");
 		}
 		return null;

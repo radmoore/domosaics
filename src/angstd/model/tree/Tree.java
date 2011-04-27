@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import angstd.model.arrangement.DomainArrangement;
+import angstd.model.configuration.Configuration;
 
 /**
  * see {@link TreeI}
@@ -140,7 +141,9 @@ public class Tree implements TreeI {
 					node.setLabel("");
 					((TreeEdgeI) node.getEdgeToParent()).setBootstrap(bootstrap);
 				}
-			} catch( NumberFormatException nfe) {}
+			} catch( NumberFormatException nfe) {
+				Configuration.getLogger().debug(nfe.toString());
+			}
 		}
 	}
 	
@@ -353,7 +356,7 @@ public class Tree implements TreeI {
 					try {
 						da = (DomainArrangement) da.clone();
 					} catch(CloneNotSupportedException cnse) {
-						System.out.println("Error during clone process");
+						Configuration.getLogger().debug(cnse.toString());
 					}
 				} else
 					toClone.add(da);

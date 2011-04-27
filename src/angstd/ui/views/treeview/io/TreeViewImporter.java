@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.tree.Tree;
 import angstd.model.tree.TreeEdge;
 import angstd.model.tree.TreeEdgeI;
@@ -121,8 +122,9 @@ public class TreeViewImporter extends ViewImporter<TreeViewI> {
 		
 			return res;
 		
-		} catch (Exception e) {
-			e.printStackTrace();
+		} 
+		catch (Exception e) {
+			Configuration.getLogger().debug(e.toString());
 			return null;
 		}
 	}
@@ -158,8 +160,9 @@ public class TreeViewImporter extends ViewImporter<TreeViewI> {
 						readLayoutSetting(line, view);
 			}
 			
-		} catch (Exception e) {
-			e.printStackTrace();
+		} 
+		catch (Exception e) {
+			Configuration.getLogger().debug(e.toString());
 		}
 	}
 	

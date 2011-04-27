@@ -1,16 +1,22 @@
 package angstd.model.workspace.io;
 
 import java.io.File;
+
 import org.apache.commons.io.FileUtils;
+
 import angstd.model.configuration.Configuration;
 import angstd.model.workspace.CategoryElement;
 import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.ViewElement;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.ViewHandler;
+import angstd.ui.util.DigestUtil;
 import angstd.ui.util.MessageUtil;
 
 public class ProjectExporter {
+	
+	public static String PROJECTFILE = ".angstd_project";
+	
 	
 	public static boolean write(ProjectElement project) {
         try {
@@ -26,14 +32,18 @@ public class ProjectExporter {
         			FileUtils.cleanDirectory(projectDir);
         		}
         		catch (Exception e) {
+        			Configuration.getLogger().debug(e.toString());
         			MessageUtil.showWarning("Could not remove old project directory - will append");
         		}
         	}
         	else {
-        		if (!projectDir.mkdir()) {
+        		if (!projectDir.mkdir())
         			return false;
-        		}
         	}
+        	
+			// create digest of project name to avoid empty file
+        	DigestUtil.createAndAddDigest(project.getTitle(), projectDir, PROJECTFILE);
+        	
         	
         	// export all categories and the views within
         	for (WorkspaceElement child : project.getChildren()) {
@@ -42,7 +52,6 @@ public class ProjectExporter {
         		
         		// check if category folder exists else create it
         		if (!new File(catDir).exists()) {
-                	System.out.println("created category directory: "+cat.getTitle());
                 	if (!new File(catDir).mkdir())
                 		return false;
                 }
@@ -64,7 +73,7 @@ public class ProjectExporter {
  
         } 
         catch (Exception e) {
-        	e.printStackTrace();
+        	Configuration.getLogger().debug(e.toString());
         	return false;
         }
         return true;
@@ -79,7 +88,6 @@ public class ProjectExporter {
         	//String projectDir = fileDir+"/"+project.getTitle();
         	String projectDir = fileDir+"/"+exportName;
         	if (!new File(projectDir).exists()) {
-        		System.out.println("created project directory: "+project.getTitle());
         		new File(projectDir).mkdir();
         	}
         	
@@ -90,7 +98,6 @@ public class ProjectExporter {
         		
         		// check if category folder exists else create it
         		if (!new File(catDir).exists()) {
-                	System.out.println("created category directory: "+cat.getTitle());
                 	new File(catDir).mkdir();
                 }
         		
@@ -114,6 +121,6 @@ public class ProjectExporter {
             e.printStackTrace();
         }
     }
-
+	
 }
 

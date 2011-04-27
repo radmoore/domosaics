@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import angstd.model.configuration.Configuration;
+
 public class ClustalW2ToolOutputParser {
 	private static final int ID2NAME = 0;
 	private static final int ID2SCORE = 1;
@@ -17,7 +19,7 @@ public class ClustalW2ToolOutputParser {
 		try {
 			return parse(new StringReader(tooloutput));
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			Configuration.getLogger().debug(ioe.toString());
 		}
 		return null;
 	}

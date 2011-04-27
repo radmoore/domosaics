@@ -8,6 +8,8 @@ import java.util.Map;
 
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainType;
+import angstd.model.arrangement.GapDomain;
+import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 
 public class GatheringThresholdsReader {
@@ -31,6 +33,7 @@ public class GatheringThresholdsReader {
 	public static void read() {
 		
 		domFamilyMap = new HashMap<String , DomainFamily >();
+		domFamilyMap.put(GapDomain.getGapID(), new DomainFamily(GapDomain.getGapID(), GapDomain.getGapID(), DomainType.GAPDOM));
 		//acc2id = new HashMap<String, String>();
 		id2acc = new HashMap<String, String>();
 		
@@ -52,9 +55,10 @@ public class GatheringThresholdsReader {
   
 		catch(Exception e1) {
 			MessageUtil.showWarning("No corresponding Gathering threshold file");
-			e1.printStackTrace();
+			Configuration.getLogger().debug(e1.toString());
 		}
 	}
+
 	
 	public static String getAccFromID(String id) {
      return id2acc.get(id);

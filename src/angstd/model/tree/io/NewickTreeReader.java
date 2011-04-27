@@ -5,6 +5,7 @@ import java.io.Reader;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.tree.Tree;
 import angstd.model.tree.TreeEdge;
 import angstd.model.tree.TreeEdgeI;
@@ -50,7 +51,9 @@ public class NewickTreeReader extends AbstractTreeReader {
 			// return only the first tree as tree object
 			tree = parse(treeStrs[0]);
 			return tree;
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
+			Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("IO Exception: failed to parse newick tree from string");
 		}
 		return null;				

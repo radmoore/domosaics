@@ -14,6 +14,7 @@ import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 
 import angstd.model.arrangement.DomainArrangement;
+import angstd.model.configuration.Configuration;
 import angstd.model.dotplot.Dotplot;
 import angstd.model.dotplot.DotplotChangeEvent;
 import angstd.model.dotplot.DotplotChangeListener;
@@ -142,7 +143,7 @@ public class DotplotView extends AbstractView implements Tool, PropertyChangeLis
 					: new ArrangementComponent((DomainArrangement) (dac.getDomainArrangement().clone()), null);
 		
 		} catch (Exception e) {
-			System.out.println("Failed to clone arrangements for dotplot!");
+			Configuration.getLogger().debug(e.toString());
 			return;
 		}
 		

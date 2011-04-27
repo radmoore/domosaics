@@ -3,6 +3,7 @@ package angstd.model.matrix;
 import java.io.BufferedReader;
 import java.io.Reader;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.io.AbstractDataReader;
 import angstd.ui.util.MessageUtil;
 
@@ -48,8 +49,10 @@ public class MatrixParser extends AbstractDataReader<Matrix> {
 
 			in.close();	
 			return matrix;
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			MessageUtil.showWarning("Reading Matrix file aborted");
+			Configuration.getLogger().debug(e.toString());
 		} 
 		return null;
 	}

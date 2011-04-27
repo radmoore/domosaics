@@ -23,7 +23,7 @@ public class CreateProjectAction extends AbstractAction{
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		WizardManager.getInstance().showCreateProjectWizard();
+		WizardManager.getInstance().showCreateProjectWizard(null);
 	}
 
 }

@@ -12,6 +12,7 @@ import org.netbeans.spi.wizard.WizardException;
 import org.netbeans.spi.wizard.WizardPage;
 import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
 import angstd.ui.views.domainview.DomainViewI;
@@ -109,7 +110,9 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
 				view.setSequencesLoaded(true);
 
 			p.finished(null);		
-		}catch(Exception e){
+		}
+		catch(Exception e){
+			Configuration.getLogger().debug(e.toString());
 			p.failed("Error while editing data set.", false);
 			p.finished(null);
 		}	
