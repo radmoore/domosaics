@@ -2,6 +2,8 @@ package angstd.localservices.executor;
 
 import javax.swing.SwingWorker;
 
+import angstd.model.configuration.Configuration;
+
 /**
  * 
  * Class for process creation
@@ -39,6 +41,7 @@ public class Executor extends SwingWorker<Integer, Void> {
             errHandler.start();
             outHandler.start();
             
+    		Configuration.getInstance().setServiceRunning(true);
             result = p.waitFor();
             
 		} 
@@ -51,6 +54,7 @@ public class Executor extends SwingWorker<Integer, Void> {
 
 	// called when the worker is complete
 	protected void done() {
+		Configuration.getInstance().setServiceRunning(false);
 		if (isCancelled()) {
      		listener.setResult(-1);
      		return;
@@ -70,11 +74,14 @@ public class Executor extends SwingWorker<Integer, Void> {
 	}
 	
 	public void stop() {
+		
 		try { 
 			p.destroy();
 			this.cancel(true);
 		}
 		catch (Exception  e){ }
+		
+		Configuration.getInstance().setServiceRunning(true);
 		
 	}
 	

@@ -70,10 +70,16 @@
 			<parameter id="tooltip" value="Load an exported project into the workspace"/> 
 		</menuItem>
 		
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Export Project"/> 
+<!--			<parameter id="actionClass" value="angstd.ui.actions.SaveProjectAction"/> 
+<!--			<parameter id="tooltip" value="Opens a wizard which makes it possible to save a project"/> 
+<!--		</menuItem>
+		
 		<menuitem id="JMenuItem">
-			<parameter id="name" value="Export Project"/> 
-			<parameter id="actionClass" value="angstd.ui.actions.SaveProjectAction"/> 
-			<parameter id="tooltip" value="Opens a wizard which makes it possible to save a project"/> 
+			<parameter id="name" value="Sweep workspace"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.SweepWorkspaceDir"/> 
+			<parameter id="tooltip" value="Remove all non-active projects from workspace folder"/> 
 		</menuItem>
 		
 		<menuitem id="JSeparator"/>
@@ -88,15 +94,15 @@
 
 	<menu id="Tools">
 		<menuitem id="JMenuItem">
-			<parameter id="name" value="Annotator"/> 
+			<parameter id="name" value="InterProScan"/> 
 			<parameter id="actionClass" value="angstd.ui.actions.ShowAnnotatorAction"/> 
-			<parameter id="tooltip" value="Opens a new window where annotation of sequences is possible"/> 
+			<parameter id="tooltip" value="Run InterProScan to search for domains. Requires internet connection."/> 
 		</menuItem>
 
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Hmmer3"/> 
 			<parameter id="actionClass" value="angstd.ui.actions.Hmmer3Action"/> 
-			<parameter id="tooltip" value="Opens a new window where annotation of sequences is possible"/> 
+			<parameter id="tooltip" value="Run a local installation of HMMER3 to annotate sequences."/> 
 		</menuItem>
 
 	</menu>
@@ -111,28 +117,35 @@
 
 <!-- Disabled help menu -->
 <!--
-<!--	<menu id="Help">
+	<menu id="Help">
+
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Manual"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.ShowManualAction"/> 
+			<parameter id="tooltip" value="Shows the program manual"/> 
+		</menuItem>
 	
-<!--		<menuitem id="JMenuItem">
-<!--			<parameter id="name" value="Manual"/> 
-<!--			<parameter id="actionClass" value="angstd.ui.actions.ShowManualAction"/> 
-<!--			<parameter id="tooltip" value="Shows the program manual"/> 
-<!--		</menuItem>
-	
-<!--		<menuitem id="JSeparator"/>
-	
-<!--		<menuitem id="JMenuItem">
-<!--			<parameter id="name" value="Load Small Example Dataset"/> 
-<!--			<parameter id="actionClass" value="angstd.ui.actions.LoadSmallExampleDataActon"/> 
-<!--			<parameter id="tooltip" value="Loads a small example data set"/> 
-<!--		</menuItem>
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Load Small Example Dataset"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.LoadSmallExampleDataActon"/> 
+			<parameter id="tooltip" value="Loads a small example data set"/> 
+		</menuItem>
 		
-<!--		<menuitem id="JMenuItem">
-<!--			<parameter id="name" value="Load Big Example Dataset"/> 
-<!--			<parameter id="actionClass" value="angstd.ui.actions.LoadBigExampleDataAction"/> 
-<!--			<parameter id="tooltip" value="Loads a big example data set"/> 
-<!--		</menuItem>
-<!--	</menu>
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Load Large Example Dataset"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.LoadBigExampleDataAction"/> 
+			<parameter id="tooltip" value="Loads a large example data set"/> 
+		</menuItem>
+		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="About"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.ShowAboutAction"/> 
+			<parameter id="tooltip" value="Shows the program manual"/> 
+		</menuItem>
+		
+	</menu>
 
 
 </menubar>

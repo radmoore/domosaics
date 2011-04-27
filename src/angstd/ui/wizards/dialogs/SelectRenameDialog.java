@@ -9,7 +9,8 @@ import org.netbeans.spi.wizard.WizardPage;
 import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
 import angstd.model.workspace.ProjectElement;
-import angstd.ui.wizards.pages.SelectNamePage;
+import angstd.model.workspace.WorkspaceElement;
+import angstd.ui.wizards.pages.SelectRenamePage;
 
 /**
  * Wizard dialog asking the user for a name to assign to a specified 
@@ -18,7 +19,7 @@ import angstd.ui.wizards.pages.SelectNamePage;
  * @author Andreas Held
  *
  */
-public class SelectNameDialog {
+public class SelectRenameDialog {
 
 	/** the default name */
 	protected String defaultName = null;
@@ -26,7 +27,7 @@ public class SelectNameDialog {
 	/** the object to name */
 	protected String objectName = null;
 	
-	protected ProjectElement project;
+	protected WorkspaceElement elem;
 	
 	/**
 	 * Constructor for a new SelectViewNameDialog
@@ -36,10 +37,10 @@ public class SelectNameDialog {
 	 * @param objectName
 	 * 		the object to name e.g. view or project
 	 */
-	public SelectNameDialog(String defaultName, String objectName, ProjectElement project) {
+	public SelectRenameDialog(String defaultName, String objectName, WorkspaceElement elem) {
 		this.defaultName = defaultName;
 		this.objectName = objectName;
-		this.project = project;
+		this.elem = elem;
 	}
 	
 	/**
@@ -49,19 +50,19 @@ public class SelectNameDialog {
 	 * 		the chosen name
 	 */
 	public Object show() {
-		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new SelectNamePage(defaultName, objectName, project)}, new SelectViewNameProgress());
+		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new SelectRenamePage(defaultName, objectName, elem)}, new SelectViewRenameProgress());
 		return WizardDisplayer.showWizard(wiz);				 
 	}
 }
 
-class SelectViewNameProgress implements WizardResultProducer{
+class SelectViewRenameProgress implements WizardResultProducer{
 	
 	public boolean cancel(Map m) {
 		return true;
 	}
 	
 	public Object finish(Map m) throws WizardException {
-		return m;
+		return m.get(SelectRenamePage.ELEMENT_KEY);
 	}	
 }
 

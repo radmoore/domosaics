@@ -1,7 +1,11 @@
 package angstd.localservices.hmmer3.programs;
 
 import java.awt.Cursor;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
 import javax.swing.JPanel;
 
@@ -81,6 +85,45 @@ public class HmmPress implements Hmmer3Program {
 		this.parentPanel = parent;
 		this.parentServicePanel = null;
 	}
+	
+	/**
+	 * Crude check wether the passed file is a valid
+	 * file with hmmer3 profiles
+	 * @param hmmDBFile
+	 * @return
+	 */
+	public static boolean isValidProfileFile(File hmmDBFile) {
+		
+        BufferedReader inputStream = null;
+        String line;
+        boolean startProfile = false;
+
+        try {
+            inputStream = new BufferedReader(new FileReader(hmmDBFile));
+            
+            while ((line = inputStream.readLine()) != null) {
+				
+            	if (line.isEmpty())					
+					continue;
+				// start of a profile
+				if ((!startProfile) && line.startsWith("HMMER3/b")) {
+					startProfile = true;
+				}
+				// end of a profile
+				if (startProfile && line.matches("//")) {
+					inputStream.close();
+					return true;
+				}
+            }
+		
+        }
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 	
 	/**
 	 * Static method to determine whether the hmmfile

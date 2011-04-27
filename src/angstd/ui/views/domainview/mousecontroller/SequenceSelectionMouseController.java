@@ -7,28 +7,25 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
 import java.io.File;
 import java.util.Iterator;
+import java.util.Map;
 
-import javax.swing.JOptionPane;
-
-import angstd.model.arrangement.io.XdomReader;
-import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaWriter;
 import angstd.model.workspace.ProjectElement;
-import angstd.model.workspace.io.LastUsedWorkspaceWriter;
-import angstd.model.workspace.io.ProjectExporter;
+import angstd.model.workspace.ViewElement;
 import angstd.ui.AngstdUI;
 import angstd.ui.ViewHandler;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.util.MessageUtil;
-import angstd.ui.views.AngstdViewFactory;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.components.detectors.SequenceDetector;
 import angstd.ui.views.sequenceview.SequenceView;
+import angstd.ui.views.view.View;
 import angstd.ui.wizards.WizardManager;
+import angstd.ui.wizards.pages.SelectNamePage;
 
 /**
  * The SequenceSelectionMouseController is more than just an ordinary
@@ -42,6 +39,7 @@ import angstd.ui.wizards.WizardManager;
  * the export details like opening a file dialog and so on.
  * 
  * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
 public class SequenceSelectionMouseController extends MouseAdapter {
@@ -142,13 +140,25 @@ public class SequenceSelectionMouseController extends MouseAdapter {
 		if (choice == 0) { 		// create new sequence view
 			
 			String defaultName = view.getViewInfo().getName()+"_seqs";
-			String viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
+			String viewName, projectName;
+			
+			// get currently active project
+			View activeView = ViewHandler.getInstance().getActiveView();
+			ViewElement elem = WorkspaceManager.getInstance().getViewElement(view.getViewInfo());
+			ProjectElement project = elem.getProject();
+			
+			Map m = WizardManager.getInstance().selectNameWizard(defaultName, "sequence view", project);
+			viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+			projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+			project = WorkspaceManager.getInstance().getProject(projectName);
+			
+			
 			if (viewName == null) 
 				return; 
 			
 			SequenceView seqView = ViewHandler.getInstance().createView(ViewType.SEQUENCE, viewName);
 			seqView.setSeqs(seqs);
-			ViewHandler.getInstance().addView(seqView, null, true);
+			ViewHandler.getInstance().addView(seqView, project, true);
 			
 		} else if (choice == 1) {// Save sequences as fasta file
 			

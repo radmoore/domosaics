@@ -13,9 +13,12 @@ public class ConfigurationWriter {
 	public static final String PFAM_URL = "pfam search:";
 	public static final String UNIPROT_URL = "uniprot search:";
 	public static final String EMAIL_ADDR = "email address:";
-	public static final String HMMER_BINS = "hmmer3 bins:";
+	public static final String HMMER_SCAN_BIN = "hmmer3 scan:";
+	public static final String HMMER_PRESS_BIN = "hmmer3 press:";
 	public static final String HMMER_PROFILE_DB = "hmmer3 profile db:";
 	public static final String SHOWADVISES = "show advice:";
+	public static final String SAVEONEXIT = "save WS:";
+	public static final String OVERWRITEPROJECTS = "overwrite projects:";
 	
 	
 	public static void write(File file) {
@@ -31,9 +34,12 @@ public class ConfigurationWriter {
 		    out.write(PFAM_URL+config.getPfamUrl()+"\n");
 		    out.write(UNIPROT_URL+config.getUniprotUrl()+"\n");
 		    out.write(EMAIL_ADDR+config.getEmailAddr()+"\n");
-		    out.write(HMMER_BINS+config.getHmmerBins()+"\n");
+		    out.write(HMMER_SCAN_BIN+config.getHmmScanBin()+"\n");
+		    out.write(HMMER_PRESS_BIN+config.getHmmPressBin()+"\n");
 		    out.write(HMMER_PROFILE_DB+config.getHmmerDB()+"\n");
-		    out.write(SHOWADVISES+config.isShowAdvices()+"\n");
+		    //out.write(SHOWADVISES+config.isShowAdvices()+"\n");
+		    out.write(SAVEONEXIT+config.saveOnExit()+"\n");
+		    out.write(OVERWRITEPROJECTS+config.getOverwriteProjects()+"\n");
 		    		
 		    out.flush();
 		    out.close();

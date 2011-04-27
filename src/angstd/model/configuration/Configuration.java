@@ -20,12 +20,17 @@ public class Configuration {
 	public static final String DEF_PFAM_SEARCH = "http://pfam.sanger.ac.uk/family?acc=XXX";
 	public static final String DEF_SWISSPROT_SEARCH = "http://www.expasy.org/cgi-bin/sprot-search-de?XXX";
 	public static final String DEF_EMAIL_ADDR = "";
-	public static final String DEF_HMMERBINS = "";
+	public static final String DEF_HMMPRESS_BIN = "";
+	public static final String DEF_HMMSCAN_BIN = "";
 	public static final String DEF_HMMERDB = "";
 	
 	public static final String LOCKFILE = ".lock";
 	
-	public static final boolean DEF_SHOW_ADVICES = true;
+	public static final boolean DEF_SHOW_ADVICES = false;
+	public static final boolean DEF_SAVE_ON_EXIT = false;
+	public static final boolean OVERWRITEPROJECTS = false;
+	
+	private boolean service_running = false;
 	
 
 	protected String defaultFileLocation;
@@ -35,10 +40,10 @@ public class Configuration {
 	protected String pfamUrl; 
 	protected String swissprotUrl;
 	protected String emailAddr;
-	protected String hmmBinDir;
+	protected String hmmScanBin, hmmPressBin;
 	protected String hmmDB;
 
-	protected boolean showAdvices;
+	protected boolean showAdvices, saveWSOnExit, overwriteProjects;
 	
 	protected static Configuration instance;
 	protected String workspace_dir; // this is null and seems to cause an exception, see below
@@ -74,9 +79,12 @@ public class Configuration {
 		pfamUrl = DEF_PFAM_SEARCH; 
 		swissprotUrl = DEF_SWISSPROT_SEARCH;
 		emailAddr = DEF_EMAIL_ADDR;
-		hmmBinDir = DEF_HMMERBINS;
+		hmmScanBin = DEF_HMMSCAN_BIN;
+		hmmPressBin = DEF_HMMPRESS_BIN;
 		hmmDB = DEF_HMMERDB;
 		showAdvices = DEF_SHOW_ADVICES;
+		saveWSOnExit = DEF_SAVE_ON_EXIT;
+		overwriteProjects = OVERWRITEPROJECTS;
 	}
 	
 	public static Configuration getInstance() {
@@ -108,6 +116,22 @@ public class Configuration {
 	
 	public boolean isShowAdvices() {
 		return showAdvices;
+	}
+	
+	public void setSaveOnExit(boolean save) {
+		this.saveWSOnExit = save;
+	}
+	
+	public boolean saveOnExit() {
+		return saveWSOnExit;
+	}
+	
+	public void setOverwriteProjects(boolean overwrite) {
+		this.overwriteProjects = overwrite;
+	}
+	
+	public boolean getOverwriteProjects() {
+		return overwriteProjects;
 	}
 	
 	/**
@@ -198,12 +222,20 @@ public class Configuration {
 		return emailAddr;
 	}
 	
-	public void setHmmerBins(String path2HmmerBins) {
-		hmmBinDir = path2HmmerBins; 
+	public void setHmmScanBin(String path2HmmScan) {
+		this.hmmScanBin = path2HmmScan;
+	}	
+	
+	public String getHmmScanBin() {
+		return hmmScanBin;
 	}
 	
-	public String getHmmerBins() {
-		return hmmBinDir;
+	public void setHmmPressBin(String path2HmmPress) {
+		this.hmmPressBin = path2HmmPress;
+	}
+	
+	public String getHmmPressBin() {
+		return hmmPressBin;
 	}
 	
 	public void setHmmerDB(String path2HmmerDB) {
@@ -213,4 +245,15 @@ public class Configuration {
 	public String getHmmerDB() {
 		return hmmDB;
 	}
+	
+	public boolean isServiceRunning() {
+		return service_running;
+	}
+
+	public void setServiceRunning(boolean running) {
+		this.service_running = running;
+	}
+	
 }
+
+

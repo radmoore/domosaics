@@ -13,6 +13,7 @@ import net.miginfocom.swing.MigLayout;
 
 import org.netbeans.spi.wizard.WizardPage;
 
+import angstd.model.workspace.ProjectElement;
 import angstd.ui.util.FileDialogs;
 
 /**
@@ -29,19 +30,22 @@ public class SaveProjectFilePage extends WizardPage implements ActionListener {
 	public static final String FILE_KEY = "filepath";
 	
 	/** text field showing the selected file path */
-	protected JTextField path;
-
+	protected JTextField path, name;
+	
+	
 	/**
 	 * Constructor for a new SaveProjectFilePage
 	 */
 	public SaveProjectFilePage() {	
 		setLayout(new MigLayout());
 		
+		
+		
 		// init components
 		JButton browse = new JButton("Browse...");
 		browse.addActionListener(this);
 		
-		path = new JTextField(20);
+		path = new JTextField(25);
 		path.setEditable(false);
 		
 		// associate with keys
@@ -78,7 +82,7 @@ public class SaveProjectFilePage extends WizardPage implements ActionListener {
      */
     protected String validateContents (Component component, Object o) {
 		if(path.getText().trim().isEmpty())
-			return "Please select a file";
+			return "Please select a location";
         return null;
     }
 

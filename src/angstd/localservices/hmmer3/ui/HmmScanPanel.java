@@ -69,11 +69,11 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private Hmmer3Frame parent;
 	private HashMap<String, File> hmmer3bins;
 	private HmmScan hmmScan;
-	private JTextField binTF, hmmTF, fastaTF, evalueTF;
+	private JTextField hmmScanTF, hmmPressTF, hmmTF, fastaTF, evalueTF;
 	private JCheckBox gaCkb, biasCkb, coddCkb; 
 	private ButtonGroup groupRadio;
 	private JRadioButton overlapRadioNone, overlapRadioEvalue, overlapRadioCoverage;
-	private JButton loadBinDir, loadHmmDB, loadFastaFile, run, cancel;
+	private JButton loadScanBin, loadPressBin, loadHmmDB, loadFastaFile, run, cancel;
 	private JComboBox cpuCB, selectView;
 	private JLabel thresholdLabel, evalLabel, cpuLabel, biasFilterLabel;
 	private JTextArea console;
@@ -93,6 +93,8 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		TitledBorder title = BorderFactory.createTitledBorder(loweredetched, "Run hmmscan");
 		setBorder(title);
 		
+		hmmer3bins = new HashMap<String, File>();
+		
 		initComponents();
 		initPanel();
 	}
@@ -106,8 +108,11 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		Configuration config = Configuration.getInstance();
 		initSelectViewBox();
 		
-		binTF = new JTextField(25);
-		binTF.setText(config.getHmmerBins());
+		hmmScanTF = new JTextField(25);
+		hmmScanTF.setText(config.getHmmScanBin());
+		hmmPressTF = new JTextField(25);
+		hmmPressTF.setText(config.getHmmPressBin());
+		
 		hmmTF = new JTextField(25);
 		hmmTF.setText(config.getHmmerDB());
 		fastaTF = new JTextField(25);
@@ -189,11 +194,17 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		cpuCB = new JComboBox(cpuNo);
 		cpuCB.setSelectedIndex(0); //default to one processor
 		
-		loadBinDir = new JButton("HMMER3 binaries");
-		loadBinDir.setActionCommand("LoadBins");
-		loadBinDir.addActionListener(this);
+		loadScanBin = new JButton("HMMER3 scan bin");
+		loadScanBin.setName("scan");
+		loadScanBin.setActionCommand("LoadBins");
+		loadScanBin.addActionListener(this);
 		
-		loadHmmDB = new JButton("Load Database");
+		loadPressBin = new JButton("HMMER3 press bin");
+		loadPressBin.setName("press");
+		loadPressBin.setActionCommand("LoadBins");
+		loadPressBin.addActionListener(this);
+		
+		loadHmmDB = new JButton("Load profiles");
 		loadHmmDB.setActionCommand("LoadDB");
 		loadHmmDB.addActionListener(this);
 		
@@ -227,8 +238,10 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 */
 	private void initPanel() {
 		
-		add(loadBinDir, "gap 5, w 165!");
-		add(binTF, "h 25!, gap 5, span2, growX, wrap");
+		add(loadScanBin, "gap 5, w 165!");
+		add(hmmScanTF, "h 25!, gap 5, span2, growX, wrap");
+		add(loadPressBin, "gap 5, w 165!");
+		add(hmmPressTF, "h 25!, gap 5, span2, growX, wrap");
 		
 		add(loadHmmDB, "gap 5, w 165!");
 		add(hmmTF, "h 25!, gap 5, span2, growX, wrap");
@@ -254,7 +267,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		add(cpuCB, "gap 5, span2, wrap");
 		
 		add(new JXTitledSeparator("Post processing"), "growX, span, wrap, gaptop 10");
-		add(new JLabel("Overlap Resolver:"), "gap 5");
+		add(new JLabel("Resolve overlaps by:"), "gap 5");
 		add(radioPane, "gap 2, growX, wrap");
 
 		add(new JLabel("Co-Occurring Domain Filter:"), "gap 5");
@@ -274,7 +287,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("LoadBins"))
-			loadBinAction();
+			loadBinAction(e);
 		else if (e.getActionCommand().equals("LoadDB")) 
 			loadDBAction();
 		else if(e.getActionCommand().equals("LoadFasta")) 
@@ -293,13 +306,19 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * The input fields are check for validity at a later point
 	 * (before launching the job)
 	 */
-	private void loadBinAction() {
-
-		File binDir = FileDialogs.openChooseDirectoryDialog(this);
-		if (binDir == null || !binDir.canRead())
+	private void loadBinAction(ActionEvent e) {
+		JButton src = (JButton)e.getSource();
+		
+		File bin = FileDialogs.showOpenDialog(this);
+		if (bin == null || !bin.canRead())
 			return;
 		
-		binTF.setText(binDir.getAbsolutePath());	
+		if (src.getName().equals("scan")) {
+			hmmScanTF.setText(bin.getAbsolutePath());
+		}
+		else {
+			hmmPressTF.setText(bin.getAbsolutePath());
+		}	
 	}
 	
 	
@@ -340,12 +359,18 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 */
 	private void runHmmScanAction() {
 	
-		if (binTF.getText().equals("")) {
-			MessageUtil.showWarning("Please choose a directory with hmmer3 binaries.");
-			return;
+		if(hmmScanTF.getText().equals("")) {
+			MessageUtil.showWarning("Please choose a hmmscan binary.");
+			return;	
 		}
+		
+		if(hmmPressTF.getText().equals("")) {
+			MessageUtil.showWarning("Please choose a hmmpress binary.");
+			return;	
+		}
+
 		else if (hmmTF.getText().equals("")) {
-			MessageUtil.showWarning("Please choose a hmmer3 database you wish to scan against.");
+			MessageUtil.showWarning("Please choose HMMER3 profiles");
 			return;
 		}
 		else if (fastaTF.getText().equals("")) {
@@ -356,7 +381,9 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		// if the user has set these fields globally, we
 		// still have to check them again and setup the 
 		// hmmer3engine instance with the progs
-		if (!checkBins(new File(binTF.getText())))
+		if (!checkBins(new File(hmmScanTF.getText())))
+			return;
+		if (!checkBins(new File(hmmPressTF.getText())))
 			return;
 		if (!checkDbDir(new File(hmmTF.getText())))
 			return;
@@ -452,34 +479,22 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	/**
 	 * Check that the selected bin dir contains an executable HMMER program
 	 * (at least one - it should actually check for hmmscan and hmmpress)
-	 * @param binDir
+	 * @param bin
 	 */
-	private boolean checkBins(File binDir) {
+	private boolean checkBins(File bin) {
 		
-		File[] files = binDir.listFiles();
-		hmmer3bins = new HashMap<String, File>();
-		
-		if (files.length == 0) {
-			MessageUtil.showWarning("Could not find any HMMER programs.");
-			binTF.setText("");
-			return false;
-		}
-		for (int i=0; i < files.length; i++) {	
-			
-			if ( Hmmer3Engine.isSupportedService(files[i].getName()) ) {
-				if (!files[i].canExecute()) {
-					MessageUtil.showWarning(this, files[i].getAbsoluteFile()+" is not executable. Exiting.");
-					binTF.setText("");
-					return false;
-				}
-				hmmer3bins.put(files[i].getName(), files[i]);
+		if ( Hmmer3Engine.isSupportedService(bin.getName()) ) {
+			if (!(bin.canExecute())) {
+				MessageUtil.showWarning(this, bin.getAbsoluteFile()+" is not executable. Exiting.");
+				return false;
 			}
-		}	
-		if (hmmer3bins.isEmpty()) {
-			MessageUtil.showWarning(this, "Could not find all required HMMER programs (hmmscan, hmmpress).");
-			binTF.setText("");
+		}
+		else {
+			MessageUtil.showWarning(this, bin.getAbsoluteFile()+" is not supported");
 			return false;
 		}
+			
+		hmmer3bins.put(bin.getName(), bin);	
 		Hmmer3Engine.getInstance().setAvailableServices(hmmer3bins);
 		return true;
 
@@ -499,6 +514,12 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		// check if pressed files are available
 		if (!HmmPress.hmmFilePressed(dbFile)) {
 			if (MessageUtil.showDialog("The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {
+				
+				if (!HmmPress.isValidProfileFile(dbFile)) {
+					MessageUtil.showWarning("The HMMERDBFILE does not appear to be valid. Please check.");
+					return false;
+				}
+					
 				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 				
 				// TODO: I would like to disable GUI components here
@@ -558,6 +579,13 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				
 				SequenceView view = ViewHandler.getInstance().getView(selected.getViewInfo());
 				SequenceI[] seqs = view.getSeqs();
+				
+//				for (int i = 0; i < seqs.length; i++) {
+//	    			
+//	    			System.out.println("At position: "+i);
+//	    			System.out.println("Sequence name: "+seqs[i].getName());
+//	    			System.out.println("Sequence: "+seqs[i].getSeq(false));
+//				}
 				
 				// check if we already created the tmp fasta for the selected view
 				if ( view2file.containsKey(selected.getViewID()) ) {

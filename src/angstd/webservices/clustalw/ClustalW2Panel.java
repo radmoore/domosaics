@@ -14,9 +14,10 @@ import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.swingx.JXTitledSeparator;
 
+import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.ui.wizards.pages.ClustalW2Page;
-import angstd.webservices.UiUtil;
+import angstd.util.UiUtil;
 import angstd.webservices.WebservicePrinter;
 
 /**
@@ -44,7 +45,8 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 	private JTextArea console;
 	
 	/** clustalW2 web service interface */
-	private ClustalW2Service clustalW2;
+	//private ClustalW2Service clustalW2;
+	private ClustalW2ServiceII clustalW2;
 	
 	/** controller if the service is finished */
 	private boolean jobDone = false;
@@ -52,11 +54,12 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 	/** the embedding wizard page if there is any */
 	private ClustalW2Page wizardPage;
 	
+	private Configuration config;
 	
 	public ClustalW2Panel(SequenceI[] seqs, ClustalW2Page wizardPage) {
 		this.wizardPage = wizardPage;
 		initComponents();
-		clustalW2 = new ClustalW2Service(ClustalW2Service.type1, this);
+		clustalW2 = new ClustalW2ServiceII(ClustalW2ServiceII.type1, this);
 		clustalW2.setQuerySequences(seqs);
 		initPanel();
 	}
@@ -70,22 +73,20 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 		setLayout(new MigLayout());
 		
 		// parameter
-		add(new JXTitledSeparator("Parameters"),"growx, span, wrap, gaptop 10");
-		add(new JLabel("Your e-mail:"),  		"gap 10");
-		add(email,     							"span, growx, wrap");
+		add(new JLabel("Your e-mail:"), "gap 5");
+		add(email, "h 25!, span, growX, wrap");
 	 
 		// buttons
-		add(new JXTitledSeparator("Start ClustalW2"),  "growx, span, wrap, gaptop 10");
-		add(new JLabel(""));
-		add(submit,  							"gaptop 10, span 2, center, wrap");
-
+		add(submit, "gaptop 10, w 165!, wrap");
 		// console
 		add(new JXTitledSeparator("Console"),	"growx, span, wrap, gaptop 10");
 		add(new JScrollPane(console),			"gap 10, span, wrap");	
 	}
 	
 	private void initComponents() {
-		email = UiUtil.createEmailField(DEFAULT_EMAIL);
+		config = Configuration.getInstance();
+		String email_text = (config.getEmailAddr().isEmpty()) ? DEFAULT_EMAIL : config.getEmailAddr() ;
+		email = UiUtil.createEmailField(email_text);
 		console = UiUtil.createConsole();
 
 		submit = new JButton("Submit Job");

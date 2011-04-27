@@ -83,8 +83,7 @@ public class LastUsedWorkspaceImporter {
 					if (!viewFile.exists()) {
 		    			System.out.println("Last used workspace and workspace directory are not synchronous");
 		    			// run through the end of the project
-		    			while((line = in.readLine()) != null && !line.toUpperCase().contains("</VIEW>"))
-		    				;
+		    			while((line = in.readLine()) != null && !line.toUpperCase().contains("</VIEW>"));
 		    			continue;
 		    		}
 					

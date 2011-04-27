@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 
 import angstd.model.GO.GeneOntology;
 import angstd.model.GO.GeneOntologyTerm;
@@ -26,6 +26,7 @@ import angstd.model.arrangement.io.GatheringThresholdsReader;
  * {@link DomainArrangement} objects.
  * 
  * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  * 
  * 
  *
@@ -45,8 +46,9 @@ public class InterProScanResultParser {
 		try {
 			return getArrangement(new StringReader(arrangementsStr));
 		} catch (IOException ioe) {
-			Logger.getLogger("logger").warn("IO Exception: could not read domain arrangement from string");
-			Logger.getLogger("logger").warn("Reading InterproScan result  aborted");
+			ioe.printStackTrace();
+		//	Logger.getLogger("logger").warn("IO Exception: could not read domain arrangement from string");
+		//	Logger.getLogger("logger").warn("Reading InterproScan result  aborted");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -109,9 +111,7 @@ public class InterProScanResultParser {
 					goStrings.add(token[i]);
 			}
 	
-			//Irrelevant: DomainType cleaned and following comment lines switched
-			//DomainType domType=DomainType.getTypeByMethod(scanMethod);
-			
+		
 			DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(acc);
 			if (domFamily == null) {
 				
@@ -155,7 +155,6 @@ public class InterProScanResultParser {
 				
 				while (m.find()) {
 					String gid = m.group();
-					// TODO: what if term does not exist?
 					GeneOntology go = GeneOntology.getInstance();
 					GeneOntologyTerm term = go.getTerm(gid);
 					if (!(dFam.hasGoTerm(gid)))

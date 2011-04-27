@@ -2,6 +2,7 @@ package angstd.model.workspace;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -10,7 +11,7 @@ import angstd.ui.views.ViewType;
 import angstd.ui.views.view.ViewInfo;
 
 /**
- * ProjectElement describes Workspace elements, representing hole projects.
+ * ProjectElement describes Workspace elements, representing whole projects.
  * <p>
  * In general {@link CategoryElement}s are assigned to those workspace elements
  * as children.
@@ -19,6 +20,7 @@ import angstd.ui.views.view.ViewInfo;
  * was already added, if not its done automatically.
  * 
  * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
 public class ProjectElement extends WorkspaceElement{
@@ -75,7 +77,7 @@ public class ProjectElement extends WorkspaceElement{
 			cat.removeView(viewElem[i]);
 
 		// now remove the category from the project
-		childs.remove(cat);
+		children.remove(cat);
 		cat.setParent(null);
 		return viewElem;
 	}
@@ -113,6 +115,18 @@ public class ProjectElement extends WorkspaceElement{
 		// add view to the category
 		return catElem.addView(viewInfo);
 	}
+	
+	public boolean viewExists(String name, CategoryElement category) {
+				
+		if (!(category == null)) {
+			for (WorkspaceElement elem : category.getViews()) {
+				if (elem.getTitle().equals(name))
+					return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	/**
 	 * @see WorkspaceElement
@@ -159,6 +173,8 @@ public class ProjectElement extends WorkspaceElement{
 		}
 		return null;
 	}
+	
+	
 	
 //	public boolean hasSeqs() {
 //	for (int i = 0; i < getChildCount(); i++)

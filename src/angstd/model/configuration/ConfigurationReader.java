@@ -45,9 +45,14 @@ public class ConfigurationReader {
 							line.replace(ConfigurationWriter.EMAIL_ADDR, "").trim()
 					);
 				
-				if (line.contains(ConfigurationWriter.HMMER_BINS)) 
-					Configuration.getInstance().setHmmerBins(
-							line.replace(ConfigurationWriter.HMMER_BINS, "").trim()
+				if (line.contains(ConfigurationWriter.HMMER_SCAN_BIN)) 
+					Configuration.getInstance().setHmmScanBin(
+							line.replace(ConfigurationWriter.HMMER_SCAN_BIN, "").trim()
+					);
+				
+				if (line.contains(ConfigurationWriter.HMMER_PRESS_BIN)) 
+					Configuration.getInstance().setHmmPressBin(
+							line.replace(ConfigurationWriter.HMMER_PRESS_BIN, "").trim()
 					);
 				
 				if (line.contains(ConfigurationWriter.HMMER_PROFILE_DB)) 
@@ -55,15 +60,28 @@ public class ConfigurationReader {
 							line.replace(ConfigurationWriter.HMMER_PROFILE_DB, "").trim()
 					);
 				
-				if (line.contains(ConfigurationWriter.SHOWADVISES)) 
-					Configuration.getInstance().setShowAdvices(
-							Boolean.getBoolean(line.replace(ConfigurationWriter.SHOWADVISES, "").trim())
+//				if (line.contains(ConfigurationWriter.SHOWADVISES))
+//					Configuration.getInstance().setShowAdvices(
+//							Boolean.parseBoolean(line.replace(ConfigurationWriter.SHOWADVISES, "").trim())
+//					);
+				
+				if (line.contains(ConfigurationWriter.SAVEONEXIT)) {
+					Configuration.getInstance().setSaveOnExit(
+							Boolean.parseBoolean(line.replace(ConfigurationWriter.SAVEONEXIT, "").trim())
 					);
+				}
+				
+				if (line.contains(ConfigurationWriter.OVERWRITEPROJECTS)) {
+					Configuration.getInstance().setOverwriteProjects(
+							Boolean.parseBoolean(line.replace(ConfigurationWriter.OVERWRITEPROJECTS, "").trim())
+					);
+				}
 				
 			}
 		    in.close();
-		    } catch (Exception e) {
+		 } 
+		 catch (Exception e) {
 		        e.printStackTrace();
-		    }
+		 }
 	}
 }

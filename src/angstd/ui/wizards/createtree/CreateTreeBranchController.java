@@ -80,13 +80,17 @@ public class CreateTreeBranchController extends WizardBranchController {
     				choosedWiz = seqWiz;
     			else {
     				WizardPage[] pages = new WizardPage[]{new ClustalW2Page(getSeqs(data)), new CreateTreeSequencePage()};
+    				//WizardPage[] pages = new WizardPage[]{new CreateTreeSequencePage()};
     				choosedWiz = WizardPage.createWizard(pages, new CreateTreeResultProducer());
     			}
     		} else {
     			if ((Boolean) data.get(USEUNDERLYINGSEQS_KEY)) {
-    				if (PALAdapter.isAligned(getSeqs(data)))
+    				if (PALAdapter.isAligned(getSeqs(data))){
+    					System.out.println("These sequences are aligned!");
         				choosedWiz = seqWiz;
+    				}
         			else{
+        				//WizardPage[] pages = new WizardPage[]{new CreateTreeSequencePage()};
         				WizardPage[] pages = new WizardPage[]{new ClustalW2Page(getSeqs(data)), new CreateTreeSequencePage()};
         				choosedWiz = WizardPage.createWizard(pages, new CreateTreeResultProducer());
         			}

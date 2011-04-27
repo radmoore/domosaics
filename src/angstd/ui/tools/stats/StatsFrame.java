@@ -27,7 +27,7 @@ public class StatsFrame extends JFrame{
 	protected ArrangementManager manager;
 	
 	public StatsFrame(ArrangementManager manager) {
-		super("Angstd Statistics");
+		super("View stats");
 
 		// create MenuBar
 		JMenu fileMenu = new JMenu("File");

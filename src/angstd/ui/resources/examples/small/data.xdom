@@ -1,40 +1,40 @@
 >	CE19566	420	;NP_494003
-42	146	Lectin_C_orig	
-169	277	Lectin_C_mod	
-299	404	CUB	
+42	146	Lectin_C;PF00059	0.0	
+169	277	Lectin_C_mod	0.0
+299	404	CUB;PF00431	0.0	
 >	CE27828	420	;NP_498022
-175	284	Lectin_C_mod	
-309	414	CUB	
+175	284	Lectin_C_mod	0.0	
+309	414	CUB;PF00431	0.0	
 >	CE09331	420	;NP_504865
-44	153	Lectin_C_mod	
-176	283	Lectin_C_mod	
-308	410	CUB	
+44	153	Lectin_C_mod	0.0
+176	283	Lectin_C_mod	0.0
+308	410	CUB;PF00431	0.0	
 >	CE07757	421	;NP_494427
-40	146	Lectin_C_mod	
-170	276	Lectin_C_mod	
-301	406	CUB	
+40	146	Lectin_C_mod	0.0
+170	276	Lectin_C_mod	0.0
+301	406	CUB;PF00431	0.0	
 >	CE32606	416	;NP_494426
-41	144	Lectin_C_mod	
-168	274	Lectin_C_mod	
-299	404	CUB	
+41	144	Lectin_C_mod	0.0
+168	274	Lectin_C_mod	0.0
+299	404	CUB;PF00431	0.0	
 >	CBP08446	430	;XP_001680412
-42	151	Lectin_C_mod	
-180	287	Lectin_C_mod	
+42	151	Lectin_C_mod	0.0
+180	287	Lectin_C_mod	0.0
 >	CE28701	420		;NP_496688 
-19	44	Toxin_24	
-46	154	Lectin_C_vers	
-178	284	Lectin_C_mod	
-309	413	CUB	
+19	44	Toxin_24;PF08094	0.0	
+46	154	Lectin_C_vers	0.0
+178	284	Lectin_C_mod	0.0
+309	413	CUB;PF00431	0.0	
 >	CE27829	420	;NP_498023
-19	44	Toxin_24	
-42	151	Lectin_C_mod	
-174	273	Lectin_C_mod	
-298	403	CUB	
+19	44	Toxin_24;PF08094	0.0	
+42	151	Lectin_C_mod	0.0
+174	273	Lectin_C_mod	0.0
+298	403	CUB;PF00431	0.0	
 >	CE38632	420	;NP_494002
-42	153	Lectin_C_orig	
-177	285	Lectin_C_mod	
-307	407	CUB	
+42	153	Lectin_C;PF00059	0.0
+177	285	Lectin_C_mod	0.0
+307	407	CUB;PF00431	0.0	
 >	CBP02530	420	;XP_001680411
-43	152	Lectin_C_mod	
-176	282	Lectin_C_mod	
-308	413	CUB	
+43	152	Lectin_C_mod	0.0
+176	282	Lectin_C_mod	0.0
+308	413	CUB;PF00431	0.0	

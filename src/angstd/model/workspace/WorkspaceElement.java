@@ -49,7 +49,7 @@ public abstract class WorkspaceElement {
 	protected ImageIcon icon;
 	
 	/** list of all assigned children for this element */
-	protected List<WorkspaceElement> childs = new ArrayList<WorkspaceElement>();
+	protected List<WorkspaceElement> children = new ArrayList<WorkspaceElement>();
 	
 	/** parent element of this workspace element */
 	protected WorkspaceElement parent;
@@ -181,8 +181,8 @@ public abstract class WorkspaceElement {
 	 * 		child element at the specified index
 	 */
 	public WorkspaceElement getChildAt(int index){
-		if(index >=0 && index < childs.size())
-			return childs.get(index);
+		if(index >=0 && index < children.size())
+			return children.get(index);
 		return null;
 	}
 
@@ -193,7 +193,7 @@ public abstract class WorkspaceElement {
 	 * 		number of assigned children
 	 */
 	public int getChildCount() {
-		return childs.size();
+		return children.size();
 	}
 	
 	/**
@@ -205,7 +205,7 @@ public abstract class WorkspaceElement {
 	 * 		index of a child
 	 */
 	public int getIndex(WorkspaceElement child) {
-		return childs.indexOf(child);
+		return children.indexOf(child);
 	}
 
 	/**
@@ -222,7 +222,7 @@ public abstract class WorkspaceElement {
     		newChild.getParent().removeChild(newChild); 
     		
     	// add the child to the new parent
-		if(childs.add(newChild))		
+		if(children.add(newChild))		
 			newChild.setParent(this);
 		
 		return newChild;
@@ -235,7 +235,7 @@ public abstract class WorkspaceElement {
      * 		child to remove
      */
 	public void removeChild(WorkspaceElement c) {	
-		if(childs.remove(c))
+		if(children.remove(c))
 			c.setParent(null);
 	}
 	
@@ -246,7 +246,7 @@ public abstract class WorkspaceElement {
 	 * 		all children as array
 	 */
 	public List<WorkspaceElement> getChildren() {
-		return childs;
+		return children;
 	}
 
 }

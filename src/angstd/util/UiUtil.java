@@ -1,4 +1,4 @@
-package angstd.webservices;
+package angstd.util;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -13,20 +13,21 @@ public class UiUtil {
 	public static JTextArea createConsole() {
 		JTextArea console = new JTextArea ();
 		console.setFont(new Font ("Courier", 0, 12));	// style plain, size 14
-		console.setColumns(50);
+		console.setColumns(55);
 		console.setLineWrap(true);
-		console.setRows(8);
+		console.setRows(10);
 		console.setWrapStyleWord(false);				// wrap on chars
 		console.setEditable(false);
 		return console;
 	}
 	
 	
-	public static JTextField createEmailField (String defaultManil) {
-		final JTextField email = new JTextField(defaultManil);
-		email.setForeground(new Color(210, 60, 60));
+	public static JTextField createEmailField (String address) {
+		final JTextField email = new JTextField(address, 20);
+		Color color = ( isValidEmail(address) ) ? new Color(60, 120, 30) : new Color(210, 60, 60);
+		email.setForeground(color);
+		
 		email.getDocument().addDocumentListener(new DocumentListener() {
-			// colorize green, if email is valid
 			public void changedUpdate(DocumentEvent arg0) {
 				email.setForeground(getCorrectColor(email.getText()));
 			}
@@ -39,8 +40,8 @@ public class UiUtil {
 				email.setForeground(getCorrectColor(email.getText()));
 			}
 			
-			private Color getCorrectColor(String adress) {
-				if (isValidEmail(adress))
+			private Color getCorrectColor(String address) {
+				if (isValidEmail(address))
 					return new Color(60, 120, 30);
 				return new Color(210, 60, 60);
 			}
@@ -48,11 +49,11 @@ public class UiUtil {
 		return email;
 	}
 
-	public static boolean isValidEmail (String adress) {
-		if (adress.contains(" "))			// white spaces
+	public static boolean isValidEmail (String address) {
+		if (address.contains(" "))			// white spaces
 			return false;
 
-		String[] nameDomain = adress.split("@");
+		String[] nameDomain = address.split("@");
 		if (nameDomain.length != 2 		||	// no or more than one @
 			nameDomain[0].length() == 0	||	// empty name
 			!nameDomain[1].contains(".")||	// no .

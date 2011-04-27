@@ -55,7 +55,7 @@ public class CategoryElement extends WorkspaceElement{
 	 */
 	public ViewElement addView(ViewInfo viewInfo) {
 		ViewElement child = new ViewElement(viewInfo);
-		childs.add(child);
+		children.add(child);
 		child.setParent(this);
 		return child;
 	}
@@ -67,7 +67,7 @@ public class CategoryElement extends WorkspaceElement{
 	 * 		view to be removed
 	 */
 	public void removeView(ViewElement view) {
-		childs.remove(view);
+		children.remove(view);
 		view.setParent(null);
 	}
 	
@@ -98,7 +98,7 @@ public class CategoryElement extends WorkspaceElement{
 	 * 		list of all assigned views to this element 
 	 */
 	public List<WorkspaceElement> getViews() {
-		return childs;
+		return children;
 	}
 	
 	/**

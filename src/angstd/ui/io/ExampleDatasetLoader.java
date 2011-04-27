@@ -9,10 +9,11 @@ import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
 import angstd.model.tree.TreeI;
 import angstd.model.tree.io.NewickTreeReader;
+import angstd.model.workspace.ProjectElement;
 import angstd.ui.ViewHandler;
+import angstd.ui.WorkspaceManager;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
-import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.views.treeview.TreeViewI;
@@ -64,7 +65,13 @@ public class ExampleDatasetLoader {
 	 * Loads the small example data set from within the Jar file, 
 	 * creates all views and displays them.
 	 */
-	public void loadSmallSet() {	
+	public void loadSmallSet() {
+		
+		if (WorkspaceManager.getInstance().projectExists("Small example dataset")) {
+			MessageUtil.showInformation("Small example dataset already loaded");
+			return;
+		}
+		
 		try {
 			treeFile = getClass().getResourceAsStream(TREE_SMALL);
 			xdomFile = getClass().getResourceAsStream(DOMS_SMALL);
@@ -88,6 +95,12 @@ public class ExampleDatasetLoader {
 	 * creates all views and displays them.
 	 */
 	public void loadBigSet() {
+		
+		if (WorkspaceManager.getInstance().projectExists("Large example dataset")) {
+			MessageUtil.showInformation("Large example dataset already loaded");
+			return;
+		}
+		
 		try {
 			treeFile = getClass().getResourceAsStream(TREE_BIG);
 			xdomFile = getClass().getResourceAsStream(DOMS_BIG);
@@ -110,10 +123,13 @@ public class ExampleDatasetLoader {
 	 * Helper method to do the actually loading and view creation.
 	 */
 	private static void loadViews() {
+		
 		// parse the files
 		TreeI tree = new NewickTreeReader().getTreeFromStream(treeFile);
 		DomainArrangement[] daSet = new XdomReader().getDataFromStream(xdomFile);
 		SequenceI[] seqs = new FastaReader().getDataFromStream(seqFile);
+		
+		ProjectElement project = null;
 
 		String seqViewName = null;
 		String treeViewName = null;
@@ -121,29 +137,35 @@ public class ExampleDatasetLoader {
 		String domTreeViewName = null;
 		
 		if (small) {
-			seqViewName = "SequenceView 1";
-			treeViewName = "TreeView 1";
-			domViewName = "DomainView 1";
-			domTreeViewName = "DomainTreeView 1";
+			seqViewName = "Small example: sequence";
+			treeViewName = "Small example: tree";
+			domViewName = "Small example: domain arrangements";
+			domTreeViewName = "Small example: domain tree";
+			project = new ProjectElement("Small example dataset");
+			WorkspaceManager.getInstance().addProject(project, true);
 		} else {
-			seqViewName = "SequenceView 2";
-			treeViewName = "TreeView 2";
-			domViewName = "DomainView 2";
-			domTreeViewName = "DomainTreeView 2";
+			seqViewName = "Large example: sequence";
+			treeViewName = "Large example: tree";
+			domViewName = "Large example: domain arrangements";
+			domTreeViewName = "Large example: domain arrangements";
+			project = new ProjectElement("Large example dataset");
+			WorkspaceManager.getInstance().addProject(project, true);
 		}
+		
+		
 		
 		SequenceView seqView = ViewHandler.getInstance().createView(ViewType.SEQUENCE, seqViewName);
 		seqView.setSeqs(seqs);
-		ViewHandler.getInstance().addView(seqView, null, true);
+		ViewHandler.getInstance().addView(seqView, project, true);
 		
 		TreeViewI treeView = ViewHandler.getInstance().createView(ViewType.TREE, treeViewName);
 		treeView.setTree(tree);
-		ViewHandler.getInstance().addView(treeView, null, true);
+		ViewHandler.getInstance().addView(treeView, project, true);
 		
 		DomainViewI domView = ViewHandler.getInstance().createView(ViewType.DOMAINS, domViewName);
 		domView.setDaSet(daSet);
 		domView.loadSequencesIntoDas(seqs, daSet);
-		ViewHandler.getInstance().addView(domView, null);
+		ViewHandler.getInstance().addView(domView, project);
 
 //		DomainTreeViewI domTreeView =  ViewHandler.getInstance().createView(ViewType.DOMAINTREE, domTreeViewName);
 //		domTreeView.setBackendViews(treeView, domView);

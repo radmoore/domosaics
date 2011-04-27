@@ -104,6 +104,11 @@ public class WorkspaceView extends JTree {
 	 * JTree within {@link WorkspaceTreeModel} this is a helper method
 	 * to expand the hole tree each time it was changed.
 	 * This would be a point for future development.
+	 * FIXME
+	 * there is a seemingly random runtime error here upon startup/project import
+	 * which may be due to changes in other nodes of the tree triggering
+	 * this method _before_ all children have been added to the tree
+	 * (that is, refresh triggered while tree is still in buildup) 
 	 */
 	public void expandAll() {
 		int row = 0;

@@ -3,13 +3,13 @@ package angstd.localservices.hmmer3.programs;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.Iterator;
+import java.util.Map;
 
 import angstd.algos.overlaps.OverlapResolver;
 import angstd.localservices.codd.ConditionallyDependentDomainPairMap;
 import angstd.localservices.executor.Executor;
+import angstd.localservices.hmmer3.Hmmer3Engine;
 import angstd.localservices.hmmer3.ui.HmmerServicePanel;
-import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.io.ArrangementImporterUtil;
 import angstd.model.arrangement.io.HmmOutReader;
@@ -22,12 +22,9 @@ import angstd.ui.WorkspaceManager;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
-import angstd.ui.views.domainview.components.ArrangementComponent;
-import angstd.ui.views.domainview.components.DomainComponent;
-import angstd.ui.views.domainview.manager.DomainArrangementComponentManager;
 import angstd.ui.views.sequenceview.SequenceView;
-import angstd.ui.views.view.View;
 import angstd.ui.wizards.WizardManager;
+import angstd.ui.wizards.pages.SelectNamePage;
 
 
 /**
@@ -384,12 +381,15 @@ public class HmmScan implements Hmmer3Program {
 			if (importedProts > 0) {
 
 				String defaultName;
+				ProjectElement project = null;
 				
 				// external fasta was used
 				if (seqView == null) {
 					defaultName = fasta.getName() + "-hmmscan-results";
 				}
 				else {
+					ViewElement elem = WorkspaceManager.getInstance().getViewElement(seqView.getViewInfo());
+					project = elem.getProject();
 					defaultName = seqView.getTitle()+"-hmmscan-results";
 				}
 					
@@ -397,14 +397,21 @@ public class HmmScan implements Hmmer3Program {
 				SequenceI[] seqs = new FastaReader().getDataFromFile(fasta);
 								
 				String viewName = null;
+				String projectName = null;
 				while (viewName == null) {
-					viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
+					Map m = WizardManager.getInstance().selectNameWizard(defaultName, "domain view", project);
+					viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+					projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+					
 					if (viewName == null) 
 						if (MessageUtil.showDialog("You will loose the hmmscan results. Are you sure?"))
-							// will not tmp files, just in case
+							// will not delete tmp files, just in case
 							return;
 				}
 			
+				// get chosen project
+				project = WorkspaceManager.getInstance().getProject(projectName);
+				
 				DomainViewI resultDAView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
 				resultDAView.setDaSet(arrangementSet);
 				//resultDAView.loadSequencesIntoDas(seqs, resultDAView.getDaSet());
@@ -414,10 +421,10 @@ public class HmmScan implements Hmmer3Program {
 				if (seqView == null) {
 					SequenceView resultSeqView = ViewHandler.getInstance().createView(ViewType.SEQUENCE, defaultName+"_seqs");
 					resultSeqView.setSeqs(resultDAView.getSequences());
-					ViewHandler.getInstance().addView(resultSeqView, null);
+					ViewHandler.getInstance().addView(resultSeqView, project);
 				}
 				// add domain view now, so that it is active
-				ViewHandler.getInstance().addView(resultDAView, null);
+				ViewHandler.getInstance().addView(resultDAView, project);
 				MessageUtil.showInformation(importedProts+" proteins successfully imported.");
 			}
 			else {

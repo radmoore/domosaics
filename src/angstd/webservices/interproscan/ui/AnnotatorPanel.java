@@ -6,14 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -28,6 +27,7 @@ import angstd.model.arrangement.DomainArrangement;
 import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
+import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.ViewElement;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.ViewHandler;
@@ -39,6 +39,7 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.wizards.WizardListCellRenderer;
 import angstd.ui.wizards.WizardManager;
+import angstd.ui.wizards.pages.SelectNamePage;
 import angstd.util.CheckConnectivity;
 import angstd.webservices.interproscan.AnnotationThreadSpawner;
 import angstd.webservices.interproscan.AnnotatorProcessWriter;
@@ -71,14 +72,8 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	private JTextField seqPath, email, evalue;
 	
 	/** view selection box */
-	private JComboBox selectView;
+	private JComboBox selectView, selectMethod;
 	
-	/** ButtonGroup for methods **/
-	private ButtonGroup methodsGroup;
-	
-	/** Method radio buttons */
-	private JRadioButton[] methods;
-
 	/** Buttons for load sequence file, submit job, apply results and cancel */
 	private JButton loadSeqs, submit, apply, cancel, close;
 	
@@ -96,6 +91,8 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 
 	/** Selected view **/
 	private String defaultName;
+	
+	private SequenceView selectedSequenceView;
 	
 	/**
 	 * Constructor for a new Annotator panel
@@ -123,7 +120,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		progressBar.setValue(0);
 		initSelectViewBox();
 		initLoadSeqBtn();
-		initMethodCheckBoxes();
+		initMethodSelection();
 		initEmailText();
 		initEvalText();
 		initFinalButtons();
@@ -165,8 +162,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 */
 	public void apply() {
 		// the name is equal to the file + seqs
-		if(defaultName==null)
-		{
+		if(defaultName == null) {
 			File dummy = new File(seqPath.getText());
 			defaultName = dummy.getName().split("\\.")[0];
 		}
@@ -185,15 +181,28 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 
 			// external fasta was used
 			if (defaultName != null) {
-				defaultName = defaultName+"-interproscan-"+methodsGroup.getSelection().getActionCommand()+"-results";
+				defaultName = defaultName+"-interproscan-"+selectMethod.getSelectedItem().toString()+"-results";
 			}
-			String viewName=null;
+			
+			String viewName = null;
+			String projectName = null;
+			ProjectElement project = null;
+			
+			if (selectedSequenceView != null) {
+				ViewElement elem = WorkspaceManager.getInstance().getViewElement(selectedSequenceView.getViewInfo());
+				project = elem.getProject();
+			}
+			
 			while (viewName == null) {
-				viewName = WizardManager.getInstance().selectNameWizard(defaultName, "view");
+				
+				Map m = WizardManager.getInstance().selectNameWizard(defaultName, "view", project);
+				viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+				projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+				project = WorkspaceManager.getInstance().getProject(projectName);
+				
 				if (viewName == null) 
 					MessageUtil.showWarning("A valid view name is needed to complete this action");
 			}
-		
 		
 			DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
 			domResultView.setDaSet(domArrs);
@@ -203,10 +212,10 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			if (seqPath.getText().length() > 0) {
 				SequenceView view = ViewHandler.getInstance().createView(ViewType.SEQUENCE, defaultName+"_seqs");
 				view.setSeqs(domResultView.getSequences());
-				ViewHandler.getInstance().addView(view, null);
+				ViewHandler.getInstance().addView(view, project);
 			}
 			
-			ViewHandler.getInstance().addView(domResultView, null);
+			ViewHandler.getInstance().addView(domResultView, project);
 		}
 		
 		dispose();
@@ -259,42 +268,27 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			return;
 		}
 		
-		// gather selected methods
-		StringBuffer methodStr = new StringBuffer();
-		for (Method m : Method.values()) 
-			if (methods[m.ordinal()].isSelected())
-				methodStr.append(""+m.getTitle()+" ");
-		if (methodStr.length() == 0) {
-			print("Please select a method! \n");
-			return;
-		}
-			
-		//System.out.println("... and am about to do that!");
 		annotationSpawner.setEmail(email.getText());
-		annotationSpawner.setMethod(methodStr.toString());
+		annotationSpawner.setMethod(selectMethod.getSelectedItem().toString());
 		
 		// check inet connectivity
 		if (!CheckConnectivity.checkInternetConnectivity()) {
 			MessageUtil.showWarning("Please check your intenet connection (connection failed)");
 			return;
 		}
-		if (!CheckConnectivity.addressAvailable("http://www.ebi.ac.uk/Tools/webservices/wsdl/WSsInterProScan.wsdl")) {
+		if (!CheckConnectivity.addressAvailable("http://www.ebi.ac.uk/Tools/services/soap/iprscan?wsdl")) {
 			MessageUtil.showWarning("Cannot connect to EBI webservices. Please try again later.");
 			return;
 		}
 		
-		
-		//System.out.println("shoot!");
 		annotationSpawner.startMultipleThreadSpawn();
 		
 		submit.setEnabled(false);
 		loadSeqs.setEnabled(false);
 		seqPath.setEnabled(false);
 		selectView.setEnabled(false);
+		selectMethod.setEnabled(false);
 		email.setEnabled(false);
-		for (Method m : Method.values())
-			methods[m.ordinal()].setEnabled(false);
-		
 		apply.setEnabled(true);
 	}
 		
@@ -344,10 +338,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * Layouts the panels components using MigLayout.
 	 */
 	private void initPanel() {
-		//add(loadBinDir, "gap 5, w 165!");
-		//add(binTF, "h 25!, gap 5, span2, growX, wrap");
-		
-		
 		// sequences
 		add(new JXTitledSeparator("Sequences"), "growx, span, wrap, gaptop 10");
 		
@@ -356,7 +346,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		
 		add(new JLabel("Or select view:"), "gap 5");
 		add(selectView, "h 25!, span, growX, wrap");
-		//add(selectView,     					"gap 10, span 2, growX, wrap");
 		
 		// parameter
 		add(new JXTitledSeparator("Parameters"),"growX, span, wrap, gaptop 10");
@@ -365,11 +354,10 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 
 		add(new JXTitledSeparator("Submit job to Interpro / EBI"),  "growx, span, wrap, gaptop 10");
 		
-		JPanel methodPane = new JPanel();
-		for (Method m : Method.values())
-			methodPane.add(methods[m.ordinal()]);
+		add(new JLabel("Select method:"), "gap 5");
+		add(selectMethod, "h 25!, span, wrap");
 
-		add(methodPane, "span");
+		//add(methodPane, "span");
 		add(submit, "w 165!, wrap");
 
 		// console
@@ -418,9 +406,8 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				loadSeqs.setEnabled(true);
 				seqPath.setEnabled(true);
 				selectView.setEnabled(true);
+				selectMethod.setEnabled(true);
 				email.setEnabled(true);
-				for (Method m : Method.values())
-					methods[m.ordinal()].setEnabled(true);
 			}
 		});
 				
@@ -454,13 +441,13 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				ViewElement selected = (ViewElement)cb.getSelectedItem();
 				if (selected == null) {
 					return;
-				}else
-				{
+				}
+				else {
 					defaultName=selected.getTitle();
 					//System.out.println(selected.getTitle());
 				}
-				SequenceView view = ViewHandler.getInstance().getView(selected.getViewInfo());
-				annotationSpawner.setSeqs(view.getSeqs());
+				selectedSequenceView = ViewHandler.getInstance().getView(selected.getViewInfo());
+				annotationSpawner.setSeqs(selectedSequenceView.getSeqs());
 				
 			}
 		});
@@ -484,15 +471,12 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		});
 	}
 	
-	private void initMethodCheckBoxes() {
-		methodsGroup = new ButtonGroup();
-		methods = new JRadioButton[Method.values().length];
-		for (Method m : Method.values()) {
-			methods[m.ordinal()] = new JRadioButton(m.getTitle(), m.getInitialState());
-			methods[m.ordinal()].setActionCommand(m.getTitle());
-			methodsGroup.add(methods[m.ordinal()]);
-		}
+	private void initMethodSelection() {
+		selectMethod = new JComboBox(Method.values());
+		// preselect hmmpfam
+		selectMethod.setSelectedIndex(4);
 	}
+	
 	
 	private void initEmailText() {
 		String email_text = (config.getEmailAddr().isEmpty()) ? DEFAULT_EMAIL : config.getEmailAddr() ;
@@ -552,7 +536,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	
 	private void initConsole() {
 		console = new JTextArea();
-		console.setFont(new Font ("Courier", 0, 12));	// style plain, size 14
+		console.setFont(new Font ("Courier", 0, 12));
 		console.setColumns(70);
 		console.setLineWrap(true);
 		console.setRows(8);

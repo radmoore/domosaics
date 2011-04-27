@@ -198,14 +198,29 @@ public class Workspace extends WorkspaceElement {
 	 * 		all projects	
 	 */
 	public List<WorkspaceElement> getProjects() {
-		return childs;
+		return children;
 	}
 	
 	public ProjectElement getProject(String name) {
-		for (WorkspaceElement element : childs)
+		for (WorkspaceElement element : children)
 			if (element.getTitle().equals(name))
 				return (ProjectElement) element;
 		return null;
+	}
+	
+	/**
+	 * Checks whether a Project with Name already exists
+	 * in the workspace
+	 * @param name
+	 * @return 
+	 * 		true if a project exists with name, false otherwise
+	 */
+	public boolean projectExists(String name) {
+		for (WorkspaceElement element : children)
+			if (element.getTitle().equals(name))
+				return true;
+		
+		return false;
 	}
 	
 	/**
@@ -215,7 +230,7 @@ public class Workspace extends WorkspaceElement {
 	 * 		number of all assigned projects
 	 */
 	public int countProjects() {
-		return childs.size();
+		return children.size();
 	}
 
 	/**

@@ -35,7 +35,9 @@ public class ClustalW2ResultParser {
 			
 			String[] token = line.split("\\s+");
 			
-			if(token.length != 3 || token[0].isEmpty())
+//			if(token.length != 3 || token[0].isEmpty())
+//				continue;
+			if(token.length != 2 || token[0].isEmpty())
 				continue;
 			
 			if (seqMap.get(token[0]) == null)
