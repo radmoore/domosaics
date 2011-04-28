@@ -13,11 +13,11 @@ import angstd.model.DataType;
  * there are multiple choices (depending on the chosen data type) its 
  * necessary to give the user the correct wizard pages based on his choices.
  * 
- * 
  * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
-@SuppressWarnings("unchecked")
+
 public class ImportDataBranchController extends WizardBranchController {
 
 	/** the key used to access the project after the wizard finished */
@@ -60,10 +60,12 @@ public class ImportDataBranchController extends WizardBranchController {
     public ImportDataBranchController() {
     	//create the base pages
     	super(new WizardPage[]{new ChooseProjectPage(null), new ChooseDataTypePage()});
-        
+    	
         // optional pages
-        treeWiz = WizardPage.createWizard( new Class[]{SelectTreeDataPage.class}, new ImportDataResultProducer());
+        treeWiz = WizardPage.createWizard( new Class[]{SelectTreeDataPage.class}, new ImportDataResultProducer() );
+//        domWiz = WizardPage.createWizard ( new Class[]{new SelectArrangementDataPage()}, new ImportDataResultProducer());
         domWiz = WizardPage.createWizard ( new Class[]{SelectArrangementDataPage.class}, new ImportDataResultProducer());
+
         seqWiz = WizardPage.createWizard ( new Class[]{SelectSequenceDataPage.class}, new ImportDataResultProducer());
     }
     
@@ -72,6 +74,7 @@ public class ImportDataBranchController extends WizardBranchController {
      * The class name is the default ID for instantiated WizardPages
      */
 	public Wizard getWizardForStep (String step, Map data) {
+		
     	if ("angstd.ui.wizards.importdata.ChooseDataTypePage".equals(step)) {
     	   if (data.get(DATATYPE_KEY) == DataType.TREE) 
     		   choosedWiz = treeWiz;

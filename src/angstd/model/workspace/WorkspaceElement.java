@@ -30,6 +30,8 @@ public abstract class WorkspaceElement {
 	/** type flag indicating that the element is a category element */
 	public static final int CATEGORY = 3;
 	
+	public static final int NULLELEM = 4;
+	
 	/** string to address project types within a message */
 	public static final String PROJECT_NAME = "project";
 	

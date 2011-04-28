@@ -44,7 +44,7 @@ public class SelectNamePage extends WizardPage {
 	 * @param objectName
 	 * 		the object to name e.g. view or project
 	 */
-	public SelectNamePage(String defaultName, String objectName, ProjectElement project) {
+	public SelectNamePage(String defaultName, String objectName, ProjectElement project, boolean allowSelection) {
 		super(objectName+" name selection");
 		this.objectName = objectName;
 		setLayout(new MigLayout());
@@ -63,6 +63,12 @@ public class SelectNamePage extends WizardPage {
 		selectProject.setName(PROJECTNAME_KEY);
 		if (project != null)
 			selectProject.setSelectedItem(project.getTitle());
+		
+		// if we are comming from the data import wizard, 
+		// we have already selected a project. To ensure that the association
+		// with other views (if selected in wizard) works, we disable the 
+		// project selection
+		selectProject.setEnabled(allowSelection);
 		
 		add(new JLabel("Select "+objectName+" name "), "gap 10");
 		add(name, "h 25!, gap 10, wrap");

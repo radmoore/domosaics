@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
@@ -11,15 +12,18 @@ import javax.swing.ListSelectionModel;
 import angstd.algos.distance.DistanceMeasureType;
 import angstd.algos.treecreation.TreeCreationAlgoType;
 import angstd.model.DataType;
+import angstd.model.workspace.CategoryElement;
 import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.ViewElement;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.ViewHandler;
 import angstd.ui.WorkspaceManager;
+import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.view.View;
+import angstd.ui.views.view.ViewInfo;
 
 /**
  * Helper factory class for GUI components which may occur frequently
@@ -98,6 +102,34 @@ public class GUIComponentFactory {
 		return selectViewList;
 	}
 	
+	
+	/**
+	 * Creates a JComboBox containing all tree views from specified project
+	 * This is useful when importing data, where the project selection has occurred in
+	 * the first step of the wizard.
+	 * 
+	 * 	@param project
+	 * 		project from which the views are considered
+	 * @return
+	 * 		JComboBox containing all tree views from project
+	 */
+	public static JComboBox createSelectTreeViewBox(ProjectElement project) {
+
+		// get loaded tree views (for the current project)
+		WorkspaceManager wsm = WorkspaceManager.getInstance();
+		CategoryElement cat = wsm.getProject(project.getTitle()).getCategory(ViewType.TREE);
+		List<WorkspaceElement> views = cat.getViews();
+		ViewElement[] treeViews = views.toArray(new ViewElement[views.size()]);
+		
+		// create the box
+		JComboBox selectViewList = new JComboBox(treeViews);
+		selectViewList.setSelectedItem(null);
+		selectViewList.setRenderer(new WizardListCellRenderer());
+		selectViewList.setPreferredSize(new Dimension(100, 25));
+		
+		return selectViewList;
+	}
+	
 	/**
 	 * Creates a JComboBox containing all domain views from all projects
 	 * 
@@ -111,6 +143,7 @@ public class GUIComponentFactory {
 		List<WorkspaceElement> views = WorkspaceManager.getInstance().getDomainViews();
 		ViewElement[] domViews = views.toArray(new ViewElement[views.size()]);
 		
+		
 		// get the active view for predetermined view choosing
 		ViewElement activeView = null;
 		if (autoselect) {
@@ -121,12 +154,43 @@ public class GUIComponentFactory {
 	
 		// create the box
 		JComboBox selectViewList = new JComboBox(domViews);
+		
 		selectViewList.setSelectedItem(activeView);
 		selectViewList.setRenderer(new WizardListCellRenderer());
 		selectViewList.setPreferredSize(new Dimension(100, 25));
 		
 		return selectViewList;
 	}
+	
+	
+	/**
+	 * Creates a JComboBox containing all domain views from specified project
+	 * This is useful when importing data, where the project selection has occurred in
+	 * the first step of the wizard.
+	 * 
+	 * 	@param project
+	 * 		project from which the views are considered
+	 * @return
+	 * 		JComboBox containing all domain views from project
+	 */
+	public static JComboBox createSelectDomViewBox(ProjectElement project) {
+
+		// get loaded domain views (for the current project)
+		WorkspaceManager wsm = WorkspaceManager.getInstance();
+		CategoryElement cat = wsm.getProject(project.getTitle()).getCategory(ViewType.DOMAINS);
+		List<WorkspaceElement> views = cat.getViews();
+		
+		ViewElement[] domViews = views.toArray(new ViewElement[views.size()]);
+	
+		// create the box
+		JComboBox selectViewList = new JComboBox(domViews);
+		selectViewList.setSelectedItem(null);
+		selectViewList.setRenderer(new WizardListCellRenderer());
+		selectViewList.setPreferredSize(new Dimension(100, 25));
+		
+		return selectViewList;
+	}
+	
 	
 	/**
 	 * Creates a JComboBox containing all sequence views from all projects
@@ -157,6 +221,38 @@ public class GUIComponentFactory {
 		
 		return selectViewList;
 	}
+	
+	
+	/**
+	 * Creates a JComboBox containing all sequence views from specified project
+	 * 
+	 * @param autoselect
+	 * 		flag indicating whether or not the active view should be auto selected
+	 * 
+	 * @param project
+	 * 		project from which views are to be selected		
+	 * 
+	 * @return
+	 * 		JComboBox containing all sequence views from project
+	 * 
+	 */
+	public static JComboBox createSelectSeqViewBox(ProjectElement project) {
+
+		// get loaded sequence views (for the current project)
+		WorkspaceManager wsm = WorkspaceManager.getInstance();
+		CategoryElement cat = wsm.getProject(project.getTitle()).getCategory(ViewType.SEQUENCE);
+		List<WorkspaceElement> views = cat.getViews();
+		ViewElement[] seqViews = views.toArray(new ViewElement[views.size()]);
+		
+		// create the box
+		JComboBox selectViewList = new JComboBox(seqViews);
+		selectViewList.setSelectedItem(null);
+		selectViewList.setRenderer(new WizardListCellRenderer());
+		selectViewList.setPreferredSize(new Dimension(100, 25));
+		
+		return selectViewList;
+	}
+	
 	
 	/**
 	 * Creates a JComboBox containing all available distance

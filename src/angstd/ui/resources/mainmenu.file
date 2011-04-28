@@ -58,11 +58,11 @@
 			<parameter id="tooltip" value="Load an exported view into the workspace"/> 
 		</menuItem>
 		
-<!--		<menuitem id="JMenuItem">
-<!--			<parameter id="name" value="Export View"/> 
-<!--			<parameter id="actionClass" value="angstd.ui.actions.ExportViewAction"/> 
-<!--			<parameter id="tooltip" value="Opens a wizard which makes it possible to save a view"/> 
-<!--		</menuItem>
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Export View"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.ExportViewAction"/> 
+			<parameter id="tooltip" value="Opens a wizard which makes it possible to save a view"/> 
+		</menuItem>
 
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Import Project"/> 
@@ -70,17 +70,17 @@
 			<parameter id="tooltip" value="Load an exported project into the workspace"/> 
 		</menuItem>
 		
-<!--		<menuitem id="JMenuItem">
-<!--			<parameter id="name" value="Export Project"/> 
-<!--			<parameter id="actionClass" value="angstd.ui.actions.SaveProjectAction"/> 
-<!--			<parameter id="tooltip" value="Opens a wizard which makes it possible to save a project"/> 
-<!--		</menuItem>
-		
 		<menuitem id="JMenuItem">
-			<parameter id="name" value="Sweep workspace"/> 
-			<parameter id="actionClass" value="angstd.ui.actions.SweepWorkspaceDir"/> 
-			<parameter id="tooltip" value="Remove all non-active projects from workspace folder"/> 
+			<parameter id="name" value="Export Project"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.SaveProjectAction"/> 
+			<parameter id="tooltip" value="Opens a wizard which makes it possible to save a project"/> 
 		</menuItem>
+		
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Sweep workspace"/> 
+<!--			<parameter id="actionClass" value="angstd.ui.actions.SweepWorkspaceDir"/> 
+<!--			<parameter id="tooltip" value="Remove all non-active projects from workspace folder"/> 
+<!--		</menuItem>
 		
 		<menuitem id="JSeparator"/>
 

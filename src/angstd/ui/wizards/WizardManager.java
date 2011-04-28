@@ -108,8 +108,8 @@ public class WizardManager {
 	}
 	
 	
-	public Map selectNameWizard(String defaultName, String objectName, ProjectElement project) {
-		return (Map) new SelectNameDialog(defaultName, objectName, project).show();
+	public Map selectNameWizard(String defaultName, String objectName, ProjectElement project, boolean allowProjectSelection) {
+		return (Map) new SelectNameDialog(defaultName, objectName, project, allowProjectSelection).show();
 	}
 	
 	/**

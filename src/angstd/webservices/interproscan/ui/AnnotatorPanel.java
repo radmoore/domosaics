@@ -195,7 +195,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			
 			while (viewName == null) {
 				
-				Map m = WizardManager.getInstance().selectNameWizard(defaultName, "view", project);
+				Map m = WizardManager.getInstance().selectNameWizard(defaultName, "view", project, true);
 				viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
 				projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
 				project = WorkspaceManager.getInstance().getProject(projectName);

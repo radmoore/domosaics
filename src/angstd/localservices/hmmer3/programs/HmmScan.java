@@ -399,7 +399,7 @@ public class HmmScan implements Hmmer3Program {
 				String viewName = null;
 				String projectName = null;
 				while (viewName == null) {
-					Map m = WizardManager.getInstance().selectNameWizard(defaultName, "domain view", project);
+					Map m = WizardManager.getInstance().selectNameWizard(defaultName, "domain view", project, true);
 					viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
 					projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
 					
@@ -414,7 +414,7 @@ public class HmmScan implements Hmmer3Program {
 				
 				DomainViewI resultDAView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
 				resultDAView.setDaSet(arrangementSet);
-				//resultDAView.loadSequencesIntoDas(seqs, resultDAView.getDaSet());
+				resultDAView.loadSequencesIntoDas(seqs, resultDAView.getDaSet());
 				
 				
 				// only create a sequence view if the sequences came from a file

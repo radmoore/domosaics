@@ -147,7 +147,7 @@ public class SequenceSelectionMouseController extends MouseAdapter {
 			ViewElement elem = WorkspaceManager.getInstance().getViewElement(view.getViewInfo());
 			ProjectElement project = elem.getProject();
 			
-			Map m = WizardManager.getInstance().selectNameWizard(defaultName, "sequence view", project);
+			Map m = WizardManager.getInstance().selectNameWizard(defaultName, "sequence view", project, true);
 			viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
 			projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
 			project = WorkspaceManager.getInstance().getProject(projectName);

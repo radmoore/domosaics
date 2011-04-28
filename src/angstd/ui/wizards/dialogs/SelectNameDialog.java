@@ -28,6 +28,8 @@ public class SelectNameDialog {
 	
 	protected ProjectElement project;
 	
+	protected boolean allowProjectSelection; 
+	
 	/**
 	 * Constructor for a new SelectViewNameDialog
 	 * 
@@ -36,10 +38,11 @@ public class SelectNameDialog {
 	 * @param objectName
 	 * 		the object to name e.g. view or project
 	 */
-	public SelectNameDialog(String defaultName, String objectName, ProjectElement project) {
+	public SelectNameDialog(String defaultName, String objectName, ProjectElement project, boolean allowProjectSelection) {
 		this.defaultName = defaultName;
 		this.objectName = objectName;
 		this.project = project;
+		this.allowProjectSelection = allowProjectSelection;
 	}
 	
 	/**
@@ -49,7 +52,7 @@ public class SelectNameDialog {
 	 * 		the chosen name
 	 */
 	public Object show() {
-		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new SelectNamePage(defaultName, objectName, project)}, new SelectViewNameProgress());
+		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new SelectNamePage(defaultName, objectName, project, allowProjectSelection)}, new SelectViewNameProgress());
 		return WizardDisplayer.showWizard(wiz);				 
 	}
 }

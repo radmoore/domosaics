@@ -240,7 +240,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		
 		// first create a mapping between sequences and their names to get fast access to each sequence using its name
 		Map<String, SequenceI> label2Seq = new HashMap<String, SequenceI>();
-		for (int i = 0; i < seqs.length; i++)  {    
+		for (int i = 0; i < seqs.length; i++) {    
 			label2Seq.put(seqs[i].getName().toUpperCase(), seqs[i]);
 			noMatchSeqs.add(seqs[i]);
 		}
