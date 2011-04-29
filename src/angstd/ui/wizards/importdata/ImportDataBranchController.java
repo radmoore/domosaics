@@ -7,6 +7,7 @@ import org.netbeans.spi.wizard.WizardBranchController;
 import org.netbeans.spi.wizard.WizardPage;
 
 import angstd.model.DataType;
+import angstd.model.workspace.ProjectElement;
 
 /**
  * This is the controller which starts the import data wizard. Because
@@ -53,6 +54,9 @@ public class ImportDataBranchController extends WizardBranchController {
     /** the actually chosen wizard (tree, domain or sequence) */
     protected Wizard choosedWiz = null;
     
+    private SelectArrangementDataPage sadp;
+    
+    private ProjectElement project;
     
     /**
      * Constructor for a new Import data wizard defining the base pages.
@@ -60,11 +64,13 @@ public class ImportDataBranchController extends WizardBranchController {
     public ImportDataBranchController() {
     	//create the base pages
     	super(new WizardPage[]{new ChooseProjectPage(null), new ChooseDataTypePage()});
+
     	
         // optional pages
         treeWiz = WizardPage.createWizard( new Class[]{SelectTreeDataPage.class}, new ImportDataResultProducer() );
-//        domWiz = WizardPage.createWizard ( new Class[]{new SelectArrangementDataPage()}, new ImportDataResultProducer());
-        domWiz = WizardPage.createWizard ( new Class[]{SelectArrangementDataPage.class}, new ImportDataResultProducer());
+//        domWiz = WizardPage.createWizard ( new Class[]{sadp.getClass()}, new ImportDataResultProducer());
+        domWiz = WizardPage.createWizard (new WizardPage[]{new SelectArrangementDataPage()}, new ImportDataResultProducer());
+//        domWiz = WizardPage.createWizard ( new Class[]{SelectArrangementDataPage.class}, new ImportDataResultProducer());
 
         seqWiz = WizardPage.createWizard ( new Class[]{SelectSequenceDataPage.class}, new ImportDataResultProducer());
     }
@@ -75,13 +81,24 @@ public class ImportDataBranchController extends WizardBranchController {
      */
 	public Wizard getWizardForStep (String step, Map data) {
 		
+		if (data.containsKey(PROJECT_KEY)) 
+			project = (ProjectElement)data.get(PROJECT_KEY);
+		
+		
     	if ("angstd.ui.wizards.importdata.ChooseDataTypePage".equals(step)) {
-    	   if (data.get(DATATYPE_KEY) == DataType.TREE) 
-    		   choosedWiz = treeWiz;
-    	   if (data.get(DATATYPE_KEY) == DataType.DOMAINS)
-    		   choosedWiz = domWiz;
-    	   if (data.get(DATATYPE_KEY) == DataType.SEQUENCE)
-    		   choosedWiz = seqWiz;
+    	   if (data.get(DATATYPE_KEY) == DataType.TREE) { 
+//    	   	   choosedWiz = WizardPage.createWizard (new WizardPage[]{new SelectTreeDataPage(project)}, new ImportDataResultProducer());
+		   	   choosedWiz = treeWiz;
+    	   }
+    	   if (data.get(DATATYPE_KEY) == DataType.DOMAINS) {
+    		   choosedWiz = WizardPage.createWizard (new WizardPage[]{new SelectArrangementDataPage(project)}, new ImportDataResultProducer());
+//    		   choosedWiz = domWiz;
+    	   }
+    	   if (data.get(DATATYPE_KEY) == DataType.SEQUENCE) {
+    		   choosedWiz = WizardPage.createWizard (new WizardPage[]{new SelectSequenceDataPage(project)}, new ImportDataResultProducer());
+//    		   choosedWiz = seqWiz;
+    	   }
+    		   
         }
        return choosedWiz;
     }

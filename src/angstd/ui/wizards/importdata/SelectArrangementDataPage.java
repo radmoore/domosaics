@@ -49,20 +49,16 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 		init();
 	}
 
-//	public SelectArrangementDataPage(ProjectElement project) {
-//		super("Select Arrangement Data for Project");
-//		this.project = project;
-//		init();
-//	}
+	public SelectArrangementDataPage(ProjectElement project) {
+		super("Select Arrangement Data for Project");
+		this.project = project;
+		init();
+	}
 	
 	
 	public void init() {
 		
 		setLayout(new MigLayout());
-		
-		Map data = getWizardDataMap();
-		if (data.containsKey(ImportDataBranchController.PROJECT_KEY))
-			System.out.println("This is the project selected: "+data.get(ImportDataBranchController.PROJECT_KEY));
 		
 		// init components
 		path = new JTextField(20);
@@ -82,6 +78,7 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 			selectSeqViewList = GUIComponentFactory.createSelectSeqViewBox(false);
 		}
 		else {
+//			System.out.println("This is the selected project: "+project.getTitle());
 			selectTreeViewList = GUIComponentFactory.createSelectTreeViewBox(project);
 			selectSeqViewList = GUIComponentFactory.createSelectSeqViewBox(project);
 		}

@@ -98,7 +98,7 @@ public class GUIComponentFactory {
 		selectViewList.setSelectedItem(activeView);
 		selectViewList.setRenderer(new WizardListCellRenderer());
 		selectViewList.setPreferredSize(new Dimension(100, 25));
-		
+	
 		return selectViewList;
 	}
 	
@@ -115,17 +115,26 @@ public class GUIComponentFactory {
 	 */
 	public static JComboBox createSelectTreeViewBox(ProjectElement project) {
 
+		JComboBox selectViewList;
+		
 		// get loaded tree views (for the current project)
 		WorkspaceManager wsm = WorkspaceManager.getInstance();
 		CategoryElement cat = wsm.getProject(project.getTitle()).getCategory(ViewType.TREE);
-		List<WorkspaceElement> views = cat.getViews();
-		ViewElement[] treeViews = views.toArray(new ViewElement[views.size()]);
-		
-		// create the box
-		JComboBox selectViewList = new JComboBox(treeViews);
-		selectViewList.setSelectedItem(null);
-		selectViewList.setRenderer(new WizardListCellRenderer());
-		selectViewList.setPreferredSize(new Dimension(100, 25));
+
+		// incase there are no views of this type
+		if (cat != null) {
+			List<WorkspaceElement> views = cat.getViews();
+			ViewElement[] treeViews = views.toArray(new ViewElement[views.size()]);
+			// create the box
+			selectViewList = new JComboBox(treeViews);
+			selectViewList.setSelectedItem(null);
+			selectViewList.setRenderer(new WizardListCellRenderer());
+			selectViewList.setPreferredSize(new Dimension(100, 25));
+		}
+		else {
+			selectViewList = new JComboBox();
+			selectViewList.setEnabled(false);
+		}
 		
 		return selectViewList;
 	}
@@ -175,18 +184,25 @@ public class GUIComponentFactory {
 	 */
 	public static JComboBox createSelectDomViewBox(ProjectElement project) {
 
+		JComboBox selectViewList;
+		
 		// get loaded domain views (for the current project)
 		WorkspaceManager wsm = WorkspaceManager.getInstance();
 		CategoryElement cat = wsm.getProject(project.getTitle()).getCategory(ViewType.DOMAINS);
-		List<WorkspaceElement> views = cat.getViews();
 		
-		ViewElement[] domViews = views.toArray(new ViewElement[views.size()]);
-	
-		// create the box
-		JComboBox selectViewList = new JComboBox(domViews);
-		selectViewList.setSelectedItem(null);
-		selectViewList.setRenderer(new WizardListCellRenderer());
-		selectViewList.setPreferredSize(new Dimension(100, 25));
+		if (cat != null) {
+			List<WorkspaceElement> views = cat.getViews();
+			ViewElement[] domViews = views.toArray(new ViewElement[views.size()]);
+			// create the box
+			selectViewList = new JComboBox(domViews);
+			selectViewList.setSelectedItem(null);
+			selectViewList.setRenderer(new WizardListCellRenderer());
+			selectViewList.setPreferredSize(new Dimension(100, 25));
+		}
+		else {
+			selectViewList = new JComboBox();
+			selectViewList.setEnabled(false);
+		}
 		
 		return selectViewList;
 	}
@@ -238,17 +254,25 @@ public class GUIComponentFactory {
 	 */
 	public static JComboBox createSelectSeqViewBox(ProjectElement project) {
 
+		JComboBox selectViewList;
+		
 		// get loaded sequence views (for the current project)
 		WorkspaceManager wsm = WorkspaceManager.getInstance();
 		CategoryElement cat = wsm.getProject(project.getTitle()).getCategory(ViewType.SEQUENCE);
-		List<WorkspaceElement> views = cat.getViews();
-		ViewElement[] seqViews = views.toArray(new ViewElement[views.size()]);
 		
-		// create the box
-		JComboBox selectViewList = new JComboBox(seqViews);
-		selectViewList.setSelectedItem(null);
-		selectViewList.setRenderer(new WizardListCellRenderer());
-		selectViewList.setPreferredSize(new Dimension(100, 25));
+		if (cat != null) {
+			List<WorkspaceElement> views = cat.getViews();
+			ViewElement[] seqViews = views.toArray(new ViewElement[views.size()]);
+			// create the box
+			selectViewList = new JComboBox(seqViews);
+			selectViewList.setSelectedItem(null);
+			selectViewList.setRenderer(new WizardListCellRenderer());
+			selectViewList.setPreferredSize(new Dimension(100, 25));
+		}
+		else {
+			selectViewList = new JComboBox();
+			selectViewList.setEnabled(false);
+		}
 		
 		return selectViewList;
 	}

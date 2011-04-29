@@ -17,6 +17,7 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
+import angstd.model.workspace.ProjectElement;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.wizards.GUIComponentFactory;
 
@@ -40,11 +41,25 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 	/**  list displaying all domain views of all projects */
 	protected JComboBox selectViewList;
 
+	private ProjectElement project;
+	
 	/**
-	 * Constructor for a new SelectSequenceDataPage
+	 * Constructor for a new SelectArrangementDataPage
 	 */
 	public SelectSequenceDataPage() {
-		//super("Select Sequence Data");
+		super("Select Arrangement Data");
+		init();
+	}
+
+	public SelectSequenceDataPage(ProjectElement project) {
+		super("Select Arrangement Data for Project");
+		this.project = project;
+		init();
+	}
+	
+	
+	private void init() {
+
 		setLayout(new MigLayout());
 		
 		// init components
@@ -56,7 +71,11 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 		
 		JButton browse = new JButton("Browse...");
 		browse.addActionListener(this);	
-		selectViewList = GUIComponentFactory.createSelectDomViewBox(false);
+		
+		if (project == null)
+			selectViewList = GUIComponentFactory.createSelectDomViewBox(false);
+		else
+			selectViewList = GUIComponentFactory.createSelectDomViewBox(project);
 		
 		// associate names
 		path.setName(ImportDataBranchController.FILEPATH_KEY);
