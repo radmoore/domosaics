@@ -144,6 +144,26 @@ public abstract class WorkspaceElement {
 		return title;
 	}
 	
+	
+	/**
+	 * Returns a short version of the title of the 
+	 * workspace element
+	 * 
+	 * @param
+	 *      length of short title in characters
+	 * 
+	 * @return
+	 * 		shortend title of the workspace element
+	 */
+	public String getShortTitle(int length) {
+		if (title.length() <= length)
+			return title;
+			
+		return title.substring(0, length)+"... ";
+	}
+	
+	
+	
 	/**
 	 * Sets the title of the workspace element
 	 * 

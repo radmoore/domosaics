@@ -52,7 +52,7 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 	}
 
 	public SelectSequenceDataPage(ProjectElement project) {
-		super("Select Arrangement Data for Project");
+		super("Select Sequences for "+ project.getShortTitle(5));
 		this.project = project;
 		init();
 	}

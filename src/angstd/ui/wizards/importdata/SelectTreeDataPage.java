@@ -15,6 +15,7 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
+import angstd.model.workspace.ProjectElement;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.wizards.GUIComponentFactory;
 
@@ -35,12 +36,24 @@ public class SelectTreeDataPage extends WizardPage implements ActionListener {
 	/** the text field for choosing a view name */
 	protected JTextField viewName;
 	
+	private ProjectElement project;
+	
+	public SelectTreeDataPage(ProjectElement project) {
+		super("Select Tree for "+ project.getShortTitle(5));
+		this.project = project;
+		init();
+	}
+	
+	public SelectTreeDataPage() {
+		super("Select Protein Data");
+		init();
+	}
 	
 	/**
 	 * Constructor for a new SelectTreeDataPage
 	 */
-	public SelectTreeDataPage() {
-		super("Select Protein Data");
+	public void init() {
+		
 		setLayout(new MigLayout());
 		
 		// init components
@@ -51,8 +64,14 @@ public class SelectTreeDataPage extends WizardPage implements ActionListener {
 		viewName.setEditable(true);
 	
 		JButton browse = new JButton("Browse...");
-		browse.addActionListener(this);		
-		JComboBox selectViewList = GUIComponentFactory.createSelectDomViewBox(false);
+		browse.addActionListener(this);
+		
+		JComboBox selectViewList;
+		
+		if (project == null)
+			selectViewList = GUIComponentFactory.createSelectDomViewBox(false);
+		else
+			selectViewList = GUIComponentFactory.createSelectDomViewBox(project);
 		
 		// associate names
 		path.setName(ImportDataBranchController.FILEPATH_KEY);
@@ -98,6 +117,7 @@ public class SelectTreeDataPage extends WizardPage implements ActionListener {
      * Checks if all necessary inputs are made.
      */
     protected String validateContents (Component component, Object o) {
+    	System.out.println("This was the project on validation: "+project.getTitle());
     	if (path.getText().isEmpty())
 			return "Please select a file";
     	if (viewName.getText().trim().isEmpty())

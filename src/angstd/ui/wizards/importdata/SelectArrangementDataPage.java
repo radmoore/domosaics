@@ -50,7 +50,7 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	}
 
 	public SelectArrangementDataPage(ProjectElement project) {
-		super("Select Arrangement Data for Project");
+		super("Select Arrangements for "+ project.getShortTitle(5));
 		this.project = project;
 		init();
 	}
@@ -78,7 +78,6 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 			selectSeqViewList = GUIComponentFactory.createSelectSeqViewBox(false);
 		}
 		else {
-//			System.out.println("This is the selected project: "+project.getTitle());
 			selectTreeViewList = GUIComponentFactory.createSelectTreeViewBox(project);
 			selectSeqViewList = GUIComponentFactory.createSelectSeqViewBox(project);
 		}
@@ -106,13 +105,7 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 		add(new JLabel("Select view: "), 	"gap 10");
 		add(selectSeqViewList, 				"w 270!, gap 10, span, wrap");
 	}
-	
-	
-	// FIXME: this doesnt work either
-	public void setSelectedProject(ProjectElement project) {
-		this.project = project;
-	}
-	
+
 	
 	/**
 	 * Action performed when the browse button was clicked
@@ -132,7 +125,7 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	 * 		description for the page
 	 */
 	public static final String getDescription() {
-        return "Select Arrangement Data";
+			return "Select Arrangement Data";
     }
     
 	/**

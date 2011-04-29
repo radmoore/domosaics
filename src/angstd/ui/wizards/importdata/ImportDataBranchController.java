@@ -54,8 +54,7 @@ public class ImportDataBranchController extends WizardBranchController {
     /** the actually chosen wizard (tree, domain or sequence) */
     protected Wizard choosedWiz = null;
     
-    private SelectArrangementDataPage sadp;
-    
+    /** the previously chosen project **/
     private ProjectElement project;
     
     /**
@@ -67,12 +66,9 @@ public class ImportDataBranchController extends WizardBranchController {
 
     	
         // optional pages
-        treeWiz = WizardPage.createWizard( new Class[]{SelectTreeDataPage.class}, new ImportDataResultProducer() );
-//        domWiz = WizardPage.createWizard ( new Class[]{sadp.getClass()}, new ImportDataResultProducer());
-        domWiz = WizardPage.createWizard (new WizardPage[]{new SelectArrangementDataPage()}, new ImportDataResultProducer());
+//        treeWiz = WizardPage.createWizard( new Class[]{SelectTreeDataPage.class}, new ImportDataResultProducer() );
 //        domWiz = WizardPage.createWizard ( new Class[]{SelectArrangementDataPage.class}, new ImportDataResultProducer());
-
-        seqWiz = WizardPage.createWizard ( new Class[]{SelectSequenceDataPage.class}, new ImportDataResultProducer());
+//        seqWiz = WizardPage.createWizard ( new Class[]{SelectSequenceDataPage.class}, new ImportDataResultProducer());
     }
     
     /**
@@ -87,8 +83,8 @@ public class ImportDataBranchController extends WizardBranchController {
 		
     	if ("angstd.ui.wizards.importdata.ChooseDataTypePage".equals(step)) {
     	   if (data.get(DATATYPE_KEY) == DataType.TREE) { 
-//    	   	   choosedWiz = WizardPage.createWizard (new WizardPage[]{new SelectTreeDataPage(project)}, new ImportDataResultProducer());
-		   	   choosedWiz = treeWiz;
+    	   	   choosedWiz = WizardPage.createWizard (new WizardPage[]{new SelectTreeDataPage(project)}, new ImportDataResultProducer());
+//		   	   choosedWiz = treeWiz;
     	   }
     	   if (data.get(DATATYPE_KEY) == DataType.DOMAINS) {
     		   choosedWiz = WizardPage.createWizard (new WizardPage[]{new SelectArrangementDataPage(project)}, new ImportDataResultProducer());
