@@ -161,48 +161,42 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * 
 	 */
 	public void apply() {
-		// the name is equal to the file + seqs
-		if(defaultName == null) {
-			File dummy = new File(seqPath.getText());
-			defaultName = dummy.getName().split("\\.")[0];
-		}
 		
 		DomainArrangement[] domArrs = annotationSpawner.getResult().get();
 		
-		if (domArrs == null) {
+		if ( (domArrs == null) || (domArrs.length == 0) ) {
 			progressBar.setValue(100);
 			MessageUtil.showInformation("No siginificant hits found.");
 			return;
 		}
 		
-		// add annotated domain view
-		if (domArrs.length != 0) {
-			// force the user to enter a valid name for the view
+		// the name is equal to the file + seqs
+		if(defaultName == null) {
+			File dummy = new File(seqPath.getText());
+			defaultName = dummy.getName().split("\\.")[0];
+		}
+		else
+			defaultName = defaultName+"-interproscan-"+selectMethod.getSelectedItem().toString()+"-results";
+		
+		
+		String viewName = null;
+		String projectName = null;
+		ProjectElement project = null;
+		
+		if (selectedSequenceView != null) {
+			ViewElement elem = WorkspaceManager.getInstance().getViewElement(selectedSequenceView.getViewInfo());
+			project = elem.getProject();
+		}
 
-			// external fasta was used
-			if (defaultName != null) {
-				defaultName = defaultName+"-interproscan-"+selectMethod.getSelectedItem().toString()+"-results";
-			}
-			
-			String viewName = null;
-			String projectName = null;
-			ProjectElement project = null;
-			
-			if (selectedSequenceView != null) {
-				ViewElement elem = WorkspaceManager.getInstance().getViewElement(selectedSequenceView.getViewInfo());
-				project = elem.getProject();
-			}
-			
-			while (viewName == null) {
+		while (viewName == null) {
 				
-				Map m = WizardManager.getInstance().selectNameWizard(defaultName, "view", project, true);
-				viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
-				projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
-				project = WorkspaceManager.getInstance().getProject(projectName);
+			Map m = WizardManager.getInstance().selectNameWizard(defaultName, "annotation", project, true);
+			viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+			projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+			project = WorkspaceManager.getInstance().getProject(projectName);
 				
-				if (viewName == null) 
-					MessageUtil.showWarning("A valid view name is needed to complete this action");
-			}
+			if (viewName == null) 
+				MessageUtil.showWarning("A valid view name is needed to complete this action");
 		
 			DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
 			domResultView.setDaSet(domArrs);
@@ -210,7 +204,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			
 			// create sequence view if it comes from a file
 			if (seqPath.getText().length() > 0) {
-				SequenceView view = ViewHandler.getInstance().createView(ViewType.SEQUENCE, defaultName+"_seqs");
+				SequenceView view = ViewHandler.getInstance().createView(ViewType.SEQUENCE, viewName+"_seqs");
 				view.setSeqs(domResultView.getSequences());
 				ViewHandler.getInstance().addView(view, project);
 			}
@@ -445,7 +439,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 					return;
 				}
 				else {
-					defaultName=selected.getTitle();
+					defaultName = selected.getTitle();
 					//System.out.println(selected.getTitle());
 				}
 				selectedSequenceView = ViewHandler.getInstance().getView(selected.getViewInfo());

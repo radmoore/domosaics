@@ -117,7 +117,6 @@ public class SelectTreeDataPage extends WizardPage implements ActionListener {
      * Checks if all necessary inputs are made.
      */
     protected String validateContents (Component component, Object o) {
-    	System.out.println("This was the project on validation: "+project.getTitle());
     	if (path.getText().isEmpty())
 			return "Please select a file";
     	if (viewName.getText().trim().isEmpty())

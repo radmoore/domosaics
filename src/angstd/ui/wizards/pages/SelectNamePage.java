@@ -108,6 +108,17 @@ public class SelectNamePage extends WizardPage {
 			if (project.viewExists(newName, category))
 				return "Name taken - choose new name";
 		}
+		// we are comming from the interpro scan
+		// ensure that arrangement and sequence view names do not
+		// already exist
+		if  (objectName.equals("annotation")) {
+			CategoryElement sequenceCat = project.getCategory(ViewType.SEQUENCE);
+			category = project.getCategory(ViewType.DOMAINS);
+			if (project.viewExists(newName, category))
+				return "Domain view name taken - choose new name";
+			if (project.viewExists(newName+"_seqs", sequenceCat))
+				return "Sequence view name taken - choose new name";
+		}	
 		
 		return null;
     }
