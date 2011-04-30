@@ -44,7 +44,7 @@ public class AnnotatorFrame extends JFrame implements WindowListener {
      * the thread spawner cancelled.
      */
 	public void windowClosing(WindowEvent e) {
-		annotatorPanel.dispose();
+		annotatorPanel.cancel();
 	}
 	
 	public void windowActivated(WindowEvent e) { }

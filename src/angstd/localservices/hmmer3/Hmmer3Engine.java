@@ -3,7 +3,10 @@ package angstd.localservices.hmmer3;
 import java.io.File;
 import java.util.HashMap;
 
+import sun.security.krb5.Config;
+
 import angstd.localservices.hmmer3.programs.Hmmer3Program;
+import angstd.model.configuration.Configuration;
 
 /**
  * Singleton class to ensure that only one instance of a {@link Hmmer3Program}
@@ -51,6 +54,7 @@ public class Hmmer3Engine {
 	 */
 	public void reset() {
 		instance = null;
+		Configuration.getInstance().setServiceRunning(false);
 	}
 	
 	/**
@@ -128,6 +132,7 @@ public class Hmmer3Engine {
 	public void launchInBackground(Hmmer3Program program) {
 		service = new Hmmer3Service(program);
 		service.startInBackground();
+		Configuration.getInstance().setServiceRunning(true);
 	}
 	
 	/**
@@ -138,6 +143,7 @@ public class Hmmer3Engine {
 	 */
 	public int launch(Hmmer3Program program) {
 		service = new Hmmer3Service(program);
+		Configuration.getInstance().setServiceRunning(true);
 		return service.start();
 	}
 	
@@ -147,6 +153,7 @@ public class Hmmer3Engine {
 	public void stop() {
 		if (service != null)
 			service.stop();
+		Configuration.getInstance().setServiceRunning(false);
 	}
 	
 	/**

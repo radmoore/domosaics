@@ -72,6 +72,21 @@ public class GUIComponentFactory {
 		return list;
 	}
 	
+	
+	public static JComboBox createSelectProjectBox(ProjectElement selectedProject) {
+
+		// get available projects
+		ProjectElement[] projects = WorkspaceManager.getInstance().getProjects();
+		JComboBox selectProjectList = new JComboBox(projects);
+		selectProjectList.setSelectedItem(selectedProject);
+		
+		selectProjectList.setRenderer(new WizardListCellRenderer());
+		selectProjectList.setPreferredSize(new Dimension(100, 25));
+	
+		return selectProjectList;
+	}
+	
+	
 	/**
 	 * Creates a JComboBox containing all tree views from all projects
 	 * 

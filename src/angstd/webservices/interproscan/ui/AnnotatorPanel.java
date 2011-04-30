@@ -62,7 +62,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	/** default email address */
 	private static String DEFAULT_EMAIL = "enter your email here";
 	
-	/** The Annotator frame, where the panel is embedded in */
+	/** The AnnotatorFrame, where the panel is embedded in */
 	private AnnotatorFrame parent;
 	
 	/** Spawner for annotation threads */
@@ -75,7 +75,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	private JComboBox selectView, selectMethod;
 	
 	/** Buttons for load sequence file, submit job, apply results and cancel */
-	private JButton loadSeqs, submit, apply, cancel, close;
+	private JButton loadSeqs, submit, apply, cancel; //close;
 	
 	/** console to update user about the annotation status */
 	private JTextArea console;
@@ -212,7 +212,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			ViewHandler.getInstance().addView(domResultView, project);
 		}
 		
-		dispose();
+		cancel();
 		parent.dispose();
 	}
 	
@@ -220,25 +220,37 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * cancels the annotation spawner.
 	 */
 	public void cancel() {
-		dispose();
-	}
-	
-	/**
-	 * cancels the annotation spawner and disposes the GUI.
-	 */
-	public void close() {
-		dispose();
-		parent.dispose();
-	}
-	
-	/** 
-	 * stops all active annotation threads
-	 */
-	public void dispose() {
-		// aborts the thread if it is currently running
-		if (annotationSpawner.isRunning())
+		if (annotationSpawner.isRunning()) {
 			annotationSpawner.cancel();
+			submit.setEnabled(true);
+			loadSeqs.setEnabled(true);
+			seqPath.setEnabled(true);
+			selectView.setEnabled(true);
+			selectMethod.setEnabled(true);
+			email.setEnabled(true);
+			apply.setEnabled(false);
+		}
+		else {
+			parent.dispose();
+		}
 	}
+	
+//	/**
+//	 * cancels the annotation spawner and disposes the GUI.
+//	 */
+//	public void close() {
+//		dispose();
+//		parent.dispose();
+//	}
+//	
+//	/** 
+//	 * stops all active annotation threads
+//	 */
+//	public void dispose() {
+//		// aborts the thread if it is currently running
+//		if (annotationSpawner.isRunning())
+//			annotationSpawner.cancel();
+//	}
 	
 	/**
 	 * Submits a new annotation job for all sequences
@@ -285,7 +297,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		email.setEnabled(false);
 		apply.setEnabled(true);
 	}
-		
+	
 
 	/* ************************************************************* *
 	 * 						CORECTNESS CHECKING						 *
@@ -368,7 +380,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		add(new JXTitledSeparator("Apply Results"), "growx, span, wrap, gaptop 10");
 		add(apply, "gap 5, split 2");
 		add(cancel, "gap 5, split 2");
-		add(close, "wrap");	
+//		add(close, "wrap");	
 	}
 	
 	/* ************************************************************* *
@@ -398,21 +410,15 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				cancel();
-				submit.setEnabled(true);
-				loadSeqs.setEnabled(true);
-				seqPath.setEnabled(true);
-				selectView.setEnabled(true);
-				selectMethod.setEnabled(true);
-				email.setEnabled(true);
 			}
 		});
 				
-		close = new JButton ("Close");
-		close.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				close();
-			}
-		});
+//		close = new JButton ("Close");
+//		close.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent evt) {
+//				close();
+//			}
+//		});
 	}
 	
 	private void initSelectViewBox() {
