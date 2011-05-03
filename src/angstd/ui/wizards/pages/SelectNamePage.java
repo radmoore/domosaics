@@ -44,7 +44,7 @@ public class SelectNamePage extends WizardPage {
 	 * @param objectName
 	 * 		the object to name e.g. view or project
 	 */
-	public SelectNamePage(String defaultName, String objectName, ProjectElement project) {
+	public SelectNamePage(String defaultName, String objectName, ProjectElement project, boolean allowSelection) {
 		super(objectName+" name selection");
 		this.objectName = objectName;
 		setLayout(new MigLayout());
@@ -63,6 +63,12 @@ public class SelectNamePage extends WizardPage {
 		selectProject.setName(PROJECTNAME_KEY);
 		if (project != null)
 			selectProject.setSelectedItem(project.getTitle());
+		
+		// if we are comming from the data import wizard, 
+		// we have already selected a project. To ensure that the association
+		// with other views (if selected in wizard) works, we disable the 
+		// project selection
+		selectProject.setEnabled(allowSelection);
 		
 		add(new JLabel("Select "+objectName+" name "), "gap 10");
 		add(name, "h 25!, gap 10, wrap");
@@ -102,6 +108,22 @@ public class SelectNamePage extends WizardPage {
 			if (project.viewExists(newName, category))
 				return "Name taken - choose new name";
 		}
+		else if (objectName.equals("domain tree view")) {
+			category = project.getCategory(ViewType.DOMAINTREE);
+			if (project.viewExists(newName, category))
+				return "Name taken - choose new name";
+		} 
+		// we are comming from the interpro scan
+		// ensure that arrangement and sequence view names do not
+		// already exist
+		else if  (objectName.equals("annotation")) {
+			CategoryElement sequenceCat = project.getCategory(ViewType.SEQUENCE);
+			category = project.getCategory(ViewType.DOMAINS);
+			if (project.viewExists(newName, category))
+				return "Domain view name taken - choose new name";
+			if (project.viewExists(newName+"_seqs", sequenceCat))
+				return "Sequence view name taken - choose new name";
+		}	
 		
 		return null;
     }

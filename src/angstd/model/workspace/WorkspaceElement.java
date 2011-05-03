@@ -30,6 +30,8 @@ public abstract class WorkspaceElement {
 	/** type flag indicating that the element is a category element */
 	public static final int CATEGORY = 3;
 	
+	public static final int NULLELEM = 4;
+	
 	/** string to address project types within a message */
 	public static final String PROJECT_NAME = "project";
 	
@@ -141,6 +143,26 @@ public abstract class WorkspaceElement {
 	public String getTitle() {
 		return title;
 	}
+	
+	
+	/**
+	 * Returns a short version of the title of the 
+	 * workspace element
+	 * 
+	 * @param
+	 *      length of short title in characters
+	 * 
+	 * @return
+	 * 		shortend title of the workspace element
+	 */
+	public String getShortTitle(int length) {
+		if (title.length() <= length)
+			return title;
+			
+		return title.substring(0, length)+"... ";
+	}
+	
+	
 	
 	/**
 	 * Sets the title of the workspace element

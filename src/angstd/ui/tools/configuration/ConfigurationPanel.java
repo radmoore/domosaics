@@ -141,7 +141,7 @@ public class ConfigurationPanel extends JPanel{
 		loadHmmScanBin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File scanBin = FileDialogs.showOpenDialog(parentFrame);
-				if (scanBin == null || !scanBin.canRead())
+				if (scanBin == null || !scanBin.canExecute())
 					return;
 				if (checkHmmBin(scanBin))
 					hmmerScanTF.setText(scanBin.getAbsolutePath());
@@ -301,13 +301,19 @@ public class ConfigurationPanel extends JPanel{
 	 */
 	private boolean checkHmmDBDir(File file, boolean initPress) {
 		
+		// check if file is still there
 		if (!file.exists()) {
 			MessageUtil.showWarning("Warning: could not find specified HMMER db file "+file.getName());
+			hmmer3dbTF.setText("");
 			return false;
 		}
 		
-		// we need an instance of hmmer3engine, to be able to check
-		// whether hmmpress is available
+		// check if contains valid hmmer3 profiles
+		if (!HmmPress.isValidProfileFile(file)) {
+			MessageUtil.showWarning(file.getName()+ " does not appear to be a valid hmmer3 profile");
+			return false;
+		}
+		
 		boolean pressAvail = true;
 		
 		// check if hmmpress service is available
@@ -320,7 +326,7 @@ public class ConfigurationPanel extends JPanel{
 		
 		// check if pressed files are available
 		if (!HmmPress.hmmFilePressed(file) && initPress) {
-			if (MessageUtil.showDialog("The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {
+			if (MessageUtil.showDialog(file.getName()+" is not pressed. Do you want AnGSTD to press it now?")) {
 				if (!pressAvail || (hmmerPressTF.getText().isEmpty())) {
 					MessageUtil.showInformation("Please first provide hmmpress binary");
 					hmmer3dbTF.setText("");
@@ -330,7 +336,6 @@ public class ConfigurationPanel extends JPanel{
 				HmmPress hmmPress = new HmmPress(hmmer3Engine.getAvailableServicePath("hmmpress"), file, configPanel);
 				//TODO  we should get some type of return here.
 				hmmer3Engine.launch(hmmPress);
-			
 			}
 			else {
 				return false;

@@ -135,7 +135,7 @@ public class ApplicationHandler {
 				MessageUtil.showWarning("The Default Project cannot be exported. Please export to different name.");
 				
 				// first rename project
-				String newName = WizardManager.getInstance().selectRenameWizard(project.getTitle(), project.getTypeName(), project);
+				String newName = WizardManager.getInstance().renameWizard(project.getTitle(), project.getTypeName(), project);
         		if(newName == null)  // canceled
         			return false;
         	
@@ -163,7 +163,7 @@ public class ApplicationHandler {
         		//... if not, 
         		if (choice == 1) {
         			// get new name for project
-	        		String newTitle = WizardManager.getInstance().selectRenameWizard(project.getTitle(), project.getTypeName(), project);
+	        		String newTitle = WizardManager.getInstance().renameWizard(project.getTitle(), project.getTypeName(), project);
 	        		if(newTitle == null)  // canceled
 	        			return false;
 	        		

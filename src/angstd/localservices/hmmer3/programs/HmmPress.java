@@ -88,7 +88,7 @@ public class HmmPress implements Hmmer3Program {
 	}
 	
 	/**
-	 * Crude check wether the passed file is a valid
+	 * Crude check whether the passed file is a valid
 	 * file with hmmer3 profiles
 	 * @param hmmDBFile
 	 * @return
@@ -129,10 +129,11 @@ public class HmmPress implements Hmmer3Program {
 	/**
 	 * Static method to determine whether the hmmfile
 	 * has been pressed. Checks for files with a known
-	 * extension in the parent dir of the hmmfile.
+	 * extension in the dir with the hmmdbfile.
 	 * 
 	 * @param hmmDBFile
 	 * @return
+	 * 		true if all pressed files (by extension) are present
 	 */
 	public static boolean hmmFilePressed(File hmmDBFile) {
 		if (new File(hmmDBFile+H3F).exists())

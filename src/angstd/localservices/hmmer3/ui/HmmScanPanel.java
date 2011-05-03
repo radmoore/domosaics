@@ -31,6 +31,7 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 
 import angstd.localservices.hmmer3.Hmmer3Engine;
+import angstd.localservices.hmmer3.Hmmer3Service;
 import angstd.localservices.hmmer3.programs.HmmPress;
 import angstd.localservices.hmmer3.programs.HmmScan;
 import angstd.localservices.hmmer3.programs.Hmmer3Program;
@@ -280,7 +281,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		add(new JXTitledSeparator("Console"), "growX, span, wrap, gaptop 10");
 		add(new JScrollPane(console), "align center, span, wrap");	
 		add(run, "gap 5, split 2");
-		add(cancel);
+		add(cancel, "gap 5, split 2");
 	}
 	
 	/**
@@ -454,6 +455,8 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		parent.dispose();
 	}
 	
+	
+	
 	/**
 	 * Prints to console
 	 * 
@@ -472,6 +475,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * or end of a job - non zero exit code)
 	 */
 	public void resetPanel() {
+		Configuration.getInstance().setServiceRunning(false);
 		run.setText("  Run  ");
 		progressBar.setValue(0);
 		progressBar.setIndeterminate(false);
@@ -516,15 +520,17 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * @return true, if the the DB dir contains necessary files
 	 */
 	private boolean checkDbDir(File dbFile) {
+		
+		// format check hmme3 profiles
+		if (!HmmPress.isValidProfileFile(dbFile)) {
+			MessageUtil.showWarning(dbFile.getName()+ " does not appear to be a valid hmmer3 profile");
+			return false;
+		}
+		
+		
 		// check if pressed files are available
 		if (!HmmPress.hmmFilePressed(dbFile)) {
-			if (MessageUtil.showDialog("The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {
-				
-				if (!HmmPress.isValidProfileFile(dbFile)) {
-					MessageUtil.showWarning("The HMMERDBFILE does not appear to be valid. Please check.");
-					return false;
-				}
-					
+			if (MessageUtil.showDialog("The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {					
 				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 				
 				// TODO: I would like to disable GUI components here

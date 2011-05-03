@@ -94,7 +94,8 @@ public class WizardManager {
 	}
 	
 	/**
-	 * Opens a selectName Wizard for views.
+	 * Opens a wizard for renaming views
+	 * (for renaming _existing_ views)
 	 * 
 	 * @param defaultName
 	 * 		the name shown by default
@@ -103,13 +104,29 @@ public class WizardManager {
 	 * @return
 	 * 		the name chosen by the user
 	 */
-	public String selectRenameWizard(String defaultName, String objectName, WorkspaceElement elem) {
+	public String renameWizard(String defaultName, String objectName, WorkspaceElement elem) {
 		return (String) new SelectRenameDialog(defaultName, objectName, elem).show();
 	}
 	
 	
-	public Map selectNameWizard(String defaultName, String objectName, ProjectElement project) {
-		return (Map) new SelectNameDialog(defaultName, objectName, project).show();
+	/**
+	 * Opens a selectNameWizard for views
+	 * (for naming new views and associating with projects)
+	 * 
+	 * @param defaultName
+	 * 		the name shown by default
+	 * @param objectName
+	 * 		the object to name , e.g. view
+	 * 
+	 * @param allowProjectSelection
+	 * 		project selection combobox is active or not
+	 *      (can user select project with which to assoc. view)
+	 * 
+	 * @return
+	 * 		the name chosen by the user
+	 */
+	public Map selectNameWizard(String defaultName, String objectName, ProjectElement project, boolean allowProjectSelection) {
+		return (Map) new SelectNameDialog(defaultName, objectName, project, allowProjectSelection).show();
 	}
 	
 	/**

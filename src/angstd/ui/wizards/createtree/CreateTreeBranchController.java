@@ -25,7 +25,7 @@ import angstd.ui.wizards.pages.ClustalW2Page;
  * @author Andreas Held
  *
  */
-@SuppressWarnings("unchecked")
+
 public class CreateTreeBranchController extends WizardBranchController {
 	
 	/** the key used to access the domain view after the wizard finished */

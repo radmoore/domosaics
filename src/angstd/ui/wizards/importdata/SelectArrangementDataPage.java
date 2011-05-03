@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,6 +16,8 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
+import angstd.model.workspace.ProjectElement;
+import angstd.ui.WorkspaceManager;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.wizards.GUIComponentFactory;
 
@@ -34,13 +37,27 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	
 	/** the text field for choosing a view name */
 	protected JTextField viewName;
-
+	
+	private ProjectElement project = null;
+	
 	
 	/**
 	 * Constructor for a new SelectArrangementDataPage
 	 */
 	public SelectArrangementDataPage() {
 		super("Select Arrangement Data");
+		init();
+	}
+
+	public SelectArrangementDataPage(ProjectElement project) {
+		super("Select Arrangements for "+ project.getShortTitle(5));
+		this.project = project;
+		init();
+	}
+	
+	
+	public void init() {
+		
 		setLayout(new MigLayout());
 		
 		// init components
@@ -51,10 +68,20 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 		viewName.setEditable(true);
 	
 		JButton browse = new JButton("Browse...");
-		browse.addActionListener(this);		
-		JComboBox selectTreeViewList = GUIComponentFactory.createSelectTreeViewBox(false);
-		JComboBox selectSeqViewList = GUIComponentFactory.createSelectSeqViewBox(false);
-
+		browse.addActionListener(this);
+		
+		JComboBox selectTreeViewList;
+		JComboBox selectSeqViewList;
+		
+		if (project == null) {
+			selectTreeViewList = GUIComponentFactory.createSelectTreeViewBox(false);
+			selectSeqViewList = GUIComponentFactory.createSelectSeqViewBox(false);
+		}
+		else {
+			selectTreeViewList = GUIComponentFactory.createSelectTreeViewBox(project);
+			selectSeqViewList = GUIComponentFactory.createSelectSeqViewBox(project);
+		}
+		
 		// associate names
 		path.setName(ImportDataBranchController.FILEPATH_KEY);
 		viewName.setName(ImportDataBranchController.VIEWNAME_KEY);
@@ -79,6 +106,7 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 		add(selectSeqViewList, 				"w 270!, gap 10, span, wrap");
 	}
 
+	
 	/**
 	 * Action performed when the browse button was clicked
 	 */
@@ -97,7 +125,7 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	 * 		description for the page
 	 */
 	public static final String getDescription() {
-        return "Select Arrangement Data";
+			return "Select Arrangement Data";
     }
     
 	/**
