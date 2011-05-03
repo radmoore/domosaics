@@ -5,7 +5,6 @@ import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.views.domainview.actions.ChangeArrangementAction;
 import angstd.ui.views.domainview.actions.CollapseSameArrangementsAction;
 import angstd.ui.views.domainview.actions.CreateViewUsingSelectionAction;
-import angstd.ui.views.domainview.actions.DomainCompareAction;
 import angstd.ui.views.domainview.actions.EvalueColorizationAction;
 import angstd.ui.views.domainview.actions.FitDomainsToScreenAction;
 import angstd.ui.views.domainview.actions.MsaViewAction;
@@ -69,7 +68,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	public enum DomainAction implements ActionEnumeration {
 		
 		EXPORT_SELECTION 		(CreateViewUsingSelectionAction.class),
-		COMPARE_DOMSEQUENCES 	(DomainCompareAction.class),
 		EVALUE_COLORIZATION 	(EvalueColorizationAction.class),
 		FIT_TO_SCREEN 			(FitDomainsToScreenAction.class),
 		ID_RATHER_THAN_ACC		(ShowIdAction.class),
@@ -113,10 +111,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	/** old state for shapes when switching to unproportional */
 	private boolean oldPropShapeState = false;
 	
-	/** flag indicating whether or not the comparisons is for one domain only */
-	private boolean compare4Domain = false;
-	
-	
 	/**
 	 * Basic Constructor for the DomainLayoutManager 
 	 * 
@@ -149,32 +143,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	public void enableAll() {
 		for (DomainAction action : DomainAction.values())
 			enable(action);
-	}
-	
-	/**
-	 * Helper method to set a flag indicating whether or not the compare
-	 * domain sequences is enabled for more than one domain (e.g.
-	 * because of the view menu action) or just for one domain
-	 * (e.g. because of the domain context menu).
-	 * 
-	 * @param val
-	 * 		value for the flag
-	 */
-	public void setCompare4Domain(boolean val) {
-		this.compare4Domain = val;
-	}
-	
-	/**
-	 * Returns whether or not the domain sequence comparison mode 
-	 * is active for just one domain (triggered by context menu for domains)
-	 * or for more than one domain (triggered by the view menu action)
-	 * 
-	 * @return
-	 * 		whether or not the domain sequence comparison mode 
-	 * 		is active for just one domain
-	 */
-	public boolean isCompare4Domain() {
-		return compare4Domain;
 	}
 	
 	/**
@@ -253,7 +221,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		disable(DomainAction.SELECT_ARRANGEMENTS);
 		disable(DomainAction.SELECT_SEQUENCES);
 		disable(DomainAction.COLLAPSE_BY_SIMILARITY);
-		disable(DomainAction.COMPARE_DOMSEQUENCES);
 		disable(DomainAction.EVALUE_COLORIZATION);
 		
 		structuralChange();	
@@ -284,7 +251,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		if (getState(DomainAction.SELECT_SEQUENCES)) {
 			disable(DomainAction.COLLAPSE_IDENTICAL);
 			disable(DomainAction.COLLAPSE_BY_SIMILARITY);
-			disable(DomainAction.COMPARE_DOMSEQUENCES);
 			disable(DomainAction.SELECT_ARRANGEMENTS);
 			disable(DomainAction.FIT_TO_SCREEN);
 			disable(DomainAction.ZOOMMODE);
@@ -293,7 +259,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		} else {
 			enable(DomainAction.COLLAPSE_IDENTICAL);
 			enable(DomainAction.COLLAPSE_BY_SIMILARITY);
-			enable(DomainAction.COMPARE_DOMSEQUENCES);
 			enable(DomainAction.SELECT_ARRANGEMENTS);
 			enable(DomainAction.FIT_TO_SCREEN);
 			enable(DomainAction.ZOOMMODE);
@@ -308,8 +273,8 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	 * @param state
 	 * 		the new state for the OrthologousMode flag.
 	 */
-	public void toggleCompareDomainsMode() {
-		if (getState(DomainAction.COMPARE_DOMSEQUENCES)) {
+	public void toggleCompareDomainsMode(boolean isCompareDomainsMode) {
+		if (isCompareDomainsMode) {
 			disable(DomainAction.EVALUE_COLORIZATION);
 			disable(DomainAction.SELECT_SEQUENCES);
 			disable(DomainAction.SELECT_ARRANGEMENTS);
@@ -331,7 +296,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 				enable(DomainAction.UNPROP_VIEW);
 			else
 				enable(DomainAction.PROP_VIEW);
-			compare4Domain = false;
 		}
 	}
 	
@@ -351,7 +315,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	public void toggleCollapseBySimilarity() {
 		if (getState(DomainAction.COLLAPSE_BY_SIMILARITY)) {
 			disable(DomainAction.COLLAPSE_IDENTICAL);
-			disable(DomainAction.COMPARE_DOMSEQUENCES);
 			disable(DomainAction.MSA_VIEW);
 			disable(DomainAction.ZOOMMODE);
 			disable(DomainAction.SELECT_SEQUENCES);
@@ -366,7 +329,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 				disable(DomainAction.PROP_VIEW);
 		} else {
 			enable(DomainAction.COLLAPSE_IDENTICAL);
-			enable(DomainAction.COMPARE_DOMSEQUENCES);
 			enable(DomainAction.MSA_VIEW);
 			enable(DomainAction.ZOOMMODE);
 			enable(DomainAction.SELECT_SEQUENCES);
@@ -485,18 +447,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		if(!isEnabled(DomainAction.SHOW_RULER))
 			return false;
 		return getState(DomainAction.SHOW_RULER);
-	}
-	
-	/**
-	 * Return whether or not orthologous mode is active
-	 * 
-	 * @return
-	 * 		whether or not orthologous mode is active
-	 */
-	public boolean isCompareDomainsMode() {
-		if(!isEnabled(DomainAction.COMPARE_DOMSEQUENCES))
-			return false;
-		return getState(DomainAction.COMPARE_DOMSEQUENCES);
 	}
 	
 	/**

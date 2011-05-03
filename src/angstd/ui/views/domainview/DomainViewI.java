@@ -45,7 +45,6 @@ import angstd.ui.views.view.manager.SelectionManager;
  *
  */
 public interface DomainViewI extends View {
-
 	
 	/* *********************************************************** *
 	 *   					MANAGING BACKEND DATA				   *
@@ -338,4 +337,18 @@ public interface DomainViewI extends View {
 	 * 		manager to associate arrangements with notes
 	 */
 	public NoteManager getNoteManager();
+	
+	/**
+	 * Return the flag whether the "comparison of domains
+	 * at the sequence level" is active
+	 * 
+	 */
+	public boolean isCompareDomainsMode();
+	
+	/**
+	 * Change the flag whether the "comparison of domains
+	 * at the sequence level" is active
+	 * 
+	 */
+	public void setCompareDomainsMode(boolean b);
 }

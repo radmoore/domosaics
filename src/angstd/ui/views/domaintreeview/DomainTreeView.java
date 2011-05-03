@@ -141,6 +141,9 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/** the backend tree view */
 	protected TreeViewI treeView;
 	
+	/** flag indicating whether or not the domain sequence comparison is active */
+	protected boolean isCompareDomainsMode=false;
+	
 	/** 
 	 * a map of all added view managers defined within the 
 	 * DomainTreeViewManagerFactory. By using the
@@ -1023,6 +1026,17 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	 */
 	public InnerNodeArrangementManager getInnerNodeArrangementManager() {
 		return getManager(DomainTreeViewManager.INNERNODEARRANGEMENTMANAGER);
+	}
+
+
+	@Override
+	public boolean isCompareDomainsMode() {
+       return isCompareDomainsMode;		
+	}
+
+	@Override
+	public void setCompareDomainsMode(boolean b) {
+		isCompareDomainsMode=b;
 	}
 
 }

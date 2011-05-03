@@ -73,9 +73,9 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 	public ChangeArrangementView() {
 		componentHolder = new JPanel(new BorderLayout());
 		componentHolder.setBackground(Color.white);
-		
+		componentHolder.setSize(770,80);
 		componentHolder.add(changePanel = new ChangeArrangementPanel(this), BorderLayout.CENTER);
-		componentHolder.add(new ChangeArrangementHelpPanel(), BorderLayout.EAST);
+		//componentHolder.add(new ChangeArrangementHelpPanel(), BorderLayout.EAST);
 	}
 	
 	/**
@@ -110,6 +110,7 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 		seq[0] = daSet[0].getSequence();
 		
 		domView = ViewHandler.getInstance().createView(ViewType.DOMAINS, "");
+		
 		domView.setDaSet(daSet);
 		
 		if (seq[0] != null)
@@ -144,7 +145,6 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 		Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 		domView.getParentPane().setBorder(compound);
-			
 		// add the view to the views mainpanel and then the main panel to the frame
 		componentHolder.add(domView.getParentPane(), BorderLayout.SOUTH);
 		parentFrame.addView(this);
@@ -274,6 +274,10 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 	public void setViewRenderer(Renderer renderer) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void closeWindow() {
+		parentFrame.dispose();
 	}
 
 }

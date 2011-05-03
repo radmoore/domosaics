@@ -45,6 +45,7 @@ import angstd.ui.util.FileDialogs;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.wizards.WizardListCellRenderer;
+import angstd.util.StringUtils;
 
 /**
  * HmmScanPanel holds the GUI components necessary to start local
@@ -358,7 +359,11 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * {@link Hmmer3Engine}
 	 */
 	private void runHmmScanAction() {
-	
+		if (!StringUtils.isNumber(evalueTF.getText())){
+			MessageUtil.showWarning(this, "The E-value field does not contain a valid number.");
+			return;
+		}
+		
 		if(hmmScanTF.getText().equals("")) {
 			MessageUtil.showWarning("Please choose a hmmscan binary.");
 			return;	

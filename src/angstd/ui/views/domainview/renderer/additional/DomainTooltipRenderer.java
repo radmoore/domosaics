@@ -175,7 +175,7 @@ public class DomainTooltipRenderer implements Renderer {
             
         }
         
-        if (view.getDomainLayoutManager().isCompareDomainsMode()  && view.getDomainSearchOrthologsManager().getDomainScore(dc) != -1) {
+        if (view.isCompareDomainsMode()  && view.getDomainSearchOrthologsManager().getDomainScore(dc) != -1) {
         	 elements++;
              g2d.drawString("Percent identity: "+view.getDomainSearchOrthologsManager().getDomainScore(dc)+"%",b.x+2,2+b.y+vertical_row_height*elements-4);
         }
@@ -251,7 +251,7 @@ public class DomainTooltipRenderer implements Renderer {
             
         }
         
-        if (view.getDomainLayoutManager().isCompareDomainsMode() && view.getDomainSearchOrthologsManager().getDomainScore(dc) != -1) {
+        if (view.isCompareDomainsMode() && view.getDomainSearchOrthologsManager().getDomainScore(dc) != -1) {
         	String identity = "Percent identity: "+view.getDomainSearchOrthologsManager().getDomainScore(dc)+"%";
             labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), identity);
             width = labelWidth > width ? labelWidth : width;

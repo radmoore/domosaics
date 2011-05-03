@@ -129,7 +129,9 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 
 	/** flag indicating whether or not sequences were associated with domains */
 	protected boolean sequencesLoaded = false;
-	
+
+	/** flag indicating whether or not the domain sequence comparison is active */
+	protected boolean isCompareDomainsMode=false;
 	/** 
 	 * a map of all added view managers defined within the 
 	 * DomainViewManagerFactory. By using the
@@ -718,6 +720,16 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	 */
 	public NoteManager getNoteManager() {
 		return getViewManager(DomainViewManager.NOTEMANAGER);
+	}
+
+	@Override
+	public boolean isCompareDomainsMode() {
+       return isCompareDomainsMode;		
+	}
+
+	@Override
+	public void setCompareDomainsMode(boolean b) {
+		isCompareDomainsMode=b;
 	}
 
 }

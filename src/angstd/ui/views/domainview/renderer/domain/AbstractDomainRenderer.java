@@ -47,7 +47,7 @@ public abstract class AbstractDomainRenderer implements DomainRenderer {
 		
 		// draw the label only in proportional view and if not shapes is set
 		if (view.getDomainLayoutManager().isUnproportionalView() || view.getDomainLayoutManager().isShowShapes()) 
-			if (!view.getDomainLayoutManager().isCompareDomainsMode())
+			if (!view.isCompareDomainsMode())
 				return;
 		
 		// draw the label

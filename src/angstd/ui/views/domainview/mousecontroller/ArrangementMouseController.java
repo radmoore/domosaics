@@ -9,6 +9,7 @@ import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.components.ArrangementPopupMenu;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.domainview.components.detectors.ArrangementComponentDetector;
+import angstd.ui.views.domainview.renderer.arrangement.BackBoneArrangementRenderer;
 import angstd.ui.views.domainview.renderer.domain.OrthologousDomainRenderer;
 import angstd.ui.views.view.manager.SelectionManager;
 
@@ -83,32 +84,18 @@ public class ArrangementMouseController extends MouseAdapter{
 			return;
 		}
 		
-		// same procedure in Orthologous mode
-		if (view.getDomainLayoutManager().isCompareDomainsMode() && !view.getDomainLayoutManager().isCompare4Domain()) {
-			ArrangementComponent dac = arrangementDetector.searchArrangementComponent(e.getPoint());
-			if (dac == null) 
-				return;
-			
+		// Exit from the sequence comparison mode
+		if (view.isCompareDomainsMode())
+		{
+			view.getDomainViewRenderer().setArrangementRenderer(new BackBoneArrangementRenderer());
+			view.setCompareDomainsMode(false);
+			view.getDomainLayoutManager().toggleCompareDomainsMode(view.isCompareDomainsMode());
 			view.getArrangementSelectionManager().clearSelection();
-			arrangementSelectionManager.addToSelection(dac);
-			
-			/// start the orthologous mode manager for the new selected arrangement (same procedure as in the action)
-			if(!view.getArrangementComponentManager().getDomains(dac).iterator().hasNext()) {
-				MessageUtil.showWarning("Selected arrangement does not contain any query domains");
-				return;
-			}
-		
-			// set the layout and renderer settings
-			view.getDomainLayoutManager().toggleCompareDomainsMode();
-			view.getDomainViewRenderer().getArrangementRenderer().setDomainRenderer(new OrthologousDomainRenderer());
-		
-			// for each domain run the orthologous manager and repaint
-			for(DomainComponent dc : view.getArrangementComponentManager().getDomains(dac))
-				view.getDomainSearchOrthologsManager().process(view, dc);
-			
+			view.getDomainSearchOrthologsManager().reset();
+			view.getViewComponent().repaint();
 			return;
 		}
-
+		
 		// selection of domain arrangements within selection mode
 		if (!view.getDomainLayoutManager().isSelectArrangements())
 			return;

@@ -290,12 +290,12 @@
 			<parameter id="isSelected" value="false"/> 
 		</menuItem>
 		
-		<menuitem id="JCheckBox">
-			<parameter id="name" value="Domain Sequence Comparison"/> 
-			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.DomainCompareAction"/> 
-			<parameter id="tooltip" value="Uses the NW algorithm to compare domain sequences for all domains within the selected arrangement"/> 
-			<parameter id="isSelected" value="false"/> 
-		</menuItem>
+<!--		<menuitem id="JCheckBox">
+<!--			<parameter id="name" value="Domain Sequence Comparison"/> 
+	<!--		<parameter id="actionClass" value="angstd.ui.views.domainview.actions.DomainCompareAction"/> 
+		<!--	<parameter id="tooltip" value="Uses the NW algorithm to compare domain sequences for all domains within the selected arrangement"/> 
+			<!--<parameter id="isSelected" value="false"/> 
+		<!--</menuItem>
 	</menu>
 	
 	</menu>

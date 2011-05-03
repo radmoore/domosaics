@@ -87,9 +87,9 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 		config = Configuration.getInstance();
 		String email_text = (config.getEmailAddr().isEmpty()) ? DEFAULT_EMAIL : config.getEmailAddr() ;
 		email = UiUtil.createEmailField(email_text);
-		console = UiUtil.createConsole();
-		console.setSize(console.getWidth(), 20);
-
+		console = UiUtil.createConsole();				// wrap on chars
+		console.setRows(6);
+		
 		submit = new JButton("Submit Job");
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
