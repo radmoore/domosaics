@@ -134,6 +134,7 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 		layoutTool();
 
 		// set up the dialog
+		//setSize(370,450);
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setModal(false);
@@ -153,7 +154,7 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 	public int showDialog(Component parent, String title) {
 		this.setTitle(title);
 		this.setLocationRelativeTo(parent);
-		setLocation(10, getLocation().y);
+		setLocation(15, getLocation().y);
 		this.setVisible(true);
 	
 		runChosenAlgo();
@@ -168,35 +169,34 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 			componentHolder = null;
 		}
 		componentHolder = new JPanel(new MigLayout());
-
 		// layout the panel depending on the chosen algorithm
 		componentHolder.add(new JXTitledSeparator("Choose reconstruction algorithm "),"growx, span, wrap, gaptop 10");
 		componentHolder.add(new JLabel(" "), "gap 10");
-		componentHolder.add(jbtSankoff, "gap 10");
-		componentHolder.add(jbtDollo, "gap 10");
-		componentHolder.add(new JLabel(" "), "gap 10, wrap");
+		componentHolder.add(jbtSankoff);
+		componentHolder.add(jbtDollo, "w 80!, gap 10");
+		componentHolder.add(new JLabel(" "), "w 60!, gap 10, wrap");
 		componentHolder.add(useSets, "gaptop 5, growx, span, wrap");
 		
 		if (parsimonyType == SANKOFF || parsimonyType == SANKOFF4SETS) {
 			componentHolder.add(new JXTitledSeparator("Adjust insertion deletion costs "),"growx, span, wrap, gaptop 10");
 //			componentHolder.add(new JLabel("Insertion cost"), "gap 10");
-			componentHolder.add(inSlider, "gap 10, growx, span, wrap");
+			componentHolder.add(inSlider, "gap 10, gapright10, growx, span, wrap");
 //			componentHolder.add(new JLabel("Deletion cost"), "gap 10");
-			componentHolder.add(delSlider, "gap 10, growx, span, wrap");
+			componentHolder.add(delSlider, "gap 10, gapright10, growx, span, wrap");
 		}
 		
 		componentHolder.add(new JXTitledSeparator("Stats"),"growx, span, wrap, gaptop 10");
-		componentHolder.add(new JLabel("# Gains: "), "gap 10");
-		componentHolder.add(inCount, "gap 10, wrap");
-		componentHolder.add(new JLabel("# Losses: "), "gap 10");
-		componentHolder.add(delCount, "gap 10, wrap");
+		componentHolder.add(new JLabel("# Gain:"), "gap 10");
+		componentHolder.add(inCount, "wrap");
+		componentHolder.add(new JLabel("# Loss:"), "gap 10");
+		componentHolder.add(delCount, "wrap");
 		
 		componentHolder.add(new JXTitledSeparator("Progress "),"growx, span, wrap, gaptop 10");
-		componentHolder.add(progress, "gap 10, growx, span, wrap");
+		componentHolder.add(progress, "gap 10, gapright10, growx, span, wrap");
 	
 		componentHolder.add(new JXTitledSeparator("Apply settings"),"growx, span, wrap, gaptop 10");
 		componentHolder.add(new JLabel(" "), "gap 10");
-		componentHolder.add(jbtApply, "gap 10, growx");
+		componentHolder.add(jbtApply, "growx");
 		componentHolder.add(jbtCancel, "gap 10, growx, wrap");
 		
 		getContentPane().add(componentHolder);

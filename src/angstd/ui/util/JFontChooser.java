@@ -45,9 +45,6 @@ public class JFontChooser extends JDialog implements ActionListener, ListSelecti
 	private JList fList = new JList(fonts);
 	private JList stList = new JList(style);
 	private JList sizeList = new JList(size);
-	private JTextField jtfFonts = new JTextField();
-	private JTextField jtfStyle = new JTextField();
-	private JTextField jtfSize = new JTextField();
 	private JLabel jlbFonts = new JLabel("Font:");
 	private JLabel jlbStyle = new JLabel("Style:");
 	private JLabel jlbSize = new JLabel("Size:");
@@ -93,30 +90,27 @@ public class JFontChooser extends JDialog implements ActionListener, ListSelecti
 		
 		panel.setBorder(panelBorder);
 		
-		jtfFonts.setBounds(8, 32, 121, 20);
-		jspFont.setBounds(8, 56, 121, 82);
+		jlbFonts.setBounds(8, 8, 161, 20);
+		jspFont.setBounds(8, 32, 161, 114);
 
-		jtfStyle.setBounds(136, 32, 121, 20);
-		jspStyle.setBounds(136, 56, 121, 82);
+		jlbStyle.setBounds(176, 8, 81, 20);
+		jspStyle.setBounds(176, 32, 81, 114);
 		
-		jtfSize.setBounds(264, 32, 41, 20);
-		jspSize.setBounds(264, 56, 41, 82);
+		jlbSize.setBounds(264, 8, 41, 20);
+		jspSize.setBounds(264, 32, 41, 114);
 		
-		jbtOK.setBounds(320, 8, 89, 17);
-		jbtCancel.setBounds(320, 32, 89, 17);
+		jbtOK.setBounds(320, 8, 89, 25);
+		jbtCancel.setBounds(320, 40, 89, 25);
 	
-		panel.setBounds(320, 64, 89, 73);
+		panel.setBounds(320, 72, 89, 73);
 		
 		container.add(jlbFonts);
-		container.add(jtfFonts);
 		container.add(jspFont);
 		
 		container.add(jlbStyle);
-		container.add(jtfStyle);
 		container.add(jspStyle);
 		
 		container.add(jlbSize);
-		container.add(jtfSize);
 		container.add(jspSize);
 		
 		container.add(jbtOK);
@@ -124,20 +118,17 @@ public class JFontChooser extends JDialog implements ActionListener, ListSelecti
 		
 		container.add(panel);
 		
-		jtfTest.setBounds(8, 25, 73, 30);
+		jtfTest.setBounds(8, 25, 74, 30);
 		
 		panel.add(jtfTest);
 		
 		container.setLayout(null);
 		panel.setLayout(null);
 		
-		setSize(424, 177);
+		setSize(424, 185);
 		setResizable(false);
 		setModal(true);
 		
-		jtfFonts.addActionListener(this);
-		jtfSize.addActionListener(this);
-		jtfStyle.addActionListener(this);
 		jbtCancel.addActionListener(this);
 		jbtOK.addActionListener(this);
 		fList.addListSelectionListener(this);
@@ -253,72 +244,31 @@ public class JFontChooser extends JDialog implements ActionListener, ListSelecti
 	{
 		boolean found = false;
 		
-		if (e.getSource() == jtfFonts)
+		if (e.getSource() == fList)
 		{
-			textType = jtfFonts.getText();
-			
-			for (int i = 0; i < fList.getModel().getSize(); i++)
-			{				
-				if (((String)fList.getModel().getElementAt(i)).startsWith(jtfFonts.getText().trim()))
-				{
-					fList.setSelectedIndex(i);
-					setScrollPos(jspFont, fList, i);
-					found = true;
-					
-					break;
-				}
-			}
-			
-			if (!found)
-			{
-				fList.clearSelection();
-			}
-			else
-			{
-				jtfTest.setFont(new Font(textType, textStyle, textSize));
-			}
-			
-			found = false;
-		}
-		else if (e.getSource() == jtfSize)
-		{
-			textSize = (Integer.parseInt(jtfSize.getText().trim()));
+			textType = (String) fList.getSelectedValue();
 			jtfTest.setFont(new Font(textType, textStyle, textSize));
-			
-			for (int i = 0; i < sizeList.getModel().getSize(); i++)
-			{	
-				if (jtfSize.getText().trim().equals((String)sizeList.getModel().getElementAt(i)))
-				{
-					sizeList.setSelectedIndex(i);
-					setScrollPos(jspSize, sizeList, i);
-					found = true;
-					
-					break;
-				}
-			}
-			
-			if (!found)
-			{
-				sizeList.clearSelection();
-			}
-			
-			found = false;
 		}
-		else if (e.getSource() == jtfStyle)
+		else if (e.getSource() == sizeList)
 		{
-			if (jtfStyle.getText().equals("Regular"))
+			textSize = (Integer.parseInt((String)sizeList.getSelectedValue()));
+			jtfTest.setFont(new Font(textType, textStyle, textSize));
+		}
+		else if (e.getSource() == stList)
+		{
+			if (stList.getSelectedValue().equals("Regular"))
 			{
 				textStyle = Font.PLAIN;
 			}
-			else if (jtfStyle.getText().equals("Bold"))
+			else if (stList.getSelectedValue().equals("Bold"))
 			{
 				textStyle = Font.BOLD;
 			}
-			else if (jtfStyle.getText().equals("Italic"))
+			else if (stList.getSelectedValue().equals("Italic"))
 			{
 				textStyle = Font.ITALIC;
 			}
-			else if (jtfStyle.getText().equals("Bold Italic"))
+			else if (stList.getSelectedValue().equals("Bold Italic"))
 			{
 				textStyle = Font.BOLD & Font.ITALIC;
 			}
@@ -343,32 +293,27 @@ public class JFontChooser extends JDialog implements ActionListener, ListSelecti
 	public void valueChanged(ListSelectionEvent e)
 	{
 		if (e.getSource() == fList)
-		{
-			if (fList.getSelectedValue() != null)
-			{
-				jtfFonts.setText(((String)(fList.getSelectedValue())));
-			}
-			
-			textType = jtfFonts.getText();
+		{		
+			textType = (String)fList.getSelectedValue();
 			jtfTest.setFont(new Font(textType, textStyle, textSize));
 		}
 		else if (e.getSource() == stList)
 		{
-			jtfStyle.setText(((String)(stList.getSelectedValue())));
+			//jtfStyle.setText(((String)(stList.getSelectedValue())));
 			
-			if (jtfStyle.getText().equals("Regular"))
+			if (stList.getSelectedValue().equals("Regular"))
 			{
 				textStyle = 0;
 			}
-			else if (jtfStyle.getText().equals("Bold"))
+			else if (stList.getSelectedValue().equals("Bold"))
 			{
 				textStyle = 1;
 			}
-			else if (jtfStyle.getText().equals("Italic"))
+			else if (stList.getSelectedValue().equals("Italic"))
 			{
 				textStyle = 2;
 			}
-			else if (jtfStyle.getText().equals("Bold Italic"))
+			else if (stList.getSelectedValue().equals("Bold Italic"))
 			{
 				textStyle = 3;
 			}
@@ -376,13 +321,8 @@ public class JFontChooser extends JDialog implements ActionListener, ListSelecti
 			jtfTest.setFont(new Font(textType, textStyle, textSize));
 		}
 		else if (e.getSource() == sizeList)
-		{	
-			if (sizeList.getSelectedValue() != null)
-			{
-				jtfSize.setText(((String)(sizeList.getSelectedValue())));
-			}
-			
-			textSize = (Integer.parseInt(jtfSize.getText().trim()));
+		{			
+			textSize = (Integer.parseInt((String)sizeList.getSelectedValue()));
 			jtfTest.setFont(new Font(textType, textStyle, textSize));
 		}
 	}

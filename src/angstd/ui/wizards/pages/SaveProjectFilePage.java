@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
+import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
 import angstd.model.workspace.ProjectElement;
@@ -52,7 +53,7 @@ public class SaveProjectFilePage extends WizardPage implements ActionListener {
 		path.setName(FILE_KEY);
 
 		// set up the page
-		add(new JLabel("Select destination file:"), "gap 10");
+		add(new JXTitledSeparator("Select destination file"), "growx, span, wrap, gap 10");
 		add(path, "gap 10");
 		add(browse, "gap 10");
 	}

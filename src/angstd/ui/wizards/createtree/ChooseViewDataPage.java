@@ -74,15 +74,15 @@ public class ChooseViewDataPage extends WizardPage implements ItemListener{
 
 		add(new JXTitledSeparator("Select arrangement view"),"growx, span, wrap");
 		add(new JLabel("Select view:"), "gap 10");
-		add(selectDomViewList, 			"w 270!, gap 10, span, growx, wrap");
+		add(selectDomViewList, 			"w 270!, gap 5, gapright 10,span, growx, wrap");
 		
 		add(new JXTitledSeparator("Use underlying sequences instead of domains?"),"growx, span, wrap, gaptop 25");
 		add(new JLabel("Use Sequences:"), "gap 10");
-		add(useUnderlayingSeqs, 		"gap 10, wrap");
+		add(useUnderlayingSeqs, 		"gap 5, wrap");
 	
 		add(new JXTitledSeparator("Select sequence view"),"growx, span, wrap, gaptop 25");
 		add(new JLabel("Select view:"), "gap 10");
-		add(selectSeqViewList, 		"w 270!, gap 10, span, growx, wrap");
+		add(selectSeqViewList, 		"w 270!, gap 5, gapright 10,span, growx, wrap");
 		add(new JLabel(""), 		"h 21!, gap 10, wrap");
 	}
 	

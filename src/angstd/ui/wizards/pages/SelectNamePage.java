@@ -70,10 +70,10 @@ public class SelectNamePage extends WizardPage {
 		// project selection
 		selectProject.setEnabled(allowSelection);
 		
-		add(new JLabel("Select "+objectName+" name "), "gap 10");
-		add(name, "h 25!, gap 10, wrap");
+		add(new JLabel("Enter "+objectName+" name "), "gap 10");
+		add(name, "h 25!, gap 5, gapright 10, wrap");
 		add(new JLabel("Associate with project"), "gap 10");
-		add(selectProject, "h 25!, gap 10, span");
+		add(selectProject, "h 25!, gap 5, gapright 10, span");
 
 	}
 
@@ -91,6 +91,9 @@ public class SelectNamePage extends WizardPage {
 		// in any case, a name is required
 		if (newName.isEmpty())
 			return "Select a name";
+		
+		if (newName.length()>25)
+			return "Name must not excess 25 characters!";
 					
 		if  (objectName.equals("sequence view")) {
 			category = project.getCategory(ViewType.SEQUENCE);

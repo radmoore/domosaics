@@ -177,8 +177,8 @@ public class ConfigurationPanel extends JPanel{
 		
 		
 //		showAdvices = new JCheckBox("Show Advices", config.isShowAdvices());
-		saveOnExit = new JCheckBox("Save Workspace on Exit", config.saveOnExit());
-		overwriteProject = new JCheckBox("Overwrite exiting projects by default", config.getOverwriteProjects());
+		saveOnExit = new JCheckBox(" Save Workspace on Exit", config.saveOnExit());
+		overwriteProject = new JCheckBox(" Overwrite existing projects", config.getOverwriteProjects());
 		
 		apply = new JButton ("Apply");
 		apply.addActionListener(new ActionListener() {
@@ -218,7 +218,7 @@ public class ConfigurationPanel extends JPanel{
 			}
 		});
 		
-		restore = new JButton ("Restore Defaults");
+		restore = new JButton ("Reset");
 		restore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				restore();
@@ -233,37 +233,37 @@ public class ConfigurationPanel extends JPanel{
 		
 		add(new JXTitledSeparator("General Settings"),"growx, span, wrap, gaptop 10");
 		add(new JLabel("Email: "), "h 25!, gap 10");
-		add(emailField, "h 25!, gap 10, span, growx, wrap");
+		add(emailField, "h 25!, gap 10, span, growx, gapright 10, wrap");
 		
 		add(new JXTitledSeparator("Local HMMER3 setup"),"growx, span, wrap, gaptop 10");
 		add(loadHmmScanBin, "h 25!, w 165!, gap 10");
-		add(hmmerScanTF, "h 25!, gap 10, span, growX, wrap");
+		add(hmmerScanTF, "h 25!, gap 10, span, growX, gapright 10, wrap");
 		add(loadHmmPressBin, "h 25!, w 165!, gap 10");
-		add(hmmerPressTF, "h 25!, gap 10, span, growX, wrap");
+		add(hmmerPressTF, "h 25!, gap 10, span, growX, gapright 10, wrap");
 		
 		add(loadHmmDB, "h 25!, w 165!, gap 10");
-		add(hmmer3dbTF, "h 25!, gap 10, span, growX, wrap");
+		add(hmmer3dbTF, "h 25!, gap 10, span, growX, gapright 10, wrap");
 				
 		add(new JXTitledSeparator("URLs"),"growx, span, wrap, gaptop 10");
 		add(new JLabel("Google Url: "), "h 25!, gap 10");
-		add(googleField, "h 25!, gap 10, span, growx, wrap");
+		add(googleField, "h 25!, gap 10, span, growx, gapright 10, wrap");
 		add(new JLabel("NCBI Url: "), "h 25!, gap 10");
-		add(ncbiField, "h 25!, gap 10, span, growx, wrap");
+		add(ncbiField, "h 25!, gap 10, span, growx, gapright 10, wrap");
 		add(new JLabel("Pfam Url: "), "h 25!, gap 10");
-		add(pfamField, "h 25!, gap 10, span, growx, wrap");
+		add(pfamField, "h 25!, gap 10, span, growx, gapright 10, wrap");
 		add(new JLabel("Uniprot Url: "), "h 25!, gap 10");
-		add(uniprotField, "h 25!, gap 10, span, growx, wrap");
+		add(uniprotField, "h 25!, gap 10, span, growx, gapright 10, wrap");
 		
 //		add(new JXTitledSeparator("Advice"),"growx, span, wrap, gaptop 10");
 //		add(showAdvices, 	"h 25!, gap 10, wrap");
 		add(new JXTitledSeparator("Workspace"),"growx, span, wrap, gaptop 10");
-		add(saveOnExit, 	"h 25!, gap 10, wrap");
-		add(overwriteProject, 	"h 25!, gap 10, wrap");
+		add(saveOnExit, 	"h 25!, gap 10, span 2, wrap");
+		add(overwriteProject, 	"h 25!, gap 10, span 2, wrap");
 		
 		add(new JXTitledSeparator("Apply"),"growx, span, wrap, gaptop 10");
-		add(apply, "h 25!, gap 10");
-		add(cancel, "h 25!, gap 10");
-		add(restore, "h 25!, gap 20");
+		add(apply, "h 25!, w 80!, split 2, gap 10");
+		add(cancel, "h 25!, gap 15");
+		add(restore, "h 25!, w 80!, gap 10");
 		
 	}
 	/**

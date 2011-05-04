@@ -59,9 +59,9 @@ public class ChooseProjectToSavePage extends WizardPage {
 		);
 
 		add(new JLabel("Select a project for export"), "gap 10, wrap");
-		add(new JScrollPane(list), "gap 10, span, growx, wrap");
+		add(new JScrollPane(list), "gap 10, span, growx, gapright 10, wrap");
 		add(new JLabel("Select a name for export"), "gap 10, wrap");
-		add(name, "gap 10, span, growx");
+		add(name, "gap 10, h 25!, gapright 10, span, growx");
 	}
 	
 	/**
@@ -83,6 +83,9 @@ public class ChooseProjectToSavePage extends WizardPage {
 
     	if (elem == null)
 			return "Please select a project";	
+
+		if (name.getText().length()>25)
+			return "Name must not excess 25 characters!";
     		
     	if (name.getText().trim().equals("Default Project"))
     		return "Please choose a different name for export";

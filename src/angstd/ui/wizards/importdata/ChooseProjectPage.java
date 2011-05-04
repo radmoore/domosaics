@@ -53,8 +53,8 @@ public class ChooseProjectPage extends WizardPage implements ActionListener{
 		list.setName(ImportDataBranchController.PROJECT_KEY);
 		
 		// set up the page
-		add(new JLabel("Select one of the projects contained in the workspace:"), 	"gap 10, wrap");
-		add(new JScrollPane(list), 		"gap 10, span, growx");
+		add(new JLabel("Select a project contained in the workspace"), 	"gap 10, wrap");
+		add(new JScrollPane(list), 		"gap 10, gapright 10, span, growx");
 		add(createNew, 					"gap 10");
 	}
 	

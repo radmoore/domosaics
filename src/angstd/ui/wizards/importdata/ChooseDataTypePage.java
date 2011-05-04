@@ -40,7 +40,7 @@ public class ChooseDataTypePage extends WizardPage {
 		list = GUIComponentFactory.createDataTypeList();
 		list.setName(ImportDataBranchController.DATATYPE_KEY);
 		
-		add(new JLabel("Select the data type to import: "), "gap 10, wrap");
+		add(new JLabel("Select the data type to import"), "gap 10, wrap");
 		add(new JScrollPane(list), "gap 10, span, growx");
 	}
 

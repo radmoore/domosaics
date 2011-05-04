@@ -37,7 +37,7 @@ public class ChangeArrangementFrame extends ToolFrame {
      */
     public void setContent(JPanel content) {
     	this.setContentPane(content);
-    	this.setSize(780, 400);
+    	//this.setSize(780, 400);
     	this.setResizable(false);
     	this.pack();
     }

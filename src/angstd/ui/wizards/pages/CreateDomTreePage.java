@@ -47,11 +47,13 @@ public class CreateDomTreePage extends WizardPage {
 
 		add(new JXTitledSeparator("Select tree view"),"growx, span, wrap, gaptop 10");
 		add(new JLabel("Select view:"), "gap 10");
-		add(selectTreeViewList, 		"w 270!, gap 10, span, growx, wrap");
+		add(selectTreeViewList, 		"w 270!, gap 5, gapright 10, span, growx, wrap");
 		
-		add(new JXTitledSeparator("Select arrangement view"),"growx, span, wrap, gaptop 10");
+		add(new JXTitledSeparator("Select arrangement view"),"growx, span, wrap, gaptop 35");
 		add(new JLabel("Select view:"), "gap 10");
-		add(selectDomViewList, 			"w 270!, gap 10, span, growx, wrap");
+		add(selectDomViewList, 			"w 270!, gap 5, gapright 10, span, growx, wrap");
+		add(new JLabel(""), 		"h 85!, gap 5, wrap");
+		
 		
 	}
 

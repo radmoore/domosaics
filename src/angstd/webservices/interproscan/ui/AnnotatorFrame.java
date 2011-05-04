@@ -32,10 +32,9 @@ public class AnnotatorFrame extends JFrame implements WindowListener {
 		
 		// set up the main window
 		this.pack();
-		int x = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        this.setLocation(x/2-450,10);
-        setAlwaysOnTop(true);
-		this.setResizable(true);
+		setLocationRelativeTo(null);
+		setAlwaysOnTop(true);
+		this.setResizable(false);
 		this.setVisible(true);
 	}
 

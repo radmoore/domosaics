@@ -91,19 +91,19 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 		// layout panel
 		add(new JXTitledSeparator("Select arrangement file"),"growx, span, wrap");
 		add(new JLabel("Select file:"), "gap 10");
-		add(path, "w 150!, gap 10");
-		add(browse, "gap 10, wrap");
+		add(path, "w 150!, h 25!, gap 5");
+		add(browse, "wrap");
 		
 		add(new JLabel("Enter a name:"), "gap 10");
-		add(viewName, "w 150!, gap 10, gaptop 5, wrap");
+		add(viewName, "w 150!, h 25!, gap 5, gaptop 5, gapright 10, wrap");
 		
-		add(new JXTitledSeparator("Associate with tree to domain tree"),"growx, span, wrap, gaptop 25");
+		add(new JXTitledSeparator("Associate with tree to domain tree"),"growx, span, wrap, gaptop 20");
 		add(new JLabel("Select view: "), 	"gap 10");
-		add(selectTreeViewList, 				"w 270!, gap 10, span, wrap");
+		add(selectTreeViewList, 				"w 270!, gap 5, gapright 10, span, wrap");
 		
-		add(new JXTitledSeparator("Associate with sequence view"),"growx, span, wrap, gaptop 25");
+		add(new JXTitledSeparator("Associate with sequence view"),"growx, span, wrap, gaptop 20");
 		add(new JLabel("Select view: "), 	"gap 10");
-		add(selectSeqViewList, 				"w 270!, gap 10, span, wrap");
+		add(selectSeqViewList, 				"w 270!, gap 5, gapright 10, span, wrap");
 	}
 
 	

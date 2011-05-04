@@ -73,7 +73,7 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 	public ChangeArrangementView() {
 		componentHolder = new JPanel(new BorderLayout());
 		componentHolder.setBackground(Color.white);
-		componentHolder.setSize(770,80);
+		componentHolder.setSize(780,400);
 		componentHolder.add(changePanel = new ChangeArrangementPanel(this), BorderLayout.CENTER);
 		//componentHolder.add(new ChangeArrangementHelpPanel(), BorderLayout.EAST);
 	}
@@ -163,16 +163,16 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 		// clear the original da and clone the domains from the backup da
 		try {
 			SequenceI seq = null;
-			if (da.getSequence() != null)
-				seq = (SequenceI) da.getSequence().clone();
+			//if (da.getSequence() != null)
+			//	seq = (SequenceI) da.getSequence().clone();
 			
 			da.clear();
 			for (Domain dom : backupDA.getDomains()) {
 				da.addDomain((Domain) dom.clone());
 			}
 			
-			if (da.getSequence() != null)
-				da.setSequence(seq);
+			if (backupDA.getSequence() != null)
+				da.setSequence((SequenceI)backupDA.getSequence().clone());
 		} catch(Exception e) {
 			Configuration.getLogger().debug(e.toString());
 		}

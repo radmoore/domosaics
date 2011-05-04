@@ -53,27 +53,27 @@ public class ChangeArrangementPanel extends JPanel {
 		this.view = view;
 		initComponents();
 		
-		add(new JXTitledSeparator("Change/Add Domains "),"growx, spanx 3, gaptop 5");
+		add(new JXTitledSeparator("Change/Add Domains "),"growx, spanx 3, gaptop 25");
 		add(new ChangeArrangementHelpPanel(), "spany, wrap");
-		add(new JLabel("ID/Name: "), "gap 10");
-		add(id, "span 2, wrap");
+		add(new JLabel("ID/Name: "), "gap 10, gaptop 10");
+		add(id, "span 2, h 25!, wrap");
 		
 		add(new JLabel("From: "), "gap 10");
-		add(from, "wrap");
+		add(from, "h 25!, wrap");
 		
 		add(new JLabel("To: "), "gap 10");
-		add(to, "wrap");
+		add(to, "h 25!, wrap");
 		
 		add(new JLabel("E-value: "), "gap 10");
-		add(evalue, "wrap");
+		add(evalue, "h 25!, wrap");
 
 		add(new JLabel(" "), "gap 10, gaptop 10");
 		add(add);
 		add(reset, "gap 10, wrap");
 		add(new JLabel(" "), "gap 10, gaptop 10");
 		add(restore, "growx");
-		add(close, "gap 10, wrap");
-		setSize(770,360);
+		add(close, "gap 10, growx, wrap");
+		setSize(770,380);
 	}
 	
 	/**

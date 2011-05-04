@@ -350,15 +350,15 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		add(new JXTitledSeparator("Sequences"), "growx, span, wrap, gaptop 10");
 		
 		add(loadSeqs, "w 165!, gap 5");
-		add(seqPath, "h 25!, span, growX, wrap");
+		add(seqPath, "h 25!, span, growX, gapright 5, wrap");
 		
 		add(new JLabel("Or select view:"), "gap 5");
-		add(selectView, "h 25!, span, growX, wrap");
+		add(selectView, "h 25!, span, growX, gapright 5, wrap");
 		
 		// parameter
 		add(new JXTitledSeparator("Parameters"),"growX, span, wrap, gaptop 10");
 		add(new JLabel("Your e-mail:"), "gap 5");
-		add(email, "h 25!, span, growX, wrap");
+		add(email, "h 25!, span, growX, gapright 5, wrap");
 	 
 		add(new JXTitledSeparator("Submit job to Interpro / EBI"),  "growx, span, wrap, gaptop 10");
 		
@@ -374,11 +374,11 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		 
 		// progressbar
 		add(new JXTitledSeparator("Progress"), "growx, span, wrap, gaptop 10");
-		add(progressBar,						"h 25!, gap 10, span, growX, wrap");
+		add(progressBar,						"h 25!, gap 10, gapright 10, span, growX, wrap");
 		
 		// apply
 		add(new JXTitledSeparator("Apply Results"), "growx, span, wrap, gaptop 10");
-		add(apply, "gap 5, split 2");
+		add(apply, "w 80!, gap 5, split 2");
 		add(cancel, "gap 5, split 2");
 //		add(close, "wrap");	
 	}

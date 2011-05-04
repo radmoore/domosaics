@@ -241,20 +241,20 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private void initPanel() {
 		
 		add(loadScanBin, "gap 5, w 165!");
-		add(hmmScanTF, "h 25!, gap 5, span2, growX, wrap");
+		add(hmmScanTF, "h 25!, gap 5, gapright 5, span2, growX, wrap");
 		add(loadPressBin, "gap 5, w 165!");
-		add(hmmPressTF, "h 25!, gap 5, span2, growX, wrap");
+		add(hmmPressTF, "h 25!, gap 5, gapright 5, span2, growX, wrap");
 		
 		add(loadHmmDB, "gap 5, w 165!");
-		add(hmmTF, "h 25!, gap 5, span2, growX, wrap");
+		add(hmmTF, "h 25!, gap 5, gapright 5, span2, growX, wrap");
 		
 		add(new JXTitledSeparator("Sequences"), "growx, span, wrap, gaptop 10");
 	
 		add(loadFastaFile, "gap 5, w 165!");
-		add(fastaTF, "h 25!, gap 5, span2, growX, wrap");
+		add(fastaTF, "h 25!, gap 5, gapright 5, span2, growX, wrap");
 		
 		add(new JLabel("Or Select Loaded View:"),"gap 5");
-		add(selectView, "h 25!, gap 5, span2, growX, wrap");
+		add(selectView, "h 25!, gap 5, gapright 5, span2, growX, wrap");
 		
 		add(new JXTitledSeparator("Options"), "growX, span, wrap, gaptop 10");
 		
@@ -276,11 +276,11 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		add(coddCkb, "gap 5, span 2, growX, wrap");
 
 		add(new JXTitledSeparator("Progress"), "growX, span, wrap, gaptop 10");
-		add(progressBar, "h 25!, gap 5, span3, growX, wrap");
+		add(progressBar, "h 25!, gap 5, gapright 5, span3, growX, wrap");
 		
 		add(new JXTitledSeparator("Console"), "growX, span, wrap, gaptop 10");
 		add(new JScrollPane(console), "align center, span, wrap");	
-		add(run, "gap 5, split 2");
+		add(run, "w 80!, gap 5, split 2");
 		add(cancel, "gap 5, split 2");
 	}
 	

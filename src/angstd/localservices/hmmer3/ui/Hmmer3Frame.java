@@ -30,7 +30,7 @@ public class Hmmer3Frame extends JFrame{
 		setSize(500, 500);
 		pack();
 		setLocationRelativeTo(null);
-		setResizable(true);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setVisible(true);
         setAlwaysOnTop(true);

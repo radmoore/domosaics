@@ -66,12 +66,12 @@ public class EditDatasetPage extends WizardPage implements ActionListener {
 		
 		// layout panel
 		add(new JXTitledSeparator("Select arrangement file"),"growx, span, wrap, gaptop 25");
-		add(path, "gap 10, growx");
-		add(browse, "gap 10, wrap");
+		add(path, "gap 10, h 25!, growx");
+		add(browse, "gap 5, wrap");
 		
 		add(new JXTitledSeparator("Merge with domain view"),"growx, span, wrap, gaptop 25");
 		add(new JLabel("Select view: "), 	"gap 10, split 2");
-		add(selectViewList, 				"gap 10, span, wrap");
+		add(selectViewList, 				"gap 5, gapright 10, span, wrap");
 		add(delete, 						"gap 10, gaptop 10, wrap");
 	}
 
