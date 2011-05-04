@@ -62,7 +62,6 @@ public class DomainSearchOrthologsManager extends DefaultViewManager {
 			// only add instances of the same domain family
 			if(!dc.getDomain().getFamily().equals(queryDom.getDomain().getFamily()))
 				continue;
-			
 			targets.add(dc);
 		}
 		
@@ -72,12 +71,15 @@ public class DomainSearchOrthologsManager extends DefaultViewManager {
 			return;
 		
 		for (DomainComponent dom : targets) {
-			int score = new SequenceAligner().align(querySeq, dom.getDomain().getSequence());
-			view.getDomainSearchOrthologsManager().setScore(dom, score);
+			if(dom.getDomain().getSequence()!=null){
+				int score = new SequenceAligner().align(querySeq, dom.getDomain().getSequence());
+				view.getDomainSearchOrthologsManager().setScore(dom, score);
+			}
 		}
 		
 		//manually trigger repaint before the next domain is set
 		view.getViewComponent().repaint();
+		return;
 	}
 	
   	

@@ -35,6 +35,8 @@ public class LookupProteinInUniprotAction extends AbstractAction {
 		ArrangementComponent selectedArrangement =  view.getArrangementSelectionManager().getClickedComp();
 		if (selectedArrangement == null) 
 			return;
+		view.getArrangementSelectionManager().getSelection().clear();
+		view.getArrangementSelectionManager().getSelection().add(selectedArrangement);
 		
 		// get the nodes label and if its null init it as empty string
 		String label = selectedArrangement.getLabel();

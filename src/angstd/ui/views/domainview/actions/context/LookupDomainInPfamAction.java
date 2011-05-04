@@ -37,6 +37,7 @@ public class LookupDomainInPfamAction extends AbstractAction {
 		if (selectedDomain == null) 
 			return;
 		
+		
 		// get the nodes label and if its null init it as empty string
 		String label = selectedDomain.getLabel();
 		if(label == null)
