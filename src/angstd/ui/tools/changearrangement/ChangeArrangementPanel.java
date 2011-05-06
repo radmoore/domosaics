@@ -174,11 +174,13 @@ public class ChangeArrangementPanel extends JPanel {
 		
 		// values for new/changing domain
 		DomainFamily fam = GatheringThresholdsReader.getInstance().get(id.getText()); 
-		if(fam==null) {
-		 fam = GatheringThresholdsReader.getInstance().get(GatheringThresholdsReader.getAccFromID(id.getText()));
-		}
-		if(fam==null)
-			fam=new DomainFamily(id.getText(), id.getText(), DomainType.UNKNOWN);
+		
+		if(fam == null)
+			fam = GatheringThresholdsReader.getInstance().get(GatheringThresholdsReader.getAccFromID(id.getText()));
+		
+		if(fam == null)
+			fam = new DomainFamily(id.getText(), id.getText(), DomainType.UNKNOWN);
+		
 		GatheringThresholdsReader.getInstance().put(id.getText(), fam);
 		int fromVal = Integer.parseInt(from.getText());
 		int toVal = Integer.parseInt(to.getText());
@@ -214,7 +216,7 @@ public class ChangeArrangementPanel extends JPanel {
 	protected boolean checkCorrectness() {
 
 		if(id.getText().isEmpty()){
-			MessageUtil.showWarning(this, "Please indicates an ID/name for the domain.");
+			MessageUtil.showWarning(this, "Please provide an ID/name for the domain.");
 			return false;
 		}
 		
@@ -240,7 +242,7 @@ public class ChangeArrangementPanel extends JPanel {
 		
 		if (view.getDA().getSequence() != null) {
 			if (view.getDA().getSequence().getLen(true) < Integer.parseInt(from.getText()) || view.getDA().getSequence().getLen(true) < Integer.parseInt(to.getText())){
-				MessageUtil.showWarning(this, "The domain exceeds the sequence length.");
+				MessageUtil.showWarning(this, "The domain exceeds sequence length.");
 				return false;
 			}
 		}

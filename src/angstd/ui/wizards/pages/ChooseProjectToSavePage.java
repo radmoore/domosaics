@@ -84,8 +84,8 @@ public class ChooseProjectToSavePage extends WizardPage {
     	if (elem == null)
 			return "Please select a project";	
 
-		if (name.getText().length()>25)
-			return "Name must not excess 25 characters!";
+		if (name.getText().length() > 25)
+			return "Name must not exceed 25 characters";
     		
     	if (name.getText().trim().equals("Default Project"))
     		return "Please choose a different name for export";

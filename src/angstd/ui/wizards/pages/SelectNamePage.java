@@ -93,7 +93,7 @@ public class SelectNamePage extends WizardPage {
 			return "Select a name";
 		
 		if (newName.length()>25)
-			return "Name must not excess 25 characters!";
+			return "Name should not exceed 25 characters";
 					
 		if  (objectName.equals("sequence view")) {
 			category = project.getCategory(ViewType.SEQUENCE);

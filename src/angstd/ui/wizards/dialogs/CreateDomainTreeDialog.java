@@ -94,7 +94,6 @@ class CreateDomTreeProgress extends DeferredWizardResult implements WizardResult
 		return true;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public Object finish(Map m) throws WizardException {
 		return this;
 	}	

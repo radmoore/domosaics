@@ -53,6 +53,7 @@ public class DomainViewImporter extends ViewImporter<DomainViewI> {
 					if (proteins == null)
 						return null;
 
+					// this is where the view is created
 					view = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
 					view.setDaSet(proteins);
 					

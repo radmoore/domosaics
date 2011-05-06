@@ -137,6 +137,11 @@ public class WorkspaceManager {
 	}
 	
 	
+//	public ViewElement[] getViews() {
+//		return workspace.getV
+//	}
+	
+	
 	/**
 	 * Wrapper around the workspace add project method
 	 * 

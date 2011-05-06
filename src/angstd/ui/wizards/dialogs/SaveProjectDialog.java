@@ -43,7 +43,6 @@ public class SaveProjectDialog {
  * @author Andreas Held
  *
  */
-@SuppressWarnings("unchecked")
 class SaveProjectProgress extends DeferredWizardResult implements WizardResultProducer{
 	
 	@Override

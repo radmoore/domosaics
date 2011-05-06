@@ -23,6 +23,7 @@ import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.actions.FitDomainsToScreenAction;
 import angstd.ui.views.domainview.components.ArrangementComponent;
+import angstd.ui.views.domainview.manager.DomainColorManager;
 import angstd.ui.views.domainview.renderer.additional.HighlightDomainRenderer;
 import angstd.ui.views.view.AbstractView;
 import angstd.ui.views.view.View;
@@ -67,7 +68,7 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 	
 	/**
 	 * Constructor for a new ChangeArrangementView initializing the panel
-	 * except of the domain view which renders the selected arrangement.
+	 * except for the domain view which renders the selected arrangement.
 	 * The initialization of this part takes place when setView() is invoked.
 	 */
 	public ChangeArrangementView() {
@@ -135,7 +136,7 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 		
 		/// take the domain colors from the original view
 		for (int i = 0; i < da.getDomainArrangement().countDoms(); i++) {
-			DomainFamily fam = da.getDomainArrangement().getDomain(i).getFamily();
+			DomainFamily fam = da.getDomainArrangement().getDomain(i).getFamily();			
 			Color color = view.getDomainColorManager().getDomainColor(fam);
 			domView.getDomainColorManager().setDomainColor(fam, color);
 		}

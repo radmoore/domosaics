@@ -201,6 +201,19 @@ public class Workspace extends WorkspaceElement {
 		return children;
 	}
 	
+	
+//	public List<ViewElement> getViews() {
+//		for (WorkspaceElement elem : children)
+//	}
+//	
+	
+	/**
+	 * Get a project specified by name
+	 * @param name
+	 *     	name of a project
+	 * @return
+	 * 		ProjectElement or null
+	 */
 	public ProjectElement getProject(String name) {
 		for (WorkspaceElement element : children)
 			if (element.getTitle().equals(name))

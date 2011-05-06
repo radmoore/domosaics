@@ -69,6 +69,10 @@ public class DomainColorManager extends DefaultViewManager {
   		return getDomainColor(dom.getFamily());
    	}
   	
+  	public boolean hasDomainColor(DomainFamily fam) {
+  		return doms2colors.containsKey(fam.getID());
+  	}
+  	
 	/**
 	 * Returns the associated color for the DomainFamily. If
 	 * no color is associated yet a new color is chosen.
@@ -79,13 +83,16 @@ public class DomainColorManager extends DefaultViewManager {
 	 * 		the associated color for the DomainFamily
 	 */
   	public Color getDomainColor(DomainFamily fam) {
-   		if (doms2colors.get(fam.getID()) == null) {
+//  		System.out.println("Looking up color for dom: "+fam.getAcc());
+   		if ( (doms2colors.get(fam.getID()) == null) && (doms2colors.get(fam.getID()) == null) ) {
+//   			System.out.println("Assigning new color to: "+fam.getAcc());
    			int colorIndex = getNumDomainColors() % DomainColors.values().length;
    			Color color = DomainColors.values()[colorIndex].getColor();
    			doms2colors.put(fam.getID(), color);
    			return color;
    		}
    		else
+//   			System.out.println("Returning known color for: "+fam.getID());
    			return doms2colors.get(fam.getID());
    	}
 
@@ -116,7 +123,8 @@ public class DomainColorManager extends DefaultViewManager {
 	/**
 	 * Sets a new color for a DomainFamily without triggering
 	 * a repaint. This method can for instance be used during the
-	 * project import process.
+	 * project import process. Both the id and acc are set (unless
+	 * they do not differ)
 	 * 
 	 * @param fam
 	 * 		DomainFamily to be associated with the specified color.
@@ -125,6 +133,10 @@ public class DomainColorManager extends DefaultViewManager {
 	 */
 	public void setDomainColor(DomainFamily fam, Color color) {
 		doms2colors.put(fam.getAcc(), color);
+		// make sure that if the id and acc are different, 
+		// both a assoc. with the color
+		if (! fam.getAcc().equals(fam.getID()) ) 
+			doms2colors.put(fam.getID(), color);
 	}	
 
 }

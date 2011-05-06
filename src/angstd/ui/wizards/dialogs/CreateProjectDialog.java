@@ -45,11 +45,10 @@ public class CreateProjectDialog {
  * @author Andreas Held
  * 
  */
-@SuppressWarnings("unchecked")
+
 class ProjectProgress extends DeferredWizardResult implements
 		WizardResultProducer {
 
-	@Override
 	public void start(Map m, ResultProgressHandle p) {
 		assert !EventQueue.isDispatchThread();
 

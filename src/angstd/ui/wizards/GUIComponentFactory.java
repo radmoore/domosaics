@@ -1,6 +1,7 @@
 package angstd.ui.wizards;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -26,10 +27,9 @@ import angstd.ui.views.view.View;
 import angstd.ui.views.view.ViewInfo;
 
 /**
- * Helper factory class for GUI components which may occur frequently
- * in different wizards.
+ * Helper class for GUI components that are used frequently
  * 
- * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
 public class GUIComponentFactory {
@@ -73,6 +73,14 @@ public class GUIComponentFactory {
 	}
 	
 	
+	/**
+	 * Creates a JComboBox containing all projects in the workspace
+	 * 
+	 * @param selectedProject
+	 * 		Selected element in the combobox, can be null
+	 * @return
+	 * 		A JComboBox with all projects (with selectedProject selected)
+	 */
 	public static JComboBox createSelectProjectBox(ProjectElement selectedProject) {
 
 		// get available projects
@@ -85,6 +93,35 @@ public class GUIComponentFactory {
 	
 		return selectProjectList;
 	}
+	
+	
+	/**
+	 * Creates a JComboBox containing all views from project
+	 * (ie, from all categories)
+	 * 
+	 * @param project
+	 * 		Project from which to retrieve all views
+	 * @return
+	 * 		A JComboBox with all views belonging to project
+	 */
+	public static JComboBox createViewBox(ProjectElement project) {
+		List<WorkspaceElement> allViews = new ArrayList<WorkspaceElement>();
+		allViews = project.getViews();
+		JComboBox selectionBox = new JComboBox();
+		
+		if ( (allViews == null) || (allViews.isEmpty()) ) {
+			selectionBox.setEnabled(false);
+			return selectionBox;
+		}
+		ViewElement[] views = allViews.toArray(new ViewElement[allViews.size()]);
+		
+		selectionBox = new JComboBox(views);
+		selectionBox.setRenderer(new WizardListCellRenderer());
+		selectionBox.setEnabled(true);
+		return selectionBox;
+	}
+	
+
 	
 	
 	/**

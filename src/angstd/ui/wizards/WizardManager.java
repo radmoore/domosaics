@@ -27,7 +27,9 @@ import angstd.ui.wizards.dialogs.CreateDomainTreeDialog;
 import angstd.ui.wizards.dialogs.CreateProjectDialog;
 import angstd.ui.wizards.dialogs.CreateSpeciesTreeDialog;
 import angstd.ui.wizards.dialogs.EditDatasetWizard;
+import angstd.ui.wizards.dialogs.ImportViewDialog;
 import angstd.ui.wizards.dialogs.SaveProjectDialog;
+import angstd.ui.wizards.dialogs.SaveViewDialog;
 import angstd.ui.wizards.dialogs.SelectNameDialog;
 import angstd.ui.wizards.dialogs.SelectRenameDialog;
 import angstd.ui.wizards.dialogs.WorkspaceDirectoryWizard;
@@ -108,7 +110,6 @@ public class WizardManager {
 		return (String) new SelectRenameDialog(defaultName, objectName, elem).show();
 	}
 	
-	
 	/**
 	 * Opens a selectNameWizard for views
 	 * (for naming new views and associating with projects)
@@ -148,6 +149,19 @@ public class WizardManager {
 	public void startImportDataWizard() {
 		WizardDisplayer.showWizard (new ImportDataBranchController().createWizard());
 	}
+	
+	/**
+	 * Opens a new import data wizard allowing the user to choose
+	 * the view he wants to create. The wizard also creates the new
+	 * view using the {@link ImportDataResultProducer}.
+	 * @return 
+	 */
+	public void startImportViewWizard(ProjectElement project) {
+		new ImportViewDialog(project).show();
+		//return (Map) new ImportViewDialog(project).show();
+	}
+	
+	
 	
 	/**
 	 * Opens a new create tree wizard allowing the user to choose
@@ -195,6 +209,13 @@ public class WizardManager {
 	 */
 	public void startSaveProjectWizard() {
 		SaveProjectDialog.show();
+	}
+	
+	/**
+	 * Starts the wizard which allows the user to export a view.
+	 */
+	public void startSaveViewWizard() {
+		SaveViewDialog.show();
 	}
 	
 	/**

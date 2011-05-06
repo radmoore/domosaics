@@ -47,6 +47,7 @@ public interface TreeViewI extends View{
 	 */
    	public void setTree(TreeI tree);
    	
+   	
    	/**
 	 * Return the backend data which were assigned to this view.
 	 * 
@@ -60,6 +61,7 @@ public interface TreeViewI extends View{
 	 * applications state
 	 */
 	public void registerMouseListeners();
+	
 	
 	/**
 	 * Registers the additional renderer for a specified tree view,

@@ -16,7 +16,7 @@ public class ChangeArrangementFrame extends ToolFrame {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Constructor for a new DotplotFrame
+	 * Constructor for a new ChangeArrangementFrame
 	 */
     public ChangeArrangementFrame() {
 		super();	

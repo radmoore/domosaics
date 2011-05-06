@@ -10,7 +10,7 @@ import angstd.ui.views.view.components.AbstractViewComponent;
 
 /**
  * The ArrangementComponent is the graphical representation for a 
- * backend data model, the {@link DomainArrngement} which is
+ * backend data model, the {@link DomainArrangement} which is
  * rendered and layouted by the DomainView.
  * <p>
  * Besides its backend component it knows whether or not its visible or not.
@@ -42,7 +42,7 @@ public class ArrangementComponent extends AbstractViewComponent{
 	 */
     public ArrangementComponent(DomainArrangement da, DomainArrangementComponentManager manager) {
         if(da == null)
-        	throw new RuntimeException("Can not create DomainComponent without backend domain !");
+        	throw new RuntimeException("Cannot create DomainComponent without backend domain !");
         this.manager = manager;
         this.da = da;    
 	}
