@@ -27,6 +27,7 @@ import angstd.ui.workspace.actions.ShowViewAction;
 public class WorkspacePopupMenu extends JPopupMenu {
 	private static final long serialVersionUID = 1L;
 	
+	// the selected element
 	private WorkspaceElement elem;
 	
 	/**
@@ -39,9 +40,10 @@ public class WorkspacePopupMenu extends JPopupMenu {
 		WorkspaceSelectionManager wsm = WorkspaceManager.getInstance().getSelectionManager();
 		this.elem = wsm.getSelectedElement();
 		
-		
+		// do nothing on categories
 		if (! elem.isCategory()) {
-			// setup to of context menu (always the same)
+			
+			// setup top of context menu (always the same)
 			String str = "<html><b>"+elem.getTitle();
 			JLabel title = new JLabel(str);
 			title.setHorizontalAlignment(JLabel.CENTER);
@@ -54,12 +56,15 @@ public class WorkspacePopupMenu extends JPopupMenu {
 			
 			else if (elem.isView())
 				addViewNodeMenu();
-		}
-		
 			
+		}	
 
 	}
 	
+	
+	/**
+	 * Constructes the context menu for project nodes
+	 */
 	private void addProjectNodeMenu() {
 		
 		RenameElementAction rea = new RenameElementAction();
@@ -82,6 +87,9 @@ public class WorkspacePopupMenu extends JPopupMenu {
 		add(epa);
 	}
 	
+	/**
+	 * Constructes the context menu for view nodes
+	 */
 	private void addViewNodeMenu() {
 		add(new ShowViewAction());
 		add(new RenameElementAction());
