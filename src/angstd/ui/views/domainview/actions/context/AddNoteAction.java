@@ -25,6 +25,10 @@ public class AddNoteAction extends AbstractAction{
 		
 		// open note window
 		ArrangementComponent selectedDA = view.getArrangementSelectionManager().getClickedComp();
+
+		view.getArrangementSelectionManager().getSelection().clear();
+		view.getArrangementSelectionManager().getSelection().add(selectedDA);
+		
 		new NoteEditor(view, selectedDA.getDomainArrangement()).showDialog(AngstdUI.getInstance(), "Note editor");
 
 		view.getDomainLayoutManager().visualChange();

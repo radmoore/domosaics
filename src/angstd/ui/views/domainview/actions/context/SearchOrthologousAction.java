@@ -56,7 +56,7 @@ public class SearchOrthologousAction extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		if(queryDom!=null)
-			if (view.isCompareDomainsMode() && queryDom==view.getDomainSelectionManager().getClickedComp()) {
+			if ((view.isCompareDomainsMode() && queryDom==view.getDomainSelectionManager().getClickedComp()) ) {
 				view.getDomainViewRenderer().setArrangementRenderer(new BackBoneArrangementRenderer());
 				view.setCompareDomainsMode(false);
 				view.getDomainLayoutManager().toggleCompareDomainsMode(view.isCompareDomainsMode());
@@ -77,6 +77,16 @@ public class SearchOrthologousAction extends AbstractMenuAction{
 		queryDom = view.getDomainSelectionManager().getClickedComp();
 		if (queryDom == null)
 			return;
+		if(queryDom.getDomain().getSequence()==null){
+			view.getDomainViewRenderer().setArrangementRenderer(new BackBoneArrangementRenderer());
+			view.setCompareDomainsMode(false);
+			view.getDomainLayoutManager().toggleCompareDomainsMode(view.isCompareDomainsMode());
+			view.getArrangementSelectionManager().clearSelection();
+			view.getDomainSearchOrthologsManager().reset();
+			view.getViewComponent().repaint();
+			MessageUtil.showWarning("No sequence associated with this domain");
+			return;
+		}
 		
 		view.getDomainSearchOrthologsManager().reset();
 	
