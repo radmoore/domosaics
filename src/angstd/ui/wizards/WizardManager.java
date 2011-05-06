@@ -206,9 +206,13 @@ public class WizardManager {
 	
 	/**
 	 * Starts the wizard which allows the user to export a project.
+	 * 
+	 * @param project
+	 *    a project element which is to be preselected (can be null)
+	 * 
 	 */
-	public void startSaveProjectWizard() {
-		SaveProjectDialog.show();
+	public void startSaveProjectWizard(ProjectElement project) {
+		SaveProjectDialog.show(project);
 	}
 	
 	/**

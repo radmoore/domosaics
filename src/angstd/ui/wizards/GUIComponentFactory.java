@@ -29,6 +29,7 @@ import angstd.ui.views.view.ViewInfo;
 /**
  * Helper class for GUI components that are used frequently
  * 
+ * @author Andreas Held
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */

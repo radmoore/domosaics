@@ -38,15 +38,25 @@ public class ChooseProjectToSavePage extends WizardPage {
 	/**
 	 * Constructor for a new ChooseProjectToSavePage
 	 */
-	public ChooseProjectToSavePage() {
+	public ChooseProjectToSavePage(ProjectElement project) {
 		setLayout(new MigLayout());
+		
+		this.elem = project;
 		
 		// set up the project list
 		list = GUIComponentFactory.createProjectList();
+		
 		list.setName(PROJECT_KEY);
 		
 		name = new JTextField(25);
 		name.setName(FILE_NAME);
+		
+		// call has been made from context menu of a project node
+		// (in workspace)
+		if (elem != null) {
+			list.setSelectedValue(project, true);
+			name.setText(elem.getTitle());
+		}
 		
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent evt) {

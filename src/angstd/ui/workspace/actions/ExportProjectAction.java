@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
+import angstd.model.workspace.ProjectElement;
 import angstd.ui.wizards.WizardManager;
 
 /**
@@ -16,14 +17,17 @@ import angstd.ui.wizards.WizardManager;
 public class ExportProjectAction extends AbstractAction{
 	private static final long serialVersionUID = 1L;
 	
-	public ExportProjectAction (){
+	ProjectElement project = null;
+	
+	public ExportProjectAction (ProjectElement project){
 		super();
+		this.project = project;
 		putValue(Action.NAME, "Export project");
 		putValue(Action.SHORT_DESCRIPTION, "Exports selected project");
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		WizardManager.getInstance().startSaveProjectWizard();
+		WizardManager.getInstance().startSaveProjectWizard(project);
 	}
 
 }

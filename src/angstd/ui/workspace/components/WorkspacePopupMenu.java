@@ -4,10 +4,10 @@ import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 
+import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.workspace.WorkspaceSelectionManager;
-import angstd.ui.workspace.actions.CreateProjectAction;
 import angstd.ui.workspace.actions.DeleteElementAction;
 import angstd.ui.workspace.actions.ExportProjectAction;
 import angstd.ui.workspace.actions.ExportViewAction;
@@ -67,9 +67,11 @@ public class WorkspacePopupMenu extends JPopupMenu {
 	 */
 	private void addProjectNodeMenu() {
 		
+		ProjectElement project = elem.getProject();
+		
 		RenameElementAction rea = new RenameElementAction();
 		DeleteElementAction dea = new DeleteElementAction();
-		ExportProjectAction epa = new ExportProjectAction();
+		ExportProjectAction epa = new ExportProjectAction(project);
 		
 		// Renaming and deleting of default not allowed
 		if ( elem.getTitle().equals("Default Project") ) {
