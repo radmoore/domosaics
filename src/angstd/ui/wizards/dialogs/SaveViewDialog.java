@@ -14,12 +14,10 @@ import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
 import angstd.model.configuration.Configuration;
 import angstd.model.workspace.ViewElement;
-import angstd.model.workspace.io.ProjectExporter;
+import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.ViewHandler;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.view.View;
-import angstd.ui.views.view.io.ViewExporter;
-import angstd.ui.wizards.pages.ChooseProjectToSavePage;
 import angstd.ui.wizards.pages.ChooseViewToSavePage;
 import angstd.ui.wizards.pages.SaveProjectFilePage;
 
@@ -32,8 +30,8 @@ import angstd.ui.wizards.pages.SaveProjectFilePage;
  */
 public class SaveViewDialog {
 
-	public static Object show() {
-		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new ChooseViewToSavePage(), new SaveProjectFilePage()}, new SaveViewProgress());
+	public static Object show(WorkspaceElement view) {
+		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new ChooseViewToSavePage(view), new SaveProjectFilePage()}, new SaveViewProgress());
 		return WizardDisplayer.showWizard(wiz);
 	}
 }

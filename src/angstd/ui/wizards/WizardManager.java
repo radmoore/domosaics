@@ -214,8 +214,8 @@ public class WizardManager {
 	/**
 	 * Starts the wizard which allows the user to export a view.
 	 */
-	public void startSaveViewWizard() {
-		SaveViewDialog.show();
+	public void startSaveViewWizard(WorkspaceElement view) {
+		SaveViewDialog.show(view);
 	}
 	
 	/**

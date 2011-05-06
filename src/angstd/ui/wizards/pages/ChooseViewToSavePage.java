@@ -35,32 +35,54 @@ public class ChooseViewToSavePage extends WizardPage {
 	
 	private JComboBox projectSelection, viewSelection;
 	private JTextField exportName;
-	private ProjectElement project;
+	
+	private ProjectElement project = null;
+	List<WorkspaceElement> allViews;
+	private WorkspaceElement view;
 	
 
 	/**
 	 * Constructor for a new ChooseProjectToSavePage
 	 */
-	public ChooseViewToSavePage() {
-		setLayout(new MigLayout());
+	public ChooseViewToSavePage(WorkspaceElement view) {
 		
-		// set up the project list
-		projectSelection = GUIComponentFactory.createSelectProjectBox(null);
-		projectSelection.setName(PROJECT_KEY);
+		this.view = view;
+		setLayout(new MigLayout());
 		
 		viewSelection = new JComboBox();
 		viewSelection.setName(VIEW_KEY);
-		
 		exportName = new JTextField();
 		exportName.setName(EXPORT_NAME);
+		
+		// method has been triggered from context
+		// within workspace (in which case we know which view
+		// and project have been chosen)
+		if (view != null) {
+			project = view.getProject();
+			allViews = getViews(project);
+			if ( allViews == null || allViews.isEmpty() )
+				viewSelection.setEnabled(false);
+			else {
+				for ( WorkspaceElement elem : allViews )
+					viewSelection.addItem(elem);
+				
+				viewSelection.setRenderer(new WizardListCellRenderer());
+				viewSelection.setSelectedItem(view);
+				exportName.setText(view.getTitle());
+				
+			}
+		}
+		
+		// set up the project list (project will be null if view was null)
+		projectSelection = GUIComponentFactory.createSelectProjectBox(project);
+		projectSelection.setName(PROJECT_KEY);
+				
 		
 		
 		projectSelection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				viewSelection.removeAllItems();
-				project = (ProjectElement)projectSelection.getSelectedItem();
-				List<WorkspaceElement> allViews = new ArrayList<WorkspaceElement>();
-				allViews = project.getViews();
+				allViews = getViews( (ProjectElement)projectSelection.getSelectedItem() );
 				if ( allViews == null || allViews.isEmpty() )
 					viewSelection.setEnabled(false);
 				else {
@@ -94,6 +116,12 @@ public class ChooseViewToSavePage extends WizardPage {
 		add(exportName, "h 25!, w 270!, gap 10, span, growx, gapright 10, wrap");
 		
 	}
+	
+	
+	private List<WorkspaceElement> getViews(ProjectElement project) {
+		return project.getViews();
+	}
+	
 	
 	/**
 	 * Returns the text on the right side within the wizard
