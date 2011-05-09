@@ -6,18 +6,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
-import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
-import angstd.model.arrangement.DomainVector;
-import angstd.model.sequence.util.SeqUtil;
 
 public class ChangeSequencePage extends WizardPage {
 	private static final long serialVersionUID = 1L;
@@ -28,6 +29,7 @@ public class ChangeSequencePage extends WizardPage {
 	
 	/** the text field displaying the chosen file path */
 	private JTextArea input;
+	private JTextField lengthField;
 	
 	private JButton removeSequence, restore;
 	
@@ -48,7 +50,11 @@ public class ChangeSequencePage extends WizardPage {
 		
 		setLayout(new MigLayout());
 		
-		// init components
+		// holds the current length of the sequence
+		lengthField = new JTextField();
+		lengthField.setText(""+initSeq.length());
+		lengthField.setEditable(false);
+		
 		input = new JTextArea (initSeq);
 		input.setFont(new Font ("Courier", 0, 12));	// style plain, size 14
 		input.setColumns(60);
@@ -56,8 +62,20 @@ public class ChangeSequencePage extends WizardPage {
 		input.setRows(12);
 		input.setWrapStyleWord(false);				// wrap on chars
 		input.setEditable(true);
-		
 		input.setName(SEQ_KEY);
+		
+		input.getDocument().addDocumentListener(new DocumentListener() {
+			
+			public void removeUpdate(DocumentEvent e) {
+				lengthField.setText(""+input.getText().length());
+			}
+			
+			public void insertUpdate(DocumentEvent e) {
+				lengthField.setText(""+input.getText().length());
+			}
+			
+			public void changedUpdate(DocumentEvent e) {}
+		});
 		
 		removeSequence = new JButton("Remove sequence");
 		removeSequence.addActionListener(new ActionListener() {
@@ -71,6 +89,7 @@ public class ChangeSequencePage extends WizardPage {
 			public void actionPerformed(ActionEvent e) {
 				input.setText("");
 				input.setText(startingSeq);
+				lengthField.setText(""+startingSeq.length());
 			}
 		});
 		
@@ -78,10 +97,12 @@ public class ChangeSequencePage extends WizardPage {
 			removeSequence.setEnabled(false);
 			restore.setEnabled(false);
 		}
-		
+
 		// layout panel
 		add(new JXTitledSeparator("Edit the sequence"),"growx, span, wrap, gaptop 15");
 		add(new JScrollPane(new JScrollPane(input)), "gap 10, growx, wrap");
+		add(new JLabel("Length"), "gap 10, split 2");
+		add(lengthField, "gap 5, w 70!, split 2, span x, wrap");
 		add(removeSequence, "gap 10, split 2");
 		add(restore, "gap 5, split 2");
 	}
@@ -102,7 +123,7 @@ public class ChangeSequencePage extends WizardPage {
     protected String validateContents (Component component, Object o) {
 
     	String newSeq = input.getText(); 
-    	
+    	//System.out.println("This is the new sequence length: "+newSeq.length());
     	if (! newSeq.isEmpty() ) {
     		
     		// check if it contains no non-valid chars

@@ -59,7 +59,8 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
             		sequence = false;
             		
             	}
-            	// sequence line
+            	// sequence line (instead of concat, check every line -> will terminate as soon
+            	// as something is wrong (as opposed to reading the rest of the faulty entry)
             	else if ( SeqUtil.checkFormat(line.trim()) == SeqUtil.UNKNOWN )
             		return false;
             	

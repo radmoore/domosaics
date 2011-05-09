@@ -1,5 +1,7 @@
 package angstd.model.arrangement;
 
+import java.awt.List;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
@@ -63,21 +65,7 @@ public class DomainArrangement implements Cloneable, AngstdData{
 		doms.remove(dom);
 		hiddenDoms.add(dom);
 		Collections.sort(doms);
-	}
-	
-	/**
-	 * Deletes a domain from the current arrangement
-	 * @param dom
-	 */
-    public void deleteDomain(Domain dom) {
-    	if (!contains(dom))
-    		return;
-    	
-    	doms.remove(dom);
-    	// TODO: check if this is required
-    	Collections.sort(doms);
-    }
-	
+	}	
 	
 	public void showAllDomains() {
 		doms.add(hiddenDoms);
@@ -410,41 +398,6 @@ public class DomainArrangement implements Cloneable, AngstdData{
 	public String toString() {
 		return getName();
 	}
-	
-	/**
-	 * Removes any domains that have to be removed when 
-	 * setting a sequence which is to short to habor all domains
-	 * If the sequence end falls _within_ a domain, the whole domain
-	 * will be deleted (as opposed to shortend, see below) as we can not
-	 * be sure it would still have sufficient match states
-	 * 
-	 * 
-	 * @param sequence
-	 * 		sequence to which the domain arrangement is to be matched
-	 */
-	public void matchSeq2DA(String sequence) {
-		Iterator<Domain> doms = getDomainIter();
-		int len = sequence.length();
-		Domain dom; 
-		
-		while(doms.hasNext()) {
-			dom = doms.next();
-//			if (dom.from >= len)
-			if (dom.to > len)
-				deleteDomain(dom);
-
-			// end of sequence is in a domain. shorten domain.
-			// (and reassigning the sequence)
-//			else if ( (dom.from < len) && ( dom.to > len ) ){
-//				dom.setTo(len);
-		
-		}
-		
-		// shorten the protein backbone
-		
-		
-	}
-	
 	
 
 }

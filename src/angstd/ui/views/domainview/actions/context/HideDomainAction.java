@@ -52,7 +52,6 @@ public class HideDomainAction extends AbstractAction{
 //			
 //			if (view.getCollapseSameArrangementsManager().)
 //		}
-		
 		view.getDomainLayoutManager().structuralChange();
 	}
 

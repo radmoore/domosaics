@@ -53,9 +53,10 @@ public class SeqUtil {
 			if (!letters.contains(charSeq[i]))
 				letters.add(charSeq[i]);
 		}
-		
+		//TODO: only allow protein for the time being
 		// check for PROTEIN (all AA + '-', '*', 'X')
-		if ( (letters.size() > 4) && (letters.size() <= 23) ) {
+		//if ( (letters.size() > 4) && (letters.size() <= 23) ) {
+		if ( letters.size() <= 23 ) {
 			
 			Pattern nonRes = Pattern.compile(NONVALIDRESEXP);
 		    Matcher m = nonRes.matcher(seq);

@@ -1,7 +1,8 @@
 package angstd.ui.wizards.dialogs;
 
 import java.awt.EventQueue;
-import java.awt.Graphics2D;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.netbeans.api.wizard.WizardDisplayer;
@@ -18,11 +19,13 @@ import angstd.model.arrangement.DomainVector;
 import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
+import angstd.model.sequence.util.SeqUtil;
 import angstd.ui.ViewHandler;
+import angstd.ui.util.MessageUtil;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
-import angstd.ui.views.domainview.renderer.arrangement.ArrangementRenderer;
-import angstd.ui.views.domainview.renderer.arrangement.BackBoneArrangementRenderer;
+import angstd.ui.views.domainview.components.DomainComponent;
+import angstd.ui.views.view.manager.SelectionManager;
 import angstd.ui.wizards.pages.ChangeSequencePage;
 
 public class ChangeSequenceWizard {
@@ -97,7 +100,7 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
 			
 			String fastaSeq = (String) m.get(ChangeSequencePage.SEQ_KEY);
 			
-	    	// delete sequence from arrangement
+	    	// delete sequence from arrangement if there is no sequence anymore
 	    	if (fastaSeq.isEmpty()) {
 	    		selectedDA.getDomainArrangement().setSequence(null);
 	    		if (view.getSequences().length == 0)
@@ -109,45 +112,72 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
 			
 			selectedArr = selectedDA.getDomainArrangement();
 
-    		// check if last domains are effected
+    		// check if arrangement is effected by the sequence change
         	DomainVector doms = selectedArr.getDomains();
-        	Domain lastDom = doms.lastElement();
+        	Collections.sort(doms);
+        	Domain dom = doms.lastElement();
+        	System.out.println("This is the last domain: "+dom);
         	
-    		if ( fastaSeq.length() < lastDom.getFrom() ) {
-//    			if (MessageUtil.showDialog("The new sequence is too short to harbor all domains. Continue?")) {
-//    		/		selectedArr.matchSeq2DA(fastaSeq);
-//    			}
-//    			else {
-//    				cancel(m);
-//    				p.failed("Sequence too short", false);
-//    			}
-//    		}
-//    		else if ( SeqUtil.checkFormat(fastaSeq) == SeqUtil.UNKNOWN ) {
-//    			if (! MessageUtil.showDialog("Cannot determine sequence type. Continue?")) {
-//    				cancel(m);
-//    				p.failed("Could not determine sequence type", false);
-//    			}
-    		}
-    	
+        	if (dom.getTo() > fastaSeq.length()) {
 
-    		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
-//    		view.getDomainViewRenderer().setArrangementRenderer(new BackBoneArrangementRenderer());
-    		ArrangementRenderer ar = view.getDomainViewRenderer().getArrangementRenderer();
-//    		ar.renderArrangement(selectedDA, view, g);
+        		if (MessageUtil.showDialog("The sequence is too short. Remove effected domains?")) {
+    				DomainComponent dc;
+    				// for each domain in the arrangement
+        			for (int i = doms.size()-1; i >= 0; i--) {
+        				dom = doms.get(i);
+        				// figure out whether it extends beyond 
+        				// sequence length
+        				if (dom.getTo() > fastaSeq.length()) {
+        					// if so, get the graphical domain coponent
+        					dc = selectedDA.getDomain(dom);
+        					// remove the component
+        					dc.setVisible(false);
+        					// and remove the underlying domain
+        					doms.remove(dom);
+        				}
+        				else
+        					break;
+        			}
+        			Collections.sort(doms);
+    			}
+    			else {
+    				cancel(m);
+    				p.failed("Sequence too short", false);
+    				return;
+    			}
+    		}
+        	// check if the sequence is real
+    		else if ( SeqUtil.checkFormat(fastaSeq) == SeqUtil.UNKNOWN ) {
+    			if (! MessageUtil.showDialog("Cannot determine sequence type. Continue?")) {
+    				cancel(m);
+    				p.failed("Could not determine sequence type", false);
+    				return;
+    			}
+    		}
     		
+        	// if all is well, set the new sequence... 
+		    SequenceI seq = new FastaReader().getDataFromString(fastaSeq)[0];
+		    if (seq.getName() == null)
+		    	seq.setName(selectedDA.getDomainArrangement().getName());
+			
+		    selectedDA.getDomainArrangement().setSequence(seq);
+		    if(!view.isSequenceLoaded())
+		    	view.setSequencesLoaded(true);
+		    
+		    // ... and update the graphical backbone
+			selectedDA.setBounds(selectedDA.getX(), selectedDA.getY(), fastaSeq.length(), selectedDA.getHeight());
+		    		
+			// finally, trigger update to view
+	   		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
+	   		view.getDomainLayoutManager().firevisualChange();
+			
+		    p.finished(null);
+		    return;
     		
-	    	SequenceI seq = new FastaReader().getDataFromString(fastaSeq)[0];
-	    	if (seq.getName() == null)
-	    		seq.setName(selectedDA.getDomainArrangement().getName());
-		
-	    	selectedDA.getDomainArrangement().setSequence(seq);
-	    	if(!view.isSequenceLoaded())
-	    		view.setSequencesLoaded(true);
-	    		p.finished(null);
-	    	
 		}
 		catch(Exception e){
 			Configuration.getLogger().debug(e.toString());
+			e.printStackTrace();
 			p.failed("Error while editing data set.", false);
 			p.finished(null);
 		}

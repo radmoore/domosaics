@@ -278,7 +278,7 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 		return to - from;
 	}
 	
-	/* Additional methods for overlap searches */
+	/* Additional method for overlap searches */
 	public boolean intersect(Domain dom) {
 		if (this.to < dom.getFrom())
 			return false;
@@ -290,6 +290,8 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 	/**
 	 * Checks what domain comes before the other within
 	 * an arrangement.
+	 * FIXME there is a problem here if from is identical
+	 * for both (as in place)
 	 */
 	public int compareTo (Domain dom) {
 		return this.from - dom.from;

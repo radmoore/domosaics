@@ -2,8 +2,10 @@ package angstd.ui.views.domainview.components;
 
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
 import java.util.Iterator;
 
+import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.ui.views.domainview.manager.DomainArrangementComponentManager;
 import angstd.ui.views.view.components.AbstractViewComponent;
@@ -56,6 +58,18 @@ public class ArrangementComponent extends AbstractViewComponent{
     public Iterator<DomainComponent> getDomainComponents() {
     	return manager.getDomains(this).iterator();
     }
+    
+    /**
+     * Gets a DomainComponent which is part of this
+     * ArrangementComponent given the backend domain
+     * @param dom
+     * @return
+     */
+    public DomainComponent getDomain(Domain dom) {
+    	return manager.getDomainComponent(dom);
+    }
+    
+    
     
     /**
      * Return whether or not the arrangement component is visible in 
