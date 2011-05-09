@@ -110,50 +110,67 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
 	    		return;
 	    	}
 			
-			selectedArr = selectedDA.getDomainArrangement();
-
-    		// check if arrangement is effected by the sequence change
-        	DomainVector doms = selectedArr.getDomains();
-        	Collections.sort(doms);
-        	Domain dom = doms.lastElement();
-        	System.out.println("This is the last domain: "+dom);
-        	
-        	if (dom.getTo() > fastaSeq.length()) {
-
-        		if (MessageUtil.showDialog("The sequence is too short. Remove effected domains?")) {
-    				DomainComponent dc;
-    				// for each domain in the arrangement
-        			for (int i = doms.size()-1; i >= 0; i--) {
-        				dom = doms.get(i);
-        				// figure out whether it extends beyond 
-        				// sequence length
-        				if (dom.getTo() > fastaSeq.length()) {
-        					// if so, get the graphical domain coponent
-        					dc = selectedDA.getDomain(dom);
-        					// remove the component
-        					dc.setVisible(false);
-        					// and remove the underlying domain
-        					doms.remove(dom);
-        				}
-        				else
-        					break;
-        			}
-        			Collections.sort(doms);
-    			}
-    			else {
-    				cancel(m);
-    				p.failed("Sequence too short", false);
-    				return;
-    			}
-    		}
-        	// check if the sequence is real
-    		else if ( SeqUtil.checkFormat(fastaSeq) == SeqUtil.UNKNOWN ) {
+	    	// check if the sequence is real
+    		if ( SeqUtil.checkFormat(fastaSeq) == SeqUtil.UNKNOWN ) {
     			if (! MessageUtil.showDialog("Cannot determine sequence type. Continue?")) {
     				cancel(m);
     				p.failed("Could not determine sequence type", false);
     				return;
     			}
     		}
+	    	
+    		// get arrangement of component
+			selectedArr = selectedDA.getDomainArrangement();
+
+
+        	DomainVector doms = selectedArr.getDomains();
+        	Collections.sort(doms);
+        	Domain dom;
+        	DomainComponent dc;
+        	boolean remove = false;
+
+    		// check if arrangement is effected by the sequence change
+        	//
+        	// taking only the last domain is not reasonable,
+        	// as a domain may be in a domain. We have to check
+        	// if there is _any_ domain with a from pos.
+        	// that extends beyond the end of the sequence
+        	// (compareTo() sorts by first position)
+        	
+        	// for each domain in the arrangement
+    		for (int i = doms.size()-1; i >= 0; i--) {
+
+    			dom = doms.get(i);
+    			
+   				// figure out whether it extends beyond 
+   				// sequence length
+    			if (dom.getTo() > fastaSeq.length()) {
+    				
+    				// if so, comunicate (and dont ask again)
+    				if (!remove) {
+    					if (MessageUtil.showDialog("The sequence is too short. Remove effected domains?") )
+    						remove = true;
+    				
+    					else {
+    						cancel(m);
+        					p.failed("Sequence too short", false);
+        					return;
+    					}
+    				}
+        	
+        			// if chosen, get the graphical domain coponent
+        			dc = selectedDA.getDomain(dom);
+        			// remove the component
+        			dc.setVisible(false);
+        			// and remove the underlying domain
+        			doms.remove(dom);
+        		}
+        		
+    		}
+    		// resort after meddling (likely not needed - but see bug
+    		// related to domain position)
+    		Collections.sort(doms);
+        	
     		
         	// if all is well, set the new sequence... 
 		    SequenceI seq = new FastaReader().getDataFromString(fastaSeq)[0];
