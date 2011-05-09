@@ -31,13 +31,14 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 
 import angstd.localservices.hmmer3.Hmmer3Engine;
-import angstd.localservices.hmmer3.Hmmer3Service;
 import angstd.localservices.hmmer3.programs.HmmPress;
 import angstd.localservices.hmmer3.programs.HmmScan;
 import angstd.localservices.hmmer3.programs.Hmmer3Program;
 import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
+import angstd.model.sequence.io.FastaReader;
 import angstd.model.sequence.io.FastaWriter;
+import angstd.model.sequence.util.SeqUtil;
 import angstd.model.workspace.ViewElement;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.ViewHandler;
@@ -380,7 +381,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			return;
 		}
 		else if (fastaTF.getText().equals("")) {
-			MessageUtil.showWarning("Please choose a fasta file.");
+			MessageUtil.showWarning("Please choose a sequence file or view");
 			return;
 		}
 		
@@ -394,6 +395,10 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		if (!checkDbDir(new File(hmmTF.getText())))
 			return;
 		
+		if ( !FastaReader.isValidFasta(fastaTF.getText()) ) {
+			MessageUtil.showWarning("Malformated fasta file or unknown sequence format");
+			return;
+		}
 		// if we have passed all tests, then we are
 		// ready to run hmmer
 		hmmScan = new HmmScan(

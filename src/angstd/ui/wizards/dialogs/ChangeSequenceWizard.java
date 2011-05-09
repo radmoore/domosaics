@@ -1,7 +1,7 @@
 package angstd.ui.wizards.dialogs;
 
 import java.awt.EventQueue;
-import java.awt.Rectangle;
+import java.awt.Graphics2D;
 import java.util.Map;
 
 import org.netbeans.api.wizard.WizardDisplayer;
@@ -12,11 +12,17 @@ import org.netbeans.spi.wizard.WizardException;
 import org.netbeans.spi.wizard.WizardPage;
 import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
+import angstd.model.arrangement.Domain;
+import angstd.model.arrangement.DomainArrangement;
+import angstd.model.arrangement.DomainVector;
 import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
+import angstd.ui.ViewHandler;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
+import angstd.ui.views.domainview.renderer.arrangement.ArrangementRenderer;
+import angstd.ui.views.domainview.renderer.arrangement.BackBoneArrangementRenderer;
 import angstd.ui.wizards.pages.ChangeSequencePage;
 
 public class ChangeSequenceWizard {
@@ -47,7 +53,7 @@ public class ChangeSequenceWizard {
 	 */
 	public Object show() {
 		String initSeq = (selectedDA.getDomainArrangement().hasSeq()) ? selectedDA.getDomainArrangement().getSequence().getSeq(false) : "";
-		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new ChangeSequencePage(initSeq)}, new ChangeSequenceProgress(view, selectedDA));
+		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new ChangeSequencePage(initSeq, selectedDA.getDomainArrangement())}, new ChangeSequenceProgress(view, selectedDA));
 		return WizardDisplayer.showWizard(wiz);	
 	}
 }
@@ -59,7 +65,6 @@ public class ChangeSequenceWizard {
  * @author Andreas Held
  *
  */
-@SuppressWarnings("unchecked")
 class ChangeSequenceProgress extends DeferredWizardResult implements WizardResultProducer{
 	
 	/** the view which is going to be changed */
@@ -67,6 +72,8 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
 	
 	/** the arrangement to be changed */
 	protected ArrangementComponent selectedDA;
+	
+	private DomainArrangement selectedArr;
 	
 	/**
 	 * Constructor for a new ChangeSequenceProgress
@@ -82,7 +89,6 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
 	}
 	
 	
-	@Override
 	public void start(Map m, ResultProgressHandle p) {
 		assert !EventQueue.isDispatchThread();
 		
@@ -91,31 +97,63 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
 			
 			String fastaSeq = (String) m.get(ChangeSequencePage.SEQ_KEY);
 			
-			// delete sequence from arrangement
-			if (fastaSeq.isEmpty()) {
-				selectedDA.getDomainArrangement().setSequence(null);
-				if (view.getSequences().length == 0)
-					view.setSequencesLoaded(false);
+	    	// delete sequence from arrangement
+	    	if (fastaSeq.isEmpty()) {
+	    		selectedDA.getDomainArrangement().setSequence(null);
+	    		if (view.getSequences().length == 0)
+	    			view.setSequencesLoaded(false);
 				
-				p.finished(null);
-				return;
-			}
+	    		p.finished(null);
+	    		return;
+	    	}
 			
-			SequenceI seq = new FastaReader().getDataFromString(fastaSeq)[0];
-			if (seq.getName() == null)
-				seq.setName(selectedDA.getDomainArrangement().getName());
-			
-			selectedDA.getDomainArrangement().setSequence(seq);
-			if(!view.isSequenceLoaded())
-				view.setSequencesLoaded(true);
+			selectedArr = selectedDA.getDomainArrangement();
 
-			p.finished(null);		
+    		// check if last domains are effected
+        	DomainVector doms = selectedArr.getDomains();
+        	Domain lastDom = doms.lastElement();
+        	
+    		if ( fastaSeq.length() < lastDom.getFrom() ) {
+//    			if (MessageUtil.showDialog("The new sequence is too short to harbor all domains. Continue?")) {
+//    		/		selectedArr.matchSeq2DA(fastaSeq);
+//    			}
+//    			else {
+//    				cancel(m);
+//    				p.failed("Sequence too short", false);
+//    			}
+//    		}
+//    		else if ( SeqUtil.checkFormat(fastaSeq) == SeqUtil.UNKNOWN ) {
+//    			if (! MessageUtil.showDialog("Cannot determine sequence type. Continue?")) {
+//    				cancel(m);
+//    				p.failed("Could not determine sequence type", false);
+//    			}
+    		}
+    	
+
+    		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
+//    		view.getDomainViewRenderer().setArrangementRenderer(new BackBoneArrangementRenderer());
+    		ArrangementRenderer ar = view.getDomainViewRenderer().getArrangementRenderer();
+//    		ar.renderArrangement(selectedDA, view, g);
+    		
+    		
+	    	SequenceI seq = new FastaReader().getDataFromString(fastaSeq)[0];
+	    	if (seq.getName() == null)
+	    		seq.setName(selectedDA.getDomainArrangement().getName());
+		
+	    	selectedDA.getDomainArrangement().setSequence(seq);
+	    	if(!view.isSequenceLoaded())
+	    		view.setSequencesLoaded(true);
+	    		p.finished(null);
+	    	
 		}
 		catch(Exception e){
 			Configuration.getLogger().debug(e.toString());
 			p.failed("Error while editing data set.", false);
 			p.finished(null);
-		}	
+		}
+		
+		p.finished(null);
+		return;
 	}
 	
 	public boolean cancel(Map m) {
@@ -125,4 +163,9 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
 	public Object finish(Map m) throws WizardException {
 		return this;
 	}	
+	
+	private void assignSequence(String sequence) {
+		
+	}
+	
 }

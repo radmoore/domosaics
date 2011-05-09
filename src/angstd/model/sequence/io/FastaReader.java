@@ -1,10 +1,14 @@
 package angstd.model.sequence.io;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import angstd.model.io.AbstractDataReader;
 import angstd.model.sequence.Sequence;
@@ -21,6 +25,59 @@ import angstd.ui.util.MessageUtil;
  * 
  */
 public class FastaReader extends AbstractDataReader<SequenceI>{
+	
+	public static boolean isValidFasta(String fastaFile) {
+		
+        BufferedReader inputStream = null;
+        Boolean firstRead = true;
+        Boolean header = false;
+        Boolean sequence = false;
+        String line;
+        Pattern p = Pattern.compile("^$");
+        Matcher emptyLine; 
+        
+
+        try {
+        	File file = new File(fastaFile);
+            inputStream = new BufferedReader(new FileReader(file));
+            
+            while ((line = inputStream.readLine()) != null) {
+            	 emptyLine = p.matcher(line);
+
+            	// ignore comments (and empty lines)
+            	if ( line.startsWith("#") || emptyLine.matches())
+            		continue;
+            	
+            	if ( line.startsWith(">") ) {	
+            		if (!firstRead) {
+            			if ( !(header && sequence) )
+            				return false;
+            			
+            		}
+            		firstRead = false;
+            		header = true;
+            		sequence = false;
+            		
+            	}
+            	// sequence line
+            	else if ( SeqUtil.checkFormat(line.trim()) == SeqUtil.UNKNOWN )
+            		return false;
+            	
+            	else 
+            		sequence = true;
+            	
+            	
+            }
+            if ( !(header & sequence) )
+            		return false;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+	
 	
 	public SequenceI[] getData (Reader reader) throws IOException {
 		
@@ -104,6 +161,7 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 		}
 		return null;
 	}
+	
 	
 	/**
 	 * Parses the header line of a fasta sequence, 
