@@ -41,7 +41,7 @@ public class WorkspacePopupMenu extends JPopupMenu {
 		WorkspaceSelectionManager wsm = WorkspaceManager.getInstance().getSelectionManager();
 		this.elem = wsm.getSelectedElement();
 		
-		// do nothing on categories
+		
 		if (! elem.isCategory()) {
 			
 			// setup top of context menu (always the same)
@@ -58,7 +58,11 @@ public class WorkspacePopupMenu extends JPopupMenu {
 			else if (elem.isView())
 				addViewNodeMenu();
 			
-		}	
+		}
+		// only allow deletion on category
+		else {
+			add(new DeleteElementAction());
+		}
 
 	}
 	
