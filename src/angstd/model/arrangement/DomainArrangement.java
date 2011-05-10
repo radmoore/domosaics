@@ -73,6 +73,17 @@ public class DomainArrangement implements Cloneable, AngstdData{
 		Collections.sort(doms);
 	}
 	
+	/**
+	 * Sorts the DomainVector by
+	 * from position
+	 * (using Domain implementation of
+	 * compareTo())
+	 */
+	public void sortDomains() {
+		Collections.sort(doms);
+	}
+	
+	
 	public DomainVector getHiddenDoms() {
 		return hiddenDoms;
 	}
@@ -249,6 +260,7 @@ public class DomainArrangement implements Cloneable, AngstdData{
 	 * 		domain vector of the arrangement
 	 */
 	public DomainVector getDomains() {
+		Collections.sort(doms);
 		return doms;
 	}
 	

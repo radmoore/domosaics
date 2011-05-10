@@ -120,20 +120,22 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	public DomainLayoutManager(ViewActionManager manager) {
 		super(manager);
 		
-		if (Configuration.isIdPreferedToAcc())
-		{
-			setState(DomainAction.ID_RATHER_THAN_ACC,false);
-			setState(DomainAction.ACC_RATHER_THAN_ID,true);
+		if (Configuration.isIdPreferedToAcc()) {
+			setState(DomainAction.ID_RATHER_THAN_ACC, false);
+			setState(DomainAction.ACC_RATHER_THAN_ID, true);
 			disable(DomainAction.ACC_RATHER_THAN_ID);
-		}else
-		{
+		}
+		else {
 			disable(DomainAction.ID_RATHER_THAN_ACC);
 		}
 		if (isProportionalView())
 			disable(DomainAction.PROP_VIEW);
+		
 		if (isUnproportionalView())
+			
 			disable(DomainAction.UNPROP_VIEW);
-		if(isMsaView())
+		if (isMsaView())
+			
 			disable(DomainAction.MSA_VIEW);
 	}
 	
@@ -150,15 +152,13 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	 */
 	public void changeIdOrAccView() {
 		Configuration.setIdPreferedToAcc(!Configuration.isIdPreferedToAcc());
-		if(Configuration.isIdPreferedToAcc())
-		{
-			setState(DomainAction.ID_RATHER_THAN_ACC,false);
+		if(Configuration.isIdPreferedToAcc()) {
+			setState(DomainAction.ID_RATHER_THAN_ACC, false);
 			disable(DomainAction.ACC_RATHER_THAN_ID);
 			enable(DomainAction.ID_RATHER_THAN_ACC);
 		}
-		else
-		{
-			setState(DomainAction.ACC_RATHER_THAN_ID,false);
+		else {
+			setState(DomainAction.ACC_RATHER_THAN_ID, false);
 			disable(DomainAction.ID_RATHER_THAN_ACC);
 			enable(DomainAction.ACC_RATHER_THAN_ID);
 		}
@@ -234,7 +234,8 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 			disable(DomainAction.COLLAPSE_BY_SIMILARITY);
 			disable(DomainAction.ZOOMMODE);
 			disable(DomainAction.SHOW_NOTES);
-		} else {
+		} 
+		else {
 			enable(DomainAction.COLLAPSE_BY_SIMILARITY);
 			enable(DomainAction.ZOOMMODE);
 			enable(DomainAction.SHOW_NOTES);
@@ -256,7 +257,8 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 			disable(DomainAction.ZOOMMODE);
 			disable(DomainAction.EXPORT_SELECTION);
 			disable(DomainAction.SHOW_RULER);
-		} else {
+		} 
+		else {
 			enable(DomainAction.COLLAPSE_IDENTICAL);
 			enable(DomainAction.COLLAPSE_BY_SIMILARITY);
 			enable(DomainAction.SELECT_ARRANGEMENTS);
@@ -285,7 +287,8 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 				disable(DomainAction.UNPROP_VIEW);
 			else
 				disable(DomainAction.PROP_VIEW);
-		} else {
+		} 
+		else {
 			enable(DomainAction.EVALUE_COLORIZATION);
 			enable(DomainAction.SELECT_SEQUENCES);
 			enable(DomainAction.SELECT_ARRANGEMENTS);
@@ -327,7 +330,8 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 				disable(DomainAction.UNPROP_VIEW);
 			else
 				disable(DomainAction.PROP_VIEW);
-		} else {
+		} 
+		else {
 			enable(DomainAction.COLLAPSE_IDENTICAL);
 			enable(DomainAction.MSA_VIEW);
 			enable(DomainAction.ZOOMMODE);

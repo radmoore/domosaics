@@ -207,7 +207,6 @@ public class ApplicationHandler {
 		initWorkspaceDir();
 		
 		startUpProgress.setProgress("Checking Java version", 50);
-//		startUpProgress.setProgress("Paint the main frame", 60);
 		initGUI();
 		
 		startUpProgress.setProgress("Checking Java version", 60);

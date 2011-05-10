@@ -68,7 +68,7 @@ public class ExampleDatasetLoader {
 	 */
 	public void loadSmallSet() {
 		
-		if (WorkspaceManager.getInstance().projectExists("Small example dataset")) {
+		if (WorkspaceManager.getInstance().projectExists("small.x.dataset")) {
 			MessageUtil.showInformation("Small example dataset already loaded");
 			return;
 		}
@@ -98,7 +98,7 @@ public class ExampleDatasetLoader {
 	 */
 	public void loadBigSet() {
 		
-		if (WorkspaceManager.getInstance().projectExists("Large example dataset")) {
+		if (WorkspaceManager.getInstance().projectExists("large.x.dataset")) {
 			MessageUtil.showInformation("Large example dataset already loaded");
 			return;
 		}
@@ -140,18 +140,18 @@ public class ExampleDatasetLoader {
 		String domTreeViewName = null;
 		
 		if (small) {
-			seqViewName = "Small example: sequence";
-			treeViewName = "Small example: tree";
-			domViewName = "Small example: domain arrangements";
-			domTreeViewName = "Small example: domain tree";
-			project = new ProjectElement("Small example dataset");
+			seqViewName = "small.x.seq";
+			treeViewName = "small.x.tree";
+			domViewName = "small.x.doms";
+			domTreeViewName = "small.x.domtree";
+			project = new ProjectElement("small.x.dataset");
 			WorkspaceManager.getInstance().addProject(project, true);
 		} else {
-			seqViewName = "Large example: sequence";
-			treeViewName = "Large example: tree";
-			domViewName = "Large example: domain arrangements";
-			domTreeViewName = "Large example: domain arrangements";
-			project = new ProjectElement("Large example dataset");
+			seqViewName = "large.x.seq";
+			treeViewName = "large.x.tree";
+			domViewName = "large.x.doms";
+			domTreeViewName = "large.x.domtree";
+			project = new ProjectElement("large.x.dataset");
 			WorkspaceManager.getInstance().addProject(project, true);
 		}
 		

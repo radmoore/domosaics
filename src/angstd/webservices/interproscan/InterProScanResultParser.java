@@ -137,7 +137,7 @@ public class InterProScanResultParser {
 			prot.addDomain(dom);
 		}
 //		prot.killOverlaps();
-
+		prot.sortDomains();
 		return prot;
 	}
 
