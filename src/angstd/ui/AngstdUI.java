@@ -72,7 +72,7 @@ public class AngstdUI extends JFrame implements WindowListener{
      * method. 
      */
     protected AngstdUI() {
-		super("doMosaic");
+		super("[AnGSTD]");
 		 
 		// add the docking desktop (the workspace is created in here)
 		desktop = new AngstdDesktop();
