@@ -23,8 +23,15 @@
 	<menu id="File">
 
 		<menu id="New...">
+		
 			<menuitem id="JMenuItem">
-				<parameter id="name" value="Dataset"/> 
+				<parameter id="name" value="Empty Project"/> 
+				<parameter id="actionClass" value="angstd.ui.actions.CreateEmptyProject"/> 
+				<parameter id="tooltip" value="Creates an empty project in workspace"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Project with data"/> 
 				<parameter id="actionClass" value="angstd.ui.actions.ImportDataAction"/> 
 				<parameter id="tooltip" value="Opens a wizard which makes it possible to load various data types"/> 
 			</menuItem>
@@ -55,19 +62,19 @@
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Import View"/> 
 			<parameter id="actionClass" value="angstd.ui.actions.ImportViewAction"/> 
-			<parameter id="tooltip" value="Load an exported view into the workspace"/> 
+			<parameter id="tooltip" value="Load a view into the workspace"/> 
 		</menuItem>
 		
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Export View"/> 
 			<parameter id="actionClass" value="angstd.ui.actions.ExportViewAction"/> 
-			<parameter id="tooltip" value="Opens a wizard which makes it possible to save a view"/> 
+			<parameter id="tooltip" value="Open save view wizard"/> 
 		</menuItem>
 
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Import Project"/> 
 			<parameter id="actionClass" value="angstd.ui.actions.LoadProjectAction"/> 
-			<parameter id="tooltip" value="Load an exported project into the workspace"/> 
+			<parameter id="tooltip" value="Load existing project into the workspace"/> 
 		</menuItem>
 		
 		<menuitem id="JMenuItem">

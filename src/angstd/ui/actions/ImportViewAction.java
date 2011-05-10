@@ -1,25 +1,31 @@
 package angstd.ui.actions;
 
 import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 
-import angstd.model.configuration.Configuration;
+import javax.swing.Action;
+
 import angstd.model.workspace.ProjectElement;
-import angstd.ui.AngstdUI;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.io.menureader.AbstractMenuAction;
-import angstd.ui.util.FileDialogs;
-import angstd.ui.util.MessageUtil;
-import angstd.ui.views.view.io.ViewImporter;
 import angstd.ui.wizards.WizardManager;
 
 public class ImportViewAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
-    
+	
+	private ProjectElement project = null;
+	
+	public ImportViewAction (){
+		super();
+		putValue(Action.NAME, "Import view");
+		putValue(Action.SHORT_DESCRIPTION, "Imports a view into current project");
+	}
+	
+	public void setProject(ProjectElement project) {
+		this.project = project;
+	}
+	
 	public void actionPerformed(ActionEvent e) {
-		WizardManager.getInstance().startImportViewWizard(null);
+		WizardManager.getInstance().startImportViewWizard(project);
 	}
 
 }

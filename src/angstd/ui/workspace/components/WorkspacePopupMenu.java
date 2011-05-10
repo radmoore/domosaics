@@ -7,6 +7,7 @@ import javax.swing.JSeparator;
 import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.WorkspaceManager;
+import angstd.ui.actions.ImportViewAction;
 import angstd.ui.workspace.WorkspaceSelectionManager;
 import angstd.ui.workspace.actions.DeleteElementAction;
 import angstd.ui.workspace.actions.ExportProjectAction;
@@ -72,6 +73,8 @@ public class WorkspacePopupMenu extends JPopupMenu {
 		RenameElementAction rea = new RenameElementAction();
 		DeleteElementAction dea = new DeleteElementAction();
 		ExportProjectAction epa = new ExportProjectAction(project);
+		ImportViewAction iva = new ImportViewAction();
+		iva.setProject(project);
 		
 		// Renaming and deleting of default not allowed
 		if ( elem.getTitle().equals("Default Project") ) {
@@ -87,6 +90,7 @@ public class WorkspacePopupMenu extends JPopupMenu {
 			epa.setEnabled(false);
 		
 		add(epa);
+		add(iva);
 	}
 	
 	/**
