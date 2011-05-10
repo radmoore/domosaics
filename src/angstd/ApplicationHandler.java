@@ -343,8 +343,8 @@ public class ApplicationHandler {
 	private class StartupPage extends Frame {
 		private static final long serialVersionUID = 1L;
 		
-		//private static final String LOGOPATH = "ui/resources/Logo2.jpg";
-		private static final String LOGOPATH = "ui/resources/domosaic_startup.png";
+		private static final String LOGOPATH = "ui/resources/angstd_logo4.png";
+//		private static final String LOGOPATH = "ui/resources/domosaic_startup.png";
 		
 		protected JProgressBar progressBar;
 		
