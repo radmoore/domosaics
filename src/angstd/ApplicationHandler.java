@@ -132,21 +132,23 @@ public class ApplicationHandler {
 			// default project is not exported
 			if (project.getTitle().equals("Default Project")) {
 				
-				MessageUtil.showWarning("The Default Project cannot be exported. Please export to different name.");
+				// skip option?
+				if (MessageUtil.showDialog("The Default Project cannot be exported. Export to a different name?")) {
 				
-				// first rename project
-				String newName = WizardManager.getInstance().renameWizard(project.getTitle(), project.getTypeName(), project);
-        		if(newName == null)  // canceled
-        			return false;
+					// first rename project
+					String newName = WizardManager.getInstance().renameWizard(project.getTitle(), project.getTypeName(), project);
+        			if(newName == null)  // canceled
+        				return false;
         	
-        		WorkspaceManager.getInstance().changeElementName(project, newName);  
+        			WorkspaceManager.getInstance().changeElementName(project, newName);  
 
-        		// then export project under that name
-				ProjectExporter.write(new File(workspaceDir), project, newName);
+        			// then export project under that name
+        			ProjectExporter.write(new File(workspaceDir), project, newName);
 				
-				// ... and then recreate an empty Default Project (incase the exiting is stopped)
-				WorkspaceManager.getInstance().addProject("Default Project", false);
-				
+        			// ... and then recreate an empty Default Project (incase the exiting is stopped)
+        			WorkspaceManager.getInstance().addProject("Default Project", false);
+        		
+				}
 				continue;
 			}
 			// project dir exists and we have not 'always overwrite'... 
