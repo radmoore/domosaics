@@ -122,8 +122,6 @@
 		</menuItem>
 	</menu>
 
-<!-- Disabled help menu -->
-<!--
 	<menu id="Help">
 
 		<menuitem id="JMenuItem">

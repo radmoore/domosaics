@@ -1,25 +1,39 @@
 package angstd.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
 import java.net.URL;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
 import angstd.ApplicationHandler;
+import angstd.localservices.hmmer3.ui.Hmmer3Frame;
 import angstd.model.configuration.Configuration;
+import angstd.model.workspace.io.ProjectImporter;
 import angstd.ui.docking.AngstdDesktop;
 import angstd.ui.io.menureader.DefaultMenuActionManager;
 import angstd.ui.io.menureader.JMenuBarFactory;
 import angstd.ui.io.menureader.MenuActionManager;
 import angstd.ui.io.menureader.MenuReader;
+import angstd.ui.tools.configuration.ConfigurationFrame;
+import angstd.ui.util.FileDialogs;
 import angstd.ui.views.view.View;
+import angstd.ui.wizards.WizardManager;
+import angstd.webservices.interproscan.ui.AnnotatorFrame;
 
 /**
  * The user interface class showing the Angstd main frame. <br>
@@ -46,6 +60,7 @@ import angstd.ui.views.view.View;
  * 
  * 
  * @author Andreas Held
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */
 public class AngstdUI extends JFrame implements WindowListener{
@@ -53,7 +68,7 @@ public class AngstdUI extends JFrame implements WindowListener{
 	
 	/** the location of the main menu file read by the menuReader */
 	protected static final String MENUFILE = "resources/mainmenu.file";
-	
+
 	/** the instance of the object itself (singleton pattern) */
 	protected static AngstdUI instance;
 	
@@ -64,6 +79,14 @@ public class AngstdUI extends JFrame implements WindowListener{
 	protected AngstdDesktop desktop;
 
 	private JPanel glassPane;
+	
+	private JToolBar toolBar;
+	
+	private Hmmer3Frame hmmer3 = null;
+	
+	private AnnotatorFrame annotatorFrame = null;
+	
+	protected ConfigurationFrame configFrame = null;
 	
 	/**
      * Constructor which creates a new AngstdUI instance. 
@@ -110,7 +133,12 @@ public class AngstdUI extends JFrame implements WindowListener{
 		} catch (Exception e) {
 			Configuration.getLogger().debug(e.toString());
 			JOptionPane.showMessageDialog(this, e.toString(), "Menu loading FAILED!", JOptionPane.ERROR_MESSAGE); 
-		} 
+		}
+		// create ToolBar
+		toolBar = new JToolBar();
+		initToolBar();
+		add(toolBar, BorderLayout.PAGE_START);
+		
 	}
     
     /**
@@ -168,6 +196,138 @@ public class AngstdUI extends JFrame implements WindowListener{
     	desktop.removeView();
     }
    
+    // TODO: consider moving into seperate class and
+    // making use of AbstractMenuActions
+    private void initToolBar() {
+    	URL imageURL;
+    	
+    	// new project
+    	JButton newProject = new JButton();
+    	imageURL = getClass().getResource("resources/icons/newproject.png");
+    	newProject.setIcon(new ImageIcon(imageURL, "new project"));
+    	newProject.setToolTipText("Create a new project");
+    	newProject.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			WizardManager.getInstance().startImportDataWizard();
+    		}
+		});
+    	toolBar.add(newProject);
+    	
+    	// open project
+    	JButton openProject = new JButton();
+    	imageURL = getClass().getResource("resources/icons/openproject.png");
+    	openProject.setIcon(new ImageIcon(imageURL, "open project"));
+    	openProject.setToolTipText("Open a saved project");
+    	openProject.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			File file = FileDialogs.openChooseDirectoryDialog(AngstdUI.getInstance());
+    			if (file == null)
+    				return;
+    		
+    			ProjectImporter.read(file);
+    		}
+		});
+    	toolBar.add(openProject);
+    	
+    	// save project
+    	JButton saveProject = new JButton();
+    	imageURL = getClass().getResource("resources/icons/saveproject.png");
+    	saveProject.setIcon(new ImageIcon(imageURL, "save project"));
+    	saveProject.setToolTipText("Save a project");
+    	saveProject.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WizardManager.getInstance().startSaveProjectWizard(null);
+			}
+		});
+    	toolBar.add(saveProject);
+    	
+    	// import view
+    	JButton importView = new JButton();
+    	imageURL = getClass().getResource("resources/icons/importview.png");
+    	importView.setIcon(new ImageIcon(imageURL, "import view"));
+    	importView.setToolTipText("Import a view");
+    	importView.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WizardManager.getInstance().startImportViewWizard(null);
+			}
+		});
+    	toolBar.add(importView);
+    	
+    	// export view
+    	JButton exportView = new JButton();
+    	imageURL = getClass().getResource("resources/icons/exportview.png");
+    	exportView.setIcon(new ImageIcon(imageURL, "export view"));
+    	exportView.setToolTipText("Export a view");
+    	exportView.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WizardManager.getInstance().startSaveViewWizard(null);
+			}
+		});
+    	toolBar.add(exportView);
+    	
+    	toolBar.addSeparator();
+    	// hmmscan
+    	JButton hmmscan = new JButton();
+    	imageURL = getClass().getResource("resources/icons/hmmscan.png");
+    	hmmscan.setIcon(new ImageIcon(imageURL, "hmmscan"));
+    	hmmscan.setToolTipText("Run local hmmscan job");
+    	hmmscan.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (hmmer3 == null || !hmmer3.isVisible())
+					hmmer3 = new Hmmer3Frame();
+				else 
+					hmmer3.setState(Frame.NORMAL);
+				
+			}
+		});
+    	toolBar.add(hmmscan);
+    	
+    	// iprscan
+    	JButton iprscan = new JButton();
+    	imageURL = getClass().getResource("resources/icons/iprscan.png");
+    	iprscan.setIcon(new ImageIcon(imageURL, "iprscan"));
+    	iprscan.setToolTipText("Run iprscan [EBI]");
+    	iprscan.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			if (annotatorFrame == null || !annotatorFrame.isVisible())
+    				annotatorFrame = new AnnotatorFrame();
+				else 
+				annotatorFrame.setState(Frame.NORMAL);
+				
+			}
+		});
+    	toolBar.add(iprscan);
+    	
+    	toolBar.addSeparator();
+    	// configuration
+    	JButton settings = new JButton();
+    	imageURL = getClass().getResource("resources/icons/settings.png");
+    	settings.setIcon(new ImageIcon(imageURL, "settings"));
+    	settings.setToolTipText("Configure AnGSTD");
+    	settings.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			if (!Configuration.getInstance().isVisible()) {
+    				configFrame = new ConfigurationFrame();
+    			}
+    			// see ShowConfigurationAction
+    			else {
+    				if (configFrame.getExtendedState() == Frame.ICONIFIED)
+    					configFrame.setExtendedState(Frame.NORMAL);
+
+    				else
+    					configFrame.dispose(); // just want to be sure that there is no instance around anywhere
+    					configFrame = new ConfigurationFrame();
+    			}
+    		}
+		});
+    	toolBar.add(settings);
+
+    	
+    	toolBar.setFloatable(false);
+    	toolBar.setRollover(true);
+    	
+    }
+    
     /**
      * Wrapper around the rename method for views within AngstdDektop.
      * This method allows the the view name update within the dockable

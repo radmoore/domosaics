@@ -74,10 +74,15 @@ public class ExampleDatasetLoader {
 		}
 		
 		try {
+			
+			System.out.println("This is the seqfile location: "+SEQS_SMALL);
+			
 			treeFile = getClass().getResourceAsStream(TREE_SMALL);
 			xdomFile = getClass().getResourceAsStream(DOMS_SMALL);
 			seqFile  = getClass().getResourceAsStream(SEQS_SMALL);
 		
+			System.out.println("This is the seqfile: "+seqFile);
+			
 			small = true;
 		
 			loadViews();
@@ -85,7 +90,9 @@ public class ExampleDatasetLoader {
 			treeFile.close();
 			xdomFile.close();
 			seqFile.close();
-		} catch (IOException e) {
+			
+		} 
+		catch (IOException e) {
 			Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Failed to load example dataset");
 			e.printStackTrace();
@@ -146,7 +153,8 @@ public class ExampleDatasetLoader {
 			domTreeViewName = "small.x.domtree";
 			project = new ProjectElement("small.x.dataset");
 			WorkspaceManager.getInstance().addProject(project, true);
-		} else {
+		} 
+		else {
 			seqViewName = "large.x.seq";
 			treeViewName = "large.x.tree";
 			domViewName = "large.x.doms";

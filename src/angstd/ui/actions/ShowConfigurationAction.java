@@ -17,7 +17,7 @@ public class ShowConfigurationAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
 	protected ConfigurationFrame configFrame = null;
-
+	
 	public void actionPerformed(ActionEvent e) {
 		
 		if (!Configuration.getInstance().isVisible()) {

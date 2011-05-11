@@ -1,10 +1,10 @@
 #Fat Jar Configuration File
-#Fri Nov 26 15:26:39 CET 2010
+#Tue May 10 13:46:16 CEST 2011
 onejar.license.required=false
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=true
-jarname=Jangstd-rv175.jar
+jarname=Jangstd-rv176.jar
 manifest.mergeall=true
 manifest.mainclass=angstd.Angstd
 manifest.file=<createnew>

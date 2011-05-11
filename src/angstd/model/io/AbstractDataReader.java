@@ -37,6 +37,7 @@ public abstract class AbstractDataReader <T extends AngstdData> implements DataR
 	 */
 	public T[] getDataFromStream(InputStream is) {
 		try {
+			System.out.println("This is the input stream: "+is);
 			BufferedReader in = new BufferedReader(new InputStreamReader(is));
 			T[] data = getData(in);
 			in.close();

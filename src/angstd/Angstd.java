@@ -22,7 +22,8 @@ import angstd.ui.util.MessageUtil;
  */
 public class Angstd {
 	
-	private static final boolean DEBUG = false;
+	// set to true to see unhandled exceptions
+	private static final boolean DEBUG = true;
 	
 	/**
 	 * The main method of Angstd and the anchor point to start the program. 

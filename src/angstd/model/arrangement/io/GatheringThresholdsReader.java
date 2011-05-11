@@ -2,6 +2,8 @@ package angstd.model.arrangement.io;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +12,7 @@ import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainType;
 import angstd.model.arrangement.GapDomain;
 import angstd.model.configuration.Configuration;
+import angstd.model.tree.io.NewickTreeReader;
 import angstd.ui.util.MessageUtil;
 
 public class GatheringThresholdsReader {
@@ -31,7 +34,6 @@ public class GatheringThresholdsReader {
 	
 	 
 	public static void read() {
-		
 		domFamilyMap = new HashMap<String , DomainFamily >();
 		domFamilyMap.put(GapDomain.getGapID(), new DomainFamily(GapDomain.getGapID(), GapDomain.getGapID(), DomainType.GAPDOM));
 		//acc2id = new HashMap<String, String>();
@@ -40,8 +42,8 @@ public class GatheringThresholdsReader {
 		BufferedReader in;
 		
 		try {
-			URL path = GatheringThresholdsReader.class.getResource("resources/gath-Thresholds_Pfam-v24.0");
-			in = new BufferedReader(new FileReader(path.getFile()));
+			InputStream is = GatheringThresholdsReader.class.getResourceAsStream("resources/gath-Thresholds_Pfam-v24.0");
+			in = new BufferedReader(new InputStreamReader(is));
 			String line;
 			while((line = in.readLine()) != null) {
 				if(!line.isEmpty()) {
@@ -54,6 +56,7 @@ public class GatheringThresholdsReader {
 		}
   
 		catch(Exception e1) {
+			e1.printStackTrace();
 			MessageUtil.showWarning("No corresponding Gathering threshold file");
 			Configuration.getLogger().debug(e1.toString());
 		}
