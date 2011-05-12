@@ -130,17 +130,17 @@
 			<parameter id="tooltip" value="Shows the program manual"/> 
 		</menuItem>
 	
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="Load Small Example Dataset"/> 
-			<parameter id="actionClass" value="angstd.ui.actions.LoadSmallExampleDataActon"/> 
-			<parameter id="tooltip" value="Loads a small example data set"/> 
-		</menuItem>
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Load Small Example Dataset"/> 
+				<parameter id="actionClass" value="angstd.ui.actions.LoadSmallExampleDataActon"/> 
+				<parameter id="tooltip" value="Loads a small example data set"/> 
+			</menuItem>
 		
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="Load Large Example Dataset"/> 
-			<parameter id="actionClass" value="angstd.ui.actions.LoadBigExampleDataAction"/> 
-			<parameter id="tooltip" value="Loads a large example data set"/> 
-		</menuItem>
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Load Large Example Dataset"/> 
+				<parameter id="actionClass" value="angstd.ui.actions.LoadBigExampleDataAction"/> 
+				<parameter id="tooltip" value="Loads a large example data set"/> 
+			</menuItem>
 		
 		<menuitem id="JSeparator"/>
 		

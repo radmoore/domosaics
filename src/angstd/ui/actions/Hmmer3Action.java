@@ -21,6 +21,9 @@ public class Hmmer3Action extends AbstractMenuAction {
 	protected Hmmer3Frame hmmer3 = null;
 	
 	public void actionPerformed(ActionEvent e) {
+		
+		hmmer3 = Hmmer3Frame.getFrame();
+		
 		if (hmmer3 == null || !hmmer3.isVisible())
 			hmmer3 = new Hmmer3Frame();
 		else 

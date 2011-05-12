@@ -1,8 +1,11 @@
 package angstd.ui.tools.configuration;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -54,6 +57,8 @@ public class ConfigurationPanel extends JPanel{
 	
 	protected Hmmer3Engine hmmer3Engine;
 	private HashMap<String, File> hmmer3bins;
+	
+	public static Color highlightColor = new Color(244,215,215);
 	
 	
 	/**
@@ -128,8 +133,26 @@ public class ConfigurationPanel extends JPanel{
 	private void initComponents() {
 		Configuration config = Configuration.getInstance();
 		hmmerScanTF = new JTextField(config.getHmmScanBin());
+		hmmerScanTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				hmmerScanTF.setBackground(Color.WHITE);
+			}
+		});
 		hmmerPressTF = new JTextField(config.getHmmPressBin());
+		hmmerPressTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				hmmerPressTF.setBackground(Color.WHITE);
+			}
+		});
 		hmmer3dbTF = new JTextField(config.getHmmerDB());
+		hmmer3dbTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				hmmer3dbTF.setBackground(Color.WHITE);
+			}
+		});
 		googleField = new JTextField(config.getGoogleUrl(), 50);
 		ncbiField = new JTextField(config.getNcbiUrl(), 50);
 		pfamField = new JTextField(config.getPfamUrl(), 50);
@@ -193,18 +216,24 @@ public class ConfigurationPanel extends JPanel{
 					}
 				
 				if (!hmmerScanTF.getText().equals("")) {
-					if (!checkHmmBin(new File(hmmerScanTF.getText())))
+					if (!checkHmmBin(new File(hmmerScanTF.getText()))) {
+						hmmerScanTF.setBackground(highlightColor);
 						return;	
+					}
 				}
 				
 				if (!hmmerPressTF.getText().equals("")) {
-					if (!checkHmmBin(new File(hmmerPressTF.getText())))
+					if (!checkHmmBin(new File(hmmerPressTF.getText()))){
+						hmmerPressTF.setBackground(highlightColor);
 						return;	
+					}
 				}
 				
 				if (!hmmer3dbTF.getText().equals("")) {
-					if (!checkHmmDBDir(new File(hmmer3dbTF.getText()), false))
+					if (!checkHmmDBDir(new File(hmmer3dbTF.getText()), false)) {
+						hmmer3dbTF.setBackground(highlightColor);
 						return;
+					}
 				
 				}	
 				apply();
@@ -276,6 +305,12 @@ public class ConfigurationPanel extends JPanel{
 	private boolean checkHmmBin(File bin) {
 
 		if ( Hmmer3Engine.isSupportedService(bin.getName()) ) {
+			
+			if (!(bin.exists())) {
+				MessageUtil.showWarning(parentFrame, "Cannot find or read "+bin.getAbsoluteFile());
+				return false;
+			}
+			
 			if (!(bin.canExecute())) {
 				MessageUtil.showWarning(parentFrame, bin.getAbsoluteFile()+" is not executable. Exiting.");
 				return false;
@@ -304,7 +339,6 @@ public class ConfigurationPanel extends JPanel{
 		// check if file is still there
 		if (!file.exists()) {
 			MessageUtil.showWarning("Warning: could not find specified HMMER db file "+file.getName());
-			hmmer3dbTF.setText("");
 			return false;
 		}
 		

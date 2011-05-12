@@ -1,10 +1,13 @@
 package angstd.localservices.hmmer3.ui;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
@@ -83,6 +86,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private JPanel ePane, radioPane;
 	private File hmmDBFile, fastaFile;
 	private HashMap<Integer, File> view2file; 
+	public static Color highlightColor = new Color(244,215,215);
 	
 	private ViewElement seqView;
 
@@ -113,13 +117,44 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		
 		hmmScanTF = new JTextField(25);
 		hmmScanTF.setText(config.getHmmScanBin());
+		hmmScanTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				hmmScanTF.setBackground(Color.WHITE);
+			}
+		});
+		
 		hmmPressTF = new JTextField(25);
 		hmmPressTF.setText(config.getHmmPressBin());
+		hmmPressTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				hmmPressTF.setBackground(Color.WHITE);
+			}
+		});
 		
 		hmmTF = new JTextField(25);
 		hmmTF.setText(config.getHmmerDB());
+		hmmTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				hmmTF.setBackground(Color.WHITE);
+			}
+		});
 		fastaTF = new JTextField(25);
+		fastaTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				fastaTF.setBackground(Color.WHITE);
+			}
+		});
 		evalueTF = new JTextField(5);
+		evalueTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				evalueTF.setBackground(Color.WHITE);
+			}
+		});
 		evalueTF.setText("0.1"); // default evalue
 		evalueTF.setToolTipText("Max: 10");
 		evalLabel = new JLabel("E-value:");
@@ -201,6 +236,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		loadScanBin.setName("scan");
 		loadScanBin.setActionCommand("LoadBins");
 		loadScanBin.addActionListener(this);
+
 		
 		loadPressBin = new JButton("HMMER3 press bin");
 		loadPressBin.setName("press");
@@ -363,40 +399,51 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private void runHmmScanAction() {
 		if (!StringUtils.isNumber(evalueTF.getText())){
 			MessageUtil.showWarning(this, "The E-value field does not contain a valid number.");
+			evalueTF.setBackground(highlightColor);
 			return;
 		}
 		
 		if(hmmScanTF.getText().equals("")) {
 			MessageUtil.showWarning("Please choose a hmmscan binary.");
+			hmmScanTF.setBackground(highlightColor);
 			return;	
 		}
 		
 		if(hmmPressTF.getText().equals("")) {
 			MessageUtil.showWarning("Please choose a hmmpress binary.");
+			hmmPressTF.setBackground(highlightColor);
 			return;	
 		}
 
 		else if (hmmTF.getText().equals("")) {
 			MessageUtil.showWarning("Please choose HMMER3 profiles");
+			hmmTF.setBackground(highlightColor);
 			return;
 		}
 		else if (fastaTF.getText().equals("")) {
 			MessageUtil.showWarning("Please choose a sequence file or view");
+			fastaTF.setBackground(highlightColor);
 			return;
 		}
 		
 		// if the user has set these fields globally, we
 		// still have to check them again and setup the 
 		// hmmer3engine instance with the progs
-		if (!checkBins(new File(hmmScanTF.getText())))
+		if (!checkBins(new File(hmmScanTF.getText()))) {
+			hmmScanTF.setBackground(highlightColor);
 			return;
-		if (!checkBins(new File(hmmPressTF.getText())))
+		}
+		if (!checkBins(new File(hmmPressTF.getText()))) {
+			hmmPressTF.setBackground(highlightColor);
 			return;
-		if (!checkDbDir(new File(hmmTF.getText())))
+		}
+		if (!checkDbDir(new File(hmmTF.getText()))) {
+			hmmTF.setBackground(highlightColor);
 			return;
-		
+		}
 		if ( !FastaReader.isValidFasta(fastaTF.getText()) ) {
 			MessageUtil.showWarning("Malformated fasta file or unknown sequence format");
+			fastaTF.setBackground(highlightColor);
 			return;
 		}
 		// if we have passed all tests, then we are
@@ -413,6 +460,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			hmmScan.setGA(false);
 			if (evalueTF.getText().equals("")) {
 				MessageUtil.showWarning("Please choose an evalue threshold (or use the gathering threshold).");
+				evalueTF.setBackground(highlightColor);
 				return;
 			}
 			else {

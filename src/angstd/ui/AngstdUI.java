@@ -10,9 +10,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,6 +27,7 @@ import angstd.ApplicationHandler;
 import angstd.localservices.hmmer3.ui.Hmmer3Frame;
 import angstd.model.configuration.Configuration;
 import angstd.model.workspace.io.ProjectImporter;
+import angstd.ui.actions.ShowConfigurationAction;
 import angstd.ui.docking.AngstdDesktop;
 import angstd.ui.io.menureader.DefaultMenuActionManager;
 import angstd.ui.io.menureader.JMenuBarFactory;
@@ -199,12 +203,44 @@ public class AngstdUI extends JFrame implements WindowListener{
     // TODO: consider moving into seperate class and
     // making use of AbstractMenuActions
     private void initToolBar() {
-    	URL imageURL;
+		
+    	ImageIcon newProjectIcon = null, 
+    	openProjectIcon = null, 
+    	saveProjectIcon = null, 
+    	importViewIcon = null, 
+    	exportViewIcon = null,
+    	hmmscanIcon = null, 
+    	iprscanIcon = null, 
+    	settingsIcon = null;
+		
+    	InputStream is;
+
+    	// create icons
+    	try {
+    		is = this.getClass().getResourceAsStream("resources/icons/newproject.png");
+    		newProjectIcon = new ImageIcon(ImageIO.read(is));
+    		is = this.getClass().getResourceAsStream("resources/icons/openproject.png");
+    		openProjectIcon = new ImageIcon(ImageIO.read(is));
+    		is = this.getClass().getResourceAsStream("resources/icons/saveproject.png");
+    		saveProjectIcon = new ImageIcon(ImageIO.read(is));
+    		is = this.getClass().getResourceAsStream("resources/icons/importview.png");
+    		importViewIcon = new ImageIcon(ImageIO.read(is));
+    		is = this.getClass().getResourceAsStream("resources/icons/exportview.png");
+    		exportViewIcon = new ImageIcon(ImageIO.read(is));
+    		is = this.getClass().getResourceAsStream("resources/icons/hmmscan.png");
+    		hmmscanIcon = new ImageIcon(ImageIO.read(is));
+    		is = this.getClass().getResourceAsStream("resources/icons/iprscan.png");
+    		iprscanIcon = new ImageIcon(ImageIO.read(is));
+    		is = this.getClass().getResourceAsStream("resources/icons/settings.png");
+    		settingsIcon = new ImageIcon(ImageIO.read(is));
+    	}
+    	catch (Exception e) {
+    		// TODO
+    	}
     	
     	// new project
     	JButton newProject = new JButton();
-    	imageURL = getClass().getResource("resources/icons/newproject.png");
-    	newProject.setIcon(new ImageIcon(imageURL, "new project"));
+    	newProject.setIcon(newProjectIcon);
     	newProject.setToolTipText("Create a new project");
     	newProject.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
@@ -215,8 +251,7 @@ public class AngstdUI extends JFrame implements WindowListener{
     	
     	// open project
     	JButton openProject = new JButton();
-    	imageURL = getClass().getResource("resources/icons/openproject.png");
-    	openProject.setIcon(new ImageIcon(imageURL, "open project"));
+    	openProject.setIcon(openProjectIcon);
     	openProject.setToolTipText("Open a saved project");
     	openProject.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
@@ -231,8 +266,7 @@ public class AngstdUI extends JFrame implements WindowListener{
     	
     	// save project
     	JButton saveProject = new JButton();
-    	imageURL = getClass().getResource("resources/icons/saveproject.png");
-    	saveProject.setIcon(new ImageIcon(imageURL, "save project"));
+    	saveProject.setIcon(saveProjectIcon);
     	saveProject.setToolTipText("Save a project");
     	saveProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -243,9 +277,8 @@ public class AngstdUI extends JFrame implements WindowListener{
     	
     	// import view
     	JButton importView = new JButton();
-    	imageURL = getClass().getResource("resources/icons/importview.png");
-    	importView.setIcon(new ImageIcon(imageURL, "import view"));
-    	importView.setToolTipText("Import a view");
+    	importView.setIcon(importViewIcon);
+    	importView.setToolTipText("Import a view into a project");
     	importView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startImportViewWizard(null);
@@ -255,9 +288,8 @@ public class AngstdUI extends JFrame implements WindowListener{
     	
     	// export view
     	JButton exportView = new JButton();
-    	imageURL = getClass().getResource("resources/icons/exportview.png");
-    	exportView.setIcon(new ImageIcon(imageURL, "export view"));
-    	exportView.setToolTipText("Export a view");
+    	exportView.setIcon(exportViewIcon);
+    	exportView.setToolTipText("Export a view from a project");
     	exportView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startSaveViewWizard(null);
@@ -268,11 +300,13 @@ public class AngstdUI extends JFrame implements WindowListener{
     	toolBar.addSeparator();
     	// hmmscan
     	JButton hmmscan = new JButton();
-    	imageURL = getClass().getResource("resources/icons/hmmscan.png");
-    	hmmscan.setIcon(new ImageIcon(imageURL, "hmmscan"));
-    	hmmscan.setToolTipText("Run local hmmscan job");
+    	hmmscan.setIcon(hmmscanIcon);
+    	hmmscan.setToolTipText("Search for domains in sequence using local hmmscan");
     	hmmscan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				hmmer3 = Hmmer3Frame.getFrame();
+				
 				if (hmmer3 == null || !hmmer3.isVisible())
 					hmmer3 = new Hmmer3Frame();
 				else 
@@ -284,11 +318,13 @@ public class AngstdUI extends JFrame implements WindowListener{
     	
     	// iprscan
     	JButton iprscan = new JButton();
-    	imageURL = getClass().getResource("resources/icons/iprscan.png");
-    	iprscan.setIcon(new ImageIcon(imageURL, "iprscan"));
-    	iprscan.setToolTipText("Run iprscan [EBI]");
+    	iprscan.setIcon(iprscanIcon);
+    	iprscan.setToolTipText("Search for domains in sequence using iprscan (requires internet) ");
     	iprscan.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
+    			
+    			annotatorFrame = AnnotatorFrame.getFrame();
+    			
     			if (annotatorFrame == null || !annotatorFrame.isVisible())
     				annotatorFrame = new AnnotatorFrame();
 				else 
@@ -301,31 +337,30 @@ public class AngstdUI extends JFrame implements WindowListener{
     	toolBar.addSeparator();
     	// configuration
     	JButton settings = new JButton();
-    	imageURL = getClass().getResource("resources/icons/settings.png");
-    	settings.setIcon(new ImageIcon(imageURL, "settings"));
-    	settings.setToolTipText("Configure AnGSTD");
+    	settings.setIcon(settingsIcon);
+    	settings.setToolTipText("Settings");
+//    	settings.setAction(new ShowConfigurationAction());
     	settings.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			if (!Configuration.getInstance().isVisible()) {
+    			
+    			configFrame = Configuration.getInstance().getFrame();
+    			
+    			if (configFrame == null)
     				configFrame = new ConfigurationFrame();
-    			}
-    			// see ShowConfigurationAction
-    			else {
-    				if (configFrame.getExtendedState() == Frame.ICONIFIED)
-    					configFrame.setExtendedState(Frame.NORMAL);
+    			
+    			else if (configFrame.getExtendedState() == Frame.ICONIFIED)
+    				configFrame.setExtendedState(Frame.NORMAL);
+    			
+    			else
+    				configFrame.setVisible(true);
+    				
 
-    				else
-    					configFrame.dispose(); // just want to be sure that there is no instance around anywhere
-    					configFrame = new ConfigurationFrame();
-    			}
-    		}
+    		}		
 		});
     	toolBar.add(settings);
-
     	
     	toolBar.setFloatable(false);
     	toolBar.setRollover(true);
-    	
     }
     
     /**

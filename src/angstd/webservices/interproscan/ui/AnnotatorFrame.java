@@ -6,6 +6,8 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 
+import pal.eval.MolecularClockLikelihoodModel.Instance;
+
 /**
  * The Annotator gui frame in which the annotator panel is embedded.
  * 
@@ -21,12 +23,14 @@ public class AnnotatorFrame extends JFrame implements WindowListener {
 	 * that running threads can be stopped
 	 */
 	private AnnotatorPanel annotatorPanel;
+	private static AnnotatorFrame instance = null;
 	
     public AnnotatorFrame() {
 		super("AnGSTD InterProScan");	
 		
 		addWindowListener(this);
-		annotatorPanel = new AnnotatorPanel(this); 
+		annotatorPanel = new AnnotatorPanel(this);
+		instance = this;
 		
 		getContentPane().add(annotatorPanel);
 		
@@ -38,6 +42,12 @@ public class AnnotatorFrame extends JFrame implements WindowListener {
 		this.setVisible(true);
 	}
 
+    public static AnnotatorFrame getFrame() {
+    	if (instance == null)
+    		instance = new AnnotatorFrame();
+    	return instance;
+    }
+    
     /**
      * When the main frame is closed, the panel has to be disposed and therefore 
      * the thread spawner cancelled.

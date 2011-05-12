@@ -110,6 +110,7 @@ public class ApplicationHandler {
 		
 		Configuration.getLogger().info("Closing AnGSTD");
 		Configuration.getLogger().info("=============================================");
+		LastUsedWorkspaceWriter.write();
 		System.exit(0);		
 	}
 
@@ -189,7 +190,7 @@ public class ApplicationHandler {
 		} // end of each project
 		
 		
-		LastUsedWorkspaceWriter.write();
+		//LastUsedWorkspaceWriter.write();
 		return true;
 	} 
 
@@ -247,7 +248,7 @@ public class ApplicationHandler {
 
 
 		
-		startUpProgress.setProgress("Have fun... ", 100);
+		startUpProgress.setProgress("Enjoy... ", 100);
 		startUpProgress.dispose();
 		AngstdUI.getInstance().enableFrame();
 		

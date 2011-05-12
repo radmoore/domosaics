@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 public class Hmmer3Frame extends JFrame{
 
 	private static final long serialVersionUID = 1L;
+	private static Hmmer3Frame instance = null;
 		
 	// panel which holds the components 
 	protected JPanel content;
@@ -24,6 +25,7 @@ public class Hmmer3Frame extends JFrame{
 	**/	
 	public Hmmer3Frame() {
 		super("Local HMMER job");
+		instance = this;
 		content = new JPanel(new BorderLayout());
 		content.add(new HmmScanPanel(this), BorderLayout.CENTER);
 		getContentPane().add(content);
@@ -34,6 +36,15 @@ public class Hmmer3Frame extends JFrame{
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setVisible(true);
         setAlwaysOnTop(true);
+        
 	}
-		
+	
+	// weak singleton
+	public static Hmmer3Frame getFrame() {
+		if (instance == null) 
+			instance = new Hmmer3Frame();
+		return instance;
+	}
+	
+	
 }
