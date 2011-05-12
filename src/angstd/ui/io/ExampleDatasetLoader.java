@@ -32,22 +32,22 @@ import angstd.ui.views.treeview.TreeViewI;
 public class ExampleDatasetLoader {
 	
 	/** file location for the small example tree file */
-	private static String TREE_SMALL = "../resources/examples/small/data.tree";
+	private static String TREE_SMALL = "/angstd/ui/resources/examples/small/data.tree";
 	
 	/** file location for the small example domains file */
-	private static String DOMS_SMALL = "../resources/examples/small/data.xdom";
+	private static String DOMS_SMALL = "/angstd/ui/resources/examples/small/data.xdom";
 	
 	/** file location for the small example sequence file */
-	private static String SEQS_SMALL = "../resources/examples/small/data.fasta";
+	private static String SEQS_SMALL = "/angstd/ui/resources/examples/small/data.fasta";
 	
 	/** file location for the big example tree file */
-	private static String TREE_BIG = "../resources/examples/big/lectins.tree";
+	private static String TREE_BIG = "/angstd/ui/resources/examples/big/lectins.tree";
 	
 	/** file location for the big example domains file */
-	private static String DOMS_BIG = "../resources/examples/big/lectins.xdom";
+	private static String DOMS_BIG = "/angstd/ui/resources/examples/big/lectins.xdom";
 	
 	/** file location for the big example sequence file */
-	private static String SEQS_BIG = "../resources/examples/big/lectins.fasta";
+	private static String SEQS_BIG = "/angstd/ui/resources/examples/big/lectins.fasta";
 	
 	/** the input stream for the tree file */
 	private static InputStream treeFile = null;
@@ -74,15 +74,11 @@ public class ExampleDatasetLoader {
 		}
 		
 		try {
-			
-			System.out.println("This is the seqfile location: "+SEQS_SMALL);
-			
-			treeFile = getClass().getResourceAsStream(TREE_SMALL);
-			xdomFile = getClass().getResourceAsStream(DOMS_SMALL);
-			seqFile  = getClass().getResourceAsStream(SEQS_SMALL);
-		
-			System.out.println("This is the seqfile: "+seqFile);
-			
+
+			treeFile = this.getClass().getResourceAsStream(TREE_SMALL);
+			xdomFile = this.getClass().getResourceAsStream(DOMS_SMALL);
+			seqFile  = this.getClass().getResourceAsStream(SEQS_SMALL);
+
 			small = true;
 		
 			loadViews();

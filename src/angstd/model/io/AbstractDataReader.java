@@ -37,12 +37,12 @@ public abstract class AbstractDataReader <T extends AngstdData> implements DataR
 	 */
 	public T[] getDataFromStream(InputStream is) {
 		try {
-			System.out.println("This is the input stream: "+is);
 			BufferedReader in = new BufferedReader(new InputStreamReader(is));
 			T[] data = getData(in);
 			in.close();
 			return data;
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Reading file aborted");
 		} 
@@ -58,10 +58,12 @@ public abstract class AbstractDataReader <T extends AngstdData> implements DataR
 			T[] data = getData(in);
 			in.close();
 			return data;
-		} catch (FileNotFoundException fnfe) {
+		} 
+		catch (FileNotFoundException fnfe) {
 			Configuration.getLogger().debug(fnfe.toString());
 			MessageUtil.showWarning("could not find file:"+ file.getPath());
-		} catch (IOException ioe) {
+		} 
+		catch (IOException ioe) {
 			Configuration.getLogger().debug(ioe.toString());
 			MessageUtil.showWarning("could not read file:"+ file.getName());
 		}
@@ -77,7 +79,8 @@ public abstract class AbstractDataReader <T extends AngstdData> implements DataR
 			T[] data = getData(in);
 			in.close();
 			return data;
-		} catch (IOException ioe) {
+		} 
+		catch (IOException ioe) {
 			Configuration.getLogger().debug(ioe.toString());
 			MessageUtil.showWarning("Reading file aborted");
 		}
