@@ -119,11 +119,20 @@ public class DomainFamily  {
 	
 	/**
 	 * Returns the family accession number
+	 * FIXME
+	 * As we must always be able to return an ACC, if its empty
+	 * we just return the ID. The effect is that if only one _type_
+	 * of ID is provided (either ID or ACC) a call to get either of the two
+	 * will _always_ return something (whatever that may be - we can know
+	 * wether what is provided is an acc or and ID if only one identifier is
+	 * supplied)
 	 * 
 	 * @return
 	 * 		accession number acc
 	 */
 	public String getAcc() {
+		if (acc == null)
+			return id;
 		return acc;
 	}
 	

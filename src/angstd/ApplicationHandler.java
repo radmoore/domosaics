@@ -110,6 +110,7 @@ public class ApplicationHandler {
 		
 		Configuration.getLogger().info("Closing AnGSTD");
 		Configuration.getLogger().info("=============================================");
+		LastUsedWorkspaceWriter.write();
 		System.exit(0);		
 	}
 
@@ -132,21 +133,23 @@ public class ApplicationHandler {
 			// default project is not exported
 			if (project.getTitle().equals("Default Project")) {
 				
-				MessageUtil.showWarning("The Default Project cannot be exported. Please export to different name.");
+				// skip option?
+				if (MessageUtil.showDialog("The Default Project cannot be exported. Export to a different name?")) {
 				
-				// first rename project
-				String newName = WizardManager.getInstance().selectRenameWizard(project.getTitle(), project.getTypeName(), project);
-        		if(newName == null)  // canceled
-        			return false;
+					// first rename project
+					String newName = WizardManager.getInstance().renameWizard(project.getTitle(), project.getTypeName(), project);
+        			if(newName == null)  // canceled
+        				return false;
         	
-        		WorkspaceManager.getInstance().changeElementName(project, newName);  
+        			WorkspaceManager.getInstance().changeElementName(project, newName);  
 
-        		// then export project under that name
-				ProjectExporter.write(new File(workspaceDir), project, newName);
+        			// then export project under that name
+        			ProjectExporter.write(new File(workspaceDir), project, newName);
 				
-				// ... and then recreate an empty Default Project (incase the exiting is stopped)
-				WorkspaceManager.getInstance().addProject("Default Project", false);
-				
+        			// ... and then recreate an empty Default Project (incase the exiting is stopped)
+        			WorkspaceManager.getInstance().addProject("Default Project", false);
+        		
+				}
 				continue;
 			}
 			// project dir exists and we have not 'always overwrite'... 
@@ -163,7 +166,7 @@ public class ApplicationHandler {
         		//... if not, 
         		if (choice == 1) {
         			// get new name for project
-	        		String newTitle = WizardManager.getInstance().selectRenameWizard(project.getTitle(), project.getTypeName(), project);
+	        		String newTitle = WizardManager.getInstance().renameWizard(project.getTitle(), project.getTypeName(), project);
 	        		if(newTitle == null)  // canceled
 	        			return false;
 	        		
@@ -187,7 +190,7 @@ public class ApplicationHandler {
 		} // end of each project
 		
 		
-		LastUsedWorkspaceWriter.write();
+		//LastUsedWorkspaceWriter.write();
 		return true;
 	} 
 
@@ -205,7 +208,6 @@ public class ApplicationHandler {
 		initWorkspaceDir();
 		
 		startUpProgress.setProgress("Checking Java version", 50);
-//		startUpProgress.setProgress("Paint the main frame", 60);
 		initGUI();
 		
 		startUpProgress.setProgress("Checking Java version", 60);
@@ -246,7 +248,7 @@ public class ApplicationHandler {
 
 
 		
-		startUpProgress.setProgress("Have fun... ", 100);
+		startUpProgress.setProgress("Enjoy... ", 100);
 		startUpProgress.dispose();
 		AngstdUI.getInstance().enableFrame();
 		
@@ -342,8 +344,8 @@ public class ApplicationHandler {
 	private class StartupPage extends Frame {
 		private static final long serialVersionUID = 1L;
 		
-		//private static final String LOGOPATH = "ui/resources/Logo2.jpg";
-		private static final String LOGOPATH = "ui/resources/domosaic_startup.png";
+		private static final String LOGOPATH = "ui/resources/angstd_logo4.png";
+//		private static final String LOGOPATH = "ui/resources/domosaic_startup.png";
 		
 		protected JProgressBar progressBar;
 		

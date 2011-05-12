@@ -4,6 +4,8 @@ import java.io.File;
 
 import org.apache.log4j.Logger;
 
+import angstd.ui.tools.configuration.ConfigurationFrame;
+
 /**
  * Configuration holds all specified URLs to look up nodes in trees and 
  * domains from an arrangement. The entrys can be changed using the 
@@ -49,6 +51,7 @@ public class Configuration {
 	protected boolean showAdvices, saveWSOnExit, overwriteProjects;
 	
 	protected static Configuration instance;
+	protected static ConfigurationFrame frame;
 	protected String workspace_dir; // this is null and seems to cause an exception, see below
 	
 	protected boolean visible = false;
@@ -94,6 +97,18 @@ public class Configuration {
 		if (instance == null)
 			instance = new Configuration();
 		return instance;
+	}
+	
+	public static boolean hasInstance () {
+		return (instance != null);
+	}
+	
+	public void setFrame(ConfigurationFrame frame) {
+		this.frame = frame;
+	}
+	
+	public ConfigurationFrame getFrame() {
+		return frame;
 	}
 	
 	public File getConfigFile() {

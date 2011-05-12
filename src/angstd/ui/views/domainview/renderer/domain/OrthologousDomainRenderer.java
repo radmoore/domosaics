@@ -34,7 +34,7 @@ public class OrthologousDomainRenderer extends AbstractDomainRenderer {
 		 * not rendered in gray, but in its color and an alpha value
 		 * depending on the similarity.
 		 */
-		if (view.getDomainLayoutManager().isCompareDomainsMode() && view.getDomainSearchOrthologsManager().getDomainScore(dc) != -1) {
+		if (view.isCompareDomainsMode() && view.getDomainSearchOrthologsManager().getDomainScore(dc) != -1) {
 			int alphaPercent = view.getDomainSearchOrthologsManager().getDomainScore(dc);
 			alpha = percent2alpha(alphaPercent);
 		}

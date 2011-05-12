@@ -48,7 +48,7 @@ public class AssociateWithSeqsPage extends WizardPage implements ActionListener 
 		setLayout(new MigLayout());
 		
 		// init components
-		path = new JTextField(20);
+		path = new JTextField(10);
 		path.setEditable(false);
 		
 		JButton browse = new JButton("Browse...");
@@ -66,12 +66,12 @@ public class AssociateWithSeqsPage extends WizardPage implements ActionListener 
 		
 		// layout panel
 		add(new JXTitledSeparator("Select fasta file"),"growx, span, wrap, gaptop 25");
-		add(path, "gap 10, growx");
-		add(browse, "gap 10, wrap");
+		add(path, "gap 10, h 25!, growx");
+		add(browse, "gap 5, gapright 10, wrap");
 		
 		add(new JXTitledSeparator("Merge with sequence view"),"growx, span, wrap, gaptop 25");
 		add(new JLabel("Select view: "), 	"gap 10, split 2");
-		add(selectViewList, 				"gap 10, span, wrap");
+		add(selectViewList, 				"gap 10, wrap");
 		add(delete, 						"gap 10, gaptop 10, wrap");
 	}
 

@@ -110,6 +110,12 @@ public class WorkspaceManager {
 		return workspace.getDomainViews();
 	}
 	
+	
+	// FIXME see Workspace.getDomainViewsWithEmptyElem
+//	public List<WorkspaceElement> getDomainViewsWithEmpty() {
+//		return workspace.getDomainViewsWithEmptyElem();
+//	}
+	
 	/**
 	 * Returns a list of all tree views within all projects.
 	 * 
@@ -129,6 +135,11 @@ public class WorkspaceManager {
 	public ProjectElement[] getProjects() {
 		return workspace.getProjects().toArray(new ProjectElement[workspace.getProjects().size()]);
 	}
+	
+	
+//	public ViewElement[] getViews() {
+//		return workspace.getV
+//	}
 	
 	
 	/**

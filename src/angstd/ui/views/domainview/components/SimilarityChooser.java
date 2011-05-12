@@ -303,7 +303,7 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		ProjectElement project = elem.getProject();
 		
 		// get user settings
-		Map m = WizardManager.getInstance().selectNameWizard(defaultName, "domain view", project);
+		Map m = WizardManager.getInstance().selectNameWizard(defaultName, "domain view", project, true);
 		viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
 		projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
 		

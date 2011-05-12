@@ -156,7 +156,6 @@ public class DomainTreeLayoutManager extends DefaultLayoutManager {
 			enable(DomainTreeAction.SHOW_TREE);
 			
 			enable(DomainAction.EXPORT_SELECTION);
-			enable(DomainAction.COMPARE_DOMSEQUENCES);
 			enable(DomainAction.EVALUE_COLORIZATION);
 			enable(DomainAction.FIT_TO_SCREEN);
 			enable(DomainAction.MSA_VIEW);
@@ -182,7 +181,6 @@ public class DomainTreeLayoutManager extends DefaultLayoutManager {
 			disable(DomainTreeAction.SHOW_TREE);
 			
 			disable(DomainAction.EXPORT_SELECTION);
-			disable(DomainAction.COMPARE_DOMSEQUENCES);
 			disable(DomainAction.EVALUE_COLORIZATION);
 			disable(DomainAction.FIT_TO_SCREEN);
 			disable(DomainAction.MSA_VIEW);

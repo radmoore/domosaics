@@ -1,10 +1,13 @@
 package angstd.localservices.hmmer3.ui;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
@@ -36,7 +39,9 @@ import angstd.localservices.hmmer3.programs.HmmScan;
 import angstd.localservices.hmmer3.programs.Hmmer3Program;
 import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
+import angstd.model.sequence.io.FastaReader;
 import angstd.model.sequence.io.FastaWriter;
+import angstd.model.sequence.util.SeqUtil;
 import angstd.model.workspace.ViewElement;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.ViewHandler;
@@ -45,6 +50,7 @@ import angstd.ui.util.FileDialogs;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.wizards.WizardListCellRenderer;
+import angstd.util.StringUtils;
 
 /**
  * HmmScanPanel holds the GUI components necessary to start local
@@ -80,6 +86,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private JPanel ePane, radioPane;
 	private File hmmDBFile, fastaFile;
 	private HashMap<Integer, File> view2file; 
+	public static Color highlightColor = new Color(244,215,215);
 	
 	private ViewElement seqView;
 
@@ -110,13 +117,44 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		
 		hmmScanTF = new JTextField(25);
 		hmmScanTF.setText(config.getHmmScanBin());
+		hmmScanTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				hmmScanTF.setBackground(Color.WHITE);
+			}
+		});
+		
 		hmmPressTF = new JTextField(25);
 		hmmPressTF.setText(config.getHmmPressBin());
+		hmmPressTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				hmmPressTF.setBackground(Color.WHITE);
+			}
+		});
 		
 		hmmTF = new JTextField(25);
 		hmmTF.setText(config.getHmmerDB());
+		hmmTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				hmmTF.setBackground(Color.WHITE);
+			}
+		});
 		fastaTF = new JTextField(25);
+		fastaTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				fastaTF.setBackground(Color.WHITE);
+			}
+		});
 		evalueTF = new JTextField(5);
+		evalueTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				evalueTF.setBackground(Color.WHITE);
+			}
+		});
 		evalueTF.setText("0.1"); // default evalue
 		evalueTF.setToolTipText("Max: 10");
 		evalLabel = new JLabel("E-value:");
@@ -198,6 +236,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		loadScanBin.setName("scan");
 		loadScanBin.setActionCommand("LoadBins");
 		loadScanBin.addActionListener(this);
+
 		
 		loadPressBin = new JButton("HMMER3 press bin");
 		loadPressBin.setName("press");
@@ -239,20 +278,20 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private void initPanel() {
 		
 		add(loadScanBin, "gap 5, w 165!");
-		add(hmmScanTF, "h 25!, gap 5, span2, growX, wrap");
+		add(hmmScanTF, "h 25!, gap 5, gapright 5, span2, growX, wrap");
 		add(loadPressBin, "gap 5, w 165!");
-		add(hmmPressTF, "h 25!, gap 5, span2, growX, wrap");
+		add(hmmPressTF, "h 25!, gap 5, gapright 5, span2, growX, wrap");
 		
 		add(loadHmmDB, "gap 5, w 165!");
-		add(hmmTF, "h 25!, gap 5, span2, growX, wrap");
+		add(hmmTF, "h 25!, gap 5, gapright 5, span2, growX, wrap");
 		
 		add(new JXTitledSeparator("Sequences"), "growx, span, wrap, gaptop 10");
 	
 		add(loadFastaFile, "gap 5, w 165!");
-		add(fastaTF, "h 25!, gap 5, span2, growX, wrap");
+		add(fastaTF, "h 25!, gap 5, gapright 5, span2, growX, wrap");
 		
 		add(new JLabel("Or Select Loaded View:"),"gap 5");
-		add(selectView, "h 25!, gap 5, span2, growX, wrap");
+		add(selectView, "h 25!, gap 5, gapright 5, span2, growX, wrap");
 		
 		add(new JXTitledSeparator("Options"), "growX, span, wrap, gaptop 10");
 		
@@ -274,12 +313,12 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		add(coddCkb, "gap 5, span 2, growX, wrap");
 
 		add(new JXTitledSeparator("Progress"), "growX, span, wrap, gaptop 10");
-		add(progressBar, "h 25!, gap 5, span3, growX, wrap");
+		add(progressBar, "h 25!, gap 5, gapright 5, span3, growX, wrap");
 		
 		add(new JXTitledSeparator("Console"), "growX, span, wrap, gaptop 10");
 		add(new JScrollPane(console), "align center, span, wrap");	
-		add(run, "gap 5, split 2");
-		add(cancel);
+		add(run, "w 80!, gap 5, split 2");
+		add(cancel, "gap 5, split 2");
 	}
 	
 	/**
@@ -358,36 +397,55 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * {@link Hmmer3Engine}
 	 */
 	private void runHmmScanAction() {
-	
+		if (!StringUtils.isNumber(evalueTF.getText())){
+			MessageUtil.showWarning(this, "The E-value field does not contain a valid number.");
+			evalueTF.setBackground(highlightColor);
+			return;
+		}
+		
 		if(hmmScanTF.getText().equals("")) {
 			MessageUtil.showWarning("Please choose a hmmscan binary.");
+			hmmScanTF.setBackground(highlightColor);
 			return;	
 		}
 		
 		if(hmmPressTF.getText().equals("")) {
 			MessageUtil.showWarning("Please choose a hmmpress binary.");
+			hmmPressTF.setBackground(highlightColor);
 			return;	
 		}
 
 		else if (hmmTF.getText().equals("")) {
 			MessageUtil.showWarning("Please choose HMMER3 profiles");
+			hmmTF.setBackground(highlightColor);
 			return;
 		}
 		else if (fastaTF.getText().equals("")) {
-			MessageUtil.showWarning("Please choose a fasta file.");
+			MessageUtil.showWarning("Please choose a sequence file or view");
+			fastaTF.setBackground(highlightColor);
 			return;
 		}
 		
 		// if the user has set these fields globally, we
 		// still have to check them again and setup the 
 		// hmmer3engine instance with the progs
-		if (!checkBins(new File(hmmScanTF.getText())))
+		if (!checkBins(new File(hmmScanTF.getText()))) {
+			hmmScanTF.setBackground(highlightColor);
 			return;
-		if (!checkBins(new File(hmmPressTF.getText())))
+		}
+		if (!checkBins(new File(hmmPressTF.getText()))) {
+			hmmPressTF.setBackground(highlightColor);
 			return;
-		if (!checkDbDir(new File(hmmTF.getText())))
+		}
+		if (!checkDbDir(new File(hmmTF.getText()))) {
+			hmmTF.setBackground(highlightColor);
 			return;
-		
+		}
+		if ( !FastaReader.isValidFasta(fastaTF.getText()) ) {
+			MessageUtil.showWarning("Malformated fasta file or unknown sequence format");
+			fastaTF.setBackground(highlightColor);
+			return;
+		}
 		// if we have passed all tests, then we are
 		// ready to run hmmer
 		hmmScan = new HmmScan(
@@ -402,6 +460,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			hmmScan.setGA(false);
 			if (evalueTF.getText().equals("")) {
 				MessageUtil.showWarning("Please choose an evalue threshold (or use the gathering threshold).");
+				evalueTF.setBackground(highlightColor);
 				return;
 			}
 			else {
@@ -449,6 +508,8 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		parent.dispose();
 	}
 	
+	
+	
 	/**
 	 * Prints to console
 	 * 
@@ -467,6 +528,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * or end of a job - non zero exit code)
 	 */
 	public void resetPanel() {
+		Configuration.getInstance().setServiceRunning(false);
 		run.setText("  Run  ");
 		progressBar.setValue(0);
 		progressBar.setIndeterminate(false);
@@ -511,15 +573,17 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * @return true, if the the DB dir contains necessary files
 	 */
 	private boolean checkDbDir(File dbFile) {
+		
+		// format check hmme3 profiles
+		if (!HmmPress.isValidProfileFile(dbFile)) {
+			MessageUtil.showWarning(dbFile.getName()+ " does not appear to be a valid hmmer3 profile");
+			return false;
+		}
+		
+		
 		// check if pressed files are available
 		if (!HmmPress.hmmFilePressed(dbFile)) {
-			if (MessageUtil.showDialog("The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {
-				
-				if (!HmmPress.isValidProfileFile(dbFile)) {
-					MessageUtil.showWarning("The HMMERDBFILE does not appear to be valid. Please check.");
-					return false;
-				}
-					
+			if (MessageUtil.showDialog("The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {					
 				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 				
 				// TODO: I would like to disable GUI components here

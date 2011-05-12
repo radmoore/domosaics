@@ -15,6 +15,7 @@ public class SaveProjectAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 		    
 	public void actionPerformed(ActionEvent e) {
-		WizardManager.getInstance().startSaveProjectWizard();
+		//ProjectElement is null, as nothing is selected
+		WizardManager.getInstance().startSaveProjectWizard(null);
 	}
 }

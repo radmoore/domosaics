@@ -105,7 +105,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		if (project.viewExists(viewName, project.getCategory(ViewType.TREE)))
 			MessageUtil.showInformation("The view "+ viewName + " already exists. Please rename.");
 		
-		Map results = WizardManager.getInstance().selectNameWizard(viewName, "tree view", project);
+		Map results = WizardManager.getInstance().selectNameWizard(viewName, "tree view", project, false);
 		viewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
 		String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
 		project = WorkspaceManager.getInstance().getProject(projectName);
@@ -161,7 +161,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		if (project.viewExists(viewName, project.getCategory(ViewType.DOMAINS)))
 			MessageUtil.showInformation("The view "+ viewName + " already exists. Please rename.");
 		
-		Map results = WizardManager.getInstance().selectNameWizard(viewName, "domain view", project);
+		Map results = WizardManager.getInstance().selectNameWizard(viewName, "domain view", project, false);
 		viewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
 		String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
 		project = WorkspaceManager.getInstance().getProject(projectName);
@@ -215,7 +215,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		if (project.viewExists(viewName, project.getCategory(ViewType.SEQUENCE)))
 			MessageUtil.showInformation("The view "+ viewName + " already exists. Please rename.");
 		
-		Map results = WizardManager.getInstance().selectNameWizard(viewName, "sequence view", project);
+		Map results = WizardManager.getInstance().selectNameWizard(viewName, "sequence view", project, false);
 		viewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
 		String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
 		project = WorkspaceManager.getInstance().getProject(projectName);

@@ -1,5 +1,7 @@
 package angstd.model.arrangement;
 
+import java.awt.List;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
@@ -23,6 +25,7 @@ import angstd.model.tree.TreeNodeI;
  * <br>
  * 
  * @author Andreas Held
+ * @author Andrew Moore <radmoore@uni-muenster.de>
  *
  */
 public class DomainArrangement implements Cloneable, AngstdData{
@@ -62,13 +65,24 @@ public class DomainArrangement implements Cloneable, AngstdData{
 		doms.remove(dom);
 		hiddenDoms.add(dom);
 		Collections.sort(doms);
-	}
+	}	
 	
 	public void showAllDomains() {
 		doms.add(hiddenDoms);
 		hiddenDoms.clear();
 		Collections.sort(doms);
 	}
+	
+	/**
+	 * Sorts the DomainVector by
+	 * from position
+	 * (using Domain implementation of
+	 * compareTo())
+	 */
+	public void sortDomains() {
+		Collections.sort(doms);
+	}
+	
 	
 	public DomainVector getHiddenDoms() {
 		return hiddenDoms;
@@ -125,6 +139,9 @@ public class DomainArrangement implements Cloneable, AngstdData{
         return copy;
     }
 	
+
+    
+    
 	/**
 	 * Sets the underlying sequence for this arrangement. This can be 
 	 * a gapped sequence from a MSA as well. The sequences for the domains 
@@ -243,6 +260,7 @@ public class DomainArrangement implements Cloneable, AngstdData{
 	 * 		domain vector of the arrangement
 	 */
 	public DomainVector getDomains() {
+		Collections.sort(doms);
 		return doms;
 	}
 	
@@ -392,5 +410,6 @@ public class DomainArrangement implements Cloneable, AngstdData{
 	public String toString() {
 		return getName();
 	}
+	
 
 }

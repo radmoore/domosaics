@@ -34,6 +34,8 @@ public class LookupProteinInGoogle extends AbstractAction {
 		ArrangementComponent selectedArrangement =  view.getArrangementSelectionManager().getClickedComp();
 		if (selectedArrangement == null) 
 			return;
+		view.getArrangementSelectionManager().getSelection().clear();
+		view.getArrangementSelectionManager().getSelection().add(selectedArrangement);
 		
 		// get the label and if its null initialize it as empty string
 		String label = selectedArrangement.getLabel();

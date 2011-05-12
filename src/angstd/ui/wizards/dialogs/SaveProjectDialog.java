@@ -28,10 +28,10 @@ import angstd.ui.wizards.pages.SaveProjectFilePage;
  */
 public class SaveProjectDialog {
 
-	public static Object show() {
+	public static Object show(ProjectElement project) {
 //		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new ChooseProjectToSavePage()}, new SaveProjectProgress());
 
-		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new ChooseProjectToSavePage(), new SaveProjectFilePage()}, new SaveProjectProgress());
+		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new ChooseProjectToSavePage(project), new SaveProjectFilePage()}, new SaveProjectProgress());
 		return WizardDisplayer.showWizard(wiz);				 
 	}
 }
@@ -43,7 +43,6 @@ public class SaveProjectDialog {
  * @author Andreas Held
  *
  */
-@SuppressWarnings("unchecked")
 class SaveProjectProgress extends DeferredWizardResult implements WizardResultProducer{
 	
 	@Override

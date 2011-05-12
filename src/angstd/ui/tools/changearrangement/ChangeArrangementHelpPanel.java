@@ -22,7 +22,7 @@ public class ChangeArrangementHelpPanel extends JPanel{
 	
 	/** help text to be displayed */
 	String helpTxt = 
-		"This frame allows the change of domain attributes \n" +
+		"This frame allows the change of domain attributes\n" +
 		"and the adding of new domains into the arrangement.\n\n" +
 		"To change an existing domain just click on a domain\n" +
 		"below, change its attributes and trigger the add/change\n" +
@@ -30,7 +30,7 @@ public class ChangeArrangementHelpPanel extends JPanel{
 		"If you want to add a new domain, please make sure that \n" +
 		"no domain is selected, fill out the form for this domain and\n" +
 		"hit the add/change button again.\n\n" +
-		"The sequences are adapted to a new domain automatically\n" +
+		"The domain boundaries cannot exceed the sequence length\n" +
 		"if a sequence is associated with the current arrangement."
 	;
 	
@@ -43,7 +43,7 @@ public class ChangeArrangementHelpPanel extends JPanel{
 		
 		JTextArea txt = new JTextArea (helpTxt);
 		txt.setFont(new Font ("Arial", 0, 14));		// style plain, size 14
-		txt.setColumns(35);
+		txt.setColumns(33);
 		txt.setLineWrap(true);
 		txt.setRows(13);
 		txt.setWrapStyleWord(false);				// wrap on chars

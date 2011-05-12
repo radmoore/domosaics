@@ -16,7 +16,7 @@ public class ChangeArrangementFrame extends ToolFrame {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Constructor for a new DotplotFrame
+	 * Constructor for a new ChangeArrangementFrame
 	 */
     public ChangeArrangementFrame() {
 		super();	
@@ -36,8 +36,10 @@ public class ChangeArrangementFrame extends ToolFrame {
      * 		panel representing the ChangeArrangementView
      */
     public void setContent(JPanel content) {
-    	getContentPane().add(content);
-    	this.setSize(720, 380);
+    	this.setContentPane(content);
+    	//this.setSize(780, 400);
+    	this.setResizable(false);
+    	this.pack();
     }
 
 }

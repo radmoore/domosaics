@@ -28,7 +28,7 @@ public class HideDomainAction extends AbstractAction{
 			return;
 		}
 			
-		if (view.getDomainLayoutManager().isCompareDomainsMode()) {
+		if (view.isCompareDomainsMode()) {
 			MessageUtil.showWarning("While in comparing domains mode this option is deactivated");
 			return;
 		}
@@ -52,7 +52,6 @@ public class HideDomainAction extends AbstractAction{
 //			
 //			if (view.getCollapseSameArrangementsManager().)
 //		}
-		
 		view.getDomainLayoutManager().structuralChange();
 	}
 

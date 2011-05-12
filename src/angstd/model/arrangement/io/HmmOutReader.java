@@ -6,15 +6,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
 
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainType;
+import angstd.model.arrangement.DomainVector;
 import angstd.model.configuration.Configuration;
 import angstd.model.io.AbstractDataReader;
 import angstd.ui.util.MessageUtil;
@@ -188,9 +187,10 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 					
 				if ( !currentProtID.equals(prevProtID) ) {
 				
-					if (prot != null)
+					if (prot != null) {
+						prot.sortDomains();
 						arrList.add(prot);					// save last protein
-					
+					}
 					prot = new DomainArrangement(); 		// new protein
 					prot.setName(currentProtID);
 					completed ++;
@@ -219,6 +219,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 		}
 		
 		if (prot != null) {
+			prot.sortDomains();
 			arrList.add(prot);
 			completed ++;
 		}
@@ -283,9 +284,10 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 					
 				if ( !currentProtID.equals(prevProtID) ) {
 				
-					if (prot != null)
+					if (prot != null) {
+						prot.sortDomains();
 						arrList.add(prot);					// save last protein
-					
+					}
 					prot = new DomainArrangement(); 		// new protein
 					prot.setName(currentProtID);
 					prot.setSeqLen(protLength);
@@ -321,6 +323,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 		}
 		
 		if (prot != null) {
+			prot.sortDomains();
 			arrList.add(prot);
 			completed ++;
 		}

@@ -23,6 +23,7 @@ import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.actions.FitDomainsToScreenAction;
 import angstd.ui.views.domainview.components.ArrangementComponent;
+import angstd.ui.views.domainview.manager.DomainColorManager;
 import angstd.ui.views.domainview.renderer.additional.HighlightDomainRenderer;
 import angstd.ui.views.view.AbstractView;
 import angstd.ui.views.view.View;
@@ -67,15 +68,15 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 	
 	/**
 	 * Constructor for a new ChangeArrangementView initializing the panel
-	 * except of the domain view which renders the selected arrangement.
+	 * except for the domain view which renders the selected arrangement.
 	 * The initialization of this part takes place when setView() is invoked.
 	 */
 	public ChangeArrangementView() {
 		componentHolder = new JPanel(new BorderLayout());
 		componentHolder.setBackground(Color.white);
-		
+		componentHolder.setSize(780,400);
 		componentHolder.add(changePanel = new ChangeArrangementPanel(this), BorderLayout.CENTER);
-		componentHolder.add(new ChangeArrangementHelpPanel(), BorderLayout.EAST);
+		//componentHolder.add(new ChangeArrangementHelpPanel(), BorderLayout.EAST);
 	}
 	
 	/**
@@ -110,6 +111,7 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 		seq[0] = daSet[0].getSequence();
 		
 		domView = ViewHandler.getInstance().createView(ViewType.DOMAINS, "");
+		
 		domView.setDaSet(daSet);
 		
 		if (seq[0] != null)
@@ -134,7 +136,7 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 		
 		/// take the domain colors from the original view
 		for (int i = 0; i < da.getDomainArrangement().countDoms(); i++) {
-			DomainFamily fam = da.getDomainArrangement().getDomain(i).getFamily();
+			DomainFamily fam = da.getDomainArrangement().getDomain(i).getFamily();			
 			Color color = view.getDomainColorManager().getDomainColor(fam);
 			domView.getDomainColorManager().setDomainColor(fam, color);
 		}
@@ -144,7 +146,6 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 		Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 		domView.getParentPane().setBorder(compound);
-			
 		// add the view to the views mainpanel and then the main panel to the frame
 		componentHolder.add(domView.getParentPane(), BorderLayout.SOUTH);
 		parentFrame.addView(this);
@@ -163,16 +164,16 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 		// clear the original da and clone the domains from the backup da
 		try {
 			SequenceI seq = null;
-			if (da.getSequence() != null)
-				seq = (SequenceI) da.getSequence().clone();
+			//if (da.getSequence() != null)
+			//	seq = (SequenceI) da.getSequence().clone();
 			
 			da.clear();
 			for (Domain dom : backupDA.getDomains()) {
 				da.addDomain((Domain) dom.clone());
 			}
 			
-			if (da.getSequence() != null)
-				da.setSequence(seq);
+			if (backupDA.getSequence() != null)
+				da.setSequence((SequenceI)backupDA.getSequence().clone());
 		} catch(Exception e) {
 			Configuration.getLogger().debug(e.toString());
 		}
@@ -274,6 +275,10 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 	public void setViewRenderer(Renderer renderer) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void closeWindow() {
+		parentFrame.dispose();
 	}
 
 }

@@ -21,17 +21,18 @@ public class ConfigurationFrame extends JFrame implements WindowListener {
 	 * Constructor for a new ConfigurationFrame
 	 */
     public ConfigurationFrame() {
-		super("Angstd Configuration");	
+		super("AnGSTD Settings");	
 		
 		getContentPane().add(new ConfigurationPanel(this));
 		
 		Configuration.getInstance().setVisible(true);
+		Configuration.getInstance().setFrame(this);
 		
 		// set up the main window
 		pack();
 		setLocationRelativeTo(null);
 		setAlwaysOnTop(true);
-		setResizable(true);
+		setResizable(false);
 		setVisible(true);
 	}
     

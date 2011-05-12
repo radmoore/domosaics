@@ -27,10 +27,9 @@ public class WorkspaceDirectoryPage extends WizardPage implements ActionListener
 	protected Component parent;
 	
 	protected static String text = "<html>" +
-			"Select a Workspace directory.<br>" +
-			"The Directory is used to store imported data<br>" +
-			"and configuration information as well as<br>" +
-			"computational results.<br>" +
+			"Select a workspace directory used to<br>" +
+			"store data, configuration information<br>" +
+			"and computational results.<br>"+
 			"</html>";
 	
 	public WorkspaceDirectoryPage(Component parent, String defaultDir) {
@@ -48,9 +47,9 @@ public class WorkspaceDirectoryPage extends WizardPage implements ActionListener
 		JButton browse = new JButton("Browse...");
 		browse.addActionListener(this);	
 
-		add(new JLabel(text),  	"gap 10, wrap");
-		add(fileField, 			"gap 10, growx");
-		add(browse, 			"wrap");
+		add(new JLabel(text),  	"span 2, wrap");
+		add(fileField, 			"gap 10, gaptop 10, h 25!, growx");
+		add(browse, 			"gap 5, gapright 10, wrap");
 	}
 	
 	protected String validateContents(Component component, Object event) {

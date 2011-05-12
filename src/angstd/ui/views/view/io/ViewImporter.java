@@ -13,14 +13,14 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 
 import angstd.model.configuration.Configuration;
+import angstd.model.workspace.CategoryElement;
 import angstd.model.workspace.ProjectElement;
 import angstd.ui.ViewHandler;
 import angstd.ui.util.MessageUtil;
+import angstd.ui.views.ViewType;
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.domaintreeview.actions.CollapseSameArrangementsAtNodeAction;
 import angstd.ui.views.domaintreeview.io.DomainTreeViewImporter;
-import angstd.ui.views.domaintreeview.layout.CSAModeDomainTreeLayout;
-import angstd.ui.views.domaintreeview.layout.DefaultDomainTreeLayout;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.io.DomainViewImporter;
 import angstd.ui.views.sequenceview.SequenceView;
@@ -36,6 +36,9 @@ import angstd.ui.views.view.View;
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  * 
  * @param <V>
+ * 
+ * FIXME
+ *  -> Name of view window after import
  */
 public abstract class ViewImporter<V extends View> {
 
@@ -44,25 +47,104 @@ public abstract class ViewImporter<V extends View> {
 	protected boolean readAttributesFlag = false;
 	protected StringBuffer data = new StringBuffer();
 	protected StringBuffer attributes = new StringBuffer();
+	private static boolean select = false; 
+	
 
+	
+	public static ViewType detectViewType(File viewFile) {
+		
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(viewFile));
+			String firstLine;
+
+			if ((firstLine = in.readLine()) != null) {
+				// check angstd file format stamp
+				if (!firstLine.contains("# angstd_view: ")) {
+					if (!MessageUtil.showDialog( viewFile.getName()+" does not appear to be a view file. Continue?"))
+						return null;
+				}
+				else {
+					firstLine = in.readLine();
+					in.close();
+				}
+				
+				if (firstLine.contains("SEQUENCEVIEW"))
+					return  ViewType.SEQUENCE;
+
+				if (firstLine.contains("DOMAINTREEVIEW"))
+					return  ViewType.DOMAINTREE;
+				
+				if (firstLine.contains("TREEVIEW"))
+					return  ViewType.TREE;
+					
+				if (firstLine.contains("DOMAINVIEW"))
+					return  ViewType.DOMAINS;
+			}
+		}
+		catch(Exception e) {
+			Configuration.getLogger().debug(e.toString());
+		}
+		return null;
+		
+	}
+	
+	/** 
+	 * Sets the default for displaying a view after import
+	 * 
+	 * @param selection
+	 * 		whether of not to display an imported view 
+	 */
+	public static void displayViewAfterImport(boolean selection) {
+		select = selection;
+	}
+	
+	
 	public static void readSequenceView(File viewFile, ProjectElement project) {
 		SequenceView view = new SequenceViewImporter().read(viewFile);
-		ViewHandler.getInstance().addView(view, project, false);
+		ViewHandler.getInstance().addView(view, project, select);
+	}
+	
+	public static void readSequenceView(File viewFile, ProjectElement project, String newName) {
+		SequenceView view = new SequenceViewImporter().read(viewFile);
+		view.getViewInfo().setName(newName);
+		view.getParentPane().setName(newName);
+		ViewHandler.getInstance().addView(view, project, select);
 	}
 
 	public static void readTreeView(File viewFile, ProjectElement project) {
 		TreeViewI view = new TreeViewImporter().read(viewFile);
-		ViewHandler.getInstance().addView(view, project, false);
+		ViewHandler.getInstance().addView(view, project, select);
 	}
 
+	public static void readTreeView(File viewFile, ProjectElement project, String newName) {
+		TreeViewI view = new TreeViewImporter().read(viewFile);
+		view.getViewInfo().setName(newName);
+		view.getParentPane().setName(newName);
+		ViewHandler.getInstance().addView(view, project, select);
+	}
+	
 	public static void readDomainView(File viewFile, ProjectElement project) {
 		DomainViewI view = new DomainViewImporter().read(viewFile);
-		ViewHandler.getInstance().addView(view, project, false);
+		ViewHandler.getInstance().addView(view, project, select);
 	}
-
+	
+	public static void readDomainView(File viewFile, ProjectElement project, String newName) {
+		DomainViewI view = new DomainViewImporter().read(viewFile);
+		view.getViewInfo().setName(newName);
+		view.getParentPane().setName(newName);
+		ViewHandler.getInstance().addView(view, project, select);
+	}
+	
 	public static void readDomainTreeView(File viewFile, ProjectElement project) {
-		final DomainTreeViewI view = new DomainTreeViewImporter()
-				.read(viewFile);
+		readDomainTreeView(viewFile, project, null);
+	}
+	
+	public static void readDomainTreeView(File viewFile, ProjectElement project, String newName) {
+		final DomainTreeViewI view = new DomainTreeViewImporter().read(viewFile);
+		if (newName != null) {
+			view.getViewInfo().setName(newName);
+			view.getParentPane().setName(newName);
+		}
 		ViewHandler.getInstance().addView(view, project, true);
 		view.getDomainLayoutManager().structuralChange();
 
@@ -88,17 +170,7 @@ public abstract class ViewImporter<V extends View> {
 
 	public V read(File file) {
 		try {
-			BufferedReader in = new BufferedReader(new FileReader(file));
-			
-			// this is acutally not necessary, as a view must adhear to a certain format
-//			String validityStamp = in.readLine();
-//			
-//			if (!validityStamp.startsWith("# angstd_view: ")) {
-//				if (!MessageUtil.showDialog(file.getName()+" does not appear to describe a valid view. Import anyways?"))
-//					return null;
-//			}
-				
-			
+			BufferedReader in = new BufferedReader(new FileReader(file));			
 			V res = importView(in);
 			in.close();
 			return res;
@@ -132,6 +204,7 @@ public abstract class ViewImporter<V extends View> {
 			while ((line = in.readLine()) != null) {
 				
 				// get the views name
+				// this also sets the name of the frame				
 				if (line.contains("parameter") && idEquals(line, "VIEWNAME")) {
 					viewName = getValue(line);
 					continue;

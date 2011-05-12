@@ -2,6 +2,8 @@ package angstd.model.workspace;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -176,6 +178,18 @@ public class ProjectElement extends WorkspaceElement{
 		return null;
 	}
 	
+	
+	
+	public List<WorkspaceElement> getViews() {
+		List<WorkspaceElement> views = new ArrayList<WorkspaceElement>();	
+		for (int i = 0; i < this.getChildCount(); i++) {
+			for (WorkspaceElement elem : getChildAt(i).getChildren())
+				views.add(elem);
+		}
+		if ( views.isEmpty() )
+			views = null;
+		return views;
+	}
 	
 	
 //	public boolean hasSeqs() {

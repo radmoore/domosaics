@@ -56,7 +56,7 @@ public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 		ProjectElement project = elem.getProject();
 		
 		// get info provided by the user
-		Map m = WizardManager.getInstance().selectNameWizard(defaultName, "domain view", project);
+		Map m = WizardManager.getInstance().selectNameWizard(defaultName, "domain view", project, true);
 		
 		// in case user canceled renaming
 		if (m == null) 

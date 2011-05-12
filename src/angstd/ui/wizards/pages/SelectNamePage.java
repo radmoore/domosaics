@@ -44,7 +44,7 @@ public class SelectNamePage extends WizardPage {
 	 * @param objectName
 	 * 		the object to name e.g. view or project
 	 */
-	public SelectNamePage(String defaultName, String objectName, ProjectElement project) {
+	public SelectNamePage(String defaultName, String objectName, ProjectElement project, boolean allowSelection) {
 		super(objectName+" name selection");
 		this.objectName = objectName;
 		setLayout(new MigLayout());
@@ -64,10 +64,16 @@ public class SelectNamePage extends WizardPage {
 		if (project != null)
 			selectProject.setSelectedItem(project.getTitle());
 		
-		add(new JLabel("Select "+objectName+" name "), "gap 10");
-		add(name, "h 25!, gap 10, wrap");
+		// if we are comming from the data import wizard, 
+		// we have already selected a project. To ensure that the association
+		// with other views (if selected in wizard) works, we disable the 
+		// project selection
+		selectProject.setEnabled(allowSelection);
+		
+		add(new JLabel("Enter "+objectName+" name "), "gap 10");
+		add(name, "h 25!, gap 5, gapright 10, wrap");
 		add(new JLabel("Associate with project"), "gap 10");
-		add(selectProject, "h 25!, gap 10, span");
+		add(selectProject, "h 25!, gap 5, gapright 10, span");
 
 	}
 
@@ -85,6 +91,9 @@ public class SelectNamePage extends WizardPage {
 		// in any case, a name is required
 		if (newName.isEmpty())
 			return "Select a name";
+		
+		if (newName.length()>25)
+			return "Name should not exceed 25 characters";
 					
 		if  (objectName.equals("sequence view")) {
 			category = project.getCategory(ViewType.SEQUENCE);
@@ -102,6 +111,22 @@ public class SelectNamePage extends WizardPage {
 			if (project.viewExists(newName, category))
 				return "Name taken - choose new name";
 		}
+		else if (objectName.equals("domain tree view")) {
+			category = project.getCategory(ViewType.DOMAINTREE);
+			if (project.viewExists(newName, category))
+				return "Name taken - choose new name";
+		} 
+		// we are comming from the interpro scan
+		// ensure that arrangement and sequence view names do not
+		// already exist
+		else if  (objectName.equals("annotation")) {
+			CategoryElement sequenceCat = project.getCategory(ViewType.SEQUENCE);
+			category = project.getCategory(ViewType.DOMAINS);
+			if (project.viewExists(newName, category))
+				return "Domain view name taken - choose new name";
+			if (project.viewExists(newName+"_seqs", sequenceCat))
+				return "Sequence view name taken - choose new name";
+		}	
 		
 		return null;
     }

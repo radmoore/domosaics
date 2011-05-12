@@ -48,41 +48,69 @@ public class ChooseViewDataPage extends WizardPage implements ItemListener{
 	public ChooseViewDataPage() {
 		setLayout(new MigLayout());
 		
-		selectSeqViewList = GUIComponentFactory.createSelectSeqViewBox(true);
-		selectDomViewList = GUIComponentFactory.createSelectDomViewBox(true);
+		useUnderlayingSeqs = new JCheckBox();
+		useUnderlayingSeqs.addItemListener(this);
+		useUnderlayingSeqs.setName(CreateTreeBranchController.USEUNDERLYINGSEQS_KEY);
 		
+		
+		selectDomViewList = GUIComponentFactory.createSelectDomViewBox(true);
+		selectDomViewList.setName(CreateTreeBranchController.DOMVIEW_KEY);
+		selectDomViewList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (selectDomViewList.getSelectedItem() != null) {
+					
+					if (selectSeqViewList.getSelectedItem() != null)
+						selectSeqViewList.setSelectedItem(null);
+					
+					ViewElement view = (ViewElement) selectDomViewList.getSelectedItem();
+					DomainViewI domView = ViewHandler.getInstance().getView(view.getViewInfo());
+					if ( !domView.isSequenceLoaded() ) {
+						useUnderlayingSeqs.setSelected(false);
+						useUnderlayingSeqs.setEnabled(false);
+					}
+					else {
+						useUnderlayingSeqs.setEnabled(true);
+					}
+				}
+				else {
+					useUnderlayingSeqs.setSelected(false);
+					useUnderlayingSeqs.setEnabled(false);
+				}
+			
+			}
+			
+		});
+		
+		selectSeqViewList = GUIComponentFactory.createSelectSeqViewBox(true);
+		selectSeqViewList.setName(CreateTreeBranchController.SEQUENCEVIEW_KEY);
 		selectSeqViewList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				useUnderlayingSeqs.setSelected(false);
+				useUnderlayingSeqs.setEnabled(false);
 				if (selectSeqViewList.getSelectedItem() != null && selectDomViewList.getSelectedItem() != null)
 					selectDomViewList.setSelectedItem(null);	
 			}
 		});
 		
-		selectDomViewList.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (selectDomViewList.getSelectedItem() != null && selectSeqViewList.getSelectedItem() != null)
-					selectSeqViewList.setSelectedItem(null);
-			}
-		});
-
-		useUnderlayingSeqs = new JCheckBox();
-		useUnderlayingSeqs.addItemListener(this);
 		
-		selectSeqViewList.setName(CreateTreeBranchController.SEQUENCEVIEW_KEY);
-		selectDomViewList.setName(CreateTreeBranchController.DOMVIEW_KEY);
-		useUnderlayingSeqs.setName(CreateTreeBranchController.USEUNDERLYINGSEQS_KEY);
+
+		
+
+		
+		
 
 		add(new JXTitledSeparator("Select arrangement view"),"growx, span, wrap");
 		add(new JLabel("Select view:"), "gap 10");
-		add(selectDomViewList, 			"w 270!, gap 10, span, growx, wrap");
+		add(selectDomViewList, 			"w 270!, gap 5, gapright 10,span, growx, wrap");
 		
 		add(new JXTitledSeparator("Use underlying sequences instead of domains?"),"growx, span, wrap, gaptop 25");
 		add(new JLabel("Use Sequences:"), "gap 10");
-		add(useUnderlayingSeqs, 		"gap 10, wrap");
+		add(useUnderlayingSeqs, 		"gap 5, wrap");
 	
 		add(new JXTitledSeparator("Select sequence view"),"growx, span, wrap, gaptop 25");
 		add(new JLabel("Select view:"), "gap 10");
-		add(selectSeqViewList, 		"w 270!, gap 10, span, growx, wrap");
+		add(selectSeqViewList, 		"w 270!, gap 5, gapright 10,span, growx, wrap");
 		add(new JLabel(""), 		"h 21!, gap 10, wrap");
 	}
 	

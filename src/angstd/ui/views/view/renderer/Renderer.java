@@ -21,7 +21,7 @@ public interface Renderer {
 	 * Specifies the rendering process for the renderer.
 	 * 
 	 * @param g
-	 * 		the actual graphics context
+	 * 		the actual graphical context
 	 */
 	public void render(Graphics2D g);
 }

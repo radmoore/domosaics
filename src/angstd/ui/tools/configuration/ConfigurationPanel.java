@@ -1,8 +1,11 @@
 package angstd.ui.tools.configuration;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -54,6 +57,8 @@ public class ConfigurationPanel extends JPanel{
 	
 	protected Hmmer3Engine hmmer3Engine;
 	private HashMap<String, File> hmmer3bins;
+	
+	public static Color highlightColor = new Color(244,215,215);
 	
 	
 	/**
@@ -128,8 +133,26 @@ public class ConfigurationPanel extends JPanel{
 	private void initComponents() {
 		Configuration config = Configuration.getInstance();
 		hmmerScanTF = new JTextField(config.getHmmScanBin());
+		hmmerScanTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				hmmerScanTF.setBackground(Color.WHITE);
+			}
+		});
 		hmmerPressTF = new JTextField(config.getHmmPressBin());
+		hmmerPressTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				hmmerPressTF.setBackground(Color.WHITE);
+			}
+		});
 		hmmer3dbTF = new JTextField(config.getHmmerDB());
+		hmmer3dbTF.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+				hmmer3dbTF.setBackground(Color.WHITE);
+			}
+		});
 		googleField = new JTextField(config.getGoogleUrl(), 50);
 		ncbiField = new JTextField(config.getNcbiUrl(), 50);
 		pfamField = new JTextField(config.getPfamUrl(), 50);
@@ -141,7 +164,7 @@ public class ConfigurationPanel extends JPanel{
 		loadHmmScanBin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File scanBin = FileDialogs.showOpenDialog(parentFrame);
-				if (scanBin == null || !scanBin.canRead())
+				if (scanBin == null || !scanBin.canExecute())
 					return;
 				if (checkHmmBin(scanBin))
 					hmmerScanTF.setText(scanBin.getAbsolutePath());
@@ -177,8 +200,8 @@ public class ConfigurationPanel extends JPanel{
 		
 		
 //		showAdvices = new JCheckBox("Show Advices", config.isShowAdvices());
-		saveOnExit = new JCheckBox("Save Workspace on Exit", config.saveOnExit());
-		overwriteProject = new JCheckBox("Overwrite exiting projects by default", config.getOverwriteProjects());
+		saveOnExit = new JCheckBox(" Save Workspace on Exit", config.saveOnExit());
+		overwriteProject = new JCheckBox(" Overwrite existing projects", config.getOverwriteProjects());
 		
 		apply = new JButton ("Apply");
 		apply.addActionListener(new ActionListener() {
@@ -193,18 +216,24 @@ public class ConfigurationPanel extends JPanel{
 					}
 				
 				if (!hmmerScanTF.getText().equals("")) {
-					if (!checkHmmBin(new File(hmmerScanTF.getText())))
+					if (!checkHmmBin(new File(hmmerScanTF.getText()))) {
+						hmmerScanTF.setBackground(highlightColor);
 						return;	
+					}
 				}
 				
 				if (!hmmerPressTF.getText().equals("")) {
-					if (!checkHmmBin(new File(hmmerPressTF.getText())))
+					if (!checkHmmBin(new File(hmmerPressTF.getText()))){
+						hmmerPressTF.setBackground(highlightColor);
 						return;	
+					}
 				}
 				
 				if (!hmmer3dbTF.getText().equals("")) {
-					if (!checkHmmDBDir(new File(hmmer3dbTF.getText()), false))
+					if (!checkHmmDBDir(new File(hmmer3dbTF.getText()), false)) {
+						hmmer3dbTF.setBackground(highlightColor);
 						return;
+					}
 				
 				}	
 				apply();
@@ -218,7 +247,7 @@ public class ConfigurationPanel extends JPanel{
 			}
 		});
 		
-		restore = new JButton ("Restore Defaults");
+		restore = new JButton ("Reset");
 		restore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				restore();
@@ -233,37 +262,37 @@ public class ConfigurationPanel extends JPanel{
 		
 		add(new JXTitledSeparator("General Settings"),"growx, span, wrap, gaptop 10");
 		add(new JLabel("Email: "), "h 25!, gap 10");
-		add(emailField, "h 25!, gap 10, span, growx, wrap");
+		add(emailField, "h 25!, gap 10, span, growx, gapright 10, wrap");
 		
 		add(new JXTitledSeparator("Local HMMER3 setup"),"growx, span, wrap, gaptop 10");
 		add(loadHmmScanBin, "h 25!, w 165!, gap 10");
-		add(hmmerScanTF, "h 25!, gap 10, span, growX, wrap");
+		add(hmmerScanTF, "h 25!, gap 10, span, growX, gapright 10, wrap");
 		add(loadHmmPressBin, "h 25!, w 165!, gap 10");
-		add(hmmerPressTF, "h 25!, gap 10, span, growX, wrap");
+		add(hmmerPressTF, "h 25!, gap 10, span, growX, gapright 10, wrap");
 		
 		add(loadHmmDB, "h 25!, w 165!, gap 10");
-		add(hmmer3dbTF, "h 25!, gap 10, span, growX, wrap");
+		add(hmmer3dbTF, "h 25!, gap 10, span, growX, gapright 10, wrap");
 				
 		add(new JXTitledSeparator("URLs"),"growx, span, wrap, gaptop 10");
 		add(new JLabel("Google Url: "), "h 25!, gap 10");
-		add(googleField, "h 25!, gap 10, span, growx, wrap");
+		add(googleField, "h 25!, gap 10, span, growx, gapright 10, wrap");
 		add(new JLabel("NCBI Url: "), "h 25!, gap 10");
-		add(ncbiField, "h 25!, gap 10, span, growx, wrap");
+		add(ncbiField, "h 25!, gap 10, span, growx, gapright 10, wrap");
 		add(new JLabel("Pfam Url: "), "h 25!, gap 10");
-		add(pfamField, "h 25!, gap 10, span, growx, wrap");
+		add(pfamField, "h 25!, gap 10, span, growx, gapright 10, wrap");
 		add(new JLabel("Uniprot Url: "), "h 25!, gap 10");
-		add(uniprotField, "h 25!, gap 10, span, growx, wrap");
+		add(uniprotField, "h 25!, gap 10, span, growx, gapright 10, wrap");
 		
 //		add(new JXTitledSeparator("Advice"),"growx, span, wrap, gaptop 10");
 //		add(showAdvices, 	"h 25!, gap 10, wrap");
 		add(new JXTitledSeparator("Workspace"),"growx, span, wrap, gaptop 10");
-		add(saveOnExit, 	"h 25!, gap 10, wrap");
-		add(overwriteProject, 	"h 25!, gap 10, wrap");
+		add(saveOnExit, 	"h 25!, gap 10, span 2, wrap");
+		add(overwriteProject, 	"h 25!, gap 10, span 2, wrap");
 		
 		add(new JXTitledSeparator("Apply"),"growx, span, wrap, gaptop 10");
-		add(apply, "h 25!, gap 10");
-		add(cancel, "h 25!, gap 10");
-		add(restore, "h 25!, gap 20");
+		add(apply, "h 25!, w 80!, split 2, gap 10");
+		add(cancel, "h 25!, gap 15");
+		add(restore, "h 25!, w 80!, gap 10");
 		
 	}
 	/**
@@ -276,6 +305,12 @@ public class ConfigurationPanel extends JPanel{
 	private boolean checkHmmBin(File bin) {
 
 		if ( Hmmer3Engine.isSupportedService(bin.getName()) ) {
+			
+			if (!(bin.exists())) {
+				MessageUtil.showWarning(parentFrame, "Cannot find or read "+bin.getAbsoluteFile());
+				return false;
+			}
+			
 			if (!(bin.canExecute())) {
 				MessageUtil.showWarning(parentFrame, bin.getAbsoluteFile()+" is not executable. Exiting.");
 				return false;
@@ -301,13 +336,18 @@ public class ConfigurationPanel extends JPanel{
 	 */
 	private boolean checkHmmDBDir(File file, boolean initPress) {
 		
+		// check if file is still there
 		if (!file.exists()) {
 			MessageUtil.showWarning("Warning: could not find specified HMMER db file "+file.getName());
 			return false;
 		}
 		
-		// we need an instance of hmmer3engine, to be able to check
-		// whether hmmpress is available
+		// check if contains valid hmmer3 profiles
+		if (!HmmPress.isValidProfileFile(file)) {
+			MessageUtil.showWarning(file.getName()+ " does not appear to be a valid hmmer3 profile");
+			return false;
+		}
+		
 		boolean pressAvail = true;
 		
 		// check if hmmpress service is available
@@ -320,7 +360,7 @@ public class ConfigurationPanel extends JPanel{
 		
 		// check if pressed files are available
 		if (!HmmPress.hmmFilePressed(file) && initPress) {
-			if (MessageUtil.showDialog("The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {
+			if (MessageUtil.showDialog(file.getName()+" is not pressed. Do you want AnGSTD to press it now?")) {
 				if (!pressAvail || (hmmerPressTF.getText().isEmpty())) {
 					MessageUtil.showInformation("Please first provide hmmpress binary");
 					hmmer3dbTF.setText("");
@@ -330,7 +370,6 @@ public class ConfigurationPanel extends JPanel{
 				HmmPress hmmPress = new HmmPress(hmmer3Engine.getAvailableServicePath("hmmpress"), file, configPanel);
 				//TODO  we should get some type of return here.
 				hmmer3Engine.launch(hmmPress);
-			
 			}
 			else {
 				return false;

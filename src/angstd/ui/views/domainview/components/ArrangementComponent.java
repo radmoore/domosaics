@@ -2,15 +2,17 @@ package angstd.ui.views.domainview.components;
 
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
 import java.util.Iterator;
 
+import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.ui.views.domainview.manager.DomainArrangementComponentManager;
 import angstd.ui.views.view.components.AbstractViewComponent;
 
 /**
  * The ArrangementComponent is the graphical representation for a 
- * backend data model, the {@link DomainArrngement} which is
+ * backend data model, the {@link DomainArrangement} which is
  * rendered and layouted by the DomainView.
  * <p>
  * Besides its backend component it knows whether or not its visible or not.
@@ -42,7 +44,7 @@ public class ArrangementComponent extends AbstractViewComponent{
 	 */
     public ArrangementComponent(DomainArrangement da, DomainArrangementComponentManager manager) {
         if(da == null)
-        	throw new RuntimeException("Can not create DomainComponent without backend domain !");
+        	throw new RuntimeException("Cannot create DomainComponent without backend domain !");
         this.manager = manager;
         this.da = da;    
 	}
@@ -56,6 +58,18 @@ public class ArrangementComponent extends AbstractViewComponent{
     public Iterator<DomainComponent> getDomainComponents() {
     	return manager.getDomains(this).iterator();
     }
+    
+    /**
+     * Gets a DomainComponent which is part of this
+     * ArrangementComponent given the backend domain
+     * @param dom
+     * @return
+     */
+    public DomainComponent getDomain(Domain dom) {
+    	return manager.getDomainComponent(dom);
+    }
+    
+    
     
     /**
      * Return whether or not the arrangement component is visible in 

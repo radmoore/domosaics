@@ -19,6 +19,7 @@ import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainType;
 import angstd.model.arrangement.io.GatheringThresholdsReader;
+import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 import angstd.util.StringUtils;
 
@@ -35,7 +36,7 @@ public class ChangeArrangementPanel extends JPanel {
 	protected JTextField id, from, to, evalue;
 	
 	/** buttons to apply the changes and reset the form */
-	protected JButton add, reset, restore;
+	protected JButton add, reset, restore, close;
 	
 	/** the view providing the change mechanism */
 	protected ChangeArrangementView view;
@@ -52,33 +53,37 @@ public class ChangeArrangementPanel extends JPanel {
 		this.view = view;
 		initComponents();
 		
-		add(new JXTitledSeparator("Change/Add Domains "),"growx, span, wrap, gaptop 45");
-
-		add(new JLabel("ID/Name: "), "gap 10");
-		add(id, "wrap");
+		add(new JXTitledSeparator("Change/Add Domains "),"growx, spanx 3, gaptop 25");
+		add(new ChangeArrangementHelpPanel(), "spany, wrap");
+		add(new JLabel("ID/Name: "), "gap 10, gaptop 10");
+		add(id, "span 2, h 25!, wrap");
 		
 		add(new JLabel("From: "), "gap 10");
-		add(from, "wrap");
+		add(from, "h 25!, wrap");
 		
 		add(new JLabel("To: "), "gap 10");
-		add(to, "wrap");
+		add(to, "h 25!, wrap");
 		
 		add(new JLabel("E-value: "), "gap 10");
-		add(evalue, "wrap");
-		
-		add(add, "gap 10, gaptop 10");
-		add(reset, "");
-		add(restore, "wrap");
+		add(evalue, "h 25!, wrap");
+
+		add(new JLabel(" "), "gap 10, gaptop 10");
+		add(add);
+		add(reset, "gap 10, wrap");
+		add(new JLabel(" "), "gap 10, gaptop 10");
+		add(restore, "growx");
+		add(close, "gap 10, growx, wrap");
+		setSize(770,380);
 	}
 	
 	/**
 	 * Helper method to initialize the panel components 
 	 */
 	private void initComponents() {
-		id = new JTextField(20);
-		from = new JTextField(6);
-		to = new JTextField(6);
-		evalue = new JTextField(6);
+		id = new JTextField(12);
+		from = new JTextField(5);
+		to = new JTextField(5);
+		evalue = new JTextField(5);
 		
 		restore = new JButton("Restore");
 		restore.addActionListener(new ActionListener(){
@@ -100,6 +105,13 @@ public class ChangeArrangementPanel extends JPanel {
 				reset();
 			}
 		});
+
+		close = new JButton ("Close");
+		close.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent evt) {
+				close();
+			}
+		});
 	}
 	
 	/**
@@ -110,7 +122,10 @@ public class ChangeArrangementPanel extends JPanel {
 	 * 		the selected domain which attributes should be filled into the forms
 	 */
 	public void refreshDomain(Domain dom) {
-		id.setText(dom.getAcc());
+		if(Configuration.isIdPreferedToAcc())
+			id.setText(dom.getID());
+		else
+			id.setText(dom.getAcc());
 		from.setText(""+dom.getFrom());
 		to.setText(""+dom.getTo());
 		if (dom.getEvalue() == Double.POSITIVE_INFINITY)
@@ -136,6 +151,10 @@ public class ChangeArrangementPanel extends JPanel {
 		reset();
 	}
 	
+	public void close() {
+		view.closeWindow();
+	}
+	
 	/**
 	 * Apples the changes for a domain or uses the values to create a new domain
 	 * TODO
@@ -155,11 +174,13 @@ public class ChangeArrangementPanel extends JPanel {
 		
 		// values for new/changing domain
 		DomainFamily fam = GatheringThresholdsReader.getInstance().get(id.getText()); 
-		if(fam==null) {
-		 fam = GatheringThresholdsReader.getInstance().get(GatheringThresholdsReader.getAccFromID(id.getText()));
-		}
-		if(fam==null)
-			fam=new DomainFamily(id.getText(), id.getText(), DomainType.UNKNOWN);
+		
+		if(fam == null)
+			fam = GatheringThresholdsReader.getInstance().get(GatheringThresholdsReader.getAccFromID(id.getText()));
+		
+		if(fam == null)
+			fam = new DomainFamily(id.getText(), id.getText(), DomainType.UNKNOWN);
+		
 		GatheringThresholdsReader.getInstance().put(id.getText(), fam);
 		int fromVal = Integer.parseInt(from.getText());
 		int toVal = Integer.parseInt(to.getText());
@@ -193,7 +214,13 @@ public class ChangeArrangementPanel extends JPanel {
 	 * 		whether or not the values are correct
 	 */
 	protected boolean checkCorrectness() {
-		if (!StringUtils.isNumber(from.getText())) {
+
+		if(id.getText().isEmpty()){
+			MessageUtil.showWarning(this, "Please provide an ID/name for the domain.");
+			return false;
+		}
+		
+		if (!StringUtils.isNumber(from.getText()) ||  Integer.parseInt(from.getText())<=0) {
 			MessageUtil.showWarning(this, "The FROM field does not contain a valid number.");
 			return false;
 		}
@@ -208,21 +235,17 @@ public class ChangeArrangementPanel extends JPanel {
 			return false;
 		}
 
-		if(id.getText().isEmpty()){
-			MessageUtil.showWarning(this, "Please indicates an ID/name for the domain.");
-			return false;
-		}
-
 		if (Integer.parseInt(to.getText()) <= Integer.parseInt(from.getText())) {
 			MessageUtil.showWarning(this, "The TO value is smaller than the FROM value.");
 			return false;
 		}
 		
-		if (view.getDA().getSequence() != null) 
-			if (view.getDA().getSequence().getLen(true) < Integer.parseInt(to.getText())){
-				MessageUtil.showWarning(this, "The domain exceeds the sequence length.");
+		if (view.getDA().getSequence() != null) {
+			if (view.getDA().getSequence().getLen(true) < Integer.parseInt(from.getText()) || view.getDA().getSequence().getLen(true) < Integer.parseInt(to.getText())){
+				MessageUtil.showWarning(this, "The domain exceeds sequence length.");
 				return false;
 			}
+		}
 			
 		return true;
 	}

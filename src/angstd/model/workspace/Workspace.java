@@ -201,6 +201,19 @@ public class Workspace extends WorkspaceElement {
 		return children;
 	}
 	
+	
+//	public List<ViewElement> getViews() {
+//		for (WorkspaceElement elem : children)
+//	}
+//	
+	
+	/**
+	 * Get a project specified by name
+	 * @param name
+	 *     	name of a project
+	 * @return
+	 * 		ProjectElement or null
+	 */
 	public ProjectElement getProject(String name) {
 		for (WorkspaceElement element : children)
 			if (element.getTitle().equals(name))
@@ -355,6 +368,7 @@ public class Workspace extends WorkspaceElement {
 	 * 		all arrangement views from all projects.
 	 */
 	public List<WorkspaceElement> getDomainViews() {
+		
 		List<WorkspaceElement> res = new ArrayList<WorkspaceElement>();
 		ProjectElement[] projects = getProjects().toArray(new ProjectElement[getProjects().size()]);
 		for (int i = 0; i < projects.length; i++) {
@@ -364,6 +378,38 @@ public class Workspace extends WorkspaceElement {
 		}	
 		return res;
 	}
+	
+	
+	/**
+	 * FIXME:
+	 * Add a null elem to the list of views for use in
+	 * comboboxes (such that there is a 'non-selectable' element
+	 * 
+	 * Returns all arrangement views from all projects.
+	 * 
+	 * @return
+	 * 		all arrangement views from all projects.
+	 */
+//	public List<WorkspaceElement> getDomainViewsWithEmptyElem() {
+//		
+//		List<WorkspaceElement> res = new ArrayList<WorkspaceElement>();
+//		ProjectElement[] projects = getProjects().toArray(new ProjectElement[getProjects().size()]);
+//		
+//		for (ProjectElement elem : projects)  {
+//			CategoryElement domCat = elem.getCategory(ViewType.DOMAINS);
+//			if (domCat != null)
+//				res.addAll(domCat.getViews());
+//		}
+//		
+//		res.add(new WorkspaceElement(WorkspaceElement.NULLELEM, "") {
+//			public ProjectElement getProject() {return null;}
+//			public ImageIcon getIcon() {return null;}
+//		});
+//		
+//		return res;
+//		
+//	}
+	
 	
 	/**
 	 * Returns the view element with the specified ViewInfo

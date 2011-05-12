@@ -22,6 +22,9 @@ import angstd.ui.util.MessageUtil;
  */
 public class Angstd {
 	
+	// set to true to see unhandled exceptions
+	private static final boolean DEBUG = true;
+	
 	/**
 	 * The main method of Angstd and the anchor point to start the program. 
 	 * 
@@ -30,30 +33,25 @@ public class Angstd {
 	 */
 	public static void main(String[] args) {
 		
+		if (!DEBUG) {
+		
         Thread.setDefaultUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler(){
         	
             public void uncaughtException(Thread t, Throwable e) {
-            	
-//            	Logger log = Logger.getLogger("angstdlog");
-////            	RollingFileAppender rfl = (RollingFileAppender)log.getAppender("angstdlog");
-////				rfl.setFile(Configuration.DEF_LOG_LOCATION);
-////				log.addAppender(rfl);
-//		    	log.info("Starting AnGSTD");
-//            	log.info("Exception in main: ");
-//            	log.info(e.toString());
             	Configuration.getLogger().debug("Uncaught exception");
             	Configuration.getLogger().debug(e.toString());
-//            	MessageUtil.showWarning("There was a problem starting AnGSTD. Please consult log file.");
-//              System.exit(1);
+            	MessageUtil.showWarning("There was a problem starting AnGSTD. Please consult log file.");
+            	System.exit(1);
             }
         });
-        
+		}
 		try {
 			Configuration.getLogger().info("=============================================");
 			Configuration.getLogger().info("Starting AnGSTD.");
 			ApplicationHandler.getInstance().start();
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("There was a problem starting AnGSTD. Please consult log file.");
 		}

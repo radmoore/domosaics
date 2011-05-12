@@ -17,6 +17,7 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
+import angstd.model.workspace.ProjectElement;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.wizards.GUIComponentFactory;
 
@@ -40,11 +41,25 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 	/**  list displaying all domain views of all projects */
 	protected JComboBox selectViewList;
 
+	private ProjectElement project;
+	
 	/**
-	 * Constructor for a new SelectSequenceDataPage
+	 * Constructor for a new SelectArrangementDataPage
 	 */
 	public SelectSequenceDataPage() {
-		//super("Select Sequence Data");
+		super("Select Arrangement Data");
+		init();
+	}
+
+	public SelectSequenceDataPage(ProjectElement project) {
+		super("Select Sequences for "+ project.getShortTitle(5));
+		this.project = project;
+		init();
+	}
+	
+	
+	private void init() {
+
 		setLayout(new MigLayout());
 		
 		// init components
@@ -56,7 +71,11 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 		
 		JButton browse = new JButton("Browse...");
 		browse.addActionListener(this);	
-		selectViewList = GUIComponentFactory.createSelectDomViewBox(false);
+		
+		if (project == null)
+			selectViewList = GUIComponentFactory.createSelectDomViewBox(false);
+		else
+			selectViewList = GUIComponentFactory.createSelectDomViewBox(project);
 		
 		// associate names
 		path.setName(ImportDataBranchController.FILEPATH_KEY);
@@ -65,16 +84,16 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 		
 		// layout panel
 		add(new JXTitledSeparator("Select sequence file"),"growx, span, wrap");
-		add(new JLabel("Select file: "), 	"gap 10");
-		add(path, 							"w 150!, gap 10");
-		add(browse, 						"gap 10, wrap");
+		add(new JLabel("Select file:"), 	"gap 10");
+		add(path, 							"w 150!, h 25!, gap 5");
+		add(browse, 						"gap 5, gapright 10, wrap");
 		
 		add(new JLabel("Enter a name:"), "gap 10");
-		add(viewName,  "w 150!, gap 10, gaptop 5, wrap");
+		add(viewName,  "w 150!, h 25!, gap 5, gaptop 5, wrap");
 		
-		add(new JXTitledSeparator("Associate with arrangement view"),"growx, span, wrap, gaptop 25");
-		add(new JLabel("Select view: "), 	"gap 10");
-		add(selectViewList, 				"w 270!, gap 10, span 2, wrap");
+		add(new JXTitledSeparator("Associate with arrangement view"),"growx, span, wrap, gaptop 20");
+		add(new JLabel("Select view:"), 	"gap 10");
+		add(selectViewList, 				"w 270!, gap 5, gapright 10, span 2, wrap");
 	}
 	
 	/**

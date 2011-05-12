@@ -47,9 +47,9 @@ public class CreateProjectPage extends WizardPage {
 			input.setText(name);
 		input.setName("name");
 
-		add(new JLabel("Select a name for the new Project"), "gap 10, wrap");
-		add(new JLabel("Project Name:"), "gap 10, split");
-		add(input, "gap 10, growx");
+		add(new JLabel("Enter a name for the new project"), "gap 10, wrap");
+		add(new JLabel("Name:"), "gap 10, split");
+		add(input, "h 25!, gap 10, growx");
 	}
 	
 	/**
@@ -61,6 +61,9 @@ public class CreateProjectPage extends WizardPage {
 		
 		if (projectName.isEmpty())
 			return "Select a name";
+
+		if (projectName.length()>25)
+			return "Name must not excess 25 characters!";
 		
 		if (projectName.equals("Default Project"))
 			return "Default Project name disallowed";

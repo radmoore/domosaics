@@ -62,7 +62,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	/** default email address */
 	private static String DEFAULT_EMAIL = "enter your email here";
 	
-	/** The Annotator frame, where the panel is embedded in */
+	/** The AnnotatorFrame, where the panel is embedded in */
 	private AnnotatorFrame parent;
 	
 	/** Spawner for annotation threads */
@@ -75,7 +75,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	private JComboBox selectView, selectMethod;
 	
 	/** Buttons for load sequence file, submit job, apply results and cancel */
-	private JButton loadSeqs, submit, apply, cancel, close;
+	private JButton loadSeqs, submit, apply, cancel; //close;
 	
 	/** console to update user about the annotation status */
 	private JTextArea console;
@@ -161,48 +161,42 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * 
 	 */
 	public void apply() {
-		// the name is equal to the file + seqs
-		if(defaultName == null) {
-			File dummy = new File(seqPath.getText());
-			defaultName = dummy.getName().split("\\.")[0];
-		}
 		
 		DomainArrangement[] domArrs = annotationSpawner.getResult().get();
 		
-		if (domArrs == null) {
+		if ( (domArrs == null) || (domArrs.length == 0) ) {
 			progressBar.setValue(100);
 			MessageUtil.showInformation("No siginificant hits found.");
 			return;
 		}
 		
-		// add annotated domain view
-		if (domArrs.length != 0) {
-			// force the user to enter a valid name for the view
+		// the name is equal to the file + seqs
+		if(defaultName == null) {
+			File dummy = new File(seqPath.getText());
+			defaultName = dummy.getName().split("\\.")[0];
+		}
+		else
+			defaultName = defaultName+"-interproscan-"+selectMethod.getSelectedItem().toString()+"-results";
+		
+		
+		String viewName = null;
+		String projectName = null;
+		ProjectElement project = null;
+		
+		if (selectedSequenceView != null) {
+			ViewElement elem = WorkspaceManager.getInstance().getViewElement(selectedSequenceView.getViewInfo());
+			project = elem.getProject();
+		}
 
-			// external fasta was used
-			if (defaultName != null) {
-				defaultName = defaultName+"-interproscan-"+selectMethod.getSelectedItem().toString()+"-results";
-			}
-			
-			String viewName = null;
-			String projectName = null;
-			ProjectElement project = null;
-			
-			if (selectedSequenceView != null) {
-				ViewElement elem = WorkspaceManager.getInstance().getViewElement(selectedSequenceView.getViewInfo());
-				project = elem.getProject();
-			}
-			
-			while (viewName == null) {
+		while (viewName == null) {
 				
-				Map m = WizardManager.getInstance().selectNameWizard(defaultName, "view", project);
-				viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
-				projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
-				project = WorkspaceManager.getInstance().getProject(projectName);
+			Map m = WizardManager.getInstance().selectNameWizard(defaultName, "annotation", project, true);
+			viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+			projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+			project = WorkspaceManager.getInstance().getProject(projectName);
 				
-				if (viewName == null) 
-					MessageUtil.showWarning("A valid view name is needed to complete this action");
-			}
+			if (viewName == null) 
+				MessageUtil.showWarning("A valid view name is needed to complete this action");
 		
 			DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
 			domResultView.setDaSet(domArrs);
@@ -210,7 +204,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			
 			// create sequence view if it comes from a file
 			if (seqPath.getText().length() > 0) {
-				SequenceView view = ViewHandler.getInstance().createView(ViewType.SEQUENCE, defaultName+"_seqs");
+				SequenceView view = ViewHandler.getInstance().createView(ViewType.SEQUENCE, viewName+"_seqs");
 				view.setSeqs(domResultView.getSequences());
 				ViewHandler.getInstance().addView(view, project);
 			}
@@ -218,7 +212,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			ViewHandler.getInstance().addView(domResultView, project);
 		}
 		
-		dispose();
+		cancel();
 		parent.dispose();
 	}
 	
@@ -226,25 +220,37 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * cancels the annotation spawner.
 	 */
 	public void cancel() {
-		dispose();
-	}
-	
-	/**
-	 * cancels the annotation spawner and disposes the GUI.
-	 */
-	public void close() {
-		dispose();
-		parent.dispose();
-	}
-	
-	/** 
-	 * stops all active annotation threads
-	 */
-	public void dispose() {
-		// aborts the thread if it is currently running
-		if (annotationSpawner.isRunning())
+		if (annotationSpawner.isRunning()) {
 			annotationSpawner.cancel();
+			submit.setEnabled(true);
+			loadSeqs.setEnabled(true);
+			seqPath.setEnabled(true);
+			selectView.setEnabled(true);
+			selectMethod.setEnabled(true);
+			email.setEnabled(true);
+			apply.setEnabled(false);
+		}
+		else {
+			parent.dispose();
+		}
 	}
+	
+//	/**
+//	 * cancels the annotation spawner and disposes the GUI.
+//	 */
+//	public void close() {
+//		dispose();
+//		parent.dispose();
+//	}
+//	
+//	/** 
+//	 * stops all active annotation threads
+//	 */
+//	public void dispose() {
+//		// aborts the thread if it is currently running
+//		if (annotationSpawner.isRunning())
+//			annotationSpawner.cancel();
+//	}
 	
 	/**
 	 * Submits a new annotation job for all sequences
@@ -291,7 +297,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		email.setEnabled(false);
 		apply.setEnabled(true);
 	}
-		
+	
 
 	/* ************************************************************* *
 	 * 						CORECTNESS CHECKING						 *
@@ -344,15 +350,15 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		add(new JXTitledSeparator("Sequences"), "growx, span, wrap, gaptop 10");
 		
 		add(loadSeqs, "w 165!, gap 5");
-		add(seqPath, "h 25!, span, growX, wrap");
+		add(seqPath, "h 25!, span, growX, gapright 5, wrap");
 		
 		add(new JLabel("Or select view:"), "gap 5");
-		add(selectView, "h 25!, span, growX, wrap");
+		add(selectView, "h 25!, span, growX, gapright 5, wrap");
 		
 		// parameter
 		add(new JXTitledSeparator("Parameters"),"growX, span, wrap, gaptop 10");
 		add(new JLabel("Your e-mail:"), "gap 5");
-		add(email, "h 25!, span, growX, wrap");
+		add(email, "h 25!, span, growX, gapright 5, wrap");
 	 
 		add(new JXTitledSeparator("Submit job to Interpro / EBI"),  "growx, span, wrap, gaptop 10");
 		
@@ -368,13 +374,13 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		 
 		// progressbar
 		add(new JXTitledSeparator("Progress"), "growx, span, wrap, gaptop 10");
-		add(progressBar,						"h 25!, gap 10, span, growX, wrap");
+		add(progressBar,						"h 25!, gap 10, gapright 10, span, growX, wrap");
 		
 		// apply
 		add(new JXTitledSeparator("Apply Results"), "growx, span, wrap, gaptop 10");
-		add(apply, "gap 5, split 2");
+		add(apply, "w 80!, gap 5, split 2");
 		add(cancel, "gap 5, split 2");
-		add(close, "wrap");	
+//		add(close, "wrap");	
 	}
 	
 	/* ************************************************************* *
@@ -404,21 +410,15 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				cancel();
-				submit.setEnabled(true);
-				loadSeqs.setEnabled(true);
-				seqPath.setEnabled(true);
-				selectView.setEnabled(true);
-				selectMethod.setEnabled(true);
-				email.setEnabled(true);
 			}
 		});
 				
-		close = new JButton ("Close");
-		close.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				close();
-			}
-		});
+//		close = new JButton ("Close");
+//		close.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent evt) {
+//				close();
+//			}
+//		});
 	}
 	
 	private void initSelectViewBox() {
@@ -445,7 +445,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 					return;
 				}
 				else {
-					defaultName=selected.getTitle();
+					defaultName = selected.getTitle();
 					//System.out.println(selected.getTitle());
 				}
 				selectedSequenceView = ViewHandler.getInstance().getView(selected.getViewInfo());

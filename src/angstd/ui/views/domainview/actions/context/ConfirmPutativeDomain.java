@@ -15,8 +15,17 @@ public class ConfirmPutativeDomain extends AbstractAction {
 
 	public ConfirmPutativeDomain (){
 		super();
-		putValue(Action.NAME, "Confirm Putative Domain");
-		putValue(Action.SHORT_DESCRIPTION, "Confirms a CODD detected putative domain");
+		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
+		DomainComponent selectedDomain =  view.getDomainSelectionManager().getClickedComp();
+		if (selectedDomain.getDomain().isPutative()) {
+			putValue(Action.NAME, "Confirm Putative Domain");
+			putValue(Action.SHORT_DESCRIPTION, "Confirms a putative domain)");		
+		}else
+		{
+			putValue(Action.NAME, "Change status to Putative");
+			putValue(Action.SHORT_DESCRIPTION, "Consider a domain as putative");		
+		
+		}
 	}
 	
 	private static final long serialVersionUID = 1L;
@@ -32,8 +41,8 @@ public class ConfirmPutativeDomain extends AbstractAction {
 		if (selectedDomain == null) 
 			return;
 		
-		if (selectedDomain.getDomain().isPutative())
-			selectedDomain.getDomain().setPutative(false);
+		selectedDomain.getDomain().setPutative(!selectedDomain.getDomain().isPutative());
+			
 			
 		view.getDomainLayoutManager().firevisualChange();		
 	}

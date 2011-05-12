@@ -73,12 +73,13 @@ public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionLi
 
 		// layout the panel depending on the chosen algorithm
 		componentHolder.add(new JXTitledSeparator("Change tree space "),"growx, span, wrap, gaptop 10");
-		componentHolder.add(spaceSlider, "gap 10, growx, span, wrap");
+		componentHolder.add(spaceSlider, "gap 10, gapright10, growx, span, wrap");
 		
 		componentHolder.add(new JXTitledSeparator("Apply settings"),"growx, span, wrap, gaptop 10");
-		componentHolder.add(new JLabel(" "), "gap 10");
-		componentHolder.add(jbtApply, "gap 10, growx");
-		componentHolder.add(jbtCancel, "gap 10, growx, wrap");
+		//componentHolder.add(new JLabel(" "), "gap 10");
+		componentHolder.add(jbtApply, "w 90!, gap 20");
+		componentHolder.add(jbtCancel, "gap 10");
+		componentHolder.add(new JLabel(" "), "gap 10, wrap");
 		
 		getContentPane().add(componentHolder);
 		pack();
@@ -103,7 +104,7 @@ public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionLi
 	public int showDialog(Component parent, String title) {
 		this.setTitle(title);
 		this.setLocationRelativeTo(parent);
-		setLocation(10, getLocation().y);
+		setLocation(50, getLocation().y);
 		this.setVisible(true);
 		return 0;
 	}

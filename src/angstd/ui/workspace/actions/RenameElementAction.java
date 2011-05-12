@@ -40,7 +40,7 @@ public class RenameElementAction extends AbstractAction{
 		}
 		
 		// let the user choose the new name
-		String newTitle = WizardManager.getInstance().selectRenameWizard(selected.getTitle(), selected.getTypeName(), selected);
+		String newTitle = WizardManager.getInstance().renameWizard(selected.getTitle(), selected.getTypeName(), selected);
 		
 		if(newTitle == null)  // canceled
 			return;

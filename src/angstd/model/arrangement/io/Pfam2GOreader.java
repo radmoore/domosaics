@@ -5,6 +5,7 @@ import angstd.model.arrangement.DomainFamily;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 //import java.text.DateFormat;
@@ -36,10 +37,11 @@ public class Pfam2GOreader {
 	
 	public static void readFile() {
 		try {
-			URL localFile = Pfam2GOreader.class.getResource("resources/pfam2go");
-			BufferedReader localIn = new BufferedReader(new FileReader(localFile.getFile()));
+			InputStream is = GatheringThresholdsReader.class.getResourceAsStream("resources/pfam2go");
+			BufferedReader localIn = new BufferedReader(new InputStreamReader(is));
 			URL remoteFile = new URL("http://www.geneontology.org/external2go/pfam2go");
 			BufferedReader remoteIn = new BufferedReader(new InputStreamReader(remoteFile.openStream()));
+			
 		}
 		catch (Exception e) {
 			Configuration.getLogger().debug(e.toString());
@@ -68,8 +70,9 @@ public class Pfam2GOreader {
 		
 		try {
 		
-			URL path = Pfam2GOreader.class.getResource("resources/pfam2go");
-			BufferedReader in = new BufferedReader(new FileReader(path.getFile()));
+			InputStream is = GatheringThresholdsReader.class.getResourceAsStream("resources/pfam2go");
+			BufferedReader in = new BufferedReader(new InputStreamReader(is));
+			
 			String line;
 			
 			while((line = in.readLine()) != null) {

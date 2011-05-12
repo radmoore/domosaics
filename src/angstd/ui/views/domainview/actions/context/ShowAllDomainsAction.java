@@ -29,7 +29,7 @@ public class ShowAllDomainsAction extends AbstractAction{
 			return;
 		}
 		
-		if (view.getDomainLayoutManager().isCompareDomainsMode()) {
+		if (view.isCompareDomainsMode()) {
 			MessageUtil.showWarning("While in comparing domains mode this option is deactivated ");
 			return;
 		}
@@ -42,6 +42,9 @@ public class ShowAllDomainsAction extends AbstractAction{
 		// get the selected arrangement
 		ArrangementComponent dac = view.getArrangementSelectionManager().getClickedComp();
 
+		view.getArrangementSelectionManager().getSelection().clear();
+		view.getArrangementSelectionManager().getSelection().add(dac);
+		
 		for (Domain dom : dac.getDomainArrangement().getHiddenDoms())
 			view.getDomainComponentManager().getComponent(dom).setVisible(true);
 		

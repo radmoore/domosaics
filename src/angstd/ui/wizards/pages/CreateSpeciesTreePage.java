@@ -35,8 +35,8 @@ public class CreateSpeciesTreePage extends WizardPage {
 		
 		add(new JXTitledSeparator("Select arrangement view"),"growx, span, wrap, gaptop 10");
 		add(new JLabel("Select view:"), "gap 10");
-		add(selectDomViewList, 			"w 270!, gap 10, span, growx, wrap");
-		add(new JLabel(""), 		"h 161!, gap 10, wrap");
+		add(selectDomViewList, 			"w 270!, gap 5, gapright 10,span, growx, wrap");
+		add(new JLabel(""), 		"h 161!, gap 5, wrap");
 		
 	}
 

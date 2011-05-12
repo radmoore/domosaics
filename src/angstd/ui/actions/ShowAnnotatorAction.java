@@ -15,9 +15,10 @@ import angstd.webservices.interproscan.ui.AnnotatorFrame;
 public class ShowAnnotatorAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
-	protected AnnotatorFrame annotatorFrame = null;
+	protected AnnotatorFrame annotatorFrame;
 
 	public void actionPerformed(ActionEvent e) {
+		annotatorFrame = AnnotatorFrame.getFrame();
 		if (annotatorFrame == null || !annotatorFrame.isVisible())
 			annotatorFrame = new AnnotatorFrame();
 		else 
