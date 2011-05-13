@@ -25,9 +25,6 @@ import angstd.ui.wizards.GUIComponentFactory;
 public class ChooseDataTypePage extends WizardPage {
 	private static final long serialVersionUID = 1L;
 	
-	/** size of the page */
-	private final static Dimension p_size = new Dimension(300,200);
-	
 	/** list displaying the available data types */
 	protected JList list;
 	
@@ -39,13 +36,12 @@ public class ChooseDataTypePage extends WizardPage {
 		super("Data Selection");
 		
 		setLayout(new MigLayout());
-		setPreferredSize(p_size);
 		
 		// init the data type list
 		list = GUIComponentFactory.createDataTypeList();
 		list.setName(ImportDataBranchController.DATATYPE_KEY);
 		
-		add(new JLabel("Select the data type to import"), "gap 10, wrap");
+		add(new JLabel("Select the data type to import"), "w 300!, gap 10, wrap");
 		add(new JScrollPane(list), "gap 10, span, growx");
 	}
 

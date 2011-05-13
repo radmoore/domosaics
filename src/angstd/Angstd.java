@@ -9,15 +9,17 @@ import angstd.ui.util.MessageUtil;
 
 
 /**
- * Welcome to the main class of Angstd. All initialization is delegated 
+ * Welcome to the main class of AnGSTD. All initialization is delegated 
  * to the {@link ApplicationHandler}. So no fun here.
  * 
- * @author Andrew D. Moore, Andreas Held, Nicolas Terrapon
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
+ * @author Andreas Held <a.held@uni-muenster.de>
+ * @author Nicolas Terrapon <n.terrapon@uni-muenster.de>
  *
  */
 public class Angstd {
 	
-	/**
+	/** 
 	 * The main method of Angstd and the anchor point to start the program. 
 	 * 
 	 * @param args

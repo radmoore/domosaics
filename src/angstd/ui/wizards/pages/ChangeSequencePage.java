@@ -99,6 +99,7 @@ public class ChangeSequencePage extends WizardPage {
 		}
 
 		// layout panel
+		add(new JLabel("NOTE: only sequences of the domainview will be changed"), "span 2, span x, wrap");
 		add(new JXTitledSeparator("Edit the sequence"),"growx, span, wrap, gaptop 15");
 		add(new JScrollPane(new JScrollPane(input)), "gap 10, growx, wrap");
 		add(new JLabel("Length"), "gap 10, split 2");
