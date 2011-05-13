@@ -1,12 +1,7 @@
 package angstd;
 
-import java.util.logging.Level;
-
-import org.apache.log4j.Category;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Logger;
-import org.apache.log4j.RollingFileAppender;
-import org.apache.log4j.SimpleLayout;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
@@ -22,32 +17,46 @@ import angstd.ui.util.MessageUtil;
  */
 public class Angstd {
 	
-	// set to true to see unhandled exceptions
-	private static final boolean DEBUG = true;
-	
 	/**
 	 * The main method of Angstd and the anchor point to start the program. 
 	 * 
 	 * @param args
-	 * 		arguments you wish to run with Angstd (nothing supported)
+	 * 		arguments you wish to run with Angstd
 	 */
 	public static void main(String[] args) {
 		
-		if (!DEBUG) {
+		if (args.length > 0) {
+			for(String a : args) {
+				if (a.equals("--debug")) {
+					Configuration.setDebug(true);
+				}
+				else {
+					System.out.println("AnGSTD: dunno what >"+args[0]+"< means. Exiting.");
+					System.exit(1);
+				}
+			}
+		}
 		
-        Thread.setDefaultUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler(){
-        	
-            public void uncaughtException(Thread t, Throwable e) {
-            	Configuration.getLogger().debug("Uncaught exception");
-            	Configuration.getLogger().debug(e.toString());
-            	MessageUtil.showWarning("There was a problem starting AnGSTD. Please consult log file.");
-            	System.exit(1);
-            }
-        });
+		// if we are not in debug mode, catch all 
+		// unhandled exceptions
+		if (!Configuration.isDebug()) {
+	        Thread.setDefaultUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler(){
+	        	
+	            public void uncaughtException(Thread t, Throwable e) {
+	            	Configuration.getLogger().debug("Uncaught exception");
+	            	StringWriter w = new StringWriter();
+	            	e.printStackTrace(new PrintWriter(w));
+	            	Configuration.getLogger().debug(w.toString());
+	            	MessageUtil.showWarning("There was a unexpected problem running AnGSTD; consult log file.");
+	            	// remove lock file if possible
+	            	if (Configuration.getInstance().hasLockfile())
+	            		Configuration.getInstance().getLockFile().delete();
+	            	System.exit(1);
+	            }
+	        });
 		}
 		try {
-			Configuration.getLogger().info("=============================================");
-			Configuration.getLogger().info("Starting AnGSTD.");
+			Configuration.getLogger().info("*** INFO: Starting AnGSTD.");
 			ApplicationHandler.getInstance().start();
 		}
 		catch (Exception e) {

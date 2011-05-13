@@ -69,7 +69,8 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	 */
 	public void setQuerySequence(SequenceI seq) {
 		this.seq = seq;
-		this.fasta = seq.toFasta();
+		// get fasta without gaps
+		this.fasta = seq.toFasta(false);
 	}
 	
 	/**
@@ -102,6 +103,8 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 		try {
 			
 			params.setSequence(fasta);
+			if (Configuration.isDebug())
+				System.out.println("*** Submitting search for "+"\n"+fasta+"\n");
 			srvProxyConnect();
 			String jobId = srvProxy.run(email, seq.getName(), params);
 			String status = srvProxy.getStatus(jobId);
@@ -117,17 +120,20 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	       
 	        if (status.equals("ERROR")) {
 	        	spawner.out.print("[ ERROR occurred when obtaining job status for job " + jobId +" ]\n");
-	        	System.err.println("*** E: an error occurred attempting to get the job status [jobid: "+ jobId +"]");
+	        	if (Configuration.isDebug())
+	        		System.out.println("*** an error occurred attempting to get the job status [jobid: "+ jobId +"]");
 	        	return null;
 			}
 	        else if (status.equals("FAILURE")) {
 	        	spawner.out.print("[ ERROR job " + jobId +"  failed ]\n");
-	        	System.err.println("*** E: The job failed [jobid: "+ jobId +"]");
+				if (Configuration.isDebug())
+					System.out.println("*** The job failed [jobid: "+ jobId +"]");
 	        	return null;
 			}
 	        else if (status.equals("NOT_FOUND")) {
 	        	spawner.out.print("[ NOT_FOUND could not find job with id " + jobId +" ]\n");
-	        	System.err.println("*** E: job not found [jobid: "+ jobId +"]");
+	        	if (Configuration.isDebug())
+	        		System.out.println("*** job not found [jobid: "+ jobId +"]");
 	        	return null;
 	        }  
 	        

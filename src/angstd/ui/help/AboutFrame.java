@@ -21,7 +21,7 @@ public class AboutFrame extends JFrame{
 
 	JPanel panel;
 	
-	private static final String ABOUTPNG = "../resources/about_angstd.png";
+	private static final String ABOUTPNG = "/angstd/ui/resources/about_angstd.png";
 	
 	public AboutFrame() {
 		

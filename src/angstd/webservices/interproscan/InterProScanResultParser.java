@@ -45,8 +45,12 @@ public class InterProScanResultParser {
 	public DomainArrangement parseResult(String arrangementsStr) {
 		
 		try {
+			if (Configuration.isDebug())
+				System.out.println("*** Returned from iprscan: "+arrangementsStr);
+			
 			return getArrangement(new StringReader(arrangementsStr));
-		} catch (IOException ioe) {
+		} 
+		catch (IOException ioe) {
 			Configuration.getLogger().debug(ioe.toString());
 		//	Logger.getLogger("logger").warn("IO Exception: could not read domain arrangement from string");
 		//	Logger.getLogger("logger").warn("Reading InterproScan result  aborted");

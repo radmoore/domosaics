@@ -1,6 +1,7 @@
 package angstd.ui.wizards.importdata;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -40,6 +41,9 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	
 	private ProjectElement project = null;
 	
+	/** size of the page */
+	private final static Dimension p_size = new Dimension(400,300);
+	
 	
 	/**
 	 * Constructor for a new SelectArrangementDataPage
@@ -59,6 +63,7 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	public void init() {
 		
 		setLayout(new MigLayout());
+		setPreferredSize(p_size);
 		
 		// init components
 		path = new JTextField(20);

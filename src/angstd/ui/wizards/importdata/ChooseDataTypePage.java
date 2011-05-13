@@ -1,6 +1,7 @@
 package angstd.ui.wizards.importdata;
 
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -24,6 +25,9 @@ import angstd.ui.wizards.GUIComponentFactory;
 public class ChooseDataTypePage extends WizardPage {
 	private static final long serialVersionUID = 1L;
 	
+	/** size of the page */
+	private final static Dimension p_size = new Dimension(300,200);
+	
 	/** list displaying the available data types */
 	protected JList list;
 	
@@ -35,6 +39,7 @@ public class ChooseDataTypePage extends WizardPage {
 		super("Data Selection");
 		
 		setLayout(new MigLayout());
+		setPreferredSize(p_size);
 		
 		// init the data type list
 		list = GUIComponentFactory.createDataTypeList();

@@ -88,6 +88,6 @@ public interface SequenceI extends AngstdData{
 	 * 
 	 * @return FASTA representation of the sequence
 	 */
-	public String toFasta();
+	public String toFasta(boolean gaps);
 	
 }

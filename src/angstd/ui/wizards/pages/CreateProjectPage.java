@@ -2,7 +2,9 @@ package angstd.ui.wizards.pages;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -10,8 +12,8 @@ import net.miginfocom.swing.MigLayout;
 
 import org.netbeans.spi.wizard.WizardPage;
 
+import angstd.ui.AngstdUI;
 import angstd.ui.WorkspaceManager;
-import angstd.ui.util.MessageUtil;
 
 /**
  * WizardPage allowing the user to enter a name for a project which is
@@ -62,8 +64,8 @@ public class CreateProjectPage extends WizardPage {
 		if (projectName.isEmpty())
 			return "Select a name";
 
-		if (projectName.length()>25)
-			return "Name must not excess 25 characters!";
+		if (projectName.length() > 25)
+			return "Name should not exceed 25 characters";
 		
 		if (projectName.equals("Default Project"))
 			return "Default Project name disallowed";

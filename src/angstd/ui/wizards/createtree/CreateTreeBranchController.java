@@ -86,7 +86,6 @@ public class CreateTreeBranchController extends WizardBranchController {
     		} else {
     			if ((Boolean) data.get(USEUNDERLYINGSEQS_KEY)) {
     				if (PALAdapter.isAligned(getSeqs(data))){
-    					System.out.println("These sequences are aligned!");
         				choosedWiz = seqWiz;
     				}
         			else{

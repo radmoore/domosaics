@@ -36,6 +36,7 @@ public class Configuration {
 	public static final boolean OVERWRITEPROJECTS = false;
 	
 	private boolean service_running = false;
+	private static boolean debugState = false;
 	
 
 	protected String defaultFileLocation;
@@ -68,6 +69,19 @@ public class Configuration {
 	
 	public static void setIdPreferedToAcc(boolean b) {
 		idRatherThanAcc = b;
+	}
+	
+	public static Logger getLogger() {
+    	return Logger.getLogger("angstdlog");
+    	
+	}
+	
+	public static void setDebug(Boolean debug) {
+		debugState = debug;
+	}
+	
+	public static boolean isDebug() {
+		return debugState;
 	}
 	
 	public boolean isVisible() {
@@ -172,6 +186,11 @@ public class Configuration {
 		ConfigurationWriter.setLockFile();
 	}
 	
+	public boolean hasLockfile() {
+		File f = new File(workspace_dir+"/"+LOCKFILE);
+		return f.exists();
+	}
+	
 	public File getLockFile() {
 		return new File(workspace_dir+"/"+LOCKFILE);
 	}
@@ -271,12 +290,6 @@ public class Configuration {
 	public void setServiceRunning(boolean running) {
 		this.service_running = running;
 	}
-	
-	public static Logger getLogger() {
-    	return Logger.getLogger("angstdlog");
-    	
-	}
-	
 	
 }
 

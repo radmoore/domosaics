@@ -59,7 +59,7 @@ public class ClustalW2ServiceII extends AbstractEBIWebservice {
 		this.seqs = seqs;
 		StringBuffer contentStr = new StringBuffer();
 		for (int i = 0; i < seqs.length; i++) {
-			contentStr.append(seqs[i].toFasta());
+			contentStr.append(seqs[i].toFasta(false));
 		}
 		
 		sequences = contentStr.toString();
