@@ -86,20 +86,26 @@ public class ApplicationHandler {
 				choice = MessageUtil.show3ChoiceDialog("Restore workspace in next session?", options);
 			}
 			
-			// save workspace
-			if (choice == 0)
-				 if (!handelProjectExport()) // if something goes wrong during export, do not exit program
-					 return; 
 			
+			// save workspace
+			if (choice == 0){
+				 if (!handelProjectExport()) {// if something goes wrong during export, do not exit program
+					 return; 
+				 }
+			}
 			// delete previous stored workspace
 			else if (choice == 1) {
 				File workspaceFile = new File (Configuration.getInstance().getWorkspaceDir()+"/lastusedworkspace.file");
-	        	if (workspaceFile.exists())
-	        		workspaceFile.delete();
+				if (workspaceFile.exists()) {
+					if (!workspaceFile.delete()) {
+						MessageUtil.showWarning("Could not delete workspace file");
+					}
+				}
 			}
 			// cancel
-			else if (choice == 2)
+			else if (choice == 2) {
 				return;
+			}
 		}
 			
 		// remove lockfile
@@ -108,9 +114,8 @@ public class ApplicationHandler {
 		if (AngstdUI.getInstance().isShowing())
 			AngstdUI.getInstance().dispose();
 		
-		Configuration.getLogger().info("Closing AnGSTD");
-		Configuration.getLogger().info("=============================================");
-		LastUsedWorkspaceWriter.write();
+		Configuration.getLogger().info("INFO: closing AnGSTD");
+		//LastUsedWorkspaceWriter.write();
 		System.exit(0);		
 	}
 
@@ -121,7 +126,6 @@ public class ApplicationHandler {
     	boolean overwriteAll = false;
     	
 		for (ProjectElement project : WorkspaceManager.getInstance().getProjects()) {
-
 			// only export projects that have views
 			if (project.getChildCount() < 1)
 				continue;
@@ -177,9 +181,9 @@ public class ApplicationHandler {
         		else if(choice == 2) {
         			overwriteAll = true;
         		}
-        		else if (choice == 3)
+        		else if (choice == 3) {
         			return false;
-        		
+        		}
         	}
 			// then export (check if it worked)
 			if (!ProjectExporter.write(project)) {
@@ -190,7 +194,7 @@ public class ApplicationHandler {
 		} // end of each project
 		
 		
-		//LastUsedWorkspaceWriter.write();
+		LastUsedWorkspaceWriter.write();
 		return true;
 	} 
 
