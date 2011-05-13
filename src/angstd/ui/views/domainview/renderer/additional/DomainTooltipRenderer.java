@@ -26,6 +26,7 @@ import angstd.ui.views.view.renderer.Renderer;
  * <p>
  * This renderer is not compatible with the zoom mode.
  * 
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
  * @author Andreas Held
  *
  * TODO:
@@ -130,6 +131,7 @@ public class DomainTooltipRenderer implements Renderer {
             g2d.drawString(dc.getLabel(),b.x+2,2+b.y+vertical_row_height*elements-4);
             g2d.setFont(font);
         }
+        g2d.setFont(font.deriveFont(Font.PLAIN));
         elements++;
         g2d.drawString("From - To: "+dc.getDomain().getFrom()+" - "+dc.getDomain().getTo(),b.x+2,2+b.y+vertical_row_height*elements-4);
         
