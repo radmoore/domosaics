@@ -58,14 +58,6 @@ import angstd.util.StringUtils;
  * The general setup is closely related to other panels used in
  * AnGSTD.
  * 
- * TODO:
- * - progressbar issue (inkl. proper calc)
- * - unhandled exceptions
- * - consider enclosing hmmscan and hmmpress, or,
- * - ensure that hmmscan and hmmpress are available (not
- *   only any executable)
- * - add hmmdb format check
- * 
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
  */

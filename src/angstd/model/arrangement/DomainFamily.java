@@ -197,6 +197,7 @@ public class DomainFamily  {
 	 * 		Whether or not both families have identical IDs.
 	 */
 	public boolean equals(DomainFamily fam) {
+		id = getID();
 		return id.toUpperCase().equals(fam.getID().toUpperCase());
 	}
 	
