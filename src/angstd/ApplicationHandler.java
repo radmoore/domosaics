@@ -115,7 +115,7 @@ public class ApplicationHandler {
 			AngstdUI.getInstance().dispose();
 		
 		Configuration.getLogger().info("INFO: closing AnGSTD");
-		//LastUsedWorkspaceWriter.write();
+		LastUsedWorkspaceWriter.write();
 		System.exit(0);		
 	}
 
@@ -194,7 +194,7 @@ public class ApplicationHandler {
 		} // end of each project
 		
 		
-		LastUsedWorkspaceWriter.write();
+//		LastUsedWorkspaceWriter.write();
 		return true;
 	} 
 
