@@ -12,17 +12,18 @@ import angstd.model.sequence.Sequence;
 import angstd.model.sequence.SequenceI;
 import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.ViewElement;
+import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.ViewHandler;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
-import angstd.ui.views.domainview.DomainView;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.view.View;
+import angstd.ui.views.view.ViewInfo;
 import angstd.ui.wizards.WizardManager;
-import angstd.ui.wizards.pages.SelectNamePage;
+import angstd.ui.wizards.pages.SelectViewPage;
 
 /**
  * Creates a new view out of the current selected arrangements. Therefore
@@ -38,47 +39,57 @@ public class AddSelectionToViewAction extends AbstractMenuAction{
 	
 	public void actionPerformed(ActionEvent e) {
 		
-		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
+		ViewType activeViewType = ViewHandler.getInstance().getActiveView().getViewInfo().getType();
+		
+		// this operation currently only works for pure domain views (not for trees / sequences)
+		if (! activeViewType.equals(ViewType.DOMAINS)) {
+			MessageUtil.showWarning("Only domain views can be merged");
+			return;
+		}
+		
+		DomainViewI activeDomView = (DomainViewI) ViewHandler.getInstance().getActiveView();
 
 		// check the number of selected proteins, if its zero warn the user
-		int numDAs = view.getArrangementSelectionManager().getSelection().size();
+		int numDAs = activeDomView.getArrangementSelectionManager().getSelection().size();
 		if (numDAs == 0) {
 			MessageUtil.showWarning("No proteins selected, please select at least one arrangement");
 			return;
 		}
-		DomainView domView = (DomainView) ViewHandler.getInstance().getActiveView();
-		
-		// take the active viewName + subset as default name
-		String defaultName = view.getViewInfo().getName()+"_subset";
-		String viewName, projectName;
 		
 		// get currently active project
-		ViewElement elem = WorkspaceManager.getInstance().getViewElement(view.getViewInfo());
-		
+		ViewElement elem = WorkspaceManager.getInstance().getViewElement(activeDomView.getViewInfo());
 		ProjectElement project = elem.getProject();
 		
 		// get info provided by the user
-		// TODO select domain arrangement view
-		Map m = WizardManager.getInstance().selectViewWizard(project);
+		int selectedItems = activeDomView.getArrangementSelectionManager().getSelection().size();
+		Map m = WizardManager.getInstance().selectViewWizard(project, selectedItems);
 		
-		// in case user canceled renaming
+		// in case user canceled
 		if (m == null) 
 			return;
 		
-		viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
-		projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
-		project = WorkspaceManager.getInstance().getProject(projectName);
+		// Find the target view based on user selection
+		WorkspaceElement wsElem = (WorkspaceElement) m.get(SelectViewPage.VIEW_KEY);
+		DomainViewI targetView = null; 
+		ViewInfo domViewInfo = null;
+		for (View dView : ViewHandler.getInstance().getViews()) {
+			if ( dView.getViewInfo().getName().equals(wsElem.getTitle()) ) {
+				targetView = (DomainViewI) dView;		
+				break;
+			}
+		}
 		
-		// clone selected arrangements as well as their sequences into a new dataset
+		
+		// clone selected arrangements and sequences of selection
 		DomainArrangement[] daSet = new DomainArrangement[numDAs];
-		List<SequenceI> seqs = new ArrayList<SequenceI>();
+		List<SequenceI> selectedDAseqs = new ArrayList<SequenceI>();
 		int i = 0;
-		Iterator<ArrangementComponent> iter = view.getArrangementSelectionManager().getSelectionIterator();
+		Iterator<ArrangementComponent> iter = activeDomView.getArrangementSelectionManager().getSelectionIterator();
 		while (iter.hasNext()) {
 			try {
 				DomainArrangement da =  iter.next().getDomainArrangement();
 				if (da.getSequence() != null)
-					seqs.add((Sequence) da.getSequence().clone());
+					selectedDAseqs.add((Sequence) da.getSequence().clone());
 				daSet[i] = (DomainArrangement)da.clone();
 			} 
 			catch (Exception ex) {
@@ -87,21 +98,45 @@ public class AddSelectionToViewAction extends AbstractMenuAction{
 			i++;
 		}
 		
+		// create new set of sequences with all sequences (selection and target view)
+		List<SequenceI> allSeqs = new ArrayList<SequenceI>();
+		if (selectedDAseqs.size() > 0) {
+			// from selection
+			try {
+			for (SequenceI s : selectedDAseqs) {
+				allSeqs.add(s);
+			}
+			// from the targetView
+			for (DomainArrangement da : targetView.getDaSet()) {
+				if (da.getSequence() != null)
+					allSeqs.add((Sequence) da.getSequence().clone());
+			}
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		
 		// clear the selection from this view
-		view.getArrangementSelectionManager().clearSelection();
-
-		// and create with the new dataset a new domainview with the selected name
-		//DomainViewI newView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
+		activeDomView.getArrangementSelectionManager().clearSelection();
+		// add arrangements to targetView
+		targetView.addDaSet(daSet);
 		
-		//newView.setDaSet(daSet);
-		domView.addDaSet(daSet);
+		// FIXME this is ineffcient, as we should only add
+		// new sequences to targetView (as opposed to re-adding the existing ones as well)
+		// This was done due to the relatively complex loadSequencesIntoDas method, which also
+		// triggers the match sequence dialog if ambiguoity should occur - to avoid code duplication
+		// all sequences are readded.
 		
-		// TODO add sequences from selected arrangements to existing view
-		//if there are sequences loaded clone them as well
-		//if (view.isSequenceLoaded()) 
-		//	newView.loadSequencesIntoDas(seqs.toArray(new SequenceI[seqs.size()]), newView.getDaSet());
+		// add all sequences to targetView (existing + selection)
+		if (allSeqs != null || allSeqs.size() > 0 )
+			targetView.loadSequencesIntoDas(allSeqs.toArray(new SequenceI[allSeqs.size()]), targetView.getDaSet());
+		// Switch to new view containing imported arrangements
+		WorkspaceManager.getInstance().showViewInMainFrame(WorkspaceManager.getInstance().getViewElement(targetView.getViewInfo()));
+		// Set selection in target to selected arrangements (doesnt work)
+		//viewToAddTo.getArrangementSelectionManager().setSelection(activeDomView.getArrangementSelectionManager().getSelection());
+		MessageUtil.showInformation("Added "+selectedItems+" arrangements "+" from "+activeDomView.getViewInfo().getName());
 		
-		//ViewHandler.getInstance().addView(newView, project);
 	}
 	
 }

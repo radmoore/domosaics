@@ -6,8 +6,10 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import angstd.ui.ViewHandler;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.views.ViewType;
+import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.view.ViewInfo;
 import angstd.ui.workspace.WorkspaceTreeModel;
 import angstd.ui.workspace.components.WorkspaceChangeEvent;
@@ -448,15 +450,15 @@ public class Workspace extends WorkspaceElement {
 //		return null;
 //	}
 //	
-//	public DomainViewI getDomainViewByName(ProjectElement project, String name) {
-//		CategoryElement domCat = project.getCategory(ViewType.DOMAINS);
-//		if (domCat == null) 
-//			return null;
-//		for (int i = 0; i < domCat.countViews(); i++) 
-//			if (((ViewElement) domCat.getChildAt(i)).getTitle().equals(name))
-//				return ViewHandler.getInstance().getView(((ViewElement) domCat.getChildAt(i)).getViewInfo());
-//		return null;
-//	}
+	public DomainViewI getDomainViewByName(ProjectElement project, String name) {
+		CategoryElement domCat = project.getCategory(ViewType.DOMAINS);
+		if (domCat == null) 
+			return null;
+		for (int i = 0; i < domCat.countViews(); i++) 
+			if (((ViewElement) domCat.getChildAt(i)).getTitle().equals(name))
+				return ViewHandler.getInstance().getView(((ViewElement) domCat.getChildAt(i)).getViewInfo());
+		return null;
+	}
 //	
 //	public SequenceView getSequenceViewByName(ProjectElement project, String name) {
 //		CategoryElement seqCat = project.getCategory(ViewType.SEQUENCE);

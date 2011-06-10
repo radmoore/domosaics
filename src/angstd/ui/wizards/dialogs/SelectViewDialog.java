@@ -20,17 +20,15 @@ import angstd.ui.wizards.pages.SelectViewPage;
  */
 public class SelectViewDialog {
 
-	/** the object to name */
-	protected CategoryElement category;
-	
 	protected ProjectElement project; 
+	protected int selectedElements;
 	
 	/**
 	 * Constructor for a new SelectViewDialog
 	 * 
 	 */
-	public SelectViewDialog(ProjectElement project) {
-		this.category = category;
+	public SelectViewDialog(ProjectElement project, int selectedElements) {
+		this.selectedElements = selectedElements;
 		this.project = project;
 	}
 	
@@ -41,7 +39,7 @@ public class SelectViewDialog {
 	 * 		the chosen name
 	 */
 	public Object show() {
-		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new SelectViewPage(project)}, new SelectViewProgress());
+		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new SelectViewPage(project, selectedElements)}, new SelectViewProgress());
 		return WizardDisplayer.showWizard(wiz);				 
 	}
 }

@@ -90,6 +90,7 @@ public class WorkspaceManager {
 		return workspace.getViewElement(view);
 	}
 	
+	
 	/**
 	 * Returns a list of all sequence views within all projects.
 	 * 

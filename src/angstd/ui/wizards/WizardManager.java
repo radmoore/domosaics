@@ -131,8 +131,8 @@ public class WizardManager {
 		return (Map) new SelectNameDialog(defaultName, objectName, project, allowProjectSelection).show();
 	}
 	
-	public Map selectViewWizard(ProjectElement project) {
-		return (Map) new SelectViewDialog(project).show();
+	public Map selectViewWizard(ProjectElement project, int selectedElements) {
+		return (Map) new SelectViewDialog(project, selectedElements).show();
 	}
 	
 	

@@ -245,7 +245,6 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 			if (currentArrangements.contains(da))
 				continue;
 			currentArrangements.add(da);
-			System.out.println("Adding this arrangement: "+da.getName());
 		}
 			
 		daSet = currentArrangements.toArray(new DomainArrangement[currentArrangements.size()]);
