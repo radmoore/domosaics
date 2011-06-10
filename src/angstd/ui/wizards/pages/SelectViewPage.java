@@ -18,10 +18,7 @@ import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.ViewElement;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.ViewHandler;
-import angstd.ui.WorkspaceManager;
-import angstd.ui.views.ViewType;
 import angstd.ui.views.view.View;
-import angstd.ui.views.view.ViewInfo;
 import angstd.ui.wizards.GUIComponentFactory;
 import angstd.ui.wizards.WizardListCellRenderer;
 
@@ -43,12 +40,12 @@ public class SelectViewPage extends WizardPage {
 	private View currentView;
 	
 	/**
-	 * Constructor for a new SelectViewNamePage
+	 * Constructor for a new SelectViewPage
 	 * 
-	 * @param defaultName
-	 * 		the default name for the object
-	 * @param objectName
-	 * 		the object to name e.g. view or project
+	 * @param project
+	 * 		the currently active project
+	 * @param selectedElems
+	 * 		the number of elements to be merged into an existing view
 	 */
 	public SelectViewPage(ProjectElement project, int selectedElems) {
 		super("Export "+ selectedElems + " items to existing view");
@@ -56,9 +53,6 @@ public class SelectViewPage extends WizardPage {
 		
 		currentView = ViewHandler.getInstance().getActiveView();
 		elems = project.getCategory(currentView.getViewInfo().getType()).getChildren();
-		
-		// determine how many DAs are selected (for info)
-//		selectedDaNum = currentView.
 		
 		projectSelection = GUIComponentFactory.createSelectProjectBox(project);
 		projectSelection.setName(PROJECT_KEY);
@@ -120,7 +114,6 @@ public class SelectViewPage extends WizardPage {
 		
 	}
 	
-
 
     /**
      * 
