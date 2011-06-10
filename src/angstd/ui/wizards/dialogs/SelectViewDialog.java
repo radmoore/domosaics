@@ -1,0 +1,60 @@
+package angstd.ui.wizards.dialogs;
+
+import java.util.Map;
+
+import org.netbeans.api.wizard.WizardDisplayer;
+import org.netbeans.spi.wizard.Wizard;
+import org.netbeans.spi.wizard.WizardException;
+import org.netbeans.spi.wizard.WizardPage;
+import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
+
+import angstd.model.workspace.CategoryElement;
+import angstd.model.workspace.ProjectElement;
+import angstd.ui.wizards.pages.SelectViewPage;
+
+/**
+ * Wizard dialog allowing user to choose a domain-view
+ * 
+ * @author Andrew D. Moore <radmoore@uni-muenster.de>
+ *
+ */
+public class SelectViewDialog {
+
+	/** the object to name */
+	protected CategoryElement category;
+	
+	protected ProjectElement project; 
+	
+	/**
+	 * Constructor for a new SelectViewDialog
+	 * 
+	 */
+	public SelectViewDialog(ProjectElement project) {
+		this.category = category;
+		this.project = project;
+	}
+	
+	/**
+	 * Shows the wizard
+	 * 
+	 * @return
+	 * 		the chosen name
+	 */
+	public Object show() {
+		Wizard wiz = WizardPage.createWizard(new WizardPage[]{new SelectViewPage(project)}, new SelectViewProgress());
+		return WizardDisplayer.showWizard(wiz);				 
+	}
+}
+
+class SelectViewProgress implements WizardResultProducer{
+	
+	public boolean cancel(Map m) {
+		return true;
+	}
+	
+	public Object finish(Map m) throws WizardException {
+		return m;
+	}	
+}
+
+

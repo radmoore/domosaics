@@ -223,8 +223,15 @@
 		</menuItem>
 		
 		<menuitem id="JMenuItem">
-			<parameter id="name" value="Export Selection to new View"/> 
+			<parameter id="name" value="Export selection to new view"/> 
 			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.CreateViewUsingSelectionAction"/> 
+			<parameter id="icon" value="angstd/ui/views/domainview/resources/img/menu/exportselection.png"/>
+			<parameter id="tooltip" value="Opens a new domain view containing the selected arrangements"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Export selection to existing view"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.AddSelectionToViewAction"/> 
 			<parameter id="icon" value="angstd/ui/views/domainview/resources/img/menu/exportselection.png"/>
 			<parameter id="tooltip" value="Opens a new domain view containing the selected arrangements"/> 
 		</menuItem>

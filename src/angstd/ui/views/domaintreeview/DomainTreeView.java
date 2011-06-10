@@ -1039,4 +1039,10 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 		isCompareDomainsMode=b;
 	}
 
+	@Override
+	public void addDaSet(DomainArrangement[] daSet) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -69,6 +69,14 @@ public interface DomainViewI extends View {
 	 */
 	public DomainArrangement[] getDaSet();
 	
+	
+	/**
+	 * Add a set of arrangements to this views
+	 *  
+	 */
+	public void addDaSet(DomainArrangement[] daSet);
+	
+	
 	/**
 	 * Removes a domain arrangement from the dataset
 	 * 

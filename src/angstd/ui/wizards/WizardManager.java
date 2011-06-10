@@ -1,7 +1,6 @@
 package angstd.ui.wizards;
 
 import java.awt.Component;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +13,7 @@ import org.netbeans.api.wizard.WizardDisplayer;
 
 import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
+import angstd.model.workspace.CategoryElement;
 import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.views.domainview.DomainViewI;
@@ -32,6 +32,7 @@ import angstd.ui.wizards.dialogs.SaveProjectDialog;
 import angstd.ui.wizards.dialogs.SaveViewDialog;
 import angstd.ui.wizards.dialogs.SelectNameDialog;
 import angstd.ui.wizards.dialogs.SelectRenameDialog;
+import angstd.ui.wizards.dialogs.SelectViewDialog;
 import angstd.ui.wizards.dialogs.WorkspaceDirectoryWizard;
 import angstd.ui.wizards.importdata.ImportDataBranchController;
 import angstd.ui.wizards.importdata.ImportDataResultProducer;
@@ -129,6 +130,11 @@ public class WizardManager {
 	public Map selectNameWizard(String defaultName, String objectName, ProjectElement project, boolean allowProjectSelection) {
 		return (Map) new SelectNameDialog(defaultName, objectName, project, allowProjectSelection).show();
 	}
+	
+	public Map selectViewWizard(ProjectElement project) {
+		return (Map) new SelectViewDialog(project).show();
+	}
+	
 	
 	/**
 	 * Opens a createProject wizard which also adds 

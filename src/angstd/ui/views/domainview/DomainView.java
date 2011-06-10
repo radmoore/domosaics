@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -131,7 +132,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	protected boolean sequencesLoaded = false;
 
 	/** flag indicating whether or not the domain sequence comparison is active */
-	protected boolean isCompareDomainsMode=false;
+	protected boolean isCompareDomainsMode = false;
 	/** 
 	 * a map of all added view managers defined within the 
 	 * DomainViewManagerFactory. By using the
@@ -232,6 +233,24 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		// re convert the daSet list to an array
 		daSet = list.toArray(new DomainArrangement[list.size()]);
 	}
+	
+	
+	/**
+	 * @see DomainViewI
+	 */
+	public void addDaSet(DomainArrangement[] newDaSet) {
+		List<DomainArrangement> currentArrangements = new ArrayList<DomainArrangement>(Arrays.asList(daSet));
+		
+		for (DomainArrangement da : newDaSet) {
+			if (currentArrangements.contains(da))
+				continue;
+			currentArrangements.add(da);
+			System.out.println("Adding this arrangement: "+da.getName());
+		}
+			
+		daSet = currentArrangements.toArray(new DomainArrangement[currentArrangements.size()]);
+	}
+	
 	
 	/**
 	 * @see DomainViewI
