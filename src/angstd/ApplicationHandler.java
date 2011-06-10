@@ -93,7 +93,8 @@ public class ApplicationHandler {
 					 return; 
 				 }
 			}
-			// delete previous stored workspace
+			// delete previous stored workspace and exit
+			// (that is, do not save state)
 			else if (choice == 1) {
 				File workspaceFile = new File (Configuration.getInstance().getWorkspaceDir()+"/lastusedworkspace.file");
 				if (workspaceFile.exists()) {
@@ -101,6 +102,8 @@ public class ApplicationHandler {
 						MessageUtil.showWarning("Could not delete workspace file");
 					}
 				}
+				Configuration.getInstance().removeLockFile();
+				System.exit(0);
 			}
 			// cancel
 			else if (choice == 2) {
