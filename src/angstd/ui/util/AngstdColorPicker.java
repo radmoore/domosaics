@@ -216,11 +216,10 @@ public class AngstdColorPicker implements PropertyChangeListener{
 		DomainComponent dc = domView.getDomainSelectionManager().getClickedComp();
 		if (dc == null)
 			return;
-		
+			
 		// colorize domains
-		if (type == DOMAIN) {
+		if (type == DOMAIN)
 			domView.getDomainColorManager().setDomainColor(dc, newColor);
-		}
 	}
 	
 	
@@ -253,7 +252,7 @@ public class AngstdColorPicker implements PropertyChangeListener{
 			buttonListener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Object src = e.getSource();
-					if(src==ok) {
+					if(src == ok) {
 						returnValue = cp.getColor();
 					} else {
 						cp.setColor(color); 
