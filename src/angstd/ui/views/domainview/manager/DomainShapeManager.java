@@ -145,9 +145,9 @@ public class DomainShapeManager extends DefaultViewManager {
   	
   	// used for inner arrangement tooltip
   	public Shape getDomainShape(DomainFamily fam) {	
-  		if (doms2shapes.get(fam.getID()) == null) 
+  		if (doms2shapes.get(fam.getAcc()) == null) 
    			setDomainShape(fam, getNextShapeIndex());
-   		return getShape(doms2shapes.get(fam.getID()));
+   		return getShape(doms2shapes.get(fam.getAcc()));
    	}
 	
 	/**
@@ -185,7 +185,7 @@ public class DomainShapeManager extends DefaultViewManager {
 	 * 		the new shape for the specified DomainFamily
 	 */
 	public void setDomainShape(DomainFamily fam, int shapeIndex) {
-		doms2shapes.put(fam.getID(), shapeIndex);
+		doms2shapes.put(fam.getAcc(), shapeIndex);
 	}
 	
 	/**
@@ -197,12 +197,13 @@ public class DomainShapeManager extends DefaultViewManager {
 	 * 		the shape index for the specified domain family
 	 */
 	public int getShapeID(DomainFamily fam) {
-		if (doms2shapes.get(fam.getID()) == null) {
+		if (doms2shapes.get(fam.getAcc()) == null) {
   			int shapeIndex = getNextShapeIndex();
-  			doms2shapes.put(fam.getID(), shapeIndex);
+  			doms2shapes.put(fam.getAcc(), shapeIndex);
   			return shapeIndex;
-		} else
-			return doms2shapes.get(fam.getID());
+		} 
+		else
+			return doms2shapes.get(fam.getAcc());
 	}
 
 }

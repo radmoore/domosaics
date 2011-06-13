@@ -127,8 +127,12 @@ public class DomainTooltipRenderer implements Renderer {
         Font font = g2d.getFont();
         if(dc.getLabel() != null){
             elements++;
+            String label = dc.getLabel();
+            if (dc.getDomain().getSequence() != null)
+            	label += " [s]";
+            	
             g2d.setFont(font.deriveFont(Font.BOLD));
-            g2d.drawString(dc.getLabel(),b.x+2,2+b.y+vertical_row_height*elements-4);
+            g2d.drawString(label,b.x+2,2+b.y+vertical_row_height*elements-4);
             g2d.setFont(font);
         }
         g2d.setFont(font.deriveFont(Font.PLAIN));
@@ -154,6 +158,15 @@ public class DomainTooltipRenderer implements Renderer {
             g2d.drawString(codd,b.x+2,2+b.y+vertical_row_height*elements-4);
         }
         
+        if (view.isCompareDomainsMode()  && view.getDomainSearchOrthologsManager().getDomainScore(dc) != -1) {
+       	 	elements++;
+       	 	String identLabel = "Percent identity: "+view.getDomainSearchOrthologsManager().getDomainScore(dc)+"%";
+       	 	g2d.setPaint(Color.RED);
+            g2d.drawString(identLabel,b.x+2,2+b.y+vertical_row_height*elements-4);
+            g2d.setPaint(Color.BLACK);
+       }
+       
+        
         if (dc.getDomain().getFamily().hasGoAnnotation()) {
         	
             elements++;
@@ -175,11 +188,6 @@ public class DomainTooltipRenderer implements Renderer {
             }
             
             
-        }
-        
-        if (view.isCompareDomainsMode()  && view.getDomainSearchOrthologsManager().getDomainScore(dc) != -1) {
-        	 elements++;
-             g2d.drawString("Percent identity: "+view.getDomainSearchOrthologsManager().getDomainScore(dc)+"%",b.x+2,2+b.y+vertical_row_height*elements-4);
         }
         
         // reset settings
@@ -206,8 +214,13 @@ public class DomainTooltipRenderer implements Renderer {
         
         int labelWidth = 0;
         if(dc.getLabel() != null){
-        	labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), dc.getLabel());
-            width = labelWidth > width ? labelWidth : width;
+        	String label = dc.getLabel();
+        	
+        	if (dc.getDomain().getSequence() != null)
+        		label += " [s]";
+        		
+        	labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), label);
+            width = labelWidth > width ? labelWidth+20 : width;
             elements++;
         }   
         
@@ -221,9 +234,11 @@ public class DomainTooltipRenderer implements Renderer {
         	eval = eval+dc.getDomain().getEvalue();
         else
         	eval += "not assigned";
+        
         labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), eval);
         width = labelWidth > width ? labelWidth : width;
         elements++;
+        
         String domType = "Source DB: "+dc.getDomain().getFamily().getDomainType().getName();
         labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), domType);
         width = labelWidth > width ? labelWidth : width;

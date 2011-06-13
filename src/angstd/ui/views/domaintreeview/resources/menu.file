@@ -60,6 +60,20 @@
 		</menuItem>
 		
 		<menuitem id="JCheckBox">
+			<parameter id="name" value="Accession IDs"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ShowIdAction"/> 
+			<parameter id="tooltip" value="Label the domains by their native database name accession number"/> 
+			<parameter id="isSelected" value="true"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Domain Names"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ShowAccAction"/> 
+			<parameter id="tooltip" value="Label the domains by their native database name"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
 			<parameter id="name" value="Show Tree"/> 
 			<parameter id="actionClass" value="angstd.ui.views.domaintreeview.actions.ShowTreeAction"/> 
 			<parameter id="tooltip" value="Displays the tree"/> 

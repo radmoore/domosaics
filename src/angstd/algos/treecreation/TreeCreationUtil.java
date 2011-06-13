@@ -56,8 +56,8 @@ public class TreeCreationUtil {
 		Tree midPointRooted = TreeTool.getMidPointRooted( palTree );
 		
 		// parse it to Angstd tree
-		//return new NewickTreeReader().getTreeFromString(midPointRooted.toString());
-		return new NewickTreeReader().getTreeFromString(palTree.toString());
+		return new NewickTreeReader().getTreeFromString(midPointRooted.toString());
+		//return new NewickTreeReader().getTreeFromString(palTree.toString());
 	}
 	
 	/**

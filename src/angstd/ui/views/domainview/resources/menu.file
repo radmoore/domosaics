@@ -121,8 +121,14 @@
 			<parameter id="isSelected" value="true"/> 
 		</menuItem>
 		
-		
 		<menuitem id="JSeparator"/>
+		
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Align Domains"/> 
+<!--			<parameter id="actionClass" value="angstd.ui.views.domaintreeview.actions.AlignDomainsAction"/> 
+<!--			<parameter id="tooltip" value="Aligns the domain within the proportional view."/> 
+<!--		</menuItem>
+<!--		<menuitem id="JSeparator"/>
 		
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Show Legend"/> 
