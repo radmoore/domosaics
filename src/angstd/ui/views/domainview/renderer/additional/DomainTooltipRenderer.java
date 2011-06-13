@@ -135,9 +135,20 @@ public class DomainTooltipRenderer implements Renderer {
             g2d.drawString(label,b.x+2,2+b.y+vertical_row_height*elements-4);
             g2d.setFont(font);
         }
+        
+        if (dc.getDomain().isPutative()) {
+        	elements++;
+            String codd = "CODD STATUS: putative";
+            g2d.setPaint(Color.RED);
+            g2d.drawString(codd,b.x+2,2+b.y+vertical_row_height*elements-4);
+            g2d.setPaint(Color.BLACK);
+        }
+        
         g2d.setFont(font.deriveFont(Font.PLAIN));
         elements++;
         g2d.drawString("From - To: "+dc.getDomain().getFrom()+" - "+dc.getDomain().getTo(),b.x+2,2+b.y+vertical_row_height*elements-4);
+        
+        
         
         elements++;
         String eval = "E-Value: ";
@@ -152,12 +163,6 @@ public class DomainTooltipRenderer implements Renderer {
         String domType = "Source DB: "+dc.getDomain().getFamily().getDomainType().getName();
         g2d.drawString(domType,b.x+2,2+b.y+vertical_row_height*elements-4);
         
-        if (dc.getDomain().isPutative()) {
-        	elements++;
-            String codd = "CODD STATUS: putative";
-            g2d.drawString(codd,b.x+2,2+b.y+vertical_row_height*elements-4);
-        }
-        
         if (view.isCompareDomainsMode()  && view.getDomainSearchOrthologsManager().getDomainScore(dc) != -1) {
        	 	elements++;
        	 	String identLabel = "Percent identity: "+view.getDomainSearchOrthologsManager().getDomainScore(dc)+"%";
@@ -165,9 +170,8 @@ public class DomainTooltipRenderer implements Renderer {
             g2d.drawString(identLabel,b.x+2,2+b.y+vertical_row_height*elements-4);
             g2d.setPaint(Color.BLACK);
        }
-       
-        
-        if (dc.getDomain().getFamily().hasGoAnnotation()) {
+             
+       if (dc.getDomain().getFamily().hasGoAnnotation()) {
         	
             elements++;
         	g2d.setFont(font.deriveFont(Font.BOLD));

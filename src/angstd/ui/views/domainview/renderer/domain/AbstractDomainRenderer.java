@@ -83,7 +83,10 @@ public abstract class AbstractDomainRenderer implements DomainRenderer {
 		// and render the domain
 		g2.fill(shape);
 		g2.setPaint(oldPaint);
-		g2.setColor(Color.black);
+		if ( dc.getDomain().isPutative() )
+			g2.setColor(Color.red);
+			else 
+				g2.setColor(Color.black);
 		g2.draw(shape);
 		
 		// restore the settings then

@@ -33,9 +33,9 @@ public class DefaultDomainRenderer extends AbstractDomainRenderer{
 			alpha = 150;
 		
 		// check if dom is putative, and draw white if so
-		if (dc.getDomain().isPutative()) {
-			return ColorUtil.createAlphaColor(Color.white, alpha);
-		}
+		//if (dc.getDomain().isPutative()) {
+		//	return ColorUtil.createAlphaColor(Color.white, alpha);
+		//}
 		
 		Color color = view.getDomainColorManager().getDomainColor(dc);
 		
@@ -69,7 +69,8 @@ public class DefaultDomainRenderer extends AbstractDomainRenderer{
 	public Stroke getStroke(DomainComponent dc, DomainViewI view) {
 		if (dc.getDomain().isPutative()) {
 			float dash[] = { 5.0f, 10.0f };
-			return new BasicStroke(1.375f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+//			return new BasicStroke(1.375f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+			return new BasicStroke(1.75f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
 		}
 		return new BasicStroke(1.375f);
 	}
