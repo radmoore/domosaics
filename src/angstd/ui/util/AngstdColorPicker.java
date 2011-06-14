@@ -138,6 +138,7 @@ public class AngstdColorPicker implements PropertyChangeListener{
 	public void propertyChange(PropertyChangeEvent e) {
 		// get new color
 		Color newColor = ((Color) e.getNewValue());
+		System.out.println("The folor has changed to :"+newColor);
 		if (newColor == null)
 			return;
 		
@@ -252,8 +253,12 @@ public class AngstdColorPicker implements PropertyChangeListener{
 			buttonListener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Object src = e.getSource();
+					System.out.println("This is the src of the event: "+src);
 					if(src == ok) {
-						returnValue = cp.getColor();
+						int[] vals = cp.getRGB();
+						returnValue = new Color(vals[0], vals[1], vals[2]);
+						System.out.println("This is the color: "+returnValue);
+						//returnValue = cp.getColor();
 					} else {
 						cp.setColor(color); 
 						returnValue = null;
