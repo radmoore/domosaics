@@ -102,13 +102,14 @@ public class AngstdColorPicker implements PropertyChangeListener{
 		
 		picker = new ColorPicker();
 
-		picker.setHexControlsVisible(false);
+		picker.setHexControlsVisible(true);
 		picker.setHSBControlsVisible(false);
 		picker.setModeControlsVisible(false);
 		picker.setOpacityVisible(false);
-		picker.setPreviewSwatchVisible(true);
+		picker.setPreviewSwatchVisible(false);
 		picker.setRGBControlsVisible(true);
 		picker.addPropertyChangeListener(ColorPicker.SELECTED_COLOR_PROPERTY, this);
+//		picker.addPropertyChangeListener(ColorPicker.MODE_PROPERTY, this);
 	}
 
 	/**
@@ -138,11 +139,10 @@ public class AngstdColorPicker implements PropertyChangeListener{
 	public void propertyChange(PropertyChangeEvent e) {
 		// get new color
 		Color newColor = ((Color) e.getNewValue());
-		System.out.println("The folor has changed to :"+newColor);
 		if (newColor == null)
 			return;
 		
-		colorize (newColor);
+		colorize(newColor);
 	}
 	
 	/**
@@ -239,12 +239,12 @@ public class AngstdColorPicker implements PropertyChangeListener{
 		protected Color returnValue = null;
 		protected ActionListener buttonListener;
 		
-		public AngstdColorPickerDialog(ColorPicker cp, Frame owner, Color color,boolean includeOpacity) {
+		public AngstdColorPickerDialog(ColorPicker cp, Frame owner, Color color, boolean includeOpacity) {
 			super(owner);
 			initialize(cp, owner,color,includeOpacity);
 		}
 
-		public AngstdColorPickerDialog(ColorPicker cp, Dialog owner, Color color,boolean includeOpacity) {
+		public AngstdColorPickerDialog(ColorPicker cp, Dialog owner, Color color, boolean includeOpacity) {
 			super(owner);
 			initialize(cp, owner,color,includeOpacity);
 		}
@@ -253,13 +253,11 @@ public class AngstdColorPicker implements PropertyChangeListener{
 			buttonListener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Object src = e.getSource();
-					System.out.println("This is the src of the event: "+src);
 					if(src == ok) {
-						int[] vals = cp.getRGB();
-						returnValue = new Color(vals[0], vals[1], vals[2]);
-						System.out.println("This is the color: "+returnValue);
-						//returnValue = cp.getColor();
-					} else {
+						returnValue = cp.getColor();
+						colorize (returnValue);
+					} 
+					else {
 						cp.setColor(color); 
 						returnValue = null;
 					}
