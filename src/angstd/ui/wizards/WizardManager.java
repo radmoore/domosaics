@@ -13,7 +13,6 @@ import org.netbeans.api.wizard.WizardDisplayer;
 
 import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
-import angstd.model.workspace.CategoryElement;
 import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.views.domainview.DomainViewI;
