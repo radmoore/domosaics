@@ -27,6 +27,7 @@ public class Angstd {
 	 */
 	public static void main(String[] args) {
 		
+		Configuration.setDebug(true);
 		if (args.length > 0) {
 			for(String a : args) {
 				if (a.equals("--debug")) {
