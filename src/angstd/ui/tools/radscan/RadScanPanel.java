@@ -1,6 +1,5 @@
 package angstd.ui.tools.radscan;
 
-import info.radm.pbar.ProgressBar;
 import info.radm.radscan.Parser;
 import info.radm.radscan.QueryBuilder;
 import info.radm.radscan.RADSResults;
@@ -11,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Map;
 import java.util.TreeSet;
 
 import javax.swing.JButton;
@@ -25,9 +25,23 @@ import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.swingx.JXTitledSeparator;
 
+import angstd.model.arrangement.ArrangementManager;
+import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
+import angstd.model.arrangement.DomainFamily;
+import angstd.model.arrangement.DomainType;
+import angstd.model.arrangement.io.GatheringThresholdsReader;
+import angstd.model.workspace.ProjectElement;
+import angstd.model.workspace.ViewElement;
+import angstd.ui.ViewHandler;
+import angstd.ui.WorkspaceManager;
 import angstd.ui.util.MessageUtil;
+import angstd.ui.views.ViewType;
+import angstd.ui.views.domainview.DomainView;
+import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
+import angstd.ui.wizards.WizardManager;
+import angstd.ui.wizards.pages.SelectNamePage;
 import angstd.webservices.RADS.RadsParms;
 
 /**
@@ -48,6 +62,8 @@ public class RadScanPanel extends JPanel implements ActionListener{
 	private RADSRunner radsRunner;
 	private TreeSet<Protein> proteins;
 	private boolean radsRunning = false;
+	private ArrangementManager arrSet;
+	private DomainArrangement queryProtein;
 	
 	
 	public RadScanPanel(RadScanView view) {
@@ -175,10 +191,10 @@ public class RadScanPanel extends JPanel implements ActionListener{
 		//validateParams();
 		runScan.setEnabled(false);
 		reset.setEnabled(false);
-		DomainArrangement da = view.getArrangementComponent().getDomainArrangement();
+		queryProtein = view.getArrangementComponent().getDomainArrangement();
 		QueryBuilder qBuilder = new QueryBuilder();
 		qBuilder.setQuietMode(true);
-		qBuilder.setQueryXdomString(da.toXdom());
+		qBuilder.setQueryXdomString(queryProtein.toXdom());
 
 		// TODO set params
 		this.radsRunner = new RADSRunner(qBuilder.build());
@@ -208,9 +224,6 @@ public class RadScanPanel extends JPanel implements ActionListener{
 						radsRunning = false;
 						processResults();
 					}
-					else {
-						System.out.println("COmparison was false!");
-					}
 				}
 			}
 		});
@@ -233,13 +246,34 @@ public class RadScanPanel extends JPanel implements ActionListener{
 	}
 	
 	private void createResultView() {
+		DomainArrangement[] hits = arrSet.get();
+		String defaultViewName = queryProtein.getName()+"-radscan-results";
 		
+		String viewName = null;
+		String projectName = null;
+		ProjectElement project = null;
+		
+		project = WorkspaceManager.getInstance().getSelectionManager().getSelectedProject();
+		System.out.println("Current project: "+project);
+		
+		Map m = WizardManager.getInstance().selectNameWizard(defaultViewName, "RadScan results", project, true);
+		viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+		projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+		project = WorkspaceManager.getInstance().getProject(projectName);
+			
+		if (viewName == null) 
+			MessageUtil.showWarning("A valid view name is needed to complete this action");
+	
+		DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
+		domResultView.setDaSet(hits);
+		ViewHandler.getInstance().addView(domResultView, project);
+		view.closeWindow();
 	}
+	
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("close"))
 			checkScanState(e);
-		
 	}
 	
 	private void checkScanState(ActionEvent e) {
@@ -252,6 +286,7 @@ public class RadScanPanel extends JPanel implements ActionListener{
 		}
 		view.closeWindow();
 	}
+
 	
 	private void processResults() {
 		if (proteins == null) {
@@ -263,11 +298,37 @@ public class RadScanPanel extends JPanel implements ActionListener{
 		progressBar.setMaximum(proteins.size());
 		progressBar.setValue(0);
 		int i = 1;
+
+		arrSet = new ArrangementManager();
+		DomainArrangement da; 
 		for (Protein p: proteins) {
 			progressBar.setValue(i);
 			progressBar.setString("Processing hit "+i+ " of "+progressBar.getMaximum());
+			da = new DomainArrangement();
+			da.setName(p.getID());
+			da.setSeqLen(p.getLength());
+			da.setDesc("RADS score: "+p.getRADSScore());
+			for (info.radm.radscan.ds.Domain resDom: p.getDomains()) {
+			
+				String acc = resDom.getID();
+				DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(acc);
+				if (domFamily == null) {
+					domFamily = new DomainFamily(acc, acc, DomainType.getType(acc));
+					GatheringThresholdsReader.getInstance().put(acc, domFamily);
+				}
+				int from = resDom.getFrom();
+				int to = resDom.getTo();
+				double evalue = resDom.getEvalue();
+				Domain dom = new Domain(from, to, domFamily);
+				if (evalue != -1)
+					dom.setEvalue(evalue);
+				da.addDomain(dom);
+			}
+			// TODO: consider implementing comparable to avoid this
+			// (ie. define natural order)
+			da.sortDomains();
+			arrSet.add(da);
 			i++;
-			System.out.println(p.toString());
 		}
 		progressBar.setString("Scan complete");
 		apply.setEnabled(true);

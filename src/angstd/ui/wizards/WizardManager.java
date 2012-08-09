@@ -116,8 +116,12 @@ public class WizardManager {
 	 * 
 	 * @param defaultName
 	 * 		the name shown by default
+	 * 
 	 * @param objectName
 	 * 		the object to name , e.g. view
+	 * 
+	 * @param project
+	 * 		the project with which new view is to be associated 
 	 * 
 	 * @param allowProjectSelection
 	 * 		project selection combobox is active or not
