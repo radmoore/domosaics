@@ -48,6 +48,6 @@
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/commons-discovery.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/commons-logging.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/wsdl4j.jar"/>
-	<classpathentry kind="lib" path="lib/rads/radscan-0.4.3.jar"/>
+	<classpathentry kind="lib" path="lib/rads/radscan-0.4.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

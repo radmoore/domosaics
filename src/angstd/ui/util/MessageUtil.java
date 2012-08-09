@@ -60,12 +60,31 @@ public class MessageUtil {
      * 		no (false) or yes (true)
      */
     public static boolean showDialog(String msg) {
-    	Object[] options = { "Yes", "No"};
+    	Object[] options = {"Yes", "No"};
     	int choice = JOptionPane.showOptionDialog(AngstdUI.getInstance(), msg, ANGSTD, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
     	if (choice == JOptionPane.NO_OPTION)
     		return false;
     	return true;
     }
+    
+    /**
+     * Shows a basic dialog containing a message which can be answered with
+     * yes or no. This dialog will always be on top of all other
+     * GUI components.
+     * 
+     * @param msg
+     * 		the question to ask
+     * @return
+     * 		no (false) or yes (true)
+     */
+    public static boolean showDialog(Component parent, String msg) {
+    	Object[] options = {"Yes", "No"};
+    	int choice = JOptionPane.showOptionDialog(parent, msg, ANGSTD, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+    	if (choice == JOptionPane.NO_OPTION)
+    		return false;
+    	return true;
+    }
+    
     
     /**
      * A dialog which gives the user three or more choices, for instance "Overwrite", 

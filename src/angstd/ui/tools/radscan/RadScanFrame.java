@@ -12,7 +12,12 @@ import angstd.ui.views.view.View;
  */
 public class RadScanFrame extends ToolFrame{
 
-    public RadScanFrame() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public RadScanFrame() {
 		super();	
 	}
     
@@ -24,6 +29,7 @@ public class RadScanFrame extends ToolFrame{
     	this.setContentPane(content);
     	//this.setSize(780, 400);
     	this.setResizable(false);
+		setAlwaysOnTop(true);
     	this.pack();
     }
 
