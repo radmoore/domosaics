@@ -33,9 +33,8 @@ public class RadScanPanel extends JPanel{
 	public RadScanPanel(RadScanView view) {
 		super(new MigLayout());
 		this.view = view;
-		this.arrComp = view.getArrangementComponent();
 		initComponents();
-
+		
 		add(new JXTitledSeparator("RADS match scores"), "growx, span, wrap, gaptop 10");
 		add(new JLabel("Match: "), "gap 10, gaptop 10");
 		add(matchScore, "span 2, h 25!, wrap");
@@ -140,8 +139,8 @@ public class RadScanPanel extends JPanel{
 	}
 	
 	private void runScan(){
-//		DomainArrangement da = arrComp.getDomainArrangement();
-		MessageUtil.showDialog("This is your arrangement id: "+arrComp.toString());
+		DomainArrangement da = view.getArrangementComponent().getDomainArrangement();
+		MessageUtil.showDialog("This is your arrangement id: "+da.toString());
 	}
 	
 	private void reset() {
