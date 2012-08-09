@@ -11,6 +11,11 @@ import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 
+/**
+ * 
+ * @author <a href='http://radm.info'>Andrew D. Moore</a>
+ *
+ */
 public class RadScanAction extends AbstractAction {
 	private static final long serialVersionUID = 1L;
 
