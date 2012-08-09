@@ -18,7 +18,11 @@ import angstd.ui.util.MessageUtil;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.webservices.RADS.RadsParms;
 
-
+/**
+ * 
+ * @author <a href='http://radm.info'>Andrew D. Moore</a>
+ *
+ */
 public class RadScanPanel extends JPanel{
 	
 	private static final long serialVersionUID = 1L;

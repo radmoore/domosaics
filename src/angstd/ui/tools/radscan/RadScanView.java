@@ -13,6 +13,11 @@ import angstd.ui.views.view.AbstractView;
 import angstd.ui.views.view.layout.ViewLayout;
 import angstd.ui.views.view.renderer.Renderer;
 
+/**
+ * 
+ * @author <a href='http://radm.info'>Andrew D. Moore</a>
+ *
+ */
 public class RadScanView extends AbstractView implements Tool{
 
 	/**
@@ -33,16 +38,12 @@ public class RadScanView extends AbstractView implements Tool{
 	}
 	
 	public void setView(ArrangementComponent da) {
-//		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
-//		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
-//		Border compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 		this.arrComp = da;
 		parentFrame.addView(this);
 		parentFrame.setContent(radsPanelHolder);
 	}
 	
 	public ArrangementComponent getArrangementComponent() {
-	//	System.out.println("This is the arrangements here: "+arrComp.toString());
 		return this.arrComp;
 	}
 	
