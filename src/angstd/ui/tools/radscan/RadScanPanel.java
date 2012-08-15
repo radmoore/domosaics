@@ -3,19 +3,12 @@ package angstd.ui.tools.radscan;
 //import info.radm.radscan.Parser;
 import info.radm.radscan.QueryBuilder;
 import info.radm.radscan.RADSResults;
-import info.radm.radscan.RADSRunner;
 import info.radm.radscan.ds.Protein;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 import java.util.TreeSet;
@@ -24,12 +17,9 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
@@ -45,14 +35,11 @@ import angstd.model.arrangement.io.GatheringThresholdsReader;
 import angstd.model.workspace.ProjectElement;
 import angstd.ui.ViewHandler;
 import angstd.ui.WorkspaceManager;
-import angstd.ui.util.FileDialogs;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.wizards.WizardManager;
 import angstd.ui.wizards.pages.SelectNamePage;
-import angstd.util.BrowserLauncher;
-import angstd.util.URLReader;
 import angstd.webservices.RADS.RadsParms;
 import angstd.webservices.RADS.RadsService;
 import angstd.webservices.RADS.ui.RADSResultDetailsPanel;
@@ -65,20 +52,18 @@ import angstd.webservices.RADS.ui.RADSResultDetailsPanel;
 public class RadScanPanel extends JPanel implements ActionListener{
 	
 	private static final long serialVersionUID = 1L;
-	private JLabel radsIconLabel;
 	private JTextField matchScore, mismatchPen, intOpenGapPen, intExtenGapPen, 
 	terOpenGapPen, terExtenGapPen;
 	private JCheckBox domLenScoringCB, resolveOverlapsCB, mergeHitsCB, uniqueHitsCB;
 	private JButton runScan, reset, close, apply, details;
 	private JProgressBar progressBar;
 	private RadScanView view;
-	private RADSRunner radsRunner;
 	private TreeSet<Protein> proteins;
-	private boolean radsRunning, domLenScoring, uniqueArrs, resolveOverlaps, mergeHits;
+	private boolean domLenScoring, uniqueArrs, resolveOverlaps, mergeHits;
 	private ArrangementManager arrSet;
 	private DomainArrangement queryProtein;
 	private RADSResults results;
-	private StringBuffer crampageLog;
+	
 	private QueryBuilder qBuilder;
 	private Icon radsIcon;
 	private RadsService radsService;
@@ -142,11 +127,10 @@ public class RadScanPanel extends JPanel implements ActionListener{
 	
 	private void initComponents() {
 		
-		URL radsImgPath = RadScanPanel.class.getResource("../../../webservices/RADS/ui/resources/aniblu.jpg");
-		radsIcon = new ImageIcon(radsImgPath);
-		radsIconLabel = new JLabel(radsIcon);
-
-		radsRunning = false;
+//		URL radsImgPath = RadScanPanel.class.getResource("../../../webservices/RADS/ui/resources/aniblu.jpg");
+//		radsIcon = new ImageIcon(radsImgPath);
+//		radsIconLabel = new JLabel(radsIcon);
+		
 		domLenScoring = true;
 		uniqueArrs = false;
 		resolveOverlaps = false;
@@ -353,8 +337,10 @@ public class RadScanPanel extends JPanel implements ActionListener{
 	private void closeRadsWindow(ActionEvent e) {
 		if (radsService.isRunning()) {
 			boolean choice = MessageUtil.showDialog(this, "You are running RadScan. Your results will be lost. Are you sure?");
-			if (choice)
+			if (choice) {
+				radsService.cancelScan();
 				view.closeWindow();
+			}
 			else
 				return;
 		}

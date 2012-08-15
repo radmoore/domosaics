@@ -15,6 +15,11 @@ import javax.swing.SwingWorker;
 
 import angstd.model.arrangement.DomainArrangement;
 
+/**
+ * 
+ * @author <a href='http://radm.info'>Andrew D. Moore</a>
+ *
+ */
 public class RadsService extends SwingWorker<TreeSet<Protein>, Void> {
 	
 	private RADSResults results;
@@ -32,6 +37,7 @@ public class RadsService extends SwingWorker<TreeSet<Protein>, Void> {
 	}
 	
 	protected TreeSet<Protein> doInBackground() throws Exception {
+		running = true;
 		this.radsRunner = new RADSRunner(radsQuery);
 		results = radsRunner.submit();
 		resultParser = new Parser(results);
@@ -40,6 +46,7 @@ public class RadsService extends SwingWorker<TreeSet<Protein>, Void> {
 	
 	public void done() {
 		try {
+			running = false;
 			proteins = get();
 		}
 		catch (Exception e) {};
@@ -60,18 +67,10 @@ public class RadsService extends SwingWorker<TreeSet<Protein>, Void> {
 	public RADSResults getScanResults() {
 		return this.results;
 	}
-//
-//	@Override
-//	public void propertyChange(PropertyChangeEvent evt) {
-//		if ("state".equals(evt.getPropertyName())) {
-//			if ( "DONE".equals(evt.getNewValue().toString()) ) {
-//				System.out.println("Scan Complete.");
-//				runScan.setEnabled(false);
-//				radsRunning = false;
-//				processResults();
-//			}
-//		}
-//		
-//	}
+
+	public void cancelScan() {
+		this.cancel(true);
+		running = false;
+	}
 	
 }

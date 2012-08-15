@@ -136,9 +136,4 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 			frame.dispose();
 	}
 	
-	private void close() {
-		frame.setVisible(false);
-		frame.dispose();
-	}
-	
 }
