@@ -210,7 +210,8 @@ public class AngstdUI extends JFrame implements WindowListener{
     	importViewIcon = null, 
     	exportViewIcon = null,
     	hmmscanIcon = null, 
-    	iprscanIcon = null, 
+    	iprscanIcon = null,
+    	radsIcon = null,
     	settingsIcon = null;
 		
     	InputStream is;
@@ -231,11 +232,13 @@ public class AngstdUI extends JFrame implements WindowListener{
     		hmmscanIcon = new ImageIcon(ImageIO.read(is));
     		is = this.getClass().getResourceAsStream("resources/icons/iprscan.png");
     		iprscanIcon = new ImageIcon(ImageIO.read(is));
+    		is = this.getClass().getResourceAsStream("resources/icons/rads.png");
+    		radsIcon = new ImageIcon(ImageIO.read(is));
     		is = this.getClass().getResourceAsStream("resources/icons/settings.png");
     		settingsIcon = new ImageIcon(ImageIO.read(is));
     	}
     	catch (Exception e) {
-    		// TODO
+    		e.printStackTrace();
     	}
     	
     	// new project
@@ -301,7 +304,7 @@ public class AngstdUI extends JFrame implements WindowListener{
     	// hmmscan
     	JButton hmmscan = new JButton();
     	hmmscan.setIcon(hmmscanIcon);
-    	hmmscan.setToolTipText("Search for domains in sequence using local hmmscan");
+    	hmmscan.setToolTipText("Search for domains in sequences using local HMMSCAN installation");
     	hmmscan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -319,7 +322,7 @@ public class AngstdUI extends JFrame implements WindowListener{
     	// iprscan
     	JButton iprscan = new JButton();
     	iprscan.setIcon(iprscanIcon);
-    	iprscan.setToolTipText("Search for domains in sequence using iprscan (requires internet) ");
+    	iprscan.setToolTipText("Search for domains in sequences using iprscan (requires internet) ");
     	iprscan.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			
@@ -333,6 +336,17 @@ public class AngstdUI extends JFrame implements WindowListener{
 			}
 		});
     	toolBar.add(iprscan);
+    	
+    	// rads
+    	JButton radsBtn = new JButton();
+    	radsBtn.setIcon(radsIcon);
+    	radsBtn.setToolTipText("Find arrangements similar to a query arrangement or sequence (requires internet) ");
+    	radsBtn.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			// TODO
+			}
+		});
+    	toolBar.add(radsBtn);
     	
     	toolBar.addSeparator();
     	// configuration

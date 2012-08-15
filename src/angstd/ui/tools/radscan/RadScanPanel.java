@@ -1,6 +1,6 @@
 package angstd.ui.tools.radscan;
 
-import info.radm.radscan.Parser;
+//import info.radm.radscan.Parser;
 import info.radm.radscan.QueryBuilder;
 import info.radm.radscan.RADSResults;
 import info.radm.radscan.RADSRunner;
@@ -10,16 +10,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Map;
 import java.util.TreeSet;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingWorker;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -32,17 +43,19 @@ import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainType;
 import angstd.model.arrangement.io.GatheringThresholdsReader;
 import angstd.model.workspace.ProjectElement;
-import angstd.model.workspace.ViewElement;
 import angstd.ui.ViewHandler;
 import angstd.ui.WorkspaceManager;
+import angstd.ui.util.FileDialogs;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
-import angstd.ui.views.domainview.DomainView;
 import angstd.ui.views.domainview.DomainViewI;
-import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.wizards.WizardManager;
 import angstd.ui.wizards.pages.SelectNamePage;
+import angstd.util.BrowserLauncher;
+import angstd.util.URLReader;
 import angstd.webservices.RADS.RadsParms;
+import angstd.webservices.RADS.RadsService;
+import angstd.webservices.RADS.ui.RADSResultDetailsPanel;
 
 /**
  * 
@@ -52,75 +65,96 @@ import angstd.webservices.RADS.RadsParms;
 public class RadScanPanel extends JPanel implements ActionListener{
 	
 	private static final long serialVersionUID = 1L;
+	private JLabel radsIconLabel;
 	private JTextField matchScore, mismatchPen, intOpenGapPen, intExtenGapPen, 
 	terOpenGapPen, terExtenGapPen;
-	private JCheckBox domLenScoring, resolveOverlaps, mergeHits;
-	private JButton runScan, reset, close, apply;
+	private JCheckBox domLenScoringCB, resolveOverlapsCB, mergeHitsCB, uniqueHitsCB;
+	private JButton runScan, reset, close, apply, details;
 	private JProgressBar progressBar;
 	private RadScanView view;
-	private ArrangementComponent arrComp;
 	private RADSRunner radsRunner;
 	private TreeSet<Protein> proteins;
-	private boolean radsRunning = false;
+	private boolean radsRunning, domLenScoring, uniqueArrs, resolveOverlaps, mergeHits;
 	private ArrangementManager arrSet;
 	private DomainArrangement queryProtein;
-	
+	private RADSResults results;
+	private StringBuffer crampageLog;
+	private QueryBuilder qBuilder;
+	private Icon radsIcon;
+	private RadsService radsService;
 	
 	public RadScanPanel(RadScanView view) {
 		super(new MigLayout());
 		this.view = view;
 		initComponents();
 		
-		add(new JXTitledSeparator("RADS match scores"), "growx, span, wrap, gaptop 10");
+		add(new JXTitledSeparator("RADS match scores"), "growx, span, wrap");
 		add(new JLabel("Match: "), "gap 10, gaptop 10");
-		add(matchScore, "span 2, h 25!, wrap");
-		add(new JLabel("Mismatch: "), "gap 10, gaptop 10");
-		add(mismatchPen, "span 2, h 25!, wrap");
+		add(matchScore, "h 25!, wrap");
+	//	add(radsIconLabel, "span 2 2, wrap");
+		add(new JLabel("Mismatch: "), "gap 10");
+		add(mismatchPen, "h 25!, wrap");
+	//	add(new JLabel(""), "span");
 
 		add(new JXTitledSeparator("RADS gap penalties"), "growx, span, wrap, gaptop 10");
 		
 		// internal gap pen
-		add(new JLabel("Internal"), "gap 10, gaptop 10");
-		add(new JLabel("open: "), "gaptop 5");
-		add(intOpenGapPen, "h 25!");
-		add(new JLabel("extend:"), "gaptop 5");
+		add(new JLabel("Internal"), "gap 10, gaptop 10, split 2");
+		add(new JLabel("open: "), "");
+		add(intOpenGapPen, "h 25!, split 3");
+		add(new JLabel("extend:"), "");
 		add(intExtenGapPen, "h 25!, wrap");
 		
 		//terminal gap pen
-		add(new JLabel("Terminal"), "gap 10, gaptop 10");
-		add(new JLabel("open: "), "gaptop 5");
-		add(terOpenGapPen, "h 25!");
-		add(new JLabel("extend: "), "gaptop 5");
+		add(new JLabel("Terminal"), "gap 10, gaptop 10, split 2");
+		add(new JLabel("open: "), "");
+		add(terOpenGapPen, "h 25!, split 3");
+		add(new JLabel("extend:"), "");
 		add(terExtenGapPen, "h 25!, wrap");
-		
-		add(domLenScoring, "gap 10, gaptop 10");
-		add(new JLabel("No length dependant scoring"), "span2, gap 1, gaptop 10, wrap");
-		
+//		
+//		add(domLenScoringCB, "gap 10, gaptop 10, split 2");
+//		add(new JLabel("Length scoring"), "span2, gap 1, gaptop 10, wrap");
+//		
 	
-		add(new JXTitledSeparator("Post-processing"), "growx, span, wrap, gaptop 10");
-		add(resolveOverlaps, "gap 10, gaptop 10");
-		add(new JLabel("Resolve overlaps"), "span2, gap 1, gaptop 10, wrap");
-		add(mergeHits, "gap 10, gaptop 5");
-		add(new JLabel("Merge split hits"), "span2, gap 1, gaptop 10, wrap");
+//		add(new JXTitledSeparator("Post-processing"), "growx, span, wrap, gaptop 10");
+//		add(resolveOverlapsCB, "gap 10, gaptop 10, split 2");
+//		add(new JLabel("Resolve overlaps"), "span2, gap 1, gaptop 10, wrap");
+//		add(mergeHitsCB, "gap 10, gaptop 5, split 2");
+//		add(new JLabel("Merge split hits"), "span2, gap 1, gaptop 10, wrap");
+//		add(uniqueHits, "gap 10, gaptop 5, split 2");
+//		add(new JLabel("Merge split hits"), "span2, gap 1, gaptop 10, wrap");
 		
 		//add(new JLabel(" "), "gap 10, gaptop 10");
-		add(runScan, "growx");
-		add(reset, "growx, wrap");
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.add(runScan);
+		buttonPanel.add(reset);
+		add(buttonPanel, "gaptop 10, wrap, span");
+	
 		add(new JXTitledSeparator("Progress"), "growx, span, wrap, gaptop 10");
 		add(progressBar, "h 25!, gap 10, gapright 10, span, growX, wrap");
 		
 		add(new JXTitledSeparator("Apply Results"), "growx, span, wrap, gaptop 10");
-		add(apply, "growx, gap 1");
-		add(close, "growx, wrap");
-		//setSize(600,350);
+		add(apply, "growx, split2");
+		add(close, "");
+		add(details, "gap 1");
 	}
 	
 	
 	private void initComponents() {
 		
+		URL radsImgPath = RadScanPanel.class.getResource("../../../webservices/RADS/ui/resources/aniblu.jpg");
+		radsIcon = new ImageIcon(radsImgPath);
+		radsIconLabel = new JLabel(radsIcon);
+
+		radsRunning = false;
+		domLenScoring = true;
+		uniqueArrs = false;
+		resolveOverlaps = false;
+		mergeHits = false;
+		
 		matchScore = new JTextField(5);
 		matchScore.setText(""+RadsParms.DEFAULT_MATCHSCORE.getDeafultValue());
-		
+				
 		mismatchPen = new JTextField(5);
 		mismatchPen.setText(""+RadsParms.DEFAULT_MISMATCH_PEN.getDeafultValue());
 		
@@ -136,28 +170,41 @@ public class RadScanPanel extends JPanel implements ActionListener{
 		terExtenGapPen = new JTextField(5);
 		terExtenGapPen.setText(""+RadsParms.DEFAULT_TERMINAL_GAP_EXTEN_PEN.getDeafultValue());
 				
-		domLenScoring = new JCheckBox();
-		domLenScoring.addActionListener(new ActionListener() {
+		domLenScoringCB = new JCheckBox();
+		domLenScoringCB.setSelected(true);
+		domLenScoringCB.setToolTipText("Weight domain-match score by their length");
+		domLenScoringCB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+				domLenScoring = !domLenScoring;
 			}
 		});
 		
-		resolveOverlaps = new JCheckBox();
-		resolveOverlaps.addActionListener(new ActionListener() {
+		resolveOverlapsCB = new JCheckBox();
+		resolveOverlapsCB.setToolTipText("Resolve domain overlaps");
+		resolveOverlapsCB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+				resolveOverlaps = !resolveOverlaps;
 			}
 		});
 		
-		mergeHits = new JCheckBox();
-		mergeHits.addActionListener(new ActionListener() {
+		mergeHitsCB = new JCheckBox();
+		mergeHitsCB.setToolTipText("Merge overlapping hits to same domain model");
+		mergeHitsCB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO		
+				mergeHits = !mergeHits;
+			}
+		});
+		
+		uniqueHitsCB = new JCheckBox();
+		uniqueHitsCB.setToolTipText("Extract unique arrangements from list of hits");
+		uniqueHitsCB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				uniqueArrs = !uniqueArrs;	
 			}
 		});
 		
 		runScan = new JButton("Submit Job");
+		runScan.setToolTipText("Submit RADScan job");
 		runScan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				runScan();
@@ -165,6 +212,7 @@ public class RadScanPanel extends JPanel implements ActionListener{
 		});
 		
 		apply = new JButton("Apply");
+		apply.setToolTipText("Create domain view from scan results");
 		apply.setEnabled(false);
 		apply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -173,14 +221,21 @@ public class RadScanPanel extends JPanel implements ActionListener{
 		});
 		
 		reset = new JButton("Defaults");
+		reset.setToolTipText("Reset all param to default values");
 		reset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				reset();	
 			}
 		});
 		
+		details = new JButton("Show scan report");
+		details.setToolTipText("");
+		details.setEnabled(false);
+		details.setActionCommand("showReportWindow");
+		details.addActionListener(this);
+		
 		close = new JButton("Cancel");
-		close.setActionCommand("close");
+		close.setActionCommand("closeRadsWindow");
 		close.addActionListener(this);
 		
 		progressBar = new JProgressBar(0, 105);
@@ -188,49 +243,64 @@ public class RadScanPanel extends JPanel implements ActionListener{
 	}
 	
 	private void runScan(){
-		//validateParams();
-		runScan.setEnabled(false);
-		reset.setEnabled(false);
-		queryProtein = view.getArrangementComponent().getDomainArrangement();
-		QueryBuilder qBuilder = new QueryBuilder();
-		qBuilder.setQuietMode(true);
-		qBuilder.setQueryXdomString(queryProtein.toXdom());
-
-		// TODO set params
-		this.radsRunner = new RADSRunner(qBuilder.build());
-		progressBar.setIndeterminate(true);
-		radsRunning = true;
-		SwingWorker<TreeSet<Protein>, Void> worker = new SwingWorker<TreeSet<Protein>, Void>() {
-			protected TreeSet<Protein> doInBackground() throws Exception {
-				RADSResults results = radsRunner.submit();
-				Parser resultParser = new Parser(results);
-				return resultParser.parse();
-			}
+		
+		qBuilder = new QueryBuilder();	
+		if (validateParams()) {
+			runScan.setText("Running scan");
+			runScan.setEnabled(false);
+			reset.setEnabled(false);
 			
-			public void done() {
-				try {
-					proteins = get();
-				}
-				catch (Exception e) {};
-			}
-		};
-		worker.execute();
-		worker.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				if ("state".equals(evt.getPropertyName())) {
-					if ( "DONE".equals(evt.getNewValue().toString()) ) {
-						System.out.println("Scan Complete.");
-						runScan.setEnabled(false);
-						radsRunning = false;
-						processResults();
+			queryProtein = view.getArrangementComponent().getDomainArrangement();
+			qBuilder.setQuietMode(true);
+			qBuilder.setQueryXdomString(queryProtein.toXdom());
+			radsService = new RadsService(qBuilder.build(), queryProtein);
+			progressBar.setIndeterminate(true);
+			
+			radsService.execute();
+			
+			radsService.addPropertyChangeListener(new PropertyChangeListener() {
+				public void propertyChange(PropertyChangeEvent evt) {
+					if ("state".equals(evt.getPropertyName())) {
+						if ( "DONE".equals(evt.getNewValue().toString()) ) {
+							runScan.setText("Submit Job");
+							runScan.setEnabled(true);
+							proteins = radsService.getHits();
+							results = radsService.getScanResults();
+							processResults();
+						}
 					}
 				}
-			}
-		});
+			});
+		}
+		
 	}
 	
-	private void validateParams() {
-		//TODO
+	private boolean validateParams() {
+		try {
+						
+			int matchScoreValue = Integer.valueOf(matchScore.getText());
+			qBuilder.setRads_M(matchScoreValue);
+			
+			int mismatchPenValue = Integer.valueOf(mismatchPen.getText());
+			qBuilder.setRads_m(mismatchPenValue);
+			
+			int intOpenGapPenValue = Integer.valueOf(intOpenGapPen.getText());
+			qBuilder.setRads_G(intOpenGapPenValue);
+			
+			int intExtenGapPenValue = Integer.valueOf(intExtenGapPen.getText());
+			qBuilder.setRads_g(intExtenGapPenValue);
+			
+			int terOpenGapPenValue = Integer.valueOf(terOpenGapPen.getText());
+			qBuilder.setRads_T(terOpenGapPenValue);
+			
+			int terExtenGapPenValue = Integer.valueOf(terExtenGapPen.getText());
+			qBuilder.setRads_t(terExtenGapPenValue);
+		}
+		catch (NumberFormatException nfe) {
+			MessageUtil.showWarning("Values for scores and penalties must be numbers");
+			return false;
+		}
+		return true;
 	}
 	
 	private void reset() {
@@ -240,14 +310,14 @@ public class RadScanPanel extends JPanel implements ActionListener{
 		intExtenGapPen.setText(""+RadsParms.DEFAULT_INTERNAL_GAP_EXTEN_PEN.getDeafultValue());
 		terOpenGapPen.setText(""+RadsParms.DEFAULT_TERMINAL_GAP_OPEN_PEN.getDeafultValue());
 		terExtenGapPen.setText(""+RadsParms.DEFAULT_TERMINAL_GAP_EXTEN_PEN.getDeafultValue());
-		domLenScoring.setSelected(false);
-		resolveOverlaps.setSelected(false);
-		mergeHits.setSelected(false);
+		domLenScoringCB.setSelected(false);
+		resolveOverlapsCB.setSelected(false);
+		mergeHitsCB.setSelected(false);
 	}
 	
 	private void createResultView() {
 		DomainArrangement[] hits = arrSet.get();
-		String defaultViewName = queryProtein.getName()+"-radscan-results";
+		String defaultViewName = queryProtein.getName()+"-radscan";
 		
 		String viewName = null;
 		String projectName = null;
@@ -256,6 +326,7 @@ public class RadScanPanel extends JPanel implements ActionListener{
 		project = WorkspaceManager.getInstance().getSelectionManager().getSelectedProject();
 		System.out.println("Current project: "+project);
 		
+		@SuppressWarnings("rawtypes")
 		Map m = WizardManager.getInstance().selectNameWizard(defaultViewName, "RadScan results", project, true);
 		viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
 		projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
@@ -272,12 +343,15 @@ public class RadScanPanel extends JPanel implements ActionListener{
 	
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("close"))
-			checkScanState(e);
+		if (e.getActionCommand().equals("closeRadsWindow"))
+			closeRadsWindow(e);
+		if (e.getActionCommand().equals("showReportWindow"))
+			new RADSResultDetailsPanel(queryProtein, results, proteins);
+			
 	}
 	
-	private void checkScanState(ActionEvent e) {
-		if (radsRunning) {
+	private void closeRadsWindow(ActionEvent e) {
+		if (radsService.isRunning()) {
 			boolean choice = MessageUtil.showDialog(this, "You are running RadScan. Your results will be lost. Are you sure?");
 			if (choice)
 				view.closeWindow();
@@ -285,8 +359,7 @@ public class RadScanPanel extends JPanel implements ActionListener{
 				return;
 		}
 		view.closeWindow();
-	}
-
+	}	
 	
 	private void processResults() {
 		if (proteins == null) {
@@ -307,7 +380,7 @@ public class RadScanPanel extends JPanel implements ActionListener{
 			da = new DomainArrangement();
 			da.setName(p.getID());
 			da.setSeqLen(p.getLength());
-			da.setDesc("RADS score: "+p.getRADSScore());
+			
 			for (info.radm.radscan.ds.Domain resDom: p.getDomains()) {
 			
 				String acc = resDom.getID();
@@ -332,6 +405,11 @@ public class RadScanPanel extends JPanel implements ActionListener{
 		}
 		progressBar.setString("Scan complete");
 		apply.setEnabled(true);
+		details.setEnabled(true);
+		runScan.setEnabled(true);
+		reset.setEnabled(true);
 	}
+	
+
 	
 }
