@@ -20,7 +20,7 @@ import angstd.model.arrangement.DomainArrangement;
  * @author <a href='http://radm.info'>Andrew D. Moore</a>
  *
  */
-public class RadsService extends SwingWorker<TreeSet<Protein>, Void> {
+public class RADSService extends SwingWorker<TreeSet<Protein>, Void> {
 	
 	private RADSResults results;
 	private RADSRunner radsRunner;
@@ -30,7 +30,7 @@ public class RadsService extends SwingWorker<TreeSet<Protein>, Void> {
 	private TreeSet<Protein> proteins = null;
 	private boolean running;
 	
-	public RadsService(RADSQuery radsQuery, DomainArrangement queryProtein) {
+	public RADSService(RADSQuery radsQuery, DomainArrangement queryProtein) {
 		this.radsQuery = radsQuery;
 		this.queryProtein = queryProtein;
 		running = false;

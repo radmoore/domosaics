@@ -40,8 +40,8 @@ import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.wizards.WizardManager;
 import angstd.ui.wizards.pages.SelectNamePage;
-import angstd.webservices.RADS.RadsParms;
-import angstd.webservices.RADS.RadsService;
+import angstd.webservices.RADS.RADSParms;
+import angstd.webservices.RADS.RADSService;
 import angstd.webservices.RADS.ui.RADSResultDetailsPanel;
 
 /**
@@ -49,7 +49,7 @@ import angstd.webservices.RADS.ui.RADSResultDetailsPanel;
  * @author <a href='http://radm.info'>Andrew D. Moore</a>
  *
  */
-public class RadScanPanel extends JPanel implements ActionListener{
+public class RadScanToolPanel extends JPanel implements ActionListener{
 	
 	private static final long serialVersionUID = 1L;
 	private JTextField matchScore, mismatchPen, intOpenGapPen, intExtenGapPen, 
@@ -66,9 +66,9 @@ public class RadScanPanel extends JPanel implements ActionListener{
 	
 	private QueryBuilder qBuilder;
 	private Icon radsIcon;
-	private RadsService radsService;
+	private RADSService radsService;
 	
-	public RadScanPanel(RadScanView view) {
+	public RadScanToolPanel(RadScanView view) {
 		super(new MigLayout());
 		this.view = view;
 		initComponents();
@@ -137,22 +137,22 @@ public class RadScanPanel extends JPanel implements ActionListener{
 		mergeHits = false;
 		
 		matchScore = new JTextField(5);
-		matchScore.setText(""+RadsParms.DEFAULT_MATCHSCORE.getDeafultValue());
+		matchScore.setText(""+RADSParms.DEFAULT_MATCHSCORE.getDeafultValue());
 				
 		mismatchPen = new JTextField(5);
-		mismatchPen.setText(""+RadsParms.DEFAULT_MISMATCH_PEN.getDeafultValue());
+		mismatchPen.setText(""+RADSParms.DEFAULT_MISMATCH_PEN.getDeafultValue());
 		
 		intOpenGapPen = new JTextField(5);
-		intOpenGapPen.setText(""+RadsParms.DEFAULT_INTERNAL_GAP_OPEN_PEN.getDeafultValue());
+		intOpenGapPen.setText(""+RADSParms.DEFAULT_INTERNAL_GAP_OPEN_PEN.getDeafultValue());
 		
 		intExtenGapPen = new JTextField(5);
-		intExtenGapPen.setText(""+RadsParms.DEFAULT_INTERNAL_GAP_EXTEN_PEN.getDeafultValue());
+		intExtenGapPen.setText(""+RADSParms.DEFAULT_INTERNAL_GAP_EXTEN_PEN.getDeafultValue());
 		
 		terOpenGapPen = new JTextField(5);
-		terOpenGapPen.setText(""+RadsParms.DEFAULT_TERMINAL_GAP_OPEN_PEN.getDeafultValue());
+		terOpenGapPen.setText(""+RADSParms.DEFAULT_TERMINAL_GAP_OPEN_PEN.getDeafultValue());
 		
 		terExtenGapPen = new JTextField(5);
-		terExtenGapPen.setText(""+RadsParms.DEFAULT_TERMINAL_GAP_EXTEN_PEN.getDeafultValue());
+		terExtenGapPen.setText(""+RADSParms.DEFAULT_TERMINAL_GAP_EXTEN_PEN.getDeafultValue());
 				
 		domLenScoringCB = new JCheckBox();
 		domLenScoringCB.setSelected(true);
@@ -237,7 +237,7 @@ public class RadScanPanel extends JPanel implements ActionListener{
 			queryProtein = view.getArrangementComponent().getDomainArrangement();
 			qBuilder.setQuietMode(true);
 			qBuilder.setQueryXdomString(queryProtein.toXdom());
-			radsService = new RadsService(qBuilder.build(), queryProtein);
+			radsService = new RADSService(qBuilder.build(), queryProtein);
 			progressBar.setIndeterminate(true);
 			
 			radsService.execute();
@@ -288,12 +288,12 @@ public class RadScanPanel extends JPanel implements ActionListener{
 	}
 	
 	private void reset() {
-		matchScore.setText(""+RadsParms.DEFAULT_MATCHSCORE.getDeafultValue());
-		mismatchPen.setText(""+RadsParms.DEFAULT_MISMATCH_PEN.getDeafultValue());
-		intOpenGapPen.setText(""+RadsParms.DEFAULT_INTERNAL_GAP_OPEN_PEN.getDeafultValue());
-		intExtenGapPen.setText(""+RadsParms.DEFAULT_INTERNAL_GAP_EXTEN_PEN.getDeafultValue());
-		terOpenGapPen.setText(""+RadsParms.DEFAULT_TERMINAL_GAP_OPEN_PEN.getDeafultValue());
-		terExtenGapPen.setText(""+RadsParms.DEFAULT_TERMINAL_GAP_EXTEN_PEN.getDeafultValue());
+		matchScore.setText(""+RADSParms.DEFAULT_MATCHSCORE.getDeafultValue());
+		mismatchPen.setText(""+RADSParms.DEFAULT_MISMATCH_PEN.getDeafultValue());
+		intOpenGapPen.setText(""+RADSParms.DEFAULT_INTERNAL_GAP_OPEN_PEN.getDeafultValue());
+		intExtenGapPen.setText(""+RADSParms.DEFAULT_INTERNAL_GAP_EXTEN_PEN.getDeafultValue());
+		terOpenGapPen.setText(""+RADSParms.DEFAULT_TERMINAL_GAP_OPEN_PEN.getDeafultValue());
+		terExtenGapPen.setText(""+RADSParms.DEFAULT_TERMINAL_GAP_EXTEN_PEN.getDeafultValue());
 		domLenScoringCB.setSelected(false);
 		resolveOverlapsCB.setSelected(false);
 		mergeHitsCB.setSelected(false);

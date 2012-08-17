@@ -33,7 +33,7 @@ public class RadScanView extends AbstractView implements Tool{
 		radsPanelHolder = new JPanel(new BorderLayout());
 		radsPanelHolder.setBackground(Color.white);
 		radsPanelHolder.setSize(780,400);
-		radsPanel = new RadScanPanel(this);
+		radsPanel = new RadScanToolPanel(this);
 		radsPanelHolder.add(radsPanel, BorderLayout.CENTER);
 	}
 	
