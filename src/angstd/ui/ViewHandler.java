@@ -331,6 +331,16 @@ public class ViewHandler {
 		tools.put(tool.getViewInfo().getType(), tool);
 	}
 	
+	
+	/**
+	 * Adss a tool to the ViewManager
+	 * 
+	 * @param tool
+	 */
+	public void addVisibleTool(final View tool) {
+		tools.put(tool.getViewInfo().getType(), tool);
+	}
+	
 	/**
 	 * Remove a tool from the ViewHandler.
 	 * 

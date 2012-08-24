@@ -362,7 +362,7 @@ public class ConfigurationPanel extends JPanel{
 		if (!HmmPress.hmmFilePressed(file) && initPress) {
 			if (MessageUtil.showDialog(file.getName()+" is not pressed. Do you want AnGSTD to press it now?")) {
 				if (!pressAvail || (hmmerPressTF.getText().isEmpty())) {
-					MessageUtil.showInformation("Please first provide hmmpress binary");
+					MessageUtil.showInformation(null, "Please first provide hmmpress binary");
 					hmmer3dbTF.setText("");
 					return false; 
 				}

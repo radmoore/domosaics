@@ -166,7 +166,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		
 		if ( (domArrs == null) || (domArrs.length == 0) ) {
 			progressBar.setValue(100);
-			MessageUtil.showInformation("No siginificant hits found.");
+			MessageUtil.showInformation(null, "No siginificant hits found.");
 			return;
 		}
 		

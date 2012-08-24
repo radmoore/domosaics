@@ -425,17 +425,17 @@ public class HmmScan implements Hmmer3Program {
 				}
 				// add domain view now, so that it is active
 				ViewHandler.getInstance().addView(resultDAView, project);
-				MessageUtil.showInformation(importedProts+" proteins successfully imported.");
+				MessageUtil.showInformation(null, importedProts+" proteins successfully imported.");
 			}
 			else {
 				String name = (seqView == null) ? fasta.getName() : seqView.getTitle();
-				MessageUtil.showInformation("No significant hits found in "+ name);
+				MessageUtil.showInformation(null, "No significant hits found in "+ name);
 			}
 		}
 		else {
 			String name = (seqView == null) ? fasta.getName() : seqView.getTitle();
 			parent.close();
-			MessageUtil.showInformation("No hits found in "+ name);
+			MessageUtil.showInformation(null, "No hits found in "+ name);
 			
 		}
 		outfile.delete();

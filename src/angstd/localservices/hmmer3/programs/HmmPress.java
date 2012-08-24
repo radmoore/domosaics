@@ -186,13 +186,13 @@ public class HmmPress implements Hmmer3Program {
 		System.out.println("*** I: hmmpress run successful.");
 		if (parentPanel != null) {
 			parentPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-			MessageUtil.showInformation("HMMERDB sucessfully pressed");
+			MessageUtil.showInformation(null, "HMMERDB sucessfully pressed");
 		}
 		else if (parentServicePanel != null) {
 			parentServicePanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			parentServicePanel.setIndetermindateProgressBar(false);
 			parentServicePanel.writeToConsole("*** I: "+getName()+ " run successful.\n");
-			MessageUtil.showInformation("HMMERDB sucessfully pressed");
+			MessageUtil.showInformation(null, "HMMERDB sucessfully pressed");
 		}
 	}
 

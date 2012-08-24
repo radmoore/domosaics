@@ -1,46 +1,43 @@
-package angstd.ui.tools.radscan;
+package angstd.ui.tools.RADSTool;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 
 import javax.swing.JPanel;
+
 import angstd.ui.tools.Tool;
 import angstd.ui.tools.ToolFrameI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.view.AbstractView;
 import angstd.ui.views.view.layout.ViewLayout;
 import angstd.ui.views.view.renderer.Renderer;
+import angstd.webservices.RADS.ui.RADSFrame;
+import angstd.webservices.RADS.ui.RADSScanPanel;
 
 /**
  * 
  * @author <a href='http://radm.info'>Andrew D. Moore</a>
  *
  */
-public class RadScanView extends AbstractView implements Tool{
+public class RADSScanView extends AbstractView implements Tool{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private RadScanFrame parentFrame;
-	private JPanel radsPanelHolder, radsPanel;
+	private RADSScanToolFrame parentFrame;
+	private RADSScanPanel radsScanPanel;
 	private ArrangementComponent arrComp;
 
-
-	public RadScanView() {
-		radsPanelHolder = new JPanel(new BorderLayout());
-		radsPanelHolder.setBackground(Color.white);
-		radsPanelHolder.setSize(780,400);
-		radsPanel = new RadScanToolPanel(this);
-		radsPanelHolder.add(radsPanel, BorderLayout.CENTER);
+	public RADSScanView() {
+		radsScanPanel = new RADSScanPanel(parentFrame);
 	}
 	
 	public void setView(ArrangementComponent da) {
 		this.arrComp = da;
 		parentFrame.addView(this);
-		parentFrame.setContent(radsPanelHolder);
+		parentFrame.setContent(radsScanPanel);
+		//radsScanPanel.setQueryComponent(da);
 	}
 	
 	public ArrangementComponent getArrangementComponent() {
@@ -48,7 +45,7 @@ public class RadScanView extends AbstractView implements Tool{
 	}
 	
 	public void setToolFrame(ToolFrameI frame) {
-		parentFrame = (RadScanFrame) frame;
+		parentFrame = (RADSScanToolFrame) frame;
 	}
 
 	public ToolFrameI getToolFrame() {

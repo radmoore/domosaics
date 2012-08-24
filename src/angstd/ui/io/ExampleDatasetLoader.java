@@ -69,7 +69,7 @@ public class ExampleDatasetLoader {
 	public void loadSmallSet() {
 		
 		if (WorkspaceManager.getInstance().projectExists("small.x.dataset")) {
-			MessageUtil.showInformation("Small example dataset already loaded");
+			MessageUtil.showInformation(null, "Small example dataset already loaded");
 			return;
 		}
 		
@@ -102,7 +102,7 @@ public class ExampleDatasetLoader {
 	public void loadBigSet() {
 		
 		if (WorkspaceManager.getInstance().projectExists("large.x.dataset")) {
-			MessageUtil.showInformation("Large example dataset already loaded");
+			MessageUtil.showInformation(null, "Large example dataset already loaded");
 			return;
 		}
 		

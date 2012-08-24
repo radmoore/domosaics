@@ -23,7 +23,7 @@ public enum ViewType {
 	DISTANCEMATRIX(		"angstd.ui.tools.distmatrix.DistMatrixView", "TXT"),
 	DOMAINMATRIX(	  	"angstd.ui.tools.domainmatrix.DomainMatrixView", ""),
 	CHANGEARRANGEMENT(	"angstd.ui.tools.changearrangement.ChangeArrangementView", ""),
-	RADSCAN(          	"angstd.ui.tools.radscan.RadScanView", ""),
+	RADSCAN(          	"angstd.ui.tools.RADSTool.RADSScanView", ""),
 	;
 
 	/** the class for the view */

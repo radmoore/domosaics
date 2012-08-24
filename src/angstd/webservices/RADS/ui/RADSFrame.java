@@ -5,12 +5,15 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 
+import angstd.ui.tools.ToolFrameI;
+import angstd.ui.views.view.View;
+
 /**
  * 
  * @author <a href='http://radm.info'>Andrew D. Moore</a>
  *
  */
-public class RADSFrame extends JFrame implements WindowListener {
+public class RADSFrame extends JFrame implements WindowListener, ToolFrameI {
 
 	/**
 	 * 
@@ -80,6 +83,13 @@ public class RADSFrame extends JFrame implements WindowListener {
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void addView(View view) {
 		// TODO Auto-generated method stub
 		
 	}

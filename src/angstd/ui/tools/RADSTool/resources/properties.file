@@ -3,5 +3,5 @@
 	<property id="icon" value="">
 	<property id="isTool" value="true">
 	<property id="class" value="angstd.ui.tools.radscan.RadScanView">
-	<property id="frameclass" value="angstd.ui.tools.radscan.RadScanFrame">
+	<property id="frameclass" value="angstd.ui.tools.RADSTool.RADSScanToolFrame">
 </propertys>

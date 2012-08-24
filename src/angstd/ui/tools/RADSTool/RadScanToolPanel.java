@@ -1,20 +1,19 @@
-package angstd.ui.tools.radscan;
+package angstd.ui.tools.RADSTool;
 
 //import info.radm.radscan.Parser;
-import info.radm.radscan.QueryBuilder;
+import info.radm.radscan.RADSQueryBuilder;
 import info.radm.radscan.RADSResults;
-import info.radm.radscan.ds.Protein;
+import info.radm.radscan.ds.RADSDomain;
+import info.radm.radscan.ds.RADSProtein;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.net.URL;
 import java.util.Map;
 import java.util.TreeSet;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -57,18 +56,18 @@ public class RadScanToolPanel extends JPanel implements ActionListener{
 	private JCheckBox domLenScoringCB, resolveOverlapsCB, mergeHitsCB, uniqueHitsCB;
 	private JButton runScan, reset, close, apply, details;
 	private JProgressBar progressBar;
-	private RadScanView view;
-	private TreeSet<Protein> proteins;
+	private RADSScanView view;
+	private TreeSet<RADSProtein> proteins;
 	private boolean domLenScoring, uniqueArrs, resolveOverlaps, mergeHits;
 	private ArrangementManager arrSet;
 	private DomainArrangement queryProtein;
 	private RADSResults results;
 	
-	private QueryBuilder qBuilder;
+	private RADSQueryBuilder qBuilder;
 	private Icon radsIcon;
 	private RADSService radsService;
 	
-	public RadScanToolPanel(RadScanView view) {
+	public RadScanToolPanel(RADSScanView view) {
 		super(new MigLayout());
 		this.view = view;
 		initComponents();
@@ -228,7 +227,7 @@ public class RadScanToolPanel extends JPanel implements ActionListener{
 	
 	private void runScan(){
 		
-		qBuilder = new QueryBuilder();	
+		qBuilder = new RADSQueryBuilder();	
 		if (validateParams()) {
 			runScan.setText("Running scan");
 			runScan.setEnabled(false);
@@ -330,8 +329,7 @@ public class RadScanToolPanel extends JPanel implements ActionListener{
 		if (e.getActionCommand().equals("closeRadsWindow"))
 			closeRadsWindow(e);
 		if (e.getActionCommand().equals("showReportWindow"))
-			new RADSResultDetailsPanel(queryProtein, results, proteins);
-			
+			RADSResultDetailsPanel.showResultsFrame(queryProtein, results, proteins);
 	}
 	
 	private void closeRadsWindow(ActionEvent e) {
@@ -350,7 +348,7 @@ public class RadScanToolPanel extends JPanel implements ActionListener{
 	private void processResults() {
 		if (proteins == null) {
 			view.closeWindow();
-			MessageUtil.showInformation("No hits found");
+			MessageUtil.showInformation(null, "No hits found");
 			return;
 		}
 		progressBar.setIndeterminate(false);
@@ -360,14 +358,14 @@ public class RadScanToolPanel extends JPanel implements ActionListener{
 
 		arrSet = new ArrangementManager();
 		DomainArrangement da; 
-		for (Protein p: proteins) {
+		for (RADSProtein p: proteins) {
 			progressBar.setValue(i);
 			progressBar.setString("Processing hit "+i+ " of "+progressBar.getMaximum());
 			da = new DomainArrangement();
 			da.setName(p.getID());
 			da.setSeqLen(p.getLength());
 			
-			for (info.radm.radscan.ds.Domain resDom: p.getDomains()) {
+			for (RADSDomain resDom: p.getDomains()) {
 			
 				String acc = resDom.getID();
 				DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(acc);

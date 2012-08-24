@@ -34,6 +34,9 @@ public class SeqUtil {
 	
 	public static final String NONVALIDRESEXP =  "[^FLIMVSPTAYHQNKDECWRGX*-]";
 	
+	
+	
+		
 	/**
 	 * Method automatically checking the type of a sequence, 
 	 * e.g. DNA, Protein ... .
@@ -108,6 +111,42 @@ public class SeqUtil {
 	 */
 	public static String cdna2amino(String seq) {
 		return rna2as(seq.replace("T", "U"));
+	}
+	
+	/**
+	 * 
+	 * @param fastaString
+	 * @return
+	 */
+	public static int validFastaString(String fastaString) {
+		
+		String[] lines = fastaString.split("\\n");
+		
+		if (lines.length < 2)
+			return UNKNOWN;
+		
+		StringBuilder seqLines = new StringBuilder();
+		
+		if (! (lines[0].matches(">.+")))
+			return UNKNOWN;
+			
+		for (String line : lines) {
+			if (line.matches(">.+"))
+				continue;
+			else {
+				String seq = line.replaceAll("\\n", "");
+				seqLines.append(seq);
+			}
+		}
+		return checkFormat(seqLines.toString());
+	}
+	
+	public static String getIDFromFasta(String fasta) {
+		String id = "";
+		String idline = fasta.split("\n")[0];
+		Pattern p = Pattern.compile(">\\s*(\\S+).*");
+		Matcher m = p.matcher(idline);
+		return m.group();
 	}
 	
 	

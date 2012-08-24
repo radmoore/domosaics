@@ -1,7 +1,7 @@
 package angstd.webservices.RADS.ui;
 
 import info.radm.radscan.RADSResults;
-import info.radm.radscan.ds.Protein;
+import info.radm.radscan.ds.RADSProtein;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,10 +45,30 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 	private JFrame frame;
 	private JButton save, close, seeOnline;
 	private StringBuffer crampageLog;
+	private String queryProteinID = null;
+	private DomainArrangement queryProtein;
+	private TreeSet<RADSProtein> proteins; 
 	
-	public RADSResultDetailsPanel(DomainArrangement queryProtein, RADSResults results, TreeSet<Protein> proteins) {
+	private static RADSResultDetailsPanel instance = null;
+
+	public static RADSResultDetailsPanel showResultsFrame(DomainArrangement queryProtein, 
+			RADSResults results, TreeSet<RADSProtein> proteins ) {
+		if (instance != null)
+			instance.close();
+		instance = new RADSResultDetailsPanel(queryProtein, results, proteins);
+		return instance;
+	}
+
+	private RADSResultDetailsPanel(DomainArrangement queryProtein, 
+			RADSResults results, TreeSet<RADSProtein> proteins) {
 		super(new MigLayout());
+		this.queryProtein = queryProtein;
 		this.results = results;
+		this.proteins = proteins;	
+		initPanel();
+	 }
+	
+	private void initPanel() {
 		
 		readLogFile();
 		
@@ -81,16 +101,22 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 		add(new JLabel("Total hits:"), "gapleft 10");
 		add(new JLabel(""+results.getHitsNumber()), "wrap");
 		add(new JLabel("Total arrangements:"), "gapleft 10");
-		add(new JLabel(""+Protein.getUniqueArchitectures(proteins).size()), "wrap");
+		add(new JLabel(""+RADSProtein.getUniqueArchitectures(proteins).size()), "wrap");
 		
 		add(new JXTitledSeparator("RAW rads output"), "growx, span, wrap, gaptop 10");
 		add(jScrollPane, "h 100::400, w 600!, growx, span");
 		add(save, "split 3");
 		add(close, "");
 		add(seeOnline, "align right");
+		
 		frame.add(this);
 		frame.pack();
 		frame.setVisible(true);
+		
+	}
+	
+	private void close() {
+		frame.dispose();
 	}
 	
 	private void readLogFile() {
@@ -124,7 +150,7 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		MessageUtil.showInformation("Scan log written to "+outFile.getAbsolutePath());
+		MessageUtil.showInformation(null, "Scan log written to "+outFile.getAbsolutePath());
 	}
 
 	public void actionPerformed(ActionEvent e) {

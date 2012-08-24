@@ -2,6 +2,7 @@ package angstd.ui.util;
 
 import java.awt.Component;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import angstd.ui.AngstdUI;
@@ -46,8 +47,10 @@ public class MessageUtil {
      * Shows a generic information dialog with the specified message
      * @param msg
      */
-    public static void showInformation(String msg) {
-    	JOptionPane.showMessageDialog(AngstdUI.getInstance(), msg, INFORMTITLE, JOptionPane.INFORMATION_MESSAGE);
+    public static void showInformation(JFrame parent, String msg) {
+    	if (parent == null)
+    		parent = AngstdUI.getInstance();
+    	JOptionPane.showMessageDialog(parent, msg, INFORMTITLE, JOptionPane.INFORMATION_MESSAGE);
     }
     
     /**

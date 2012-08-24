@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import angstd.model.GO.GeneOntology;
@@ -54,6 +55,8 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 	 * a map storing all parsed domains. (Used to ensure that the same 
 	 * domain family object is used for domains with identically names
 	 */
+
+	
 	
 	public static boolean checkFormat(File file) {
 		try {
@@ -78,7 +81,6 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 			return false;
 		}
 	}
-	
 	
 	/**
 	 * Parses a xdom formatted file. See also {@link DataReader}.

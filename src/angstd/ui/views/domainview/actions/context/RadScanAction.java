@@ -6,7 +6,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import angstd.ui.ViewHandler;
-import angstd.ui.tools.radscan.RadScanView;
+import angstd.ui.tools.RADSTool.RADSScanView;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
@@ -33,10 +33,9 @@ public class RadScanAction extends AbstractAction {
 		domView.getViewComponent().repaint();
 		
 		ArrangementComponent selectedDA = domView.getArrangementSelectionManager().getClickedComp();
-		RadScanView view = ViewHandler.getInstance().createTool(ViewType.RADSCAN);
-//		System.out.println("This is the arrangements: "+selectedDA.toString());
+		RADSScanView view = ViewHandler.getInstance().createTool(ViewType.RADSCAN);
 		view.setView(selectedDA);
-		ViewHandler.getInstance().addTool(view);
+		ViewHandler.getInstance().addVisibleTool(view);
 	}
 
 }

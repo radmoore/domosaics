@@ -1,15 +1,13 @@
 package angstd.webservices.RADS;
 
-import info.radm.radscan.Parser;
-import info.radm.radscan.QueryBuilder;
+import info.radm.radscan.RADSParser;
 import info.radm.radscan.RADSQuery;
 import info.radm.radscan.RADSResults;
 import info.radm.radscan.RADSRunner;
-import info.radm.radscan.ds.Protein;
+import info.radm.radscan.ds.RADSProtein;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.TreeSet;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.SwingWorker;
 
@@ -20,15 +18,20 @@ import angstd.model.arrangement.DomainArrangement;
  * @author <a href='http://radm.info'>Andrew D. Moore</a>
  *
  */
-public class RADSService extends SwingWorker<TreeSet<Protein>, Void> {
+public class RADSService extends SwingWorker<TreeSet<RADSProtein>, Void> {
 	
 	private RADSResults results;
 	private RADSRunner radsRunner;
 	private RADSQuery radsQuery;
-	private DomainArrangement queryProtein;
-	private Parser resultParser;
-	private TreeSet<Protein> proteins = null;
+	private DomainArrangement queryProtein = null;
+	private RADSParser resultParser;
+	private TreeSet<RADSProtein> proteins;
 	private boolean running;
+
+	public RADSService(RADSQuery radsQuery) {
+		this.radsQuery = radsQuery;
+		running = false;
+	}
 	
 	public RADSService(RADSQuery radsQuery, DomainArrangement queryProtein) {
 		this.radsQuery = radsQuery;
@@ -36,11 +39,11 @@ public class RADSService extends SwingWorker<TreeSet<Protein>, Void> {
 		running = false;
 	}
 	
-	protected TreeSet<Protein> doInBackground() throws Exception {
+	protected TreeSet<RADSProtein> doInBackground() throws Exception {
 		running = true;
 		this.radsRunner = new RADSRunner(radsQuery);
 		results = radsRunner.submit();
-		resultParser = new Parser(results);
+		resultParser = new RADSParser(results);
 		return resultParser.parse();
 	}
 	
@@ -56,7 +59,7 @@ public class RADSService extends SwingWorker<TreeSet<Protein>, Void> {
 		return running;
 	}
 	
-	public TreeSet<Protein> getHits() {
+	public TreeSet<RADSProtein> getHits() {
 		return proteins;
 	}
 	
@@ -72,5 +75,6 @@ public class RADSService extends SwingWorker<TreeSet<Protein>, Void> {
 		this.cancel(true);
 		running = false;
 	}
+	
 	
 }

@@ -103,7 +103,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		// create view
 		
 		if (project.viewExists(viewName, project.getCategory(ViewType.TREE)))
-			MessageUtil.showInformation("The view "+ viewName + " already exists. Please rename.");
+			MessageUtil.showInformation(null, "The view "+ viewName + " already exists. Please rename.");
 		
 		Map results = WizardManager.getInstance().selectNameWizard(viewName, "tree view", project, false);
 		viewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
@@ -159,7 +159,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 
 		// create view
 		if (project.viewExists(viewName, project.getCategory(ViewType.DOMAINS)))
-			MessageUtil.showInformation("The view "+ viewName + " already exists. Please rename.");
+			MessageUtil.showInformation(null, "The view "+ viewName + " already exists. Please rename.");
 		
 		Map results = WizardManager.getInstance().selectNameWizard(viewName, "domain view", project, false);
 		viewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
@@ -186,7 +186,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 			domTreeView.setBackendViews(treeView, domView);
 			ViewHandler.getInstance().addView(domTreeView, project);
 		}
-		MessageUtil.showInformation(importedProts+" proteins successfully imported.");
+		MessageUtil.showInformation(null, importedProts+" proteins successfully imported.");
 		return true;
 	}
 	
@@ -213,7 +213,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		
 		// ensure that view to be added is not already present, rename if it is
 		if (project.viewExists(viewName, project.getCategory(ViewType.SEQUENCE)))
-			MessageUtil.showInformation("The view "+ viewName + " already exists. Please rename.");
+			MessageUtil.showInformation(null, "The view "+ viewName + " already exists. Please rename.");
 		
 		Map results = WizardManager.getInstance().selectNameWizard(viewName, "sequence view", project, false);
 		viewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
