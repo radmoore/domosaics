@@ -52,7 +52,7 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 	private static RADSResultDetailsPanel instance = null;
 
 	public static RADSResultDetailsPanel showResultsFrame(DomainArrangement queryProtein, 
-			RADSResults results, TreeSet<RADSProtein> proteins ) {
+			RADSResults results, TreeSet<RADSProtein> proteins) {
 		if (instance != null)
 			instance.close();
 		instance = new RADSResultDetailsPanel(queryProtein, results, proteins);

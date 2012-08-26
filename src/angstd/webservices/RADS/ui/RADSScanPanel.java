@@ -413,7 +413,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		
 		reset = new JButton("Set defaults");
 		reset.setToolTipText("Set default values");
-		reset.setActionCommand("setDeaultValues");
+		reset.setActionCommand("setDefaultValues");
 		reset.addActionListener(this);
 		
 		apply = new JButton("Apply");
@@ -438,7 +438,6 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		showReport.setActionCommand("openLogWindow");
 		showReport.addActionListener(this);
 		showReport.setEnabled(false);
-		
 	}
 	
 	private void initSelectSeqView() {
