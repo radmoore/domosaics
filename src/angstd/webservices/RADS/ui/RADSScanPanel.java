@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
@@ -100,6 +101,9 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private RADSResultsProcessor resultProcessor;
 	private RADSQueryBuilder qBuilder;
 	private RADSResultDetailsPanel radsDetailsPanel = null;
+	
+	private ArrayList<String> xdomEntries;
+	private ArrayList<String> fastaEntries;
 
 	
 	private View selectedView = null;
@@ -293,26 +297,47 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	}
 	
 	private void loadSeqFromFile() {
+		loadSeqTF.setText("");
+		submit.setEnabled(false);
 		File file = FileDialogs.showOpenDialog(instance);
 		if (!(selectSeqView.getSelectedItem() == null)) {
 			selectSeqView.setSelectedItem(null);
 		}
 		if(file != null && file.canRead()) {
+			fastaEntries = SeqUtil.getFastaFromFile(file);
+			if (fastaEntries.size() == 0) {
+				MessageUtil.showWarning(parent, "File does not contain valid fasta entries");
+				return;
+			}
+			else if (fastaEntries.size() > 1)
+				MessageUtil.showInformation(parent, "The selected file has multiple arrangements. Only the first will be considered");
+			
 			loadSeqTF.setText(file.getAbsolutePath());
 			loadArrTF.setText("");
 			pasteBox.setText("");
 			selectArrView.setSelectedItem(null);
 			selectedView = null;
 			submit.setEnabled(true);
+			
 		}
 	}
 	
 	private void loadArrFromFile() {
+		loadArrTF.setText("");
+		submit.setEnabled(false);
 		File file = FileDialogs.showOpenDialog(instance);
 		if (!(selectArrView.getSelectedItem() == null)) {
 			selectArrView.setSelectedItem(null);
 		}
 		if(file != null && file.canRead()) {
+			xdomEntries = XdomUtil.getXdomsFromFile(file);
+			if (xdomEntries.size() == 0) {
+				MessageUtil.showWarning(parent, "File does not contain valid xdom entries");
+				return;
+			}
+			else if (xdomEntries.size() > 1)
+				MessageUtil.showInformation(parent, "The selected file has multiple arrangements. Only the first will be considered");
+			
 			loadArrTF.setText(file.getAbsolutePath());
 			loadSeqTF.setText("");
 			pasteBox.setText(""); //TODO does not work
@@ -327,7 +352,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 			parent.dispose();
 		else if (checkScanState) {
 			boolean choice = true;
-			if (radsService.isRunning() || radsService.isDone())
+			if ( radsService.isRunning() || (radsService.isDone() && radsService.hasResults()) )
 				choice = MessageUtil.showDialog(parent, "If you close this window you will loose your scan results. Are you sure?");
 			if (choice) {
 				radsService.cancelScan();
@@ -510,60 +535,66 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		});
 	}
 	
-
-	
 	private boolean buildQuery() {
 		
 		qBuilder = new RADSQueryBuilder();
 		
+		// check if view is selected
 		if (!(selectedView == null)) {
+			// sequence view
 			if (selectedView.getViewInfo().getType() == ViewType.SEQUENCE) {
 				SequenceView seqView = (SequenceView) selectedView;
 				SequenceI[] seqsI = seqView.getSeqs();
 				SequenceI query = seqsI[0];
 				qBuilder.setQueryFastaString(query.toFasta(false));
 				queryProtein.setName(query.getName());
-				if (selectAlgo.getSelectedItem().equals("RAMPAGE"))
+				if (selectAlgo.getSelectedItem().equals("RADS/RAMPAGE"))
 					qBuilder.setAlgorithm("rampage");
 			}
+			// domain view
 			else if (selectedView.getViewInfo().getType() == ViewType.DOMAINS) {
+				DomainView domView = (DomainView) selectedView;
+				queryProtein = domView.getDaSet()[0];
+				queryProtein.setName(queryProtein.getName());
+				// check if RAMPAGE run is desired (and warn if no sequences are available)
 				if (selectAlgo.getSelectedItem().equals("RADS/RAMPAGE")) {
-					DomainView domView = (DomainView) selectedView;
 					if (domView.getDaSet()[0].hasSeq()) {
 						MessageUtil.showInformation(parent, "RAMPAGE will use the sequence of the selected Domain Arrangement");
 						qBuilder.setQueryFastaString(queryProtein.getSequence().toFasta(false));
-						queryProtein.setName(queryProtein.getName());
 						qBuilder.setAlgorithm("rampage");
 					}
 					else {
-						MessageUtil.showWarning("RAMPAGE requires a sequence to run");
-						//submit.setEnabled(false);
+						MessageUtil.showWarning(parent, "RAMPAGE requires a sequence to run");
+						selectAlgo.setSelectedIndex(0);
 						return false;
 					}
 				}
 				else {
-					DomainView domView = (DomainView) selectedView;
-					queryProtein = domView.getDaSet()[0];
+					// no RAMPAGE run requested, use xdom
 					qBuilder.setQueryXdomString(queryProtein.toXdom());
-					queryProtein.setName(queryProtein.getName());
 				}
 			}
 		}
+		// check if sequence file was selected
 		else if (!(loadSeqTF.getText().equals(""))) {
-			qBuilder.setQueryProtein(loadSeqTF.getText());
-			queryProtein.setName(qBuilder.getQueryID());
+			qBuilder.setQueryFastaString(fastaEntries.get(0));
+//			queryProtein.setName(qBuilder.getQueryID());
+			queryProtein.setName(SeqUtil.getIDFromFasta(fastaEntries.get(0)));
 			if (selectAlgo.getSelectedItem().equals("RADS/RAMPAGE"))
 				qBuilder.setAlgorithm("rampage");
 		}
+		// check if xdom file was selected
 		else if (!(loadArrTF.getText().equals(""))) {
-			qBuilder.setQueryProtein(loadSeqTF.getText());
+			qBuilder.setQueryXdomString(xdomEntries.get(0));
 			queryProtein.setName(qBuilder.getQueryID());
-			if (selectAlgo.getSelectedItem().equals("RADSRAMPAGE")) {
-				MessageUtil.showWarning("RAMPAGE requires a sequence to run");
-				//submit.setEnabled(false);
+			// warn if RAMPAGE run selected (as we have no sequences)
+			if (selectAlgo.getSelectedItem().equals("RADS/RAMPAGE")) {
+				MessageUtil.showWarning(parent, "RAMPAGE requires a sequence to run");
+				selectAlgo.setSelectedIndex(0);
 				return false;
 			}
 		}
+		// check if the paste box is in use
 		else if (!(pasteBox.getText().equals(""))) {
 			System.out.println("This is in the paste box: "+pasteBox.getText());
 			if (SeqUtil.validFastaString(pasteBox.getText()) == SeqUtil.PROT) {
@@ -575,30 +606,26 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 				queryProtein.setName(XdomUtil.getIDFromXdom(pasteBox.getText())); //TODO this does not work
 			}
 			else {
-				MessageUtil.showWarning("RADS/RAMPAGE requires a valid amino acid fasta or xdom entry to run");
-				//submit.setEnabled(false);
+				MessageUtil.showWarning(parent, "RADS/RAMPAGE requires a valid amino acid fasta or xdom entry to run");
 				return false;
 			}
-			//System.out.println("This is qstring: "+qBuilder.getQueryString());
 		}
+		// else, check if the query protein was preselected (context dependant scan in tool frame)
 		else if (!(queryProtein == null)) {
 			qBuilder.setQueryXdomString(queryProtein.toXdom());
-			//TODO: xdom of query does not work!
-			System.out.println("This is the query xdom: ");
-			System.out.println(queryProtein.toXdom());
+			// warn if RAMPAGE run selected (as we have no sequences)
 			if (selectAlgo.getSelectedItem().equals("RADS/RAMPAGE")) {
-				
 				if (!queryProtein.hasSeq()) {
-					MessageUtil.showWarning("RAMPAGE requires a sequence to run. Please select arrangement accordingly (or run RADS)");
+					MessageUtil.showWarning(parent, "RAMPAGE requires a sequence to run. Please select arrangement accordingly (or run RADS)");
 					selectAlgo.setSelectedIndex(0);
-					//selectAlgo.setEnabled(false);
 					return false;
 				}
 			}
 		}
+		// we have no input, cannot build query
 		else {
 			submit.setEnabled(false);
-			MessageUtil.showWarning("Please enter a query ID / XDOM / FASTA or select a view");
+			MessageUtil.showWarning("Please enter a XDOM / FASTA or select a view");
 			return false;
 		}
 		// query was built
@@ -638,7 +665,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 			qBuilder.setRads_t(rampTerExtenGapPenValue);
 		}
 		catch (NumberFormatException nfe) {
-			MessageUtil.showWarning("Values for scores and penalties must be numbers");
+			MessageUtil.showWarning(parent, "Values for scores and penalties must be numbers");
 			return false;
 		}
 		return true;
@@ -661,6 +688,8 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 					public void propertyChange(PropertyChangeEvent evt) {
 						if ("state".equals(evt.getPropertyName())) {
 							if ( "DONE".equals(evt.getNewValue().toString()) ) {
+								if (radsService.isCancelled())
+									return;
 								proteins = radsService.getHits();
 								submit.setText("Submit Job");
 								submit.setEnabled(true);
@@ -668,9 +697,11 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 								resultProcessor = new RADSResultsProcessor(instance);
 								arrSet = resultProcessor.process();
 								progressBar.setString("Scan complete");
-								apply.setEnabled(true);
-								browse.setEnabled(true);
-								showReport.setEnabled(true);
+								if (arrSet != null) {
+									apply.setEnabled(true);
+									browse.setEnabled(true);
+									showReport.setEnabled(true);
+								}
 								submit.setEnabled(true);
 								reset.setEnabled(true);
 							}

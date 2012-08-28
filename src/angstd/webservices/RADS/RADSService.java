@@ -25,7 +25,7 @@ public class RADSService extends SwingWorker<TreeSet<RADSProtein>, Void> {
 	private RADSQuery radsQuery;
 	private DomainArrangement queryProtein = null;
 	private RADSParser resultParser;
-	private TreeSet<RADSProtein> proteins;
+	private TreeSet<RADSProtein> proteins = null;
 	private boolean running;
 
 	public RADSService(RADSQuery radsQuery) {
@@ -55,12 +55,22 @@ public class RADSService extends SwingWorker<TreeSet<RADSProtein>, Void> {
 		catch (Exception e) {};
 	}
 	
+	public void setRunState(boolean running) {
+		this.running = running;
+	}
+	
 	public boolean isRunning() {
 		return running;
 	}
 	
 	public TreeSet<RADSProtein> getHits() {
 		return proteins;
+	}
+	
+	public boolean hasResults() {
+		if ((proteins == null) || (proteins.size() == 0))
+				return false;
+		return true;
 	}
 	
 	public DomainArrangement getQueryProtein() {

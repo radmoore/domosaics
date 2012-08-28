@@ -1,5 +1,9 @@
 package angstd.model.sequence.util;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -141,12 +145,37 @@ public class SeqUtil {
 		return checkFormat(seqLines.toString());
 	}
 	
+	//TODO does not work
 	public static String getIDFromFasta(String fasta) {
 		String id = "";
 		String idline = fasta.split("\n")[0];
 		Pattern p = Pattern.compile(">\\s*(\\S+).*");
 		Matcher m = p.matcher(idline);
 		return m.group();
+	}
+	
+	public static ArrayList<String> getFastaFromFile(File fastaFile) {
+		ArrayList<String> entries = new ArrayList<String>();
+		StringBuilder fasta = new StringBuilder();
+		String line = null;
+		
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(fastaFile));
+			while((line = br.readLine()) != null) {
+				if (line.matches(">.+")) {
+					if (fasta.length() > 0) {
+						if (SeqUtil.validFastaString(fasta.toString()) != SeqUtil.UNKNOWN)
+							entries.add(fasta.toString());
+					}
+					fasta = new StringBuilder();
+				}
+				fasta.append(line+"\n");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entries;
 	}
 	
 	
