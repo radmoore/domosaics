@@ -7,9 +7,11 @@ import javax.swing.Action;
 
 import angstd.ui.ViewHandler;
 import angstd.ui.tools.RADSTool.RADSScanView;
+import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
+import angstd.webservices.RADS.RADSService;
 
 /**
  * 
@@ -26,6 +28,10 @@ public class RadScanAction extends AbstractAction {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (RADSService.isRunning()) {
+			MessageUtil.showWarning("RADS/RAMPAGE is currently running. Terminate or wait to complete.");
+			return;
+		}
 		DomainViewI domView = (DomainViewI) ViewHandler.getInstance().getActiveView();
 
 		domView.getArrangementSelectionManager().getSelection().clear();

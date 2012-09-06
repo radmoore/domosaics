@@ -26,7 +26,7 @@ public class RADSService extends SwingWorker<TreeSet<RADSProtein>, Void> {
 	private DomainArrangement queryProtein = null;
 	private RADSParser resultParser;
 	private TreeSet<RADSProtein> proteins = null;
-	private boolean running;
+	private static boolean running;
 
 	public RADSService(RADSQuery radsQuery) {
 		this.radsQuery = radsQuery;
@@ -55,11 +55,11 @@ public class RADSService extends SwingWorker<TreeSet<RADSProtein>, Void> {
 		catch (Exception e) {};
 	}
 	
-	public void setRunState(boolean running) {
-		this.running = running;
+	public void setRunState(boolean runState) {
+		running = runState;
 	}
 	
-	public boolean isRunning() {
+	public static boolean isRunning() {
 		return running;
 	}
 	

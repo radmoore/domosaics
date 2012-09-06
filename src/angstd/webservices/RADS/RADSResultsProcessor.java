@@ -26,12 +26,14 @@ public class RADSResultsProcessor {
 
 	private RADSResults results;
 	private TreeSet<RADSProtein> proteins;
-	private JPanel panel;
-	private ArrangementManager arrSet;
 	private RADSPanelI radsPanel;
 	private JProgressBar progressBar;
 	private RADSService radsService; 	 
 	
+	/**
+	 * 
+	 * @param radsPanel
+	 */
 	public RADSResultsProcessor(RADSPanelI radsPanel) {
 		this.radsPanel = radsPanel;
 		this.progressBar = radsPanel.getProgressBar();
@@ -40,11 +42,14 @@ public class RADSResultsProcessor {
 		this.results = radsService.getScanResults();
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public ArrangementManager process() {
 		if (proteins == null) {
 			progressBar.setIndeterminate(false);
 			MessageUtil.showInformation(radsPanel.getParentFrame(), "No hits found");
-			//radsPanel.close(false);
 			return null;
 		}
 		progressBar.setIndeterminate(false);
@@ -77,8 +82,6 @@ public class RADSResultsProcessor {
 					dom.setEvalue(evalue);
 				da.addDomain(dom);
 			}
-			// TODO: consider implementing comparable to avoid this
-			// (ie. define natural order)
 			da.sortDomains();
 			arrSet.add(da);
 			i++;

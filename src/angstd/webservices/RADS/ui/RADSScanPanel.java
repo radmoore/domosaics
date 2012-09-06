@@ -1,6 +1,7 @@
 package angstd.webservices.RADS.ui;
 
 import info.radm.radscan.RADSQueryBuilder;
+
 import info.radm.radscan.RADSResults;
 import info.radm.radscan.ds.RADSProtein;
 
@@ -46,7 +47,6 @@ import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainView;
 import angstd.ui.views.domainview.DomainViewI;
-import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.views.view.View;
 import angstd.ui.wizards.WizardListCellRenderer;
@@ -59,23 +59,12 @@ import angstd.webservices.RADS.RADSResultsProcessor;
 import angstd.webservices.RADS.RADSService;
 
 /**
- * TODO
- * - format checking on pasteBox
- * - get ID from pasteBox
- * - ensure that notification windows are always on top
- * - ensure all buttons work
- * - clean up layout0
  * @author <a href='http://radm.info'>Andrew D. Moore</a>
  *
  */
 public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI {
 
-	/**
-	 * 
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	// components
 	private JPanel radsOptionPanel, rampageOptionPanel;
 	private JButton loadSeq, loadArr, submit, reset,
 	apply, cancel, browse, showReport;
@@ -89,8 +78,6 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private JTextArea pasteBox;
 	private JFrame parent;
 
-	
-	private ArrangementComponent queryProteinComponent;
 	private ArrangementManager arrSet;
 	private DomainArrangement queryProtein;
 	private TreeSet<RADSProtein> proteins;
@@ -100,16 +87,14 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private RADSResults results;
 	private RADSResultsProcessor resultProcessor;
 	private RADSQueryBuilder qBuilder;
-	private RADSResultDetailsPanel radsDetailsPanel = null;
 	
 	private ArrayList<String> xdomEntries;
 	private ArrayList<String> fastaEntries;
 
-	
 	private View selectedView = null;
 	
 	/**
-	 * Constructor used when called as a tool
+	 * Constructor used when called stand alone
 	 *
 	 */
 	public RADSScanPanel() {
@@ -120,7 +105,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	}
 	
 	/**
-	 * Constructor used when called 
+	 * Constructor used when called as tool
 	 *
 	 */
 	public RADSScanPanel(JFrame parent) {
@@ -131,34 +116,25 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		instance = this;
 	}
 	
+	/**
+	 * 
+	 * @param parent
+	 */
 	public void setParentFrame(JFrame parent) {
 		this.parent = parent;
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("loadSeqFromFile"))
-			loadSeqFromFile();
-		if (e.getActionCommand().equals("loadArrFromFile"))
-			loadArrFromFile();
-		if (e.getActionCommand().equals("setDefaultValues"))
-			setDefaultValues();
-		if (e.getActionCommand().equals("close"))
-			close(true);
-		if (e.getActionCommand().equals("submitScan"))
-			submitScan();
-		if (e.getActionCommand().equals("createView"))
-			createResultView();
-		if (e.getActionCommand().equals("openLogWindow")) {
-			RADSResultDetailsPanel.showResultsFrame(queryProtein, results, proteins);
-		}
-		if (e.getActionCommand().equals("openBrowseWindow"))
-			BrowserLauncher.openURL(results.getJobUrl());	
-	}
-	
+	/**
+	 * 
+	 * @param query
+	 */
 	public void setQueryArrangement(DomainArrangement query) {
 		this.queryProtein = query;
 	}
 	
+	/**
+	 * 
+	 */
 	public void setRADSScanToolMode() {
 		pasteBox.setEnabled(false);
 		selectSeqView.setEnabled(false);
@@ -169,6 +145,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		loadArrTF.setEnabled(false);
 		submit.setEnabled(true);
 	}
+
 	
 	/**
 	 * see {@link RADSPanelI}
@@ -197,7 +174,51 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	public RADSService getRadsService() {
 		return radsService;
 	}
+
+	/**
+	 * 
+	 */
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("loadSeqFromFile"))
+			loadSeqFromFile();
+		if (e.getActionCommand().equals("loadArrFromFile"))
+			loadArrFromFile();
+		if (e.getActionCommand().equals("setDefaultValues"))
+			setDefaultValues();
+		if (e.getActionCommand().equals("close"))
+			close(true);
+		if (e.getActionCommand().equals("submitScan"))
+			submitScan();
+		if (e.getActionCommand().equals("createView"))
+			createResultView();
+		if (e.getActionCommand().equals("openLogWindow"))
+			RADSResultDetailsPanel.showResultsFrame(queryProtein, results, proteins);
+		if (e.getActionCommand().equals("openBrowseWindow"))
+			BrowserLauncher.openURL(results.getJobUrl());	
+	}
+
+	/**
+	 * 
+	 */
+	public void close(boolean checkScanState) {
+		if (radsService == null)
+			parent.dispose();
+		else if (checkScanState) {
+			boolean choice = true;
+			if ( RADSService.isRunning() || (radsService.isDone() && radsService.hasResults()) )
+				choice = MessageUtil.showDialog(parent, "If you close this window you will loose your scan results. Are you sure?");
+			if (choice) {
+				radsService.cancelScan();
+				parent.dispose();
+			}
+		}
+		else
+			parent.dispose();
+	}
 	
+	/**
+	 * 
+	 */
 	private void initComponents() {
 		initButtons();
 		initRadsPanel();
@@ -217,14 +238,17 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 					toggleComponents(radsOptionPanel, true);
 					toggleComponents(rampageOptionPanel, false);
 				}
-				else {
+				else
 					toggleComponents(rampageOptionPanel, true);
-				}
 			}
 		});
 		buildPanel();
 	}
 
+	
+	/**
+	 * 
+	 */
 	private void initPasteBox() {
 		pasteBox = new JTextArea(10, 50);
 		pasteBox.getDocument().addDocumentListener(new DocumentListener() {
@@ -250,7 +274,9 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		pasteBoxSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 	}
 
-	
+	/**
+	 * 
+	 */
 	private void initRadsPanel() {
 		radsMatch = new JTextField(5);
 		radsMismatch = new JTextField(5);
@@ -273,6 +299,9 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		radsOptionPanel.add(radsTerGapExt, "wrap");
 	}
 	
+	/**
+	 * 
+	 */
 	private void initRampagePanel() {
 		rampageIntGapOpen = new JTextField(5);
 		rampageIntGapExt = new JTextField(5);
@@ -289,136 +318,10 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		rampageOptionPanel.add(rampageTerGapExt, "wrap");
 		toggleComponents(rampageOptionPanel, false);
 	}
-	
-	private void toggleComponents(JPanel panel, boolean enabled) {
-		Component[] comp = panel.getComponents();
-		for (Component c: comp)
-			c.setEnabled(enabled);
-	}
-	
-	private void loadSeqFromFile() {
-		loadSeqTF.setText("");
-		submit.setEnabled(false);
-		File file = FileDialogs.showOpenDialog(instance);
-		if (!(selectSeqView.getSelectedItem() == null)) {
-			selectSeqView.setSelectedItem(null);
-		}
-		if(file != null && file.canRead()) {
-			fastaEntries = SeqUtil.getFastaFromFile(file);
-			if (fastaEntries.size() == 0) {
-				MessageUtil.showWarning(parent, "File does not contain valid fasta entries");
-				return;
-			}
-			else if (fastaEntries.size() > 1)
-				MessageUtil.showInformation(parent, "The selected file has multiple arrangements. Only the first will be considered");
-			
-			loadSeqTF.setText(file.getAbsolutePath());
-			loadArrTF.setText("");
-			pasteBox.setText("");
-			selectArrView.setSelectedItem(null);
-			selectedView = null;
-			submit.setEnabled(true);
-			
-		}
-	}
-	
-	private void loadArrFromFile() {
-		loadArrTF.setText("");
-		submit.setEnabled(false);
-		File file = FileDialogs.showOpenDialog(instance);
-		if (!(selectArrView.getSelectedItem() == null)) {
-			selectArrView.setSelectedItem(null);
-		}
-		if(file != null && file.canRead()) {
-			xdomEntries = XdomUtil.getXdomsFromFile(file);
-			if (xdomEntries.size() == 0) {
-				MessageUtil.showWarning(parent, "File does not contain valid xdom entries");
-				return;
-			}
-			else if (xdomEntries.size() > 1)
-				MessageUtil.showInformation(parent, "The selected file has multiple arrangements. Only the first will be considered");
-			
-			loadArrTF.setText(file.getAbsolutePath());
-			loadSeqTF.setText("");
-			pasteBox.setText(""); //TODO does not work
-			selectSeqView.setSelectedItem(null);
-			selectedView = null;
-			submit.setEnabled(true);
-		}
-	}
-	
-	public void close(boolean checkScanState) {
-		if (radsService == null)
-			parent.dispose();
-		else if (checkScanState) {
-			boolean choice = true;
-			if ( radsService.isRunning() || (radsService.isDone() && radsService.hasResults()) )
-				choice = MessageUtil.showDialog(parent, "If you close this window you will loose your scan results. Are you sure?");
-			if (choice) {
-				radsService.cancelScan();
-				parent.dispose();
-			}
-		}
-		else
-			parent.dispose();
-	}
-	
-	private void buildPanel() {
 
-		//TODO: pasteBox if no query selected, otherwise display query arrangement
-		// (instead of pastebox). Consider: if no sequences are present,
-		// disable algorithm select
-		add(new JXTitledSeparator("Paste protein (xdom / fasta / UniProt ID)"), "growx, span, wrap");
-		add(pasteBoxSP, "gap 5, wrap, span, growX");
-		
-		// sequences
-		add(new JXTitledSeparator("Sequences"), "growx, span, wrap");
-		add(loadSeq, "w 150!, gap 5");
-		add(loadSeqTF, "h 25!, w 350!, span, growx, gapright 5, wrap");
-		add(new JLabel("Or select view:"), "gap 5");
-		add(selectSeqView, "h 25!, w 350!, span, growx, gapright 5, wrap");
-		
-		// arrangements
-		add(new JXTitledSeparator("Arrangements"), "growx, span, wrap");
-		add(loadArr, "w 150!, gap 5");
-		add(loadArrTF, "h 25!, w 350!, span, growx, gapright 5, wrap");
-		add(new JLabel("Or select view:"), "gap 5");
-		add(selectArrView, "h 25!, w 350!, span, growx, gapright 5, wrap");
-		
-		// parameter
-		add(new JXTitledSeparator("Options"),"growX, span, wrap, gaptop 5");
-		add(new JLabel("Algorithm"), "gap 17");
-		add(selectAlgo, "wrap");
-		add(new JXTitledSeparator("RADS scoring"),"gap 10, growX, span, wrap, gaptop 10");
-		add(radsOptionPanel, "span, wrap");
-		add(new JXTitledSeparator("RAMPAGE scoring"),"gap 10, growX, span, wrap");
-		add(rampageOptionPanel, "span, wrap");
-		
-		add(submit, "w 150!");
-		add(reset, "w 150!, wrap");
-		add(progressBar, "h 25!, gaptop 10, span, growX, wrap");
-		
-		// apply
-		add(new JXTitledSeparator("Apply Results"), "growx, span, wrap, gaptop 10");
-		add(apply, "split 2");
-		add(cancel, "");
-		add(browse, "");
-		add(showReport, "");
-	}
-	
-	private void setDefaultValues() {
-		radsMatch.setText(""+RADSParms.DEFAULT_MATCHSCORE.getDeafultValue());
-		radsMismatch.setText(""+RADSParms.DEFAULT_MISMATCH_PEN.getDeafultValue());
-		radsIntGapOpen.setText(""+RADSParms.DEFAULT_INTERNAL_GAP_OPEN_PEN.getDeafultValue());
-		radsIntGapExt.setText(""+RADSParms.DEFAULT_INTERNAL_GAP_EXTEN_PEN.getDeafultValue());
-		radsTerGapOpen.setText(""+RADSParms.DEFAULT_TERMINAL_GAP_OPEN_PEN.getDeafultValue());
-		radsTerGapExt.setText(""+RADSParms.DEFAULT_TERMINAL_GAP_EXTEN_PEN.getDeafultValue());
-		rampageIntGapOpen.setText(""+RADSParms.RAM_DEFAULT_INTERNAL_GAP_OPEN_PEN.getDeafultValue());
-		rampageIntGapExt.setText(""+RADSParms.RAM_DEFAULT_INTERNAL_GAP_EXTEN_PEN.getDeafultValue());
-		rampageTerGapOpen.setText(""+RADSParms.RAM_DEFAULT_TERMINAL_GAP_OPEN_PEN.getDeafultValue());
-		rampageTerGapExt.setText(""+RADSParms.RAM_DEFAULT_TERMINAL_GAP_EXTEN_PEN.getDeafultValue());
-	}
-	
+	/**
+	 * 
+	 */
 	private void initButtons() {
 		loadSeq = new JButton("Load fasta");
 		loadSeq.setToolTipText("Load sequence from Fasta file");
@@ -465,6 +368,9 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		showReport.setEnabled(false);
 	}
 	
+	/**
+	 * 
+	 */
 	private void initSelectSeqView() {
 		List<WorkspaceElement> viewList = WorkspaceManager.getInstance().getSequenceViews();
 		WorkspaceElement[] seqViews = viewList.toArray(new ViewElement[viewList.size()]);
@@ -492,7 +398,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 				selectedView = ViewHandler.getInstance().getView(selected.getViewInfo());
 				SequenceView seqView = (SequenceView) selectedView;
 				if (seqView.getSequences().length > 1)
-					MessageUtil.showInformation(parent, "The selected view has multiple sequences. Only the first will be considered");
+					MessageUtil.showInformation(parent, "The selected view has multiple sequences. Only one will be considered");
 				selectArrView.setSelectedItem(null);
 				loadArrTF.setText("");
 				submit.setEnabled(true);
@@ -501,6 +407,9 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		});
 	}
 	
+	/**
+	 * 
+	 */
 	private void initSelectArrView() {
 		List<WorkspaceElement> viewList = WorkspaceManager.getInstance().getDomainViews();
 		WorkspaceElement[] arrViews = viewList.toArray(new ViewElement[viewList.size()]);
@@ -527,7 +436,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 				selectedView = ViewHandler.getInstance().getView(selected.getViewInfo());
 				DomainView domView = (DomainView) selectedView;
 				if (domView.getDaSet().length > 1)
-					MessageUtil.showInformation(parent, "The selected view has multiple arrangements. Only the first will be considered");
+					MessageUtil.showInformation(parent, "The selected view has multiple arrangements. Only one will be considered");
 				selectSeqView.setSelectedItem(null);
 				loadSeqTF.setText(""); //TODO
 				submit.setEnabled(true);
@@ -535,6 +444,143 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		});
 	}
 	
+	/**
+	 * 
+	 */
+	private void buildPanel() {
+
+		//TODO: pasteBox if no query selected, otherwise display query arrangement
+		// (instead of pastebox). Consider: if no sequences are present,
+		// disable algorithm select
+		add(new JXTitledSeparator("Paste protein (xdom / fasta / UniProt ID)"), "growx, span, wrap");
+		add(pasteBoxSP, "gap 5, wrap, span, growX");
+		
+		// sequences
+		add(new JXTitledSeparator("Sequences"), "growx, span, wrap");
+		add(loadSeq, "w 150!, gap 5");
+		add(loadSeqTF, "h 25!, w 350!, span, growx, gapright 5, wrap");
+		add(new JLabel("Or select view:"), "gap 5");
+		add(selectSeqView, "h 25!, w 350!, span, growx, gapright 5, wrap");
+		
+		// arrangements
+		add(new JXTitledSeparator("Arrangements"), "growx, span, wrap");
+		add(loadArr, "w 150!, gap 5");
+		add(loadArrTF, "h 25!, w 350!, span, growx, gapright 5, wrap");
+		add(new JLabel("Or select view:"), "gap 5");
+		add(selectArrView, "h 25!, w 350!, span, growx, gapright 5, wrap");
+		
+		// parameter
+		add(new JXTitledSeparator("Options"),"growX, span, wrap, gaptop 5");
+		add(new JLabel("Algorithm"), "gap 17");
+		add(selectAlgo, "wrap");
+		add(new JXTitledSeparator("RADS scoring"),"gap 10, growX, span, wrap, gaptop 10");
+		add(radsOptionPanel, "span, wrap");
+		add(new JXTitledSeparator("RAMPAGE scoring"),"gap 10, growX, span, wrap");
+		add(rampageOptionPanel, "span, wrap");
+		
+		add(submit, "w 150!");
+		add(reset, "w 150!, wrap");
+		add(progressBar, "h 25!, gaptop 10, span, growX, wrap");
+		
+		// apply
+		add(new JXTitledSeparator("Apply Results"), "growx, span, wrap, gaptop 10");
+		add(apply, "split 2");
+		add(cancel, "");
+		add(browse, "");
+		add(showReport, "");
+	}
+	
+	/**
+	 * 
+	 * @param panel
+	 * @param enabled
+	 */
+	private void toggleComponents(JPanel panel, boolean enabled) {
+		Component[] comp = panel.getComponents();
+		for (Component c: comp)
+			c.setEnabled(enabled);
+	}
+	
+	/**
+	 * 
+	 */
+	private void loadSeqFromFile() {
+		loadSeqTF.setText("");
+		submit.setEnabled(false);
+		File file = FileDialogs.showOpenDialog(instance);
+		if (!(selectSeqView.getSelectedItem() == null)) {
+			selectSeqView.setSelectedItem(null);
+		}
+		if(file != null && file.canRead()) {
+			fastaEntries = SeqUtil.getFastaFromFile(file);
+			if (fastaEntries.size() == 0) {
+				MessageUtil.showWarning(parent, "File does not contain valid fasta entries");
+				return;
+			}
+			else if (fastaEntries.size() > 1)
+				MessageUtil.showInformation(parent, "The selected file has multiple arrangements. Only one will be considered");
+			
+			loadSeqTF.setText(file.getAbsolutePath());
+			loadArrTF.setText("");
+			pasteBox.setText("");
+			selectArrView.setSelectedItem(null);
+			selectedView = null;
+			submit.setEnabled(true);
+			
+		}
+	}
+	
+	
+	/**
+	 * 
+	 */
+	private void loadArrFromFile() {
+		loadArrTF.setText("");
+		submit.setEnabled(false);
+		File file = FileDialogs.showOpenDialog(instance);
+		if (!(selectArrView.getSelectedItem() == null)) {
+			selectArrView.setSelectedItem(null);
+		}
+		if(file != null && file.canRead()) {
+			xdomEntries = XdomUtil.getXdomsFromFile(file);
+			if (xdomEntries.size() == 0) {
+				MessageUtil.showWarning(parent, "File does not contain valid xdom entries");
+				return;
+			}
+			else if (xdomEntries.size() > 1)
+				MessageUtil.showInformation(parent, "The selected file has multiple arrangements. Only one will be considered");
+			
+			loadArrTF.setText(file.getAbsolutePath());
+			loadSeqTF.setText("");
+			pasteBox.setText(""); //TODO does not work
+			selectSeqView.setSelectedItem(null);
+			selectedView = null;
+			submit.setEnabled(true);
+		}
+	}
+
+
+	/**
+	 * 
+	 */
+	private void setDefaultValues() {
+		radsMatch.setText(""+RADSParms.DEFAULT_MATCHSCORE.getDeafultValue());
+		radsMismatch.setText(""+RADSParms.DEFAULT_MISMATCH_PEN.getDeafultValue());
+		radsIntGapOpen.setText(""+RADSParms.DEFAULT_INTERNAL_GAP_OPEN_PEN.getDeafultValue());
+		radsIntGapExt.setText(""+RADSParms.DEFAULT_INTERNAL_GAP_EXTEN_PEN.getDeafultValue());
+		radsTerGapOpen.setText(""+RADSParms.DEFAULT_TERMINAL_GAP_OPEN_PEN.getDeafultValue());
+		radsTerGapExt.setText(""+RADSParms.DEFAULT_TERMINAL_GAP_EXTEN_PEN.getDeafultValue());
+		rampageIntGapOpen.setText(""+RADSParms.RAM_DEFAULT_INTERNAL_GAP_OPEN_PEN.getDeafultValue());
+		rampageIntGapExt.setText(""+RADSParms.RAM_DEFAULT_INTERNAL_GAP_EXTEN_PEN.getDeafultValue());
+		rampageTerGapOpen.setText(""+RADSParms.RAM_DEFAULT_TERMINAL_GAP_OPEN_PEN.getDeafultValue());
+		rampageTerGapExt.setText(""+RADSParms.RAM_DEFAULT_TERMINAL_GAP_EXTEN_PEN.getDeafultValue());
+	}
+	
+
+	/**
+	 * 
+	 * @return
+	 */
 	private boolean buildQuery() {
 		
 		qBuilder = new RADSQueryBuilder();
@@ -570,6 +616,10 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 					}
 				}
 				else {
+					if ( !queryProtein.hasPfamDomains() ) {
+						MessageUtil.showWarning(parent, "RADS currently only supports Pfam - consider running RAMPAGE if sequences are available");
+						return false;
+					}
 					// no RAMPAGE run requested, use xdom
 					qBuilder.setQueryXdomString(queryProtein.toXdom());
 				}
@@ -578,7 +628,6 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		// check if sequence file was selected
 		else if (!(loadSeqTF.getText().equals(""))) {
 			qBuilder.setQueryFastaString(fastaEntries.get(0));
-//			queryProtein.setName(qBuilder.getQueryID());
 			queryProtein.setName(SeqUtil.getIDFromFasta(fastaEntries.get(0)));
 			if (selectAlgo.getSelectedItem().equals("RADS/RAMPAGE"))
 				qBuilder.setAlgorithm("rampage");
@@ -586,8 +635,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		// check if xdom file was selected
 		else if (!(loadArrTF.getText().equals(""))) {
 			qBuilder.setQueryXdomString(xdomEntries.get(0));
-			queryProtein.setName(qBuilder.getQueryID());
-			// warn if RAMPAGE run selected (as we have no sequences)
+			queryProtein.setName(XdomUtil.getIDFromXdom(xdomEntries.get(0)));
 			if (selectAlgo.getSelectedItem().equals("RADS/RAMPAGE")) {
 				MessageUtil.showWarning(parent, "RAMPAGE requires a sequence to run");
 				selectAlgo.setSelectedIndex(0);
@@ -599,6 +647,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 			System.out.println("This is in the paste box: "+pasteBox.getText());
 			if (SeqUtil.validFastaString(pasteBox.getText()) == SeqUtil.PROT) {
 				qBuilder.setQueryFastaString(pasteBox.getText());
+				System.out.println("ID: "+SeqUtil.getIDFromFasta(pasteBox.getText()));
 				queryProtein.setName(SeqUtil.getIDFromFasta(pasteBox.getText())); //TODO this does not work
 			}
 			else if (XdomUtil.validXdomString(pasteBox.getText())) {
@@ -612,14 +661,26 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		}
 		// else, check if the query protein was preselected (context dependant scan in tool frame)
 		else if (!(queryProtein == null)) {
-			qBuilder.setQueryXdomString(queryProtein.toXdom());
-			// warn if RAMPAGE run selected (as we have no sequences)
+			// warn if RAMPAGE run selected (if we have no sequences)
 			if (selectAlgo.getSelectedItem().equals("RADS/RAMPAGE")) {
 				if (!queryProtein.hasSeq()) {
 					MessageUtil.showWarning(parent, "RAMPAGE requires a sequence to run. Please select arrangement accordingly (or run RADS)");
 					selectAlgo.setSelectedIndex(0);
 					return false;
 				}
+				else {
+					qBuilder.setQueryFastaString(queryProtein.getSequence().toFasta(false));
+					//System.out.println(queryProtein.getSequence().toFasta(false));
+					qBuilder.setAlgorithm("rampage");
+				}
+				
+			}
+			else {
+				if ( !queryProtein.hasPfamDomains() ) {
+					MessageUtil.showWarning(parent, "RADS currently only supports Pfam - consider running RAMPAGE if sequences are available");
+					return false;
+				}
+				qBuilder.setQueryXdomString(queryProtein.toXdom());
 			}
 		}
 		// we have no input, cannot build query
@@ -632,6 +693,11 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		return true;
 	}
 	
+	
+	/**
+	 * 
+	 * @return
+	 */
 	private boolean validateParams() {
 		try {				
 			int matchScoreValue = Integer.valueOf(radsMatch.getText());
@@ -671,15 +737,19 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		return true;
 	}
 	
+	
+	/**
+	 * 
+	 */
 	private void submitScan() {
 		if (buildQuery()) {
 			if (validateParams()) {
-
 				submit.setText("Running scan");
 				submit.setEnabled(false);
 				reset.setEnabled(false);
 				qBuilder.setQuietMode(true);
 				radsService = new RADSService(qBuilder.build());
+				System.out.println(qBuilder.getQueryString());
 				progressBar.setIndeterminate(true);
 	
 				radsService.execute();
@@ -708,21 +778,31 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 						}
 					}
 				});
+				
 			}
 		}
 	}
 	
+	
+	/**
+	 * 
+	 */
 	private void createResultView() {
 		DomainArrangement[] hits = arrSet.get();
 		String defaultViewName = queryProtein.getName()+"-radscan";
 		
+		View currentView = null;
 		String viewName = null;
 		String projectName = null;
 		ProjectElement project = null;
 		
-		project = WorkspaceManager.getInstance().getSelectionManager().getSelectedProject();
-		System.out.println("Current project: "+project);
+		if (selectedView == null)
+			currentView = ViewHandler.getInstance().getActiveView();
+		else
+			currentView = selectedView;
 		
+		project = WorkspaceManager.getInstance().getViewElement(currentView.getViewInfo()).getProject();
+
 		@SuppressWarnings("rawtypes")
 		Map m = WizardManager.getInstance().selectNameWizard(defaultViewName, "RadScan results", project, true);
 		viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
@@ -740,3 +820,4 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	
 	
 }
+

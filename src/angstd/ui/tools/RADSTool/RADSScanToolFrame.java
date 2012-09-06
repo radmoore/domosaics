@@ -71,39 +71,28 @@ public class RADSScanToolFrame extends ToolFrame{
 		DomainViewI domView = (DomainViewI) ViewHandler.getInstance().getActiveView();
 
 		System.out.println("This is the active view: "+domView.getViewComponent().getName());
-		// create a domain view with just one arrangement
 		DomainArrangement[] daSet = new DomainArrangement[1];
 		daSet[0] = arrComp.getDomainArrangement();
 		SequenceI[] seq = new Sequence[1];
 		seq[0] = daSet[0].getSequence();
 		
 		domView = ViewHandler.getInstance().createView(ViewType.DOMAINS, "");
-		
 		domView.setDaSet(daSet);
 		
 		if (seq[0] != null)
 			domView.loadSequencesIntoDas(seq, daSet);
 		
 		// customize the domain view so it fits to the needs of this view
-		
-		/// remove the views specific menu
 		domView.getParentPane().removeToolbar();
-		
-		/// remove the mouse listeners and add a special one 
 		domView.removeMouseListeners();
-		
-		/// change default style to fit to screen
 		domView.getDomainLayoutManager().getActionManager().getAction(FitDomainsToScreenAction.class).setState(true);
-		
-		// TODO: does not work - I end up with different colors
-		/// take the domain colors from the original view
+
 		for (int i = 0; i < arrComp.getDomainArrangement().countDoms(); i++) {
 			DomainFamily fam = arrComp.getDomainArrangement().getDomain(i).getFamily();			
 			Color color = domView.getDomainColorManager().getDomainColor(fam);
 			domView.getDomainColorManager().setDomainColor(fam, color);
 		}
 		
-		// add the view to the views mainpanel and then the main panel to the frame
 		componentHolder.add(domView.getParentPane(), BorderLayout.NORTH);
 	}
     

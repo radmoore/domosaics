@@ -341,6 +341,10 @@ public class DomainArrangement implements Cloneable, AngstdData{
 		this.id = name;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean hasSeq() {
 		return seq != null;
 	}
@@ -370,6 +374,11 @@ public class DomainArrangement implements Cloneable, AngstdData{
 			seqLen = dom.getTo();
 	}
 	
+	/**
+	 * 
+	 * @param target
+	 * @param vals
+	 */
 	public void changeDomain(Domain target, Domain vals) {
 		target.setFamily(vals.getFamily());
 		target.setFrom(vals.getFrom());
@@ -422,5 +431,12 @@ public class DomainArrangement implements Cloneable, AngstdData{
 		return xdom.toString();
 	}
 	
-
+	public boolean hasPfamDomains() {
+		for (Domain d: doms) {
+			if ((d.getFamily().getDomainType().equals(DomainType.PFAM)) )
+				return true;
+		}
+		return false;
+	}
+	
 }

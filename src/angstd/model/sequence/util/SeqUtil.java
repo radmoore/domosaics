@@ -38,7 +38,7 @@ public class SeqUtil {
 	
 	public static final String NONVALIDRESEXP =  "[^FLIMVSPTAYHQNKDECWRGX*-]";
 	
-	
+	public static Pattern fastaHead = Pattern.compile(">\\s*(\\S+).*");
 	
 		
 	/**
@@ -147,11 +147,11 @@ public class SeqUtil {
 	
 	//TODO does not work
 	public static String getIDFromFasta(String fasta) {
-		String id = "";
 		String idline = fasta.split("\n")[0];
-		Pattern p = Pattern.compile(">\\s*(\\S+).*");
-		Matcher m = p.matcher(idline);
-		return m.group();
+		Matcher m = fastaHead.matcher(idline);
+		if (m.find())
+			return m.group(1);
+		else return "rawseq";
 	}
 	
 	public static ArrayList<String> getFastaFromFile(File fastaFile) {
@@ -171,7 +171,11 @@ public class SeqUtil {
 				}
 				fasta.append(line+"\n");
 			}
-			
+			if (fasta.length() > 0) {
+				if (SeqUtil.validFastaString(fasta.toString()) != SeqUtil.UNKNOWN)
+					entries.add(fasta.toString());
+			}
+			br.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

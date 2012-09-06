@@ -95,18 +95,6 @@ public class RadScanToolPanel extends JPanel implements ActionListener{
 		add(terOpenGapPen, "h 25!, split 3");
 		add(new JLabel("extend:"), "");
 		add(terExtenGapPen, "h 25!, wrap");
-//		
-//		add(domLenScoringCB, "gap 10, gaptop 10, split 2");
-//		add(new JLabel("Length scoring"), "span2, gap 1, gaptop 10, wrap");
-//		
-	
-//		add(new JXTitledSeparator("Post-processing"), "growx, span, wrap, gaptop 10");
-//		add(resolveOverlapsCB, "gap 10, gaptop 10, split 2");
-//		add(new JLabel("Resolve overlaps"), "span2, gap 1, gaptop 10, wrap");
-//		add(mergeHitsCB, "gap 10, gaptop 5, split 2");
-//		add(new JLabel("Merge split hits"), "span2, gap 1, gaptop 10, wrap");
-//		add(uniqueHits, "gap 10, gaptop 5, split 2");
-//		add(new JLabel("Merge split hits"), "span2, gap 1, gaptop 10, wrap");
 		
 		//add(new JLabel(" "), "gap 10, gaptop 10");
 		JPanel buttonPanel = new JPanel();
@@ -125,10 +113,6 @@ public class RadScanToolPanel extends JPanel implements ActionListener{
 	
 	
 	private void initComponents() {
-		
-//		URL radsImgPath = RadScanPanel.class.getResource("../../../webservices/RADS/ui/resources/aniblu.jpg");
-//		radsIcon = new ImageIcon(radsImgPath);
-//		radsIconLabel = new JLabel(radsIcon);
 		
 		domLenScoring = true;
 		uniqueArrs = false;
@@ -333,7 +317,7 @@ public class RadScanToolPanel extends JPanel implements ActionListener{
 	}
 	
 	private void closeRadsWindow(ActionEvent e) {
-		if (radsService.isRunning()) {
+		if (RADSService.isRunning()) {
 			boolean choice = MessageUtil.showDialog(this, "You are running RadScan. Your results will be lost. Are you sure?");
 			if (choice) {
 				radsService.cancelScan();
@@ -381,8 +365,7 @@ public class RadScanToolPanel extends JPanel implements ActionListener{
 					dom.setEvalue(evalue);
 				da.addDomain(dom);
 			}
-			// TODO: consider implementing comparable to avoid this
-			// (ie. define natural order)
+
 			da.sortDomains();
 			arrSet.add(da);
 			i++;
