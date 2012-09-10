@@ -413,9 +413,9 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		WorkspaceElement[] arrViews = viewList.toArray(new ViewElement[viewList.size()]);
 		
 		if (arrViews.length == 0) {
-			selectSeqView = new JComboBox<WorkspaceElement>(arrViews);
-			selectSeqView.setSelectedItem(null);
-			selectSeqView.setEnabled(false);
+			selectArrView = new JComboBox<WorkspaceElement>(arrViews);
+			selectArrView.setSelectedItem(null);
+			selectArrView.setEnabled(false);
 			return;
 		}
 		
@@ -694,7 +694,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		// we have no input, cannot build query
 		else {
 			submit.setEnabled(false);
-			MessageUtil.showWarning("Please enter a XDOM / FASTA or select a view");
+			MessageUtil.showWarning("Please provide a XDOM / FASTA or select a view");
 			return false;
 		}
 		// query was built
@@ -757,7 +757,6 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 				reset.setEnabled(false);
 				qBuilder.setQuietMode(true);
 				radsService = new RADSService(qBuilder.build());
-				System.out.println(qBuilder.getQueryString());
 				progressBar.setIndeterminate(true);
 				radsService.execute();
 				radsService.addPropertyChangeListener(new PropertyChangeListener() {

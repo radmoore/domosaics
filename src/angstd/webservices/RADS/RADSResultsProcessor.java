@@ -67,8 +67,7 @@ public class RADSResultsProcessor {
 			da.setSeqLen(p.getLength());
 			
 			for (RADSDomain resDom: p.getDomains()) {
-			
-				String acc = resDom.getID();
+				String acc = GatheringThresholdsReader.getAccFromID(resDom.getID());
 				DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(acc);
 				if (domFamily == null) {
 					domFamily = new DomainFamily(acc, acc, DomainType.getType(acc));
