@@ -885,7 +885,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		project = WorkspaceManager.getInstance().getViewElement(currentView.getViewInfo()).getProject();
 
 		@SuppressWarnings("rawtypes")
-		Map m = WizardManager.getInstance().selectNameWizard(defaultViewName, "RadScan results", project, true);
+		Map m = WizardManager.getInstance().selectNameWizard(defaultViewName, "RadScan", project, true);
 		viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
 		projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
 		project = WorkspaceManager.getInstance().getProject(projectName);
