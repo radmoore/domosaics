@@ -5,6 +5,8 @@ import info.radm.radscan.RADSResults;
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 
+import angstd.ui.views.view.View;
+
 /**
  * Interface that describes a RADSPanel. Ensures access
  * to some graphical components of the panel as well
@@ -44,5 +46,13 @@ public interface RADSPanelI {
 	 * @param checkScanState
 	 */
 	public void close(boolean checkScanState);
+	
+	/**
+	 * Provides access to a view. This can either be a user-selected view (combobox within 
+	 * a panel), or the currently active view 
+	 * 
+	 * @return - a view that matches the context of the scan
+	 */
+	public View getView();
 	
 }

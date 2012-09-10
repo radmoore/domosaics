@@ -3,6 +3,7 @@ package angstd.webservices.RADS;
 import info.radm.radscan.ds.RADSDomain;
 import info.radm.radscan.ds.RADSProtein;
 
+import java.awt.Color;
 import java.util.TreeSet;
 
 import javax.swing.JProgressBar;
@@ -13,7 +14,9 @@ import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainType;
 import angstd.model.arrangement.io.GatheringThresholdsReader;
+import angstd.ui.ViewHandler;
 import angstd.ui.util.MessageUtil;
+import angstd.ui.views.domainview.DomainViewI;
 
 /**
  * This class describes a RADSResultsProcessor, which performs
@@ -61,9 +64,15 @@ public class RADSResultsProcessor {
 		progressBar.setValue(0);
 		int i = 1;
 
+		//ProjectElement project = WorkspaceManager.getInstance().getViewElement(radsPanel.getView().getViewInfo()).getProject();
+		//DomainViewI view =  ViewHandler.getInstance().getView(viewElt.getViewInfo());
+		//DomainViewI domView = ViewHandler.getInstance().getView(radsPanel.getView().getViewInfo()) ;
+		
+		
 		ArrangementManager arrSet = new ArrangementManager();
 		DomainArrangement da; 
 		for (RADSProtein p: proteins) {
+			
 			progressBar.setValue(i);
 			da = new DomainArrangement();
 			da.setName(p.getID());

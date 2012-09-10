@@ -1,10 +1,10 @@
 package angstd.webservices.RADS.ui;
 
 import info.radm.radscan.RADSQueryBuilder;
-
 import info.radm.radscan.RADSResults;
 import info.radm.radscan.ds.RADSProtein;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,11 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-//import javax.swing.JScrollPane;
-//import javax.swing.JTextArea;
 import javax.swing.JTextField;
-//import javax.swing.event.DocumentEvent;
-//import javax.swing.event.DocumentListener;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -42,11 +38,15 @@ import angstd.model.workspace.ViewElement;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.ViewHandler;
 import angstd.ui.WorkspaceManager;
+import angstd.ui.tools.Tool;
+import angstd.ui.tools.RADSTool.RADSScanToolFrame;
+import angstd.ui.tools.RADSTool.RADSScanView;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainView;
 import angstd.ui.views.domainview.DomainViewI;
+import angstd.ui.views.domainview.manager.DomainColorManager;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.views.view.View;
 import angstd.ui.wizards.WizardListCellRenderer;
@@ -57,6 +57,10 @@ import angstd.webservices.RADS.RADSPanelI;
 import angstd.webservices.RADS.RADSParms;
 import angstd.webservices.RADS.RADSResultsProcessor;
 import angstd.webservices.RADS.RADSService;
+//import javax.swing.JScrollPane;
+//import javax.swing.JTextArea;
+//import javax.swing.event.DocumentEvent;
+//import javax.swing.event.DocumentListener;
 
 /**
  * This class describes the RADS scan panel that can be used to conduct
@@ -103,6 +107,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private ArrayList<String> fastaEntries;
 
 	private View selectedView = null;
+	private View currentView = null;
 	
 	
 	/**
@@ -183,6 +188,16 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		submit.setEnabled(true);
 	}
 
+	/**
+	 * see {@link RADSPanelI}
+	 */
+	public View getView() {
+		if (selectedView == null)
+			currentView = ViewHandler.getInstance().getActiveView();
+		else
+			currentView = selectedView;
+		return currentView;
+	}
 	
 	/**
 	 * see {@link RADSPanelI}
@@ -810,7 +825,6 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		return true;
 	}
 	
-	
 	/*
 	 * Submits the scan job via RADSService. First checks whether the 
 	 * RADSQuery could be build, and whether the set parameters were valid.
@@ -872,16 +886,11 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		DomainArrangement[] hits = arrSet.get();
 		String defaultViewName = queryProtein.getName()+"-radscan";
 		
-		View currentView = null;
+		View currentView = getView();
 		String viewName = null;
 		String projectName = null;
 		ProjectElement project = null;
-		
-		if (selectedView == null)
-			currentView = ViewHandler.getInstance().getActiveView();
-		else
-			currentView = selectedView;
-		
+
 		project = WorkspaceManager.getInstance().getViewElement(currentView.getViewInfo()).getProject();
 
 		@SuppressWarnings("rawtypes")
@@ -894,6 +903,11 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 			MessageUtil.showWarning("A valid view name is needed to complete this action");
 	
 		DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
+		// TODO if we want domain colors, something like this
+//		DomainColorManager domColorMan = domResultView.getDomainColorManager();
+//		DomainViewI domView = ViewHandler.getInstance().getView(currentView.getViewInfo()) ;
+//		Color color = domView.getDomainColorManager().getDomainColor(domFamily);
+//		System.out.println("Color: "+color.toString());
 		domResultView.setDaSet(hits);
 		ViewHandler.getInstance().addView(domResultView, project);
 		close(false);
