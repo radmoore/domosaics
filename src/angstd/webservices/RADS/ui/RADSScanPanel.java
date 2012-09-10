@@ -23,7 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 //import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+//import javax.swing.JTextArea;
 import javax.swing.JTextField;
 //import javax.swing.event.DocumentEvent;
 //import javax.swing.event.DocumentListener;
@@ -59,11 +59,22 @@ import angstd.webservices.RADS.RADSResultsProcessor;
 import angstd.webservices.RADS.RADSService;
 
 /**
+ * This class describes the RADS scan panel that can be used to conduct
+ * a scan against RADS and RAMPAGE. Besides implementing the ActionListner
+ * interface, it implements the RADSPanel interface (see {@link RADSPanelI})
+ * 
+ * The RADSScanPanel can be called via context menu of a domain arrangement
+ * in which case it classifies as a tool (see {@link RADSScanToolFrame}. In tool
+ * mode, the panel displays the arrangement which is used as query.
+ * 
  * @author <a href='http://radm.info'>Andrew D. Moore</a>
  *
  */
 public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI {
 
+	public static RADSScanPanel instance;
+	private static JFrame parent;
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel radsOptionPanel, rampageOptionPanel;
 	private JButton loadSeq, loadArr, submit, reset,
@@ -76,27 +87,43 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private JComboBox<String> selectAlgo;
 //	private JScrollPane pasteBoxSP;
 //	private JTextArea pasteBox;
-	private JFrame parent;
+	
 
 	private ArrangementManager arrSet;
 	private DomainArrangement queryProtein;
 	private TreeSet<RADSProtein> proteins;
-	
-	private RADSScanPanel instance;
+
 	private RADSService radsService = null;
 	private RADSResults results;
 	private RADSResultsProcessor resultProcessor;
 	private RADSQueryBuilder qBuilder;
+	private RADSResultDetailsPanel logPanel = null;
 	
 	private ArrayList<String> xdomEntries;
 	private ArrayList<String> fastaEntries;
 
 	private View selectedView = null;
 	
+	
 	/**
-	 * Constructor used when called stand alone
-	 *
+	 * This method provides access to the JFrame currently hosting 
+	 * the RADSScanPanel. This is needed as this panel can be embedded in
+	 * a tool frame called from an arrangement view, or a stand-alone frame
+	 * called from the main menu. This method can be used to ensure that only
+	 * one instance of this Panel is currently active.
+	 *  
+	 * @return - the current parent frame
 	 */
+	public static JFrame getCurrentRADSFrame() {
+		return parent;
+	}
+	
+	/**
+	 * Used to construct a new instance of RADSScanPanel when used in
+	 * tool mode. The RADSScanTool implements {@link Tool},
+	 * making it necessary to set the parent frame after an instance has been
+	 * created (the parent frame is set via {@link RADSScanPanel#setParentFrame(JFrame)}).
+	 **/
 	public RADSScanPanel() {
 		super(new MigLayout("", "[left]"));
 		initComponents();
@@ -104,28 +131,35 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		queryProtein = new DomainArrangement();
 	}
 	
+	
 	/**
-	 * Constructor used when called as tool
-	 *
+	 * Used to construct a new instance of the RADSScanPanel.
+	 *  
+	 * @param parent - the parent frame holding this panel
 	 */
 	public RADSScanPanel(JFrame parent) {
 		super(new MigLayout("", "[left]"));
 		initComponents();
-		this.parent = parent;
+		RADSScanPanel.parent = parent;
 		queryProtein = new DomainArrangement();
 		instance = this;
 	}
 	
 	/**
+	 * Sets the parent frame of this panel. This is only to
+	 * be used when instance creation is invoked via 
+	 * {@link RADSScanView}. 
 	 * 
-	 * @param parent
+	 * @param toolFrame - the parent (tool) frame
 	 */
-	public void setParentFrame(JFrame parent) {
-		this.parent = parent;
+	public void setParentFrame(JFrame toolFrame) {
+		RADSScanPanel.parent = toolFrame;
 	}
 	
 	/**
-	 * 
+	 * This method is used to set the query arrangement when 
+	 * the RADSScanPanel is used in tool mode. The query arrangement
+	 * for the scan is set to the clicked arrangement component. 
 	 * @param query
 	 */
 	public void setQueryArrangement(DomainArrangement query) {
@@ -133,7 +167,10 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	}
 	
 	/**
-	 * 
+	 * When the RADSScanPanel is called in tool mode, 
+	 * GUI elements used to set the query arrangement are disabled
+	 * as the query arrangement is set to the clicked arrangement
+	 * component (via {@link RADSScanPanel#setQueryArrangement(DomainArrangement)})
 	 */
 	public void setRADSScanToolMode() {
 //		pasteBox.setEnabled(false);
@@ -176,7 +213,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	}
 
 	/**
-	 * 
+	 * Methods called on RADSScanPanel ActionEvents 
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("loadSeqFromFile"))
@@ -191,18 +228,26 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 			submitScan();
 		if (e.getActionCommand().equals("createView"))
 			createResultView();
-		if (e.getActionCommand().equals("openLogWindow"))
-			RADSResultDetailsPanel.showResultsFrame(queryProtein, results, proteins);
+		if (e.getActionCommand().equals("openLogWindow")) {
+			openLogWindow();
+		}
 		if (e.getActionCommand().equals("openBrowseWindow"))
 			BrowserLauncher.openURL(results.getJobUrl());	
 	}
 
 	/**
+	 * This method is used to close the panel. If checkScanState is true,
+	 * the method will check whether there is currently a scan in progress
+	 * and will warn.
 	 * 
+	 * @param checkScanState - indicate whether scan state should be checked before closing
 	 */
 	public void close(boolean checkScanState) {
-		if (radsService == null)
+		if (radsService == null) {
 			parent.dispose();
+			if (logPanel != null)
+				logPanel.destroy();
+		}
 		else if (checkScanState) {
 			boolean choice = true;
 			if ( RADSService.isRunning() || (radsService.isDone() && radsService.hasResults()) )
@@ -210,14 +255,19 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 			if (choice) {
 				radsService.cancelScan();
 				parent.dispose();
+				if (logPanel != null)
+					logPanel.destroy();
 			}
 		}
-		else
+		else {
 			parent.dispose();
+			if (logPanel != null)
+				logPanel.destroy();
+		}
 	}
 	
-	/**
-	 * 
+	/*
+	 * Init the GUI components
 	 */
 	private void initComponents() {
 		initButtons();
@@ -246,8 +296,8 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	}
 
 	
-	/**
-	 * 
+	/*
+	 * Init the pasteBox (for pasting sequences or xdoms) 
 	 */
 //	private void initPasteBox() {
 //		pasteBox = new JTextArea(10, 50);
@@ -274,8 +324,8 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 //		pasteBoxSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 //	}
 
-	/**
-	 * 
+	/*
+	 * Init the RADS panel with fields for RADS parameters 
 	 */
 	private void initRadsPanel() {
 		radsMatch = new JTextField(5);
@@ -299,8 +349,8 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		radsOptionPanel.add(radsTerGapExt, "wrap");
 	}
 	
-	/**
-	 * 
+	/*
+	 * Init the RAMPAGE panel with fields for RAMPAGE parameters
 	 */
 	private void initRampagePanel() {
 		rampageIntGapOpen = new JTextField(5);
@@ -319,8 +369,8 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		toggleComponents(rampageOptionPanel, false);
 	}
 
-	/**
-	 * 
+	/*
+	 * Init all buttons used in the panel 
 	 */
 	private void initButtons() {
 		loadSeq = new JButton("Load fasta");
@@ -368,8 +418,9 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		showReport.setEnabled(false);
 	}
 	
-	/**
-	 * 
+	/*
+	 * Init the JComboBox used to select a sequence view from the
+	 * workspace 
 	 */
 	private void initSelectSeqView() {
 		List<WorkspaceElement> viewList = WorkspaceManager.getInstance().getSequenceViews();
@@ -405,8 +456,9 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		});
 	}
 	
-	/**
-	 * 
+	/*
+	 * Init the JComboBox used to select an arrangement view from the
+	 * workspace 
 	 */
 	private void initSelectArrView() {
 		List<WorkspaceElement> viewList = WorkspaceManager.getInstance().getDomainViews();
@@ -443,8 +495,8 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		});
 	}
 	
-	/**
-	 * 
+	/*
+	 * Put together the panel with all components 
 	 */
 	private void buildPanel() {
 
@@ -486,8 +538,9 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		add(showReport, "");
 	}
 	
-	/**
-	 * 
+	/*
+	 * Toggle panel components. This is used for toggling
+	 * the RAMPAGE panel when RAMPAGE is selected/deselected
 	 * @param panel
 	 * @param enabled
 	 */
@@ -498,16 +551,16 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	}
 	
 	
-	/**
-	 * 
+	/*
+	 * Used to clear the pasteBox 
 	 */
 //	private void clearPasteBox() {
 //		pasteBox.setText("");
 //	}
 	
 	
-	/**
-	 * 
+	/*
+	 * Action: used to load sequences from a file 
 	 */
 	private void loadSeqFromFile() {
 		loadSeqTF.setText("");
@@ -536,8 +589,8 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	}
 	
 	
-	/**
-	 * 
+	/*
+	 * Action: used to load Arrangements from a file 
 	 */
 	private void loadArrFromFile() {
 		loadArrTF.setText("");
@@ -565,8 +618,9 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	}
 
 
-	/**
-	 * 
+	/*
+	 * Action: used to reset all values of all panels
+	 * (RADS/RAMPAGE panels) 
 	 */
 	private void setDefaultValues() {
 		radsMatch.setText(""+RADSParms.DEFAULT_MATCHSCORE.getDeafultValue());
@@ -582,9 +636,19 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	}
 	
 
-	/**
-	 * 
-	 * @return
+	private void openLogWindow() {
+		if (logPanel == null)
+			logPanel = RADSResultDetailsPanel.createResultsFrame(queryProtein, results, proteins);	
+		logPanel.showFrame();
+	}
+	
+	
+	/*
+	 * Builds the RADS/RAMPAGE query. Will return true
+	 * if the query was build, false otherwise (e.g. if no
+	 * appropriate query was provided)
+	 *  
+	 * @return - true if query was build, false otherwise
 	 */
 	private boolean buildQuery() {
 		
@@ -702,9 +766,10 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	}
 	
 	
-	/**
+	/* 
+	 * Checks whether the parameters provided for RADS/RAMPAGE were valid
 	 * 
-	 * @return
+	 * @return - true if the RADS/RAMPAGE params were valid numbers, false otherwise
 	 */
 	private boolean validateParams() {
 		try {				
@@ -746,10 +811,21 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	}
 	
 	
-	/**
-	 * 
+	/*
+	 * Submits the scan job via RADSService. First checks whether the 
+	 * RADSQuery could be build, and whether the set parameters were valid.
+	 * Using a propertyChangeListner, this method will invoke the parsing
+	 * if scan results were found, and will inform if no results were found.  
 	 */
 	private void submitScan() {
+		// ensure that we do not have any results lying around
+		if ( radsService != null && radsService.isDone() && radsService.hasResults() ) {
+			boolean choice = true;
+			choice = MessageUtil.showDialog(parent, "Submitting this job will delete your current results. Are you sure?");
+			if (!choice)
+				return;
+		}
+		
 		if (buildQuery()) {
 			if (validateParams()) {
 				submit.setText("Running scan");
@@ -789,8 +865,8 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	}
 	
 	
-	/**
-	 * 
+	/* 
+	 * Constructs a new arrangement view of scan results
 	 */
 	private void createResultView() {
 		DomainArrangement[] hits = arrSet.get();

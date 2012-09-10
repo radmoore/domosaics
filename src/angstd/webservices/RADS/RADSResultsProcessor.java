@@ -1,12 +1,10 @@
 package angstd.webservices.RADS;
 
-import info.radm.radscan.RADSResults;
 import info.radm.radscan.ds.RADSDomain;
 import info.radm.radscan.ds.RADSProtein;
 
 import java.util.TreeSet;
 
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import angstd.model.arrangement.ArrangementManager;
@@ -18,33 +16,39 @@ import angstd.model.arrangement.io.GatheringThresholdsReader;
 import angstd.ui.util.MessageUtil;
 
 /**
+ * This class describes a RADSResultsProcessor, which performs
+ * the parsing of RADSScan Results. It has access to the RADSPanel
+ * (via {@link RADSPanelI}) to indicate the progression of the parsing,
+ * and to comunicate with the ScanPanel (i.e. show Popups etc).
  * 
  * @author <a href='http://radm.info'>Andrew D. Moore</a>
  *
  */
 public class RADSResultsProcessor {
 
-	private RADSResults results;
 	private TreeSet<RADSProtein> proteins;
 	private RADSPanelI radsPanel;
 	private JProgressBar progressBar;
 	private RADSService radsService; 	 
 	
 	/**
+	 * Constructs a new RADSResultsProcessor
 	 * 
-	 * @param radsPanel
+	 * @param radsPanel - the RADSPanel from which the scan was invoked 
 	 */
 	public RADSResultsProcessor(RADSPanelI radsPanel) {
 		this.radsPanel = radsPanel;
 		this.progressBar = radsPanel.getProgressBar();
 		this.radsService = radsPanel.getRadsService();
 		this.proteins = radsService.getHits();
-		this.results = radsService.getScanResults();
 	}
 	
 	/**
+	 * This methods parses the RADS results. Results are obtained
+	 * via the RADSPanel
 	 * 
-	 * @return
+	 * @return - an arrangement manager containing the scan results,
+	 * or null if no results were found
 	 */
 	public ArrangementManager process() {
 		if (proteins == null) {

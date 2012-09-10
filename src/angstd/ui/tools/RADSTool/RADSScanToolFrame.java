@@ -3,55 +3,64 @@ package angstd.ui.tools.RADSTool;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
-import angstd.model.configuration.Configuration;
 import angstd.model.sequence.Sequence;
 import angstd.model.sequence.SequenceI;
 import angstd.ui.ViewHandler;
 import angstd.ui.tools.ToolFrame;
-import angstd.ui.tools.changearrangement.components.ChangeArrangementMouseListener;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.actions.FitDomainsToScreenAction;
 import angstd.ui.views.domainview.components.ArrangementComponent;
-import angstd.ui.views.domainview.renderer.additional.HighlightDomainRenderer;
-import angstd.ui.views.view.AbstractView;
 import angstd.ui.views.view.View;
 import angstd.webservices.RADS.ui.RADSScanPanel;
 
 /**
+ * RADSScanToolFrame is the parent frame of a RADSScanPanel when
+ * called as a tool (from context menu of an arrangement).
+ * 
+ * See {@link RADSScanPanel}, {@link ToolFrame}
  * 
  * @author <a href='http://radm.info'>Andrew D. Moore</a>
  *
  */
 public class RADSScanToolFrame extends ToolFrame{
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private RADSScanView radsScanView;
 	private JPanel componentHolder;
 	private ArrangementComponent arrComp;
 
+	/**
+	 * Constructs a new ToolFrame
+	 */
 	public RADSScanToolFrame() {
 		super();
 		componentHolder = new JPanel(new BorderLayout());
 		componentHolder.setSize(533, 775);
 	}
     
+	
+	/**
+	 * Adds the view to this frame (see {@RADSScanView#setView})
+	 * 
+	 * @param view - an RADSScanView instance
+	 */
     public void addView(View view) {
     	this.radsScanView = (RADSScanView) view;
     	this.arrComp = radsScanView.getArrangementComponent();
     	setTitle(view.getViewInfo().getName());
     }
     
+    /**
+     * Sets the Panel which is embedded in this ToolFrame.
+     * 
+     * @param content - instance of RADSScanPanel
+     */
     public void setContent(JPanel content) {
     	RADSScanPanel scanPanel = (RADSScanPanel) content;
     	scanPanel.setParentFrame(this);
@@ -66,6 +75,11 @@ public class RADSScanToolFrame extends ToolFrame{
     	this.pack();
     }
     
+    /**
+     * Creates a small arrangement view to display the query arrangement
+     * in the RADSScanPanel. The clicked arrangement is set in the constructor via 
+     * {@link RADSScanView#getArrangementComponent()}
+     */
 	public void createQueryView() {
 		
 		DomainViewI domView = (DomainViewI) ViewHandler.getInstance().getActiveView();
@@ -80,7 +94,6 @@ public class RADSScanToolFrame extends ToolFrame{
 		if (seq[0] != null)
 			domView.loadSequencesIntoDas(seq, daSet);
 		
-		// customize the domain view so it fits to the needs of this view
 		domView.getParentPane().removeToolbar();
 		domView.removeMouseListeners();
 		domView.getDomainLayoutManager().getActionManager().getAction(FitDomainsToScreenAction.class).setState(true);
@@ -93,8 +106,5 @@ public class RADSScanToolFrame extends ToolFrame{
 		
 		componentHolder.add(domView.getParentPane(), BorderLayout.NORTH);
 	}
-    
-
-    
 
 }
