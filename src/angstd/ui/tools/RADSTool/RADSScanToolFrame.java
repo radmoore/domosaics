@@ -43,7 +43,7 @@ public class RADSScanToolFrame extends ToolFrame{
 	public RADSScanToolFrame() {
 		super();
 		componentHolder = new JPanel(new BorderLayout());
-		componentHolder.setSize(583, 774);
+		componentHolder.setSize(533, 775);
 	}
     
     public void addView(View view) {
@@ -59,6 +59,7 @@ public class RADSScanToolFrame extends ToolFrame{
     	scanPanel.setQueryArrangement(arrComp.getDomainArrangement());
     	createQueryView();
     	componentHolder.add(content, BorderLayout.SOUTH);
+    	componentHolder.add(content);
     	this.setContentPane(componentHolder);
     	this.setResizable(false);
 		setAlwaysOnTop(true);
@@ -67,10 +68,7 @@ public class RADSScanToolFrame extends ToolFrame{
     
 	public void createQueryView() {
 		
-		// TODO this does not work (see below)
 		DomainViewI domView = (DomainViewI) ViewHandler.getInstance().getActiveView();
-
-		System.out.println("This is the active view: "+domView.getViewComponent().getName());
 		DomainArrangement[] daSet = new DomainArrangement[1];
 		daSet[0] = arrComp.getDomainArrangement();
 		SequenceI[] seq = new Sequence[1];

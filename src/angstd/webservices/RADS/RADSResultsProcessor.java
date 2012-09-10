@@ -61,7 +61,6 @@ public class RADSResultsProcessor {
 		DomainArrangement da; 
 		for (RADSProtein p: proteins) {
 			progressBar.setValue(i);
-			progressBar.setString("Processing hit "+i+ " of "+progressBar.getMaximum());
 			da = new DomainArrangement();
 			da.setName(p.getID());
 			da.setSeqLen(p.getLength());
