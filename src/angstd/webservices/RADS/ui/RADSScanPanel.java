@@ -22,11 +22,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
+//import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+//import javax.swing.event.DocumentEvent;
+//import javax.swing.event.DocumentListener;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -74,8 +74,8 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private JProgressBar progressBar;
 	private JComboBox<WorkspaceElement> selectSeqView, selectArrView;
 	private JComboBox<String> selectAlgo;
-	private JScrollPane pasteBoxSP;
-	private JTextArea pasteBox;
+//	private JScrollPane pasteBoxSP;
+//	private JTextArea pasteBox;
 	private JFrame parent;
 
 	private ArrangementManager arrSet;
@@ -136,7 +136,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	 * 
 	 */
 	public void setRADSScanToolMode() {
-		pasteBox.setEnabled(false);
+//		pasteBox.setEnabled(false);
 		selectSeqView.setEnabled(false);
 		selectArrView.setEnabled(false);
 		loadSeq.setEnabled(false);
@@ -228,7 +228,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		setDefaultValues();
 		initSelectSeqView();
 		initSelectArrView();
-		initPasteBox();
+//		initPasteBox();
 		progressBar = new JProgressBar();
 		String[] algos = {"RADS", "RADS/RAMPAGE"};
 		selectAlgo = new JComboBox<String>(algos);
@@ -249,30 +249,30 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	/**
 	 * 
 	 */
-	private void initPasteBox() {
-		pasteBox = new JTextArea(10, 50);
-		pasteBox.getDocument().addDocumentListener(new DocumentListener() {
-			public void removeUpdate(DocumentEvent e) {	}
-			public void insertUpdate(DocumentEvent e) {	
-				loadSeqTF.setText("");
-				loadArrTF.setText("");
-				selectSeqView.setSelectedItem(null);
-				selectArrView.setSelectedItem(null);
-				selectedView = null;
-				submit.setEnabled(true);
-			}
-			public void changedUpdate(DocumentEvent e) { 
-				loadSeqTF.setText("");
-				loadArrTF.setText("");
-				selectSeqView.setSelectedItem(null);
-				selectArrView.setSelectedItem(null);
-				selectedView = null;
-				submit.setEnabled(true);
-			}
-		});
-		pasteBoxSP = new JScrollPane(pasteBox);
-		pasteBoxSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-	}
+//	private void initPasteBox() {
+//		pasteBox = new JTextArea(10, 50);
+//		pasteBox.getDocument().addDocumentListener(new DocumentListener() {
+//			public void removeUpdate(DocumentEvent e) {	}
+//			public void insertUpdate(DocumentEvent e) {	
+//				loadSeqTF.setText("");
+//				loadArrTF.setText("");
+//				selectSeqView.setSelectedItem(null);
+//				selectArrView.setSelectedItem(null);
+//				selectedView = null;
+//				submit.setEnabled(true);
+//			}
+//			public void changedUpdate(DocumentEvent e) { 
+//				loadSeqTF.setText("");
+//				loadArrTF.setText("");
+//				selectSeqView.setSelectedItem(null);
+//				selectArrView.setSelectedItem(null);
+//				selectedView = null;
+//				submit.setEnabled(true);
+//			}
+//		});
+//		pasteBoxSP = new JScrollPane(pasteBox);
+//		pasteBoxSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//	}
 
 	/**
 	 * 
@@ -388,13 +388,12 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		selectSeqView.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt) {
 				loadSeqTF.setText("");
+//				clearPasteBox();
 				@SuppressWarnings({ "unchecked" })
 				JComboBox<WorkspaceElement> cb = (JComboBox<WorkspaceElement>)evt.getSource();
 				ViewElement selected = (ViewElement)cb.getSelectedItem();
 				if (selected == null)
 					return;
-				
-
 				selectedView = ViewHandler.getInstance().getView(selected.getViewInfo());
 				SequenceView seqView = (SequenceView) selectedView;
 				if (seqView.getSequences().length > 1)
@@ -402,7 +401,6 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 				selectArrView.setSelectedItem(null);
 				loadArrTF.setText("");
 				submit.setEnabled(true);
-				
 			}
 		});
 	}
@@ -427,6 +425,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		selectArrView.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt) {
 				loadArrTF.setText("");
+//				clearPasteBox();
 				@SuppressWarnings({ "unchecked" })
 				JComboBox<WorkspaceElement> cb = (JComboBox<WorkspaceElement>)evt.getSource();
 				ViewElement selected = (ViewElement)cb.getSelectedItem();
@@ -438,7 +437,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 				if (domView.getDaSet().length > 1)
 					MessageUtil.showInformation(parent, "The selected view has multiple arrangements. Only one will be considered");
 				selectSeqView.setSelectedItem(null);
-				loadSeqTF.setText(""); //TODO
+				loadSeqTF.setText("");
 				submit.setEnabled(true);
 			}
 		});
@@ -449,11 +448,8 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	 */
 	private void buildPanel() {
 
-		//TODO: pasteBox if no query selected, otherwise display query arrangement
-		// (instead of pastebox). Consider: if no sequences are present,
-		// disable algorithm select
-		add(new JXTitledSeparator("Paste protein (xdom / fasta / UniProt ID)"), "growx, span, wrap");
-		add(pasteBoxSP, "gap 5, wrap, span, growX");
+//		add(new JXTitledSeparator("Paste protein (xdom / fasta / UniProt ID)"), "growx, span, wrap");
+//		add(pasteBoxSP, "gap 5, wrap, span, growX");
 		
 		// sequences
 		add(new JXTitledSeparator("Sequences"), "growx, span, wrap");
@@ -501,6 +497,15 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 			c.setEnabled(enabled);
 	}
 	
+	
+	/**
+	 * 
+	 */
+//	private void clearPasteBox() {
+//		pasteBox.setText("");
+//	}
+	
+	
 	/**
 	 * 
 	 */
@@ -522,7 +527,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 			
 			loadSeqTF.setText(file.getAbsolutePath());
 			loadArrTF.setText("");
-			pasteBox.setText("");
+//			pasteBox.setText("");
 			selectArrView.setSelectedItem(null);
 			selectedView = null;
 			submit.setEnabled(true);
@@ -552,7 +557,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 			
 			loadArrTF.setText(file.getAbsolutePath());
 			loadSeqTF.setText("");
-			pasteBox.setText(""); //TODO does not work
+//			pasteBox.setText("");
 			selectSeqView.setSelectedItem(null);
 			selectedView = null;
 			submit.setEnabled(true);
@@ -642,23 +647,26 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 				return false;
 			}
 		}
-		// check if the paste box is in use
-		else if (!(pasteBox.getText().equals(""))) {
-			System.out.println("This is in the paste box: "+pasteBox.getText());
-			if (SeqUtil.validFastaString(pasteBox.getText()) == SeqUtil.PROT) {
-				qBuilder.setQueryFastaString(pasteBox.getText());
-				System.out.println("ID: "+SeqUtil.getIDFromFasta(pasteBox.getText()));
-				queryProtein.setName(SeqUtil.getIDFromFasta(pasteBox.getText())); //TODO this does not work
-			}
-			else if (XdomUtil.validXdomString(pasteBox.getText())) {
-				qBuilder.setQueryXdomString(pasteBox.getText());
-				queryProtein.setName(XdomUtil.getIDFromXdom(pasteBox.getText())); //TODO this does not work
-			}
-			else {
-				MessageUtil.showWarning(parent, "RADS/RAMPAGE requires a valid amino acid fasta or xdom entry to run");
-				return false;
-			}
-		}
+//		// check if the paste box is in use
+//		else if (!(pasteBox.getText().equals(""))) {
+//			if (SeqUtil.validFastaString(pasteBox.getText()) == SeqUtil.PROT) {
+//				qBuilder.setQueryFastaString(pasteBox.getText());
+//				queryProtein.setName(SeqUtil.getIDFromFasta(pasteBox.getText()));
+//			}
+//			else if (XdomUtil.validXdomString(pasteBox.getText())) {
+//				if (selectAlgo.getSelectedItem().equals("RADS/RAMPAGE")) {
+//					MessageUtil.showWarning(parent, "RAMPAGE requires a sequence to run");
+//					selectAlgo.setSelectedIndex(0);
+//					return false;
+//				}
+//				qBuilder.setQueryXdomString(pasteBox.getText());
+//				queryProtein.setName(XdomUtil.getIDFromXdom(pasteBox.getText()));
+//			}
+//			else {
+//				MessageUtil.showWarning(parent, "RADS/RAMPAGE requires a valid amino acid fasta or xdom entry to run");
+//				return false;
+//			}
+//		}
 		// else, check if the query protein was preselected (context dependant scan in tool frame)
 		else if (!(queryProtein == null)) {
 			// warn if RAMPAGE run selected (if we have no sequences)
@@ -751,9 +759,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 				radsService = new RADSService(qBuilder.build());
 				System.out.println(qBuilder.getQueryString());
 				progressBar.setIndeterminate(true);
-	
 				radsService.execute();
-				
 				radsService.addPropertyChangeListener(new PropertyChangeListener() {
 					public void propertyChange(PropertyChangeEvent evt) {
 						if ("state".equals(evt.getPropertyName())) {
