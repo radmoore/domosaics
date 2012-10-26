@@ -4,7 +4,6 @@ import info.radm.radscan.RADSQueryBuilder;
 import info.radm.radscan.RADSResults;
 import info.radm.radscan.ds.RADSProtein;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,7 +45,6 @@ import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainView;
 import angstd.ui.views.domainview.DomainViewI;
-import angstd.ui.views.domainview.manager.DomainColorManager;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.views.view.View;
 import angstd.ui.wizards.WizardListCellRenderer;
@@ -56,6 +54,7 @@ import angstd.util.BrowserLauncher;
 import angstd.webservices.RADS.RADSPanelI;
 import angstd.webservices.RADS.RADSParms;
 import angstd.webservices.RADS.RADSResultsProcessor;
+import angstd.webservices.RADS.RADSResultsTableModel;
 import angstd.webservices.RADS.RADSService;
 //import javax.swing.JScrollPane;
 //import javax.swing.JTextArea;
@@ -102,6 +101,8 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private RADSResultsProcessor resultProcessor;
 	private RADSQueryBuilder qBuilder;
 	private RADSResultDetailsPanel logPanel = null;
+	private RADSResultsTablePanel resultTable = null;
+	private RADSResultsTableModel resultsTableModel;
 	
 	private ArrayList<String> xdomEntries;
 	private ArrayList<String> fastaEntries;
@@ -245,6 +246,9 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 			createResultView();
 		if (e.getActionCommand().equals("openLogWindow")) {
 			openLogWindow();
+		}
+		if (e.getActionCommand().equals("openResultsTable")) {
+			openResultTable();
 		}
 		if (e.getActionCommand().equals("openBrowseWindow"))
 			BrowserLauncher.openURL(results.getJobUrl());	
@@ -426,9 +430,11 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		browse.addActionListener(this);
 		browse.setEnabled(false);
 		
-		showReport = new JButton("Show scan log");
+		//showReport = new JButton("Show scan log");
+		showReport = new JButton("Show Results Table");
 		showReport.setToolTipText("Show RADS scan log");
-		showReport.setActionCommand("openLogWindow");
+		//showReport.setActionCommand("openLogWindow");
+		showReport.setActionCommand("openResultsTable");
 		showReport.addActionListener(this);
 		showReport.setEnabled(false);
 	}
@@ -653,10 +659,17 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 
 	private void openLogWindow() {
 		if (logPanel == null)
-			logPanel = RADSResultDetailsPanel.createResultsFrame(queryProtein, results, proteins);	
+			logPanel = RADSResultDetailsPanel.createResultsFrame(queryProtein, results, proteins);
+			
 		logPanel.showFrame();
 	}
 	
+	private void openResultTable() {
+		if (resultTable == null)
+			resultTable = RADSResultsTablePanel.createResultsTableFrame(queryProtein, results, resultsTableModel);
+		
+		resultTable.showFrame();
+	}
 	
 	/*
 	 * Builds the RADS/RAMPAGE query. Will return true
@@ -860,7 +873,10 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 								submit.setEnabled(true);
 								results = radsService.getScanResults();
 								resultProcessor = new RADSResultsProcessor(instance);
+								//TODO should retrun a table model
 								arrSet = resultProcessor.process();
+								resultsTableModel = resultProcessor.createResultTable();
+								
 								progressBar.setString("Scan complete");
 								if (arrSet != null) {
 									apply.setEnabled(true);
@@ -878,7 +894,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		}
 	}
 	
-	
+	//TODO this will change now (when a JTable is used)
 	/* 
 	 * Constructs a new arrangement view of scan results
 	 */

@@ -126,7 +126,7 @@ public class ExampleDatasetLoader {
 	}
 	
 	/**
-	 * Helper method to do the actually loading and view creation.
+	 * Helper method to do the actual loading and view creation.
 	 */
 	private static void loadViews() {
 		
