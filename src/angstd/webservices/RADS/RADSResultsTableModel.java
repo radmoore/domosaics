@@ -10,7 +10,7 @@ public class RADSResultsTableModel extends AbstractTableModel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String[] columnNames = {"SCORE", "ARRANGEMENT"};
+	private String[] columnNames = {"ACC", "SCORE", "ARRANGEMENT"};
 	private Object[][] tableData = null;
 	private ArrangementManager arrSet = null; // ArrangementManager of arrangements in this table TODO: convert on the fly?
 	

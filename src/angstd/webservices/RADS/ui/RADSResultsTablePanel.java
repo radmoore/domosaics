@@ -2,7 +2,8 @@ package angstd.webservices.RADS.ui;
 
 import info.radm.radscan.RADSResults;
 
-import java.awt.Dimension;
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -18,7 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -27,6 +29,8 @@ import org.jdesktop.swingx.JXTitledSeparator;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.util.MessageUtil;
+import angstd.ui.views.domainview.DomainViewI;
+import angstd.ui.views.domainview.actions.FitDomainsToScreenAction;
 import angstd.util.BrowserLauncher;
 import angstd.util.URLReader;
 import angstd.webservices.RADS.RADSResultsTableModel;
@@ -47,6 +51,7 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	private RADSResults results;
 	private JFrame frame;
 	private JButton save, close, seeOnline;
+	private JTable resultTable;
 	private StringBuffer crampageLog = null;
 	private DomainArrangement queryProtein;
 	private RADSResultsTableModel resultTableModel;
@@ -93,8 +98,22 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		this.queryProtein = queryProtein;
 		this.results = results;
 		this.resultTableModel = resultTableModel;
+		initTable();
 		initPanel();
 	 }
+	
+	private void initTable() {
+		resultTable = new JTable(resultTableModel);
+		resultTable.setRowHeight(58);
+		TableColumn idCol = resultTable.getColumnModel().getColumn(0);
+		TableColumn scoreCol = resultTable.getColumnModel().getColumn(1);
+		TableColumn arrCol = resultTable.getColumnModel().getColumn(2);
+		idCol.setWidth(50);
+		scoreCol.setWidth(50);
+		arrCol.setWidth(400);
+		arrCol.setCellRenderer(new ArrangementTableCellRenderer());
+	}
+	
 	
 	/*
 	 * Calls the log reading method and constructs the panel
@@ -120,7 +139,6 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		seeOnline.addActionListener(this);
 
 		
-		JTable resultTable = new JTable(resultTableModel);
 		//resultTable.setPreferredScrollableViewportSize(new Dimension(500, 70));
 	    resultTable.setFillsViewportHeight(true);;
 		
@@ -206,6 +224,41 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 			e.printStackTrace();
 		}
 		MessageUtil.showInformation(null, "Scan log written to "+outFile.getAbsolutePath());
+	}
+	
+	
+	private class ArrangementTableCellRenderer implements TableCellRenderer {
+
+		public Component getTableCellRendererComponent(JTable table,
+				Object value, boolean isSelected, boolean hasFocus, int row,
+				int column) {
+			
+			if (isSelected) {
+				// TODO
+			}
+			if (hasFocus) {
+				// TODO
+			}
+			
+			
+			//JPanel panel = new JPanel();
+			//panel.setSize(200, 100);
+			
+			
+			DomainViewI domView = (DomainViewI) value;
+			
+			//domView.a
+			domView.getParentPane().removeToolbar();
+			domView.removeMouseListeners();
+			domView.getDomainLayoutManager().getActionManager().getAction(FitDomainsToScreenAction.class).setState(true);
+			//panel.add(domView.getParentPane(), BorderLayout.NORTH);
+			//parentFrame.add(panel);
+			//frame.setSize(200, 100);
+			//panel.setSize(panel.getPreferredSize());
+			//System.out.println("Arr panel height: "+panel.getSize());
+			return (Component) domView;
+		}
+		
 	}
 	
 }

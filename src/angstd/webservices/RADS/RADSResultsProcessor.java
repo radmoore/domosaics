@@ -4,11 +4,13 @@ import info.radm.radscan.ds.RADSDomain;
 import info.radm.radscan.ds.RADSProtein;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Component;
 import java.util.TreeSet;
 
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
 
 import angstd.model.arrangement.ArrangementManager;
 import angstd.model.arrangement.Domain;
@@ -68,7 +70,8 @@ public class RADSResultsProcessor {
 		RADSResultsTableModel resultTableModel = new RADSResultsTableModel();
 		DomainArrangement da;
 		
-		Object[][] tableData = new Object[proteins.size()][2];	
+		Object[][] tableData = new Object[proteins.size()][3];
+		
 		
 		for (RADSProtein p: proteins) {
 			
@@ -94,32 +97,34 @@ public class RADSResultsProcessor {
 			}
 			da.sortDomains();
 			tableData[tableIndex][0] = p.getRADSScore();
+			tableData[tableIndex][1] = p.getID();
 			//tableData[tableIndex][1] = TODO: graphical component ui.tools.RADSTool.RADSToolFrame
 			
 			ArrangementComponent arrComp = new ArrangementComponent(da, null);
+			arrComp.setRenderID(false);
 			DomainArrangement[] daSet = new DomainArrangement[1];
 			daSet[0] = arrComp.getDomainArrangement();
 			
 			DomainViewI domView = ViewHandler.getInstance().createView(ViewType.DOMAINS, "");
 			domView.setDaSet(daSet);
-			domView.getParentPane().removeToolbar();
-			domView.removeMouseListeners();
-			domView.getDomainLayoutManager().getActionManager().getAction(FitDomainsToScreenAction.class).setState(true);
+
 			
 //			for (int j = 0; j < arrComp.getDomainArrangement().countDoms(); j++) {
 //				DomainFamily fam = arrComp.getDomainArrangement().getDomain(j).getFamily();			
 //				Color color = domView.getDomainColorManager().getDomainColor(fam);
 //				domView.getDomainColorManager().setDomainColor(fam, color);
 //			}
-			JPanel arrPanel = new JPanel();
-			arrPanel.add(domView.getParentPane(), BorderLayout.NORTH);
+//			JPanel arrPanel = new JPanel();
+//			arrPanel.add(domView.getParentPane(), BorderLayout.NORTH);
 			
-			tableData[tableIndex][1] = arrPanel; 
+			tableData[tableIndex][2] = domView; 
 			//tableData[tableIndex][1] = p.getArrString();
 			
 			tableIndex++;
 			//arrSet.add(da);
 			i++;
+			if (i > 10)
+				break;
 		}
 		resultTableModel.setTableData(tableData);
 		return resultTableModel;
@@ -178,6 +183,8 @@ public class RADSResultsProcessor {
 		}
 		return arrSet;
 	}
+	
+
 	
 	
 }

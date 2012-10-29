@@ -136,7 +136,9 @@ public class DefaultDomainViewRenderer implements DomainViewRenderer{
 				if (dac.getBounds().getY()-dac.getBounds().getHeight() > g.getClipBounds().y+g.getClipBounds().height)
 					break;
 
-				renderLabel(dac, g);
+				if (dac.renderWithID())
+					renderLabel(dac, g);
+				
 				daRenderer.renderArrangement(dac, view, g);
 			}
 		}
