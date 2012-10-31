@@ -70,7 +70,7 @@ public class RADSResultsProcessor {
 		RADSResultsTableModel resultTableModel = new RADSResultsTableModel();
 		DomainArrangement da;
 		
-		Object[][] tableData = new Object[proteins.size()][3];
+		Object[][] tableData = new Object[proteins.size()][5];
 		
 		
 		for (RADSProtein p: proteins) {
@@ -96,11 +96,14 @@ public class RADSResultsProcessor {
 				da.addDomain(dom);
 			}
 			da.sortDomains();
-			tableData[tableIndex][0] = p.getRADSScore();
-			tableData[tableIndex][1] = p.getID();
+			tableData[tableIndex][0] = i;
+			tableData[tableIndex][1] = new Boolean(false);
+			tableData[tableIndex][2] = p.getRADSScore();
+			tableData[tableIndex][3] = p.getID();
 			//tableData[tableIndex][1] = TODO: graphical component ui.tools.RADSTool.RADSToolFrame
 			
 			ArrangementComponent arrComp = new ArrangementComponent(da, null);
+			//TODO this does not work as it should
 			arrComp.setRenderID(false);
 			DomainArrangement[] daSet = new DomainArrangement[1];
 			daSet[0] = arrComp.getDomainArrangement();
@@ -117,14 +120,16 @@ public class RADSResultsProcessor {
 //			JPanel arrPanel = new JPanel();
 //			arrPanel.add(domView.getParentPane(), BorderLayout.NORTH);
 			
-			tableData[tableIndex][2] = domView; 
-			//tableData[tableIndex][1] = p.getArrString();
+			//tableData[tableIndex][2] = domView;
+			tableData[tableIndex][4] = p.getArrString();
+			
+			
 			
 			tableIndex++;
 			//arrSet.add(da);
 			i++;
-			if (i > 10)
-				break;
+//			if (i > 10)
+//				break;
 		}
 		resultTableModel.setTableData(tableData);
 		return resultTableModel;

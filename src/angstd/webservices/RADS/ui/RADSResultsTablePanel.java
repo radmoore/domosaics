@@ -3,6 +3,7 @@ package angstd.webservices.RADS.ui;
 import info.radm.radscan.RADSResults;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,8 +28,11 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 
 import angstd.model.arrangement.DomainArrangement;
+import angstd.model.arrangement.DomainFamily;
+import angstd.ui.ViewHandler;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.util.MessageUtil;
+import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.actions.FitDomainsToScreenAction;
 import angstd.util.BrowserLauncher;
@@ -55,6 +59,9 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	private StringBuffer crampageLog = null;
 	private DomainArrangement queryProtein;
 	private RADSResultsTableModel resultTableModel;
+	
+	private JPanel queryPanel;
+	private DomainViewI queryDomainView;
 	
 	private static RADSResultsTablePanel instance = null;
 	
@@ -98,20 +105,44 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		this.queryProtein = queryProtein;
 		this.results = results;
 		this.resultTableModel = resultTableModel;
+		initQueryPanel();
 		initTable();
 		initPanel();
 	 }
 	
+	private void initQueryPanel() {
+		queryPanel = new JPanel();
+		DomainArrangement[] daSet = new DomainArrangement[1];
+		daSet[0] = queryProtein;
+
+		queryDomainView = ViewHandler.getInstance().createView(ViewType.DOMAINS, "");
+		queryDomainView.setDaSet(daSet);
+		
+		queryDomainView.getParentPane().removeToolbar();
+		queryDomainView.removeMouseListeners();
+		queryDomainView.getDomainLayoutManager().getActionManager().getAction(FitDomainsToScreenAction.class).setState(true);
+
+		for (int i = 0; i < queryProtein.countDoms(); i++) {
+			DomainFamily fam = queryProtein.getDomain(i).getFamily();			
+			Color color = queryDomainView.getDomainColorManager().getDomainColor(fam);
+			queryDomainView.getDomainColorManager().setDomainColor(fam, color);
+		}
+	}
+	
 	private void initTable() {
 		resultTable = new JTable(resultTableModel);
-		resultTable.setRowHeight(58);
-		TableColumn idCol = resultTable.getColumnModel().getColumn(0);
-		TableColumn scoreCol = resultTable.getColumnModel().getColumn(1);
-		TableColumn arrCol = resultTable.getColumnModel().getColumn(2);
-		idCol.setWidth(50);
-		scoreCol.setWidth(50);
-		arrCol.setWidth(400);
-		arrCol.setCellRenderer(new ArrangementTableCellRenderer());
+		//resultTable.setRowHeight(58);
+		TableColumn selectCol = resultTable.getColumnModel().getColumn(0);
+		TableColumn hitCountCol = resultTable.getColumnModel().getColumn(1);
+		TableColumn idCol = resultTable.getColumnModel().getColumn(2);
+		TableColumn scoreCol = resultTable.getColumnModel().getColumn(3);
+		TableColumn arrCol = resultTable.getColumnModel().getColumn(4);
+		selectCol.setPreferredWidth(25);
+		hitCountCol.setPreferredWidth(50);
+		idCol.setPreferredWidth(50);
+		scoreCol.setPreferredWidth(50);
+		arrCol.setPreferredWidth(400);
+		//arrCol.setCellRenderer(new ArrangementTableCellRenderer());
 	}
 	
 	
@@ -155,8 +186,12 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		add(new JLabel(results.getQuery().getDatabase()), "wrap");
 		add(new JLabel("Total hits:"), "gapleft 10");
 		add(new JLabel(""+results.getHitsNumber()), "wrap");
+		
+		
 		//add(new JLabel("Total arrangements:"), "gapleft 10");
 		//add(new JLabel(""+RADSProtein.getUniqueArchitectures(proteins).size()), "wrap");
+		//add(new JXTitledSeparator("Query Arrangement"), "growx, span, wrap, gaptop 10");
+		//add(queryDomainView.getParentPane(), "wrap, span");
 		
 		add(new JXTitledSeparator("RADS Results"), "growx, span, wrap, gaptop 10");
 		add(jScrollPane, "h 100::400, w 600!, growx, span");
@@ -239,12 +274,7 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 			if (hasFocus) {
 				// TODO
 			}
-			
-			
-			//JPanel panel = new JPanel();
-			//panel.setSize(200, 100);
-			
-			
+
 			DomainViewI domView = (DomainViewI) value;
 			
 			//domView.a
