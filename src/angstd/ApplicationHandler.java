@@ -208,7 +208,7 @@ public class ApplicationHandler {
 	public void start() {
 		startUpProgress = new StartupPage();
 		
-		startUpProgress.setProgress("Loading AnGSTD", 5);
+		startUpProgress.setProgress("Loading DoMosaics", 5);
 		initPreferences();
 		
 		startUpProgress.setProgress("Initiating workspace", 25);
@@ -329,7 +329,7 @@ public class ApplicationHandler {
 			Configuration.getInstance().setLockFile();
 		}
 		else {
-			MessageUtil.showWarning(startUpProgress, "The default workspace is in use. Please close all AnGSTD instances and try again. ");
+			MessageUtil.showWarning(startUpProgress, "The default workspace is in use. Please close all DoMosaics instances and try again. ");
 			System.exit(0);
 		}
 	}
@@ -351,7 +351,7 @@ public class ApplicationHandler {
 	private class StartupPage extends Frame {
 		private static final long serialVersionUID = 1L;
 		
-		private static final String LOGOPATH = "ui/resources/angstd_logo4.png";
+		private static final String LOGOPATH = "ui/resources/domosaics_startup_2.png";
 //		private static final String LOGOPATH = "ui/resources/domosaic_startup.png";
 		
 		protected JProgressBar progressBar;
