@@ -35,9 +35,12 @@ import angstd.ui.io.menureader.MenuActionManager;
 import angstd.ui.io.menureader.MenuReader;
 import angstd.ui.tools.configuration.ConfigurationFrame;
 import angstd.ui.util.FileDialogs;
+import angstd.ui.util.MessageUtil;
 import angstd.ui.views.view.View;
 import angstd.ui.wizards.WizardManager;
+import angstd.webservices.RADS.RADSService;
 import angstd.webservices.RADS.ui.RADSFrame;
+import angstd.webservices.RADS.ui.RADSScanPanel;
 import angstd.webservices.interproscan.ui.AnnotatorFrame;
 
 /**
@@ -91,7 +94,7 @@ public class AngstdUI extends JFrame implements WindowListener{
 	
 	private AnnotatorFrame annotatorFrame = null;
 	
-	private RADSFrame radsFrame = null;
+	private JFrame radsFrame = null;
 	
 	protected ConfigurationFrame configFrame = null;
 	
@@ -348,7 +351,7 @@ public class AngstdUI extends JFrame implements WindowListener{
     	radsBtn.setToolTipText("Find arrangements similar to a query arrangement or sequence (requires internet) ");
     	radsBtn.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			radsFrame = RADSFrame.getFrame();
+    			radsFrame = RADSScanPanel.getCurrentRADSFrame();
     			if (radsFrame == null || !radsFrame.isVisible())
     				radsFrame = new RADSFrame();
     			else

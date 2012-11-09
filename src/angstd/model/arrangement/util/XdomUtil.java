@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  */
 public class XdomUtil {
 
-	private static Pattern fastaHead = Pattern.compile(">(ENSP00000328478).*");
+	private static Pattern xdomHead = Pattern.compile(">\\s*(\\S+).*");
 	
 	public static boolean validXdomString(String xdom) {
 		
@@ -47,13 +47,17 @@ public class XdomUtil {
 		return true;
 	}
 	
-	
-	//TODO: refuses to MATCH!!!!
+	/**
+	 * 
+	 * @param xdom
+	 * @return
+	 */
 	public static String getIDFromXdom(String xdom) {
 		String idline = xdom.split("\\n")[0];
-		System.out.println("IDLINE: >"+idline+"<");
-		Matcher m = fastaHead.matcher(idline);
-		return m.group(1);
+		Matcher m = xdomHead.matcher(idline);
+		if (m.find())
+			return m.group(1);
+		else return "rawseq";
 	}
 	
 	
@@ -71,19 +75,19 @@ public class XdomUtil {
 						if (XdomUtil.validXdomString(xdom.toString()))
 							entries.add(xdom.toString());
 						// TODO: add format exception
+						
 					}
 					xdom = new StringBuilder();
 				}
 				xdom.append(line+"\n");
 			}
 			br.close();
+			if (XdomUtil.validXdomString(xdom.toString()))
+				entries.add(xdom.toString());
 		}
 		catch (Exception e) {
 			 
 		}
-		
-		
-		
 		return entries;
 	}
 	

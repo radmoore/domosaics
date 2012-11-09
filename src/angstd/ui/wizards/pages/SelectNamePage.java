@@ -126,7 +126,13 @@ public class SelectNamePage extends WizardPage {
 				return "Domain view name taken - choose new name";
 			if (project.viewExists(newName+"_seqs", sequenceCat))
 				return "Sequence view name taken - choose new name";
-		}	
+		}
+		// we are comming from RADSScan panel
+		else if (objectName.equals("RadScan")) {
+			category = project.getCategory(ViewType.DOMAINS);
+			if (project.viewExists(newName, category))
+				return "Domain view name taken - choose new name";
+		}
 		
 		return null;
     }

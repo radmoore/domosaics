@@ -41,7 +41,6 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
     /** Double format */
     protected DecimalFormat df = new DecimalFormat("0.00E0");
 
-
     /** if the domain bit score does not satisfy the Pfam gathering threshold */
     protected boolean putative = false;
     
@@ -315,6 +314,7 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 		return putative;
 	}
 	
+
 }
 
 

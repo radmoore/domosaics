@@ -11,7 +11,7 @@ import angstd.ui.views.domainview.actions.context.DeleteArrangementContextAction
 import angstd.ui.views.domainview.actions.context.EditSequenceAction;
 import angstd.ui.views.domainview.actions.context.LookupProteinInGoogle;
 import angstd.ui.views.domainview.actions.context.LookupProteinInUniprotAction;
-import angstd.ui.views.domainview.actions.context.RadScanAction;
+import angstd.ui.views.domainview.actions.context.RADSScanAction;
 import angstd.ui.views.domainview.actions.context.ShowAllDomainsAction;
 
 /**
@@ -49,7 +49,7 @@ public class ArrangementPopupMenu extends JPopupMenu {
 		add(new JSeparator());
 		add(new ShowAllDomainsAction());
 		add(new JSeparator());
-		add(new RadScanAction());
+		add(new RADSScanAction());
 		add(new LookupProteinInGoogle());
 		add(new LookupProteinInUniprotAction());
 	}

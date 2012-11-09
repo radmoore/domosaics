@@ -31,34 +31,61 @@ import angstd.util.BrowserLauncher;
 import angstd.util.URLReader;
 
 /**
+ * This class describes the JPanel which shows the RADS/RAMPAGE scan log.
+ * It is implemented as a signelton, such that only one instance
+ * can exist. 
+ * 
+ * See {@link RADSScanPanel} for more details
  * 
  * @author <a href='http://radm.info'>Andrew D. Moore</a>
  *
  */
 public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private RADSResults results;
 	private JFrame frame;
 	private JButton save, close, seeOnline;
-	private StringBuffer crampageLog;
-	private String queryProteinID = null;
+	private StringBuffer crampageLog = null;
 	private DomainArrangement queryProtein;
 	private TreeSet<RADSProtein> proteins; 
 	
 	private static RADSResultDetailsPanel instance = null;
-
-	public static RADSResultDetailsPanel showResultsFrame(DomainArrangement queryProtein, 
+	
+	/**
+	 * This method is used to get access to the JPanel displaying the results log.
+	 * If a result panel is currently being displayed (or e.g. has been backgrounded), the
+	 * instance will be destroyed, and a new instance will be created. 
+	 * 
+	 * @param queryProtein - the RADS/RAMPAGE query arrangement
+	 * @param results - the results of the RADSScan (provides access to method used, all parameters, 
+	 * scanned database etc)
+	 * @param proteins - the list of hit proteins
+	 * @return - an instance of the RADSResultsDetailsPanel
+	 */
+	public static RADSResultDetailsPanel createResultsFrame(DomainArrangement queryProtein, 
 			RADSResults results, TreeSet<RADSProtein> proteins) {
 		if (instance != null)
-			instance.close();
+			instance.destroy();
 		instance = new RADSResultDetailsPanel(queryProtein, results, proteins);
 		return instance;
 	}
-
+	
+	/**
+	 * Defines actions to perform on events
+	 */
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("openResultsInBrowser"))
+			BrowserLauncher.openURL(results.getJobUrl());
+		if (e.getActionCommand().equals("writeLogToFile"))
+			writeLogToFile();
+		if (e.getActionCommand().equals("closeReportWindow"))
+			hideFrame();
+	}
+	
+	/*
+	 * Private constructor - see static access method {@link RADSResultDetailsPanel#showResultsFrame}
+	 */
 	private RADSResultDetailsPanel(DomainArrangement queryProtein, 
 			RADSResults results, TreeSet<RADSProtein> proteins) {
 		super(new MigLayout());
@@ -68,6 +95,9 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 		initPanel();
 	 }
 	
+	/*
+	 * Calls the log reading method and constructs the panel
+	 */
 	private void initPanel() {
 		
 		readLogFile();
@@ -111,14 +141,29 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 		
 		frame.add(this);
 		frame.pack();
-		frame.setVisible(true);
+//		frame.setVisible(true);
 		
 	}
 	
-	private void close() {
+	/* 
+	 * go figure
+	 */
+	public void destroy() {
 		frame.dispose();
 	}
 	
+	public void hideFrame() {
+		frame.setVisible(false);
+	}
+	
+	public void showFrame() {
+		frame.setVisible(true);
+	}
+	
+	/*
+	 * Reads the RADS/RAMPAGE scan log. Uses an instance of RADSResults to access
+	 * the log file remotely
+	 */
 	private void readLogFile() {
 		try {
 			BufferedReader reader = URLReader.read(results.getCrampageOut());
@@ -139,6 +184,9 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 		}
 	}
 
+	/*
+	 * invoked when user chooses to save the log file
+	 */
 	private void writeLogToFile() {
 		System.out.println("Writing to file");
 		File outFile = FileDialogs.showOpenDialog(this);
@@ -151,15 +199,6 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 			e.printStackTrace();
 		}
 		MessageUtil.showInformation(null, "Scan log written to "+outFile.getAbsolutePath());
-	}
-
-	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("openResultsInBrowser"))
-			BrowserLauncher.openURL(results.getJobUrl());
-		if (e.getActionCommand().equals("writeLogToFile"))
-			writeLogToFile();
-		if (e.getActionCommand().equals("closeReportWindow"))
-			frame.dispose();
 	}
 	
 }
