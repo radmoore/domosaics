@@ -70,15 +70,6 @@ public class ArrangementComponent extends AbstractViewComponent{
     public DomainComponent getDomain(Domain dom) {
     	return manager.getDomainComponent(dom);
     }
-  
-    
-    public void setRenderID(boolean render) {
-    	this.renderID = render;
-    }
-    
-    public boolean renderWithID() {
-    	return renderID;
-    }
     
     /**
      * Return whether or not the arrangement component is visible in 

@@ -54,12 +54,12 @@ import angstd.util.BrowserLauncher;
 import angstd.webservices.RADS.RADSPanelI;
 import angstd.webservices.RADS.RADSParms;
 import angstd.webservices.RADS.RADSResultsProcessor;
-import angstd.webservices.RADS.RADSResultsTableModel;
 import angstd.webservices.RADS.RADSService;
 //import javax.swing.JScrollPane;
 //import javax.swing.JTextArea;
 //import javax.swing.event.DocumentEvent;
 //import javax.swing.event.DocumentListener;
+import angstd.webservices.RADS.util.RADSResultsTableModel;
 
 /**
  * This class describes the RADS scan panel that can be used to conduct
@@ -668,6 +668,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		if (resultTable == null)
 			resultTable = RADSResultsTablePanel.createResultsTableFrame(queryProtein, results, resultsTableModel);
 		
+		resultTable.setRADSPanel(instance);
 		resultTable.showFrame();
 	}
 	

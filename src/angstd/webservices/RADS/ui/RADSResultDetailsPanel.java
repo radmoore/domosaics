@@ -50,6 +50,7 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 	private DomainArrangement queryProtein;
 	private TreeSet<RADSProtein> proteins; 
 	
+	
 	private static RADSResultDetailsPanel instance = null;
 	
 	/**
@@ -141,8 +142,6 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 		
 		frame.add(this);
 		frame.pack();
-//		frame.setVisible(true);
-		
 	}
 	
 	/* 
