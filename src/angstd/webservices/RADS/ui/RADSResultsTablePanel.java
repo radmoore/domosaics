@@ -2,7 +2,6 @@ package angstd.webservices.RADS.ui;
 
 import info.radm.radscan.RADSResults;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -13,6 +12,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +23,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
@@ -29,15 +35,19 @@ import org.jdesktop.swingx.JXTitledSeparator;
 
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
+import angstd.model.workspace.ProjectElement;
 import angstd.ui.ViewHandler;
+import angstd.ui.WorkspaceManager;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.actions.FitDomainsToScreenAction;
+import angstd.ui.wizards.WizardManager;
+import angstd.ui.wizards.pages.SelectNamePage;
 import angstd.util.BrowserLauncher;
 import angstd.util.URLReader;
-import angstd.webservices.RADS.RADSResultsTableModel;
+import angstd.webservices.RADS.util.RADSResultsTableModel;
 
 /**
  * This class describes the JPanel which shows the RADS/RAMPAGE scan log.
@@ -54,13 +64,21 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private RADSResults results;
 	private JFrame frame;
-	private JButton save, close, seeOnline;
+	
+	private JButton save, close, seeOnline, applySelection;
 	private JTable resultTable;
 	private StringBuffer crampageLog = null;
 	private DomainArrangement queryProtein;
 	private RADSResultsTableModel resultTableModel;
 	
+	private JLabel selectedHitsLabel;
+	private int selectedHits = 0;
+	
+	private RADSScanPanel scanPanel;
 	private JPanel queryPanel;
+	
+	
+
 	private DomainViewI queryDomainView;
 	
 	private static RADSResultsTablePanel instance = null;
@@ -84,10 +102,16 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		return instance;
 	}
 	
+	public void setRADSPanel(RADSScanPanel scanPanel) {
+		this.scanPanel = scanPanel;
+	}
+	
 	/**
 	 * Defines actions to perform on events
 	 */
 	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("createView"))
+			createView();
 		if (e.getActionCommand().equals("openResultsInBrowser"))
 			BrowserLauncher.openURL(results.getJobUrl());
 		if (e.getActionCommand().equals("writeLogToFile"))
@@ -103,6 +127,7 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 			RADSResults results, RADSResultsTableModel resultTableModel) {
 		super(new MigLayout());
 		this.queryProtein = queryProtein;
+		this.selectedHitsLabel = new JLabel(selectedHits+"");
 		this.results = results;
 		this.resultTableModel = resultTableModel;
 		initQueryPanel();
@@ -114,14 +139,11 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		queryPanel = new JPanel();
 		DomainArrangement[] daSet = new DomainArrangement[1];
 		daSet[0] = queryProtein;
-
 		queryDomainView = ViewHandler.getInstance().createView(ViewType.DOMAINS, "");
 		queryDomainView.setDaSet(daSet);
-		
 		queryDomainView.getParentPane().removeToolbar();
 		queryDomainView.removeMouseListeners();
 		queryDomainView.getDomainLayoutManager().getActionManager().getAction(FitDomainsToScreenAction.class).setState(true);
-
 		for (int i = 0; i < queryProtein.countDoms(); i++) {
 			DomainFamily fam = queryProtein.getDomain(i).getFamily();			
 			Color color = queryDomainView.getDomainColorManager().getDomainColor(fam);
@@ -131,7 +153,26 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	
 	private void initTable() {
 		resultTable = new JTable(resultTableModel);
-		//resultTable.setRowHeight(58);
+		resultTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		resultTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				if (e.getValueIsAdjusting())
+					return;
+				for (int r : resultTable.getSelectedRows()) {
+					boolean cValue = (Boolean) resultTable.getValueAt(r, 1);
+					// note: this is *before* the checkbox = true
+					if (!cValue) {
+						System.out.println("Is selected!");
+						selectedHits++;
+					}
+					else {
+						selectedHits--;
+					}
+					selectedHitsLabel.setText(selectedHits+"");
+					resultTable.setValueAt((!cValue), r, 1);
+				}
+			}
+		}); 
 		TableColumn selectCol = resultTable.getColumnModel().getColumn(0);
 		TableColumn hitCountCol = resultTable.getColumnModel().getColumn(1);
 		TableColumn idCol = resultTable.getColumnModel().getColumn(2);
@@ -142,7 +183,6 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		idCol.setPreferredWidth(50);
 		scoreCol.setPreferredWidth(50);
 		arrCol.setPreferredWidth(400);
-		//arrCol.setCellRenderer(new ArrangementTableCellRenderer());
 	}
 	
 	
@@ -154,6 +194,12 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		readLogFile();
 		
 		frame = new JFrame("RADS Results");
+		
+		applySelection = new JButton("Apply");
+		applySelection.setToolTipText("Create view from selection");
+		applySelection.setActionCommand("createView");
+		applySelection.addActionListener(this);
+		
 		save = new JButton("Save");
 		save.setToolTipText("Save scan log to file");
 		save.setActionCommand("writeLogToFile");
@@ -168,15 +214,10 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		seeOnline.setToolTipText("Opens browser with scan results");
 		seeOnline.setActionCommand("openResultsInBrowser");
 		seeOnline.addActionListener(this);
-
 		
-		//resultTable.setPreferredScrollableViewportSize(new Dimension(500, 70));
 	    resultTable.setFillsViewportHeight(true);;
-		
-//	    JTextArea textArea = new JTextArea(crampageLog.toString());
 		JScrollPane jScrollPane = new JScrollPane(resultTable);
 		
-	    
 		add(new JXTitledSeparator("RadScan Summary"), "growx, span, wrap,");
 		add(new JLabel("Query ID:"), "gapleft 10");
 		add(new JLabel(queryProtein.getName()), "wrap");
@@ -186,23 +227,20 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		add(new JLabel(results.getQuery().getDatabase()), "wrap");
 		add(new JLabel("Total hits:"), "gapleft 10");
 		add(new JLabel(""+results.getHitsNumber()), "wrap");
-		
-		
-		//add(new JLabel("Total arrangements:"), "gapleft 10");
-		//add(new JLabel(""+RADSProtein.getUniqueArchitectures(proteins).size()), "wrap");
-		//add(new JXTitledSeparator("Query Arrangement"), "growx, span, wrap, gaptop 10");
-		//add(queryDomainView.getParentPane(), "wrap, span");
+		add(new JLabel("Selected hits:"), "gapleft 10");
+		add(selectedHitsLabel, "wrap");
+		add(new JXTitledSeparator("Query Arrangement"), "growx, span, wrap, gaptop 10");
+		add(queryDomainView.getParentPane(), "wrap, span");
 		
 		add(new JXTitledSeparator("RADS Results"), "growx, span, wrap, gaptop 10");
 		add(jScrollPane, "h 100::400, w 600!, growx, span");
-		add(save, "split 3");
+		add(applySelection, "split 4");
+		add(save, "");
 		add(close, "");
 		add(seeOnline, "align right");
 		
 		frame.add(this);
 		frame.pack();
-//		frame.setVisible(true);
-		
 	}
 	
 	/* 
@@ -262,6 +300,50 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	}
 	
 	
+	private void createView() {
+		
+		List<DomainArrangement> selectedHits = new ArrayList<DomainArrangement>();
+		HashMap<String, DomainArrangement> completeHitList = resultTableModel.getArrangementData();
+		
+		for (int i=0; i < resultTable.getRowCount(); i++) {
+			if ((Boolean)resultTable.getValueAt(i, 1)) {
+				selectedHits.add(completeHitList.get(resultTable.getValueAt(i, 2)));
+			}
+		}
+		
+		String defaultViewName = queryProtein.getName()+"-radscan";
+		
+//		View currentView = getView();
+		String viewName = null;
+		String projectName = null;
+		ProjectElement project = null;
+
+		//project = WorkspaceManager.getInstance().getViewElement(currentView.getViewInfo()).getProject();
+
+		@SuppressWarnings("rawtypes")
+		Map m = WizardManager.getInstance().selectNameWizard(defaultViewName, "RadScan", project, true);
+		viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+		projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+		project = WorkspaceManager.getInstance().getProject(projectName);
+			
+		if (viewName == null) 
+			MessageUtil.showWarning("A valid view name is needed to complete this action");
+	
+		DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
+		// TODO if we want domain colors, something like this
+//		DomainColorManager domColorMan = domResultView.getDomainColorManager();
+//		DomainViewI domView = ViewHandler.getInstance().getView(currentView.getViewInfo()) ;
+//		Color color = domView.getDomainColorManager().getDomainColor(domFamily);
+//		System.out.println("Color: "+color.toString());
+		domResultView.setDaSet(selectedHits.toArray(new DomainArrangement[selectedHits.size()]));
+		ViewHandler.getInstance().addView(domResultView, project);
+		scanPanel.close(false);
+		destroy();
+		
+	}
+	
+	
+	// Not used: for rendering arrangement views in cells
 	private class ArrangementTableCellRenderer implements TableCellRenderer {
 
 		public Component getTableCellRendererComponent(JTable table,

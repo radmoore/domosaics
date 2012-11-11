@@ -3,14 +3,10 @@ package angstd.webservices.RADS;
 import info.radm.radscan.ds.RADSDomain;
 import info.radm.radscan.ds.RADSProtein;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
+import java.util.HashMap;
 import java.util.TreeSet;
 
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.JTable;
-import javax.swing.table.TableCellRenderer;
 
 import angstd.model.arrangement.ArrangementManager;
 import angstd.model.arrangement.Domain;
@@ -22,8 +18,8 @@ import angstd.ui.ViewHandler;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
-import angstd.ui.views.domainview.actions.FitDomainsToScreenAction;
 import angstd.ui.views.domainview.components.ArrangementComponent;
+import angstd.webservices.RADS.util.RADSResultsTableModel;
 
 /**
  * This class describes a RADSResultsProcessor, which performs
@@ -68,6 +64,7 @@ public class RADSResultsProcessor {
 		int tableIndex = 0;
 		
 		RADSResultsTableModel resultTableModel = new RADSResultsTableModel();
+		HashMap<String, DomainArrangement> arrangementData = new HashMap<String, DomainArrangement>(); 
 		DomainArrangement da;
 		
 		Object[][] tableData = new Object[proteins.size()][5];
@@ -96,42 +93,18 @@ public class RADSResultsProcessor {
 				da.addDomain(dom);
 			}
 			da.sortDomains();
+			arrangementData.put(p.getID(), da);
 			tableData[tableIndex][0] = i;
 			tableData[tableIndex][1] = new Boolean(false);
-			tableData[tableIndex][2] = p.getRADSScore();
-			tableData[tableIndex][3] = p.getID();
-			//tableData[tableIndex][1] = TODO: graphical component ui.tools.RADSTool.RADSToolFrame
-			
-			ArrangementComponent arrComp = new ArrangementComponent(da, null);
-			//TODO this does not work as it should
-			arrComp.setRenderID(false);
-			DomainArrangement[] daSet = new DomainArrangement[1];
-			daSet[0] = arrComp.getDomainArrangement();
-			
-			DomainViewI domView = ViewHandler.getInstance().createView(ViewType.DOMAINS, "");
-			domView.setDaSet(daSet);
-
-			
-//			for (int j = 0; j < arrComp.getDomainArrangement().countDoms(); j++) {
-//				DomainFamily fam = arrComp.getDomainArrangement().getDomain(j).getFamily();			
-//				Color color = domView.getDomainColorManager().getDomainColor(fam);
-//				domView.getDomainColorManager().setDomainColor(fam, color);
-//			}
-//			JPanel arrPanel = new JPanel();
-//			arrPanel.add(domView.getParentPane(), BorderLayout.NORTH);
-			
-			//tableData[tableIndex][2] = domView;
+			tableData[tableIndex][2] = p.getID();
+			tableData[tableIndex][3] = p.getRADSScore();
 			tableData[tableIndex][4] = p.getArrString();
-			
-			
-			
 			tableIndex++;
-			//arrSet.add(da);
+			
 			i++;
-//			if (i > 10)
-//				break;
 		}
 		resultTableModel.setTableData(tableData);
+		resultTableModel.setArrangementData(arrangementData);
 		return resultTableModel;
 	}
 	

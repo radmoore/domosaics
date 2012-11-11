@@ -1,8 +1,11 @@
-package angstd.webservices.RADS;
+package angstd.webservices.RADS.util;
+
+import java.util.HashMap;
 
 import javax.swing.table.AbstractTableModel;
 
 import angstd.model.arrangement.ArrangementManager;
+import angstd.model.arrangement.DomainArrangement;
 
 public class RADSResultsTableModel extends AbstractTableModel{
 
@@ -10,9 +13,9 @@ public class RADSResultsTableModel extends AbstractTableModel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String[] columnNames = {"", "Import", "Score", "Subject ID", "Arrangement String"};
+	private String[] columnNames = {"", "Import", "Subject ID", "Score", "Arrangement String"};
 	private Object[][] tableData = null;
-	private ArrangementManager arrSet = null; // ArrangementManager of arrangements in this table TODO: convert on the fly?
+	private HashMap<String, DomainArrangement> arrangementData = null;
 	
 	public String[] getColumnNames() {
 		return this.columnNames;
@@ -52,12 +55,22 @@ public class RADSResultsTableModel extends AbstractTableModel{
     }
     
     public boolean isCellEditable(int row, int col) {
-    	return col == 1;
+    	System.out.println("Checking if editable!");
+    	//return col == 1;
+    	return false;
     }
     
     public void setValueAt(Object value, int row, int col) {
         tableData[row][col] = value;
         fireTableCellUpdated(row, col);
+    }
+    
+    public void setArrangementData(HashMap<String, DomainArrangement> arrData) {
+    	this.arrangementData = arrData;
+    }
+    
+    public HashMap<String, DomainArrangement> getArrangementData() {
+    	return this.arrangementData;
     }
 	
 }

@@ -135,10 +135,8 @@ public class DefaultDomainViewRenderer implements DomainViewRenderer{
 				// if arrangement is below clipping area break
 				if (dac.getBounds().getY()-dac.getBounds().getHeight() > g.getClipBounds().y+g.getClipBounds().height)
 					break;
-
-				boolean state = dac.renderWithID();
-				if (state) 
-					renderLabel(dac, g);
+				
+				renderLabel(dac, g);
 				daRenderer.renderArrangement(dac, view, g);
 			}
 		}

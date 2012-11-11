@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
+import angstd.webservices.RADS.util.RADSResultsTableModel;
+
 public class RADSResultsTable extends JPanel{
 
 	private JFrame parentFrame;
