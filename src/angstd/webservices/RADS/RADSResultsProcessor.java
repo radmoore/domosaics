@@ -14,12 +14,7 @@ import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainType;
 import angstd.model.arrangement.io.GatheringThresholdsReader;
-import angstd.ui.ViewHandler;
 import angstd.ui.util.MessageUtil;
-import angstd.ui.views.ViewType;
-import angstd.ui.views.domainview.DomainViewI;
-import angstd.ui.views.domainview.components.ArrangementComponent;
-import angstd.webservices.RADS.util.RADSResultsTable;
 import angstd.webservices.RADS.util.RADSResultsTableModel;
 
 /**
@@ -55,7 +50,6 @@ public class RADSResultsProcessor {
 	public RADSResultsTableModel createResultTable() {
 		
 		if (proteins == null) {
-			progressBar.setIndeterminate(false);
 			MessageUtil.showInformation(radsPanel.getParentFrame(), "No hits found");
 			return null;
 		}

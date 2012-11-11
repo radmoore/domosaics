@@ -19,8 +19,8 @@ public class RADSResultsTableModel extends AbstractTableModel{
 	private int mode = RADS_MODE;
 	
 	private static final Map<Integer, String[]> HEADERS = new HashMap<Integer, String[]>();
-	private static final String[] radsColumnNames = {"", "Import", "Subject ID", "RADS Score", "Arrangement String"};
-	private static final String[] rampageColumnNames = {"", "Import", "Subject ID", "RADS Score", "RAMPAGE Score", "Arrangement String"};
+	private static final String[] radsColumnNames = {"", "Import", "Subject ID", "RADS", "Subject Arrangement String"};
+	private static final String[] rampageColumnNames = {"", "Import", "Subject ID", "RADS", "RAMPAGE", "Subject Arrangement String"};
 	
 	static {
 		HEADERS.put(RADS_MODE, radsColumnNames);

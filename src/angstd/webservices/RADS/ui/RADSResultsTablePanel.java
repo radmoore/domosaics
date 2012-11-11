@@ -196,17 +196,16 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		}); 
 		resultTable.setAutoCreateRowSorter(true);
 		resultTable.getTableHeader().setToolTipText("Click to sort");
-		TableColumn selectCol = resultTable.getColumnModel().getColumn(0);
-		
-		TableColumn hitCountCol = resultTable.getColumnModel().getColumn(1);
-		TableColumn idCol = resultTable.getColumnModel().getColumn(2);
-		TableColumn scoreCol = resultTable.getColumnModel().getColumn(3);
-		TableColumn arrCol = resultTable.getColumnModel().getColumn(4);
-		selectCol.setPreferredWidth(25);
-		hitCountCol.setPreferredWidth(50);
-		idCol.setPreferredWidth(50);
-		scoreCol.setPreferredWidth(50);
-		arrCol.setPreferredWidth(400);
+//		TableColumn selectCol = resultTable.getColumnModel().getColumn(0);
+//		TableColumn hitCountCol = resultTable.getColumnModel().getColumn(1);
+//		TableColumn idCol = resultTable.getColumnModel().getColumn(2);
+//		TableColumn scoreCol = resultTable.getColumnModel().getColumn(3);
+//		TableColumn arrCol = resultTable.getColumnModel().getColumn(4);
+//		selectCol.setPreferredWidth(25);
+//		hitCountCol.setPreferredWidth(50);
+//		idCol.setPreferredWidth(50);
+//		scoreCol.setPreferredWidth(50);
+//		arrCol.setPreferredWidth(400);
 	}
 	
 	
@@ -223,11 +222,12 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		applySelection.setToolTipText("Create view from selection");
 		applySelection.setActionCommand("createView");
 		applySelection.addActionListener(this);
+		applySelection.setEnabled(false);
 		
-		save = new JButton("Save");
-		save.setToolTipText("Save scan log to file");
-		save.setActionCommand("writeLogToFile");
-		save.addActionListener(this);
+//		save = new JButton("Save");
+//		save.setToolTipText("Save scan log to file");
+//		save.setActionCommand("writeLogToFile");
+//		save.addActionListener(this);
 
 		selectAll = new JButton("Select all");
 		selectAll.setToolTipText("Select all hits");
@@ -271,7 +271,7 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		add(new JXTitledSeparator("RADS Results"), "growx, span, wrap, gaptop 10");
 		add(jScrollPane, "h 100::400, w 600!, growx, span");
 		add(applySelection, "split 4");
-		add(save, "");
+//		add(save, "");
 		//add(close, "");
 		add(selectAll, "");
 		add(deselectAll, "");
@@ -302,6 +302,10 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	
 	
 	private void updateHitCount() {
+		if (selectedHits > 0)
+			applySelection.setEnabled(true);
+		else
+			applySelection.setEnabled(false);
 		selectedHitsLabel.setText(selectedHits+"");
 	}
 

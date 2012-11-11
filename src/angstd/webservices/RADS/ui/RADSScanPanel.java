@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
+import javax.swing.SwingWorker;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -102,7 +104,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private RADSQueryBuilder qBuilder;
 	private RADSResultDetailsPanel logPanel = null;
 	private RADSResultsTablePanel resultTable = null;
-	private RADSResultsTableModel resultsTableModel;
+	private RADSResultsTableModel resultsTableModel = null;
 	
 	private ArrayList<String> xdomEntries;
 	private ArrayList<String> fastaEntries;
@@ -413,9 +415,9 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		reset.setActionCommand("setDefaultValues");
 		reset.addActionListener(this);
 		
-		apply = new JButton("Apply");
-		apply.setToolTipText("Create new view from results");
-		apply.setActionCommand("createView");
+		apply = new JButton("Show results");
+		apply.setToolTipText("Show results of scan");
+		apply.setActionCommand("openResultsTable");
 		apply.addActionListener(this);
 		apply.setEnabled(false);
 		
@@ -424,17 +426,15 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		cancel.setActionCommand("close");
 		cancel.addActionListener(this);
 		
-		browse = new JButton("Browse results online");
-		browse.setToolTipText("Open results at RADS online (requires internet)");
-		browse.setActionCommand("openBrowseWindow");
-		browse.addActionListener(this);
-		browse.setEnabled(false);
+//		browse = new JButton("Browse results online");
+//		browse.setToolTipText("Open results at RADS online (requires internet)");
+//		browse.setActionCommand("openBrowseWindow");
+//		browse.addActionListener(this);
+//		browse.setEnabled(false);
 		
-		//showReport = new JButton("Show scan log");
-		showReport = new JButton("Show Results Table");
+		showReport = new JButton("Show scan log");
 		showReport.setToolTipText("Show RADS scan log");
-		//showReport.setActionCommand("openLogWindow");
-		showReport.setActionCommand("openResultsTable");
+		showReport.setActionCommand("openLogWindow");
 		showReport.addActionListener(this);
 		showReport.setEnabled(false);
 	}
@@ -552,10 +552,10 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		add(progressBar, "h 25!, gaptop 10, span, growX, wrap");
 		
 		// apply
-		add(new JXTitledSeparator("Apply Results"), "growx, span, wrap, gaptop 10");
+		add(new JXTitledSeparator("Results"), "growx, span, wrap, gaptop 10");
 		add(apply, "split 2");
 		add(cancel, "");
-		add(browse, "");
+		//add(browse, "");
 		add(showReport, "");
 	}
 	
@@ -875,11 +875,10 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 								results = radsService.getScanResults();
 								resultProcessor = new RADSResultsProcessor(instance);
 								//TODO should retrun a table model
-								arrSet = resultProcessor.process();
-								resultsTableModel = resultProcessor.createResultTable();
-								
+								//arrSet = resultProcessor.process();
+								resultsTableModel = createResultTable();
 								progressBar.setString("Scan complete");
-								if (arrSet != null) {
+								if (resultsTableModel != null) {
 									apply.setEnabled(true);
 									browse.setEnabled(true);
 									showReport.setEnabled(true);
@@ -893,6 +892,27 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 				
 			}
 		}
+	}
+	
+	private RADSResultsTableModel createResultTable() {
+		RADSResultsTableModel resultModel = null;
+		SwingWorker<RADSResultsTableModel, Void> worker = 
+			new SwingWorker<RADSResultsTableModel, Void>() {
+			protected RADSResultsTableModel doInBackground() throws Exception {
+				return resultProcessor.createResultTable();
+			}
+		};
+		worker.execute();
+		try {
+			resultModel = worker.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resultModel;
 	}
 	
 	//TODO this will change now (when a JTable is used)
