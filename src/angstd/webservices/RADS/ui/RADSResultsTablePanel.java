@@ -47,6 +47,7 @@ import angstd.ui.wizards.WizardManager;
 import angstd.ui.wizards.pages.SelectNamePage;
 import angstd.util.BrowserLauncher;
 import angstd.util.URLReader;
+import angstd.webservices.RADS.util.RADSResultsTable;
 import angstd.webservices.RADS.util.RADSResultsTableModel;
 
 /**
@@ -65,8 +66,8 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	private RADSResults results;
 	private JFrame frame;
 	
-	private JButton save, close, seeOnline, applySelection;
-	private JTable resultTable;
+	private JButton save, close, seeOnline, applySelection, selectAll, deselectAll;
+	private RADSResultsTable resultTable;
 	private StringBuffer crampageLog = null;
 	private DomainArrangement queryProtein;
 	private RADSResultsTableModel resultTableModel;
@@ -118,7 +119,27 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 			writeLogToFile();
 		if (e.getActionCommand().equals("closeReportWindow"))
 			hideFrame();
+		if (e.getActionCommand().equals("selectAllHits"))
+			selectAllHits();
+		if (e.getActionCommand().equals("deselectAllHits"))
+			deselectAllHits();
 	}
+	
+	/* 
+	 * go figure
+	 */
+	public void destroy() {
+		frame.dispose();
+	}
+	
+	public void hideFrame() {
+		frame.setVisible(false);
+	}
+	
+	public void showFrame() {
+		frame.setVisible(true);
+	}
+	
 	
 	/*
 	 * Private constructor - see static access method {@link RADSResultDetailsPanel#showResultsFrame}
@@ -152,7 +173,7 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	}
 	
 	private void initTable() {
-		resultTable = new JTable(resultTableModel);
+		resultTable = new RADSResultsTable(resultTableModel);
 		resultTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		resultTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -168,12 +189,15 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 					else {
 						selectedHits--;
 					}
-					selectedHitsLabel.setText(selectedHits+"");
 					resultTable.setValueAt((!cValue), r, 1);
 				}
+				updateHitCount();
 			}
 		}); 
+		resultTable.setAutoCreateRowSorter(true);
+		resultTable.getTableHeader().setToolTipText("Click to sort");
 		TableColumn selectCol = resultTable.getColumnModel().getColumn(0);
+		
 		TableColumn hitCountCol = resultTable.getColumnModel().getColumn(1);
 		TableColumn idCol = resultTable.getColumnModel().getColumn(2);
 		TableColumn scoreCol = resultTable.getColumnModel().getColumn(3);
@@ -195,7 +219,7 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		
 		frame = new JFrame("RADS Results");
 		
-		applySelection = new JButton("Apply");
+		applySelection = new JButton("Import");
 		applySelection.setToolTipText("Create view from selection");
 		applySelection.setActionCommand("createView");
 		applySelection.addActionListener(this);
@@ -205,10 +229,22 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		save.setActionCommand("writeLogToFile");
 		save.addActionListener(this);
 
+		selectAll = new JButton("Select all");
+		selectAll.setToolTipText("Select all hits");
+		selectAll.setActionCommand("selectAllHits");
+		selectAll.addActionListener(this);
+		
+		deselectAll = new JButton("Deselect all");
+		deselectAll.setToolTipText("Deselect all hits");
+		deselectAll.setActionCommand("deselectAllHits");
+		deselectAll.addActionListener(this);
+		
+		/**
 		close = new JButton("Close");
 		close.setToolTipText("Close results window");
 		close.setActionCommand("closeReportWindow");
 		close.addActionListener(this);
+		**/
 		
 		seeOnline = new JButton("Browse online");
 		seeOnline.setToolTipText("Opens browser with scan results");
@@ -236,28 +272,39 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		add(jScrollPane, "h 100::400, w 600!, growx, span");
 		add(applySelection, "split 4");
 		add(save, "");
-		add(close, "");
+		//add(close, "");
+		add(selectAll, "");
+		add(deselectAll, "");
 		add(seeOnline, "align right");
 		
 		frame.add(this);
 		frame.pack();
 	}
 	
-	/* 
-	 * go figure
-	 */
-	public void destroy() {
-		frame.dispose();
+	
+	private void selectAllHits() {
+		selectedHits = 0;
+		for (int i=0; i < resultTable.getRowCount(); i++) {
+			resultTable.setValueAt(true, i, 1);
+			selectedHits ++;
+		}
+		updateHitCount();
 	}
 	
-	public void hideFrame() {
-		frame.setVisible(false);
+	private void deselectAllHits() {
+		for (int i=0; i < resultTable.getRowCount(); i++) {
+			resultTable.setValueAt(false, i, 1);
+		}
+		selectedHits = 0;
+		updateHitCount();
 	}
 	
-	public void showFrame() {
-		frame.setVisible(true);
-	}
 	
+	
+	private void updateHitCount() {
+		selectedHitsLabel.setText(selectedHits+"");
+	}
+
 	/*
 	 * Reads the RADS/RAMPAGE scan log. Uses an instance of RADSResults to access
 	 * the log file remotely

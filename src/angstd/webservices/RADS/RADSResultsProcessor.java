@@ -19,6 +19,7 @@ import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
+import angstd.webservices.RADS.util.RADSResultsTable;
 import angstd.webservices.RADS.util.RADSResultsTableModel;
 
 /**
@@ -46,6 +47,7 @@ public class RADSResultsProcessor {
 		this.radsPanel = radsPanel;
 		this.progressBar = radsPanel.getProgressBar();
 		this.radsService = radsPanel.getRadsService();
+		
 		this.proteins = radsService.getHits();
 	}
 	
@@ -57,6 +59,7 @@ public class RADSResultsProcessor {
 			MessageUtil.showInformation(radsPanel.getParentFrame(), "No hits found");
 			return null;
 		}
+
 		progressBar.setIndeterminate(false);
 		progressBar.setMaximum(proteins.size());
 		progressBar.setValue(0);
@@ -66,9 +69,13 @@ public class RADSResultsProcessor {
 		RADSResultsTableModel resultTableModel = new RADSResultsTableModel();
 		HashMap<String, DomainArrangement> arrangementData = new HashMap<String, DomainArrangement>(); 
 		DomainArrangement da;
+		String algo = radsService.getScanResults().getQuery().getAlgorithm();
+		if (algo.equals("rads"))
+			resultTableModel.setTableMode(RADSResultsTableModel.RADS_MODE);
+		else
+			resultTableModel.setTableMode(RADSResultsTableModel.RAMPAGE_MODE);
 		
-		Object[][] tableData = new Object[proteins.size()][5];
-		
+		Object[][] tableData = new Object[proteins.size()][resultTableModel.getColumnCount()];
 		
 		for (RADSProtein p: proteins) {
 			
@@ -97,8 +104,15 @@ public class RADSResultsProcessor {
 			tableData[tableIndex][0] = i;
 			tableData[tableIndex][1] = new Boolean(false);
 			tableData[tableIndex][2] = p.getID();
-			tableData[tableIndex][3] = p.getRADSScore();
-			tableData[tableIndex][4] = p.getArrString();
+			if (resultTableModel.getTableMode() == RADSResultsTableModel.RADS_MODE) {
+				tableData[tableIndex][3] = p.getRADSScore();
+				tableData[tableIndex][4] = p.getArrString();
+			}
+			else {
+				tableData[tableIndex][3] = p.getRADSScore();
+				tableData[tableIndex][4] = p.getRAMPAGEScore();
+				tableData[tableIndex][5] = p.getArrString();
+			}
 			tableIndex++;
 			
 			i++;

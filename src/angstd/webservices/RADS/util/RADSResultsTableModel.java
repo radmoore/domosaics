@@ -1,10 +1,10 @@
 package angstd.webservices.RADS.util;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.table.AbstractTableModel;
 
-import angstd.model.arrangement.ArrangementManager;
 import angstd.model.arrangement.DomainArrangement;
 
 public class RADSResultsTableModel extends AbstractTableModel{
@@ -13,20 +13,42 @@ public class RADSResultsTableModel extends AbstractTableModel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String[] columnNames = {"", "Import", "Subject ID", "Score", "Arrangement String"};
+	public static final int RADS_MODE = 0;
+	public static final int RAMPAGE_MODE = 1;
+	
+	private int mode = RADS_MODE;
+	
+	private static final Map<Integer, String[]> HEADERS = new HashMap<Integer, String[]>();
+	private static final String[] radsColumnNames = {"", "Import", "Subject ID", "RADS Score", "Arrangement String"};
+	private static final String[] rampageColumnNames = {"", "Import", "Subject ID", "RADS Score", "RAMPAGE Score", "Arrangement String"};
+	
+	static {
+		HEADERS.put(RADS_MODE, radsColumnNames);
+		HEADERS.put(RAMPAGE_MODE, rampageColumnNames);
+	}
+	
 	private Object[][] tableData = null;
 	private HashMap<String, DomainArrangement> arrangementData = null;
 	
+	
 	public String[] getColumnNames() {
-		return this.columnNames;
+		return HEADERS.get(mode);
 	}
 	
-	public void setColumnNames(String [] names) {
-		this.columnNames = names;
+	public void setTableMode(int scanMode) {
+		this.mode = scanMode;
 	}
+	
+	public int getTableMode() {
+		return mode;
+	}
+	
+//	public void setColumnNames(String [] names) {
+//		this.columnNames = names;
+//	}
 	
     public String getColumnName(int col) {
-        return columnNames[col].toString();
+    	return HEADERS.get(mode)[col].toString();
     }
 	
 	public Object[][] getTableData() {
@@ -43,7 +65,7 @@ public class RADSResultsTableModel extends AbstractTableModel{
 
 	// TODO: set column names
 	public int getColumnCount() {
-		return columnNames.length;
+		return HEADERS.get(mode).length;
 	}
 
 	public Object getValueAt(int row, int col) {
@@ -55,7 +77,6 @@ public class RADSResultsTableModel extends AbstractTableModel{
     }
     
     public boolean isCellEditable(int row, int col) {
-    	System.out.println("Checking if editable!");
     	//return col == 1;
     	return false;
     }

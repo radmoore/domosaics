@@ -49,5 +49,6 @@
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/commons-logging.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/wsdl4j.jar"/>
 	<classpathentry kind="lib" path="lib/rads/radscan-0.5.2.jar"/>
+	<classpathentry kind="lib" path="/home/radmoore/Dropbox/git/ProgressBar/build/ProgressBar-0.7.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
