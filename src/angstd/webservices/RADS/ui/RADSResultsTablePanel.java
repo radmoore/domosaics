@@ -51,11 +51,9 @@ import angstd.webservices.RADS.util.RADSResultsTable;
 import angstd.webservices.RADS.util.RADSResultsTableModel;
 
 /**
- * This class describes the JPanel which shows the RADS/RAMPAGE scan log.
- * It is implemented as a signelton, such that only one instance
- * can exist. 
+ * This class describes the JPanel which shows the RADS/RAMPAGE scan results table.
+ * It is implemented as a signelton 
  * 
- * See {@link RADSScanPanel} for more details
  * 
  * @author <a href='http://radm.info'>Andrew D. Moore</a>
  *
@@ -85,7 +83,7 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	private static RADSResultsTablePanel instance = null;
 	
 	/**
-	 * This method is used to get access to the JPanel displaying the results log.
+	 * This method is used to get access to the JPanel displaying the results table.
 	 * If a result panel is currently being displayed (or e.g. has been backgrounded), the
 	 * instance will be destroyed, and a new instance will be created. 
 	 * 
@@ -93,7 +91,7 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	 * @param results - the results of the RADSScan (provides access to method used, all parameters, 
 	 * scanned database etc)
 	 * @param proteins - the list of hit proteins
-	 * @return - an instance of the RADSResultsDetailsPanel
+	 * @return - an instance of the RADSResultsTablePanel
 	 */
 	public static RADSResultsTablePanel createResultsTableFrame(DomainArrangement queryProtein, 
 			RADSResults results, RADSResultsTableModel resultTableModel) {
@@ -142,7 +140,7 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	
 	
 	/*
-	 * Private constructor - see static access method {@link RADSResultDetailsPanel#showResultsFrame}
+	 * Private constructor - see static access method {@link RADSResultTablePanel#showResultsFrame}
 	 */
 	private RADSResultsTablePanel(DomainArrangement queryProtein, 
 			RADSResults results, RADSResultsTableModel resultTableModel) {
@@ -183,7 +181,6 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 					boolean cValue = (Boolean) resultTable.getValueAt(r, 1);
 					// note: this is *before* the checkbox = true
 					if (!cValue) {
-						System.out.println("Is selected!");
 						selectedHits++;
 					}
 					else {

@@ -527,16 +527,16 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		// sequences
 		add(new JXTitledSeparator("Sequences"), "growx, span, wrap");
 		add(loadSeq, "w 150!, gap 5");
-		add(loadSeqTF, "h 25!, w 350!, span, growx, gapright 5, wrap");
+		add(loadSeqTF, "h 25!, w 300!, span, growx, gapright 5, wrap");
 		add(new JLabel("Or select view:"), "gap 5");
-		add(selectSeqView, "h 25!, w 350!, span, growx, gapright 5, wrap");
+		add(selectSeqView, "h 25!, w 300!, span, growx, gapright 5, wrap");
 		
 		// arrangements
 		add(new JXTitledSeparator("Arrangements"), "growx, span, wrap");
 		add(loadArr, "w 150!, gap 5");
-		add(loadArrTF, "h 25!, w 350!, span, growx, gapright 5, wrap");
+		add(loadArrTF, "h 25!, w 300!, span, growx, gapright 5, wrap");
 		add(new JLabel("Or select view:"), "gap 5");
-		add(selectArrView, "h 25!, w 350!, span, growx, gapright 5, wrap");
+		add(selectArrView, "h 25!, w 300!, span, growx, gapright 5, wrap");
 		
 		// parameter
 		add(new JXTitledSeparator("Options"),"growX, span, wrap, gaptop 5");
@@ -548,7 +548,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		add(rampageOptionPanel, "span, wrap");
 		
 		add(submit, "w 150!");
-		add(reset, "w 150!, wrap");
+		add(reset, "align right, wrap");
 		add(progressBar, "h 25!, gaptop 10, span, growX, wrap");
 		
 		// apply
@@ -880,7 +880,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 								progressBar.setString("Scan complete");
 								if (resultsTableModel != null) {
 									apply.setEnabled(true);
-									browse.setEnabled(true);
+//									browse.setEnabled(true);
 									showReport.setEnabled(true);
 								}
 								submit.setEnabled(true);
