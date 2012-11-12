@@ -74,12 +74,7 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	private int selectedHits = 0;
 	
 	private RADSScanPanel scanPanel;
-	private JPanel queryPanel;
-	
-	
-
-	private DomainViewI queryDomainView;
-	
+	private DomainViewI queryDomainView = null;
 	private static RADSResultsTablePanel instance = null;
 	
 	/**
@@ -149,13 +144,13 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		this.selectedHitsLabel = new JLabel(selectedHits+"");
 		this.results = results;
 		this.resultTableModel = resultTableModel;
-		initQueryPanel();
+		if (! results.getQuery().getQueryID().equals("rawseq"))
+			initQueryPanel();
 		initTable();
 		initPanel();
 	 }
 	
 	private void initQueryPanel() {
-		queryPanel = new JPanel();
 		DomainArrangement[] daSet = new DomainArrangement[1];
 		daSet[0] = queryProtein;
 		queryDomainView = ViewHandler.getInstance().createView(ViewType.DOMAINS, "");
@@ -263,7 +258,10 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		add(new JLabel("Selected hits:"), "gapleft 10");
 		add(selectedHitsLabel, "wrap");
 		add(new JXTitledSeparator("Query Arrangement"), "growx, span, wrap, gaptop 10");
-		add(queryDomainView.getParentPane(), "wrap, span");
+		if (queryDomainView != null)
+			add(queryDomainView.getParentPane(), "wrap, span");
+		else
+			add(new JLabel("RAWSEQ"), "wrap, span");
 		
 		add(new JXTitledSeparator("RADS Results"), "growx, span, wrap, gaptop 10");
 		add(jScrollPane, "h 100::400, w 600!, growx, span");
