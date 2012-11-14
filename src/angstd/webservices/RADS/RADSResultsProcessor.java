@@ -1,7 +1,7 @@
 package angstd.webservices.RADS;
 
-import info.radm.radscan.ds.RADSDomain;
-import info.radm.radscan.ds.RADSProtein;
+import info.radm.radscan.model.RADSDomain;
+import info.radm.radscan.model.RADSProtein;
 
 import java.util.HashMap;
 import java.util.TreeSet;

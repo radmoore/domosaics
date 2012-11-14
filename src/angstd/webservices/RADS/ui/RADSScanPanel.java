@@ -2,7 +2,7 @@ package angstd.webservices.RADS.ui;
 
 import info.radm.radscan.RADSQueryBuilder;
 import info.radm.radscan.RADSResults;
-import info.radm.radscan.ds.RADSProtein;
+import info.radm.radscan.model.RADSProtein;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -57,11 +57,11 @@ import angstd.webservices.RADS.RADSPanelI;
 import angstd.webservices.RADS.RADSParms;
 import angstd.webservices.RADS.RADSResultsProcessor;
 import angstd.webservices.RADS.RADSService;
+import angstd.webservices.RADS.util.RADSResultsTableModel;
 //import javax.swing.JScrollPane;
 //import javax.swing.JTextArea;
 //import javax.swing.event.DocumentEvent;
 //import javax.swing.event.DocumentListener;
-import angstd.webservices.RADS.util.RADSResultsTableModel;
 
 /**
  * This class describes the RADS scan panel that can be used to conduct
@@ -83,7 +83,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private static final long serialVersionUID = 1L;
 	private JPanel radsOptionPanel, rampageOptionPanel;
 	private JButton loadSeq, loadArr, submit, reset,
-	apply, cancel, browse, showReport;
+	apply, cancel, showReport;
 	private JTextField loadSeqTF, loadArrTF, radsMatch, radsMismatch, radsIntGapOpen, radsIntGapExt, 
 	radsTerGapOpen, radsTerGapExt, rampageIntGapOpen, rampageIntGapExt, rampageTerGapOpen,
 	rampageTerGapExt;
@@ -103,7 +103,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private RADSResultsProcessor resultProcessor;
 	private RADSQueryBuilder qBuilder;
 	private RADSResultDetailsPanel logPanel = null;
-	private RADSResultsTablePanel resultTable = null;
+	private RADSResultsTablePanel resultTablePanel = null;
 	private RADSResultsTableModel resultsTableModel = null;
 	
 	private ArrayList<String> xdomEntries;
@@ -266,8 +266,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	public void close(boolean checkScanState) {
 		if (radsService == null) {
 			parent.dispose();
-			if (logPanel != null)
-				logPanel.destroy();
+			closePanels();
 		}
 		else if (checkScanState) {
 			boolean choice = true;
@@ -276,15 +275,20 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 			if (choice) {
 				radsService.cancelScan();
 				parent.dispose();
-				if (logPanel != null)
-					logPanel.destroy();
+				closePanels();
 			}
 		}
 		else {
 			parent.dispose();
-			if (logPanel != null)
-				logPanel.destroy();
+			closePanels();
 		}
+	}
+	
+	private void closePanels() {
+		if (logPanel != null)
+			logPanel.destroy();
+		if (resultTablePanel != null)
+			resultTablePanel.destroy();
 	}
 	
 	/*
@@ -665,11 +669,11 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	}
 	
 	private void openResultTable() {
-		if (resultTable == null)
-			resultTable = RADSResultsTablePanel.createResultsTableFrame(queryProtein, results, resultsTableModel);
+		if (resultTablePanel == null)
+			resultTablePanel = RADSResultsTablePanel.createResultsTableFrame(queryProtein, results, resultsTableModel);
 		
-		resultTable.setRADSPanel(instance);
-		resultTable.showFrame();
+		resultTablePanel.setRADSPanel(instance);
+		resultTablePanel.showFrame();
 	}
 	
 	/*

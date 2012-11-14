@@ -144,7 +144,7 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		this.selectedHitsLabel = new JLabel(selectedHits+"");
 		this.results = results;
 		this.resultTableModel = resultTableModel;
-		if (! results.getQuery().getQueryID().equals("rawseq"))
+		if (! results.getQuery().getQueryID().equals("rawseq") )
 			initQueryPanel();
 		initTable();
 		initPanel();
@@ -261,7 +261,7 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		if (queryDomainView != null)
 			add(queryDomainView.getParentPane(), "wrap, span");
 		else
-			add(new JLabel("RAWSEQ"), "wrap, span");
+			add(new JLabel("SEQUENCE"), "wrap, span");
 		
 		add(new JXTitledSeparator("RADS Results"), "growx, span, wrap, gaptop 10");
 		add(jScrollPane, "h 100::400, w 600!, growx, span");
