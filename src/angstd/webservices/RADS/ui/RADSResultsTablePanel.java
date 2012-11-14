@@ -128,10 +128,6 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		frame.setVisible(true);
 	}
 	
-	
-		 
-	
-	
 	/**
 	 * Private constructor - see static access method {@link RADSResultTablePanel#showResultsFrame()} 
 	 * @param queryProtein - the query protein used for the scan
@@ -197,7 +193,6 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		resultTable.setAutoCreateRowSorter(true);
 		resultTable.getTableHeader().setToolTipText("Click to sort");
 	}
-	
 	
 	/*
 	 * Constructs the panel
@@ -329,7 +324,6 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		ViewHandler.getInstance().addView(domResultView, project);
 		scanPanel.close(false);
 		destroy();
-		
 	}
 	
 }
