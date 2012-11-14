@@ -669,7 +669,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	}
 	
 	private void openResultTable() {
-		if (resultTablePanel == null)
+		//if (resultTablePanel == null)
 			resultTablePanel = RADSResultsTablePanel.createResultsTableFrame(queryProtein, results, resultsTableModel);
 		
 		resultTablePanel.setRADSPanel(instance);

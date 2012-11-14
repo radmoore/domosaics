@@ -139,12 +139,13 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	 */
 	private RADSResultsTablePanel(DomainArrangement queryProtein, 
 			RADSResults results, RADSResultsTableModel resultTableModel) {
-		super(new MigLayout());
+//		super(new MigLayout());
+		super(new MigLayout("", "[]25[]", ""));
 		this.queryProtein = queryProtein;
 		this.selectedHitsLabel = new JLabel(selectedHits+"");
 		this.results = results;
 		this.resultTableModel = resultTableModel;
-		if (! results.getQuery().getQueryID().equals("rawseq") )
+		if ( results.getQuery().getQuerySequence() == null )
 			initQueryPanel();
 		initTable();
 		initPanel();
@@ -208,9 +209,9 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		
 		readLogFile();
 		
-		frame = new JFrame("RADS Results");
+		frame = new JFrame("RADS/RAMPAGE Results");
 		
-		applySelection = new JButton("Import");
+		applySelection = new JButton("Import selection");
 		applySelection.setToolTipText("Create view from selection");
 		applySelection.setActionCommand("createView");
 		applySelection.addActionListener(this);
@@ -246,7 +247,7 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	    resultTable.setFillsViewportHeight(true);;
 		JScrollPane jScrollPane = new JScrollPane(resultTable);
 		
-		add(new JXTitledSeparator("RadScan Summary"), "growx, span, wrap,");
+		add(new JXTitledSeparator("Scan summary"), "growx, span, wrap");
 		add(new JLabel("Query ID:"), "gapleft 10");
 		add(new JLabel(queryProtein.getName()), "wrap");
 		add(new JLabel("Job ID"), "gapleft 10");
@@ -257,18 +258,21 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		add(new JLabel(""+results.getHitsNumber()), "wrap");
 		add(new JLabel("Selected hits:"), "gapleft 10");
 		add(selectedHitsLabel, "wrap");
-		add(new JXTitledSeparator("Query Arrangement"), "growx, span, wrap, gaptop 10");
+		add(new JXTitledSeparator("Query"), "growx, span, wrap, gaptop 10");
 		if (queryDomainView != null)
 			add(queryDomainView.getParentPane(), "wrap, span");
-		else
-			add(new JLabel("SEQUENCE"), "wrap, span");
-		
-		add(new JXTitledSeparator("RADS Results"), "growx, span, wrap, gaptop 10");
-		add(jScrollPane, "h 100::400, w 600!, growx, span");
-		add(applySelection, "split 4");
+		else {
+			add(new JLabel("Sequence sequence"), "gapleft 10, wrap");
+			add(new JLabel("Checksum: "), "gapleft 10");
+			add(new JLabel(results.getQuery().getSequenceChecksum()), "span, wrap");
+		}
+			
+		add(new JXTitledSeparator("RADS/RAMPAGE hitlist"), "growx, span, wrap, gaptop 10");
+		add(jScrollPane, "h 100::400, w 600!, growx, span, wrap");
+		add(applySelection, "");
 //		add(save, "");
-		//add(close, "");
-		add(selectAll, "");
+//		add(close, "");
+		add(selectAll, "split 2");
 		add(deselectAll, "");
 		add(seeOnline, "align right");
 		
