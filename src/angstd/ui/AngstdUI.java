@@ -231,20 +231,34 @@ public class AngstdUI extends JFrame implements WindowListener{
     	try {
     		is = this.getClass().getResourceAsStream("resources/icons/newproject.png");
     		newProjectIcon = new ImageIcon(ImageIO.read(is));
+    		
     		is = this.getClass().getResourceAsStream("resources/icons/openproject.png");
     		openProjectIcon = new ImageIcon(ImageIO.read(is));
+    		
     		is = this.getClass().getResourceAsStream("resources/icons/saveproject.png");
     		saveProjectIcon = new ImageIcon(ImageIO.read(is));
+    		
     		is = this.getClass().getResourceAsStream("resources/icons/importview.png");
     		importViewIcon = new ImageIcon(ImageIO.read(is));
+    		
     		is = this.getClass().getResourceAsStream("resources/icons/exportview.png");
     		exportViewIcon = new ImageIcon(ImageIO.read(is));
+    		
     		is = this.getClass().getResourceAsStream("resources/icons/hmmscan.png");
     		hmmscanIcon = new ImageIcon(ImageIO.read(is));
+    		
     		is = this.getClass().getResourceAsStream("resources/icons/iprscan.png");
     		iprscanIcon = new ImageIcon(ImageIO.read(is));
+    		
     		is = this.getClass().getResourceAsStream("resources/icons/rads.png");
     		radsIcon = new ImageIcon(ImageIO.read(is));
+    		
+    		is = this.getClass().getResourceAsStream("resources/icons/tree.png");
+    		treeIcon = new ImageIcon(ImageIO.read(is));
+    		
+    		is = this.getClass().getResourceAsStream("resources/icons/settings.png");
+    		domainTreeIcon = new ImageIcon(ImageIO.read(is));
+    		
     		is = this.getClass().getResourceAsStream("resources/icons/settings.png");
     		settingsIcon = new ImageIcon(ImageIO.read(is));
     	}
@@ -317,15 +331,12 @@ public class AngstdUI extends JFrame implements WindowListener{
     	hmmscan.setIcon(hmmscanIcon);
     	hmmscan.setToolTipText("Search for domains in sequences using local HMMSCAN installation");
     	hmmscan.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent e) {	
 				hmmer3 = Hmmer3Frame.getFrame();
-				
 				if (hmmer3 == null || !hmmer3.isVisible())
 					hmmer3 = new Hmmer3Frame();
 				else 
 					hmmer3.setState(Frame.NORMAL);
-				
 			}
 		});
     	toolBar.add(hmmscan);
@@ -365,6 +376,32 @@ public class AngstdUI extends JFrame implements WindowListener{
     	toolBar.add(radsBtn);
     	
     	toolBar.addSeparator();
+    	
+    	// domainTree
+    	JButton domainTreeBtn = new JButton();
+    	domainTreeBtn.setIcon(domainTreeIcon);
+    	domainTreeBtn.setToolTipText("Merge a domain and sequence view");
+    	domainTreeBtn.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+				WizardManager.getInstance().startCreateDomTreeWizard();
+			}
+		});
+    	toolBar.add(domainTreeBtn);
+    	
+    	// Tree
+    	JButton treeBtn = new JButton();
+    	treeBtn.setIcon(treeIcon);
+    	treeBtn.setToolTipText("Build a tree based on domains or sequences");
+    	treeBtn.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+				WizardManager.getInstance().startCreateTreeWizard();
+			}
+		});
+    	toolBar.add(treeBtn);
+    	
+    	
+    	toolBar.addSeparator();
+    	
     	// configuration
     	JButton settings = new JButton();
     	settings.setIcon(settingsIcon);
