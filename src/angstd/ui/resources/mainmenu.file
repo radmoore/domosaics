@@ -1,105 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Angstd menu entry definitions --> 
-
-<!-- menuItem: Specifies a menu entry -->
-<!-- name: The name of the menu entry -->
-<!-- parent: An optional parent element within the menu structure -->
-<!-- actionClass: An optional value to specify the linked action class -->
-<!-- tooltip: Specify a tooltip text -->
-<!-- icon: Specify an icon reference -->
-	
-<!--	<menuitem id="JMenuItem">-->
-<!--		<parameter id="name" value=""/> -->
-<!--		<parameter id="actionClass" value=""/> -->
-<!--		<parameter id="tooltip" value=""/> -->
-<!--		<parameter id="icon" value=""/> -->
-<!--		<parameter id="mnemonic" value=""/> -->
-<!--	</menuItem>	-->
-
-<!--	<menuitem id="JSeperator"/>  -->
+<!-- DoMosaics menu entry definitions --> 
 
 <menubar>
 	
 	<menu id="File">
 
-		<menu id="New...">
-		
 			<menuitem id="JMenuItem">
-				<parameter id="name" value="Empty Project"/> 
-				<parameter id="actionClass" value="angstd.ui.actions.CreateEmptyProject"/> 
-				<parameter id="tooltip" value="Creates an empty project in workspace"/> 
-			</menuItem>
-		
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="Project with data"/> 
+				<parameter id="name" value="Manage Projects"/> 
 				<parameter id="actionClass" value="angstd.ui.actions.ImportDataAction"/> 
-				<parameter id="tooltip" value="Opens a wizard which makes it possible to load various data types"/> 
+				<parameter id="tooltip" value="Create a new project or load data into existing project"/> 
 			</menuItem>
-		
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="Tree"/> 
-				<parameter id="actionClass" value="angstd.ui.actions.CreateTreeAction"/> 
-				<parameter id="tooltip" value=""/> 
-			</menuItem>
-			
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="Species Tree"/> 
-				<parameter id="actionClass" value="angstd.ui.actions.CreateSpeciesTreeAction"/> 
-				<parameter id="tooltip" value=""/> 
-			</menuItem>
-			
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="Domain Tree"/> 
-				<parameter id="actionClass" value="angstd.ui.actions.CreateDomainTreeAction"/> 
-				<parameter id="tooltip" value="Fuses a tree and an arrangement view to a domain tree view"/> 
-			</menuItem>
-			
-			
-		</menu>
-		
-		<menuitem id="JSeparator"/>
-		
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="Import View"/> 
-			<parameter id="actionClass" value="angstd.ui.actions.ImportViewAction"/> 
-			<parameter id="tooltip" value="Load a view into the workspace"/> 
-		</menuItem>
-		
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="Export View"/> 
-			<parameter id="actionClass" value="angstd.ui.actions.ExportViewAction"/> 
-			<parameter id="tooltip" value="Open save view wizard"/> 
-		</menuItem>
 
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="Import Project"/> 
-			<parameter id="actionClass" value="angstd.ui.actions.LoadProjectAction"/> 
-			<parameter id="tooltip" value="Load existing project into the workspace"/> 
-		</menuItem>
-		
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="Export Project"/> 
-			<parameter id="actionClass" value="angstd.ui.actions.SaveProjectAction"/> 
-			<parameter id="tooltip" value="Opens a wizard which makes it possible to save a project"/> 
-		</menuItem>
+			<menuitem id="JSeparator"/>
+			
+			<menu id="Import">
+
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="Import Project Folder"/> 
+					<parameter id="actionClass" value="angstd.ui.actions.LoadProjectAction"/> 
+					<parameter id="tooltip" value="Load existing project into the workspace"/> 
+				</menuItem>
+				
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="Import View Folder"/> 
+					<parameter id="actionClass" value="angstd.ui.actions.ImportViewAction"/> 
+					<parameter id="tooltip" value="Load a view into the workspace"/> 
+				</menuItem>
+			
+			</menu>
+			
+			<menu id="Export">
+			
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="Export Project Folder"/> 
+					<parameter id="actionClass" value="angstd.ui.actions.SaveProjectAction"/> 
+					<parameter id="tooltip" value="Opens a wizard which makes it possible to save a project"/> 
+				</menuItem>
+				
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="Export View Folder"/> 
+					<parameter id="actionClass" value="angstd.ui.actions.ExportViewAction"/> 
+					<parameter id="tooltip" value="Open save view wizard"/> 
+				</menuItem>
+					
+			</menu>
+
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Settings"/> 
+				<parameter id="actionClass" value="angstd.ui.actions.ShowConfigurationAction"/> 
+				<parameter id="tooltip" value="Configure DoMosaics"/> 
+			</menuItem>
+							
+			<menuitem id="JSeparator"/>
 		
 <!--		<menuitem id="JMenuItem">
 <!--			<parameter id="name" value="Sweep workspace"/> 
 <!--			<parameter id="actionClass" value="angstd.ui.actions.SweepWorkspaceDir"/> 
 <!--			<parameter id="tooltip" value="Remove all non-active projects from workspace folder"/> 
 <!--		</menuItem>
-		
-		<menuitem id="JSeparator"/>
 
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="Quit"/> 
-			<parameter id="actionClass" value="angstd.ui.actions.QuitAction"/> 
-			<parameter id="tooltip" value="Closes the application"/> 
-		</menuItem>
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Quit"/> 
+				<parameter id="actionClass" value="angstd.ui.actions.QuitAction"/> 
+				<parameter id="tooltip" value="Closes the application"/> 
+			</menuItem>
 
 	</menu>
+							
+	<menu id="Actions">
 
-	<menu id="Annotate">
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="InterPro"/> 
 			<parameter id="actionClass" value="angstd.ui.actions.ShowAnnotatorAction"/> 
@@ -111,43 +80,69 @@
 			<parameter id="actionClass" value="angstd.ui.actions.Hmmer3Action"/> 
 			<parameter id="tooltip" value="Run a local installation of HMMER3 to annotate sequences."/> 
 		</menuItem>
-
-	</menu>
-	
-	<menu id="Options">
+		
 		<menuitem id="JMenuItem">
-			<parameter id="name" value="Settings"/> 
-			<parameter id="actionClass" value="angstd.ui.actions.ShowConfigurationAction"/> 
-			<parameter id="tooltip" value="Configure AnGSTD"/> 
+			<parameter id="name" value="RADS/RAMPAGE"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.Hmmer3Action"/> 
+			<parameter id="tooltip" value="Find similar domain arrangement in UniProt"/> 
 		</menuItem>
-	</menu>
+		
+		<menuitem id="JSeparator"/>		
+		
+		<menu id="Trees">
 
-	<menu id="Help">
-
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="Manual"/> 
-			<parameter id="actionClass" value="angstd.ui.actions.ShowManualAction"/> 
-			<parameter id="tooltip" value="Shows the program manual"/> 
-		</menuItem>
-	
 			<menuitem id="JMenuItem">
-				<parameter id="name" value="Load Small Example Dataset"/> 
+				<parameter id="name" value="Create Domain Tree"/> 
+				<parameter id="actionClass" value="angstd.ui.actions.CreateDomainTreeAction"/> 
+				<parameter id="tooltip" value="Merges domain and tree view to create a domain tree view"/> 
+			</menuItem>		
+
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Create Tree"/> 
+				<parameter id="actionClass" value="angstd.ui.actions.CreateTreeAction"/> 
+				<parameter id="tooltip" value="Create a tree based on an existing view"/> 
+			</menuItem>		
+
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Species Tree"/> 
+<!--			<parameter id="actionClass" value="angstd.ui.actions.CreateSpeciesTreeAction"/> 
+<!--			<parameter id="tooltip" value=""/>
+<!--		</menuItem>
+
+		</menu>
+		
+		<menuitem id="JSeparator"/>
+	
+		<menu id="Load Example">
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Small Example Dataset"/> 
 				<parameter id="actionClass" value="angstd.ui.actions.LoadSmallExampleDataActon"/> 
 				<parameter id="tooltip" value="Loads a small example data set"/> 
 			</menuItem>
 		
 			<menuitem id="JMenuItem">
-				<parameter id="name" value="Load Large Example Dataset"/> 
+				<parameter id="name" value="Large Example Dataset"/> 
 				<parameter id="actionClass" value="angstd.ui.actions.LoadBigExampleDataAction"/> 
 				<parameter id="tooltip" value="Loads a large example data set"/> 
 			</menuItem>
 		
-		<menuitem id="JSeparator"/>
+		</menu>
 		
+	</menu>
+
+	<menu id="Help">
+
 		<menuitem id="JMenuItem">
-			<parameter id="name" value="About"/> 
+			<parameter id="name" value="DoMosaics help"/> 
+			<parameter id="actionClass" value="angstd.ui.actions.ShowManualAction"/> 
+			<parameter id="tooltip" value="Open DoMosaics help website"/> 
+		</menuItem>
+			
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="About DoMosaics"/> 
 			<parameter id="actionClass" value="angstd.ui.actions.ShowAboutAction"/> 
-			<parameter id="tooltip" value="Shows the program manual"/> 
+			<parameter id="tooltip" value="Find out more..."/> 
 		</menuItem>
 		
 	</menu>
