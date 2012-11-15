@@ -242,6 +242,16 @@ public class AngstdUI extends JFrame implements WindowListener{
     		iprscanIcon = new ImageIcon(ImageIO.read(is));
     		is = this.getClass().getResourceAsStream("resources/icons/rads.png");
     		radsIcon = new ImageIcon(ImageIO.read(is));
+<<<<<<< HEAD
+=======
+    		
+    		is = this.getClass().getResourceAsStream("resources/icons/tree.png");
+    		treeIcon = new ImageIcon(ImageIO.read(is));
+    		
+    		is = this.getClass().getResourceAsStream("resources/icons/settings.png");
+    		domainTreeIcon = new ImageIcon(ImageIO.read(is));
+    		
+>>>>>>> 4c52155... small update to tool bar (tree icon)
     		is = this.getClass().getResourceAsStream("resources/icons/settings.png");
     		settingsIcon = new ImageIcon(ImageIO.read(is));
     	}
