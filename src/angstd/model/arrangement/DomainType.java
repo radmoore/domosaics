@@ -109,6 +109,10 @@ public enum DomainType {
         this.regexp = regexp;
     }*/
 
+    public String getUrl(String label) {
+    	return homeUrl;
+    }
+    
     private DomainType(String name, String homeUrl, String regexp) {
     	this.name = name;
         this.homeUrl = homeUrl;
