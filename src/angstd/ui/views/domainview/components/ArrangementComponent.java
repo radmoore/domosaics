@@ -34,6 +34,8 @@ public class ArrangementComponent extends AbstractViewComponent{
 	/** flag indicating whether or not the arrangement is visible */
 	protected boolean visible = true;
 	
+	private boolean renderID = true;
+	
 	/**
 	 * Constructor for a new ArrangementComponent representing a 
 	 * specified backend data arrangement. 
@@ -69,8 +71,6 @@ public class ArrangementComponent extends AbstractViewComponent{
     	return manager.getDomainComponent(dom);
     }
     
-    
-    
     /**
      * Return whether or not the arrangement component is visible in 
      * the view.
@@ -81,6 +81,7 @@ public class ArrangementComponent extends AbstractViewComponent{
     public boolean isVisible() {
     	return visible;
     }
+  
     
     /**
      * Sets the visibility status for the arrangement component.

@@ -1,7 +1,7 @@
 package angstd.webservices.RADS.ui;
 
 import info.radm.radscan.RADSResults;
-import info.radm.radscan.ds.RADSProtein;
+import info.radm.radscan.model.RADSProtein;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,6 +49,7 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 	private StringBuffer crampageLog = null;
 	private DomainArrangement queryProtein;
 	private TreeSet<RADSProtein> proteins; 
+	
 	
 	private static RADSResultDetailsPanel instance = null;
 	
@@ -141,8 +142,6 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 		
 		frame.add(this);
 		frame.pack();
-//		frame.setVisible(true);
-		
 	}
 	
 	/* 

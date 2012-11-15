@@ -1,9 +1,9 @@
 package angstd.webservices.RADS;
 
-import info.radm.radscan.ds.RADSDomain;
-import info.radm.radscan.ds.RADSProtein;
+import info.radm.radscan.model.RADSDomain;
+import info.radm.radscan.model.RADSProtein;
 
-import java.awt.Color;
+import java.util.HashMap;
 import java.util.TreeSet;
 
 import javax.swing.JProgressBar;
@@ -14,9 +14,8 @@ import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainType;
 import angstd.model.arrangement.io.GatheringThresholdsReader;
-import angstd.ui.ViewHandler;
 import angstd.ui.util.MessageUtil;
-import angstd.ui.views.domainview.DomainViewI;
+import angstd.webservices.RADS.util.RADSResultsTableModel;
 
 /**
  * This class describes a RADSResultsProcessor, which performs
@@ -43,7 +42,78 @@ public class RADSResultsProcessor {
 		this.radsPanel = radsPanel;
 		this.progressBar = radsPanel.getProgressBar();
 		this.radsService = radsPanel.getRadsService();
+		
 		this.proteins = radsService.getHits();
+	}
+	
+	//TODO create TableModel from results
+	public RADSResultsTableModel createResultTable() {
+		
+		if (proteins == null) {
+			MessageUtil.showInformation(radsPanel.getParentFrame(), "No hits found");
+			return null;
+		}
+
+		progressBar.setIndeterminate(false);
+		progressBar.setMaximum(proteins.size());
+		progressBar.setValue(0);
+		int i = 1;
+		int tableIndex = 0;
+		
+		RADSResultsTableModel resultTableModel = new RADSResultsTableModel();
+		HashMap<String, DomainArrangement> arrangementData = new HashMap<String, DomainArrangement>(); 
+		DomainArrangement da;
+		String algo = radsService.getScanResults().getQuery().getAlgorithm();
+		if (algo.equals("rads"))
+			resultTableModel.setTableMode(RADSResultsTableModel.RADS_MODE);
+		else
+			resultTableModel.setTableMode(RADSResultsTableModel.RAMPAGE_MODE);
+		
+		Object[][] tableData = new Object[proteins.size()][resultTableModel.getColumnCount()];
+		
+		for (RADSProtein p: proteins) {
+			
+			progressBar.setValue(i);
+			da = new DomainArrangement();
+			da.setName(p.getID());
+			da.setSeqLen(p.getLength());
+			
+			for (RADSDomain resDom: p.getDomains()) {
+				String acc = GatheringThresholdsReader.getAccFromID(resDom.getID());
+				DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(acc);
+				if (domFamily == null) {
+					domFamily = new DomainFamily(acc, acc, DomainType.getType(acc));
+					GatheringThresholdsReader.getInstance().put(acc, domFamily);
+				}
+				int from = resDom.getFrom();
+				int to = resDom.getTo();
+				double evalue = resDom.getEvalue();
+				Domain dom = new Domain(from, to, domFamily);
+				if (evalue != -1)
+					dom.setEvalue(evalue);
+				da.addDomain(dom);
+			}
+			da.sortDomains();
+			arrangementData.put(p.getID(), da);
+			tableData[tableIndex][0] = i;
+			tableData[tableIndex][1] = new Boolean(false);
+			tableData[tableIndex][2] = p.getID();
+			if (resultTableModel.getTableMode() == RADSResultsTableModel.RADS_MODE) {
+				tableData[tableIndex][3] = p.getRADSScore();
+				tableData[tableIndex][4] = p.getArrString();
+			}
+			else {
+				tableData[tableIndex][3] = p.getRADSScore();
+				tableData[tableIndex][4] = p.getRAMPAGEScore();
+				tableData[tableIndex][5] = p.getArrString();
+			}
+			tableIndex++;
+			
+			i++;
+		}
+		resultTableModel.setTableData(tableData);
+		resultTableModel.setArrangementData(arrangementData);
+		return resultTableModel;
 	}
 	
 	/**
@@ -99,6 +169,8 @@ public class RADSResultsProcessor {
 		}
 		return arrSet;
 	}
+	
+
 	
 	
 }

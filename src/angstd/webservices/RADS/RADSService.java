@@ -4,10 +4,9 @@ import info.radm.radscan.RADSParser;
 import info.radm.radscan.RADSQuery;
 import info.radm.radscan.RADSResults;
 import info.radm.radscan.RADSRunner;
-import info.radm.radscan.ds.RADSProtein;
+import info.radm.radscan.model.RADSProtein;
 
 import java.util.TreeSet;
-import java.util.concurrent.ExecutionException;
 
 import javax.swing.SwingWorker;
 

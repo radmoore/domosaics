@@ -2,9 +2,8 @@ package angstd.webservices.RADS.ui;
 
 import info.radm.radscan.RADSQueryBuilder;
 import info.radm.radscan.RADSResults;
-import info.radm.radscan.ds.RADSProtein;
+import info.radm.radscan.model.RADSProtein;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
+import javax.swing.SwingWorker;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -46,7 +47,6 @@ import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainView;
 import angstd.ui.views.domainview.DomainViewI;
-import angstd.ui.views.domainview.manager.DomainColorManager;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.views.view.View;
 import angstd.ui.wizards.WizardListCellRenderer;
@@ -57,6 +57,7 @@ import angstd.webservices.RADS.RADSPanelI;
 import angstd.webservices.RADS.RADSParms;
 import angstd.webservices.RADS.RADSResultsProcessor;
 import angstd.webservices.RADS.RADSService;
+import angstd.webservices.RADS.util.RADSResultsTableModel;
 //import javax.swing.JScrollPane;
 //import javax.swing.JTextArea;
 //import javax.swing.event.DocumentEvent;
@@ -82,7 +83,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private static final long serialVersionUID = 1L;
 	private JPanel radsOptionPanel, rampageOptionPanel;
 	private JButton loadSeq, loadArr, submit, reset,
-	apply, cancel, browse, showReport;
+	apply, cancel, showReport;
 	private JTextField loadSeqTF, loadArrTF, radsMatch, radsMismatch, radsIntGapOpen, radsIntGapExt, 
 	radsTerGapOpen, radsTerGapExt, rampageIntGapOpen, rampageIntGapExt, rampageTerGapOpen,
 	rampageTerGapExt;
@@ -102,6 +103,8 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private RADSResultsProcessor resultProcessor;
 	private RADSQueryBuilder qBuilder;
 	private RADSResultDetailsPanel logPanel = null;
+	private RADSResultsTablePanel resultTablePanel = null;
+	private RADSResultsTableModel resultsTableModel = null;
 	
 	private ArrayList<String> xdomEntries;
 	private ArrayList<String> fastaEntries;
@@ -246,6 +249,9 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		if (e.getActionCommand().equals("openLogWindow")) {
 			openLogWindow();
 		}
+		if (e.getActionCommand().equals("openResultsTable")) {
+			openResultTable();
+		}
 		if (e.getActionCommand().equals("openBrowseWindow"))
 			BrowserLauncher.openURL(results.getJobUrl());	
 	}
@@ -260,8 +266,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	public void close(boolean checkScanState) {
 		if (radsService == null) {
 			parent.dispose();
-			if (logPanel != null)
-				logPanel.destroy();
+			closePanels();
 		}
 		else if (checkScanState) {
 			boolean choice = true;
@@ -270,15 +275,20 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 			if (choice) {
 				radsService.cancelScan();
 				parent.dispose();
-				if (logPanel != null)
-					logPanel.destroy();
+				closePanels();
 			}
 		}
 		else {
 			parent.dispose();
-			if (logPanel != null)
-				logPanel.destroy();
+			closePanels();
 		}
+	}
+	
+	private void closePanels() {
+		if (logPanel != null)
+			logPanel.destroy();
+		if (resultTablePanel != null)
+			resultTablePanel.destroy();
 	}
 	
 	/*
@@ -409,9 +419,9 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		reset.setActionCommand("setDefaultValues");
 		reset.addActionListener(this);
 		
-		apply = new JButton("Apply");
-		apply.setToolTipText("Create new view from results");
-		apply.setActionCommand("createView");
+		apply = new JButton("Show results");
+		apply.setToolTipText("Show results of scan");
+		apply.setActionCommand("openResultsTable");
 		apply.addActionListener(this);
 		apply.setEnabled(false);
 		
@@ -420,11 +430,11 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		cancel.setActionCommand("close");
 		cancel.addActionListener(this);
 		
-		browse = new JButton("Browse results online");
-		browse.setToolTipText("Open results at RADS online (requires internet)");
-		browse.setActionCommand("openBrowseWindow");
-		browse.addActionListener(this);
-		browse.setEnabled(false);
+//		browse = new JButton("Browse results online");
+//		browse.setToolTipText("Open results at RADS online (requires internet)");
+//		browse.setActionCommand("openBrowseWindow");
+//		browse.addActionListener(this);
+//		browse.setEnabled(false);
 		
 		showReport = new JButton("Show scan log");
 		showReport.setToolTipText("Show RADS scan log");
@@ -521,16 +531,16 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		// sequences
 		add(new JXTitledSeparator("Sequences"), "growx, span, wrap");
 		add(loadSeq, "w 150!, gap 5");
-		add(loadSeqTF, "h 25!, w 350!, span, growx, gapright 5, wrap");
+		add(loadSeqTF, "h 25!, w 300!, span, growx, gapright 5, wrap");
 		add(new JLabel("Or select view:"), "gap 5");
-		add(selectSeqView, "h 25!, w 350!, span, growx, gapright 5, wrap");
+		add(selectSeqView, "h 25!, w 300!, span, growx, gapright 5, wrap");
 		
 		// arrangements
 		add(new JXTitledSeparator("Arrangements"), "growx, span, wrap");
 		add(loadArr, "w 150!, gap 5");
-		add(loadArrTF, "h 25!, w 350!, span, growx, gapright 5, wrap");
+		add(loadArrTF, "h 25!, w 300!, span, growx, gapright 5, wrap");
 		add(new JLabel("Or select view:"), "gap 5");
-		add(selectArrView, "h 25!, w 350!, span, growx, gapright 5, wrap");
+		add(selectArrView, "h 25!, w 300!, span, growx, gapright 5, wrap");
 		
 		// parameter
 		add(new JXTitledSeparator("Options"),"growX, span, wrap, gaptop 5");
@@ -542,14 +552,14 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		add(rampageOptionPanel, "span, wrap");
 		
 		add(submit, "w 150!");
-		add(reset, "w 150!, wrap");
+		add(reset, "align right, wrap");
 		add(progressBar, "h 25!, gaptop 10, span, growX, wrap");
 		
 		// apply
-		add(new JXTitledSeparator("Apply Results"), "growx, span, wrap, gaptop 10");
+		add(new JXTitledSeparator("Results"), "growx, span, wrap, gaptop 10");
 		add(apply, "split 2");
 		add(cancel, "");
-		add(browse, "");
+		//add(browse, "");
 		add(showReport, "");
 	}
 	
@@ -653,10 +663,18 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 
 	private void openLogWindow() {
 		if (logPanel == null)
-			logPanel = RADSResultDetailsPanel.createResultsFrame(queryProtein, results, proteins);	
+			logPanel = RADSResultDetailsPanel.createResultsFrame(queryProtein, results, proteins);
+			
 		logPanel.showFrame();
 	}
 	
+	private void openResultTable() {
+		//if (resultTablePanel == null)
+			resultTablePanel = RADSResultsTablePanel.createResultsTableFrame(queryProtein, results, resultsTableModel);
+		
+		resultTablePanel.setRADSPanel(instance);
+		resultTablePanel.showFrame();
+	}
 	
 	/*
 	 * Builds the RADS/RAMPAGE query. Will return true
@@ -860,11 +878,13 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 								submit.setEnabled(true);
 								results = radsService.getScanResults();
 								resultProcessor = new RADSResultsProcessor(instance);
-								arrSet = resultProcessor.process();
+								//TODO should retrun a table model
+								//arrSet = resultProcessor.process();
+								resultsTableModel = createResultTable();
 								progressBar.setString("Scan complete");
-								if (arrSet != null) {
+								if (resultsTableModel != null) {
 									apply.setEnabled(true);
-									browse.setEnabled(true);
+//									browse.setEnabled(true);
 									showReport.setEnabled(true);
 								}
 								submit.setEnabled(true);
@@ -878,7 +898,28 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		}
 	}
 	
+	private RADSResultsTableModel createResultTable() {
+		RADSResultsTableModel resultModel = null;
+		SwingWorker<RADSResultsTableModel, Void> worker = 
+			new SwingWorker<RADSResultsTableModel, Void>() {
+			protected RADSResultsTableModel doInBackground() throws Exception {
+				return resultProcessor.createResultTable();
+			}
+		};
+		worker.execute();
+		try {
+			resultModel = worker.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resultModel;
+	}
 	
+	//TODO this will change now (when a JTable is used)
 	/* 
 	 * Constructs a new arrangement view of scan results
 	 */
