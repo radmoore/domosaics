@@ -20,6 +20,8 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
+import org.w3c.dom.css.CSSPrimitiveValue;
+import org.w3c.dom.css.RGBColor;
 
 import angstd.model.arrangement.io.GatheringThresholdsReader;
 import angstd.model.arrangement.io.Pfam2GOreader;
@@ -351,15 +353,13 @@ public class ApplicationHandler {
 	private class StartupPage extends Frame {
 		private static final long serialVersionUID = 1L;
 		
-		private static final String LOGOPATH = "ui/resources/domosaics_startup_2.png";
-//		private static final String LOGOPATH = "ui/resources/domosaic_startup.png";
+		private static final String LOGOPATH = "ui/resources/DoMosaics_splash_1_small.png";
 		
 		protected JProgressBar progressBar;
 		
 		public StartupPage() {
 			// init components
 			JPanel startupPanel = new JPanel(new BorderLayout());
-			startupPanel.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
 			
 			// load and display logo
 			InputStream is = this.getClass().getResourceAsStream(LOGOPATH);
@@ -373,6 +373,8 @@ public class ApplicationHandler {
 			
 			// create and display progressbar
 			progressBar = new JProgressBar(0, 100);
+			progressBar.setForeground(new Color(30, 108, 182));
+			progressBar.setBackground(Color.white);
 			progressBar.setIndeterminate(false);
 			progressBar.setStringPainted(true);
 			startupPanel.add(progressBar, BorderLayout.SOUTH);
