@@ -374,9 +374,10 @@ public class ApplicationHandler {
 			// create and display progressbar
 			progressBar = new JProgressBar(0, 100);
 			progressBar.setForeground(new Color(30, 108, 182));
-			progressBar.setBackground(Color.white);
+			progressBar.setBackground(new Color(213, 212, 212));
 			progressBar.setIndeterminate(false);
 			progressBar.setStringPainted(true);
+			progressBar.setBorderPainted(false);
 			startupPanel.add(progressBar, BorderLayout.SOUTH);
 
 			// set up the frame
