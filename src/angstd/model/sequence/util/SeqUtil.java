@@ -36,7 +36,7 @@ public class SeqUtil {
 	/** the genetic code which can be used to convert codons into amino acids */
 	public static GeneticCodeMap geneticCode = new GeneticCodeMap();
 	
-	public static final String NONVALIDRESEXP =  "[^FLIMVSPTAYHQNKDECWRGX*-]";
+	public static final String NONVALIDRESEXP =  "[^FLIMVSPTAYHQNKDECWRGXU*-]";
 	
 	
 	
@@ -61,9 +61,9 @@ public class SeqUtil {
 				letters.add(charSeq[i]);
 		}
 		//TODO: only allow protein for the time being
-		// check for PROTEIN (all AA + '-', '*', 'X')
+		// check for PROTEIN (all AA + '-', '*', 'X', 'U')
 		//if ( (letters.size() > 4) && (letters.size() <= 23) ) {
-		if ( letters.size() <= 23 ) {
+		if ( letters.size() <= 24 ) {
 			
 			Pattern nonRes = Pattern.compile(NONVALIDRESEXP);
 		    Matcher m = nonRes.matcher(seq);

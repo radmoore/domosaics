@@ -42,13 +42,16 @@ import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.ViewElement;
 import angstd.ui.ViewHandler;
 import angstd.ui.WorkspaceManager;
+import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.view.View;
+import angstd.ui.wizards.WizardManager;
 import angstd.ui.wizards.pages.ClustalW2Page;
+import angstd.ui.wizards.pages.SelectNamePage;
 import angstd.webservices.clustalw.ClustalW2ResultParser;
 
 /**
@@ -94,6 +97,7 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		catch(Exception e){
 			Configuration.getLogger().debug("There is a problem here.");
 			Configuration.getLogger().debug(e.toString());
+			e.printStackTrace();
 			p.failed("Error while creating Project", false);
 			p.finished(null);
 		}	
@@ -168,10 +172,10 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		// first of all get the selected view and its sequences
 		p.setProgress ("Inititializing tree creation", 0, 5);
 		View view =  ViewHandler.getInstance().getView(viewElt.getViewInfo());
-	
+		
 		// get the sequences depending on the view type (can be sequence or domain view)
 		SequenceI[] seqs = (view instanceof SequenceView) ? ((SequenceView) view).getSeqs() : ((DomainViewI) view).getSequences();
-
+		
 		// Check if the sequences are aligned already
 		p.setProgress ("Process clustal output", 1, 5);
 		if (clustalOutput != null) {
@@ -182,13 +186,13 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 			}
 		}
 		
+		
 		// NOTE: this does not actually align sequences
 		Alignment alignment = PALAdapter.createAlignment(seqs);
+		
 //		DataType dt = DataTypeTool.getNucleotides();
 //		SubstitutionModel sm = SubstitutionTool.createJC69Model();
-		
-		
-		
+				
 //		try {
 //			// TODO: write to logfile
 //			PrintWriter out = new PrintWriter(new File("/home/radmoore/Desktop/test/alntest.aln"));
@@ -203,7 +207,7 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 //		catch (Exception e) {
 //			
 //		}
-		
+
 		// get number of different states
 		double[] freqs = AlignmentUtils.estimateFrequencies( alignment );
 
@@ -227,19 +231,18 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 			subMatrix = new WAG(freqs);
 		else
 			subMatrix = new BLOSUM62(freqs);
-		
+
 		// create the substituion model
 		SubstitutionModel model = SubstitutionModel.Utils.createSubstitutionModel(subMatrix);
 		
-		
-		
 		// create the distance matrix
 		p.setProgress ("Create distance matrix (this may take some time)", 3, 5);
-		
+
 		// ADM: HERE: dm looks pretty wierd
 		DistanceMatrix dm = DistanceTool.constructEvolutionaryDistances(alignment, model);
+
 		// dm2 now has rates (after call above) 
-		DistanceMatrix dm2 = DistanceTool.constructEvolutionaryDistances(alignment, model);
+//		DistanceMatrix dm2 = DistanceTool.constructEvolutionaryDistances(alignment, model);
 		
 //		ReadDistanceMatrix rdm = null;
 //		try {
@@ -261,23 +264,39 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 //		double distance = dm2.getDistance(1, 2);
 //		System.out.println("This is the distance between 1 and 2: "+distance);
 
+		// Nico tests
+		System.out.println(dm.toString());
 		
 		// create unrooted tree
 		p.setProgress ("Create tree (this may take some time)", 4, 5);
-		TreeI tree = TreeCreationUtil.createTree(dm2, algo);
+		TreeI tree = TreeCreationUtil.createTree(dm, algo);
 		//TreeI tree = TreeCreationUtil.createTree(rdm, algo);
+
+		// get currently active view
+		//View activeView = ViewHandler.getInstance().getActiveView();
+		//System.out.println(activeView.toString());
+		ViewElement elem = WorkspaceManager.getInstance().getViewElement(view.getViewInfo());
+		ProjectElement activeProject = elem.getProject();
+		//CategoryElement category = null;
 		
 		// name the views which are going to be created
 		p.setProgress ("Creating resulting views", 5, 5);
 		String treeViewName = view.getViewInfo().getName()+"_"+algo.name();
-		String domTreeViewName = view.getViewInfo().getName()+"_tree";
+		String domTreeViewName = view.getViewInfo().getName()+"_tree"; /////// ACHTUNG /////
 		
-		// get currently active view
-		View activeView = ViewHandler.getInstance().getActiveView();
-		ViewElement elem = WorkspaceManager.getInstance().getViewElement(activeView.getViewInfo());
-		ProjectElement activeProject = elem.getProject();
-		//CategoryElement category = null;
+		// Verify that the view does not exist already
+		if (activeProject.viewExists(treeViewName, activeProject.getCategory(ViewType.TREE)))
+			MessageUtil.showInformation(null, "The view "+ treeViewName + " already exists. Please rename.");
 		
+		while(true) {
+			Map results = WizardManager.getInstance().selectNameWizard(treeViewName, "tree view", activeProject, true);
+			treeViewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
+			String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
+			activeProject = WorkspaceManager.getInstance().getProject(projectName);
+		
+			if (treeViewName != null)
+				break;
+		}
 		
 		// and create the tree view
 		TreeViewI treeView = ViewHandler.getInstance().createView(ViewType.TREE, treeViewName);

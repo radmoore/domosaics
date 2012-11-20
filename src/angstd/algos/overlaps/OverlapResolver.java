@@ -77,14 +77,17 @@ public class OverlapResolver {
 	 for(int i=1; i< ordered.size(); i++)
 	 {
 	  Domain currentDom=ordered.get(i);
+	  //System.out.println(da.getName()+" "+currentDom.getID()+" "+currentDom.getFrom()+" "+currentDom.getTo());
 	  for(int j=i-1; j>= 0; j--)
 	  {
 	   Domain bestDom=ordered.get(j);
-	   if(bestDom.getFrom() < currentDom.getTo() && currentDom.getFrom() < bestDom.getTo())
+	   if(bestDom.getFrom() <= currentDom.getTo() && currentDom.getFrom() <= bestDom.getTo())
 	   {
+		//System.out.println("Inconsistent with "+bestDom.getID()+" "+bestDom.getFrom()+" "+bestDom.getTo());
 	    toRemove.add(currentDom);
 	    ordered.remove(i);
 	    i--;
+	    break;
 	   }
 	  }
 	 }

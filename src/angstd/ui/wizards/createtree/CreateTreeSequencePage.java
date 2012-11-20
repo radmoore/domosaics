@@ -42,13 +42,13 @@ public class CreateTreeSequencePage extends WizardPage {
 		selectAlgo.setName(CreateTreeBranchController.ALGO_KEY);
 
 		add(new JXTitledSeparator("Select Substitution Matrix"), "growx, span, wrap, gaptop 10");
-		add(new JLabel("Select measure:"), 		"gap 10");
-		add(selectSubstitution, 				"w 150!, gap 10");
-		add(new JLabel(""), 		"w 101!, gap 10, wrap");
+		add(new JLabel("Select measure:"), 	"gap 10");
+		add(selectSubstitution, "w 150!, gap 10");
+		add(new JLabel(""), "w 101!, gap 10, wrap");
 		
 		add(new JXTitledSeparator("Select algorithm used for tree creation"), "growx, span, wrap, gaptop 25");
 		add(new JLabel("Select measure:"), 		"gap 10");
-		add(selectAlgo, 						"w 150!, gap 10, wrap");
+		add(selectAlgo, "w 150!, gap 10, wrap");
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class CreateTreeSequencePage extends WizardPage {
 	 * 		description for the page
 	 */
     public static final String getDescription() {
-        return "Select substitution matrix and  algorithm";
+        return "Select substitution matrix and algorithm";
     }
     
     /**

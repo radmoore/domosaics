@@ -17,6 +17,8 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
+import angstd.model.arrangement.DomainArrangement;
+import angstd.model.arrangement.io.ArrangementImporterUtil;
 import angstd.model.workspace.ProjectElement;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.util.FileDialogs;
@@ -38,6 +40,9 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	
 	/** the text field for choosing a view name */
 	protected JTextField viewName;
+	
+	/** the check for correct file format */
+	DomainArrangement[] daSet = null;
 	
 	private ProjectElement project = null;
 	
@@ -99,8 +104,9 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 		add(path, "w 150!, h 25!, gap 5");
 		add(browse, "wrap");
 		
-		add(new JLabel("Enter a name:"), "gap 10");
-		add(viewName, "w 150!, h 25!, gap 5, gaptop 5, gapright 10, wrap");
+		//add(new JLabel("Enter a name:"), "gap 10");
+		add(viewName, "w 50!, h 20!, wrap");
+		viewName.setVisible(false);
 		
 		add(new JXTitledSeparator("Associate with tree to domain tree"),"growx, span, wrap, gaptop 20");
 		add(new JLabel("Select view: "), 	"gap 10");
@@ -118,8 +124,12 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	public void actionPerformed(ActionEvent e) {	
 		File file = FileDialogs.showOpenDialog(this);
 		if(file != null) {
+			File test = new File(file.getAbsolutePath());
+			daSet = ArrangementImporterUtil.importData(test);
+		}
+		if(daSet == null) {
 			path.setText(file.getAbsolutePath());
-				viewName.setText(file.getName().split("\\.")[0]);
+			viewName.setText(file.getName().split("\\.")[0]);
 		}
 	}	
 	
@@ -137,10 +147,12 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
      * Checks if all necessary inputs are made.
      */
     protected String validateContents (Component component, Object o) {
+    	if (daSet == null)
+    		return "Please select a correctly formatted xdom file";
     	if (path.getText().isEmpty())
 			return "Please select a file";
-    	if (viewName.getText().trim().isEmpty())
-    		return "Please select a view name";
+    	//if (viewName.getText().trim().isEmpty())
+    	//	return "Please select a view name";
         return null;
     }
     

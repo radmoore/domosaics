@@ -26,7 +26,7 @@
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/freefluo.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/htmlhelper-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/jaxrpc.jar"/>
-	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/log4j-1.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/log4j-1.2.4.jar" sourcepath="C:/Users/nterr_01/Downloads/jakarta-log4j-1.2.4.zip"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/mail.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/ols-client-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/oracle_soap.jar"/>
@@ -43,7 +43,11 @@
 	<classpathentry kind="lib" path="lib/export/csv/javacsv.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/IPRScan_Axis1.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/ClustalW2_Axis1.jar"/>
-	<classpathentry kind="lib" path="lib/algo/pal-1.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/algo/pal-1.5.1.jar" sourcepath="/scratch/nterr_01/files/pal-1.5.1-src.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/scratch/nterr_01/files/pal-1.5.1-api.zip!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/misc/commons-io-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/commons-discovery.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/commons-logging.jar"/>

@@ -15,6 +15,8 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
+import angstd.model.tree.TreeI;
+import angstd.model.tree.io.NewickTreeReader;
 import angstd.model.workspace.ProjectElement;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.wizards.GUIComponentFactory;
@@ -36,6 +38,9 @@ public class SelectTreeDataPage extends WizardPage implements ActionListener {
 	/** the text field for choosing a view name */
 	protected JTextField viewName;
 	
+	/** the check for correct file format */
+	protected TreeI tree = null;
+
 	private ProjectElement project;
 	
 	public SelectTreeDataPage(ProjectElement project) {
@@ -84,8 +89,9 @@ public class SelectTreeDataPage extends WizardPage implements ActionListener {
 		add(path, "w 150!, h 25!, gap 5");
 		add(browse, "gapright 10, wrap");
 		
-		add(new JLabel("Enter a name:"), "gap 10");
-		add(viewName, "w 150!, h 25!, gap 5, gaptop 5, gapright 10, wrap");
+		//add(new JLabel("Enter a name:"), "gap 10");
+		add(viewName, "w 50!, h 20!, wrap");
+		viewName.setVisible(false);
 		
 		add(new JXTitledSeparator("Associate with arrangements to domain tree"),"growx, span, wrap, gaptop 20");
 		add(new JLabel("Select view: "), 	"gap 10");
@@ -98,8 +104,12 @@ public class SelectTreeDataPage extends WizardPage implements ActionListener {
 	public void actionPerformed(ActionEvent e) {	
 		File file = FileDialogs.showOpenDialog(this);
 		if(file != null) {
+			File test = new File(file.getAbsolutePath());
+			tree = new NewickTreeReader().getTreeFromFile(test);
+		}
+		if(tree != null) {
 			path.setText(file.getAbsolutePath());
-				viewName.setText(file.getName().split("\\.")[0]);
+			viewName.setText(file.getName().split("\\.")[0]);
 		}
 	}	
 
@@ -117,10 +127,12 @@ public class SelectTreeDataPage extends WizardPage implements ActionListener {
      * Checks if all necessary inputs are made.
      */
     protected String validateContents (Component component, Object o) {
+    	if (tree == null)
+    		return "Please select a correctly formatted newick file";
     	if (path.getText().isEmpty())
 			return "Please select a file";
-    	if (viewName.getText().trim().isEmpty())
-    		return "Please select a view name";
+    	//if (viewName.getText().trim().isEmpty())
+    	//	return "Please select a view name";
         return null;
     }
  

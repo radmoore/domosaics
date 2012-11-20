@@ -43,20 +43,20 @@ public class Angstd {
 		// if we are not in debug mode, catch all 
 		// unhandled exceptions
 		if (!Configuration.isDebug()) {
-	        Thread.setDefaultUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler(){
-	        	
-	            public void uncaughtException(Thread t, Throwable e) {
-	            	Configuration.getLogger().debug("Uncaught exception");
-	            	StringWriter w = new StringWriter();
-	            	e.printStackTrace(new PrintWriter(w));
-	            	Configuration.getLogger().debug(w.toString());
-	            	MessageUtil.showWarning("There was a unexpected problem running AnGSTD; consult log file.");
-	            	// remove lock file if possible
-	            	if (Configuration.getInstance().hasLockfile())
-	            		Configuration.getInstance().getLockFile().delete();
-	            	System.exit(1);
-	            }
-	        });
+			Thread.setDefaultUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler(){
+
+				public void uncaughtException(Thread t, Throwable e) {
+					Configuration.getLogger().debug("Uncaught exception");
+					StringWriter w = new StringWriter();
+					e.printStackTrace(new PrintWriter(w));
+					Configuration.getLogger().debug(w.toString());
+					MessageUtil.showWarning("There was a unexpected problem running AnGSTD; consult log file.");
+					// remove lock file if possible
+					if (Configuration.getInstance().hasLockfile())
+						Configuration.getInstance().getLockFile().delete();
+					System.exit(1);
+				}
+			});
 		}
 		try {
 			Configuration.getLogger().info("*** INFO: Starting AnGSTD.");
@@ -67,7 +67,7 @@ public class Angstd {
 			Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("There was a problem starting AnGSTD. Please consult log file.");
 		}
-        
+
 	}
 	
 }

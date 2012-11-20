@@ -94,7 +94,6 @@ public class ImportDataBranchController extends WizardBranchController {
     		   choosedWiz = WizardPage.createWizard (new WizardPage[]{new SelectSequenceDataPage(project)}, new ImportDataResultProducer());
 //    		   choosedWiz = seqWiz;
     	   }
-    		   
         }
        return choosedWiz;
     }
