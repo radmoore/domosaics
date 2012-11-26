@@ -16,6 +16,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 
+import org.jdom2.Attribute;
+import org.jdom2.Element;
+
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.sequence.SequenceI;
@@ -24,6 +27,7 @@ import angstd.model.tree.TreeNodeI;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.domaintreeview.components.DomainEventComponent;
+import angstd.ui.views.domaintreeview.components.ReconstructionTool;
 import angstd.ui.views.domaintreeview.io.DomainTreeViewExporter;
 import angstd.ui.views.domaintreeview.layout.DefaultDomainTreeLayout;
 import angstd.ui.views.domaintreeview.layout.DomainTreeLayout;
@@ -194,21 +198,21 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 		// set up the border and layout
 		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	}
-	
-	/**
-	 * @see View
-	 */
-	public void export(File file) {
-		new DomainTreeViewExporter().write(file, this);
-//		setChanged(false);
-	}
-	
+		
 	
 	/**
 	 * @see DomainTreeViewI
 	 */
 	public DomainViewI getDomainView() {
 		return domView;
+	}
+	
+	public int getParsimonyMeth() {
+		return treeView.getParsimonyMeth();
+	}
+	
+	public void setParsimonyMeth(int i) {
+		treeView.setParsimonyMeth(i);
 	}
 	
 	/**
@@ -1044,5 +1048,20 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void xmlWrite(Element viewType) {
+		// TODO Auto-generated method stub
+		domView.xmlWrite(viewType);
+		treeView.xmlWrite(viewType);		
+	}
+
+
+	@Override
+	public void xmlWriteViewType() {
+		Attribute type = new Attribute("type","DOMAIN_TREE");
+		viewType.setAttribute(type);
+	}
+
 
 }

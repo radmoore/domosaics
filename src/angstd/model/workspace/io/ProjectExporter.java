@@ -73,6 +73,7 @@ public class ProjectExporter {
  
         } 
         catch (Exception e) {
+			e.printStackTrace();
         	Configuration.getLogger().debug(e.toString());
         	return false;
         }
@@ -106,6 +107,7 @@ public class ProjectExporter {
         			ViewElement viewElt = (ViewElement) cat.getChildAt(i);
         			
         			// if view exists ask if it should be overwritten
+        			System.out.println(catDir+"/"+viewElt.getTitle());
         			File viewFile = new File(catDir+"/"+viewElt.getTitle());
             		if (viewFile.exists()) 
                     	if (!MessageUtil.showDialog("View "+viewElt.getTitle()+" already exists. Overwrite it?"))

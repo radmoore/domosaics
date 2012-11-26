@@ -68,9 +68,7 @@ class SaveViewProgress extends DeferredWizardResult implements WizardResultProdu
 
 			
 			// write project file
-			
-			View view = ViewHandler.getInstance().getView(viewElem.getViewInfo()); 
-			view.export(exportFile);
+			ViewHandler.getInstance().getView(viewElem.getViewInfo()).export(exportFile);
 			p.finished(null);
 			return;
 			

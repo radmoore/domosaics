@@ -53,5 +53,10 @@
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/commons-logging.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/wsdl4j.jar"/>
 	<classpathentry kind="lib" path="lib/rads/radscan-0.5.jar"/>
+	<classpathentry kind="lib" path="lib/misc/jdom-2.0.4.jar" sourcepath="lib/misc/jdom-2.0.4-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/JangstdFinal/lib/misc/jdom-2.0.4-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

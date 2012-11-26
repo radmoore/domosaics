@@ -7,6 +7,9 @@ import java.io.File;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 
+import org.jdom2.Attribute;
+import org.jdom2.Element;
+
 import angstd.model.sequence.SequenceI;
 import angstd.ui.views.sequenceview.io.SequenceViewExporter;
 import angstd.ui.views.view.AbstractView;
@@ -41,14 +44,6 @@ public class SequenceView extends AbstractView{
 	
 	public void addMouseListeners() {
 
-	}
-	
-	/**
-	 * @see View
-	 */
-	public void export(File file) {
-		new SequenceViewExporter().write(file, this);
-//		setChanged(false);
 	}
 	
 	public SequenceI[] getSequences() {
@@ -121,6 +116,30 @@ public class SequenceView extends AbstractView{
 	 */
 	public void setViewRenderer(Renderer renderer) {
 		this.viewRenderer = renderer;
+	}
+
+	@Override
+	public void xmlWrite(Element viewType) {
+		SequenceI[] seqs = this.getSeqs();
+		for (int i = 0; i < seqs.length; i++) {
+			// Protein
+			Element prot = new Element("PROTEIN");
+			viewType.addContent(prot);
+			Attribute protId = new Attribute("id",seqs[i].getName());
+			prot.setAttribute(protId);
+
+			// AA sequence
+			Element seq = new Element("SEQUENCE");
+			prot.addContent(seq);
+			seq.setText(seqs[i].getSeq(true));
+		}
+		
+	}
+
+	@Override
+	public void xmlWriteViewType() {
+		Attribute type = new Attribute("type","SEQUENCES");
+		viewType.setAttribute(type);
 	}
 
 }

@@ -86,6 +86,7 @@ public class ProjectImporter {
 		
 		
 		//check if this is a valid project
+		// TODO Check following code seems silly (Nico)
 		String[] projectFiles = projectDir.list();
 		for (String elem : projectFiles) {
 			if (elem.equals(ProjectExporter.PROJECTFILE)) {

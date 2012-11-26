@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 
+import org.jdom2.*;
+
 import angstd.model.arrangement.ArrangementManager;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.io.XdomWriter;
@@ -19,7 +21,7 @@ import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.view.io.ViewExporter;
 
 public class DomainTreeViewExporter extends ViewExporter<DomainTreeViewI>{
-	
+
 	public void write(BufferedWriter out, DomainTreeViewI view) {
         try {
         	// write each view into the file
@@ -82,8 +84,8 @@ public class DomainTreeViewExporter extends ViewExporter<DomainTreeViewI>{
     		while (famIter.hasNext()) {
     			DomainFamily fam = famIter.next();
         		writeTag(out, 4, "DOMAINFAMILY", true);
-        		writeParam(out, 5, "ID", fam.getID());
-        		writeParam(out, 5, "ACC", fam.getAcc());
+        		writeParam(out, 5, "ID", fam.getId());
+        		writeParam(out, 5, "ACC", fam.getName());
         		writeParam(out, 5, "COLOR", color2str(view.getDomainColorManager().getDomainColor(fam)));
         		writeParam(out, 5, "SHAPE", ""+view.getDomainShapeManager().getShapeID(fam));
         		writeTag(out, 4, "DOMAINFAMILY", false);

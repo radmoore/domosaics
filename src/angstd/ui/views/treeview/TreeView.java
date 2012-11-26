@@ -1,18 +1,32 @@
 package angstd.ui.views.treeview;
 
+import java.awt.BasicStroke;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 
+import org.jdom2.Attribute;
+import org.jdom2.Element;
+
+import angstd.model.arrangement.Domain;
+import angstd.model.arrangement.DomainArrangement;
+import angstd.model.domainevent.DomainEvent;
+import angstd.model.domainevent.DomainEventI;
 import angstd.model.tree.TreeI;
+import angstd.model.tree.TreeNode;
 import angstd.model.tree.TreeNodeI;
+import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.treeview.components.TreeMouseController;
 import angstd.ui.views.treeview.io.TreeViewExporter;
@@ -107,6 +121,9 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	
 	/** the actually used renderer to render the view components */
 	protected Renderer viewRenderer;
+
+	/** the parsimony method (Dollo 0 vs SANKOF 1) with Arrangements 2 or Sets 3 */
+	protected int parsimonyMeth = Integer.MAX_VALUE;
 	
 	
 	/**
@@ -141,13 +158,13 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 		doLayout();
 		repaint();
 	}
+
+	public int getParsimonyMeth() {
+		return parsimonyMeth;
+	}
 	
-	/**
-	 * @see View
-	 */
-	public void export(File file) {
-		new TreeViewExporter().write(file, this);
-//		setChanged(false);
+	public void setParsimonyMeth(int i) {
+		this.parsimonyMeth = i;
 	}
 	
 	/* ******************************************************************* *
@@ -422,5 +439,187 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	public TreeStrokeManager getTreeStrokeManager() {
 		return getViewManager(TreeViewManager.TREESTROKEMANAGER);
 	}
+
+	@Override
+	public void xmlWrite(Element viewType) {
+		
+		Iterator<TreeNodeI> iterNode = this.getTree().getNodeIterator();
+		while(iterNode.hasNext()) {
+			TreeNodeI parent = iterNode.next();
+			NodeComponent nc = this.getNodesComponent(parent);
+			Element node = new Element("NODE");
+			viewType.addContent(node);
+			Attribute nodeId = new Attribute("id",""+parent.getID());
+			node.setAttribute(nodeId);
+			Attribute nodeName = new Attribute("name",parent.getLabel());
+			node.setAttribute(nodeName);
+			if(parent.getParent()!=null) {
+				Attribute parentId = new Attribute("parentNode",""+parent.getParent().getID());
+				node.setAttribute(parentId);
+				Attribute parentWeight = new Attribute("weightToParent",""+parent.getEdgeToParent().getWeight());
+				node.setAttribute(parentWeight);
+			}
+			if(nc.isCollapsed())
+				node.setAttribute(new Attribute("collapsed","true"));
+			Attribute nodeColor = new Attribute("nodeColor",""+this.getTreeColorManager().getNodeColor(nc).getRGB());
+			node.setAttribute(nodeColor);
+			Attribute edgeColor = new Attribute("edgeColor",""+this.getTreeColorManager().getEdgeColor(parent.getEdgeToParent()).getRGB());
+			node.setAttribute(edgeColor);
+			Attribute stroke = new Attribute("stroke",this.stroke2str((BasicStroke)this.getTreeStrokeManager().getEdgeStroke(parent.getEdgeToParent())));
+			node.setAttribute(stroke);
+			Attribute font = new Attribute("font",font2str(this.getTreeFontManager().getFont(nc)));
+			node.setAttribute(font);
+			// TODO write (and read) the setting of the parsimony reconstruction (cost, method)
+			if(parent.hasArrangement()) {
+				Element ancestral = new Element("ANCESTRAL_ARRANGEMENT");
+				node.addContent(ancestral);
+				DomainArrangement da = parent.getArrangement();
+				HashSet<String> familyList=new HashSet<String>();
+				if( this.getParsimonyMeth() < 2 ) {
+					HashMap<String, ArrayList<Domain> > doms = new HashMap<String, ArrayList<Domain> >();
+					Iterator<Domain> iterDom = da.getDomainIter();
+					while(iterDom.hasNext()) {
+						Domain currentDomain = iterDom.next();
+						if(!doms.containsKey(currentDomain.getID())) {
+							familyList.add(currentDomain.getID());
+							doms.put(currentDomain.getID(), new ArrayList<Domain>());
+						}
+						doms.get(currentDomain.getID()).add(currentDomain);
+					}
+					Iterator<String> famIter = familyList.iterator();
+					while(famIter.hasNext()) {
+						// Family
+						Element dom = new Element("ANCESTRAL_DOMAIN");
+						ancestral.addContent(dom);
+						String domFam = famIter.next();
+						Attribute id = new Attribute("id",""+domFam);
+						dom.setAttribute(id);
+						Attribute occ = new Attribute("occurrence",""+doms.get(domFam).size());
+						dom.setAttribute(occ);
+					}
+				}else {
+					Iterator<Domain> iterDom = da.getDomainIter();
+					while(iterDom.hasNext()) {
+						Domain currentDomain = iterDom.next();
+						familyList.add(currentDomain.getID());
+					}
+					Iterator<String> famIter = familyList.iterator();
+					while(famIter.hasNext()) {
+						// Family
+						Element dom = new Element("ANCESTRAL_DOMAIN");
+						ancestral.addContent(dom);
+						String domFam = famIter.next();
+						Attribute id = new Attribute("id",""+domFam);
+						dom.setAttribute(id);		
+					}
+				}				
+			}
+			if(parent.getEdgeToParent()!=null) {
+				if(parent.getEdgeToParent().hasDomainEvent()) {
+					Element event = new Element("MODULAR_REARRANGEMENT");
+					node.addContent(event);
+					Iterator<DomainEventI> domEvent = parent.getEdgeToParent().getDomainEvents().iterator();
+					if( this.getParsimonyMeth() > 1 ) {
+						HashSet<String> gainList=new HashSet<String>();
+						HashSet<String> lossList=new HashSet<String>();
+						while(domEvent.hasNext()) {
+							DomainEventI d = domEvent.next();
+							if(d.isInsertion())
+								gainList.add(d.getDomain().getID());
+							else
+								lossList.add(d.getDomain().getID());
+						}
+						Iterator<String> gL = gainList.iterator();
+						while(gL.hasNext()) {
+							Element gain = new Element("GAIN");
+							event.addContent(gain);
+							String gainDom = gL.next();
+							Attribute id = new Attribute("id",gainDom);
+							gain.setAttribute(id);	
+						}
+						Iterator<String> lL = lossList.iterator();
+						while(lL.hasNext()) {
+							Element loss = new Element("GAIN");
+							event.addContent(loss);
+							String lossDom = lL.next();
+							Attribute id = new Attribute("id",lossDom);
+							loss.setAttribute(id);	
+						}
+					} else {
+						HashMap<String, ArrayList<Domain> > gainList = new HashMap<String, ArrayList<Domain> >();
+						HashMap<String, ArrayList<Domain> > lossList = new HashMap<String, ArrayList<Domain> >();
+						while(domEvent.hasNext()) {
+							DomainEventI d = domEvent.next();
+							if(d.isInsertion()) {
+								if(!gainList.containsKey(d.getDomain().getID()))
+									gainList.put(d.getDomain().getID(), new ArrayList<Domain>());
+								gainList.get(d.getDomain().getID()).add(d.getDomain());
+							} else {
+								if(!lossList.containsKey(d.getDomain().getID()))
+									lossList.put(d.getDomain().getID(), new ArrayList<Domain>());
+								lossList.get(d.getDomain().getID()).add(d.getDomain());
+							}
+						}
+						Iterator<String> gL = gainList.keySet().iterator();
+						while(gL.hasNext()) {
+							Element gain = new Element("GAIN");
+							event.addContent(gain);
+							String gainDom = gL.next();
+							Attribute id = new Attribute("id",gainDom);
+							gain.setAttribute(id);	
+							Attribute occ = new Attribute("occurrence",""+gainList.get(gainDom).size());
+							gain.setAttribute(occ);
+						}
+						Iterator<String> lL = lossList.keySet().iterator();
+						while(lL.hasNext()) {
+							Element loss = new Element("LOSS");
+							event.addContent(loss);
+							String lossDom = lL.next();
+							Attribute id = new Attribute("id",lossDom);
+							loss.setAttribute(id);	
+							Attribute occ = new Attribute("occurrence",""+lossList.get(lossDom).size());
+							loss.setAttribute(occ);
+						}					
+					}					
+				}
+			}
+		}
+		
+	}
+
+	public String font2str(Font font){
+		return new String(font.getFamily()+"-"+font.getName()+"-"+font.getStyle()+"-"+font.getSize());
+	}
+
+	public String stroke2str(BasicStroke stroke) {
+		StringBuffer strokeStr = new StringBuffer();
+		
+		// add  width - cap - join - miterlimit -
+		strokeStr.append(stroke.getLineWidth()
+	      				+"-"+stroke.getEndCap()
+	      				+"-"+stroke.getLineJoin()
+	      				+"-"+stroke.getMiterLimit());
+		
+		// now add the dash
+		float[] dash = stroke.getDashArray();
+		strokeStr.append("-[");
+		if (dash != null) {
+			for(int i = 0; i < dash.length-1; i++)
+				strokeStr.append(dash[i]+",");
+			strokeStr.append(dash[dash.length-1]);
+		}
+		strokeStr.append("]");	
+			
+		//and close with the dashphase
+		strokeStr.append("-"+stroke.getDashPhase());
+		return strokeStr.toString();
+	}
+
+	@Override
+	public void xmlWriteViewType() {
+		Attribute type = new Attribute("type","TREE");
+		viewType.setAttribute(type);
+	}
+
 
 }

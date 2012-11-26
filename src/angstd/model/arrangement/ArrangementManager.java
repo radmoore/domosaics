@@ -64,10 +64,10 @@ public class ArrangementManager {
 	 */
 	public void add(DomainArrangement da) {
 		for (int i = 0; i < da.countDoms(); i++) {
-			if (domFams.get(da.getDomain(i).getAcc()) != null)
-				da.getDomain(i).setFamily(domFams.get(da.getDomain(i).getAcc()));
+			if (domFams.get(da.getDomain(i).getID()) != null)
+				da.getDomain(i).setFamily(domFams.get(da.getDomain(i).getID()));
 			else
-				domFams.put(da.getDomain(i).getAcc(), da.getDomain(i).getFamily());
+				domFams.put(da.getDomain(i).getID(), da.getDomain(i).getFamily());
 		}
 		das.add(da);
 	}

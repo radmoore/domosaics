@@ -9,6 +9,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import org.jdom2.Element;
+
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
@@ -279,6 +281,19 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 
 	public void closeWindow() {
 		parentFrame.dispose();
+	}
+
+
+	@Override
+	public void xmlWriteViewType() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlWrite(Element viewType) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

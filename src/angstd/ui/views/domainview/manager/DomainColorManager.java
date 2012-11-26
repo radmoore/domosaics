@@ -70,7 +70,7 @@ public class DomainColorManager extends DefaultViewManager {
    	}
   	
   	public boolean hasDomainColor(DomainFamily fam) {
-  		return doms2colors.containsKey(fam.getAcc());
+  		return doms2colors.containsKey(fam.getId());
   	}
   	
 	/**
@@ -84,18 +84,18 @@ public class DomainColorManager extends DefaultViewManager {
 	 */
   	public Color getDomainColor(DomainFamily fam) {
 //  		System.out.println("Looking up color for dom: "+fam.getAcc());
-   		if ( (doms2colors.get(fam.getAcc()) == null) && (doms2colors.get(fam.getID()) == null) ) {
+   		if ( (doms2colors.get(fam.getId()) == null) ) {
 //   			System.out.println("Assigning new color to: "+fam.getAcc());
    			int colorIndex = getNumDomainColors() % DomainColors.values().length;
    			Color color = DomainColors.values()[colorIndex].getColor();
-   			doms2colors.put(fam.getAcc(), color);
-   			if (! fam.getAcc().equals(fam.getID()) )
-   				doms2colors.put(fam.getID(), color);
+   			doms2colors.put(fam.getId(), color);
+   			if (! fam.getId().equals(fam.getId()) )
+   				doms2colors.put(fam.getId(), color);
    			return color;
    		}
    		else
 //   			System.out.println("Returning known color for: "+fam.getID());
-   			return doms2colors.get(fam.getAcc());
+   			return doms2colors.get(fam.getId());
    	}
 
 	/**
@@ -118,9 +118,7 @@ public class DomainColorManager extends DefaultViewManager {
 	 * 		the new color for the specified DomainFamily
 	 */
 	public void setDomainColor(DomainComponent dc, Color color) {
-		doms2colors.put(dc.getDomain().getFamily().getAcc(), color);
-		if (! dc.getDomain().getAcc().equals(dc.getDomain().getID()) ) 
-			doms2colors.put(dc.getDomain().getID(), color);
+		doms2colors.put(dc.getDomain().getID(), color);
 		visualChange();
 	}	
 	
@@ -136,11 +134,11 @@ public class DomainColorManager extends DefaultViewManager {
 	 * 		the new color for the specified DomainFamily
 	 */
 	public void setDomainColor(DomainFamily fam, Color color) {
-		doms2colors.put(fam.getAcc(), color);
+		doms2colors.put(fam.getId(), color);
 		// make sure that if the id and acc are different, 
 		// both a assoc. with the color
-		if (! fam.getAcc().equals(fam.getID()) ) 
-			doms2colors.put(fam.getID(), color);
+		if (! fam.getId().equals(fam.getId()) ) 
+			doms2colors.put(fam.getId(), color);
 	}	
 
 }

@@ -20,7 +20,7 @@ import angstd.ui.views.domainview.actions.ShowDomainLegendAction;
 import angstd.ui.views.domainview.actions.ShowDomainMatrixAction;
 import angstd.ui.views.domainview.actions.ShowDomainRulerAction;
 import angstd.ui.views.domainview.actions.ShowDotplotAction;
-import angstd.ui.views.domainview.actions.ShowIdAction;
+import angstd.ui.views.domainview.actions.ShowNameAction;
 import angstd.ui.views.domainview.actions.ShowNotesAction;
 import angstd.ui.views.domainview.actions.ShowShapesAction;
 import angstd.ui.views.domainview.actions.SimilarityColorizationAction;
@@ -70,8 +70,8 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		EXPORT_SELECTION 		(CreateViewUsingSelectionAction.class),
 		EVALUE_COLORIZATION 	(EvalueColorizationAction.class),
 		FIT_TO_SCREEN 			(FitDomainsToScreenAction.class),
-		ID_RATHER_THAN_ACC		(ShowIdAction.class),
-		ACC_RATHER_THAN_ID		(ShowAccAction.class),
+		ACC_RATHER_THAN_NAME	(ShowNameAction.class),
+		NAME_RATHER_THAN_ACC	(ShowAccAction.class),
 		MSA_VIEW 				(MsaViewAction.class),
 		PROP_VIEW 				(ProportionalViewAction.class),
 		UNPROP_VIEW 			(UnproportionalViewAction.class),
@@ -120,13 +120,13 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	public DomainLayoutManager(ViewActionManager manager) {
 		super(manager);
 		
-		if (Configuration.isIdPreferedToAcc()) {
-			setState(DomainAction.ID_RATHER_THAN_ACC, false);
-			setState(DomainAction.ACC_RATHER_THAN_ID, true);
-			disable(DomainAction.ACC_RATHER_THAN_ID);
+		if (Configuration.isNamePreferedToAcc()) {
+			setState(DomainAction.ACC_RATHER_THAN_NAME, false);
+			setState(DomainAction.NAME_RATHER_THAN_ACC, true);
+			disable(DomainAction.NAME_RATHER_THAN_ACC);
 		}
 		else {
-			disable(DomainAction.ID_RATHER_THAN_ACC);
+			disable(DomainAction.ACC_RATHER_THAN_NAME);
 		}
 		if (isProportionalView())
 			disable(DomainAction.PROP_VIEW);
@@ -150,17 +150,17 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	/**
 	 * switches the domain view by ID.
 	 */
-	public void changeIdOrAccView() {
-		Configuration.setIdPreferedToAcc(!Configuration.isIdPreferedToAcc());
-		if(Configuration.isIdPreferedToAcc()) {
-			setState(DomainAction.ID_RATHER_THAN_ACC, false);
-			disable(DomainAction.ACC_RATHER_THAN_ID);
-			enable(DomainAction.ID_RATHER_THAN_ACC);
+	public void changeNameOrAccView() {
+		Configuration.setNamePreferedToAcc(!Configuration.isNamePreferedToAcc());
+		if(Configuration.isNamePreferedToAcc()) {
+			setState(DomainAction.ACC_RATHER_THAN_NAME, false);
+			disable(DomainAction.NAME_RATHER_THAN_ACC);
+			enable(DomainAction.ACC_RATHER_THAN_NAME);
 		}
 		else {
-			setState(DomainAction.ACC_RATHER_THAN_ID, false);
-			disable(DomainAction.ID_RATHER_THAN_ACC);
-			enable(DomainAction.ACC_RATHER_THAN_ID);
+			setState(DomainAction.NAME_RATHER_THAN_ACC, false);
+			disable(DomainAction.ACC_RATHER_THAN_NAME);
+			enable(DomainAction.NAME_RATHER_THAN_ACC);
 		}
 	}
 	
@@ -472,9 +472,11 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	 * 		whether or not EvalueColorization mode is active
 	 */
 	public boolean isEvalueColorization() {
-		if(!isEnabled(DomainAction.EVALUE_COLORIZATION))
-			return false;
 		return getState(DomainAction.EVALUE_COLORIZATION);
+	}
+	
+	public void setEvalueColorization(boolean val) {
+		setState(DomainAction.EVALUE_COLORIZATION, val);
 	}
 	
 	/**

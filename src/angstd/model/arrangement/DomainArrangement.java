@@ -63,13 +63,13 @@ public class DomainArrangement implements Cloneable, AngstdData{
 		
 		doms.remove(dom);
 		hiddenDoms.add(dom);
-		Collections.sort(doms);
+		sortDomains();
 	}	
 	
 	public void showAllDomains() {
 		doms.add(hiddenDoms);
 		hiddenDoms.clear();
-		Collections.sort(doms);
+		sortDomains();
 	}
 	
 	/**
@@ -262,7 +262,7 @@ public class DomainArrangement implements Cloneable, AngstdData{
 	 * 		domain vector of the arrangement
 	 */
 	public DomainVector getDomains() {
-		Collections.sort(doms);
+		sortDomains();
 		return doms;
 	}
 	

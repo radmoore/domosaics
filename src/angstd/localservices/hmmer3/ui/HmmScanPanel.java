@@ -547,8 +547,11 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			MessageUtil.showWarning(this, bin.getAbsoluteFile()+" is not supported");
 			return false;
 		}
-			
-		hmmer3bins.put(bin.getName(), bin);	
+
+		if(bin.getName().indexOf(".")!=-1)
+			hmmer3bins.put(bin.getName().substring(0, bin.getName().indexOf(".")), bin);
+		else
+			hmmer3bins.put(bin.getName(), bin);	
 		Hmmer3Engine.getInstance().setAvailableServices(hmmer3bins);
 		return true;
 

@@ -10,6 +10,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 
+import org.jdom2.Element;
+
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainSet;
 import angstd.ui.tools.Tool;
@@ -258,6 +260,18 @@ public class DomainMatrixView extends AbstractView implements PropertyChangeList
 
 	
 	public void setViewRenderer(Renderer renderer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlWrite(Element viewType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlWriteViewType() {
 		// TODO Auto-generated method stub
 		
 	}

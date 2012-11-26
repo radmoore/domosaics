@@ -24,7 +24,7 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
     protected int from, fromWithGaps, to;
     
     /** e-value of the annotation */
-    protected double evalue = 0;
+    protected double evalue = Double.POSITIVE_INFINITY;
 
     /** logg odds score of the annotation */
     protected double score;
@@ -55,8 +55,10 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 	 * @param fam
 	 * 		domain family
 	 */
-	public Domain (int from, int to, DomainFamily fam) {
-		this(from, to, fam, 0);
+	public Domain(int from, int to, DomainFamily fam) {
+		this.fam = fam;
+		this.to = to;
+		this.from = from;
 	}
 	
 	/**
@@ -144,8 +146,8 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 	 * @return
 	 * 		domain family id
 	 */
-	public String getID() {
-		return fam.getID();
+	public String getName() {
+		return fam.getName();
 	}
 	
 	/**
@@ -154,8 +156,8 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 	 * @return domain accession
 	 * 
 	 */
-	public String getAcc() {
-		return fam.getAcc();
+	public String getID() {
+		return fam.getId();
 	}
 	
 	/**

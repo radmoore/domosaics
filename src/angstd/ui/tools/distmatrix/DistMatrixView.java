@@ -3,6 +3,8 @@ package angstd.ui.tools.distmatrix;
 import java.awt.Graphics2D;
 import java.io.File;
 
+import org.jdom2.Element;
+
 import angstd.ui.tools.Tool;
 import angstd.ui.tools.ToolFrameI;
 import angstd.ui.tools.distmatrix.components.MatrixLayoutManager;
@@ -163,6 +165,18 @@ public class DistMatrixView extends AbstractView implements Tool {
 
 	
 	public void setViewRenderer(Renderer renderer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlWrite(Element viewType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlWriteViewType() {
 		// TODO Auto-generated method stub
 		
 	}

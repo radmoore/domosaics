@@ -8,12 +8,22 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
+
+import angstd.ui.util.DigestUtil;
 import angstd.ui.views.domainview.DomainView;
 import angstd.ui.views.domainview.renderer.additional.DomainTooltipRenderer;
 import angstd.ui.views.view.components.ZoomController;
@@ -67,6 +77,11 @@ public abstract class AbstractView extends JComponent implements View {
 	
 	/** the manager controlling the action states */
 	protected LayoutManager layoutManager;
+	
+	/** For xml export of the file */
+	protected Element root = new Element("DOMOSAIC_VIEW");
+	protected Document document = new Document(root); 
+	protected Element viewType = new Element("VIEW");
 	
 //	protected boolean changed;
 	
@@ -368,5 +383,22 @@ public abstract class AbstractView extends JComponent implements View {
 		for (int i = 0; i < mwl.length; i++)
 			removeMouseWheelListener(mwl[i]);
 	}
-
+	
+	public void export(File file) {
+		root.setAttribute(new Attribute("hash",DigestUtil.createDigest(this.getViewInfo().getName())));
+		root.addContent(viewType);
+		this.xmlWriteViewType();
+		Attribute viewName = new Attribute("name",this.getViewInfo().getName());
+		viewType.setAttribute(viewName);
+		this.xmlWrite(viewType);
+        XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
+        try {
+			sortie.output(document, System.out);
+	        sortie.output(document, new FileOutputStream(file));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }

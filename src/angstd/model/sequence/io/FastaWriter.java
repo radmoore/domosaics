@@ -3,6 +3,9 @@ package angstd.model.sequence.io;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+import org.jdom2.Attribute;
+import org.jdom2.Element;
+
 import angstd.model.configuration.Configuration;
 import angstd.model.io.AbstractDataWriter;
 import angstd.model.sequence.SequenceI;
@@ -36,7 +39,6 @@ public class FastaWriter extends AbstractDataWriter<SequenceI> {
         	Configuration.getLogger().debug(e.toString());
         }
     }
-	
 	
 	public void wrappedWrite(BufferedWriter out, SequenceI[] seqs, int wrapChars) {
 		try {

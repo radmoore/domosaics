@@ -48,7 +48,7 @@ public class GatheringThresholdsReader {
 			while((line = in.readLine()) != null) {
 				if(!line.isEmpty()) {
 					String[] entryFields = line.split(" ");
-					DomainFamily d=new DomainFamily(entryFields[1], entryFields[0], DomainType.PFAM, Double.parseDouble(entryFields[2]), Double.parseDouble(entryFields[3]));
+					DomainFamily d=new DomainFamily(entryFields[0], entryFields[1], DomainType.PFAM, Double.parseDouble(entryFields[2]), Double.parseDouble(entryFields[3]));
 					domFamilyMap.put(entryFields[0], d);
 					id2acc.put(entryFields[1],entryFields[0]);
 				}

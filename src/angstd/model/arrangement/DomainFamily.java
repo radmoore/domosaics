@@ -15,20 +15,20 @@ import angstd.model.GO.GeneOntologyTerm;
  */
 public class DomainFamily  {
 
-	/** family id, secondary id */
-	protected String id;
+	/** family name */
+	protected String name;
 	
 	/** family accession number, primary id */
-	protected String acc;
+	protected String id;
 
 	/** Interpro entry */
-	protected String interproEntry;
+	protected String interproEntry = null;
 	
 	/** Required threshold to detect the domain occurrence */
-	private double gathThreshByDom;
+	private double gathThreshByDom = Double.POSITIVE_INFINITY;
 	
 	/** Required threshold to detect the family (adding all occurrences) */
-	private double gathThreshByFam;
+	private double gathThreshByFam = Double.POSITIVE_INFINITY;
 	
     /** Pfam, SMART, superfamily, pir **/
     protected DomainType type;
@@ -42,18 +42,18 @@ public class DomainFamily  {
 	/**
 	 * Constructor for a new DomainFamily of Pfam database.
 	 * 
+	 * @param name
+	 * 		family name
 	 * @param id
 	 * 		family id
-	 * @param acc
-	 * 		family acc
 	 * @param gath1
 	 * 		Required threshold to detect the domain occurrence
 	 * @param gath2
 	 * 		Required threshold to detect the family (adding all occurrences)
 	 */
-	public DomainFamily(String id, String acc, DomainType type, double gath1, double gath2) {
+	public DomainFamily(String id, String name, DomainType type, double gath1, double gath2) {
+		this.name = name;
 		this.id = id;
-		this.acc = acc;
 		this.type = type;
 		this.gathThreshByDom = gath1;
 		this.gathThreshByFam = gath2;
@@ -61,46 +61,43 @@ public class DomainFamily  {
 	}
 	
 	/**
-	 * Constructor for a new DomainFamily with a specified id (from Interpro databese
+	 * Constructor for a new DomainFamily with a specified name (from Interpro databese
 	 * except Pfam).
-	 * 
-	 * @param id
-	 * 		family acc
 	 */
-	public DomainFamily(String acc, String id, DomainType type) {
-		this.acc = acc;
+	public DomainFamily(String id, String name, DomainType type) {
 		this.id = id;
+		this.name = name;
 		this.type = type;
 	}
 	
 	/**
-	 * Set family id
+	 * Set family name
 	 * 
-	 * @param id
-	 * 		new family id
+	 * @param name
+	 * 		new family name
 	 */
-	public void setID(String id) {
-		this.id = id;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	/**
-	 * Returns the family id
+	 * Returns the family name
 	 * 
 	 * @return
-	 * 		family id
+	 * 		family name
 	 */
-	public String getID() {
-		if (id == null)
-			return acc;
+	public String getName() {
+		if (name == null)
+			return id;
 		
-		return id;
+		return name;
 	}
 	
 	
 	/**
 	 * Set the Interpro Entry
 	 * 
-	 * @param id
+	 * @param name
 	 * 		Interpro Entry
 	 */
 	public void setInterproEntry(String ie) {
@@ -120,20 +117,20 @@ public class DomainFamily  {
 	/**
 	 * Returns the family accession number
 	 * FIXME
-	 * As we must always be able to return an ACC, if its empty
-	 * we just return the ID. The effect is that if only one _type_
-	 * of ID is provided (either ID or ACC) a call to get either of the two
+	 * As we must always be able to return an ID, if its empty
+	 * we just return the name. The effect is that if only one _type_
+	 * of ID is provided (either ID or name) a call to get either of the two
 	 * will _always_ return something (whatever that may be - we can know
-	 * wether what is provided is an acc or and ID if only one identifier is
+	 * whether what is provided is an id or a name if only one identifier is
 	 * supplied)
 	 * 
 	 * @return
-	 * 		accession number acc
+	 * 		accession number id
 	 */
-	public String getAcc() {
-		if (acc == null)
-			return id;
-		return acc;
+	public String getId() {
+		if (id == null)
+			return name;
+		return id;
 	}
 	
 	/**
@@ -182,10 +179,9 @@ public class DomainFamily  {
 		return (goTerms == null) ? 0 : goTerms.size(); 
 	}
 	
-	public Iterator getGoTerms() {
+	public Iterator<GeneOntologyTerm> getGoTerms() {
 		return this.goTerms.values().iterator();
 	}
-	
 	
 	/**
 	 * Checks if two domain families are equal. <b>
@@ -197,8 +193,8 @@ public class DomainFamily  {
 	 * 		Whether or not both families have identical IDs.
 	 */
 	public boolean equals(DomainFamily fam) {
-		id = getID();
-		return id.toUpperCase().equals(fam.getID().toUpperCase());
+		id = getId();
+		return id.toUpperCase().equals(fam.getId().toUpperCase());
 	}
 	
 }

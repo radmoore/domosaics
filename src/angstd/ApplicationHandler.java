@@ -49,7 +49,7 @@ import angstd.ui.wizards.WizardManager;
  */
 public class ApplicationHandler {
 
-	protected String workspace_dir = System.getProperty("user.home")+"/.angstd-workspace/";
+	protected String workspace_dir = System.getProperty("user.home")+"/.angstd-workspace";
 	protected static ApplicationHandler instance;
 	
 	protected StartupPage startUpProgress;
@@ -110,7 +110,10 @@ public class ApplicationHandler {
 				return;
 			}
 		}
-			
+
+		// Save Configuration
+		ConfigurationWriter.write(Configuration.getInstance().getConfigFile());
+		
 		// remove lockfile
 		Configuration.getInstance().removeLockFile();
 		
@@ -351,8 +354,8 @@ public class ApplicationHandler {
 	private class StartupPage extends Frame {
 		private static final long serialVersionUID = 1L;
 		
-		private static final String LOGOPATH = "ui/resources/angstd_logo4.png";
-//		private static final String LOGOPATH = "ui/resources/domosaic_startup.png";
+		private final String LOGOPATH = "ui/resources/angstd_logo4.png";
+//		private final String LOGOPATH = "ui/resources/domosaic_startup.png";
 		
 		protected JProgressBar progressBar;
 		

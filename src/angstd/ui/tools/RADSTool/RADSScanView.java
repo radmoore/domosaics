@@ -5,6 +5,8 @@ import java.io.File;
 
 import javax.swing.JPanel;
 
+import org.jdom2.Element;
+
 import angstd.ui.tools.Tool;
 import angstd.ui.tools.ToolFrameI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
@@ -61,6 +63,18 @@ public class RADSScanView extends AbstractView implements Tool{
 	public void export(File file) {}
 	public void registerMouseListeners() { }
 	public void renderView(Graphics2D g) { }
+
+	@Override
+	public void xmlWrite(Element viewType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlWriteViewType() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

@@ -4,7 +4,11 @@ import java.awt.BasicStroke;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+import org.jdom2.Attribute;
+import org.jdom2.Element;
+
 import angstd.model.configuration.Configuration;
+import angstd.model.sequence.SequenceI;
 import angstd.model.tree.TreeNodeI;
 import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;

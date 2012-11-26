@@ -104,7 +104,7 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 			
 			params.setSequence(fasta);
 			if (Configuration.isDebug())
-				System.out.println("*** Submitting search for "+"\n"+fasta+"\n");
+				System.out.println("*** Submitting search for\n"+fasta+"\n");
 			srvProxyConnect();
 			String jobId = srvProxy.run(email, seq.getName(), params);
 			String status = srvProxy.getStatus(jobId);
