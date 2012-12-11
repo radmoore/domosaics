@@ -64,7 +64,8 @@ public class DomainMouseController extends MouseAdapter {
 			
 			// show domain context menu
 			if (selectedDomain != null) {
-				new DomainPopupMenu(view).show(view.getViewComponent(), e.getX(), e.getY());
+				if(view.getDomainLayoutManager().isCollapseBySimilarity() || view.getDomainLayoutManager().isCollapseSameArrangements())
+					new DomainPopupMenu(view).show(view.getViewComponent(), e.getX(), e.getY());
 				return;
 			}
 		}

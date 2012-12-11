@@ -40,6 +40,7 @@ import angstd.ui.wizards.pages.SelectNamePage;
  * 
  * @author Andreas Held
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
+ * @author Nicolas Terrapon <gandarath@gmail.com>
  *
  */
 

@@ -18,7 +18,7 @@ import angstd.ui.util.MessageUtil;
 public class GatheringThresholdsReader {
 
 	protected static Map<String, DomainFamily> domFamilyMap;
-	protected static Map<String, String> id2acc/*, acc2id*/;
+	protected static Map<String, String> name2acc/*, acc2id*/;
 
 	
 	 /**
@@ -37,11 +37,12 @@ public class GatheringThresholdsReader {
 		domFamilyMap = new HashMap<String , DomainFamily >();
 		domFamilyMap.put(GapDomain.getGapID(), new DomainFamily(GapDomain.getGapID(), GapDomain.getGapID(), DomainType.GAPDOM));
 		//acc2id = new HashMap<String, String>();
-		id2acc = new HashMap<String, String>();
+		name2acc = new HashMap<String, String>();
 		
 		BufferedReader in;
 		
 		try {
+			// TODO Update to the most recent Pfam + Create automatic script
 			InputStream is = GatheringThresholdsReader.class.getResourceAsStream("resources/gath-Thresholds_Pfam-v24.0");
 			in = new BufferedReader(new InputStreamReader(is));
 			String line;
@@ -50,7 +51,7 @@ public class GatheringThresholdsReader {
 					String[] entryFields = line.split(" ");
 					DomainFamily d=new DomainFamily(entryFields[1], entryFields[0], DomainType.PFAM, Double.parseDouble(entryFields[2]), Double.parseDouble(entryFields[3]));
 					domFamilyMap.put(entryFields[0], d);
-					id2acc.put(entryFields[1],entryFields[0]);
+					name2acc.put(entryFields[1],entryFields[0]);
 				}
 			}
 		}
@@ -64,7 +65,7 @@ public class GatheringThresholdsReader {
 
 	
 	public static String getAccFromID(String id) {
-     return id2acc.get(id);
+     return name2acc.get(id);
 	}
 
 	

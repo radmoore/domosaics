@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
+import angstd.ui.util.MessageUtil;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.util.PowerSet;
 
@@ -32,21 +33,24 @@ public class OverlapResolver {
 	public static DomainArrangement[] resolveOverlaps(DomainArrangement[] daSet, String method)
 	{
 	 List<Domain> toRemove = new ArrayList<Domain>();
-	 for (DomainArrangement da : daSet)
-	 {
-	  if(method.equals("OverlapFilterCoverage"))
-	  {
-	   //System.out.println(toRemove.size());
-	   toRemove = resolveOverlapsByBestCoverage(da);
-	   //System.out.println(toRemove.size());
-	  }else
-	  {
-	   toRemove = resolveOverlapsByBestEvalue(da);
-	  }
-	  for (Domain dom : toRemove)
-	  {
-	   da.hideDomain(dom);
-	  }
+	 for (DomainArrangement da : daSet) {
+		 if(method.equals("Coverage")) {
+			 //System.out.println(toRemove.size());
+			 toRemove = resolveOverlapsByBestCoverage(da);
+			 //System.out.println(toRemove.size());
+		 }else {
+			 if(method.equals("Evalue"))
+			 {
+				 toRemove = resolveOverlapsByBestEvalue(da);
+			 }else
+			 {
+				 MessageUtil.showInformation(null, "Overlap method does not exist. Contact the developpers");
+			 }
+		 }
+		 for (Domain dom : toRemove)
+		 {
+			 da.hideDomain(dom);
+		 }
 	 }
 	 return daSet;
 	}
@@ -73,18 +77,25 @@ public class OverlapResolver {
 		   break;
 	  }
   	  ordered.add(i, dom);
+	  if(da.getName().contains("PHUM"))
+		  System.out.println("compo "+dom.toString());
 	 }
 	 for(int i=1; i< ordered.size(); i++)
 	 {
 	  Domain currentDom=ordered.get(i);
-	  for(int j=i-1; j>= 0; j--)
+	  if(da.getName().contains("PHUM"))
+		  System.out.println(currentDom.toString());
+	  for(int j=i-1; j >= 0; j--)
 	  {
 	   Domain bestDom=ordered.get(j);
-	   if(bestDom.getFrom() < currentDom.getTo() && currentDom.getFrom() < bestDom.getTo())
+	   if(bestDom.getFrom() <= currentDom.getTo() && currentDom.getFrom() <= bestDom.getTo())
 	   {
+		if(da.getName().contains("PHUM"))
+			System.out.println("Overlap with "+ordered.toString());
 	    toRemove.add(currentDom);
 	    ordered.remove(i);
 	    i--;
+	    break;
 	   }
 	  }
 	 }
@@ -159,12 +170,11 @@ public class OverlapResolver {
 				if (cluster.intersects(dom)) {
 					cluster.add(dom);
 					added = true;
+					break;
 				}
-			
-			if (added)
-				continue;
-			
+
 			// if domain were not added into a cluster, create a new one
+			if (!added)
 			clusters.add(new DomainCluster(dom));
 		}
 		

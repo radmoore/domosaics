@@ -371,7 +371,7 @@ public class HmmScan implements Hmmer3Program {
 			}
 			else {
 				// test for another post-processing filter
-				if(overlapResolvMethod.equals("OverlapFilterEvalue") || overlapResolvMethod.equals("OverlapFilterCoverage") ) {
+				if(overlapResolvMethod.equals("Evalue") || overlapResolvMethod.equals("Coverage") ) {
 					arrangementSet = OverlapResolver.resolveOverlaps(arrangementSet, overlapResolvMethod);
 				}
 			}

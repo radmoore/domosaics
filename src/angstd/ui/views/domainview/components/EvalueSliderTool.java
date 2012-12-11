@@ -162,8 +162,8 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 		this.setLocationRelativeTo(parent);
 		setLocation(10, getLocation().y);
 		this.setVisible(true);
-		slider.setValue(slider.getOldThreshold());
-		processSlider(slider.getEvalueOldThreshold());
+		slider.setValue(slider.getThreshold());
+		processSlider(slider.getEvalueThreshold());
 		return 0;
 	}
 	
@@ -229,7 +229,7 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
        {
         if(e.getSource() == jbtApply)
         {
-	     slider.setOldThreshold(slider.getEvalue());
+	     slider.setThreshold(slider.getEvalue());
          dispose();
         }
        } 

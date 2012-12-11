@@ -78,7 +78,7 @@ public abstract class AbstractTreeReader implements TreeReader{
 			return getTreeFromString(strBuffer.toString());
 		} catch (Exception e) {
 			Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning("Reading Tree file aborted");
+			MessageUtil.showWarning("Reading Tree file aborted.");
 		}
 		return null;
 	}

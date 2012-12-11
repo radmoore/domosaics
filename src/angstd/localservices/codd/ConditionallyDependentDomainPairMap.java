@@ -219,7 +219,7 @@ public class ConditionallyDependentDomainPairMap implements AngstdData
   }
   if(!hasCertified)
   {
-   MessageUtil.showWarning("No putative domains in this data set. Try to Hmmscan with higher E-values.");	
+   MessageUtil.showWarning("No putative domains in this data set. You should run local HmmScan with high(er) E-values.");	
   }
   return arrList.toArray(new DomainArrangement[arrList.size()]);
  }

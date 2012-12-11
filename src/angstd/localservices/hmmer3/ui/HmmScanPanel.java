@@ -191,8 +191,8 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	    groupRadio.add(overlapRadioEvalue);
 	    groupRadio.add(overlapRadioCoverage);
 	    overlapRadioNone.setActionCommand("None");
-	    overlapRadioEvalue.setActionCommand("OverlapFilterEvalue");
-	    overlapRadioCoverage.setActionCommand("OverlapFilterCoverage");
+	    overlapRadioEvalue.setActionCommand("Evalue");
+	    overlapRadioCoverage.setActionCommand("Coverage");
 	    
 	    // gathering threshold checkbox. If disabled,
 		// the panel for the evalue is set to visible
@@ -433,7 +433,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			hmmTF.setBackground(highlightColor);
 			return;
 		}
-		if ( !FastaReader.isValidFasta(fastaTF.getText()) ) {
+		if ( !(new FastaReader().isValidFasta(new File(fastaTF.getText()))) ) {
 			MessageUtil.showWarning("Malformated fasta file or unknown sequence format");
 			fastaTF.setBackground(highlightColor);
 			return;

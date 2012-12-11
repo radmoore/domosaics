@@ -15,6 +15,8 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
+import angstd.model.tree.TreeI;
+import angstd.model.tree.io.NewickTreeReader;
 import angstd.model.workspace.ProjectElement;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.wizards.GUIComponentFactory;
@@ -98,8 +100,11 @@ public class SelectTreeDataPage extends WizardPage implements ActionListener {
 	public void actionPerformed(ActionEvent e) {	
 		File file = FileDialogs.showOpenDialog(this);
 		if(file != null) {
-			path.setText(file.getAbsolutePath());
-				viewName.setText(file.getName().split("\\.")[0]);
+				TreeI tree = new NewickTreeReader().getTreeFromFile(file);
+				if (tree != null) {
+					path.setText(file.getAbsolutePath());
+					viewName.setText(file.getName().split("\\.")[0]);
+				}
 		}
 	}	
 

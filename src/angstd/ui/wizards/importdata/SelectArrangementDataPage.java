@@ -17,9 +17,12 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
+import angstd.model.arrangement.io.HmmOutReader;
+import angstd.model.arrangement.io.XdomReader;
 import angstd.model.workspace.ProjectElement;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.util.FileDialogs;
+import angstd.ui.util.MessageUtil;
 import angstd.ui.wizards.GUIComponentFactory;
 
 /**
@@ -118,8 +121,13 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	public void actionPerformed(ActionEvent e) {	
 		File file = FileDialogs.showOpenDialog(this);
 		if(file != null) {
-			path.setText(file.getAbsolutePath());
-				viewName.setText(file.getName().split("\\.")[0]);
+			if (new XdomReader().checkFormat(file) || HmmOutReader.checkFileFormat(file)) {
+				path.setText(file.getAbsolutePath());
+				viewName.setText(file.getName().split("\\.")[0]);				
+			}else
+			{
+				MessageUtil.showWarning("Can't determine the file format! Accepted: xdom or hmmscan tabular output.");
+			}
 		}
 	}	
 	

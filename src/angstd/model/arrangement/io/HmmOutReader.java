@@ -86,28 +86,31 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 	 */
 	public static boolean checkFileFormat(File file) {
 		
+		BufferedReader in=null;
+		String line = null;
 		try {
 				
-			BufferedReader in = new BufferedReader(new FileReader(file));
-			String line;
+			in = new BufferedReader(new FileReader(file));
 			
 			while ((line = in.readLine()) != null) {
 				
-				if (line.isEmpty())					
-					continue;
-				if (line.startsWith("#"))			
-					continue;
-				
-				
-				in.close(); // only read first 'meaningful' line
-				if (line.split("\\s+").length >= 15)
+				if(line.contains("full sequence") && line.contains("this domain") && line.contains("coord"))
+				{
+					in.close(); 
 					return true;
+				}else {
+					in.close(); 
+					return false;
+					
+				}
 			}
+			in.close(); // only read first 'meaningful' line
+			return false;
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
 	

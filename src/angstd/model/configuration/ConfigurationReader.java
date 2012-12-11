@@ -25,10 +25,10 @@ public class ConfigurationReader {
 							line.replace(ConfigurationWriter.GOOGLE_URL, "").trim()
 					);
 				
-				if (line.contains(ConfigurationWriter.NCBI_URL)) 
+				/*if (line.contains(ConfigurationWriter.NCBI_URL)) 
 					Configuration.getInstance().setNcbiUrl(
 							line.replace(ConfigurationWriter.NCBI_URL, "").trim()
-					);
+					);*/
 				
 				if (line.contains(ConfigurationWriter.PFAM_URL)) 
 					Configuration.getInstance().setPfamUrl(

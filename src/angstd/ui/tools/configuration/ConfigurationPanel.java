@@ -85,7 +85,7 @@ public class ConfigurationPanel extends JPanel{
 	private void apply() {
 		Configuration config = Configuration.getInstance();
 		config.setGoogleUrl(googleField.getText());
-		config.setNcbiUrl(ncbiField.getText());
+		//config.setNcbiUrl(ncbiField.getText());
 		config.setPfamUrl(pfamField.getText());
 		config.setUniprotUrl(uniprotField.getText());
 		config.setEmailAddr(emailField.getText());
@@ -111,7 +111,7 @@ public class ConfigurationPanel extends JPanel{
 		hmmerPressTF.setText(config.getHmmPressBin());
 		hmmer3dbTF.setText(config.getHmmerDB());
 		googleField.setText(config.getGoogleUrl());
-		ncbiField.setText(config.getNcbiUrl());
+		//ncbiField.setText(config.getNcbiUrl());
 		pfamField.setText(config.getPfamUrl());
 		uniprotField.setText(config.getUniprotUrl());
 		emailField.setText(config.getEmailAddr());
@@ -154,7 +154,7 @@ public class ConfigurationPanel extends JPanel{
 			}
 		});
 		googleField = new JTextField(config.getGoogleUrl(), 50);
-		ncbiField = new JTextField(config.getNcbiUrl(), 50);
+		//ncbiField = new JTextField(config.getNcbiUrl(), 50);
 		pfamField = new JTextField(config.getPfamUrl(), 50);
 		uniprotField = new JTextField(config.getUniprotUrl(), 50);
 		//emailField = new JTextField(config.getEmailAddr(), 50);
@@ -192,9 +192,9 @@ public class ConfigurationPanel extends JPanel{
 				if (file == null || !file.canRead())
 					return;
 
-				if (checkHmmDBDir(file, true))
+				if (checkHmmDB(file))
 					hmmer3dbTF.setText(file.getAbsolutePath());
-					else return;
+				else return;
 			}
 		});
 		
@@ -230,7 +230,7 @@ public class ConfigurationPanel extends JPanel{
 				}
 				
 				if (!hmmer3dbTF.getText().equals("")) {
-					if (!checkHmmDBDir(new File(hmmer3dbTF.getText()), false)) {
+					if (!checkHmmDBpressed(new File(hmmer3dbTF.getText()))) {
 						hmmer3dbTF.setBackground(highlightColor);
 						return;
 					}
@@ -328,13 +328,13 @@ public class ConfigurationPanel extends JPanel{
 	}
 	
 	/**
-	 * Check whether the current HMMER3 database dir
-	 * contains the pressed files
+	 * Check whether the current HMMER3 database 
+	 * file exists and is valid
 	 *
 	 * @param file
 	 * @return
 	 */
-	private boolean checkHmmDBDir(File file, boolean initPress) {
+	private boolean checkHmmDB(File file) {
 		
 		// check if file is still there
 		if (!file.exists()) {
@@ -347,9 +347,18 @@ public class ConfigurationPanel extends JPanel{
 			MessageUtil.showWarning(file.getName()+ " does not appear to be a valid hmmer3 profile");
 			return false;
 		}
+
 		
-		boolean pressAvail = true;
+	/**
+	 * Check whether the current HMMER3 database dir
+	 * contains the pressed files
+	 *
+	 * @param file
+	 * @return
+	 */
+	private boolean checkHmmDBpressed(File file) {
 		
+		boolean pressAvail = false;
 		// check if hmmpress service is available
 		if (!hmmer3Engine.isAvailableService("hmmpress")) {
 			// if not, check whether press bin in the selected textfield is valid
@@ -357,11 +366,10 @@ public class ConfigurationPanel extends JPanel{
 				pressAvail = checkHmmBin(new File(hmmerPressTF.getText()));
 			}
 		}
-		
 		// check if pressed files are available
-		if (!HmmPress.hmmFilePressed(file) && initPress) {
+		if (!HmmPress.hmmFilePressed(file)) {
 			if (MessageUtil.showDialog(file.getName()+" is not pressed. Do you want AnGSTD to press it now?")) {
-				if (!pressAvail || (hmmerPressTF.getText().isEmpty())) {
+				if (!pressAvail) {
 					MessageUtil.showInformation(null, "Please first provide hmmpress binary");
 					hmmer3dbTF.setText("");
 					return false; 

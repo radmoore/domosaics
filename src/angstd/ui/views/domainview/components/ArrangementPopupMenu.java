@@ -34,7 +34,8 @@ public class ArrangementPopupMenu extends JPopupMenu {
 		super("Arrangement Menu");
 
 		// add title
-		String str = "<html><b>Arrangement";
+		DomainComponent dc = view.getDomainSelectionManager().getClickedComp();
+		String str = "<html><b>Arrangement of <i>"+dc.getLabel()+"</i></b></html>";
 		JLabel title = new JLabel(str);
 		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setVerticalAlignment(JLabel.CENTER);
@@ -50,8 +51,8 @@ public class ArrangementPopupMenu extends JPopupMenu {
 		add(new ShowAllDomainsAction());
 		add(new JSeparator());
 		add(new RADSScanAction());
-		add(new LookupProteinInGoogle());
-		add(new LookupProteinInUniprotAction());
+		add(new LookupProteinInGoogle(dc.getLabel()));
+		add(new LookupProteinInUniprotAction(dc.getLabel()));
 	}
 	
 }
