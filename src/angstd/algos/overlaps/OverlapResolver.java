@@ -77,21 +77,15 @@ public class OverlapResolver {
 		   break;
 	  }
   	  ordered.add(i, dom);
-	  if(da.getName().contains("PHUM"))
-		  System.out.println("compo "+dom.toString());
 	 }
 	 for(int i=1; i< ordered.size(); i++)
 	 {
 	  Domain currentDom=ordered.get(i);
-	  if(da.getName().contains("PHUM"))
-		  System.out.println(currentDom.toString());
-	  for(int j=i-1; j >= 0; j--)
+	  for(int j=i-1; j>= 0; j--)
 	  {
 	   Domain bestDom=ordered.get(j);
 	   if(bestDom.getFrom() <= currentDom.getTo() && currentDom.getFrom() <= bestDom.getTo())
 	   {
-		if(da.getName().contains("PHUM"))
-			System.out.println("Overlap with "+ordered.toString());
 	    toRemove.add(currentDom);
 	    ordered.remove(i);
 	    i--;
@@ -172,10 +166,9 @@ public class OverlapResolver {
 					added = true;
 					break;
 				}
-
 			// if domain were not added into a cluster, create a new one
 			if (!added)
-			clusters.add(new DomainCluster(dom));
+				clusters.add(new DomainCluster(dom));
 		}
 		
 		return clusters;

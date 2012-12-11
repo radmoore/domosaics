@@ -242,27 +242,27 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 		// first get the domain family id and check whether or not the domain family already occurred within the document
         // DACC;DID (DID may be null, in which case a call to getID() returns the ACC; ergo ACC and DID may be equal)
         String domInfo = token[actToken+2];
-        String dAcc, dId; 
+        String dName, dId; 
         
         if (domInfo.indexOf(';') > 0) {
-        	dAcc = domInfo.split(";")[0];
-        	dId = domInfo.split(";")[1];
+        	dId = domInfo.split(";")[0];
+        	dName = domInfo.split(";")[1];
         }
         else {
-        	dAcc = domInfo;
+        	dName = domInfo;
         	dId = domInfo;
         }
         	
-		DomainType dType = DomainType.getType(dAcc);
-		domFamily = GatheringThresholdsReader.getInstance().get(dAcc);
+		DomainType dType = DomainType.getType(dId);
+		domFamily = GatheringThresholdsReader.getInstance().get(dId);
 		
 		if (domFamily == null) { 				
-			if (dAcc == dId)
-				dId = null;
+			if (dName == dId)
+				dName = null;
 			
-			domFamily = new DomainFamily(dAcc, dId, dType);
+			domFamily = new DomainFamily(dId, dName, dType);
 //			domFamily.setPfamID(pfamID);
-			GatheringThresholdsReader.getInstance().put(dAcc, domFamily);
+			GatheringThresholdsReader.getInstance().put(dId, domFamily);
 		}
 		
 		// "from", "to" must be the first two tokens
@@ -270,7 +270,7 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 		int to = Integer.parseInt(token[actToken+1]);
 		
 		// create domain
-		dom = new Domain(from, to, domFamily);
+		dom = new Domain (from, to, domFamily);
 				
 		// check if the e-value is present within the format
 		if (token.length == actToken+3) {

@@ -69,7 +69,10 @@ public class PALAdapter {
 			seqStrs[i] = seqs[i].getSeq(true);
 		}
 		
-		DataType type = AlignmentUtils.getSuitableInstance(seqStrs);
+		//Nico: Only alignments of amino-acids 
+		//DataType type = AlignmentUtils.getSuitableInstance(seqStrs);
+		DataType type = DataTypeTool.getUniverisalAminoAcids();
+		
 		return new SimpleAlignment(identifers, seqStrs, type);
 	}
 	

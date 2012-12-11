@@ -135,7 +135,7 @@ public class AddSelectionToViewAction extends AbstractMenuAction{
 		WorkspaceManager.getInstance().showViewInMainFrame(WorkspaceManager.getInstance().getViewElement(targetView.getViewInfo()));
 		// Set selection in target to selected arrangements (doesnt work)
 		//viewToAddTo.getArrangementSelectionManager().setSelection(activeDomView.getArrangementSelectionManager().getSelection());
-		MessageUtil.showInformation(null, "Added "+selectedItems+" arrangements "+" from "+activeDomView.getViewInfo().getName());
+		MessageUtil.showInformation(null, "Added "+selectedItems+" arrangements from "+activeDomView.getViewInfo().getName());
 		
 	}
 	

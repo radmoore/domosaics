@@ -107,7 +107,7 @@ public class HmmPress implements Hmmer3Program {
             	if (line.isEmpty())					
 					continue;
 				// start of a profile
-				if ((!startProfile) && line.startsWith("HMMER3/b")) {
+				if ((!startProfile) && line.startsWith("HMMER3")) {
 					startProfile = true;
 				}
 				// end of a profile

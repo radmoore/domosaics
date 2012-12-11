@@ -56,7 +56,7 @@
 		
 		<menuitem id="JCheckBox">
 			<parameter id="name" value="Accession IDs"/> 
-			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ShowIdAction"/> 
+			<parameter id="actionClass" value="angstd.ui.views.domainview.actions.ShowNameAction"/> 
 			<parameter id="tooltip" value="Label the domains by their native database name accession number"/> 
 			<parameter id="isSelected" value="true"/> 
 		</menuItem>

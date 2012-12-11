@@ -193,24 +193,22 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			Map m = WizardManager.getInstance().selectNameWizard(defaultName, "annotation", project, true);
 			viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
 			projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
-			project = WorkspaceManager.getInstance().getProject(projectName);
-				
-			if (viewName == null) 
-				MessageUtil.showWarning("A valid view name is needed to complete this action");
-		
-			DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
-			domResultView.setDaSet(domArrs);
-			domResultView.loadSequencesIntoDas(annotationSpawner.getSeqs(), domArrs);
-			
-			// create sequence view if it comes from a file
-			if (seqPath.getText().length() > 0) {
-				SequenceView view = ViewHandler.getInstance().createView(ViewType.SEQUENCE, viewName+"_seqs");
-				view.setSeqs(domResultView.getSequences());
-				ViewHandler.getInstance().addView(view, project);
-			}
-			
-			ViewHandler.getInstance().addView(domResultView, project);
 		}
+		project = WorkspaceManager.getInstance().getProject(projectName);
+				
+		
+		DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
+		domResultView.setDaSet(domArrs);
+		domResultView.loadSequencesIntoDas(annotationSpawner.getSeqs(), domArrs);
+
+		// create sequence view if it comes from a file
+		if (seqPath.getText().length() > 0) {
+			SequenceView view = ViewHandler.getInstance().createView(ViewType.SEQUENCE, viewName+"_seqs");
+			view.setSeqs(domResultView.getSequences());
+			ViewHandler.getInstance().addView(view, project);
+		}
+
+		ViewHandler.getInstance().addView(domResultView, project);
 		
 		cancel();
 		parent.dispose();

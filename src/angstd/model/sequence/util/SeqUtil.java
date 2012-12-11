@@ -61,7 +61,7 @@ public class SeqUtil {
 				letters.add(charSeq[i]);
 		}
 		//TODO: only allow protein for the time being
-		// check for PROTEIN (all AA + '-', '*', 'X')
+		// check for PROTEIN (all AA + '-', '*', 'X', 'U')
 		//if ( (letters.size() > 4) && (letters.size() <= 24) ) {
 		if ( letters.size() <= 24 ) {
 			

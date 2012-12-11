@@ -274,7 +274,7 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
  	 DomainArrangement[] daSet = ConditionallyDependentDomainPairMap.coddProcedure(view.getDaSet());
      for (DomainArrangement da : daSet)
      {
-      System.out.println(da.countDoms()+" "+da.getHiddenDoms().size());
+      //System.out.println(da.countDoms()+" "+da.getHiddenDoms().size());
       for (Domain dom : da.getDomains())
       {
        DomainComponent dc = view.getDomainComponentManager().getComponent(dom);

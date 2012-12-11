@@ -14,6 +14,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 
+import org.jdom2.Element;
+
 import angstd.model.arrangement.DomainFamily;
 import angstd.ui.tools.Tool;
 import angstd.ui.tools.ToolFrameI;
@@ -338,6 +340,24 @@ public class DomainLegendView extends AbstractView implements PropertyChangeList
 
 	
 	public void setViewRenderer(Renderer renderer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlWrite(Element viewType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlWriteViewType() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlRead(Element viewType) {
 		// TODO Auto-generated method stub
 		
 	}

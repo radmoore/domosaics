@@ -19,11 +19,11 @@ public class Configuration {
 	
 	public static final String CONFIGFILE = "config";
 	public static final String DEF_FILE_LOCATION = System.getProperty("user.home");
-	public static final String DEF_LOG_LOCATION = DEF_FILE_LOCATION+"/"+"Desktop/angstd2.log";
+	//public static final String DEF_LOG_LOCATION = DEF_FILE_LOCATION+"/angstd2.log";
 	public static final String DEF_GOOGLE_SEARCH = "http://www.google.com/search?q=XXX";
 	//public static final String DEF_NCBI_SEARCH = "http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&cmd=search&term=XXX";
 	public static final String DEF_PFAM_SEARCH = "http://pfam.sanger.ac.uk/family?acc=XXX";
-	public static final String DEF_UNIPROT_SEARCH = "http://www.expasy.org/cgi-bin/sprot-search-de?XXX";
+	public static final String DEF_UNIPROT_SEARCH = "http://www.uniprot.org/uniprot/?query=XXX";
 	public static final String DEF_EMAIL_ADDR = "";
 	public static final String DEF_HMMPRESS_BIN = "";
 	public static final String DEF_HMMSCAN_BIN = "";
@@ -56,19 +56,19 @@ public class Configuration {
 	protected String workspace_dir; // this is null and seems to cause an exception, see below
 	
 	protected boolean visible = false;
-	protected static boolean idRatherThanAcc = false;
+	protected static boolean nameRatherThanAcc = false;
 	
 	
 	public Configuration() {
 		restoreDefaults();
 	}
 
-	public static boolean isIdPreferedToAcc() {
-		return idRatherThanAcc;
+	public static boolean isNamePreferedToAcc() {
+		return nameRatherThanAcc;
 	}
 	
-	public static void setIdPreferedToAcc(boolean b) {
-		idRatherThanAcc = b;
+	public static void setNamePreferedToAcc(boolean b) {
+		nameRatherThanAcc = b;
 	}
 	
 	public static Logger getLogger() {

@@ -50,8 +50,6 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 	protected static final int SANKOFF = 1;
 	protected static final int DOLLO4SETS = 2;
 	protected static final int SANKOFF4SETS = 3;
-
-	protected int parsimonyType = SANKOFF;
 	
 	protected JButton jbtApply, jbtCancel;
 	
@@ -79,6 +77,9 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 	
 	public ReconstructionTool(DomainTreeViewI view) {
 		this.view = view;
+		if(view.getParsimonyMeth()==Integer.MAX_VALUE) {
+			view.setParsimonyMeth(SANKOFF);
+		}
 
 		// create components
 		jbtDollo = new JButton("Dollo");
@@ -177,7 +178,7 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 		componentHolder.add(new JLabel(" "), "w 60!, gap 10, wrap");
 		componentHolder.add(useSets, "gaptop 5, growx, span, wrap");
 		
-		if (parsimonyType == SANKOFF || parsimonyType == SANKOFF4SETS) {
+		if (view.getParsimonyMeth() == SANKOFF || view.getParsimonyMeth() == SANKOFF4SETS) {
 			componentHolder.add(new JXTitledSeparator("Adjust insertion deletion costs "),"growx, span, wrap, gaptop 10");
 //			componentHolder.add(new JLabel("Insertion cost"), "gap 10");
 			componentHolder.add(inSlider, "gap 10, gapright10, growx, span, wrap");
@@ -263,9 +264,9 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 		// layout tool for dollo parsimony and start the algorithm
 		if(e.getSource() == jbtDollo) {
 			if (useSets.isSelected())
-				parsimonyType = DOLLO4SETS;
+				view.setParsimonyMeth(DOLLO4SETS);
 			else
-				parsimonyType = DOLLO;
+				view.setParsimonyMeth(DOLLO);
 			layoutTool();
 			runChosenAlgo();
 			return;
@@ -274,23 +275,23 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 		// layout tool for sankoff parsimony and start the algorithm
 		if(e.getSource() == jbtSankoff) {
 			if (useSets.isSelected())
-				parsimonyType = SANKOFF4SETS;
+				view.setParsimonyMeth(SANKOFF4SETS);
 			else
-				parsimonyType = SANKOFF;
+				view.setParsimonyMeth(SANKOFF);
 			layoutTool();
 			runChosenAlgo();
 			return;
 		}
 		
 		if(e.getSource() == useSets) {
-			if (parsimonyType == DOLLO)
-				parsimonyType = DOLLO4SETS;
-			else if(parsimonyType == SANKOFF)
-				parsimonyType = SANKOFF4SETS;
-			else if(parsimonyType == DOLLO4SETS)
-				parsimonyType = DOLLO;
-			else if(parsimonyType == SANKOFF4SETS)
-				parsimonyType = SANKOFF;	
+			if (view.getParsimonyMeth() == DOLLO)
+				view.setParsimonyMeth(DOLLO4SETS);
+			else if(view.getParsimonyMeth() == SANKOFF)
+				view.setParsimonyMeth(SANKOFF4SETS);
+			else if(view.getParsimonyMeth() == DOLLO4SETS)
+				view.setParsimonyMeth(DOLLO);
+			else if(view.getParsimonyMeth() == SANKOFF4SETS)
+				view.setParsimonyMeth(SANKOFF);
 				
 			runChosenAlgo();
 			return;
@@ -329,15 +330,12 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 	private void runChosenAlgo() {
 		if (algo != null && !algo.isDone()) 
 			algo.cancel(true);
-		
-		if (parsimonyType == DOLLO)
-			runDollo();
-		else if (parsimonyType == SANKOFF)
-			runSankoff();
-		else if (parsimonyType == DOLLO4SETS)
-			runDollo4Sets();
-		else if (parsimonyType == SANKOFF4SETS)
-			runSankoff4Sets();
+		switch (view.getParsimonyMeth()) {
+		case DOLLO: runDollo();
+		case SANKOFF: runSankoff();
+		case DOLLO4SETS: runDollo4Sets();
+		case SANKOFF4SETS: runSankoff4Sets();
+		}
 	}
 	
 	/**

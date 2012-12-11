@@ -13,6 +13,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 
+import org.jdom2.Element;
+
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.configuration.Configuration;
 import angstd.model.dotplot.Dotplot;
@@ -380,6 +382,24 @@ public class DotplotView extends AbstractView implements Tool, PropertyChangeLis
 	}
 
 	public void setViewRenderer(Renderer renderer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlWrite(Element viewType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlWriteViewType() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlRead(Element viewType) {
 		// TODO Auto-generated method stub
 		
 	}

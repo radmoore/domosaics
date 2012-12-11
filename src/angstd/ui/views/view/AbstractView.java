@@ -8,12 +8,28 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
+
+import angstd.model.configuration.Configuration;
+import angstd.ui.util.DigestUtil;
+import angstd.ui.util.MessageUtil;
+import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainView;
 import angstd.ui.views.domainview.renderer.additional.DomainTooltipRenderer;
 import angstd.ui.views.view.components.ZoomController;
@@ -67,6 +83,10 @@ public abstract class AbstractView extends JComponent implements View {
 	
 	/** the manager controlling the action states */
 	protected LayoutManager layoutManager;
+	
+	/** For xml export of the file */
+	protected Element root, viewType;
+	protected Document document;
 	
 //	protected boolean changed;
 	
@@ -368,5 +388,82 @@ public abstract class AbstractView extends JComponent implements View {
 		for (int i = 0; i < mwl.length; i++)
 			removeMouseWheelListener(mwl[i]);
 	}
+	
+	public void export(File file) { 
+		root = new Element("DOMOSAICS_VIEW");
+		document = new Document(root); 
+		viewType = new Element("VIEW");
+		root.setAttribute(new Attribute("hash",DigestUtil.createDigest(this.getViewInfo().getName())));
+		root.addContent(viewType);
+		this.xmlWriteViewType();
+		Attribute viewName = new Attribute("name",this.getViewInfo().getName());
+		viewType.setAttribute(viewName);
+		this.xmlWrite(viewType);
+        XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
+        try {
+			sortie.output(document, System.out);
+	        sortie.output(document, new FileOutputStream(file));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
+		}
+	}
+	
+	public void importXML(File file) { 
+		try {
+			SAXBuilder sxb = new SAXBuilder();
 
+			//Create a new JDOM document with the XML file
+			document = sxb.build(file);
+
+			//Initialize a new element to the root of the document.
+			viewType = document.getRootElement().getChild("DOMOSAICS_VIEW");
+			this.xmlRead(viewType);
+			
+        } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Configuration.getLogger().debug(e.toString());
+		}
+	}
+
+	public static ViewType detectViewType(File viewFile) {
+		
+		try {
+			SAXBuilder sxb = new SAXBuilder();
+
+			//Create a new JDOM document with the XML file
+			Document doc = sxb.build(viewFile);
+
+			//Initialize a new element to the root of the document.
+			Element r = doc.getRootElement();
+
+			System.out.println(r.getName());
+			if(r.getName()!="DOMAICS_VIEW")
+				if (!MessageUtil.showDialog( viewFile.getName()+" does not appear to be a DoMosaic file. Continue?"))
+					return null;
+
+			String viewType = r.getChildren("VIEW").get(0).getAttributeValue("type");
+			if (viewType.equals("SEQUENCES"))
+				return  ViewType.SEQUENCE;
+
+			if (viewType.equals("DOMAINTREE"))
+				return  ViewType.DOMAINTREE;
+
+			if (viewType.equals("TREE"))
+				return  ViewType.TREE;
+
+			if (viewType.equals("ARRANGEMENTS"))
+				return  ViewType.DOMAINS;
+
+		}
+		catch(Exception e) {
+			Configuration.getLogger().debug(e.toString());
+		}
+		
+		return null;
+		
+	}
+	
 }

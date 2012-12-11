@@ -49,7 +49,8 @@ public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 		
 		// take the active viewName + subset as default name
 		String defaultName = view.getViewInfo().getName()+"_subset";
-		String viewName, projectName;
+		String viewName = null;
+		String projectName;
 		
 		// get currently active project
 		ViewElement elem = WorkspaceManager.getInstance().getViewElement(view.getViewInfo());
@@ -61,14 +62,12 @@ public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 		// in case user canceled renaming
 		if (m == null) 
 			return;
-		
-		viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
-		projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
-		project = WorkspaceManager.getInstance().getProject(projectName);
-		
-		
-
-		
+		while(viewName == null) {
+			viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+			projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+			project = WorkspaceManager.getInstance().getProject(projectName);
+		}
+				
 		// clone selected arrangements as well as their sequences into a new dataset
 		DomainArrangement[] daSet = new DomainArrangement[numDAs];
 		List<SequenceI> seqs = new ArrayList<SequenceI>();
