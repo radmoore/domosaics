@@ -401,11 +401,10 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			return;	
 		}
 		
-		if(hmmPressTF.getText().equals("")) {
+		/*if(hmmPressTF.getText().equals("")) {
 			MessageUtil.showWarning("Please choose a hmmpress binary.");
-			hmmPressTF.setBackground(highlightColor);
 			return;	
-		}
+		}*/
 
 		else if (hmmTF.getText().equals("")) {
 			MessageUtil.showWarning("Please choose HMMER3 profiles");
@@ -425,12 +424,15 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			hmmScanTF.setBackground(highlightColor);
 			return;
 		}
-		if (!checkBins(new File(hmmPressTF.getText()))) {
+		/*if (!checkBins(new File(hmmPressTF.getText()))) {
 			hmmPressTF.setBackground(highlightColor);
 			return;
-		}
-		if (!checkDbDir(new File(hmmTF.getText()))) {
+		}*/
+		if (!checkDB(new File(hmmTF.getText()))) {
 			hmmTF.setBackground(highlightColor);
+			return;
+		}
+		if (!checkDBpressed(new File(hmmTF.getText()))) {
 			return;
 		}
 		if ( !FastaReader.isValidFasta(fastaTF.getText()) ) {
@@ -561,35 +563,65 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	/**
 	 * checks if the selected DB dir contains a pressed
 	 * version of the model database, and allows the user
-	 * to press it if not. NOTE: this does no
-	 * format checking
+	 * to press it if not.
 	 * 
 	 * @param dbFile
 	 * @return true, if the the DB dir contains necessary files
 	 */
-	private boolean checkDbDir(File dbFile) {
+	private boolean checkDB(File dbFile) {
+
+		// check if file is still there
+		if (!dbFile.exists()) {
+			MessageUtil.showWarning(this.parent, "Warning: could not find specified HMMER db file "+dbFile.getName());
+			return false;
+		}
 		
 		// format check hmme3 profiles
 		if (!HmmPress.isValidProfileFile(dbFile)) {
 			MessageUtil.showWarning(dbFile.getName()+ " does not appear to be a valid hmmer3 profile");
 			return false;
+		} else {
+			return true;
 		}
+	}
 		
 		
+	private boolean checkDBpressed(File dbFile) {
+		boolean pressAvail = false;
+				
 		// check if pressed files are available
 		if (!HmmPress.hmmFilePressed(dbFile)) {
-			if (MessageUtil.showDialog("The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {					
-				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+			// check if hmmpress service is available
+			if (!Hmmer3Engine.getInstance().isAvailableService("hmmpress")) {
+				// if not, check whether press bin in the selected textfield is valid
+				if (!hmmPressTF.getText().equals("")) {
+					pressAvail = checkBins(new File(hmmPressTF.getText()));
+				}
+			}
+			// Check if want to/can press
+			if (MessageUtil.showDialog(this, "The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {					
+				if (pressAvail) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 				
-				// TODO: I would like to disable GUI components here
-				// and enable them _after_ the run is complete.
-				// See also angstd.localservices.hmmer3.programs.HmmPress
-				HmmPress hmmPress = new HmmPress(Hmmer3Engine.getInstance().getAvailableServicePath("hmmpress"), dbFile, this);
-				Hmmer3Engine.getInstance().launchInBackground(hmmPress);
-				progressBar.setIndeterminate(true);
-				// we must return false, even if the press was successful to ensure that the engine instance is free
-				// before we init the actual scan
-				return false;
+					// TODO: I would like to disable GUI components here
+					// and enable them _after_ the run is complete.
+					// See also angstd.localservices.hmmer3.programs.HmmPress
+					HmmPress hmmPress = new HmmPress(Hmmer3Engine.getInstance().getAvailableServicePath("hmmpress"), dbFile, this);
+					Hmmer3Engine.getInstance().launchInBackground(hmmPress);
+					progressBar.setIndeterminate(true);
+					// we must return false, even if the press was successful to ensure that the engine instance is free
+					// before we init the actual scan
+					return false;
+				}
+				else {
+					if (!hmmPressTF.getText().equals("")) {
+						MessageUtil.showInformation(this.parent, "Please first provide hmmpress binary");
+					} else {
+						MessageUtil.showInformation(this.parent, "Please first provide correct Hmmpress binary");
+					}
+					hmmPressTF.setBackground(highlightColor);
+					return false; 
+				}	
 			}
 			else {
 				return false;

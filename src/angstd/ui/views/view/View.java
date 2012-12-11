@@ -212,4 +212,10 @@ public interface View {
 	 */
 	public void xmlWriteViewType();
 	
+	/**
+	 * Specify View sub-type to xml format
+	 */
+	public void xmlRead(Element viewType);
+	
+	
 }

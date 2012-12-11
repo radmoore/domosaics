@@ -23,6 +23,7 @@ import angstd.ui.WorkspaceManager;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
+import angstd.ui.views.domainview.DomainView;
 import angstd.ui.views.view.io.ViewImporter;
 
 /**
@@ -69,6 +70,8 @@ public class ImportViewPage extends WizardPage {
 						name.setText(file.getName());
 						File viewFile = new File(path.getText());
 						type = ViewImporter.detectViewType(viewFile);
+						// Nic import
+						//type = DomainView.detectViewType(viewFile);
 						typeField.setText(type.toString());
 					}
 					else {

@@ -45,6 +45,7 @@ import angstd.ui.views.domaintreeview.renderer.additional.CollapseNumberRenderer
 import angstd.ui.views.domaintreeview.renderer.additional.DomainEventTooltipRenderer;
 import angstd.ui.views.domaintreeview.renderer.additional.InDelRenderer;
 import angstd.ui.views.domaintreeview.renderer.additional.InnerNodeArrangementRenderer;
+import angstd.ui.views.domainview.DomainView;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.components.DomainComponent;
@@ -66,6 +67,7 @@ import angstd.ui.views.domainview.mousecontroller.SequenceSelectionMouseControll
 import angstd.ui.views.domainview.mousecontroller.ShiftComponentsMouseController;
 import angstd.ui.views.domainview.renderer.DomainViewRenderer;
 import angstd.ui.views.domainview.renderer.additional.NoteMarkRenderer;
+import angstd.ui.views.treeview.TreeView;
 import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.treeview.components.TreeMouseController;
@@ -1051,7 +1053,6 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 
 	@Override
 	public void xmlWrite(Element viewType) {
-		// TODO Auto-generated method stub
 		domView.xmlWrite(viewType);
 		treeView.xmlWrite(viewType);		
 	}
@@ -1062,6 +1063,19 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 		Attribute type = new Attribute("type","DOMAIN_TREE");
 		viewType.setAttribute(type);
 	}
+
+
+	@Override
+	public void xmlRead(Element viewType) {
+		DomainView dV = new DomainView();
+		dV.xmlRead(viewType);
+		TreeView tV = new TreeView();
+		tV.xmlRead(viewType);
+		setBackendViews(tV, dV);
+		// TODO integrate in TreeView the parsimony method and costs and recompute things
+	}
+
+
 
 
 }

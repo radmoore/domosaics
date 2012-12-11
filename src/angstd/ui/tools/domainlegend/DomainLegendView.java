@@ -355,4 +355,10 @@ public class DomainLegendView extends AbstractView implements PropertyChangeList
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void xmlRead(Element viewType) {
+		// TODO Auto-generated method stub
+		
+	}
 }

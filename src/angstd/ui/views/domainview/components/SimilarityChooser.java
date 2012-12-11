@@ -296,21 +296,26 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		String defaultName = view.getViewInfo().getName()+"_subset";
 		
 		// ask the user to enter a valid name for the view
-		String viewName, projectName;
+		String viewName=null;
+		String projectName=null;
 		
 		// get active project 
 		ViewElement elem = WorkspaceManager.getInstance().getViewElement(view.getViewInfo());
 		ProjectElement project = elem.getProject();
 		
 		// get user settings
-		Map m = WizardManager.getInstance().selectNameWizard(defaultName, "domain view", project, true);
-		viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
-		projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+		while(viewName == null) {
+			Map m = WizardManager.getInstance().selectNameWizard(defaultName, "domain view", project, true);
+			viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+			projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+		}
 		
 		project = WorkspaceManager.getInstance().getProject(projectName);
 		
-		if (viewName == null) 
-			return;
+		/* Never happen
+		 * if (viewName == null)
+			return; 
+		 */
 
 		// and create with the new dataset a new domainview with the selected name
 		DomainViewI newView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);

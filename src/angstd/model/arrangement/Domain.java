@@ -27,7 +27,7 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
     protected double evalue = Double.POSITIVE_INFINITY;
 
     /** logg odds score of the annotation */
-    protected double score;
+    protected double score = Double.NEGATIVE_INFINITY;
     
     /** domain family */
     protected DomainFamily fam;

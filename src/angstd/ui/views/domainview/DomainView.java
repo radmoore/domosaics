@@ -1,5 +1,6 @@
  package angstd.ui.views.domainview;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.beans.PropertyChangeEvent;
@@ -19,21 +20,28 @@ import javax.swing.JScrollPane;
 import org.jdom2.Attribute;
 import org.jdom2.Element;
 
+import angstd.model.GO.GeneOntology;
 import angstd.model.GO.GeneOntologyTerm;
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainType;
+import angstd.model.arrangement.io.GatheringThresholdsReader;
+import angstd.model.sequence.Sequence;
 import angstd.model.sequence.SequenceI;
 import angstd.ui.AngstdUI;
+import angstd.ui.ViewHandler;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.util.MessageUtil;
+import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.domainview.components.SequenceMatchErrorFrame;
 import angstd.ui.views.domainview.io.DomainViewExporter;
 import angstd.ui.views.domainview.layout.DomainLayout;
+import angstd.ui.views.domainview.layout.MSALayout;
 import angstd.ui.views.domainview.layout.ProportionalLayout;
+import angstd.ui.views.domainview.layout.UnproportionalLayout;
 import angstd.ui.views.domainview.manager.CollapseSameArrangementsManager;
 import angstd.ui.views.domainview.manager.DomainArrangementComponentManager;
 import angstd.ui.views.domainview.manager.DomainColorManager;
@@ -837,8 +845,11 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 							occ.setAttribute(from);
 							Attribute to = new Attribute("to",""+currentDomain.getTo());
 							occ.setAttribute(to);
-							if(currentDomain.getName()!="")
-								occ.setAttribute(new Attribute("name",""+currentDomain.getName()));
+							// TODO A domain have to have an E-value or not?
+							if(currentDomain.getEvalue() != Double.POSITIVE_INFINITY)
+								occ.setAttribute(new Attribute("evalue",""+currentDomain.getEvalue()));
+							if(currentDomain.getScore() != Double.NEGATIVE_INFINITY)
+								occ.setAttribute(new Attribute("score",""+currentDomain.getScore()));
 							if(currentDomain.isPutative())
 								occ.setAttribute(new Attribute("isPutative","true"));
 						}
@@ -849,12 +860,14 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		}
 
 		// TODO DOMAIN FAMILIES
+		Element allTypes = new Element("ALL_DOMAIN_TYPES");
+		viewType.addContent(allTypes);
 		Iterator<DomainFamily> famIter = domFamilies.iterator();
 		HashSet<GeneOntologyTerm> allGO = new HashSet<GeneOntologyTerm>();
 		while (famIter.hasNext()) {
 			DomainFamily fam = famIter.next();
 			Element domFam = new Element("DOMAIN_FAMILY");
-			viewType.addContent(domFam);
+			allTypes.addContent(domFam);
 			Attribute id = new Attribute("id",""+fam.getId());
 			domFam.setAttribute(id);
 			Attribute famName = new Attribute("name",""+fam.getName());
@@ -862,7 +875,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 			Attribute db = new Attribute("source",DomainType.getType(fam.getId()).getName());
 			domFam.setAttribute(db);
 			if(fam.getInterproEntry()!=null)
-				domFam.setAttribute(new Attribute("source",""+fam.getInterproEntry()));
+				domFam.setAttribute(new Attribute("interpro",""+fam.getInterproEntry()));
 			Attribute color = new Attribute("color", ""+this.getDomainColorManager().getDomainColor(fam).getRGB());
 			domFam.setAttribute(color);
 			Attribute shape = new Attribute("shape", ""+this.getDomainShapeManager().getShapeID(fam));
@@ -921,7 +934,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		layout.setAttribute(layoutView);
 		// Others
 		if(layoutManager.isFitDomainsToScreen())
-			layout.setAttribute(new Attribute("isPutative","true"));
+			layout.setAttribute(new Attribute("isFitToScreen","true"));
 		if(layoutManager.isEvalueColorization())
 			layout.setAttribute(new Attribute("evalueColorization","true"));
 		if(layoutManager.isShowShapes())
@@ -934,4 +947,129 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		viewType.setAttribute(type);	
 	}
 
+	@Override
+	public void xmlRead(Element viewType) {
+		this.setName(viewType.getName());
+		
+		// TODO Read GO terms in details in new compared to our data notably
+		
+		
+		// Read domain families
+		List<Element> families = viewType.getChildren("ALL_DOMAIN_TYPES");
+		Iterator<Element> f = families.iterator();
+		while(f.hasNext()) {
+			Element family = f.next();
+			// TODO process name inverted with id in xml?
+			DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(family.getAttributeValue("id"));
+			if(domFamily == null) {	
+				domFamily = new DomainFamily(family.getAttributeValue("id"), family.getAttributeValue("name"), DomainType.getType(family.getAttributeValue("id")));
+				GatheringThresholdsReader.getInstance().put(family.getAttributeValue("id"), domFamily);
+			} else {
+				if(!DomainType.getType(family.getAttributeValue("id")).getName().equals(family.getAttributeValue("source")) || !domFamily.getDomainType().getName().equals(family.getAttributeValue("source")) || !domFamily.getName().equals(family.getAttributeValue("name")))
+					MessageUtil.showDialog("Error: import of a domain family inconsistent with DoMosaics data");
+			}
+			String interproEntry=family.getAttributeValue("interpro");
+			if(interproEntry!=null)
+				GatheringThresholdsReader.getInstance().get(family.getAttributeValue("id")).setInterproEntry(interproEntry);
+			String domColor=family.getAttributeValue("color");
+			if(domColor!=null)
+				this.getDomainColorManager().setDomainColor(GatheringThresholdsReader.getInstance().get(family.getAttributeValue("id")), new Color(new Integer(domColor)));
+			String domShape=family.getAttributeValue("cshapelor");
+			if(domShape!=null)
+				this.getDomainShapeManager().setDomainShape(GatheringThresholdsReader.getInstance().get(family.getAttributeValue("id")), new Integer(domShape));
+			String famThresh=family.getAttributeValue("famThresh");
+			if(famThresh!=null)
+				GatheringThresholdsReader.getInstance().get(family.getAttributeValue("id")).setGathThreshByFam(new Double(famThresh));
+			String domThresh=family.getAttributeValue("famThresh");
+			if(domThresh!=null)
+				GatheringThresholdsReader.getInstance().get(family.getAttributeValue("id")).setGathThreshByDom(new Double(domThresh));
+			List<Element> GOs = family.getChildren("GO_ANNOT");
+			Iterator<Element> go = GOs.iterator();
+			if(go.hasNext()) {
+				Element term = go.next();
+				// TODO authorized inconsistent GO dur to different versions of .obo
+				GeneOntology geneOnto = GeneOntology.getInstance();
+				GeneOntologyTerm goTerm = geneOnto.getTerm(term.getAttributeValue("id"));
+				if(goTerm != null)
+					GatheringThresholdsReader.getInstance().get(family.getAttributeValue("id")).addGoTerm(goTerm);
+				else
+					MessageUtil.showDialog("Error: import of a go term inconsistent with DoMosaics data");
+			}
+		}
+		
+		// Read domain arrangments
+		List<Element> prots = viewType.getChildren("PROTEIN");
+		List<DomainArrangement> list = new ArrayList<DomainArrangement>(prots.size());
+		// Iterate over proteins
+		Iterator<Element> p = prots.iterator();
+		while(p.hasNext()) {
+			Element protein = p.next();
+			DomainArrangement da = new DomainArrangement();
+			da.setName(protein.getAttributeValue("id"));
+			// Iterate over domains
+			List<Element> doms = protein.getChildren("DOMAIN");
+			Iterator<Element> d = doms.iterator();
+			while(d.hasNext()) {
+				Element domainFamily = d.next();
+				DomainFamily domFam = GatheringThresholdsReader.getInstance().get(domainFamily.getAttributeValue("Id"));
+				// Iterate over occurrences
+				List<Element> occurrences = domainFamily.getChildren("OCCURRENCE");
+				Iterator<Element> o = occurrences.iterator();
+				while(o.hasNext()) {
+					Element occ= o.next();
+					Domain dom = new Domain(new Integer(occ.getAttributeValue("from")),new Integer(occ.getAttributeValue("to")),domFam);
+					String evalue = occ.getAttributeValue("evalue");
+					if(evalue != null)
+						dom.setEvalue(new Double(evalue));
+					String score = occ.getAttributeValue("score");
+					if(score != null)
+						dom.setScore(new Double(score));
+					String putativeState = occ.getAttributeValue("isPutative");
+					if(putativeState != null)
+						dom.setPutative(true);
+					String hiddenState = occ.getAttributeValue("hasBeenHidden");
+					if(hiddenState != null)
+						da.addHiddenDomain(dom);						
+					else
+						da.addDomain(dom);
+				}
+			}
+			Element note = protein.getChild("COMMENT");
+			if(note != null)
+				da.setDesc(note.getText());
+			Element seq = protein.getChild("SEQUENCE");
+			if(seq != null)
+				da.setSequence(new Sequence(protein.getAttributeValue("id"),seq.getText()));
+			list.add(da);
+		}
+		daSet = list.toArray(new DomainArrangement[list.size()]);
+
+		// Read Layout settings
+		Element layoutSettings = viewType.getChildren("LAYOUT_SETTINGS").get(0);
+		String layoutView = layoutSettings.getAttributeValue("view");
+		if (layoutView.equals("PROPORTIONAL")) {
+			viewLayout = new ProportionalLayout();
+			domLayoutManager.setToProportionalView();
+		} else {
+			if(layoutView.equals("UNPROPORTIONAL")) {
+				viewLayout = new UnproportionalLayout();
+				domLayoutManager.setToUnproportionalView();
+			} else {
+			 	if(layoutView.equals("MSA")) {
+			 		viewLayout = new MSALayout();
+			 		domLayoutManager.setToMsaView();
+			 	}
+			 }
+		}
+		String fitToScreen = layoutSettings.getAttributeValue("isFitToScreen");
+		if(fitToScreen!=null)
+			domLayoutManager.setFitDomainsToScreen(true);
+		String evalueColor = layoutSettings.getAttributeValue("evalueColorization");
+		if(evalueColor!=null)
+			domLayoutManager.setEvalueColorization(true);
+		String showShapes = layoutSettings.getAttributeValue("showShapes");
+		if(showShapes!=null)
+			domLayoutManager.setShowShapes(true);
+	}
+	
 }

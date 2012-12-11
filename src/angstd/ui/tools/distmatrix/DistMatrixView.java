@@ -181,4 +181,10 @@ public class DistMatrixView extends AbstractView implements Tool {
 		
 	}
 
+	@Override
+	public void xmlRead(Element viewType) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

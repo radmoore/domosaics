@@ -397,4 +397,10 @@ public class DotplotView extends AbstractView implements Tool, PropertyChangeLis
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void xmlRead(Element viewType) {
+		// TODO Auto-generated method stub
+		
+	}
 }

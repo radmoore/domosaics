@@ -276,4 +276,10 @@ public class DomainMatrixView extends AbstractView implements PropertyChangeList
 		
 	}
 
+	@Override
+	public void xmlRead(Element viewType) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

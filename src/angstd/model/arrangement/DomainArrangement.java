@@ -370,6 +370,21 @@ public class DomainArrangement implements Cloneable, AngstdData{
 			seqLen = dom.getTo();
 	}
 	
+	/**
+	 * Adds an hidden domain to the arrangement. If the domains
+	 * to-parameter exceeds the current protein length, this  
+	 * length is updated.
+	 *  
+	 * @param dom
+	 * 		the domain to add
+	 */
+	public void addHiddenDomain(Domain dom) {
+		hiddenDoms.add(dom);
+		dom.setArrangement(this);
+		if (dom.getTo() > seqLen) 
+			seqLen = dom.getTo();
+	}
+	
 	public void changeDomain(Domain target, Domain vals) {
 		target.setFamily(vals.getFamily());
 		target.setFrom(vals.getFrom());

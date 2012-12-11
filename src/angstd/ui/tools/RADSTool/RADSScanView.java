@@ -75,6 +75,12 @@ public class RADSScanView extends AbstractView implements Tool{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void xmlRead(Element viewType) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

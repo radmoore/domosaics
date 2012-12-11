@@ -133,18 +133,29 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 
 		// name the views which are going to be created
 		p.setProgress ("Creating resulting views", 3, 3);
-		String treeViewName = domView.getViewInfo().getName()+"_"+algo.name();
+		String treeViewName = null;
+		String defaultTreeViewName = domView.getViewInfo().getName()+"_"+algo.name();
 		String domTreeViewName = domView.getViewInfo().getName()+"_tree";
+		
+		ViewElement elem = WorkspaceManager.getInstance().getViewElement(domView.getViewInfo());
+		ProjectElement activeProject = elem.getProject();
+		
+		while(treeViewName == null) {
+			Map results = WizardManager.getInstance().selectNameWizard(defaultTreeViewName, "tree view", activeProject, true);
+			treeViewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
+			String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
+			activeProject = WorkspaceManager.getInstance().getProject(projectName);
+		}
 		
 		// and create the tree view
 		TreeViewI treeView = ViewHandler.getInstance().createView(ViewType.TREE, treeViewName);
 		treeView.setTree(tree);
-		ViewHandler.getInstance().addView(treeView, null);
+		ViewHandler.getInstance().addView(treeView, activeProject);
 
 		// as well as the domain tree view
 		DomainTreeViewI domTreeView =  ViewHandler.getInstance().createView(ViewType.DOMAINTREE, domTreeViewName);
 		domTreeView.setBackendViews(treeView, domView);
-		ViewHandler.getInstance().addView(domTreeView, null);
+		ViewHandler.getInstance().addView(domTreeView, activeProject);
 		
 		return true;
 	}
@@ -265,7 +276,7 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 //		System.out.println("This is the distance between 1 and 2: "+distance);
 
 		// Nico tests
-		System.out.println(dm.toString());
+		//System.out.println(dm.toString());
 		
 		// create unrooted tree
 		p.setProgress ("Create tree (this may take some time)", 4, 5);
@@ -281,21 +292,19 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		
 		// name the views which are going to be created
 		p.setProgress ("Creating resulting views", 5, 5);
-		String treeViewName = view.getViewInfo().getName()+"_"+algo.name();
+		String treeViewName = null;
+		String defaultTreeViewName = view.getViewInfo().getName()+"_"+algo.name();
 		String domTreeViewName = view.getViewInfo().getName()+"_tree"; /////// ACHTUNG /////
 		
-		// Verify that the view does not exist already
+		/* // Verify that the view does not exist already
 		if (activeProject.viewExists(treeViewName, activeProject.getCategory(ViewType.TREE)))
-			MessageUtil.showInformation(null, "The view "+ treeViewName + " already exists. Please rename.");
+			MessageUtil.showInformation(null, "The view "+ treeViewName + " already exists. Please rename.");*/
 		
-		while(true) {
-			Map results = WizardManager.getInstance().selectNameWizard(treeViewName, "tree view", activeProject, true);
+		while(treeViewName == null) {
+			Map results = WizardManager.getInstance().selectNameWizard(defaultTreeViewName, "tree view", activeProject, true);
 			treeViewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
 			String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
 			activeProject = WorkspaceManager.getInstance().getProject(projectName);
-		
-			if (treeViewName != null)
-				break;
 		}
 		
 		// and create the tree view

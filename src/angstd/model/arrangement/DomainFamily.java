@@ -116,7 +116,6 @@ public class DomainFamily  {
 	
 	/**
 	 * Returns the family accession number
-	 * FIXME
 	 * As we must always be able to return an ID, if its empty
 	 * we just return the name. The effect is that if only one _type_
 	 * of ID is provided (either ID or name) a call to get either of the two
@@ -150,9 +149,29 @@ public class DomainFamily  {
 	 * 		gathThreshByFam gath2
 	 */
 	public double getGathThreshByFam() {
-		return gathThreshByDom;
+		return gathThreshByFam;
+	}
+
+	
+	/**
+	 * Returns the family gathThreshByDom
+	 * 
+	 * @param
+	 * 		gathThreshByDom gath1
+	 */
+	public void setGathThreshByDom(Double gath1) {
+		gathThreshByDom=gath1;
 	}
 	
+	/**
+	 * Set the family gathThreshByFam
+	 * 
+	 * @param
+	 * 		gathThreshByFam gath2
+	 */
+	public void setGathThreshByFam(Double gath2) {
+		gathThreshByFam=gath2;
+	}
 	
 	public DomainType getDomainType() {
 		return this.type;
