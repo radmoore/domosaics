@@ -122,10 +122,10 @@ public class ChangeArrangementPanel extends JPanel {
 	 * 		the selected domain which attributes should be filled into the forms
 	 */
 	public void refreshDomain(Domain dom) {
-		if(Configuration.isIdPreferedToAcc())
-			id.setText(dom.getID());
+		if(Configuration.isNamePreferedToAcc())
+			id.setText(dom.getName());
 		else
-			id.setText(dom.getAcc());
+			id.setText(dom.getID());
 		from.setText(""+dom.getFrom());
 		to.setText(""+dom.getTo());
 		if (dom.getEvalue() == Double.POSITIVE_INFINITY)

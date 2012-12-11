@@ -68,9 +68,9 @@ public class DomainEventComponent extends AbstractViewComponent {
 	 */
 	public String getLabel() {
 		if (event.isInsertion())
-			return "Insertion of domain "+event.getDomain().getFamily().getAcc();
+			return "Insertion of domain "+event.getDomain().getID();
 		else
-			return "Deletion of domain "+event.getDomain().getFamily().getAcc();
+			return "Deletion of domain "+event.getDomain().getID();
 	}
     
 }

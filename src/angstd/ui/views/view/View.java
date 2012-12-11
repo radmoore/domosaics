@@ -5,6 +5,8 @@ import java.io.File;
 
 import javax.swing.JComponent;
 
+import org.jdom2.Element;
+
 import angstd.ui.ViewHandler;
 import angstd.ui.views.AngstdViewFactory;
 import angstd.ui.views.ViewType;
@@ -198,5 +200,22 @@ public interface View {
 	 * Removes all additional renderer
 	 */
 	public void removeAllRenderer ();
+
+
+	/**
+	 * Specify View sub-type to xml format
+	 */
+	public void xmlWrite(Element viewType);
+	
+	/**
+	 * Convert View to xml format
+	 */
+	public void xmlWriteViewType();
+	
+	/**
+	 * Specify View sub-type to xml format
+	 */
+	public void xmlRead(Element viewType);
+	
 	
 }

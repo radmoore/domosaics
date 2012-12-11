@@ -51,7 +51,7 @@ import angstd.ui.wizards.WizardManager;
  */
 public class ApplicationHandler {
 
-	protected String workspace_dir = System.getProperty("user.home")+"/.angstd-workspace/";
+	protected String workspace_dir = System.getProperty("user.home")+"/.angstd-workspace";
 	protected static ApplicationHandler instance;
 	
 	protected StartupPage startUpProgress;
@@ -112,7 +112,10 @@ public class ApplicationHandler {
 				return;
 			}
 		}
-			
+
+		// Save Configuration
+		ConfigurationWriter.write(Configuration.getInstance().getConfigFile());
+		
 		// remove lockfile
 		Configuration.getInstance().removeLockFile();
 		
@@ -360,6 +363,7 @@ public class ApplicationHandler {
 		public StartupPage() {
 			// init components
 			JPanel startupPanel = new JPanel(new BorderLayout());
+
 			
 			// load and display logo
 			InputStream is = this.getClass().getResourceAsStream(LOGOPATH);

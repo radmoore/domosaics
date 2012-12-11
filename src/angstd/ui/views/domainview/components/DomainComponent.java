@@ -71,15 +71,15 @@ public class DomainComponent extends AbstractViewComponent {
      */
     public String getLabel(){
     	String label;
-    	if(Configuration.isIdPreferedToAcc())
+    	if(Configuration.isNamePreferedToAcc())
     	{
-    		label = getDomain().getID();
+    		label = getDomain().getName();
     		if (label == null) {
-        		label = getDomain().getAcc();
+        		label = getDomain().getID();
         	}
     	}
     	else
-    		label = getDomain().getAcc();	
+    		label = getDomain().getID();	
     	
     	
 		if(label != null && !label.trim().isEmpty()) 

@@ -26,6 +26,7 @@ import angstd.model.workspace.ViewElement;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.ViewHandler;
 import angstd.ui.WorkspaceManager;
+import angstd.ui.util.FileDialogs;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
@@ -44,7 +45,8 @@ import angstd.ui.wizards.pages.SelectNamePage;
  */
 
 public class ImportDataResultProducer extends DeferredWizardResult  implements WizardResultProducer{
-	
+
+	private String validatedNewName = null;
 	/**
 	 * Method triggered when the wizard finished to process the 
 	 * user input and create a new view.
@@ -52,31 +54,31 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 	@Override
 	public void start(Map m, ResultProgressHandle p) {
 		assert !EventQueue.isDispatchThread();
-				
+		boolean noError = false;
 		try {
 			// read wizard data
 			File file = new File((String) m.get(ImportDataBranchController.FILEPATH_KEY));
 			ProjectElement project = (ProjectElement) m.get(ImportDataBranchController.PROJECT_KEY);
-	   		ViewElement domAssocView = (ViewElement) m.get(ImportDataBranchController.DOMVIEW_KEY);
-	   		ViewElement treeAssocView = (ViewElement) m.get(ImportDataBranchController.TREEVIEW_KEY);
-	   		ViewElement seqAssocView = (ViewElement) m.get(ImportDataBranchController.SEQVIEW_KEY);
-	   		String viewName = (String) m.get(ImportDataBranchController.VIEWNAME_KEY);
-	   		
-	   		// create view
-			switch((DataType) m.get(ImportDataBranchController.DATATYPE_KEY)) {
-				case TREE: 		importTree(project, file, viewName, domAssocView); break;
-				case DOMAINS: 	importArrangements(project, file, viewName, treeAssocView, seqAssocView); break;
-				case SEQUENCE: 	importSequences(project, file, viewName, domAssocView); break;
-			}
+			ViewElement domAssocView = (ViewElement) m.get(ImportDataBranchController.DOMVIEW_KEY);
+			ViewElement treeAssocView = (ViewElement) m.get(ImportDataBranchController.TREEVIEW_KEY);
+			ViewElement seqAssocView = (ViewElement) m.get(ImportDataBranchController.SEQVIEW_KEY);
+			String viewName = (String) m.get(ImportDataBranchController.VIEWNAME_KEY);
 
-			p.finished(null);
+			// create view
+			switch((DataType) m.get(ImportDataBranchController.DATATYPE_KEY)) {
+			case TREE: 		noError = importTree(project, file, viewName, domAssocView); break;
+			case DOMAINS: 	noError = importArrangements(project, file, viewName, treeAssocView, seqAssocView); break;
+			case SEQUENCE: 	noError = importSequences(project, file, viewName, domAssocView); break;
+			}
 			
 		}
 		catch(Exception e){
 			Configuration.getLogger().debug(e.toString());
-			p.failed("Error while creating project", false);
-			p.finished(null);
-		}	
+			p.failed("Error while editing the project", false);
+		}
+		if(!noError)
+			MessageUtil.showInformation(null, "An error occurred during the import. Please try again.");
+		p.finished(null);
 	}
 	
 	/**
@@ -97,23 +99,28 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		
 		// parse the tree file
 		TreeI tree = new NewickTreeReader().getTreeFromFile(file);
-		if (tree == null)
-			return false;
+		
+		//Nico: now checked just after the browsing
+		//if (tree == null)
+		//	return false;
 		
 		// create view
 		
-		if (project.viewExists(viewName, project.getCategory(ViewType.TREE)))
-			MessageUtil.showInformation(null, "The view "+ viewName + " already exists. Please rename.");
+		/*if (project.viewExists(viewName, project.getCategory(ViewType.TREE)))
+			MessageUtil.showInformation(null, "The view "+ viewName + " already exists. Please rename.");*/
+		while(validatedNewName == null) {
+			Map results = WizardManager.getInstance().selectNameWizard(viewName, "tree view", project, false);
+			validatedNewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
+			String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
+			project = WorkspaceManager.getInstance().getProject(projectName);
+			
+		}
 		
-		Map results = WizardManager.getInstance().selectNameWizard(viewName, "tree view", project, false);
-		viewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
-		String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
-		project = WorkspaceManager.getInstance().getProject(projectName);
+		//Nico cannot happen?
+		//if (viewName == null)
+		//	return false;
 		
-		if (viewName == null)
-			return false;
-		
-		TreeViewI treeView = ViewHandler.getInstance().createView(ViewType.TREE, viewName);
+		TreeViewI treeView = ViewHandler.getInstance().createView(ViewType.TREE, validatedNewName);
 		treeView.setTree(tree);
 		ViewHandler.getInstance().addView(treeView, project);
 		
@@ -147,8 +154,9 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		// check if its xdom format, else parse hmmer2
 		DomainArrangement[] daSet = ArrangementImporterUtil.importData(file);
 		
-		if (daSet == null)
-			return false;
+		//Nico: now checked just after the browsing
+		//if (daSet == null)
+		//	return false;
 		
 		int importedProts = daSet.length;
 		if (importedProts < 1) {
@@ -158,18 +166,22 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 			
 
 		// create view
-		if (project.viewExists(viewName, project.getCategory(ViewType.DOMAINS)))
-			MessageUtil.showInformation(null, "The view "+ viewName + " already exists. Please rename.");
+		/*if (project.viewExists(viewName, project.getCategory(ViewType.DOMAINS)))
+			MessageUtil.showInformation(null, "The view "+ viewName + " already exists. Please rename.");*/
+
+		while(validatedNewName == null) {
+			Map results = WizardManager.getInstance().selectNameWizard(viewName, "domain view", project, false);
+			validatedNewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
+			String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
+			project = WorkspaceManager.getInstance().getProject(projectName);
+		}
+
+		//Nico: cannot happen?
+		//if (viewName == null)
+		//	return false;
 		
-		Map results = WizardManager.getInstance().selectNameWizard(viewName, "domain view", project, false);
-		viewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
-		String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
-		project = WorkspaceManager.getInstance().getProject(projectName);
-		if (viewName == null)
-			return false;
 		
-		
-		DomainViewI domView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
+		DomainViewI domView = ViewHandler.getInstance().createView(ViewType.DOMAINS, validatedNewName);
 		domView.setDaSet(daSet);
 		ViewHandler.getInstance().addView(domView, project);
 		
@@ -182,7 +194,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		// create domain tree
 		if (assocView != null) {
 			TreeViewI treeView = ViewHandler.getInstance().getView(assocView.getViewInfo());
-			DomainTreeViewI domTreeView =  ViewHandler.getInstance().createView(ViewType.DOMAINTREE, viewName+"_tree");
+			DomainTreeViewI domTreeView =  ViewHandler.getInstance().createView(ViewType.DOMAINTREE, validatedNewName+"_tree");
 			domTreeView.setBackendViews(treeView, domView);
 			ViewHandler.getInstance().addView(domTreeView, project);
 		}
@@ -208,21 +220,26 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 
 		// parse the sequence file
 		SequenceI[] seqs = new FastaReader().getDataFromFile(file);
-		if (seqs == null)
-			return false;
+		//Nico: now checked just after the browsing
+		//if (seqs == null)
+		//	return false;
 		
 		// ensure that view to be added is not already present, rename if it is
-		if (project.viewExists(viewName, project.getCategory(ViewType.SEQUENCE)))
-			MessageUtil.showInformation(null, "The view "+ viewName + " already exists. Please rename.");
+		/*if (project.viewExists(viewName, project.getCategory(ViewType.SEQUENCE)))
+			MessageUtil.showInformation(null, "The view "+ viewName + " already exists. Please rename.");*/
+
+		while(validatedNewName == null) {
+			Map results = WizardManager.getInstance().selectNameWizard(viewName, "sequence view", project, false);
+			validatedNewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
+			String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
+			project = WorkspaceManager.getInstance().getProject(projectName);
+		}
+
+		//Nico: cannot happen?
+		//if (viewName == null)
+		//	return false;
 		
-		Map results = WizardManager.getInstance().selectNameWizard(viewName, "sequence view", project, false);
-		viewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
-		String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
-		project = WorkspaceManager.getInstance().getProject(projectName);
-		if (viewName == null)
-			return false;
-		
-		SequenceView seqView = ViewHandler.getInstance().createView(ViewType.SEQUENCE, viewName);
+		SequenceView seqView = ViewHandler.getInstance().createView(ViewType.SEQUENCE, validatedNewName);
 		seqView.setSeqs(seqs);
 		ViewHandler.getInstance().addView(seqView, project);
 		

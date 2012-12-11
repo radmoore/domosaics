@@ -7,6 +7,8 @@ import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 
+import org.jdom2.Element;
+
 import angstd.ui.tools.Tool;
 import angstd.ui.tools.ToolFrameI;
 import angstd.ui.tools.domaingraph.components.GraphLayoutManager;
@@ -185,6 +187,24 @@ public class DomainGraphView extends AbstractView implements Tool {
 
 	
 	public void setViewRenderer(Renderer renderer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlWrite(Element viewType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlWriteViewType() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlRead(Element viewType) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -3,7 +3,11 @@ package angstd.ui.views.sequenceview.io;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+import org.jdom2.Attribute;
+import org.jdom2.Element;
+
 import angstd.model.configuration.Configuration;
+import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaWriter;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.views.view.io.ViewExporter;
@@ -15,7 +19,7 @@ import angstd.ui.views.view.io.ViewExporter;
  *
  */
 public class SequenceViewExporter extends ViewExporter<SequenceView> {
-	
+
 	public void write(BufferedWriter out, SequenceView view) {
         try {
         	writeTag(out, 0, "SEQUENCEVIEW", true);

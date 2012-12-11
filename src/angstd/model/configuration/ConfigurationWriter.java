@@ -21,6 +21,7 @@ public class ConfigurationWriter {
 	public static final String SHOWADVISES = "show advice:";
 	public static final String SAVEONEXIT = "save WS:";
 	public static final String OVERWRITEPROJECTS = "overwrite projects:";
+	public static final String DOMAINBYNAME = "domain by name:";
 	
 	
 	public static void write(File file) {
@@ -30,7 +31,7 @@ public class ConfigurationWriter {
 		    Configuration config = Configuration.getInstance();
 		    
 		    out.write("AnGSTD Configuration File \n\n");
-		    out.write(DEFAULT_LOCATION+config.getDefaultLocation()+"\n\n");	
+		    out.write(DEFAULT_LOCATION+config.getDefaultLocation()+"\n");	
 		    out.write(GOOGLE_URL+config.getGoogleUrl()+"\n");
 		    out.write(NCBI_URL+config.getNcbiUrl()+"\n");
 		    out.write(PFAM_URL+config.getPfamUrl()+"\n");
@@ -42,6 +43,7 @@ public class ConfigurationWriter {
 		    //out.write(SHOWADVISES+config.isShowAdvices()+"\n");
 		    out.write(SAVEONEXIT+config.saveOnExit()+"\n");
 		    out.write(OVERWRITEPROJECTS+config.getOverwriteProjects()+"\n");
+		    out.write(DOMAINBYNAME+Configuration.isNamePreferedToAcc()+"\n");
 		    		
 		    out.flush();
 		    out.close();

@@ -140,22 +140,21 @@ public class SequenceSelectionMouseController extends MouseAdapter {
 		if (choice == 0) { 		// create new sequence view
 			
 			String defaultName = view.getViewInfo().getName()+"_seqs";
-			String viewName, projectName;
+			String viewName=null;
+			String projectName=null;
 			
 			// get currently active project
 			View activeView = ViewHandler.getInstance().getActiveView();
 			ViewElement elem = WorkspaceManager.getInstance().getViewElement(view.getViewInfo());
 			ProjectElement project = elem.getProject();
 			
-			Map m = WizardManager.getInstance().selectNameWizard(defaultName, "sequence view", project, true);
-			viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
-			projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+			while(viewName == null) {
+				Map m = WizardManager.getInstance().selectNameWizard(defaultName, "sequence view", project, true);
+				viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+				projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+			}
 			project = WorkspaceManager.getInstance().getProject(projectName);
-			
-			
-			if (viewName == null) 
-				return; 
-			
+						
 			SequenceView seqView = ViewHandler.getInstance().createView(ViewType.SEQUENCE, viewName);
 			seqView.setSeqs(seqs);
 			ViewHandler.getInstance().addView(seqView, project, true);

@@ -181,11 +181,11 @@ public class DomainTooltipRenderer implements Renderer {
             //Iterator<Gen> goTerms = dc.getDomain().getFamily().getGoTerms();
 			//@SuppressWarnings("unchecked")
 			//Iterator<GeneOntologyTerm> iter = dc.getDomain().getFamily().getGoTerms();
-            Iterator<?> iter = dc.getDomain().getFamily().getGoTerms();
+            Iterator<GeneOntologyTerm> iter = dc.getDomain().getFamily().getGoTerms();
             GeneOntologyTerm term;
             while(iter.hasNext()) {
             	elements++;
-            	term = (GeneOntologyTerm)iter.next();
+            	term = iter.next();
             	String goTerm = "- "+term.getName();
             	g2d.drawString(goTerm,b.x+2,2+b.y+vertical_row_height*elements-4);
 
@@ -259,10 +259,10 @@ public class DomainTooltipRenderer implements Renderer {
             
         	elements++ ; // add the "GO terms:" text
         	
-            Iterator<?> iter = dc.getDomain().getFamily().getGoTerms();
+            Iterator<GeneOntologyTerm> iter = dc.getDomain().getFamily().getGoTerms();
             GeneOntologyTerm term;
             while(iter.hasNext()) {
-            	term = (GeneOntologyTerm)iter.next();
+            	term = iter.next();
             	String goTerm = "- "+term.getName();
             	labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), goTerm);
             	width = labelWidth > width ? labelWidth : width;

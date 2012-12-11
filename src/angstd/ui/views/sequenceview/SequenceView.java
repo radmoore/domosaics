@@ -3,10 +3,18 @@ package angstd.ui.views.sequenceview;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 
+import org.jdom2.Attribute;
+import org.jdom2.Element;
+
+import angstd.model.arrangement.DomainArrangement;
+import angstd.model.sequence.Sequence;
 import angstd.model.sequence.SequenceI;
 import angstd.ui.views.sequenceview.io.SequenceViewExporter;
 import angstd.ui.views.view.AbstractView;
@@ -41,14 +49,6 @@ public class SequenceView extends AbstractView{
 	
 	public void addMouseListeners() {
 
-	}
-	
-	/**
-	 * @see View
-	 */
-	public void export(File file) {
-		new SequenceViewExporter().write(file, this);
-//		setChanged(false);
 	}
 	
 	public SequenceI[] getSequences() {
@@ -121,6 +121,45 @@ public class SequenceView extends AbstractView{
 	 */
 	public void setViewRenderer(Renderer renderer) {
 		this.viewRenderer = renderer;
+	}
+
+	@Override
+	public void xmlWrite(Element viewType) {
+		SequenceI[] seqs = this.getSeqs();
+		for (int i = 0; i < seqs.length; i++) {
+			// Protein
+			Element prot = new Element("PROTEIN");
+			viewType.addContent(prot);
+			Attribute protId = new Attribute("id",seqs[i].getName());
+			prot.setAttribute(protId);
+
+			// AA sequence
+			Element seq = new Element("SEQUENCE");
+			prot.addContent(seq);
+			seq.setText(seqs[i].getSeq(true));
+		}
+		
+	}
+
+	@Override
+	public void xmlWriteViewType() {
+		Attribute type = new Attribute("type","SEQUENCES");
+		viewType.setAttribute(type);
+	}
+
+	@Override
+	public void xmlRead(Element viewType) {
+		this.setName(viewType.getName());
+		// Read proteins
+		List<Element> prots = viewType.getChildren("PROTEIN");
+		List<SequenceI> list = new ArrayList<SequenceI>();
+		// Iterate over proteins
+		Iterator<Element> p = prots.iterator();
+		while(p.hasNext()) {
+			Element protein = p.next();
+			list.add(new Sequence(protein.getAttributeValue("id"),protein.getChildTextTrim("SEQUENCE")));
+		}
+		seqs = list.toArray(new Sequence[list.size()]);
 	}
 
 }

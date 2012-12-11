@@ -46,8 +46,11 @@ public interface TreeViewI extends View{
 	 * 		the backend tree
 	 */
    	public void setTree(TreeI tree);
-   	
-   	
+	
+	public int getParsimonyMeth();
+	
+	public void setParsimonyMeth(int i);
+	
    	/**
 	 * Return the backend data which were assigned to this view.
 	 * 
@@ -175,5 +178,5 @@ public interface TreeViewI extends View{
    	 * 		the node component for the specified node 
    	 */
 	public NodeComponent getNodesComponent(TreeNodeI node);
-	
+
 }

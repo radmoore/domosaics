@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.io.File;
 
 
+import org.jdom2.Element;
+
 import angstd.ui.tools.Tool;
 import angstd.ui.tools.ToolFrameI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
@@ -93,6 +95,24 @@ public class RADSScanView extends AbstractView implements Tool{
 	 * see {@link AbstractView}
 	 */
 	public void renderView(Graphics2D g) { }
+
+	@Override
+	public void xmlWrite(Element viewType) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlWriteViewType() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void xmlRead(Element viewType) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

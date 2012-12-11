@@ -19,7 +19,7 @@ public class Executor extends SwingWorker<Integer, Void> {
 	private String[] cmd;
 	private ProcessListener listener;
 	private int result;
-	
+
 	
 	public Executor(String[] cmd, ProcessListener listener) {
 		this.cmd = cmd;
@@ -37,19 +37,19 @@ public class Executor extends SwingWorker<Integer, Void> {
 		
 			StreamHandler errHandler = new StreamHandler(p.getErrorStream(), StreamHandler.ERROR, listener); 
             StreamHandler outHandler = new StreamHandler(p.getInputStream(), StreamHandler.OUTPUT, listener);
-            
+
             errHandler.start();
             outHandler.start();
             
     		Configuration.getInstance().setServiceRunning(true);
-            result = p.waitFor();
-            
+    		result = p.waitFor();
 		} 
 		catch(Exception e) {
+			//e.printStackTrace();
 			Configuration.getLogger().debug(e.toString());
-			result =  -1;
+			return -1;
 		}
-		return null;		
+		return null;
 	}
 
 	// called when the worker is complete

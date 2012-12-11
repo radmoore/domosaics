@@ -37,6 +37,9 @@ public class Hmmer3Service implements ProcessListener{
 	protected String[] cmd;
 	protected Executor executor;
 		
+	protected boolean warning=false;
+	protected boolean error=false;
+	
 	protected int completed, totalEntries;
 	protected long duration, estimate;
 		
@@ -115,7 +118,7 @@ public class Hmmer3Service implements ProcessListener{
 			logFileWriter.write("##################################\n");
 			logFileWriter.write("## Run triggered by AnGSTD\n");
 			logFileWriter.write("## Command: "+hmmerProgram.getCommandCall()+"\n");
-			logFileWriter.write("##################################"+"\n");
+			logFileWriter.write("##################################\n");
 			logFileWriter.write("\n");
 			logFileWriter.write("\n");
 			executor.execute();
@@ -149,7 +152,7 @@ public class Hmmer3Service implements ProcessListener{
 			logFileWriter.write("##################################\n");
 			logFileWriter.write("## Run triggered by AnGSTD\n");
 			logFileWriter.write("## Command: "+hmmerProgram.getCommandCall()+"\n");
-			logFileWriter.write("##################################"+"\n");
+			logFileWriter.write("##################################\n");
 			logFileWriter.write("\n");
 			logFileWriter.write("\n");
 			executor = new Executor(cmd, this);
@@ -169,11 +172,22 @@ public class Hmmer3Service implements ProcessListener{
 	public void outputRecieved(String out, String type) {
 		
 		if (type.equals(StreamHandler.ERROR)) {
-			System.out.println("*** E: "+out);
-			//hmmPanel.writeToConsole("*** E: occurred while running Hmmer3Service: ");
-			hmmPanel.writeToConsole("*** E: "+ out);
-			hmmPanel.writeToConsole("\n");
-			executor.stop();
+			// TODO modify a file (like Pfam-A.hmm) to make HMMSCAN crash under WINDOWS and see if "error" is written!
+			if(out.contains("error"))
+				error=true;
+			if(error)
+			{
+				System.out.println("*** E: "+out);
+				//hmmPanel.writeToConsole("*** E: occurred while running Hmmer3Service: ");
+				hmmPanel.writeToConsole("*** E: "+ out);
+				hmmPanel.writeToConsole("\n");
+				executor.stop();
+			}else
+			{
+				System.out.println("*** W: "+out);
+				/*hmmPanel.writeToConsole("*** W: "+ out);
+				hmmPanel.writeToConsole("\n");*/
+			}
 			return;
 		}
 		try {
@@ -236,7 +250,7 @@ public class Hmmer3Service implements ProcessListener{
 			logFile = new File(projectDir+"/"+hmmerProgram.getName()+"_"+dateString+".log");
 			
 			FileWriter fstream = new FileWriter(logFile.getAbsolutePath());
-	        writer = new BufferedWriter(fstream);
+			writer = new BufferedWriter(fstream);
 			
 		} catch(Exception e) {
 			System.out.println("*** E: Problem creating log file: ");

@@ -16,6 +16,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 
+import org.jdom2.Attribute;
+import org.jdom2.Element;
+
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.sequence.SequenceI;
@@ -24,6 +27,7 @@ import angstd.model.tree.TreeNodeI;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.domaintreeview.components.DomainEventComponent;
+import angstd.ui.views.domaintreeview.components.ReconstructionTool;
 import angstd.ui.views.domaintreeview.io.DomainTreeViewExporter;
 import angstd.ui.views.domaintreeview.layout.DefaultDomainTreeLayout;
 import angstd.ui.views.domaintreeview.layout.DomainTreeLayout;
@@ -41,6 +45,7 @@ import angstd.ui.views.domaintreeview.renderer.additional.CollapseNumberRenderer
 import angstd.ui.views.domaintreeview.renderer.additional.DomainEventTooltipRenderer;
 import angstd.ui.views.domaintreeview.renderer.additional.InDelRenderer;
 import angstd.ui.views.domaintreeview.renderer.additional.InnerNodeArrangementRenderer;
+import angstd.ui.views.domainview.DomainView;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.components.DomainComponent;
@@ -62,6 +67,7 @@ import angstd.ui.views.domainview.mousecontroller.SequenceSelectionMouseControll
 import angstd.ui.views.domainview.mousecontroller.ShiftComponentsMouseController;
 import angstd.ui.views.domainview.renderer.DomainViewRenderer;
 import angstd.ui.views.domainview.renderer.additional.NoteMarkRenderer;
+import angstd.ui.views.treeview.TreeView;
 import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.treeview.components.TreeMouseController;
@@ -194,21 +200,21 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 		// set up the border and layout
 		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	}
-	
-	/**
-	 * @see View
-	 */
-	public void export(File file) {
-		new DomainTreeViewExporter().write(file, this);
-//		setChanged(false);
-	}
-	
+		
 	
 	/**
 	 * @see DomainTreeViewI
 	 */
 	public DomainViewI getDomainView() {
 		return domView;
+	}
+	
+	public int getParsimonyMeth() {
+		return treeView.getParsimonyMeth();
+	}
+	
+	public void setParsimonyMeth(int i) {
+		treeView.setParsimonyMeth(i);
 	}
 	
 	/**
@@ -1044,5 +1050,32 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void xmlWrite(Element viewType) {
+		domView.xmlWrite(viewType);
+		treeView.xmlWrite(viewType);		
+	}
+
+
+	@Override
+	public void xmlWriteViewType() {
+		Attribute type = new Attribute("type","DOMAIN_TREE");
+		viewType.setAttribute(type);
+	}
+
+
+	@Override
+	public void xmlRead(Element viewType) {
+		DomainView dV = new DomainView();
+		dV.xmlRead(viewType);
+		TreeView tV = new TreeView();
+		tV.xmlRead(viewType);
+		setBackendViews(tV, dV);
+		// TODO integrate in TreeView the parsimony method and costs and recompute things
+	}
+
+
+
 
 }

@@ -143,15 +143,18 @@ public class DomainViewImporter extends ViewImporter<DomainViewI> {
 			else 
 				domLayout = new ProportionalLayout();
 				
+		} else {
+			if(idEquals(line, "FITTOSCREEN"))
+				view.getDomainLayoutManager().setFitDomainsToScreen(str2boolean(getValue(line)));
+			else
+				if(idEquals(line, "EVALCOLOR"))
+					view.getDomainLayoutManager().setEvalueColorization(str2boolean(getValue(line)));
+				else
+					if(idEquals(line, "SHOWSHAPES"))
+						view.getDomainLayoutManager().setShowShapes(str2boolean(getValue(line)));
 		}
-		if(idEquals(line, "FITTOSCREEN"))
-			view.getDomainLayoutManager().setFitDomainsToScreen(str2boolean(getValue(line)));
-		else if(idEquals(line, "SHOWSHAPES"))
-			view.getDomainLayoutManager().setShowShapes(str2boolean(getValue(line)));
-//		else if(idEquals(line, "SHOWLINEAL"))
-//			view.getDomainLayoutManager().setShowLineal(str2boolean(getValue(line)));
 	}
-	
+		
 	private static void readFamilySetting(String line, DomainViewI view, ArrangementManager manager) {
 		if(idEquals(line, "ACC"))
 			fam = manager.getFamily(getValue(line));

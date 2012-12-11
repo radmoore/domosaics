@@ -49,7 +49,7 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
     			for (int j = 0; j < daSet[i].countDoms(); j++) {
     				Domain dom = daSet[i].getDomain(j);
     				DomainFamily dFam = dom.getFamily();
-    				String domInfo = dom.getAcc()+";"+dom.getID();
+    				String domInfo = dom.getID()+";"+dom.getName();
     				//out.write(dom.getFrom()+"\t"+dom.getTo()+"\t"+StringUtils.convertSpaces(dom.getAcc()));
     				out.write(dom.getFrom()+"\t"+dom.getTo()+"\t"+StringUtils.convertSpaces(domInfo));
     				if (dom.getEvalue() != Double.POSITIVE_INFINITY)
@@ -59,10 +59,10 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
     				else
     					out.write("\t;asserted");
                     if (dFam.hasGoAnnotation()) {
-                    	Iterator<?> iter = dFam.getGoTerms();
+                    	Iterator<GeneOntologyTerm> iter = dFam.getGoTerms();
                     	String gTermStr = "";  
                     	while(iter.hasNext()) {
-                    		GeneOntologyTerm term = (GeneOntologyTerm)iter.next();
+                    		GeneOntologyTerm term = iter.next();
                     		gTermStr += ";"+term.getID();
                     	}
                     	out.write(gTermStr);
@@ -75,7 +75,7 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
     			// write hidden domain lines		
     			for (Domain dom : daSet[i].getHiddenDoms()) {
     				DomainFamily dFam = dom.getFamily();
-    				String domInfo = dom.getAcc()+";"+dom.getID();
+    				String domInfo = dom.getID()+";"+dom.getID();
     				out.write(dom.getFrom()+"\t"+dom.getTo()+"\t"+StringUtils.convertSpaces(domInfo));
     				if (dom.getEvalue() != Double.POSITIVE_INFINITY)
     					out.write("\t"+dom.getEvalue());

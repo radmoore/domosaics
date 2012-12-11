@@ -14,7 +14,7 @@ public class ShowAccAction extends AbstractMenuAction implements ZoomCompatible{
 	public void actionPerformed(ActionEvent e) {
 		
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
-		view.getDomainLayoutManager().changeIdOrAccView();
+		view.getDomainLayoutManager().changeNameOrAccView();
 		view.getDomainLayoutManager().firevisualChange();
 	}
 

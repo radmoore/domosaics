@@ -59,19 +59,19 @@ class CreateDomTreeProgress extends DeferredWizardResult implements WizardResult
 				project = WorkspaceManager.getInstance().getProject(domProjectName);
 			
 			// create default name
-			String viewName = domView.getViewInfo().getName()+"_tree";
+			String viewName = null; 
+			String defaultViewName = domView.getViewInfo().getName()+"_tree";
 			
 			// ensure proposed name acceptable and doesnt exist
 			// if project null, no project proposed
-			Map results = WizardManager.getInstance().selectNameWizard(viewName, "domain tree view", project, true);
-			
-			// get selected view name and project name
-			viewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
-			String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
-			
-			// get project
-			project = WorkspaceManager.getInstance().getProject(projectName);
-			
+			while(viewName == null) {
+				Map results = WizardManager.getInstance().selectNameWizard(defaultViewName, "domain tree view", project, true);
+				// get selected view name and project name
+				viewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
+				String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
+				// get project
+				project = WorkspaceManager.getInstance().getProject(projectName);
+			}
 			// create domain tree view		
 			DomainTreeViewI domTreeView =  ViewHandler.getInstance().createView(ViewType.DOMAINTREE, viewName);
 			domTreeView.setBackendViews(treeView, domView);

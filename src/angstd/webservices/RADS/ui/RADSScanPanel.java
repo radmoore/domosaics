@@ -94,6 +94,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 //	private JTextArea pasteBox;
 	
 
+
 	private ArrangementManager arrSet;
 	private DomainArrangement queryProtein;
 	private TreeSet<RADSProtein> proteins;
@@ -109,6 +110,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private ArrayList<String> xdomEntries;
 	private ArrayList<String> fastaEntries;
 
+	
 	private View selectedView = null;
 	private View currentView = null;
 	
@@ -893,7 +895,6 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 						}
 					}
 				});
-				
 			}
 		}
 	}
@@ -931,18 +932,17 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		String viewName = null;
 		String projectName = null;
 		ProjectElement project = null;
-
-		project = WorkspaceManager.getInstance().getViewElement(currentView.getViewInfo()).getProject();
-
-		@SuppressWarnings("rawtypes")
-		Map m = WizardManager.getInstance().selectNameWizard(defaultViewName, "RadScan", project, true);
-		viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
-		projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+		
+		project = WorkspaceManager.getInstance().getSelectionManager().getSelectedProject();
+		System.out.println("Current project: "+project);
+		
+		// @SuppressWarnings("rawtypes")
+		while(viewName == null) {
+			Map m = WizardManager.getInstance().selectNameWizard(defaultViewName, "RadScan results", project, true);
+			viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+			projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+		}
 		project = WorkspaceManager.getInstance().getProject(projectName);
-			
-		if (viewName == null) 
-			MessageUtil.showWarning("A valid view name is needed to complete this action");
-	
 		DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
 		// TODO if we want domain colors, something like this
 //		DomainColorManager domColorMan = domResultView.getDomainColorManager();
@@ -956,4 +956,3 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	
 	
 }
-

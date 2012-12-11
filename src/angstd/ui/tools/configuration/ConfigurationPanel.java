@@ -278,8 +278,8 @@ public class ConfigurationPanel extends JPanel{
 		add(googleField, "h 25!, gap 10, span, growx, gapright 10, wrap");
 		add(new JLabel("NCBI Url: "), "h 25!, gap 10");
 		add(ncbiField, "h 25!, gap 10, span, growx, gapright 10, wrap");
-		add(new JLabel("Pfam Url: "), "h 25!, gap 10");
-		add(pfamField, "h 25!, gap 10, span, growx, gapright 10, wrap");
+		/*add(new JLabel("Pfam Url: "), "h 25!, gap 10");
+		add(pfamField, "h 25!, gap 10, span, growx, gapright 10, wrap");*/
 		add(new JLabel("Uniprot Url: "), "h 25!, gap 10");
 		add(uniprotField, "h 25!, gap 10, span, growx, gapright 10, wrap");
 		
@@ -320,8 +320,11 @@ public class ConfigurationPanel extends JPanel{
 			MessageUtil.showWarning(parentFrame, bin.getAbsoluteFile()+" is not supported");
 			return false;
 		}
-			
-		hmmer3bins.put(bin.getName(), bin);	
+
+		if(bin.getName().indexOf(".")!=-1)
+			hmmer3bins.put(bin.getName().substring(0, bin.getName().indexOf(".")), bin);
+		else
+			hmmer3bins.put(bin.getName(), bin);	
 		Hmmer3Engine.getInstance().setAvailableServices(hmmer3bins);
 		return true;
 	
@@ -338,13 +341,13 @@ public class ConfigurationPanel extends JPanel{
 		
 		// check if file is still there
 		if (!file.exists()) {
-			MessageUtil.showWarning("Warning: could not find specified HMMER db file "+file.getName());
+			MessageUtil.showWarning(parentFrame, "Warning: could not find specified HMMER db file "+file.getName());
 			return false;
 		}
 		
 		// check if contains valid hmmer3 profiles
 		if (!HmmPress.isValidProfileFile(file)) {
-			MessageUtil.showWarning(file.getName()+ " does not appear to be a valid hmmer3 profile");
+			MessageUtil.showWarning(parentFrame, file.getName()+ " does not appear to be a valid hmmer3 profile");
 			return false;
 		}
 		
@@ -360,9 +363,9 @@ public class ConfigurationPanel extends JPanel{
 		
 		// check if pressed files are available
 		if (!HmmPress.hmmFilePressed(file) && initPress) {
-			if (MessageUtil.showDialog(file.getName()+" is not pressed. Do you want AnGSTD to press it now?")) {
+			if (MessageUtil.showDialog(parentFrame, file.getName()+" is not pressed. Do you want AnGSTD to press it now?")) {
 				if (!pressAvail || (hmmerPressTF.getText().isEmpty())) {
-					MessageUtil.showInformation(null, "Please first provide hmmpress binary");
+					MessageUtil.showInformation(parentFrame, "Please first provide hmmpress binary");
 					hmmer3dbTF.setText("");
 					return false; 
 				}

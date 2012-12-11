@@ -77,7 +77,10 @@ public class Hmmer3Engine {
 	 * @return
 	 */
 	public static boolean isSupportedService(String serviceName) {
-		return supportedServices.containsKey(serviceName);
+		if(serviceName.indexOf(".")!=-1)
+			return supportedServices.containsKey(serviceName.substring(0, serviceName.indexOf(".")));
+		else
+			return supportedServices.containsKey(serviceName);			
 	}
 
 	/**
@@ -89,7 +92,11 @@ public class Hmmer3Engine {
 	public boolean isAvailableService(String serviceName) {
 		if (availableServices == null)
 			return false;
-		return availableServices.containsKey(serviceName);
+
+		if(serviceName.indexOf(".")!=-1)
+			return availableServices.containsKey(serviceName.substring(0, serviceName.indexOf(".")));
+		else
+			return availableServices.containsKey(serviceName);
 	}
 	
 	/**
@@ -98,7 +105,12 @@ public class Hmmer3Engine {
 	 * @return
 	 */
 	public static String getSupportedServiceDescription(String serviceName) {
-		return (supportedServices.containsKey(serviceName)) ? 
+		if(serviceName.indexOf(".")!=-1)
+			return (supportedServices.containsKey(serviceName.substring(0, serviceName.indexOf(".")))) ? 
+					supportedServices.get(serviceName.substring(0, serviceName.indexOf("."))) : 
+						"Unknown service.";
+		else
+			return (supportedServices.containsKey(serviceName)) ? 
 				supportedServices.get(serviceName) : 
 					"Unknown service.";
 	}
@@ -110,8 +122,13 @@ public class Hmmer3Engine {
 	 * @return
 	 */
 	public File getAvailableServicePath(String serviceName) {
-		return (availableServices.containsKey(serviceName)) ? 
-				availableServices.get(serviceName) : 
+		if(serviceName.indexOf(".")!=-1)
+			return (availableServices.containsKey(serviceName.substring(0, serviceName.indexOf(".")))) ? 
+					availableServices.get(serviceName.substring(0, serviceName.indexOf("."))) : 
+						null;
+		else
+			return (availableServices.containsKey(serviceName)) ? 
+					availableServices.get(serviceName) : 
 					null;
 	}
 	

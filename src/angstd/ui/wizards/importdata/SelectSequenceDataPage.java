@@ -17,6 +17,8 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
+import angstd.model.sequence.SequenceI;
+import angstd.model.sequence.io.FastaReader;
 import angstd.model.workspace.ProjectElement;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.wizards.GUIComponentFactory;
@@ -37,11 +39,15 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 	
 	/** the text field for choosing a view name */
 	protected JTextField viewName;
+	
+	/** the check for correct fasta format */
+	protected SequenceI[] seqs = null;
 
 	/**  list displaying all domain views of all projects */
 	protected JComboBox selectViewList;
 
 	private ProjectElement project;
+	
 	
 	/**
 	 * Constructor for a new SelectArrangementDataPage
@@ -52,7 +58,7 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 	}
 
 	public SelectSequenceDataPage(ProjectElement project) {
-		super("Select Sequences for "+ project.getShortTitle(5));
+		super("Select sequences for "+ project.getShortTitle(5));
 		this.project = project;
 		init();
 	}
@@ -88,8 +94,9 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 		add(path, 							"w 150!, h 25!, gap 5");
 		add(browse, 						"gap 5, gapright 10, wrap");
 		
-		add(new JLabel("Enter a name:"), "gap 10");
-		add(viewName,  "w 150!, h 25!, gap 5, gaptop 5, wrap");
+		//add(new JLabel("Enter a name:"), "gap 10");
+		add(viewName,  "w 50!, h 40!, wrap");
+		viewName.setVisible(false);
 		
 		add(new JXTitledSeparator("Associate with arrangement view"),"growx, span, wrap, gaptop 20");
 		add(new JLabel("Select view:"), 	"gap 10");
@@ -99,11 +106,15 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 	/**
 	 * Action performed when the browse button was clicked
 	 */
-	public void actionPerformed(ActionEvent e) {	
+	public void actionPerformed(ActionEvent e) {
 		File file = FileDialogs.showOpenDialog(this);
 		if(file != null) {
+			File test = new File(file.getAbsolutePath());
+			seqs = new FastaReader().getDataFromFile(test);			
+		}
+		if(seqs != null) {
 			path.setText(file.getAbsolutePath());
-				viewName.setText(file.getName().split("\\.")[0]);
+			viewName.setText(file.getName().split("\\.")[0]);
 		}
 	}	
 
@@ -121,10 +132,12 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
      * Checks if all necessary inputs are made.
      */
     protected String validateContents (Component component, Object o) {
+    	if (seqs == null)
+    		return "Please select a correctly formatted fasta file";
     	if (path.getText().isEmpty())
 			return "Please select a file";
-    	if (viewName.getText().trim().isEmpty())
-    		return "Please select a view name";
+    	//if (viewName.getText().trim().isEmpty())
+    	//	return "Please select a view name";
         return null;
     }
     
