@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DoMosaics menu entry definitions --> 
+
+<menubar>
+	
+	<menu id="File">
+
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Manage Projects"/> 
+				<parameter id="actionClass" value="domosaics.ui.actions.ImportDataAction"/> 
+				<parameter id="tooltip" value="Create a new project or load data into existing project"/> 
+			</menuItem>
+
+			<menuitem id="JSeparator"/>
+			
+			<menu id="Import">
+
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="Import Project Folder"/> 
+					<parameter id="actionClass" value="domosaics.ui.actions.LoadProjectAction"/> 
+					<parameter id="tooltip" value="Load existing project into the workspace"/> 
+				</menuItem>
+				
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="Import View Folder"/> 
+					<parameter id="actionClass" value="domosaics.ui.actions.ImportViewAction"/> 
+					<parameter id="tooltip" value="Load a view into the workspace"/> 
+				</menuItem>
+			
+			</menu>
+			
+			<menu id="Export">
+			
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="Export Project Folder"/> 
+					<parameter id="actionClass" value="domosaics.ui.actions.SaveProjectAction"/> 
+					<parameter id="tooltip" value="Opens a wizard which makes it possible to save a project"/> 
+				</menuItem>
+				
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="Export View Folder"/> 
+					<parameter id="actionClass" value="domosaics.ui.actions.ExportViewAction"/> 
+					<parameter id="tooltip" value="Open save view wizard"/> 
+				</menuItem>
+					
+			</menu>
+
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Settings"/> 
+				<parameter id="actionClass" value="domosaics.ui.actions.ShowConfigurationAction"/> 
+				<parameter id="tooltip" value="Configure DoMosaics"/> 
+			</menuItem>
+							
+			<menuitem id="JSeparator"/>
+		
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Sweep workspace"/> 
+<!--			<parameter id="actionClass" value="domosaics.ui.actions.SweepWorkspaceDir"/> 
+<!--			<parameter id="tooltip" value="Remove all non-active projects from workspace folder"/> 
+<!--		</menuItem>
+
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Quit"/> 
+				<parameter id="actionClass" value="domosaics.ui.actions.QuitAction"/> 
+				<parameter id="tooltip" value="Closes the application"/> 
+			</menuItem>
+
+	</menu>
+							
+	<menu id="Actions">
+
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="InterPro"/> 
+			<parameter id="actionClass" value="domosaics.ui.actions.ShowAnnotatorAction"/> 
+			<parameter id="tooltip" value="Run InterProScan to annotate sequences. Requires internet connection."/> 
+		</menuItem>
+
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="HmmScan"/> 
+			<parameter id="actionClass" value="domosaics.ui.actions.Hmmer3Action"/> 
+			<parameter id="tooltip" value="Run a local installation of HMMER3 to annotate sequences."/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="RADS/RAMPAGE"/> 
+			<parameter id="actionClass" value="domosaics.ui.actions.Hmmer3Action"/> 
+			<parameter id="tooltip" value="Find similar domain arrangement in UniProt"/> 
+		</menuItem>
+		
+		<menuitem id="JSeparator"/>		
+		
+		<menu id="Trees">
+
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Create Domain Tree"/> 
+				<parameter id="actionClass" value="domosaics.ui.actions.CreateDomainTreeAction"/> 
+				<parameter id="tooltip" value="Merges domain and tree view to create a domain tree view"/> 
+			</menuItem>		
+
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Create Tree"/> 
+				<parameter id="actionClass" value="domosaics.ui.actions.CreateTreeAction"/> 
+				<parameter id="tooltip" value="Create a tree based on an existing view"/> 
+			</menuItem>		
+
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Species Tree"/> 
+<!--			<parameter id="actionClass" value="domosaics.ui.actions.CreateSpeciesTreeAction"/> 
+<!--			<parameter id="tooltip" value=""/>
+<!--		</menuItem>
+
+		</menu>
+		
+		<menuitem id="JSeparator"/>
+	
+
+		
+	</menu>
+
+	<menu id="Help">
+
+		<menu id="Load Example Set">
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Small Example Dataset"/> 
+				<parameter id="actionClass" value="domosaics.ui.actions.LoadSmallExampleDataActon"/> 
+				<parameter id="tooltip" value="Loads a small example data set"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Large Example Dataset"/> 
+				<parameter id="actionClass" value="domosaics.ui.actions.LoadBigExampleDataAction"/> 
+				<parameter id="tooltip" value="Loads a large example data set"/> 
+			</menuItem>
+		</menu>
+
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="DoMosaics help"/> 
+			<parameter id="actionClass" value="domosaics.ui.actions.ShowManualAction"/> 
+			<parameter id="tooltip" value="Open DoMosaics help website"/> 
+		</menuItem>
+			
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="About DoMosaics"/> 
+			<parameter id="actionClass" value="domosaics.ui.actions.ShowAboutAction"/> 
+			<parameter id="tooltip" value="Find out more..."/> 
+		</menuItem>
+		
+	</menu>
+
+
+</menubar>
