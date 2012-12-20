@@ -18,9 +18,9 @@ import domosaics.model.configuration.Configuration;
  */
 public enum DataType {
 	
-	TREE ("Tree", 			"angstd/ui/views/treeview/resources/img/treebig.png"),
-	DOMAINS("Arrangement",  "angstd/ui/views/domainview/resources/img/domsbig.png"),
-	SEQUENCE("Sequence", 	"angstd/ui/views/sequenceview/resources/img/seqbig.png")
+	TREE ("Tree", 			"domosaics/ui/views/treeview/resources/img/treebig.png"),
+	DOMAINS("Arrangement",  "domosaics/ui/views/domainview/resources/img/domsbig.png"),
+	SEQUENCE("Sequence", 	"domosaics/ui/views/sequenceview/resources/img/seqbig.png")
 	;
 	
 	private String title;

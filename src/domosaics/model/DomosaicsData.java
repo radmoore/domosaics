@@ -13,6 +13,6 @@ import domosaics.model.io.DataReader;
  * @author Andreas Held
  *
  */
-public interface AngstdData {
+public interface DomosaicsData {
 
 }

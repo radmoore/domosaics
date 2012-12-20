@@ -7,10 +7,10 @@
 
 <propertys>
 	<property id="name" value="TreeView">
-	<property id="icon" value="angstd/ui/views/treeview/resources/img/tree.png">
+	<property id="icon" value="domosaics/ui/views/treeview/resources/img/tree.png">
 	<property id="isTool" value="false">
-	<property id="class" value="angstd.ui.views.treeview.TreeView">
-	<property id="workspaceFolderIcon" value="angstd/ui/views/treeview/resources/img/treefolder.png">
-	<property id="dataIcon" value="angstd/ui/views/treeview/resources/img/treebig.png">
+	<property id="class" value="domosaics.ui.views.treeview.TreeView">
+	<property id="workspaceFolderIcon" value="domosaics/ui/views/treeview/resources/img/treefolder.png">
+	<property id="dataIcon" value="domosaics/ui/views/treeview/resources/img/treebig.png">
 	<property id="workspaceFolderName" value="Trees">
 </propertys>

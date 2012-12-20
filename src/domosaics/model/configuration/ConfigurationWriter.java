@@ -31,7 +31,7 @@ public class ConfigurationWriter {
 
 		    Configuration config = Configuration.getInstance();
 		    
-		    out.write("AnGSTD Configuration File \n\n");
+		    out.write("DoMosaicS Configuration File \n\n");
 		    out.write(DEFAULT_LOCATION+config.getDefaultLocation()+"\n");	
 		    out.write(GOOGLE_URL+config.getGoogleUrl()+"\n");
 		    out.write(NCBI_URL+config.getNcbiUrl()+"\n");

@@ -10,7 +10,7 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.Icon;
 
 /**
- * AngstdShapeIcon converts shapes for domains into icons,
+ * DoMosaicsShapeIcon converts shapes for domains into icons,
  * which can be displayed for instance within the shape chooser.
  * <p>
  * The icon may want to leave space to the edges, therefore the
@@ -21,7 +21,7 @@ import javax.swing.Icon;
  * @author Andreas Held
  *
  */
-public class AngstdShapeIcon implements Icon {
+public class DoMosaicsShapeIcon implements Icon {
 	/** icon width */
 	public static final int DEFAULT_WIDTH = 80;
 	
@@ -45,7 +45,7 @@ public class AngstdShapeIcon implements Icon {
 
 	
 	/**
-	 * Constructor for a new AngstdShapeIcon
+	 * Constructor for a new DoMosaicsShapeIcon
 	 * 
 	 * @param shape
 	 * 		the shape to be converted into a Icon
@@ -54,7 +54,7 @@ public class AngstdShapeIcon implements Icon {
 	 * @param leaveSpace
 	 * 		flag indicating whether or not there should be space to the icons edges
 	 */
-	public AngstdShapeIcon(Shape shape, Color color, boolean leaveSpace) {
+	public DoMosaicsShapeIcon(Shape shape, Color color, boolean leaveSpace) {
 		this.shape = shape;
 		this.color = color;
 		this.leaveSpace = leaveSpace;
@@ -70,8 +70,8 @@ public class AngstdShapeIcon implements Icon {
 		
 		if (shape instanceof RoundRectangle2D.Double) 
 			((RoundRectangle2D.Double) shape).setRoundRect(x, y, SHAPE_WIDTH, SHAPE_HEIGHT, 20, 20);
-		else if (shape instanceof AngstdPolygon)
-			((AngstdPolygon) shape).setPolygon(x, y, SHAPE_WIDTH, SHAPE_HEIGHT);
+		else if (shape instanceof DoMosaicsPolygon)
+			((DoMosaicsPolygon) shape).setPolygon(x, y, SHAPE_WIDTH, SHAPE_HEIGHT);
 	}
 
 	/**

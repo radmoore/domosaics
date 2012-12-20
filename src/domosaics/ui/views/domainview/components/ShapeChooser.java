@@ -22,7 +22,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import domosaics.ui.views.domainview.DomainViewI;
-import domosaics.ui.views.domainview.components.shapes.AngstdShapeIcon;
+import domosaics.ui.views.domainview.components.shapes.DoMosaicsShapeIcon;
 import domosaics.ui.views.domainview.components.shapes.DomainShapes;
 
 
@@ -101,8 +101,8 @@ public class ShapeChooser extends JDialog implements ChangeListener, ActionListe
 				"Shape:" 							
 		)); 	
 		shapeBox.add(shapeList);
-		shapeBox.setPreferredSize(new Dimension(AngstdShapeIcon.DEFAULT_WIDTH+40,75));  //(5 for the border + 20 space) * 2
-		shapeBox.setMaximumSize(new Dimension(AngstdShapeIcon.DEFAULT_WIDTH+40,75));
+		shapeBox.setPreferredSize(new Dimension(DoMosaicsShapeIcon.DEFAULT_WIDTH+40,75));  //(5 for the border + 20 space) * 2
+		shapeBox.setMaximumSize(new Dimension(DoMosaicsShapeIcon.DEFAULT_WIDTH+40,75));
 		
 		
 		// create the button box
@@ -125,7 +125,7 @@ public class ShapeChooser extends JDialog implements ChangeListener, ActionListe
 
 		// set up the dialog
 		container.add(mainBox);
-		setSize(AngstdShapeIcon.DEFAULT_WIDTH+150, 200);
+		setSize(DoMosaicsShapeIcon.DEFAULT_WIDTH+150, 200);
 		setResizable(false);
 		setModal(true);
 	}
@@ -234,7 +234,7 @@ public class ShapeChooser extends JDialog implements ChangeListener, ActionListe
 		 */
 		private void configureRenderer(JLabel renderer, Object value) {
 			Shape shape = (Shape) value;
-			renderer.setIcon(new AngstdShapeIcon(shape, view.getDomainColorManager().getDomainColor(dc), true));
+			renderer.setIcon(new DoMosaicsShapeIcon(shape, view.getDomainColorManager().getDomainColor(dc), true));
 			renderer.setText("");
 		}
 		

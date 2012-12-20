@@ -7,7 +7,7 @@ import java.awt.geom.RoundRectangle2D;
 
 /**
  * Shape enumeration for domain shaping using the 
- * predefined {@link AngstdPolygon}s.
+ * predefined {@link DoMosaicsPolygon}s.
  * 
  * @author Andreas Held
  *
@@ -15,20 +15,20 @@ import java.awt.geom.RoundRectangle2D;
 public enum DomainShapes {
 
 	ROUNDRECTANGLE (new RoundRectangle2D.Double(),			0),
-	ARROW (new AngstdPolygon(AngstdPolygon.ARROW),			1),
-	RAGGED (new AngstdPolygon(AngstdPolygon.RAGGED),		2),
-	ZIGZAG (new AngstdPolygon(AngstdPolygon.ZIGZAG),		3),
-	TWOTRAP (new AngstdPolygon(AngstdPolygon.TWOTRAP),		4),
-	HORSESHOE (new AngstdPolygon(AngstdPolygon.HORSESHOE),	5),
-	PENTAGON (new AngstdPolygon(AngstdPolygon.PENTAGON),	6),
-	HEXAGON (new AngstdPolygon(AngstdPolygon.HEXAGON),		7),
-	RHOMBOID (new AngstdPolygon(AngstdPolygon.RHOMBOID),	8),
-	RHOMBOID2 (new AngstdPolygon(AngstdPolygon.RHOMBOID2),	9),
-	MUSHROOM (new AngstdPolygon(AngstdPolygon.MUSHROOM),	10),
-	TETRIS (new AngstdPolygon(AngstdPolygon.TETRIS),		11),
-	DIAMOND (new AngstdPolygon(AngstdPolygon.DIAMOND),		12),
-	ARROW2 (new AngstdPolygon(AngstdPolygon.ARROW2),		13),
-	PLUS (new AngstdPolygon(AngstdPolygon.PLUS),			14)
+	ARROW (new DoMosaicsPolygon(DoMosaicsPolygon.ARROW),			1),
+	RAGGED (new DoMosaicsPolygon(DoMosaicsPolygon.RAGGED),		2),
+	ZIGZAG (new DoMosaicsPolygon(DoMosaicsPolygon.ZIGZAG),		3),
+	TWOTRAP (new DoMosaicsPolygon(DoMosaicsPolygon.TWOTRAP),		4),
+	HORSESHOE (new DoMosaicsPolygon(DoMosaicsPolygon.HORSESHOE),	5),
+	PENTAGON (new DoMosaicsPolygon(DoMosaicsPolygon.PENTAGON),	6),
+	HEXAGON (new DoMosaicsPolygon(DoMosaicsPolygon.HEXAGON),		7),
+	RHOMBOID (new DoMosaicsPolygon(DoMosaicsPolygon.RHOMBOID),	8),
+	RHOMBOID2 (new DoMosaicsPolygon(DoMosaicsPolygon.RHOMBOID2),	9),
+	MUSHROOM (new DoMosaicsPolygon(DoMosaicsPolygon.MUSHROOM),	10),
+	TETRIS (new DoMosaicsPolygon(DoMosaicsPolygon.TETRIS),		11),
+	DIAMOND (new DoMosaicsPolygon(DoMosaicsPolygon.DIAMOND),		12),
+	ARROW2 (new DoMosaicsPolygon(DoMosaicsPolygon.ARROW2),		13),
+	PLUS (new DoMosaicsPolygon(DoMosaicsPolygon.PLUS),			14)
 	;
 		
 	private Shape shape;

@@ -41,7 +41,7 @@ public class ChangeShapeAction extends AbstractAction{
 		
 		// open shape chooser the rest is handled in there
 		ShapeChooser sc = new ShapeChooser(view);
-		sc.showDialog(DoMosaicsUI.getInstance(), "Angstd Shape Chooser");
+		sc.showDialog(DoMosaicsUI.getInstance(), "DoMosaicS Shape Chooser");
 	}
 	
 }

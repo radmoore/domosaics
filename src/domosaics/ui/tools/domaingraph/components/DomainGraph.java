@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainFamily;
 import domosaics.ui.views.domainview.DomainViewI;
-import domosaics.ui.views.domainview.components.shapes.AngstdShapeIcon;
+import domosaics.ui.views.domainview.components.shapes.DoMosaicsShapeIcon;
 import domosaics.ui.views.domainview.components.shapes.DomainShapes;
 
 import prefuse.data.Node;
@@ -122,7 +122,7 @@ public class DomainGraph extends prefuse.data.Graph {
      */
 	private Image getImage4Domain(DomainFamily domFam) {
 		int shapeID = domView.getDomainShapeManager().getShapeID(domFam);
-		AngstdShapeIcon icon = new AngstdShapeIcon(shapes[shapeID], domView.getDomainColorManager().getDomainColor(domFam), false);
+		DoMosaicsShapeIcon icon = new DoMosaicsShapeIcon(shapes[shapeID], domView.getDomainColorManager().getDomainColor(domFam), false);
 		return icon2image(icon);
 	}
 	
@@ -135,7 +135,7 @@ public class DomainGraph extends prefuse.data.Graph {
 	 * @return
 	 * 		the image of an icon
 	 */
-	private Image icon2image(AngstdShapeIcon icon) {
+	private Image icon2image(DoMosaicsShapeIcon icon) {
         int w = icon.getIconWidth();
         int h = icon.getIconHeight();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();

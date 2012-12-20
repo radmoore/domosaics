@@ -364,7 +364,7 @@ public class ConfigurationPanel extends JPanel{
 		
 		// check if pressed files are available
 		if (!HmmPress.hmmFilePressed(file) && initPress) {
-			if (MessageUtil.showDialog(parentFrame, file.getName()+" is not pressed. Do you want AnGSTD to press it now?")) {
+			if (MessageUtil.showDialog(parentFrame, file.getName()+" is not pressed. Do you want DoMosaicS to press it now?")) {
 				if (!pressAvail || (hmmerPressTF.getText().isEmpty())) {
 					MessageUtil.showInformation(parentFrame, "Please first provide hmmpress binary");
 					hmmer3dbTF.setText("");

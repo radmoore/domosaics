@@ -11,7 +11,7 @@ import domosaics.ui.DoMosaicsUI;
 /**
  * An utility class defining methods which make it possible 
  * to show basic warning or an informative message dialogs from any point 
- * within Angstd.
+ * within DoMosaics.
  * 
  * @author Andreas Held
  *

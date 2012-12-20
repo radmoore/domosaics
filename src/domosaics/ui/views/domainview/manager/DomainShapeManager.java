@@ -7,7 +7,7 @@ import java.util.Map;
 
 import domosaics.model.arrangement.DomainFamily;
 import domosaics.ui.views.domainview.components.DomainComponent;
-import domosaics.ui.views.domainview.components.shapes.AngstdPolygon;
+import domosaics.ui.views.domainview.components.shapes.DoMosaicsPolygon;
 import domosaics.ui.views.domainview.components.shapes.DomainShapes;
 import domosaics.ui.views.view.manager.DefaultViewManager;
 
@@ -87,8 +87,8 @@ public class DomainShapeManager extends DefaultViewManager {
   		// create shape with the specified dimension
   		if (shape instanceof RoundRectangle2D.Double) 
 			((RoundRectangle2D.Double) shape).setRoundRect(x, y, width, height, 20, 20);
-		else if (shape instanceof AngstdPolygon)
-			((AngstdPolygon) shape).setPolygon(x, y, width, height); 
+		else if (shape instanceof DoMosaicsPolygon)
+			((DoMosaicsPolygon) shape).setPolygon(x, y, width, height); 
   		
   		return shape;
 	}

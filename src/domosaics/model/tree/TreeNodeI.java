@@ -3,7 +3,7 @@ package domosaics.model.tree;
 import java.util.Iterator;
 import java.util.List;
 
-import domosaics.model.AngstdData;
+import domosaics.model.DomosaicsData;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.DomainSet;
 
@@ -17,7 +17,7 @@ import domosaics.model.arrangement.DomainSet;
  * @author Andreas Held (loosely based on the EPOS code by Thasso Griebel - thasso@minet.uni-jena.de)
  *
  */
-public interface TreeNodeI extends AngstdData{
+public interface TreeNodeI extends DomosaicsData{
 
 	/**
 	 * Returns the unique id for the node within the graph, which was assigned 

@@ -94,7 +94,7 @@ import domosaics.ui.views.view.renderer.Renderer;
  * are associated to tree nodes using their id. 
  * <p>
  * The view should be created via the ViewManager which wraps around the
- * AngstdViewFactory. The main initialization takes place when
+ * DoMosaicsViewFactory. The main initialization takes place when
  * the backend views are set.
  * <p>
  * The views components are managed by manager classes which are

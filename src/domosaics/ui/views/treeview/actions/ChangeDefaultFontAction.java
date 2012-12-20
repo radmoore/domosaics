@@ -25,7 +25,7 @@ public class ChangeDefaultFontAction extends AbstractMenuAction {
 		// open change font dialog
 		JFontChooser jfc = new JFontChooser(view.getTreeFontManager().getFont());
 		
-		int ret = jfc.showDialog(DoMosaicsUI.getInstance(), "Angstd Font Chooser");
+		int ret = jfc.showDialog(DoMosaicsUI.getInstance(), "DoMosaicS Font Chooser");
 		if(ret == JFontChooser.OK_OPTION){
 			Font newFont = jfc.getFont();
 			

@@ -13,7 +13,7 @@ import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.tree.TreeNodeI;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
-import domosaics.ui.views.domainview.components.shapes.AngstdShapeIcon;
+import domosaics.ui.views.domainview.components.shapes.DoMosaicsShapeIcon;
 import domosaics.ui.views.domainview.layout.UnproportionalLayout;
 import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.view.renderer.Renderer;
@@ -94,7 +94,7 @@ public class InnerNodeArrangementRenderer implements Renderer{
 	    	Shape shape = view.getDomainShapeManager().getDomainShape(dom.getFamily());
 	    	
 	    	Color color = view.getDomainColorManager().getDomainColor(dom.getFamily());
-	    	AngstdShapeIcon icon = new AngstdShapeIcon(shape, color, false);
+	    	DoMosaicsShapeIcon icon = new DoMosaicsShapeIcon(shape, color, false);
 	    	
 //	    	x = 10;
 //	    	y = 10;

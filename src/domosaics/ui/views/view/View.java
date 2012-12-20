@@ -8,7 +8,7 @@ import javax.swing.JComponent;
 import org.jdom2.Element;
 
 import domosaics.ui.ViewHandler;
-import domosaics.ui.views.AngstdViewFactory;
+import domosaics.ui.views.DoMosaicsViewFactory;
 import domosaics.ui.views.ViewType;
 import domosaics.ui.views.view.layout.ViewLayout;
 import domosaics.ui.views.view.renderer.Renderer;
@@ -20,11 +20,11 @@ import domosaics.ui.views.view.renderer.Renderer;
  * A view object for rendering, layouting and manipulating a backend 
  * data set such as domain arrangements needs to store various information
  * about itself. To mention only a couple of them: its unique id (created by
- * {@link AngstdViewFactory} during its creations), various icons for display
+ * {@link DoMosaicsViewFactory} during its creations), various icons for display
  * within the workspace, its type and so on. All those information are stored
  * in form of a {@link ViewInfo} object and can be accessed using getViewInformation().
  * <p>
- * Each possible view can be created using the AngstdViewFactory (but look
+ * Each possible view can be created using the DoMosaicsViewFactory (but look
  * first into {@link ViewHandler} where methods are defined for this purpose.
  * When creating a new view someone just have to know its {@link ViewType} the
  * rest is done automatically.

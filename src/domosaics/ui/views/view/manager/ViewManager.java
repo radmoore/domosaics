@@ -7,7 +7,7 @@ import domosaics.ui.views.view.components.ViewComponent;
 
 
 /**
- * Views within Angstd display graphical components {@link ViewComponent}
+ * Views within DoMosaics display graphical components {@link ViewComponent}
  * for backend data models. The concept to manage the attributes of those
  * view components is manager based. For instance the font used for the
  * rendering of its label can be controlled and set by a {@link FontManager}.

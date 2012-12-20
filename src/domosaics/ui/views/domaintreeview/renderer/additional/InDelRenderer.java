@@ -16,7 +16,7 @@ import domosaics.model.tree.TreeEdgeI;
 import domosaics.model.tree.TreeNodeI;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 import domosaics.ui.views.domaintreeview.components.DomainEventComponent;
-import domosaics.ui.views.domainview.components.shapes.AngstdPolygon;
+import domosaics.ui.views.domainview.components.shapes.DoMosaicsPolygon;
 import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.view.renderer.Renderer;
 
@@ -90,8 +90,8 @@ public class InDelRenderer implements Renderer{
 		
 			if (shape instanceof RoundRectangle2D.Double) 
 				((RoundRectangle2D.Double) shape).setRoundRect(dec.getX(), dec.getY(), dec.getWidth(), dec.getHeight(), 20, 20); 
-			else if (shape instanceof AngstdPolygon)
-				((AngstdPolygon) shape).setPolygon(dec.getX(), dec.getY(), dec.getWidth(), dec.getHeight()); 
+			else if (shape instanceof DoMosaicsPolygon)
+				((DoMosaicsPolygon) shape).setPolygon(dec.getX(), dec.getY(), dec.getWidth(), dec.getHeight()); 
 		
 			g.setColor(color);
 			float fac = 0.5f;

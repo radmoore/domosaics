@@ -5,7 +5,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.event.ChangeListener;
 
-import domosaics.ui.util.AngstdSlider;
+import domosaics.ui.util.DoMosaicsSlider;
 
 
 /**
@@ -21,10 +21,10 @@ public class DotplotSliderBox extends Box{
 	private static final long serialVersionUID = 1L;
 	
 	/** the threshold for the cut off score */
-	protected AngstdSlider cutoffSlider;
+	protected DoMosaicsSlider cutoffSlider;
 	
 	/** the threshold for the window size */
-	protected AngstdSlider windowSlider;
+	protected DoMosaicsSlider windowSlider;
 
 	
 	/**
@@ -35,13 +35,13 @@ public class DotplotSliderBox extends Box{
 	
 		// upper threshold box
 		Box cutOffBox = new Box(BoxLayout.X_AXIS);
-		cutoffSlider = new AngstdSlider(AngstdSlider.CUTOFFSLIDER, -20, 20, 12);
+		cutoffSlider = new DoMosaicsSlider(DoMosaicsSlider.CUTOFFSLIDER, -20, 20, 12);
 		cutOffBox.add(cutoffSlider);
 		cutOffBox.setBorder(BorderFactory.createTitledBorder("Cutoff Threshold"));
 		
 		// window box
 		Box windowBox = new Box(BoxLayout.X_AXIS);
-		windowSlider = new AngstdSlider(AngstdSlider.WINSLIDER,1, 50, 10);
+		windowSlider = new DoMosaicsSlider(DoMosaicsSlider.WINSLIDER,1, 50, 10);
 		windowBox.add(windowSlider);
 		windowBox.setBorder(BorderFactory.createTitledBorder("Window Size"));
 

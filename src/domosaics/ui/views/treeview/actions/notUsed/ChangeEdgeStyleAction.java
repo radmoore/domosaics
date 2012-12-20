@@ -31,6 +31,6 @@ public class ChangeEdgeStyleAction extends AbstractAction{
 
 		// open change edge style dialog
 		EdgeStyleChooser esc = new EdgeStyleChooser(view);
-		esc.showDialog(DoMosaicsUI.getInstance(), "Angstd Edge Style Chooser");
+		esc.showDialog(DoMosaicsUI.getInstance(), "DoMosaicS Edge Style Chooser");
 	}
 }

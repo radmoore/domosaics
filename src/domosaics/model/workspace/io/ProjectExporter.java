@@ -16,7 +16,7 @@ import domosaics.ui.util.MessageUtil;
 
 public class ProjectExporter {
 	
-	public static String PROJECTFILE = ".angstd_project";
+	public static String PROJECTFILE = ".domosaics_project";
 	
 	
 	public static boolean write(ProjectElement project) {

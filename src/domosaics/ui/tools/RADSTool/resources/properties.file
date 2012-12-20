@@ -2,6 +2,6 @@
 	<property id="name" value="RadScan">
 	<property id="icon" value="">
 	<property id="isTool" value="true">
-	<property id="class" value="angstd.ui.tools.radscan.RadScanView">
-	<property id="frameclass" value="angstd.ui.tools.RADSTool.RADSScanToolFrame">
+	<property id="class" value="domosaics.ui.tools.radscan.RadScanView">
+	<property id="frameclass" value="domosaics.ui.tools.RADSTool.RADSScanToolFrame">
 </propertys>

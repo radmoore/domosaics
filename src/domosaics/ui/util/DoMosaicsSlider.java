@@ -14,12 +14,12 @@ import javax.swing.JSlider;
 import javax.swing.plaf.metal.MetalSliderUI;
 
 /**
- * Slider style within AnGSTD
+ * Slider style within DoMosaics
  * 
  * @author Andreas Held
  *
  */
-public class AngstdSlider extends JSlider{
+public class DoMosaicsSlider extends JSlider{
 	private static final long serialVersionUID = 1L;
 	
 	public static final String WINSLIDER = "WinSlider";
@@ -29,7 +29,7 @@ public class AngstdSlider extends JSlider{
 	protected int maxThreshold;
 	protected String name;
 
-	public AngstdSlider (String name, int minThres, int maxThres, int init) {
+	public DoMosaicsSlider (String name, int minThres, int maxThres, int init) {
 		super(minThres, maxThres, init);
 		
 		this.name = name;

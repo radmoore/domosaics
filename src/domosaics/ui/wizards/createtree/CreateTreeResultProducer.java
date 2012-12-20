@@ -124,7 +124,7 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		DomainViewI domView =  ViewHandler.getInstance().getView(viewElt.getViewInfo());
 		DomainArrangement[] daSet = domView.getDaSet();
 
-		// create PAL distance matrix with Angstd and adapt it to the PAL library
+		// create PAL distance matrix with DoMosaics and adapt it to the PAL library
 		p.setProgress ("Calculate distances", 1, 3);
 		DistanceMatrix dm = PALAdapter.createMatrix(daSet, measure);
 

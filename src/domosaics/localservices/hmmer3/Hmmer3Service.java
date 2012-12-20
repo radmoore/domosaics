@@ -117,7 +117,7 @@ public class Hmmer3Service implements ProcessListener{
 		try {		
 			executor = new Executor(cmd, this);
 			logFileWriter.write("##################################\n");
-			logFileWriter.write("## Run triggered by AnGSTD\n");
+			logFileWriter.write("## Run triggered by DoMosaicS\n");
 			logFileWriter.write("## Command: "+hmmerProgram.getCommandCall()+"\n");
 			logFileWriter.write("##################################\n");
 			logFileWriter.write("\n");
@@ -151,7 +151,7 @@ public class Hmmer3Service implements ProcessListener{
 		
 		try {
 			logFileWriter.write("##################################\n");
-			logFileWriter.write("## Run triggered by AnGSTD\n");
+			logFileWriter.write("## Run triggered by DoMosaicS\n");
 			logFileWriter.write("## Command: "+hmmerProgram.getCommandCall()+"\n");
 			logFileWriter.write("##################################\n");
 			logFileWriter.write("\n");

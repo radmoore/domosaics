@@ -11,7 +11,7 @@ import domosaics.ui.WorkspaceManager;
 import domosaics.ui.views.view.View;
 
 /**
- * The Angstd docking desktop uses the external library VLDocking to 
+ * The DoMosaics docking desktop uses the external library VLDocking to 
  * arrange the main frame components such as the workspace or views.
  * <p>
  * An extended version of the VLDocking DockableContainerFactory 
@@ -34,7 +34,7 @@ import domosaics.ui.views.view.View;
  * @author Andreas Held
  *
  */
-public class AngstdDesktop extends DockingDesktop {
+public class DoMosaicsDesktop extends DockingDesktop {
 	private static final long serialVersionUID = 1L;
 
 	/** stores the workspace */
@@ -53,7 +53,7 @@ public class AngstdDesktop extends DockingDesktop {
 	/**
 	 * Creates the main Desktop embedding all components.
 	 */
-	public AngstdDesktop() {
+	public DoMosaicsDesktop() {
 		super("Main Desktop");
 		
 		resolver = new DefaultDockableResolver();

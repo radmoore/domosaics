@@ -18,12 +18,12 @@ import domosaics.ui.views.view.io.ViewPropertyReader;
 
 
 /**
- * AngstdViewFactory specifies the method which is used to create new views.
+ * DoMosaicsViewFactory specifies the method which is used to create new views.
  * <p>
  * The coupling between the view and its displaying component {@link ViewPanel}
  * should be done in method {@link #createView(ViewType)}. Also a unique id is
  * set there for the view. Therefore to create new views, 
- * always the AngstdViewFactory class should be used.
+ * always the DoMosaicsViewFactory class should be used.
  * <p>
  * When a new view is created, a properties.file and a menu.file is used to 
  * do so. Both files have to be located in a sub folder of the views package 
@@ -46,7 +46,7 @@ import domosaics.ui.views.view.io.ViewPropertyReader;
  * @author Andreas Held
  *
  */
-public class AngstdViewFactory {
+public class DoMosaicsViewFactory {
 	
 	/** the property file used to set view attributes */
 	protected static String PROPERTYFILE = "resources/properties.file";

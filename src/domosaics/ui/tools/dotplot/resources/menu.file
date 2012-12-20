@@ -5,27 +5,27 @@
 		<menu id="Image Export">
 			<menuitem id="JMenuItem">
 				<parameter id="name" value="As PNG"/> 
-				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
 			</menuItem>
 
 			<menuitem id="JMenuItem">
 				<parameter id="name" value="As JPG"/> 
-				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/>
+				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/>
 			</menuItem>
 		
 			<menuitem id="JMenuItem">
 				<parameter id="name" value="As BMP"/>
-				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
 			</menuItem>
 		
 			<menuitem id="JMenuItem">
 				<parameter id="name" value="As PDF"/> 
-				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
 			</menuItem>
 		
 			<menuitem id="JMenuItem">
 				<parameter id="name" value="As SVG"/> 
-				<parameter id="actionClass" value="angstd.ui.views.view.actions.ExportViewAsImageAction"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
 			</menuItem>
 		</menu>
 		
@@ -33,7 +33,7 @@
 	
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Close"/> 
-			<parameter id="actionClass" value="angstd.ui.views.view.actions.CloseAction"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.view.actions.CloseAction"/> 
 		</menuItem>
 		
 	</menu>
@@ -41,21 +41,21 @@
 	<menu id="View">
 		<menuitem id="JCheckBox">
 			<parameter id="name" value="ZoomMode"/> 
-			<parameter id="actionClass" value="angstd.ui.views.view.actions.ToggleZoomModeAction"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.view.actions.ToggleZoomModeAction"/> 
 			<parameter id="tooltip" value="Makes zooming possible using the mouse wheel"/> 
 			<parameter id="isSelected" value="false"/>
 		</menuItem>
 		
 		<menuitem id="JCheckBox">
 			<parameter id="name" value="Show Dotplot"/> 
-			<parameter id="actionClass" value="angstd.ui.tools.dotplot.actions.ShowPlotAction"/>
+			<parameter id="actionClass" value="domosaics.ui.tools.dotplot.actions.ShowPlotAction"/>
 			<parameter id="tooltip" value="Shows the dots of the dotplot"/> 
 			<parameter id="isSelected" value="true"/>
 		</menuItem>
 
 		<menuitem id="JCheckBox">
 			<parameter id="name" value="Show Domain Matches"/> 
-			<parameter id="actionClass" value="angstd.ui.tools.dotplot.actions.ShowDomainMatchesAction"/> 
+			<parameter id="actionClass" value="domosaics.ui.tools.dotplot.actions.ShowDomainMatchesAction"/> 
 			<parameter id="tooltip" value="Shows the domain matches within the plot"/> 
 			<parameter id="isSelected" value="true"/>
 		</menuItem>
@@ -65,13 +65,13 @@
 	
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Show Available Matrices"/> 
-			<parameter id="actionClass" value="angstd.ui.tools.dotplot.actions.ShowAvailableMatricesAction"/> 
+			<parameter id="actionClass" value="domosaics.ui.tools.dotplot.actions.ShowAvailableMatricesAction"/> 
 			<parameter id="tooltip" value="Opens a browser window to NCBI where a list of matrices can be downloaded"/> 
 		</menuItem>
 	
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Read Matrix File"/> 
-			<parameter id="actionClass" value="angstd.ui.tools.dotplot.actions.ReadMatrixAction"/> 
+			<parameter id="actionClass" value="domosaics.ui.tools.dotplot.actions.ReadMatrixAction"/> 
 			<parameter id="tooltip" value="Reads a matrix file"/> 
 		</menuItem>
 		
@@ -79,13 +79,13 @@
 		
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Identity"/> 
-			<parameter id="actionClass" value="angstd.ui.tools.dotplot.actions.IdentityMatrixAction"/> 
+			<parameter id="actionClass" value="domosaics.ui.tools.dotplot.actions.IdentityMatrixAction"/> 
 			<parameter id="tooltip" value="Uses the identity matrix"/> 
 		</menuItem>
 		
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Blosum65"/> 
-			<parameter id="actionClass" value="angstd.ui.tools.dotplot.actions.Blosum65MatrixAction"/> 
+			<parameter id="actionClass" value="domosaics.ui.tools.dotplot.actions.Blosum65MatrixAction"/> 
 			<parameter id="tooltip" value="Uses the Blosum65 matrix"/> 
 		</menuItem>
 	</menu>
@@ -97,21 +97,21 @@
 	<menu id="Options">
 		<menuitem id="JCheckBox">
 			<parameter id="name" value="Match Or No Match"/> 
-			<parameter id="actionClass" value="angstd.ui.tools.dotplot.actions.MatchNoMatchAction"/> 
+			<parameter id="actionClass" value="domosaics.ui.tools.dotplot.actions.MatchNoMatchAction"/> 
 			<parameter id="tooltip" value="Looks only for matches"/> 
 			<parameter id="isSelected" value="false"/>
 		</menuItem>
 		
 		<menuitem id="JCheckBox">
 			<parameter id="name" value="Match Or No Match With Window"/> 
-			<parameter id="actionClass" value="angstd.ui.tools.dotplot.actions.MatchNoMatchWindowAction"/> 
+			<parameter id="actionClass" value="domosaics.ui.tools.dotplot.actions.MatchNoMatchWindowAction"/> 
 			<parameter id="tooltip" value="uses a sliding window"/> 
 			<parameter id="isSelected" value="false"/>
 		</menuItem>
 		
 		<menuitem id="JCheckBox">
 			<parameter id="name" value="Match Or No Match With Window And Matrix"/> 
-			<parameter id="actionClass" value="angstd.ui.tools.dotplot.actions.MatchNoMatchWindowMatrixAction"/> 
+			<parameter id="actionClass" value="domosaics.ui.tools.dotplot.actions.MatchNoMatchWindowMatrixAction"/> 
 			<parameter id="tooltip" value="Uses window sliding and a substitution matrix"/> 
 			<parameter id="isSelected" value="true"/>
 		</menuItem>

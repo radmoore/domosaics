@@ -3,7 +3,7 @@ package domosaics.ui.views.view;
 
 import javax.swing.ImageIcon;
 
-import domosaics.ui.views.AngstdViewFactory;
+import domosaics.ui.views.DoMosaicsViewFactory;
 import domosaics.ui.views.ViewType;
 import domosaics.ui.views.view.io.ViewPropertyReader;
 
@@ -11,7 +11,7 @@ import domosaics.ui.views.view.io.ViewPropertyReader;
 /**
  * Class containing all needed information to create a new view or tool.
  * The information are gathered by reading a xml-formatted property file
- * using the {@link ViewPropertyReader} within {@link AngstdViewFactory}.
+ * using the {@link ViewPropertyReader} within {@link DoMosaicsViewFactory}.
  * <p>
  * This class makes attributes like the unique view id, its name, 
  * various icons and additional information available for a view.
@@ -28,7 +28,7 @@ public class ViewInfo {
 	/** the views type specified in {@link ViewType} used to start the view creation process */
 	protected ViewType type;	
 	
-	/** the views unique id (created in {@link AngstdViewFactory}) */
+	/** the views unique id (created in {@link DoMosaicsViewFactory}) */
 	protected int id;				
 	
 	/** the views specific name, e.g. TreeView 1 (from properties.file) */
@@ -103,7 +103,7 @@ public class ViewInfo {
 	}
 	
 	/**
-	 * Set the unique view id assigned by the AngstdViewFactory
+	 * Set the unique view id assigned by the DoMosaicsViewFactory
 	 * 
 	 * @param id
 	 * 		unique view id

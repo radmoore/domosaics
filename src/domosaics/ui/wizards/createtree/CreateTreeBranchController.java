@@ -75,7 +75,7 @@ public class CreateTreeBranchController extends WizardBranchController {
      * The class name is the default ID for instantiated WizardPages
      */
     public Wizard getWizardForStep (String step, Map data) {
-    	if ("angstd.ui.wizards.createtree.ChooseViewDataPage".equals(step)) {
+    	if ("domosaics.ui.wizards.createtree.ChooseViewDataPage".equals(step)) {
     		if (data.get(DOMVIEW_KEY) == null) {
     			if (PALAdapter.isAligned(getSeqs(data)))
     				choosedWiz = seqWiz;

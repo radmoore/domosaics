@@ -28,7 +28,7 @@ import domosaics.localservices.hmmer3.ui.Hmmer3Frame;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.workspace.io.ProjectImporter;
 import domosaics.ui.actions.ShowConfigurationAction;
-import domosaics.ui.docking.AngstdDesktop;
+import domosaics.ui.docking.DoMosaicsDesktop;
 import domosaics.ui.io.menureader.DefaultMenuActionManager;
 import domosaics.ui.io.menureader.JMenuBarFactory;
 import domosaics.ui.io.menureader.MenuActionManager;
@@ -45,7 +45,7 @@ import domosaics.webservices.interproscan.ui.AnnotatorFrame;
 
 
 /**
- * The user interface class showing the Angstd main frame. <br>
+ * The user interface class showing the DoMosaicS main frame. <br>
  * When calling the constructor which follows the singleton pattern
  * using getInstance(), the main window builds up and the application is 
  * ready to run. 
@@ -53,7 +53,7 @@ import domosaics.webservices.interproscan.ui.AnnotatorFrame;
  * A docking desktop is added to the main frame using the external 
  * library VLDocking. Within this docking desktop the workspace and the view 
  * space are managed (if you are interested in the details take a look at 
- * {@link AngstdDesktop}). 
+ * {@link DoMosaicsDesktop}). 
  * <p>
  * Also an important point here is the menu creation. The {@link JMenuBarFactory}
  * class is used to automatically create menus from xml formatted files.
@@ -84,8 +84,8 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
 	/** the actionManager to manipulate the main menu entries */
 	protected DefaultMenuActionManager actionManager;
 	
-	/** the Angstd desktop managing the workspace and the view dockings */
-	protected AngstdDesktop desktop;
+	/** the DoMosaicS desktop managing the workspace and the view dockings */
+	protected DoMosaicsDesktop desktop;
 
 	private JPanel glassPane;
 	
@@ -102,16 +102,16 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
 	
 	
 	/**
-     * Constructor which creates a new AngstdUI instance. 
+     * Constructor which creates a new DoMosaicSUI instance. 
      * This is a protected constructor to support the singleton pattern. 
-     * To get an instance of AngstdUI, use the static {@link #getInstance()}
+     * To get an instance of DoMosaicSUI, use the static {@link #getInstance()}
      * method. 
      */
     protected DoMosaicsUI() {
 		super("DoMoasics");
 		 
 		// add the docking desktop (the workspace is created in here)
-		desktop = new AngstdDesktop();
+		desktop = new DoMosaicsDesktop();
 		getContentPane().add(desktop);
 
 		// set frame attributes (e.g. fullscreen)
@@ -155,18 +155,18 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
 	}
     
     /**
-     * Returns the current AngstdUI instance. If not initialized, 
+     * Returns the current DoMosaicsUI instance. If not initialized, 
      * it creates a new instance.
      * <p>
      * This is the method you should use to initialize the UI.
      * 
      * @return 
-     * 		AngstdUI instance
+     * 		DoMosaicsUI instance
      */
 	public static DoMosaicsUI getInstance() {
 		if(instance == null) {
 			instance = new DoMosaicsUI();
-			//HelpManager.showHelpDialog("AngstdUI", "You can disable advice dialogs in the configuration menu.");
+			//HelpManager.showHelpDialog("DoMosaicsUI", "You can disable advice dialogs in the configuration menu.");
 		}
 		return instance;
 	}   
@@ -188,9 +188,9 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
 	
 	
     /**
-     * Adds a new view to {@link AngstdDesktop}. This one is invoked 
+     * Adds a new view to {@link DoMosaicsDesktop}. This one is invoked 
      * by the ViewHandler and works only as wrapper for the addView method
-     * within AngstdDesktop.
+     * within DoMosaicsDesktop.
      * 
      * @param view
      * 		the view to be added
@@ -201,9 +201,9 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
     }
     
     /**
-     * Removes a view from the {@link AngstdDesktop}. This one is invoked 
+     * Removes a view from the {@link DoMosaicsDesktop}. This one is invoked 
      * by the ViewHandler and works only as wrapper for the addView method
-     * within AngstdDesktop.     
+     * within DoMosaicsDesktop.     
      */
     public void removeView() {
     	desktop.removeView();
@@ -432,7 +432,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
     }
     
     /**
-     * Wrapper around the rename method for views within AngstdDektop.
+     * Wrapper around the rename method for views within DoMosaicsDesktop.
      * This method allows the the view name update within the dockable
      * view component.
      * 

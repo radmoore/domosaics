@@ -16,7 +16,7 @@ import domosaics.ui.util.MessageUtil;
 
 
 /**
- * Welcome to the main class of AnGSTD. All initialization is delegated 
+ * Welcome to the main class of DoMosaicS. All initialization is delegated 
  * to the {@link ApplicationHandler}. So no fun here.
  * 
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
@@ -27,10 +27,10 @@ import domosaics.ui.util.MessageUtil;
 public class DoMosaics {
 	
 	/** 
-	 * The main method of Angstd and the anchor point to start the program. 
+	 * The main method of DoMosaicS and the anchor point to start the program. 
 	 * 
 	 * @param args
-	 * 		arguments you wish to run with Angstd
+	 * 		arguments you wish to run with DoMosaicS
 	 */
 	public static void main(String[] args) {
 		
@@ -41,7 +41,7 @@ public class DoMosaics {
 					Configuration.setDebug(true);
 				}
 				else {
-					System.out.println("AnGSTD: dunno what >"+args[0]+"< means. Exiting.");
+					System.out.println("DoMosaicS: dunno what >"+args[0]+"< means. Exiting.");
 					System.exit(1);
 				}
 			}
@@ -58,7 +58,7 @@ public class DoMosaics {
 					StringWriter w = new StringWriter();
 					e.printStackTrace(new PrintWriter(w));
 					Configuration.getLogger().debug(w.toString());
-					MessageUtil.showWarning("There was a unexpected problem running AnGSTD; consult log file.");
+					MessageUtil.showWarning("There was a unexpected problem running DoMosaicS; consult log file.");
 					// remove lock file if possible
 					if (Configuration.getInstance().hasLockfile()) {
 						// TODO Save the the views: i) all and the user will remove the fucking one ii) only the working ones
@@ -71,13 +71,13 @@ public class DoMosaics {
 			});
 		}
 		try {
-			Configuration.getLogger().info("*** INFO: Starting AnGSTD.");
+			Configuration.getLogger().info("*** INFO: Starting DoMosaicS.");
 			ApplicationHandler.getInstance().start();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 			Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning("There was a problem starting AnGSTD. Please consult log file.");
+			MessageUtil.showWarning("There was a problem starting DoMosaicS. Please consult log file.");
 		}
 
 	}

@@ -279,7 +279,7 @@ public class WorkspaceManager {
 	 * @param element
 	 * 		the element to be deleted (e.g. project, category, view)
 	 */
-	public void removeFromAngstd (WorkspaceElement element) {
+	public void removeFromDomosaics (WorkspaceElement element) {
 		// gather all views which have to be deleted by the ViewHandler
 		// also delete all necessary elements from the workspace
 		ViewElement[] views = workspace.removeElement(element);

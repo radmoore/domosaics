@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 
-import domosaics.model.AngstdData;
+import domosaics.model.DomosaicsData;
 import domosaics.model.arrangement.io.XdomReader;
 
 
@@ -17,12 +17,12 @@ import domosaics.model.arrangement.io.XdomReader;
  * extend this AbstractDataReader.
  * <p>
  * Because the return type of the methods are generic the requested type
- * must implement the empty {@link AngstdData} interface.
+ * must implement the empty {@link DomosaicsData} interface.
  * 
  * @author Andreas Held
  *
  */
-public interface DataReader <T extends AngstdData>{
+public interface DataReader <T extends DomosaicsData>{
 	
 	/**
 	 * Retrieves data from a stream. This comes in handy when parsing 

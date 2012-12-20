@@ -43,7 +43,7 @@ public class ExportViewAction extends AbstractAction{
 //			return;
 //		}
 //		
-//		File file = FileDialogs.showSaveDialog(AngstdUI.getInstance(), "view");
+//		File file = FileDialogs.showSaveDialog(DoMosaicsUI.getInstance(), "view");
 //		if (file == null)
 //			return;
 //		

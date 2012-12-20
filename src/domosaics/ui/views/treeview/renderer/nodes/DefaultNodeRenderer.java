@@ -15,7 +15,7 @@ import domosaics.ui.views.treeview.components.NodeComponent;
  * If a node is collapsed the collapsed triangle is drawn, else its label.
  * <p>
  * If the label exceeds the height of the actual set font for the node, its 
- * not rendered at all. If the width exceeds the space, Angstd tries to
+ * not rendered at all. If the width exceeds the space, DoMosaics tries to
  * clip it using "...". If this clipping results in "..." for the label 
  * its also not drawn.
  * 

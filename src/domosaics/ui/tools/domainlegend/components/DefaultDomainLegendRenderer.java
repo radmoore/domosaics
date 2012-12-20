@@ -11,7 +11,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.util.Iterator;
 
 import domosaics.ui.tools.domainlegend.DomainLegendView;
-import domosaics.ui.views.domainview.components.shapes.AngstdPolygon;
+import domosaics.ui.views.domainview.components.shapes.DoMosaicsPolygon;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
@@ -98,8 +98,8 @@ public class DefaultDomainLegendRenderer implements Renderer {
 		
 		if (shape instanceof RoundRectangle2D.Double) 
 			((RoundRectangle2D.Double) shape).setRoundRect(x, y, width, height, 20, 20); 
-		else if (shape instanceof AngstdPolygon)
-			((AngstdPolygon) shape).setPolygon(x, y, width, height); 
+		else if (shape instanceof DoMosaicsPolygon)
+			((DoMosaicsPolygon) shape).setPolygon(x, y, width, height); 
 		
 		g2.setColor(color);
 		float fac = 0.5f;

@@ -7,9 +7,9 @@ import java.util.Map;
 import javax.swing.SwingUtilities;
 
 import domosaics.model.workspace.ProjectElement;
-import domosaics.ui.docking.AngstdDesktop;
+import domosaics.ui.docking.DoMosaicsDesktop;
 import domosaics.ui.tools.Tool;
-import domosaics.ui.views.AngstdViewFactory;
+import domosaics.ui.views.DoMosaicsViewFactory;
 import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 import domosaics.ui.views.view.View;
@@ -18,7 +18,7 @@ import domosaics.ui.views.view.ViewInfo;
 
 /**
  * Class ViewManager manages the creation, adding and removing of view 
- * objects to Angstd and its main frame. The adding to the workspace
+ * objects to DoMosaics and its main frame. The adding to the workspace
  * view is delegated to the {@link WorkspaceManager}.
  * <p>
  * The class follows the singleton pattern, which means only one instance is
@@ -27,7 +27,7 @@ import domosaics.ui.views.view.ViewInfo;
  * <p>
  * To add a view to the main frame its necessary to call in a first step
  * the {@link #createView(ViewType, String)} method where a new View object is
- * created using the {@link AngstdViewFactory}.
+ * created using the {@link DoMosaicsViewFactory}.
  * After the object is created it has to be added by calling 
  * {@link #addView(View, ProjectElement)}. Now for everything is taken care
  * of (meaning e.g. the view is added to the workspace automatically as well).
@@ -90,9 +90,9 @@ public class ViewHandler {
 	}
 	
 	/**
-	 * Uses the {@link AngstdViewFactory} to create a new view object of the 
+	 * Uses the {@link DoMosaicsViewFactory} to create a new view object of the 
 	 * specified type. This method does not automatically add the created
-	 * object to the AngstdDesktop. To do that its necessary to invoke 
+	 * object to the DoMosaicsDesktop. To do that its necessary to invoke 
 	 * addView() with the created view object.
 	 *  
 	 * @param <V>
@@ -105,17 +105,17 @@ public class ViewHandler {
 	 * 		the created view object for the specified type
 	 */
 	public <V extends View> V createView(ViewType type, String name) {
-		V view = AngstdViewFactory.createView(type);
+		V view = DoMosaicsViewFactory.createView(type);
 		view.getViewInfo().setName(name);
 		view.getParentPane().setName(name);
 		return view;
 	}
 
 	/**
-	 * Adds a view to the {@link AngstdDesktop} and to the workspace. The
+	 * Adds a view to the {@link DoMosaicsDesktop} and to the workspace. The
 	 * view is stored in the view mapping using its ID. Therefore this id 
 	 * must be unique (associated automatically when using the 
-	 * {@link AngstdViewFactory}. <br>
+	 * {@link DoMosaicsViewFactory}. <br>
 	 * The project is allowed to be null in which case the view is added to the 
 	 * currently selected project element.
 	 * <p>
@@ -170,7 +170,7 @@ public class ViewHandler {
 	
 
 	/**
-	 * Completely eliminates a view from Angstd. If you are just interested 
+	 * Completely eliminates a view from DoMosaics. If you are just interested 
 	 * in removing the view from the desktop but not from the workspace, 
 	 * you may be interested in disableView().
 	 *  
@@ -229,7 +229,7 @@ public class ViewHandler {
 	}
 	
 	/**
-	 * Removes the active view from the angstd desktop.
+	 * Removes the active view from the domosaics desktop.
 	 */
 	public void disableActiveView() {
 		DoMosaicsUI.getInstance().removeView();
@@ -316,7 +316,7 @@ public class ViewHandler {
 			removeTool(tool);
 		
 		// now create a new tool 
-		tool = AngstdViewFactory.createView(type);
+		tool = DoMosaicsViewFactory.createView(type);
 
 		return (V) tool;
 	}

@@ -3,7 +3,7 @@ package domosaics.model.tree;
 import java.util.Iterator;
 import java.util.List;
 
-import domosaics.model.AngstdData;
+import domosaics.model.DomosaicsData;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.tree.io.NewickTreeReader;
 import domosaics.model.tree.io.NexusTreeReader;
@@ -24,7 +24,7 @@ import domosaics.model.tree.io.NexusTreeReader;
  * @author Andreas Held (loosely based on the EPOS code by Thasso Griebel - thasso@minet.uni-jena.de)
  *
  */
-public interface TreeI extends AngstdData{
+public interface TreeI extends DomosaicsData{
 	
 	/**
 	 * Adds a node to the graph

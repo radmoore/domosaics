@@ -84,7 +84,7 @@ import domosaics.ui.views.view.renderer.Renderer;
  * The DomainView handles the visualization and manipulation of
  * a backend dataset consisting of domain arrangements. The view
  * should be created via the ViewManager which wraps around the
- * AngstdViewFactory. The main initialization takes place when
+ * DoMosaicsViewFactory. The main initialization takes place when
  * the backend dataset is set. Its also possible to 
  * associate sequences to the view which uses id mapping and changes
  * the underlying backend data by adding the sequences to the 

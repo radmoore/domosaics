@@ -18,7 +18,7 @@ import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_ServiceLocat
 
 /**
  * AnnotationThread is the interface between the iprscan API 
- * and AnGSTD.
+ * and DoMosaics.
  * (see http://www.ebi.ac.uk/Tools/webservices/services/pfa/iprscan_soap#getresult_jobid_type_parameters)
  * <p>
  * Annotation threads are created by a {@link AnnotationThreadSpawner}. <br>

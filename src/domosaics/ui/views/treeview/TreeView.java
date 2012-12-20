@@ -64,7 +64,7 @@ import domosaics.ui.views.view.renderer.Renderer;
  * The TreeView handles the visualization and manipulation of
  * a backend tree data structure which can be fed in for instance via
  * a Newick formated file. The view should be created using the ViewManager 
- * which wraps around the AngstdViewFactory. The main initialization takes 
+ * which wraps around the DoMosaicsViewFactory. The main initialization takes 
  * place when the backend tree is set. Its also possible to 
  * associate a domain arrangement dataset to the view which uses id 
  * mapping and result in a DomainView. 
@@ -88,7 +88,7 @@ import domosaics.ui.views.view.renderer.Renderer;
  * To reach the panel which embeds the view the method {@link #getParentPane()}
  * has to be used.
  * <p>
- * Angstd handles bootstrap values which can be coded in newick format 
+ * DoMosaics handles bootstrap values which can be coded in newick format 
  * as node labels. Therefore the TreeComponentManager provides a method to
  * switch between the display of bootstrap values and edge weights.
  * If the user wants to show the bootstrap values the useLabelAsBootstrap()

@@ -41,7 +41,7 @@ import domosaics.ui.wizards.WizardManager;
 
 /**
  * 
- * ApplicationHandler actually initialized the AngstdUI frame, and
+ * ApplicationHandler actually initialized the DomosaicsUI frame, and
  * triggers the restoration of configuration settings and workspaces.
  * 
  * In rv. 174 we also check the java version as part of the start-up procedure.
@@ -242,7 +242,7 @@ public class ApplicationHandler {
 		erronousJava.put("Sun", true);
 		if (erronousJava.containsKey(jversion)) {
 			startUpProgress.dispose();
-			String msg = "Some of Angstd's functionalities will not work correctly\n";
+			String msg = "Some of DoMosaics's functionalities will not work correctly\n";
 			msg += "with your version of Java. Please update your \nJava Runtime Environment to 1.6.0_21.";
 			msg += "\nJava version: "+ jversion + " \nVendor: "+ jvendor;
 			JOptionPane.showMessageDialog(startUpProgress, msg);
@@ -293,7 +293,7 @@ public class ApplicationHandler {
 	}
 	
 	/**
-	 * Helper method checking if the Angstd workspace already exists.
+	 * Helper method checking if the DoMosaics workspace already exists.
 	 */
 	protected void initWorkspaceDir() {
 		File workspace = new File(workspace_dir);

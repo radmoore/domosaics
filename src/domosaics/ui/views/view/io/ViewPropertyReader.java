@@ -17,7 +17,7 @@ import domosaics.ui.views.view.ViewInfo;
 
 /**
  * Class for reading a views property file. This parser is called by
- * AngstdViewFactory during the creation process. 
+ * DoMosaicsViewFactory during the creation process. 
  * 
  * @author Andreas Held
  *

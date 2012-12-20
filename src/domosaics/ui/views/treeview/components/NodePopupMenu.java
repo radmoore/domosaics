@@ -5,7 +5,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 
 import domosaics.ui.DoMosaicsUI;
-import domosaics.ui.util.AngstdColorPicker;
+import domosaics.ui.util.DoMosaicsColorPicker;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 import domosaics.ui.views.domaintreeview.actions.CollapseSameArrangementsAtNodeAction;
@@ -50,7 +50,7 @@ public class NodePopupMenu extends JPopupMenu {
 		
 		add(new ChangeLabelAction());
 		add(new ChangeFontAction(ChangeFontAction.NODE));
-		add(new ColorizeAction(AngstdColorPicker.NODE));
+		add(new ColorizeAction(DoMosaicsColorPicker.NODE));
 		
 		add(new JSeparator());
 		add(new TakeAsNewOutgroupAction());
@@ -62,10 +62,10 @@ public class NodePopupMenu extends JPopupMenu {
 		
 		add(new JSeparator());
 		
-		add(new ColorizeAction(AngstdColorPicker.SUBTREE));
-		add(new ColorizeAction(AngstdColorPicker.PATH_TO_ROOT));
-		add(new ColorizeAction(AngstdColorPicker.PATH_TO_PARENT));
-		add(new ColorizeAction(AngstdColorPicker.PATH_TO_CHILDREN));
+		add(new ColorizeAction(DoMosaicsColorPicker.SUBTREE));
+		add(new ColorizeAction(DoMosaicsColorPicker.PATH_TO_ROOT));
+		add(new ColorizeAction(DoMosaicsColorPicker.PATH_TO_PARENT));
+		add(new ColorizeAction(DoMosaicsColorPicker.PATH_TO_CHILDREN));
 		
 		add(new JSeparator());
 		add(new SelectSubtreeAction());

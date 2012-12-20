@@ -28,7 +28,7 @@ import domosaics.ui.views.view.manager.ComponentManager;
  * Also this class provides methods to change the tree structure. For instance
  * shrink children, rotate nodes etc.
  * <p>
- * Angstd handles bootstrap values which can be coded in newick format 
+ * DoMosaics handles bootstrap values which can be coded in newick format 
  * as node labels. Therefore this class also provides a method to
  * switch between the display of bootstrap values and edge weights.
  * If the user wants to show the bootstrap values the useLabelAsBootstrap()

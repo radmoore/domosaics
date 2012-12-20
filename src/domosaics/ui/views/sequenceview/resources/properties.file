@@ -7,10 +7,10 @@
 
 <propertys>
 	<property id="name" value="SequenceView">
-	<property id="icon" value="angstd/ui/views/sequenceview/resources/img/sequence.png">
+	<property id="icon" value="domosaics/ui/views/sequenceview/resources/img/sequence.png">
 	<property id="isTool" value="false">
-	<property id="class" value="angstd.ui.views.sequenceview.SequenceView">
-	<property id="workspaceFolderIcon" value="angstd/ui/views/sequenceview/resources/img/seqfolder.png">
-	<property id="dataIcon" value="angstd/ui/views/sequenceview/resources/img/seqbig.png">
+	<property id="class" value="domosaics.ui.views.sequenceview.SequenceView">
+	<property id="workspaceFolderIcon" value="domosaics/ui/views/sequenceview/resources/img/seqfolder.png">
+	<property id="dataIcon" value="domosaics/ui/views/sequenceview/resources/img/seqbig.png">
 	<property id="workspaceFolderName" value="Sequences">
 </propertys>

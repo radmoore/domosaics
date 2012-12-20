@@ -10,7 +10,7 @@ public class FindDomainAction extends AbstractMenuAction { //implements FindDial
 	private static final long serialVersionUID = 1L;
 	
 	public void actionPerformed(ActionEvent e) {
-//		new SearchDialog(AngstdUI.getInstance(), false, this);
+//		new SearchDialog(DoMosaicsUI.getInstance(), false, this);
 	}
 
 //
@@ -89,7 +89,7 @@ public class FindDomainAction extends AbstractMenuAction { //implements FindDial
 	}
 //
 //	private void showCantFindLabelDialog(String label) {
-//		JOptionPane.showMessageDialog(AngstdUI.getInstance(),
+//		JOptionPane.showMessageDialog(DoMosaicsUI.getInstance(),
 //			    "Couldn't find "+label,
 //			    "Label Not Found",
 //			    JOptionPane.WARNING_MESSAGE);

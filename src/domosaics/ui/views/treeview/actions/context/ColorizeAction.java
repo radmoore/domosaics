@@ -10,7 +10,7 @@ import javax.swing.Action;
 
 import domosaics.model.tree.TreeEdgeI;
 import domosaics.ui.ViewHandler;
-import domosaics.ui.util.AngstdColorPicker;
+import domosaics.ui.util.DoMosaicsColorPicker;
 import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.views.treeview.components.NodeComponent;
 
@@ -27,19 +27,19 @@ public class ColorizeAction extends AbstractAction{
 	private static final long serialVersionUID = 1L;
 	
 	/** colorizes the nodes, e.g. labels */
-	public static final int NODE = AngstdColorPicker.NODE;
+	public static final int NODE = DoMosaicsColorPicker.NODE;
 	
 	/** colorizes the subtree of a node */
-	public static final int SUBTREE = AngstdColorPicker.SUBTREE;
+	public static final int SUBTREE = DoMosaicsColorPicker.SUBTREE;
 	
 	/** colorizes the path to the root */
-	public static final int PATH_TO_ROOT = AngstdColorPicker.PATH_TO_ROOT;
+	public static final int PATH_TO_ROOT = DoMosaicsColorPicker.PATH_TO_ROOT;
 	
 	/** colorizes the path to the parent */
-	public static final int PATH_TO_PARENT = AngstdColorPicker.PATH_TO_PARENT;
+	public static final int PATH_TO_PARENT = DoMosaicsColorPicker.PATH_TO_PARENT;
 	
 	/** colorizes the path to the children */
-	public static final int PATH_TO_CHILDREN = AngstdColorPicker.PATH_TO_CHILDREN;
+	public static final int PATH_TO_CHILDREN = DoMosaicsColorPicker.PATH_TO_CHILDREN;
 	
 	/** the currently chosen type for colorization */
 	protected int type;
@@ -99,19 +99,19 @@ public class ColorizeAction extends AbstractAction{
 			case NODE: 
 				backupNodeColor = view.getTreeColorManager().getNodeColor(selectedNode);
 				startColor = backupNodeColor;
-				newColor = new AngstdColorPicker(AngstdColorPicker.NODE, view, startColor).show(); 
+				newColor = new DoMosaicsColorPicker(DoMosaicsColorPicker.NODE, view, startColor).show(); 
 				break;
 			case SUBTREE: 
-				newColor = new AngstdColorPicker(AngstdColorPicker.SUBTREE, view, startColor).show(); 
+				newColor = new DoMosaicsColorPicker(DoMosaicsColorPicker.SUBTREE, view, startColor).show(); 
 				break;
 			case PATH_TO_ROOT: 
-				newColor = new AngstdColorPicker(AngstdColorPicker.PATH_TO_ROOT, view, startColor).show(); 
+				newColor = new DoMosaicsColorPicker(DoMosaicsColorPicker.PATH_TO_ROOT, view, startColor).show(); 
 				break;
 			case PATH_TO_PARENT: 
-				newColor = new AngstdColorPicker(AngstdColorPicker.PATH_TO_PARENT, view, startColor).show(); 
+				newColor = new DoMosaicsColorPicker(DoMosaicsColorPicker.PATH_TO_PARENT, view, startColor).show(); 
 				break;
 			case PATH_TO_CHILDREN: 
-				newColor = new AngstdColorPicker(AngstdColorPicker.PATH_TO_CHILDREN, view, startColor).show(); 
+				newColor = new DoMosaicsColorPicker(DoMosaicsColorPicker.PATH_TO_CHILDREN, view, startColor).show(); 
 				break;
 		}
 		

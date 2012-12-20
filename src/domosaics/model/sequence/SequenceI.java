@@ -1,6 +1,6 @@
 package domosaics.model.sequence;
 
-import domosaics.model.AngstdData;
+import domosaics.model.DomosaicsData;
 
 /**
  * Interface SequenceI describes the basic data structure to store sequences. <br>
@@ -11,7 +11,7 @@ import domosaics.model.AngstdData;
  * @author Andreas Held
  *
  */
-public interface SequenceI extends AngstdData{
+public interface SequenceI extends DomosaicsData{
 	
 	/**
 	 * Method for cloning sequence objects

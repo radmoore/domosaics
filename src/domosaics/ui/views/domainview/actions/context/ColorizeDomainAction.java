@@ -7,16 +7,16 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import domosaics.ui.ViewHandler;
-import domosaics.ui.util.AngstdColorPicker;
+import domosaics.ui.util.DoMosaicsColorPicker;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.DomainComponent;
 
 
 /**
- * Action which triggers the opening of a {@link AngstdColorPicker}
+ * Action which triggers the opening of a {@link DoMosaicsColorPicker}
  * dialog. The color changing is then handled by the color chooser.
  * For detailed information on this please look into the 
- * {@link AngstdColorPicker} class.
+ * {@link DoMosaicsColorPicker} class.
  * 
  * @author Andreas Held
  *
@@ -24,7 +24,7 @@ import domosaics.ui.views.domainview.components.DomainComponent;
 public class ColorizeDomainAction extends AbstractAction{
 	private static final long serialVersionUID = 1L;
 
-	public static final int DOMAIN = AngstdColorPicker.DOMAIN;
+	public static final int DOMAIN = DoMosaicsColorPicker.DOMAIN;
 	
 	public ColorizeDomainAction () {
 		super();
@@ -38,7 +38,7 @@ public class ColorizeDomainAction extends AbstractAction{
 		// get the starting color
 		DomainComponent selection = view.getDomainSelectionManager().getClickedComp();
 		Color oldColor = view.getDomainColorManager().getDomainColor(selection);
-		new AngstdColorPicker(AngstdColorPicker.DOMAIN, view, oldColor).show(); 	
+		new DoMosaicsColorPicker(DoMosaicsColorPicker.DOMAIN, view, oldColor).show(); 	
 	
 		view.getDomainSelectionManager().clearSelection();
 		view.getParentPane().repaint();

@@ -2,14 +2,14 @@ package domosaics.ui.views.view.manager;
 
 import java.util.Iterator;
 
-import domosaics.model.AngstdData;
+import domosaics.model.DomosaicsData;
 import domosaics.ui.views.view.components.ViewComponent;
 
 
 /**
  * The ComponentManager interface is a manager which maps backend data
  * to their UI ViewComponents. The actual Types are generic as long as 
- * the bakend data implements the {@link AngstData} and the
+ * the bakend data implements the {@link DomosaicsData} and the
  * UI component the {@link ViewData} interface.
  * <p>
  * The interface provides methods for requesting a view component based on
@@ -30,7 +30,7 @@ import domosaics.ui.views.view.components.ViewComponent;
  * @param <C>
  * 		generic type for the UI view component
  */
-public interface ComponentManager<T extends AngstdData, C extends ViewComponent> extends ViewManager{
+public interface ComponentManager<T extends DomosaicsData, C extends ViewComponent> extends ViewManager{
 	
 	/**
 	 * Return the UI component for a specified backend data object. 

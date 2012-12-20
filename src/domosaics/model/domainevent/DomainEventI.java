@@ -1,6 +1,6 @@
 package domosaics.model.domainevent;
 
-import domosaics.model.AngstdData;
+import domosaics.model.DomosaicsData;
 import domosaics.model.arrangement.Domain;
 
 /** 
@@ -10,7 +10,7 @@ import domosaics.model.arrangement.Domain;
  * @author Andreas Held
  *
  */
-public interface DomainEventI extends AngstdData {
+public interface DomainEventI extends DomosaicsData {
 
 	/**
 	 * Returns the affected domain.

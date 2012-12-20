@@ -12,7 +12,7 @@ import java.awt.Polygon;
  * @author Andreas Held
  *
  */
-public class AngstdPolygon extends Polygon{
+public class DoMosaicsPolygon extends Polygon{
 	private static final long serialVersionUID = 1L;
 	
 	public static final int TWOTRAP = 0;
@@ -85,13 +85,13 @@ public class AngstdPolygon extends Polygon{
 	protected double[] yPoints;
 	
 	/**
-	 * Constructor for a new AngstdPolygon of the specified type 
+	 * Constructor for a new DoMosaicsPolygon of the specified type 
 	 * initializing the given coordinates.
 	 * 
 	 * @param style
 	 * 		the style of the shape to be created
 	 */
-	public AngstdPolygon(int style) {
+	public DoMosaicsPolygon(int style) {
 		super();
 		init(style);
 	}

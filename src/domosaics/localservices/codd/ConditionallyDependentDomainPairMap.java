@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import domosaics.algos.overlaps.OverlapResolver;
-import domosaics.model.AngstdData;
+import domosaics.model.DomosaicsData;
 import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.io.GatheringThresholdsReader;
@@ -38,7 +38,7 @@ import domosaics.ui.util.MessageUtil;
  *
  */
 
-public class ConditionallyDependentDomainPairMap implements AngstdData
+public class ConditionallyDependentDomainPairMap implements DomosaicsData
 {
 	
  private HashMap<String , HashSet<String> > CDP;

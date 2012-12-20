@@ -73,11 +73,11 @@ public class JFontChooser extends JDialog implements ActionListener, ListSelecti
 	 */
 	public JFontChooser(Font aFont)
 	{
-		super(DoMosaicsUI.getInstance(), "AnGSTD");
+		super(DoMosaicsUI.getInstance(), "DoMosaicS");
 		
 		Container container = getContentPane();
 		JPanel panel = new JPanel();
-		TitledBorder panelBorder = new TitledBorder("Angstd");
+		TitledBorder panelBorder = new TitledBorder("DoMosaicS");
 		font = aFont;
 		textType = font.getFontName();
 		textStyle = font.getStyle();

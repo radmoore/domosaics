@@ -33,22 +33,22 @@ import domosaics.ui.views.treeview.TreeViewI;
 public class ExampleDatasetLoader {
 	
 	/** file location for the small example tree file */
-	private static String TREE_SMALL = "/angstd/ui/resources/examples/small/data.tree";
+	private static String TREE_SMALL = "/domosaics/ui/resources/examples/small/data.tree";
 	
 	/** file location for the small example domains file */
-	private static String DOMS_SMALL = "/angstd/ui/resources/examples/small/data.xdom";
+	private static String DOMS_SMALL = "/domosaics/ui/resources/examples/small/data.xdom";
 	
 	/** file location for the small example sequence file */
-	private static String SEQS_SMALL = "/angstd/ui/resources/examples/small/data.fasta";
+	private static String SEQS_SMALL = "/domosaics/ui/resources/examples/small/data.fasta";
 	
 	/** file location for the big example tree file */
-	private static String TREE_BIG = "/angstd/ui/resources/examples/big/lectins.tree";
+	private static String TREE_BIG = "/domosaics/ui/resources/examples/big/lectins.tree";
 	
 	/** file location for the big example domains file */
-	private static String DOMS_BIG = "/angstd/ui/resources/examples/big/lectins.xdom";
+	private static String DOMS_BIG = "/domosaics/ui/resources/examples/big/lectins.xdom";
 	
 	/** file location for the big example sequence file */
-	private static String SEQS_BIG = "/angstd/ui/resources/examples/big/lectins.fasta";
+	private static String SEQS_BIG = "/domosaics/ui/resources/examples/big/lectins.fasta";
 	
 	/** the input stream for the tree file */
 	private static InputStream treeFile = null;

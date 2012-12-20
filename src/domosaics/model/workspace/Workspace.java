@@ -41,7 +41,7 @@ public class Workspace extends WorkspaceElement {
 	 * Constructor for a new workspace
 	 */
 	public Workspace() {
-		super(WorkspaceElement.WORKSPACE, "Angstd Workspace");
+		super(WorkspaceElement.WORKSPACE, "DoMosaicS Workspace");
 	}
 	
 	/**
@@ -112,7 +112,7 @@ public class Workspace extends WorkspaceElement {
 	 * When removing an element from the workspace the procedure
 	 * has to vary based on the elements type, because the views
 	 * also have to be removed from the ViewHandler and if active
-	 * from the AngstdDesktop.
+	 * from the DoMosaicSDesktop.
 	 * <p>
 	 * The view (TreeModel) is changed automatically by sending him a
 	 * change event.

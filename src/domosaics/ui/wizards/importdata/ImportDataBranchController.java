@@ -82,7 +82,7 @@ public class ImportDataBranchController extends WizardBranchController {
 			project = (ProjectElement)data.get(PROJECT_KEY);
 		
 		
-    	if ("angstd.ui.wizards.importdata.ChooseDataTypePage".equals(step)) {
+    	if ("domosaics.ui.wizards.importdata.ChooseDataTypePage".equals(step)) {
     	   if (data.get(DATATYPE_KEY) == DataType.TREE) { 
     	   	   choosedWiz = WizardPage.createWizard (new WizardPage[]{new SelectTreeDataPage(project)}, new ImportDataResultProducer());
 //		   	   choosedWiz = treeWiz;

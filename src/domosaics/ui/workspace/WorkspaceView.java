@@ -80,7 +80,7 @@ public class WorkspaceView extends JTree {
 	
 	/**
 	 * Method to get a grip on the panel which embeds this view. For instance
-	 * to display it within the AngstdDesktop.
+	 * to display it within the DoMosaicsDesktop.
 	 * 
 	 * @return
 	 * 		the panel embedding the JTree workspace

@@ -2,7 +2,7 @@ package domosaics.model.arrangement;
 
 import java.text.DecimalFormat;
 
-import domosaics.model.AngstdData;
+import domosaics.model.DomosaicsData;
 import domosaics.model.sequence.SequenceI;
 
 
@@ -19,7 +19,7 @@ import domosaics.model.sequence.SequenceI;
  * @author Andreas Held
  *
  */
-public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
+public class Domain implements Comparable<Domain>, Cloneable, DomosaicsData {
 	
 	/** position specific parameters */ 
     protected int from, fromWithGaps, to;

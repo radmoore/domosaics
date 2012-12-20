@@ -29,9 +29,9 @@ import domosaics.ui.views.treeview.manager.TreeSelectionManager;
 import domosaics.ui.views.view.View;
 
 /**
- * The AngstdColorPicker interfaces the external library ColorPicker
+ * The DoMosaicsColorPicker interfaces the external library ColorPicker
  * to open a new color picker dialog. Changes made on this dialog are
- * directly transfered into Angstd via event handling.
+ * directly transfered into DoMosaics via event handling.
  * <p>
  * When starting the dialog a type is passed to let the dialog 
  * know what elements will be colorized.
@@ -39,7 +39,7 @@ import domosaics.ui.views.view.View;
  * @author Andreas Held
  *
  */
-public class AngstdColorPicker implements PropertyChangeListener{
+public class DoMosaicsColorPicker implements PropertyChangeListener{
 	private static final long serialVersionUID = 1L;
 	
 	/** constant to indicate that a subtree has to be colorized */
@@ -83,7 +83,7 @@ public class AngstdColorPicker implements PropertyChangeListener{
 	
 	
 	/**
-	 * Constructor for a new AngstdColorPicker.
+	 * Constructor for a new DoMosaicsColorPicker.
 	 * 
 	 * @param type
 	 * 		the type of the colorization e.g. domains
@@ -92,7 +92,7 @@ public class AngstdColorPicker implements PropertyChangeListener{
 	 * @param startColor
 	 * 		the old color of the component which has to be colorized
 	 */
-	public AngstdColorPicker(int type, View view, Color startColor) {
+	public DoMosaicsColorPicker(int type, View view, Color startColor) {
 		this.type = type;
 		this.startColor = startColor;
 		
@@ -120,8 +120,8 @@ public class AngstdColorPicker implements PropertyChangeListener{
 	 * 		the chosen color
 	 */
 	public Color show() {
-		AngstdColorPickerDialog dialog = new AngstdColorPickerDialog(picker, DoMosaicsUI.getInstance(), startColor, false);
-		dialog.setTitle("Angstd");
+		DoMosaicsColorPickerDialog dialog = new DoMosaicsColorPickerDialog(picker, DoMosaicsUI.getInstance(), startColor, false);
+		dialog.setTitle("DoMosaicS");
 		dialog.pack();
 		
 		// if the start color is black, convert it to red, because its difficult to start with black
@@ -231,7 +231,7 @@ public class AngstdColorPicker implements PropertyChangeListener{
 	 * @author Andreas Held
 	 *
 	 */
-	class AngstdColorPickerDialog extends JDialog { 
+	class DoMosaicsColorPickerDialog extends JDialog { 
 		private static final long serialVersionUID = 1L;
 		
 		protected int alpha;
@@ -240,12 +240,12 @@ public class AngstdColorPicker implements PropertyChangeListener{
 		protected Color returnValue = null;
 		protected ActionListener buttonListener;
 		
-		public AngstdColorPickerDialog(ColorPicker cp, Frame owner, Color color, boolean includeOpacity) {
+		public DoMosaicsColorPickerDialog(ColorPicker cp, Frame owner, Color color, boolean includeOpacity) {
 			super(owner);
 			initialize(cp, owner,color,includeOpacity);
 		}
 
-		public AngstdColorPickerDialog(ColorPicker cp, Dialog owner, Color color, boolean includeOpacity) {
+		public DoMosaicsColorPickerDialog(ColorPicker cp, Dialog owner, Color color, boolean includeOpacity) {
 			super(owner);
 			initialize(cp, owner,color,includeOpacity);
 		}

@@ -9,7 +9,7 @@ import java.util.Map;
 import domosaics.model.tree.TreeEdgeI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
-import domosaics.ui.util.AngstdColorPicker;
+import domosaics.ui.util.DoMosaicsColorPicker;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.treeview.TreeViewI;
 
@@ -43,7 +43,7 @@ public class ColorizeSelectionAction extends AbstractMenuAction {
 		}
 		
 		// let the user pick now a color
-		Color newColor = new AngstdColorPicker(AngstdColorPicker.SELECTION, view, startColor).show();
+		Color newColor = new DoMosaicsColorPicker(DoMosaicsColorPicker.SELECTION, view, startColor).show();
 
 		// if color choosing was canceled restore the old colors 
 		if (newColor == null) 

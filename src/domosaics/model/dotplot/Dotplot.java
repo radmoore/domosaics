@@ -11,7 +11,7 @@ import domosaics.algos.DotplotAlgo;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.matrix.Matrix;
 import domosaics.model.matrix.MatrixType;
-import domosaics.ui.util.AngstdSlider;
+import domosaics.ui.util.DoMosaicsSlider;
 
 
 /**
@@ -19,7 +19,7 @@ import domosaics.ui.util.AngstdSlider;
  * DotplotView can be registered as listener to the dotplot, so it will
  * be informed, when recalculations occurred.
  * <p>
- * The Dotplot itsel can be registered to AngstdSliders as ChangeListener
+ * The Dotplot itsel can be registered to DoMosaicSSliders as ChangeListener
  * to be up to date if the user manipulates a slider.
  * A computation is started by triggering the compute() method and the data
  * can be retrieved by using getDotMatrix().
@@ -200,21 +200,21 @@ public class Dotplot implements ChangeListener {
 	}
 	
 	/** 
-	 * The Dotplot can be registered to AngstdSliders as Listeners and
+	 * The Dotplot can be registered to DoMosaicSSliders as Listeners and
 	 * therefore this method is triggered, if the state of the slider changes.
 	 * E.G. because the user changed a threshold. A recomputation is triggered.
 	 */
 	public void stateChanged(ChangeEvent e) {
-		AngstdSlider slider = (AngstdSlider)e.getSource();
+		DoMosaicsSlider slider = (DoMosaicsSlider)e.getSource();
 	    if (!slider.getValueIsAdjusting()) {
-	    	if (slider.getName().equals(AngstdSlider.WINSLIDER)) {
+	    	if (slider.getName().equals(DoMosaicsSlider.WINSLIDER)) {
 	    		if (winSize == slider.getValue())
 	    			return;
 	    		setWinSize(slider.getValue()); 
 	    		compute();
 	    		return;
 	    	}
-	    	if (slider.getName().equals(AngstdSlider.CUTOFFSLIDER))
+	    	if (slider.getName().equals(DoMosaicsSlider.CUTOFFSLIDER))
 	    		setCutoffThres(slider.getValue()); 
 	    	
 	    	fireDotplotChangeEvent();
