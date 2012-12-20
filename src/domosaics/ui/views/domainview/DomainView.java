@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -30,20 +29,18 @@ import domosaics.model.arrangement.io.GatheringThresholdsReader;
 import domosaics.model.sequence.Sequence;
 import domosaics.model.sequence.SequenceI;
 import domosaics.ui.DoMosaicsUI;
-import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
-import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.domainview.components.DomainComponent;
 import domosaics.ui.views.domainview.components.SequenceMatchErrorFrame;
-import domosaics.ui.views.domainview.io.DomainViewExporter;
 import domosaics.ui.views.domainview.layout.DomainLayout;
 import domosaics.ui.views.domainview.layout.MSALayout;
 import domosaics.ui.views.domainview.layout.ProportionalLayout;
 import domosaics.ui.views.domainview.layout.UnproportionalLayout;
 import domosaics.ui.views.domainview.manager.CollapseSameArrangementsManager;
 import domosaics.ui.views.domainview.manager.DomainArrangementComponentManager;
+import domosaics.ui.views.domainview.manager.DomainArrangementComponentManager.DomainComponentManager;
 import domosaics.ui.views.domainview.manager.DomainColorManager;
 import domosaics.ui.views.domainview.manager.DomainLayoutManager;
 import domosaics.ui.views.domainview.manager.DomainSearchOrthologsManager;
@@ -51,15 +48,14 @@ import domosaics.ui.views.domainview.manager.DomainShapeManager;
 import domosaics.ui.views.domainview.manager.DomainShiftManager;
 import domosaics.ui.views.domainview.manager.DomainSimilarityManager;
 import domosaics.ui.views.domainview.manager.DomainViewManagerFactory;
-import domosaics.ui.views.domainview.manager.NoteManager;
-import domosaics.ui.views.domainview.manager.DomainArrangementComponentManager.DomainComponentManager;
 import domosaics.ui.views.domainview.manager.DomainViewManagerFactory.DomainViewManager;
+import domosaics.ui.views.domainview.manager.NoteManager;
 import domosaics.ui.views.domainview.mousecontroller.ArrangementMouseController;
 import domosaics.ui.views.domainview.mousecontroller.DomainMouseController;
 import domosaics.ui.views.domainview.mousecontroller.DomainMouseControllerFactory;
+import domosaics.ui.views.domainview.mousecontroller.DomainMouseControllerFactory.DomainMouseControllerType;
 import domosaics.ui.views.domainview.mousecontroller.SequenceSelectionMouseController;
 import domosaics.ui.views.domainview.mousecontroller.ShiftComponentsMouseController;
-import domosaics.ui.views.domainview.mousecontroller.DomainMouseControllerFactory.DomainMouseControllerType;
 import domosaics.ui.views.domainview.renderer.DefaultDomainViewRenderer;
 import domosaics.ui.views.domainview.renderer.DomainViewRenderer;
 import domosaics.ui.views.domainview.renderer.additional.CollapseNumberRenderer;
@@ -273,8 +269,6 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 			noMatchSeqs.add(seqs[i]);
 		}
 		
-		// then assign the sequences to the DAs
-		int noMatchCount = 0;
 		for (int i = 0; i < daSet.length; i++) 
 			if (label2Seq.get(daSet[i].getName().toUpperCase()) != null) {
 				daSet[i].setSequence(label2Seq.get(daSet[i].getName().toUpperCase()));
@@ -282,7 +276,6 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 				if (noMatchSeqs.contains(label2Seq.get(daSet[i].getName().toUpperCase())))
 					noMatchSeqs.remove(label2Seq.get(daSet[i].getName().toUpperCase()));
 			} else {
-				noMatchCount++;
 				noMatchDAs.add(daSet[i]);
 				
 			}
