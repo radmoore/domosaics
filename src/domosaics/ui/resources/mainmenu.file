@@ -115,19 +115,20 @@
 
 	<menu id="Help">
 
-		<menu id="Load Example Set">
+<!--		<menu id="Load Example Set">
 			<menuitem id="JMenuItem">
-				<parameter id="name" value="Small Example Dataset"/> 
+<!--			<parameter id="name" value="Small Example Dataset"/>
+				<parameter id="name" value="Load Example Dataset"/> 
 				<parameter id="actionClass" value="domosaics.ui.actions.LoadSmallExampleDataActon"/> 
 				<parameter id="tooltip" value="Loads a small example data set"/> 
 			</menuItem>
 		
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="Large Example Dataset"/> 
-				<parameter id="actionClass" value="domosaics.ui.actions.LoadBigExampleDataAction"/> 
-				<parameter id="tooltip" value="Loads a large example data set"/> 
-			</menuItem>
-		</menu>
+<!--			<menuitem id="JMenuItem">
+<!--				<parameter id="name" value="Large Example Dataset"/> 
+<!--				<parameter id="actionClass" value="domosaics.ui.actions.LoadBigExampleDataAction"/> 
+<!--				<parameter id="tooltip" value="Loads a large example data set"/> 
+<!--			</menuItem>
+<!--		</menu>
 
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="DoMosaics help"/> 
