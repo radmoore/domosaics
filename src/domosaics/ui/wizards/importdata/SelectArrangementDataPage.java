@@ -128,7 +128,7 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 			File test = new File(file.getAbsolutePath());
 			daSet = ArrangementImporterUtil.importData(test);
 		}
-		if(daSet == null) {
+		if(daSet != null) {
 			path.setText(file.getAbsolutePath());
 			viewName.setText(file.getName().split("\\.")[0]);
 		}
