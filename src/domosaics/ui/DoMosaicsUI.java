@@ -257,7 +257,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
     		is = this.getClass().getResourceAsStream("resources/icons/tree.png");
     		treeIcon = new ImageIcon(ImageIO.read(is));
     		
-    		is = this.getClass().getResourceAsStream("resources/icons/settings.png");
+    		is = this.getClass().getResourceAsStream("resources/icons/domtree.png");
     		domainTreeIcon = new ImageIcon(ImageIO.read(is));
     		
     		is = this.getClass().getResourceAsStream("resources/icons/settings.png");

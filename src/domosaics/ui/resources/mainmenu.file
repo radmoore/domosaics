@@ -83,7 +83,7 @@
 		
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="RADS/RAMPAGE"/> 
-			<parameter id="actionClass" value="domosaics.ui.actions.Hmmer3Action"/> 
+			<parameter id="actionClass" value="domosaics.ui.actions.RADSAction"/> 
 			<parameter id="tooltip" value="Find similar domain arrangement in UniProt"/> 
 		</menuItem>
 		
