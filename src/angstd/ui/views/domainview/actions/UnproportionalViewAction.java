@@ -23,6 +23,7 @@ public class UnproportionalViewAction extends AbstractMenuAction{
 		view.setViewLayout(new UnproportionalLayout());
 		view.getDomainLayoutManager().setToUnproportionalView();
 		view.getDomainViewRenderer().setArrangementRenderer(new BackBoneArrangementRenderer());
+		view.getSequenceSelectionMouseController().clearSelection();
 		view.registerMouseListeners();
 	}
 }

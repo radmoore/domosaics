@@ -360,8 +360,6 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		File file = FileDialogs.showOpenDialog(this);
 		if (file == null || !file.canRead())
 			return;
-		
-		hmmDBFile = file;
 		hmmTF.setText(hmmDBFile.getAbsolutePath());
 	}
 	
@@ -432,11 +430,14 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		if (!checkDB(new File(hmmTF.getText()))) {
 			hmmTF.setBackground(highlightColor);
 			return;
+		} else {
+			hmmDBFile = new File(hmmTF.getText());
 		}
 		if (!checkDBpressed(new File(hmmTF.getText()))) {
+			hmmPressTF.setBackground(highlightColor);
 			return;
 		}
-		if ( !FastaReader.isValidFasta(fastaTF.getText()) ) {
+		if ( !FastaReader.isValidFasta(new File(fastaTF.getText())) ) {
 			MessageUtil.showWarning("Malformated fasta file or unknown sequence format");
 			fastaTF.setBackground(highlightColor);
 			return;
@@ -592,13 +593,10 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				
 		// check if pressed files are available
 		if (!HmmPress.hmmFilePressed(dbFile)) {
-			// check if hmmpress service is available
-			if (!Hmmer3Engine.getInstance().isAvailableService("hmmpress")) {
-				// if not, check whether press bin in the selected textfield is valid
-				if (!hmmPressTF.getText().equals("")) {
-					pressAvail = checkBins(new File(hmmPressTF.getText()));
-				}
-			}
+			// if not, check whether press bin in the selected textfield is valid
+			if (!hmmPressTF.getText().equals(""))
+				pressAvail = checkBins(new File(hmmPressTF.getText()));
+			
 			// Check if want to/can press
 			if (MessageUtil.showDialog(this, "The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {					
 				if (pressAvail) {
@@ -610,7 +608,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 					HmmPress hmmPress = new HmmPress(Hmmer3Engine.getInstance().getAvailableServicePath("hmmpress"), dbFile, this);
 					Hmmer3Engine.getInstance().launchInBackground(hmmPress);
 					progressBar.setIndeterminate(true);
-					// we must return false, even if the press was successful to ensure that the engine instance is free
+					// ATTENTION: we must return false, even if the press was successful to ensure that the engine instance is free
 					// before we init the actual scan
 					return false;
 				}
@@ -628,7 +626,6 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				return false;
 			}	
 		}
-		hmmDBFile = dbFile;
 		return true;
 	}
 	

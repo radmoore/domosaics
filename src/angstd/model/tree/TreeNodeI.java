@@ -210,7 +210,7 @@ public interface TreeNodeI extends AngstdData{
 	 * 		assigned domain arrangement
 	 */
 	public DomainArrangement getArrangement();
-	
+
 //	/**
 //	 * Returns the actual state for an inner node.
 //	 * 

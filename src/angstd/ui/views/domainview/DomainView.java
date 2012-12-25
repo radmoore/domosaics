@@ -197,7 +197,8 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		initDomainController();
 		
 		// set the backend data, default layout and the main view renderer
-		this.daSet = daSet;
+		this.daSet = daSet; 
+		quickSort(0, daSet.length-1);
 		setViewLayout(new ProportionalLayout());
 		viewRenderer = new DefaultDomainViewRenderer(this);
 
@@ -775,7 +776,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 			}
 
 			// Comment
-			if(arrangements[i].getDesc()!=null && arrangements[i].getDesc()!="") {
+			if(arrangements[i].getDesc()!=null && !arrangements[i].getDesc().equals("")) {
 				Element com = new Element("COMMENT");
 				prot.addContent(com);
 				com.setText(arrangements[i].getDesc());
@@ -825,8 +826,11 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 							occ.setAttribute(from);
 							Attribute to = new Attribute("to",""+currentDomain.getTo());
 							occ.setAttribute(to);
-							if(currentDomain.getName()!="")
-								occ.setAttribute(new Attribute("name",""+currentDomain.getName()));
+							// TODO A domain have to have an E-value or not?
+							if(currentDomain.getEvalue() != Double.POSITIVE_INFINITY)
+								occ.setAttribute(new Attribute("evalue",""+currentDomain.getEvalue()));
+							if(currentDomain.getScore() != Double.NEGATIVE_INFINITY)
+								occ.setAttribute(new Attribute("score",""+currentDomain.getScore()));
 							if(currentDomain.isPutative())
 								occ.setAttribute(new Attribute("isPutative","true"));
 						}
@@ -948,14 +952,14 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	}
 
 	@Override
-	public void xmlRead(Element viewType) {
-		this.setName(viewType.getName());
+	public void xmlRead(Element viewType) {		
+		this.setName(viewType.getAttributeValue("name"));
+		initDomainController();
 		
-		// TODO Read GO terms in details in new compared to our data notably
-		
+		// TODO Read GO terms in details in new compared to our data notably		
 		
 		// Read domain families
-		List<Element> families = viewType.getChildren("ALL_DOMAIN_TYPES");
+		List<Element> families = viewType.getChild("ALL_DOMAIN_TYPES").getChildren("DOMAIN_FAMILY");
 		Iterator<Element> f = families.iterator();
 		while(f.hasNext()) {
 			Element family = f.next();
@@ -966,23 +970,23 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 				GatheringThresholdsReader.getInstance().put(family.getAttributeValue("id"), domFamily);
 			} else {
 				if(!DomainType.getType(family.getAttributeValue("id")).getName().equals(family.getAttributeValue("source")) || !domFamily.getDomainType().getName().equals(family.getAttributeValue("source")) || !domFamily.getName().equals(family.getAttributeValue("name")))
-					MessageUtil.showDialog("Error: import of a domain family inconsistent with DoMosaics data");
+					MessageUtil.showDialog(parentPane, "Error: import of a domain family inconsistent with DoMosaics data");
 			}
 			String interproEntry=family.getAttributeValue("interpro");
 			if(interproEntry!=null)
-				GatheringThresholdsReader.getInstance().get(family.getAttributeValue("id")).setInterproEntry(interproEntry);
+				domFamily.setInterproEntry(interproEntry);
 			String domColor=family.getAttributeValue("color");
 			if(domColor!=null)
-				this.getDomainColorManager().setDomainColor(GatheringThresholdsReader.getInstance().get(family.getAttributeValue("id")), new Color(new Integer(domColor)));
-			String domShape=family.getAttributeValue("cshapelor");
+				this.getDomainColorManager().setDomainColor(domFamily, new Color(new Integer(domColor)));
+			String domShape=family.getAttributeValue("shape");
 			if(domShape!=null)
-				this.getDomainShapeManager().setDomainShape(GatheringThresholdsReader.getInstance().get(family.getAttributeValue("id")), new Integer(domShape));
+				this.getDomainShapeManager().setDomainShape(domFamily, new Integer(domShape));
 			String famThresh=family.getAttributeValue("famThresh");
 			if(famThresh!=null)
-				GatheringThresholdsReader.getInstance().get(family.getAttributeValue("id")).setGathThreshByFam(new Double(famThresh));
-			String domThresh=family.getAttributeValue("famThresh");
+				domFamily.setGathThreshByFam(new Double(famThresh));
+			String domThresh=family.getAttributeValue("domThresh");
 			if(domThresh!=null)
-				GatheringThresholdsReader.getInstance().get(family.getAttributeValue("id")).setGathThreshByDom(new Double(domThresh));
+				domFamily.setGathThreshByDom(new Double(domThresh));
 			List<Element> GOs = family.getChildren("GO_ANNOT");
 			Iterator<Element> go = GOs.iterator();
 			if(go.hasNext()) {
@@ -991,7 +995,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 				GeneOntology geneOnto = GeneOntology.getInstance();
 				GeneOntologyTerm goTerm = geneOnto.getTerm(term.getAttributeValue("id"));
 				if(goTerm != null)
-					GatheringThresholdsReader.getInstance().get(family.getAttributeValue("id")).addGoTerm(goTerm);
+					domFamily.addGoTerm(goTerm);
 				else
 					MessageUtil.showDialog("Error: import of a go term inconsistent with DoMosaics data");
 			}
@@ -1004,6 +1008,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		Iterator<Element> p = prots.iterator();
 		while(p.hasNext()) {
 			Element protein = p.next();
+			String AAseq = protein.getChild("SEQUENCE").getText();
 			DomainArrangement da = new DomainArrangement();
 			da.setName(protein.getAttributeValue("id"));
 			// Iterate over domains
@@ -1011,13 +1016,13 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 			Iterator<Element> d = doms.iterator();
 			while(d.hasNext()) {
 				Element domainFamily = d.next();
-				DomainFamily domFam = GatheringThresholdsReader.getInstance().get(domainFamily.getAttributeValue("Id"));
+				DomainFamily domFam = GatheringThresholdsReader.getInstance().get(domainFamily.getAttributeValue("id"));
 				// Iterate over occurrences
 				List<Element> occurrences = domainFamily.getChildren("OCCURRENCE");
 				Iterator<Element> o = occurrences.iterator();
 				while(o.hasNext()) {
 					Element occ= o.next();
-					Domain dom = new Domain(new Integer(occ.getAttributeValue("from")),new Integer(occ.getAttributeValue("to")),domFam);
+					Domain dom = new Domain(new Integer(occ.getAttributeValue("from")),new Integer(occ.getAttributeValue("to")), domFam);
 					String evalue = occ.getAttributeValue("evalue");
 					if(evalue != null)
 						dom.setEvalue(new Double(evalue));
@@ -1038,25 +1043,27 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 			if(note != null)
 				da.setDesc(note.getText());
 			Element seq = protein.getChild("SEQUENCE");
-			if(seq != null)
+			if(seq != null) {
 				da.setSequence(new Sequence(protein.getAttributeValue("id"),seq.getText()));
+				setSequencesLoaded(true);
+			}
 			list.add(da);
 		}
-		daSet = list.toArray(new DomainArrangement[list.size()]);
-
+		this.daSet = list.toArray(new DomainArrangement[list.size()]);
+		
 		// Read Layout settings
 		Element layoutSettings = viewType.getChildren("LAYOUT_SETTINGS").get(0);
 		String layoutView = layoutSettings.getAttributeValue("view");
 		if (layoutView.equals("PROPORTIONAL")) {
-			viewLayout = new ProportionalLayout();
+			setViewLayout(new ProportionalLayout());
 			domLayoutManager.setToProportionalView();
 		} else {
 			if(layoutView.equals("UNPROPORTIONAL")) {
-				viewLayout = new UnproportionalLayout();
+				setViewLayout(new UnproportionalLayout());
 				domLayoutManager.setToUnproportionalView();
 			} else {
 			 	if(layoutView.equals("MSA")) {
-			 		viewLayout = new MSALayout();
+			 		setViewLayout(new MSALayout());
 			 		domLayoutManager.setToMsaView();
 			 	}
 			 }
@@ -1070,6 +1077,48 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		String showShapes = layoutSettings.getAttributeValue("showShapes");
 		if(showShapes!=null)
 			domLayoutManager.setShowShapes(true);
+		
+		viewRenderer = new DefaultDomainViewRenderer(this);
+		registerMouseListeners();
+		doLayout();
+		repaint(); 
+		
+	}
+	
+	/**
+	 * sub-function of the QuickSort to order
+	 * alphabetically the proteins in views 
+	 */
+	int partition(int left, int right) {
+		int i = left, j = right;
+		DomainArrangement tmp;
+		DomainArrangement pivot = daSet[(left + right) / 2];
+		while (i <= j) {
+			while (daSet[i].getName().compareTo(pivot.getName()) < 0)
+				i++;
+			while (daSet[j].getName().compareTo(pivot.getName()) > 0)
+				j--;
+			if (i <= j) {
+				tmp = daSet[i];
+				daSet[i] = daSet[j];
+				daSet[j] = tmp;
+				i++;
+				j--;
+			}
+		};
+		return i;
+	}
+
+	/**
+	 * QuickSort function that orders alphabetically 
+	 * the protein IDs in domain views
+	 */
+	void quickSort(int left, int right) {
+	      int index = partition(left, right);
+	      if (left < index - 1)
+	            quickSort(left, index - 1);
+	      if (index < right)
+	            quickSort(index, right);
 	}
 	
 }

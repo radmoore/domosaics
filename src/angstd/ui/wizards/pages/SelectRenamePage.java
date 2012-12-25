@@ -72,8 +72,8 @@ public class SelectRenamePage extends WizardPage {
 		if (newName.isEmpty())
 			return "Select a name";
 
-		if (newName.length()>25)
-			return "Name should not exceed 25 characters";
+		if (newName.length()>50)
+			return "Name should not exceed 50 characters";
 		
 		// we are renaming a project
 		if (objectName.equals("project")) {		

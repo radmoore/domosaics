@@ -122,7 +122,7 @@ public enum DomainType {
     }*/
 
     public String getUrl(String label) {
-    	if(name!="SIGNALP" && name!="THHMM")
+    	if(!name.equals("SIGNALP") && !name.equals("THHMM"))
     		return homeUrl+label;
     	else
     		return homeUrl;

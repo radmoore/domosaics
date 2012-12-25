@@ -26,7 +26,7 @@ import angstd.ui.util.MessageUtil;
  */
 public class FastaReader extends AbstractDataReader<SequenceI>{
 	
-	public boolean isValidFasta(File fastaFile) {
+	public static boolean isValidFasta(File fastaFile) {
 		
         BufferedReader inputStream = null;
         Pattern p = Pattern.compile("^$");
@@ -183,7 +183,7 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 	 * @return
 	 * 		sequence name.
 	 */
-	private String getNameFromHeader(String header) {
+	private static String getNameFromHeader(String header) {
 		header = header.replace(">", "");
 		String[] token = header.split("\\s+");
 		if(token.length!=0) {

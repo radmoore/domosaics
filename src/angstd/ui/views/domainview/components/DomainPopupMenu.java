@@ -63,7 +63,7 @@ public class DomainPopupMenu extends JPopupMenu {
 		add(new SearchOrthologousAction());
 		add(new JSeparator());
 		add(new LookupDomainInGoogle(dc.getLabel()));
-		add(new LookupDomainInSourceDBAction(dc.getLabel(),dc.getDomain().getID()));
+		add(new LookupDomainInSourceDBAction(dc.getLabel(),dc.getDomain().getFamily().getDomainType().getName()));
 		add(new LookupDomainInUniprot(dc.getLabel()));
 		add(new JSeparator());
 		add(new ConfirmPutativeDomain());

@@ -3,6 +3,8 @@ package angstd.localservices.hmmer3.programs;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import angstd.algos.overlaps.OverlapResolver;
@@ -375,62 +377,88 @@ public class HmmScan implements Hmmer3Program {
 					arrangementSet = OverlapResolver.resolveOverlaps(arrangementSet, overlapResolvMethod);
 				}
 			}
-			
+
 			int importedProts = arrangementSet.length;
 			
-			if (importedProts > 0) {
-
-				String defaultName;
-				ProjectElement project = null;
-				
-				// external fasta was used
-				if (seqView == null) {
-					defaultName = fasta.getName() + "-hmmscan-results";
-				}
-				else {
-					ViewElement elem = WorkspaceManager.getInstance().getViewElement(seqView.getViewInfo());
-					project = elem.getProject();
-					defaultName = seqView.getTitle()+"-hmmscan-results";
-				}
-					
-				// read the sequences in the source fasta file
-				SequenceI[] seqs = new FastaReader().getDataFromFile(fasta);
-								
-				String viewName = null;
-				String projectName = null;
-				while (viewName == null) {
-					Map m = WizardManager.getInstance().selectNameWizard(defaultName, "annotation", project, true);
-					viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
-					projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
-					
-					if (viewName == null) 
-						if (MessageUtil.showDialog("You will loose the hmmscan results. Are you sure?"))
-							// will not delete tmp files, just in case
-							return;
-				}
-			
-				// get chosen project
-				project = WorkspaceManager.getInstance().getProject(projectName);
-				
-				DomainViewI resultDAView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
-				resultDAView.setDaSet(arrangementSet);
-				resultDAView.loadSequencesIntoDas(seqs, resultDAView.getDaSet());
-				
-				
-				// only create a sequence view if the sequences came from a file
-				if (seqView == null) {
-					SequenceView resultSeqView = ViewHandler.getInstance().createView(ViewType.SEQUENCE, viewName+"_seqs");
-					resultSeqView.setSeqs(resultDAView.getSequences());
-					ViewHandler.getInstance().addView(resultSeqView, project);
-				}
-				// add domain view now, so that it is active
-				ViewHandler.getInstance().addView(resultDAView, project);
-				MessageUtil.showInformation(null, importedProts+" proteins successfully imported.");
-			}
-			else {
+			if (importedProts == 0) {
 				String name = (seqView == null) ? fasta.getName() : seqView.getTitle();
 				MessageUtil.showInformation(null, "No significant hits found in "+ name);
 			}
+
+			int withoutDomProts = 0;
+			// read the sequences in the source fasta file
+			SequenceI[] seqs = new FastaReader().getDataFromFile(fasta);
+			
+			List<DomainArrangement> arrList=new ArrayList<DomainArrangement>();
+			boolean withoutDom;
+			for(int i=0; i<seqs.length; i++) {
+				withoutDom=true;
+				int j=0;
+				for(; j<arrangementSet.length && withoutDom; j++) {
+					if(arrangementSet[j].getName().equals(seqs[i].getName())) {
+						withoutDom=false;						
+					}
+				}
+				if(withoutDom) {
+					DomainArrangement da = new DomainArrangement();
+					da.setName(seqs[i].getName());
+					da.setSeqLen(seqs[i].getLen(true));
+					da.setSequence(seqs[i]);
+					arrList.add(da);
+					withoutDomProts++;
+				} else {
+					arrList.add(arrangementSet[j-1]);
+				}
+			}
+			arrangementSet=arrList.toArray(new DomainArrangement[arrList.size()]);
+			
+			String defaultName;
+			ProjectElement project = null;
+
+			// external fasta was used
+			if (seqView == null) {
+				defaultName = fasta.getName() + "-hmmscan-results";
+			}
+			else {
+				ViewElement elem = WorkspaceManager.getInstance().getViewElement(seqView.getViewInfo());
+				project = elem.getProject();
+				defaultName = seqView.getTitle()+"-hmmscan-results";
+			}					
+
+			String viewName = null;
+			String projectName = null;
+			while (viewName == null) {
+				Map m = WizardManager.getInstance().selectNameWizard(defaultName, "annotation", project, true);
+				viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+				projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+
+				if (viewName == null) 
+					if (MessageUtil.showDialog("You will loose the hmmscan results. Are you sure?"))
+						// will not delete tmp files, just in case
+						return;
+			}
+
+			// get chosen project
+			project = WorkspaceManager.getInstance().getProject(projectName);
+
+			DomainViewI resultDAView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
+			resultDAView.setDaSet(arrangementSet);
+			resultDAView.loadSequencesIntoDas(seqs, resultDAView.getDaSet());
+
+
+			// only create a sequence view if the sequences came from a file
+			if (seqView == null) {
+				SequenceView resultSeqView = ViewHandler.getInstance().createView(ViewType.SEQUENCE, viewName+"_seqs");
+				resultSeqView.setSeqs(resultDAView.getSequences());
+				ViewHandler.getInstance().addView(resultSeqView, project);
+			}
+			// add domain view now, so that it is active
+			ViewHandler.getInstance().addView(resultDAView, project);
+			String noDomMessage="";
+			if(withoutDomProts!=0 && importedProts!=0)
+				noDomMessage+="\nWarning: "+withoutDomProts+" do not have any domain!";
+			MessageUtil.showInformation(null, importedProts+withoutDomProts+" proteins successfully imported."+noDomMessage);
+
 		}
 		else {
 			String name = (seqView == null) ? fasta.getName() : seqView.getTitle();
@@ -438,6 +466,7 @@ public class HmmScan implements Hmmer3Program {
 			MessageUtil.showInformation(null, "No hits found in "+ name);
 			
 		}
+		
 		outfile.delete();
 		// if seqs came from a view, delete the tmp fasta file
 		if (!(seqView == null))

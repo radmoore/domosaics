@@ -166,9 +166,7 @@ public class ConfigurationPanel extends JPanel{
 				File scanBin = FileDialogs.showOpenDialog(parentFrame);
 				if (scanBin == null || !scanBin.canExecute())
 					return;
-				if (checkHmmBin(scanBin))
-					hmmerScanTF.setText(scanBin.getAbsolutePath());
-					else return;
+				hmmerScanTF.setText(scanBin.getAbsolutePath());
 			}
 		});
 		
@@ -178,9 +176,7 @@ public class ConfigurationPanel extends JPanel{
 				File pressBin = FileDialogs.showOpenDialog(parentFrame);
 				if (pressBin == null || !pressBin.canExecute())
 					return;
-				if (checkHmmBin(pressBin))
-					hmmerPressTF.setText(pressBin.getAbsolutePath());
-					else return;
+				hmmerPressTF.setText(pressBin.getAbsolutePath());
 			}
 		});
 		
@@ -191,10 +187,7 @@ public class ConfigurationPanel extends JPanel{
 				File file = FileDialogs.showOpenDialog(parentFrame);
 				if (file == null || !file.canRead())
 					return;
-
-				if (checkHmmDB(file))
-					hmmer3dbTF.setText(file.getAbsolutePath());
-				else return;
+				hmmer3dbTF.setText(file.getAbsolutePath());
 			}
 		});
 		
@@ -228,10 +221,18 @@ public class ConfigurationPanel extends JPanel{
 						return;	
 					}
 				}
+
+				if (!hmmer3dbTF.getText().equals("")) {
+					if (!checkHmmDB(new File(hmmer3dbTF.getText()))) {
+						hmmer3dbTF.setBackground(highlightColor);
+						return;
+					}
+				
+				}
 				
 				if (!hmmer3dbTF.getText().equals("")) {
 					if (!checkHmmDBpressed(new File(hmmer3dbTF.getText()))) {
-						hmmer3dbTF.setBackground(highlightColor);
+						hmmerPressTF.setBackground(highlightColor);
 						return;
 					}
 				
@@ -276,8 +277,8 @@ public class ConfigurationPanel extends JPanel{
 		add(new JXTitledSeparator("URLs"),"growx, span, wrap, gaptop 10");
 		add(new JLabel("Google Url: "), "h 25!, gap 10");
 		add(googleField, "h 25!, gap 10, span, growx, gapright 10, wrap");
-		add(new JLabel("NCBI Url: "), "h 25!, gap 10");
-		add(ncbiField, "h 25!, gap 10, span, growx, gapright 10, wrap");
+		/*add(new JLabel("NCBI Url: "), "h 25!, gap 10");
+		add(ncbiField, "h 25!, gap 10, span, growx, gapright 10, wrap");*/
 		/*add(new JLabel("Pfam Url: "), "h 25!, gap 10");
 		add(pfamField, "h 25!, gap 10, span, growx, gapright 10, wrap");*/
 		add(new JLabel("Uniprot Url: "), "h 25!, gap 10");
@@ -350,7 +351,8 @@ public class ConfigurationPanel extends JPanel{
 			MessageUtil.showWarning(file.getName()+ " does not appear to be a valid hmmer3 profile");
 			return false;
 		}
-
+		return true;
+	}
 		
 	/**
 	 * Check whether the current HMMER3 database dir
@@ -362,30 +364,31 @@ public class ConfigurationPanel extends JPanel{
 	private boolean checkHmmDBpressed(File file) {
 		
 		boolean pressAvail = false;
-		// check if hmmpress service is available
-		if (!hmmer3Engine.isAvailableService("hmmpress")) {
-			// if not, check whether press bin in the selected textfield is valid
-			if (!hmmerPressTF.getText().equals("")) {
-				pressAvail = checkHmmBin(new File(hmmerPressTF.getText()));
-			}
-		}
+		// if not, check whether press bin in the selected textfield is valid
+		if (!hmmerPressTF.getText().equals(""))
+			pressAvail = checkHmmBin(new File(hmmerPressTF.getText()));
+		
 		// check if pressed files are available
 		if (!HmmPress.hmmFilePressed(file)) {
 			if (MessageUtil.showDialog(parentFrame, file.getName()+" is not pressed. Do you want AnGSTD to press it now?")) {
 				if (!pressAvail) {
 					MessageUtil.showInformation(parentFrame, "Please first provide hmmpress binary");
-					hmmer3dbTF.setText("");
 					return false; 
 				}
-				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+				configPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 				HmmPress hmmPress = new HmmPress(hmmer3Engine.getAvailableServicePath("hmmpress"), file, configPanel);
 				//TODO  we should get some type of return here.
 				hmmer3Engine.launch(hmmPress);
+				/* TODO NICO 
+				 * while(hmmer3Engine.isRunning()) {
+					try {
+						wait(5000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}*/
 			}
-			else {
-				return false;
-				// do something else here
-			}	
 		}
 		return true;
 	}

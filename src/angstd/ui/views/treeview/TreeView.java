@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
@@ -26,6 +27,7 @@ import angstd.model.domainevent.DomainEvent;
 import angstd.model.domainevent.DomainEventI;
 import angstd.model.sequence.Sequence;
 import angstd.model.sequence.SequenceI;
+import angstd.model.tree.Tree;
 import angstd.model.tree.TreeEdge;
 import angstd.model.tree.TreeEdgeI;
 import angstd.model.tree.TreeI;
@@ -130,7 +132,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/** the parsimony method (Dollo 0 vs SANKOF 1) with Arrangements 2 or Sets 3 */
 	protected int parsimonyMeth = Integer.MAX_VALUE;
 	
-	
+	protected Vector<TreeNodeI> toCollapseCSA=new Vector<TreeNodeI>();
 	/**
 	 * Basic DomainView constructor initializing the manager mapping and
 	 * creating the view embedding scroll pane.
@@ -445,6 +447,10 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 		return getViewManager(TreeViewManager.TREESTROKEMANAGER);
 	}
 
+	public Vector<TreeNodeI> getToCollapseCSA() {
+		return toCollapseCSA;
+	}
+	
 	@Override
 	public void xmlWrite(Element viewType) {
 		
@@ -456,8 +462,10 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 			viewType.addContent(node);
 			Attribute nodeId = new Attribute("id",""+parent.getID());
 			node.setAttribute(nodeId);
-			Attribute nodeName = new Attribute("name",parent.getLabel());
-			node.setAttribute(nodeName);
+			if(parent.getLabel()!=null)
+				node.setAttribute(new Attribute("label",parent.getLabel()));
+			else
+				node.setAttribute(new Attribute("label",""));
 			if(parent.getParent()!=null) {
 				Attribute parentId = new Attribute("parentNode",""+parent.getParent().getID());
 				node.setAttribute(parentId);
@@ -468,8 +476,13 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 				Attribute stroke = new Attribute("stroke",this.stroke2str((BasicStroke)this.getTreeStrokeManager().getEdgeStroke(parent.getEdgeToParent())));
 				node.setAttribute(stroke);
 			}
-			if(nc.isCollapsed())
-				node.setAttribute(new Attribute("collapsed","true"));
+			if(toCollapseCSA.contains(parent))
+			{
+				node.setAttribute(new Attribute("collapsedCSA","true"));
+			} else {
+				if(nc.isCollapsed())
+					node.setAttribute(new Attribute("collapsed","true"));
+			}
 			Attribute nodeColor = new Attribute("nodeColor",""+this.getTreeColorManager().getNodeColor(nc).getRGB());
 			node.setAttribute(nodeColor);
 			Attribute font = new Attribute("font",font2str(this.getTreeFontManager().getFont(nc)));
@@ -629,12 +642,15 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 
 	public BasicStroke str2stroke(String stroke) {
 		String[] strokeParams = stroke.split("-");
-		
-		String[] dashDetails = strokeParams[4].substring(1,strokeParams[4].length()-2).split(",");
-		float[] dash = new float[dashDetails.length];
-		for(int i = 0; i != dash.length; i++)
-			dash[i] = new Float(dashDetails[i]);
-		return new BasicStroke(new Float(strokeParams[0]), new Integer(strokeParams[1]), new Integer(strokeParams[2]), new Float(strokeParams[3]), dash, new Float(strokeParams[5]));
+		if(!strokeParams[4].equals("[]")) {
+			String[] dashDetails = strokeParams[4].substring(1,strokeParams[4].length()-1).split(",");
+			float[] dash = new float[dashDetails.length];
+			for(int i = 0; i != dash.length; i++)
+				dash[i] = new Float(dashDetails[i]);
+			return new BasicStroke(new Float(strokeParams[0]), new Integer(strokeParams[1]), new Integer(strokeParams[2]), new Float(strokeParams[3]), dash, new Float(strokeParams[5]));
+		} else {
+			return new BasicStroke(new Float(strokeParams[0]), new Integer(strokeParams[1]), new Integer(strokeParams[2]), new Float(strokeParams[3]));
+		}
 	}
 
 	@Override
@@ -645,20 +661,43 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 
 	@Override
 	public void xmlRead(Element viewType) {
-		this.setName(viewType.getName());
+		Vector<TreeNodeI> toCollapse=new Vector<TreeNodeI>();
+		this.setName(viewType.getAttributeValue("name"));
+		Map<Integer, TreeNodeI> id2node = new HashMap<Integer, TreeNodeI>();
 		
 		// Read Tree
 		List<Element> nodes = viewType.getChildren("NODE");
 		// Iterate over proteins
 		Iterator<Element> n = nodes.iterator();
+		tree = new Tree();	
+		initTreeController();
+		setViewLayout(new DendogramLayout());
 		while(n.hasNext()) {
 			Element node = n.next();
-		
-			TreeNodeI child = new TreeNode(new Integer(node.getAttributeValue("id")), node.getAttributeValue("name"));
-			tree.addNode(child);
+			TreeNodeI child=null;
+			if(id2node.get(new Integer(node.getAttributeValue("id")))==null) {
+				child = new TreeNode(new Integer(node.getAttributeValue("id")), node.getAttributeValue("label"));
+				id2node.put(new Integer(node.getAttributeValue("id")), child);
+				tree.addNode(child);
+				//System.out.println("New child: "+child.getID());
+			} else {
+				child = id2node.get(new Integer(node.getAttributeValue("id")));
+				child.setLabel(node.getAttributeValue("label"));
+				//System.out.println("Deja-vu child: "+child.getID());
+			}
 			String parent = node.getAttributeValue("parentNode");
 			if(parent != null) {
-				TreeEdgeI edge = new TreeEdge(child, new TreeNode(new Integer(node.getAttributeValue("parentNode"))), new Double(node.getAttributeValue("weightToParent")));
+				TreeNodeI parentOfChild=null;
+				if(id2node.get(new Integer(node.getAttributeValue("parentNode")))==null) {
+					parentOfChild=new TreeNode(new Integer(node.getAttributeValue("parentNode")));
+					id2node.put(new Integer(node.getAttributeValue("parentNode")), parentOfChild);
+					tree.addNode(child);
+					////System.out.println("New parent: "+parentOfChild.getID());
+				} else {
+					parentOfChild=id2node.get(new Integer(node.getAttributeValue("parentNode")));
+					//System.out.println("Deja-vu parent: "+parentOfChild.getID());
+				}
+				TreeEdgeI edge = new TreeEdge(parentOfChild, child, new Double(node.getAttributeValue("weightToParent")));
 				tree.addEdge(edge);
 				String edgeColor = node.getAttributeValue("edgeColor");
 				if(edgeColor != null)
@@ -666,20 +705,35 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 				String stroke = node.getAttributeValue("stroke");
 				if(stroke != null)
 					this.getTreeStrokeManager().setEdgeStroke(str2stroke(stroke),edge);
+			} else {
+				tree.setRoot(child);
+				//System.out.println("Root!");
 			}
-			String collapsed = node.getAttributeValue("collapsed");
-			if(collapsed != null)
-				this.getNodesComponent(child).setCollapsed(true);
+			String collapsedCSA = node.getAttributeValue("collapsedCSA");
+			if(collapsedCSA != null) {
+				toCollapseCSA.add(child);
+			} else {
+				String collapsed = node.getAttributeValue("collapsed");
+				if(collapsed != null)
+					toCollapse.add(child);
+			}
 			String nodeColor = node.getAttributeValue("nodeColor");
 			if(nodeColor != null)
 				this.getTreeColorManager().setNodeColor(getNodesComponent(child), new Color(new Integer(nodeColor)));
 			String font = node.getAttributeValue("font");
 			if(font != null)
-				this.getTreeFontManager().setFont(getNodesComponent(child),str2font(font));
+				this.getTreeFontManager().setFont(getNodesComponent(child),str2font(font)); /////
+		}
+		Iterator<TreeNodeI> ch=toCollapse.iterator();
+		while(ch.hasNext()) {
+			TreeNodeI child=ch.next();
+			this.getNodesComponent(child).setCollapsed(true);
 		}
 		
-		// TODO Read Layout settings
-		
+		// TODO Read Layout settings	
+		viewRenderer = new DefaultTreeViewRenderer(this);
+		doLayout();
+		repaint();
 	}
 
 

@@ -67,6 +67,7 @@ public class ProjectExporter {
 //                    		continue;
                     
                     // export the view
+        			// Nic export (find back the old in case?)
                     ViewHandler.getInstance().getView(viewElt.getViewInfo()).export(viewFile);
         		}
         	}

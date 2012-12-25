@@ -13,6 +13,7 @@ import angstd.ui.views.domainview.actions.context.LookupProteinInGoogle;
 import angstd.ui.views.domainview.actions.context.LookupProteinInUniprotAction;
 import angstd.ui.views.domainview.actions.context.RADSScanAction;
 import angstd.ui.views.domainview.actions.context.ShowAllDomainsAction;
+import angstd.ui.views.view.manager.SelectionManager;
 
 /**
  * ArrangementPopupMenu is the context menu which is shown on
@@ -21,6 +22,7 @@ import angstd.ui.views.domainview.actions.context.ShowAllDomainsAction;
  * @author Andreas Held
  *
  */
+
 public class ArrangementPopupMenu extends JPopupMenu {
 	private static final long serialVersionUID = 1L;
 	
@@ -34,8 +36,9 @@ public class ArrangementPopupMenu extends JPopupMenu {
 		super("Arrangement Menu");
 
 		// add title
-		DomainComponent dc = view.getDomainSelectionManager().getClickedComp();
-		String str = "<html><b>Arrangement of <i>"+dc.getLabel()+"</i></b></html>";
+		SelectionManager<ArrangementComponent> arSel = view.getArrangementSelectionManager();
+		ArrangementComponent ac = arSel.getClickedComp();
+		String str = "<html><b>Arrangement for protein <i>"+ac.getLabel()+"</i></b></html>";
 		JLabel title = new JLabel(str);
 		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setVerticalAlignment(JLabel.CENTER);
@@ -51,8 +54,8 @@ public class ArrangementPopupMenu extends JPopupMenu {
 		add(new ShowAllDomainsAction());
 		add(new JSeparator());
 		add(new RADSScanAction());
-		add(new LookupProteinInGoogle(dc.getLabel()));
-		add(new LookupProteinInUniprotAction(dc.getLabel()));
+		add(new LookupProteinInGoogle(ac.getLabel()));
+		add(new LookupProteinInUniprotAction(ac.getLabel()));
 	}
 	
 }

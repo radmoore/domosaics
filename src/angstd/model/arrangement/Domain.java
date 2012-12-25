@@ -100,6 +100,16 @@ public class Domain implements Comparable<Domain>, Cloneable, AngstdData {
 		this.seq = seq;
 	}
 
+	
+	/**
+	 * Sets the amino acid sequence for this domain
+	 * 
+	 * @param seq
+	 * 		sequence from which a subsequence is gained
+	 */
+	public void setSequence (SequenceI seq) {
+		this.seq = seq;
+	}
 	/**
 	 * Returns the sequence of the domain 
 	 * 

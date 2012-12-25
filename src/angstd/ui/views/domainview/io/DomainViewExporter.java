@@ -18,7 +18,6 @@ import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainType;
 import angstd.model.arrangement.DomainVector;
 import angstd.model.arrangement.io.XdomWriter;
-import angstd.model.arrangement.io.XmlWriter;
 import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaWriter;

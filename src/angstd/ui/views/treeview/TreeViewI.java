@@ -1,6 +1,7 @@
 package angstd.ui.views.treeview;
 
 import java.beans.PropertyChangeListener;
+import java.util.Vector;
 
 import angstd.model.tree.TreeI;
 import angstd.model.tree.TreeNodeI;
@@ -179,4 +180,5 @@ public interface TreeViewI extends View{
    	 */
 	public NodeComponent getNodesComponent(TreeNodeI node);
 
+	public Vector<TreeNodeI> getToCollapseCSA();
 }

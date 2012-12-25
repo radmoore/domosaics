@@ -13,7 +13,13 @@ import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
 import angstd.model.configuration.Configuration;
 import angstd.model.workspace.ProjectElement;
+import angstd.ui.ViewHandler;
 import angstd.ui.WorkspaceManager;
+import angstd.ui.views.ViewType;
+import angstd.ui.views.domaintreeview.DomainTreeView;
+import angstd.ui.views.domainview.DomainView;
+import angstd.ui.views.sequenceview.SequenceView;
+import angstd.ui.views.treeview.TreeView;
 import angstd.ui.views.view.io.ViewImporter;
 import angstd.ui.wizards.pages.ImportViewPage;
 
@@ -89,17 +95,32 @@ class ViewImportProgress implements WizardResultProducer{
 			ProjectElement project = WorkspaceManager.getInstance().getProject(projectName);
 			File viewFile = new File(viewFilePath);
 			
-			if ( viewType.equals("SEQUENCE") )
-				ViewImporter.readSequenceView(viewFile, project, viewName);
+			if ( viewType.equals("SEQUENCE") ) {
+				SequenceView seqView = ViewHandler.getInstance().createView(ViewType.SEQUENCE, viewName);
+				seqView.importXML(viewFile);
+				ViewHandler.getInstance().addView(seqView, project, false);
+				//ViewImporter.readSequenceView(viewFile, project, viewName);
+			}
 			
-			else if ( viewType.equals("DOMAINS") )
-				ViewImporter.readDomainView(viewFile, project, viewName);
+			else if ( viewType.equals("DOMAINS") ) {
+			//	ViewImporter.readDomainView(viewFile, project, viewName);
+				DomainView domView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
+				domView.importXML(viewFile);
+				ViewHandler.getInstance().addView(domView, project, false);
+			}
 			
-			else if ( viewType.equals("TREE") )
-				ViewImporter.readTreeView(viewFile, project, viewName); 
+			else if ( viewType.equals("TREE") ) {
+			//	ViewImporter.readTreeView(viewFile, project, viewName);
+				TreeView treeView = ViewHandler.getInstance().createView(ViewType.TREE, viewName);
+				treeView.importXML(viewFile);
+				ViewHandler.getInstance().addView(treeView, project, false);
+			}
 				
-			else if ( viewType.equals("DOMAINTREE") )
-				ViewImporter.readDomainTreeView(viewFile, project, viewName);
+			else if ( viewType.equals("DOMAINTREE") ) {
+				DomainTreeView domTreeView = ViewHandler.getInstance().createView(ViewType.DOMAINTREE, viewName);
+				domTreeView.importXML(viewFile);
+				ViewHandler.getInstance().addView(domTreeView, project, false);
+			}
 
 		} 
 		catch (Exception e) {

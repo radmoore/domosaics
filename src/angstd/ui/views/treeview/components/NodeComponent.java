@@ -62,6 +62,12 @@ public class NodeComponent extends AbstractViewComponent {
     protected boolean collapsed = false;
     
 
+    /**
+     * the collapsedCSA flag for this node
+     */
+    protected boolean collapsedCSA = false;
+
+    
 	/**
 	 * Constructor for a new node component.
 	 * @param treeNode 
@@ -174,6 +180,30 @@ public class NodeComponent extends AbstractViewComponent {
        collapsed = collapse;
 	}
 
+	/**
+	 * Returns whether or not the node component is collapsed
+	 * based on similar domain arrangements
+	 * @return 
+	 * 		collapsedCSA flag for this node component.
+	 */
+	public boolean isCollapsedCSA() {
+		return collapsedCSA;
+	}
+
+	/**
+	 * Sets the new collapsed (similar domain arrangements)
+	 * status for this node.
+	 * 
+	 * @param collapseCSA
+	 * 		new collapsed status.
+	 */
+	public void setCollapsedCSA(boolean collapseCSA) {
+		if (treeNode.isLeaf() || collapseCSA == collapsedCSA) 
+	           return;
+		
+       collapsedCSA = collapseCSA;
+	}
+	
 	/* ******************************************************************* *
 	 *   						Coordinate  methods						   *
 	 * ******************************************************************* */
