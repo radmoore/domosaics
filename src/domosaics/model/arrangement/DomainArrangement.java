@@ -443,7 +443,7 @@ public class DomainArrangement implements Cloneable, DomosaicsData{
 		StringBuffer xdom = new StringBuffer();
 		xdom.append(">"+getName()+"\n");
 		for (Domain d: doms)
-			xdom.append(d.from+"\t"+d.to+"\t"+d.getID()+"\t"+d.evalue+"\n");
+			xdom.append(d.from+"\t"+d.to+"\t"+d.getName()+"\t"+d.evalue+"\n");
 		
 		return xdom.toString();
 	}
