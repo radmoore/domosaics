@@ -39,6 +39,22 @@ public abstract class AbstractDataWriter<T extends DomosaicsData> implements Dat
         }
     }
 	
+
+	/**
+	 * See interface {@link DataWriter}.
+	 */
+	public void writeSimple(File file, T[] data) {
+        try {
+            BufferedWriter out = new BufferedWriter(new FileWriter(file));
+            writeSimple(out, data);
+            out.close();
+        } 
+        catch (IOException e) {
+        	Configuration.getLogger().debug(e.toString());
+        }
+    }
+	
+	
 	/**
 	 * See interface {@link DataWriter}.
 	 */

@@ -69,6 +69,9 @@ public class FastaWriter extends AbstractDataWriter<SequenceI> {
 			e.printStackTrace();
 		}
 	}
+
+	// currently not needed.
+	public void writeSimple(BufferedWriter out, SequenceI[] data) {	}
 	
 	
 }

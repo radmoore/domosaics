@@ -43,7 +43,7 @@ public class SaveXdomFileAction extends AbstractMenuAction { //implements ZoomCo
 				visibleDAs.add(dac.getDomainArrangement());
 		}
 		
-		new XdomWriter().write(file, visibleDAs.toArray(new DomainArrangement[visibleDAs.size()]));
+		new XdomWriter().writeSimple(file, visibleDAs.toArray(new DomainArrangement[visibleDAs.size()]));
 	}
 
 }

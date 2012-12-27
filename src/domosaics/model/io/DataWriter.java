@@ -46,6 +46,19 @@ public interface DataWriter <T extends DomosaicsData> {
 	
 	
 	/**
+	 * Same as write(), except that the simplest version of the
+	 * data is written (used in particular for xdom exports,
+	 * when many info flags can be set).
+	 * 
+	 * @param out
+	 * 		the created BufferedWriter used to write into the file
+	 * @param data
+	 * 		the data to be written
+	 */
+	public abstract void writeSimple(BufferedWriter out, T[] data);
+	
+	
+	/**
 	 * Same as write(), except that the data is translated into
 	 * byte[] and the line is wrapped after wrapAfter chars have been 
 	 * written  
