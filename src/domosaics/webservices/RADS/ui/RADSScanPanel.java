@@ -854,8 +854,14 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		if ( radsService != null && radsService.isDone() && radsService.hasResults() ) {
 			boolean choice = true;
 			choice = MessageUtil.showDialog(parent, "Submitting this job will delete your current results. Are you sure?");
+			
 			if (!choice)
 				return;
+			
+			showReport.setEnabled(false);
+			apply.setEnabled(false);
+			
+			
 		}
 		
 		if (buildQuery()) {
