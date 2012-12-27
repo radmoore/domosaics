@@ -50,10 +50,8 @@ public class RADSResultsProcessor {
 	//TODO create TableModel from results
 	public RADSResultsTableModel createResultTable() {
 		
-		if (proteins == null) {
-			MessageUtil.showInformation(radsPanel.getParentFrame(), "No hits found");
+		if (proteins == null)
 			return null;
-		}
 
 		progressBar.setIndeterminate(false);
 		progressBar.setMaximum(proteins.size());

@@ -784,6 +784,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 					MessageUtil.showWarning(parent, "RADS currently only supports Pfam - consider running RAMPAGE if sequences are available");
 					return false;
 				}
+				String xdom = queryProtein.toXdom();
 				qBuilder.setQueryXdomString(queryProtein.toXdom());
 			}
 		}
@@ -880,12 +881,17 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 								//TODO should retrun a table model
 								//arrSet = resultProcessor.process();
 								resultsTableModel = createResultTable();
-								progressBar.setString("Scan complete");
-								if (resultsTableModel != null) {
-									apply.setEnabled(true);
-//									browse.setEnabled(true);
-									showReport.setEnabled(true);
+								if (resultsTableModel == null) {
+									progressBar.setIndeterminate(false);
+									progressBar.setMaximum(100);
+									progressBar.setValue(100);
+									MessageUtil.showInformation(parent, "No hits found");
+									return;
 								}
+								progressBar.setString("Scan complete");
+								apply.setEnabled(true);
+//								browse.setEnabled(true);
+								showReport.setEnabled(true);
 								submit.setEnabled(true);
 								reset.setEnabled(true);
 							}
