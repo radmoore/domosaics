@@ -1088,22 +1088,27 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 		dV.xmlRead(viewType);
 		tV.xmlRead(viewType);
 		setBackendViews(tV, dV);
-				
-		collapseHelper(treeView.getTree().getRoot(), treeView.getToCollapseCSA());
+
 		getDomainTreeLayoutManager().structuralChange();
+		collapseHelper(treeView.getTree().getRoot(), treeView.getToCollapseCSA());
+
 		// TODO integrate in TreeView the parsimony method and costs and recompute things
 	}
 	
 	public void collapseHelper(TreeNodeI node, Vector<TreeNodeI> myVect) {
 		for (TreeNodeI child : node.getChildren()) 
 			collapseHelper(child, myVect);
-		
+		/*
+		 * TODO Currently does work but with a layout/display issue.
+		 * Hence commented and considered as "simply" collapsed (see below)
+		 * 
 		if (myVect.contains(node)) {
 			CollapseSameArrangementsAtNodeAction.collapse(this, getNodesComponent(node));
 			return;
 		}
+		 */
 
-		if (getNodesComponent(node).isCollapsed()) {
+		if (getNodesComponent(node).isCollapsed() /**/ || myVect.contains(node) /**/) {
 			setNodeCollapsed(getNodesComponent(node), true);
 		}
 	}

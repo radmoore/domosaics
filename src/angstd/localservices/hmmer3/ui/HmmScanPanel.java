@@ -706,5 +706,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		});
 	}
 	
-	
+	public boolean usingCODD() {
+		return coddCkb.isSelected();
+	}
 }

@@ -79,11 +79,10 @@ public class RADSResultsProcessor {
 			da.setSeqLen(p.getLength());
 			
 			for (RADSDomain resDom: p.getDomains()) {
-				String acc = GatheringThresholdsReader.getAccFromID(resDom.getID());
-				DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(acc);
+				DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(resDom.getID());
 				if (domFamily == null) {
-					domFamily = new DomainFamily(acc, acc, DomainType.getType(acc));
-					GatheringThresholdsReader.getInstance().put(acc, domFamily);
+					domFamily = new DomainFamily(resDom.getID(), resDom.getID(), DomainType.getType(resDom.getID()));
+					GatheringThresholdsReader.add(domFamily);
 				}
 				int from = resDom.getFrom();
 				int to = resDom.getTo();
@@ -149,11 +148,10 @@ public class RADSResultsProcessor {
 			da.setSeqLen(p.getLength());
 			
 			for (RADSDomain resDom: p.getDomains()) {
-				String acc = GatheringThresholdsReader.getAccFromID(resDom.getID());
-				DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(acc);
+				DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(resDom.getID());
 				if (domFamily == null) {
-					domFamily = new DomainFamily(acc, acc, DomainType.getType(acc));
-					GatheringThresholdsReader.getInstance().put(acc, domFamily);
+					domFamily = new DomainFamily(resDom.getID(), resDom.getID(), DomainType.getType(resDom.getID()));
+					GatheringThresholdsReader.getInstance().put(resDom.getID(), domFamily);
 				}
 				int from = resDom.getFrom();
 				int to = resDom.getTo();

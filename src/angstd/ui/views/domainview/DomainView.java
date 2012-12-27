@@ -967,7 +967,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 			DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(family.getAttributeValue("id"));
 			if(domFamily == null) {	
 				domFamily = new DomainFamily(family.getAttributeValue("id"), family.getAttributeValue("name"), DomainType.getType(family.getAttributeValue("id")));
-				GatheringThresholdsReader.getInstance().put(family.getAttributeValue("id"), domFamily);
+				GatheringThresholdsReader.add(domFamily);
 			} else {
 				if(!DomainType.getType(family.getAttributeValue("id")).getName().equals(family.getAttributeValue("source")) || !domFamily.getDomainType().getName().equals(family.getAttributeValue("source")) || !domFamily.getName().equals(family.getAttributeValue("name")))
 					MessageUtil.showDialog(parentPane, "Error: import of a domain family inconsistent with DoMosaics data");

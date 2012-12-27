@@ -18,17 +18,17 @@ public class SimilarityColorizationAction extends AbstractMenuAction{
 	
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
-	
-		if (view.getArrangementSelectionManager().getSelection().size() != 1) {
-			MessageUtil.showWarning("Please select one arrangement as reference for the similarity calculation");
-			setState(!getState());
-			view.getDomainLayoutManager().visualChange();
-			return;
+		if(view.getDomainLayoutManager().isCollapseBySimilarity()) {
+			if (view.getArrangementSelectionManager().getSelection().size() != 1) {
+				MessageUtil.showWarning("Please select one arrangement as reference for the similarity calculation");
+				setState(!getState());
+				view.getDomainLayoutManager().visualChange();
+				return;
+			}
+			view.getDomainSimilarityManager().start(view);
+		} else {
+			view.getDomainSimilarityManager().end(view);
 		}
-		
-		view.getDomainLayoutManager().toggleCollapseBySimilarity();
-		
-		view.getDomainSimilarityManager().start(view);
 	}
 
 }

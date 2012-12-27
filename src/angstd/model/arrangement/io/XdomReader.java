@@ -257,12 +257,12 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 		domFamily = GatheringThresholdsReader.getInstance().get(dId);
 		
 		if (domFamily == null) { 				
-			if (dName == dId)
-				dName = null;
+			if (dName == null)
+				dName = dId;
 			
 			domFamily = new DomainFamily(dId, dName, dType);
 //			domFamily.setPfamID(pfamID);
-			GatheringThresholdsReader.getInstance().put(dId, domFamily);
+			GatheringThresholdsReader.add(domFamily);
 		}
 		
 		// "from", "to" must be the first two tokens
@@ -287,7 +287,7 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 			for (int i=0; i < comment.length; i++) {
 				String c = comment[i];
 				if ( c.equals("putative") || c.equals("asserted") ) {
-					dom.setPutative(c.equals("putative"));
+		//			dom.setPutative(c.equals("putative"));
 				}
 				else if ( Pattern.matches("GO:\\d+", c) ) {
 					

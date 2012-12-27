@@ -22,14 +22,13 @@ public class ChangeArrangementHelpPanel extends JPanel{
 	
 	/** help text to be displayed */
 	String helpTxt = 
-		"This frame allows the change of domain attributes\n" +
-		"and the adding of new domains into the arrangement.\n\n" +
-		"To change an existing domain just click on a domain\n" +
-		"below, change its attributes and trigger the add/change\n" +
-		"button.\n\n" + 
-		"If you want to add a new domain, please make sure that \n" +
-		"no domain is selected, fill out the form for this domain and\n" +
-		"hit the add/change button again.\n\n" +
+		"This frame allows the change of domain attributes and the\n" +
+		"adding of new domains into the arrangement.\n\n" +
+		"To change an existing domain just click on a domain below,\n" +
+		"change its attributes and trigger the add/change button.\n\n" + 
+		"If you want to add a new domain, please make sure that no\n" +
+		"domain is selected, fill out the form for this domain and hit\n" +
+		"the add/change button again.\n\n" +
 		"The domain boundaries cannot exceed the sequence length\n" +
 		"if a sequence is associated with the current arrangement."
 	;
