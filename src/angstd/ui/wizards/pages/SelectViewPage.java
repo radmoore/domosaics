@@ -50,7 +50,7 @@ public class SelectViewPage extends WizardPage {
 	 * 		the number of elements to be merged into an existing view
 	 */
 	public SelectViewPage(ProjectElement project, int selectedElems) {
-		super("Export "+ selectedElems + " items to existing view");
+		super("Export "+ selectedElems + " items to an existing view");
 		setLayout(new MigLayout());
 		
 		currentView = ViewHandler.getInstance().getActiveView();

@@ -52,7 +52,7 @@ public class GatheringThresholdsReader {
 			String line;
 			while((line = in.readLine()) != null) {
 				if(!line.isEmpty()) {
-					String[] entryFields = line.split(" ");
+					String[] entryFields = line.split("\t");
 					DomainFamily d=new DomainFamily(entryFields[0], entryFields[1], DomainType.PFAM, Double.parseDouble(entryFields[2]), Double.parseDouble(entryFields[3]));
 					add(d);
 				}

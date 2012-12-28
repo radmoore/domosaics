@@ -153,10 +153,10 @@ public class ViewHandler {
 				WorkspaceManager.getInstance().addViewToWorkspace(view, project);
 
 				// if the view is a domain tree view , remove the backend views from the workspace
-				if (view instanceof DomainTreeViewI) {
+				/*if (view instanceof DomainTreeViewI) {
 					removeView(((DomainTreeViewI) view).getDomainView().getViewInfo());
 					removeView(((DomainTreeViewI) view).getTreeView().getViewInfo());
-				}
+				}*/
 				
 				// finally add the ViewPanel to the MainFrame
 				AngstdUI.getInstance().addView(view);
