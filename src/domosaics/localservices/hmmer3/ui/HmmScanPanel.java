@@ -16,7 +16,6 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -58,7 +57,7 @@ import domosaics.util.StringUtils;
  * HmmScanPanel holds the GUI components necessary to start local
  * hmmscan jobs. It is of type {@link HmmerServicePanel}.
  * The general setup is closely related to other panels used in
- * AnGSTD.
+ * DoMosaicS.
  * 
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
@@ -186,16 +185,15 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	    overlapRadioNone = new JRadioButton("None      ", true);
 	    overlapRadioEvalue = new JRadioButton("E-value based        ");
 	    overlapRadioCoverage = new JRadioButton("Max. coverage");
-	    overlapRadioNone.setActionCommand("None");
-	    overlapRadioEvalue.setActionCommand("Evalue");
-	    overlapRadioCoverage.setActionCommand("Coverage");
-	    groupRadio.add(overlapRadioNone);
-	    groupRadio.add(overlapRadioEvalue);
-	    groupRadio.add(overlapRadioCoverage);
 	    radioPane.add(overlapRadioNone);
 	    radioPane.add(overlapRadioEvalue);
 	    radioPane.add(overlapRadioCoverage);
-	   
+	    groupRadio.add(overlapRadioNone);
+	    groupRadio.add(overlapRadioEvalue);
+	    groupRadio.add(overlapRadioCoverage);
+	    overlapRadioNone.setActionCommand("None");
+	    overlapRadioEvalue.setActionCommand("OverlapFilterEvalue");
+	    overlapRadioCoverage.setActionCommand("OverlapFilterCoverage");
 	    
 	    // gathering threshold checkbox. If disabled,
 		// the panel for the evalue is set to visible
@@ -406,7 +404,6 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		
 		/*if(hmmPressTF.getText().equals("")) {
 			MessageUtil.showWarning("Please choose a hmmpress binary.");
-			hmmPressTF.setBackground(highlightColor);
 			return;	
 		}*/
 
@@ -435,14 +432,11 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		if (!checkDB(new File(hmmTF.getText()))) {
 			hmmTF.setBackground(highlightColor);
 			return;
-		} else {
-			hmmDBFile = new File(hmmTF.getText());
 		}
 		if (!checkDBpressed(new File(hmmTF.getText()))) {
-			hmmPressTF.setBackground(highlightColor);
 			return;
 		}
-		if ( !FastaReader.isValidFasta( fastaTF.getText() ) ) {
+		if ( !FastaReader.isValidFasta(fastaTF.getText()) ) {
 			MessageUtil.showWarning("Malformated fasta file or unknown sequence format");
 			fastaTF.setBackground(highlightColor);
 			return;
@@ -470,7 +464,6 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		}
 		hmmScan.setBiasFilter(biasCkb.isSelected());
 		hmmScan.setOverlapMethod(groupRadio.getSelection().getActionCommand());
-		System.out.println(groupRadio.getSelection().getActionCommand());
 		hmmScan.setCoddFilter(coddCkb.isSelected());
 		hmmScan.setSeqView(seqView);
 		
@@ -531,9 +524,11 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 */
 	public void resetPanel() {
 		Configuration.getInstance().setServiceRunning(false);
+		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		run.setText("  Run  ");
 		progressBar.setValue(0);
 		progressBar.setIndeterminate(false);
+		progressBar.setString("");
 		run.setEnabled(true);
 	}
 	
@@ -607,9 +602,10 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				}
 			}
 			// Check if want to/can press
-			if (MessageUtil.showDialog(this, "The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {					
+			if (MessageUtil.showDialog(this, "The HMMERDBFILE is not pressed. Do you want DoMosaicS to press it now?")) {					
 				if (pressAvail) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+					run.setEnabled(false);
 				
 					// TODO: I would like to disable GUI components here
 					// and enable them _after_ the run is complete.
@@ -617,15 +613,15 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 					HmmPress hmmPress = new HmmPress(Hmmer3Engine.getInstance().getAvailableServicePath("hmmpress"), dbFile, this);
 					Hmmer3Engine.getInstance().launchInBackground(hmmPress);
 					progressBar.setIndeterminate(true);
-					// ATTENTION: we must return false, even if the press was successful to ensure that the engine instance is free
+					// we must return false, even if the press was successful to ensure that the engine instance is free
 					// before we init the actual scan
 					return false;
 				}
 				else {
-					if (!hmmPressTF.getText().equals("")) {
+					if (hmmPressTF.getText().equals("")) {
 						MessageUtil.showInformation(this.parent, "Please first provide hmmpress binary");
 					} else {
-						MessageUtil.showInformation(this.parent, "Please first provide correct Hmmpress binary");
+						MessageUtil.showInformation(this.parent, "Please first provide correct hmmpress binary");
 					}
 					hmmPressTF.setBackground(highlightColor);
 					return false; 
@@ -636,6 +632,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			}	
 		}
 		hmmDBFile = dbFile;
+		run.setEnabled(true);
 		return true;
 	}
 	
@@ -699,7 +696,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				try {
 					console.setText("");
 					fastaFile = File.createTempFile(selected.getTitle()+"_", ".fasta");
-					writeToConsole("*** I: Writing sequence view to tmpfile... ");
+					writeToConsole("I: Writing sequence view to tmpfile... ");
 					new FastaWriter().wrappedWrite(fastaFile, seqs, 60);
 					writeToConsole("done.\n");
 				}
