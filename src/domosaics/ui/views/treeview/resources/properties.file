@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- View Property description: -->
+<!-- name: name of the view -->
+<!-- icon: view icon used within workspace -->
+<!-- isTool: specifies whether or not the view is embedded in a external frame -->
+
+<propertys>
+	<property id="name" value="TreeView">
+	<property id="icon" value="domosaics/ui/views/treeview/resources/img/tree.png">
+	<property id="isTool" value="false">
+	<property id="class" value="domosaics.ui.views.treeview.TreeView">
+	<property id="workspaceFolderIcon" value="domosaics/ui/views/treeview/resources/img/treefolder.png">
+	<property id="dataIcon" value="domosaics/ui/views/treeview/resources/img/treebig.png">
+	<property id="workspaceFolderName" value="Trees">
+</propertys>

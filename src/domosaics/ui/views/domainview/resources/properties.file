@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- View Property description: -->
+<!-- name: name of the view -->
+<!-- icon: view icon used within workspace -->
+<!-- isTool: specifies whether or not the view is embedded in a external frame -->
+
+<propertys>
+	<property id="name" value="DomainView">
+	<property id="class" value="domosaics.ui.views.domainview.DomainView">
+	<property id="isTool" value="false">
+	<property id="icon" value="domosaics/ui/views/domainview/resources/img/doms.png">
+	<property id="associatedIcon" value="domosaics/ui/views/domainview/resources/img/domsAssocX.png">
+	<property id="workspaceFolderIcon" value="domosaics/ui/views/domainview/resources/img/domfolder.png">
+	<property id="workspaceFolderName" value="Arrangements">
+	<property id="dataIcon" value="domosaics/ui/views/domainview/resources/img/domsbig.png">
+<!--	<property id="changedIcon" value="domosaics/ui/views/domainview/resources/img/domChanged2.png">
+<!--	<property id="assocChangedIcon" value="domosaics/ui/views/domainview/resources/img/domsAssocChanged2.png">
+</propertys>

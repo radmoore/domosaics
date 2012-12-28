@@ -1,0 +1,7 @@
+<propertys>
+	<property id="name" value="Domain Graph">
+	<property id="icon" value="">
+	<property id="isTool" value="true">
+	<property id="class" value="domosaics.ui.tools.domaingraph.DomainGraphView">
+	<property id="frameclass" value="domosaics.ui.tools.domaingraph.DomainGraphFrame">
+</propertys>
