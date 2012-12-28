@@ -56,9 +56,9 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../angstd/ui/views/ViewType.html" title="enum in angstd.ui.views"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../domosaics/ui/views/ViewType.html" title="enum in domosaics.ui.views"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?angstd/ui/views/AngstdViewFactory.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?domosaics/ui/views/AngstdViewFactory.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="AngstdViewFactory.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
@@ -88,12 +88,12 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-angstd.ui.views</FONT>
+domosaics.ui.views</FONT>
 <BR>
 Class AngstdViewFactory</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>angstd.ui.views.AngstdViewFactory</B>
+  <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>domosaics.ui.views.DoMosaicsViewFactory</B>
 </PRE>
 <HR>
 <DL>
@@ -103,8 +103,8 @@ java.lang.Object
 <P>
 AngstdViewFactory specifies the method which is used to create new views.
  <p>
- The coupling between the view and its displaying component <A HREF="../../../angstd/ui/views/view/ViewPanel.html" title="class in angstd.ui.views.view"><CODE>ViewPanel</CODE></A>
- should be done in method <A HREF="../../../angstd/ui/views/AngstdViewFactory.html#createView(angstd.ui.views.ViewType)"><CODE>createView(ViewType)</CODE></A>. Also a unique id is
+ The coupling between the view and its displaying component <A HREF="../../../domosaics/ui/views/view/ViewPanel.html" title="class in domosaics.ui.views.view"><CODE>ViewPanel</CODE></A>
+ should be done in method <A HREF="../../../domosaics/ui/views/AngstdViewFactory.html#createView(domosaics.ui.views.ViewType)"><CODE>createView(ViewType)</CODE></A>. Also a unique id is
  set there for the view. Therefore to create new views, 
  always the AngstdViewFactory class should be used.
  <p>
@@ -120,11 +120,11 @@ AngstdViewFactory specifies the method which is used to create new views.
  4. (optional) the class url to the tools frame, if the view is a tool <br>
  <p>
  The menu.file is just an xml formatted file, which can be parsed using the
- <A HREF="../../../angstd/ui/io/menureader/MenuReader.html" title="class in angstd.ui.io.menureader"><CODE>MenuReader</CODE></A>.
+ <A HREF="../../../domosaics/ui/io/menureader/MenuReader.html" title="class in domosaics.ui.io.menureader"><CODE>MenuReader</CODE></A>.
  <p>
- The properties file is processed by <A HREF="../../../angstd/ui/views/view/io/ViewReader.html" title="class in angstd.ui.views.view.io"><CODE>ViewReader</CODE></A> , so for details on
+ The properties file is processed by <A HREF="../../../domosaics/ui/views/view/io/ViewReader.html" title="class in domosaics.ui.views.view.io"><CODE>ViewReader</CODE></A> , so for details on
  the actions happening when the properties.file is parsed look into the
- <A HREF="../../../angstd/ui/views/view/io/ViewReader.html" title="class in angstd.ui.views.view.io"><CODE>ViewReader</CODE></A>.
+ <A HREF="../../../domosaics/ui/views/view/io/ViewReader.html" title="class in domosaics.ui.views.view.io"><CODE>ViewReader</CODE></A>.
 <P>
 
 <P>
@@ -145,7 +145,7 @@ AngstdViewFactory specifies the method which is used to create new views.
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../angstd/ui/views/AngstdViewFactory.html#AngstdViewFactory()">AngstdViewFactory</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../domosaics/ui/views/AngstdViewFactory.html#AngstdViewFactory()">AngstdViewFactory</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -166,13 +166,13 @@ AngstdViewFactory specifies the method which is used to create new views.
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" SUMMARY="">
 <TR ALIGN="right" VALIGN="">
 <TD NOWRAP><FONT SIZE="-1">
-<CODE>&lt;V extends <A HREF="../../../angstd/ui/views/view/View.html" title="interface in angstd.ui.views.view">View</A>&gt; 
+<CODE>&lt;V extends <A HREF="../../../domosaics/ui/views/view/View.html" title="interface in domosaics.ui.views.view">View</A>&gt; 
 <BR>
 V</CODE></FONT></TD>
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../angstd/ui/views/AngstdViewFactory.html#createView(angstd.ui.views.ViewType)">createView</A></B>(<A HREF="../../../angstd/ui/views/ViewType.html" title="enum in angstd.ui.views">ViewType</A>&nbsp;type)</CODE>
+<TD><CODE><B><A HREF="../../../domosaics/ui/views/AngstdViewFactory.html#createView(domosaics.ui.views.ViewType)">createView</A></B>(<A HREF="../../../domosaics/ui/views/ViewType.html" title="enum in domosaics.ui.views">ViewType</A>&nbsp;type)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The method creating a new view based on a properties file and a
@@ -218,13 +218,13 @@ public <B>AngstdViewFactory</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="createView(angstd.ui.views.ViewType)"><!-- --></A><H3>
+<A NAME="createView(domosaics.ui.views.ViewType)"><!-- --></A><H3>
 createView</H3>
 <PRE>
-public static &lt;V extends <A HREF="../../../angstd/ui/views/view/View.html" title="interface in angstd.ui.views.view">View</A>&gt; V <B>createView</B>(<A HREF="../../../angstd/ui/views/ViewType.html" title="enum in angstd.ui.views">ViewType</A>&nbsp;type)</PRE>
+public static &lt;V extends <A HREF="../../../domosaics/ui/views/view/View.html" title="interface in domosaics.ui.views.view">View</A>&gt; V <B>createView</B>(<A HREF="../../../domosaics/ui/views/ViewType.html" title="enum in domosaics.ui.views">ViewType</A>&nbsp;type)</PRE>
 <DL>
 <DD>The method creating a new view based on a properties file and a
- menu file. The <A HREF="../../../angstd/ui/views/view/io/ViewReader.html" title="class in angstd.ui.views.view.io"><CODE>ViewReader</CODE></A> parses the properties file and
+ menu file. The <A HREF="../../../domosaics/ui/views/view/io/ViewReader.html" title="class in domosaics.ui.views.view.io"><CODE>ViewReader</CODE></A> parses the properties file and
  initializes the ViewInfo. For details see source code comments.
 <P>
 <DD><DL>
@@ -264,9 +264,9 @@ public static &lt;V extends <A HREF="../../../angstd/ui/views/view/View.html" ti
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../angstd/ui/views/ViewType.html" title="enum in angstd.ui.views"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../domosaics/ui/views/ViewType.html" title="enum in domosaics.ui.views"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?angstd/ui/views/AngstdViewFactory.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?domosaics/ui/views/AngstdViewFactory.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="AngstdViewFactory.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--

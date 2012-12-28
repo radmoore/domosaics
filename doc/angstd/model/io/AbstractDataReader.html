@@ -56,9 +56,9 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../angstd/model/io/AbstractDataWriter.html" title="class in angstd.model.io"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../domosaics/model/io/AbstractDataWriter.html" title="class in domosaics.model.io"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?angstd/model/io/AbstractDataReader.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?domosaics/model/io/AbstractDataReader.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="AbstractDataReader.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
@@ -88,33 +88,33 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-angstd.model.io</FONT>
+domosaics.model.io</FONT>
 <BR>
-Class AbstractDataReader&lt;T extends <A HREF="../../../angstd/model/AngstdData.html" title="interface in angstd.model">AngstdData</A>&gt;</H2>
+Class AbstractDataReader&lt;T extends <A HREF="../../../domosaics/model/AngstdData.html" title="interface in domosaics.model">AngstdData</A>&gt;</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>angstd.model.io.AbstractDataReader&lt;T&gt;</B>
+  <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>domosaics.model.io.AbstractDataReader&lt;T&gt;</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../angstd/model/io/DataReader.html" title="interface in angstd.model.io">DataReader</A>&lt;T&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../domosaics/model/io/DataReader.html" title="interface in domosaics.model.io">DataReader</A>&lt;T&gt;</DD>
 </DL>
 <DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../angstd/model/arrangement/io/XdomReader.html" title="class in angstd.model.arrangement.io">XdomReader</A></DD>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../domosaics/model/arrangement/io/XdomReader.html" title="class in domosaics.model.arrangement.io">XdomReader</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public abstract class <B>AbstractDataReader&lt;T extends <A HREF="../../../angstd/model/AngstdData.html" title="interface in angstd.model">AngstdData</A>&gt;</B><DT>extends java.lang.Object<DT>implements <A HREF="../../../angstd/model/io/DataReader.html" title="interface in angstd.model.io">DataReader</A>&lt;T&gt;</DL>
+<DT><PRE>public abstract class <B>AbstractDataReader&lt;T extends <A HREF="../../../domosaics/model/AngstdData.html" title="interface in domosaics.model">AngstdData</A>&gt;</B><DT>extends java.lang.Object<DT>implements <A HREF="../../../domosaics/model/io/DataReader.html" title="interface in domosaics.model.io">DataReader</A>&lt;T&gt;</DL>
 </PRE>
 
 <P>
 Abstract class AbstractDataReader is the basic implementation
- for the <A HREF="../../../angstd/model/io/DataReader.html" title="interface in angstd.model.io"><CODE>DataReader</CODE></A> interface. A Reader object is created from 
+ for the <A HREF="../../../domosaics/model/io/DataReader.html" title="interface in domosaics.model.io"><CODE>DataReader</CODE></A> interface. A Reader object is created from 
  a file, string or stream which is passed to the abstract method getData().
  This method must be implemented by a subclass and should be responsible
  for the actual parsing.
  <p>
  Because the return type of the methods are generic the requested type
- must implement the empty <A HREF="../../../angstd/model/AngstdData.html" title="interface in angstd.model"><CODE>AngstdData</CODE></A> interface.
+ must implement the empty <A HREF="../../../domosaics/model/AngstdData.html" title="interface in domosaics.model"><CODE>AngstdData</CODE></A> interface.
 <P>
 
 <P>
@@ -135,7 +135,7 @@ Abstract class AbstractDataReader is the basic implementation
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../angstd/model/io/AbstractDataReader.html#AbstractDataReader()">AbstractDataReader</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../domosaics/model/io/AbstractDataReader.html#AbstractDataReader()">AbstractDataReader</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -152,32 +152,32 @@ Abstract class AbstractDataReader is the basic implementation
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>abstract &nbsp;<A HREF="../../../angstd/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../angstd/model/io/AbstractDataReader.html#getData(java.io.Reader)">getData</A></B>(java.io.Reader&nbsp;reader)</CODE>
+<CODE>abstract &nbsp;<A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../domosaics/model/io/AbstractDataReader.html#getData(java.io.Reader)">getData</A></B>(java.io.Reader&nbsp;reader)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In this method the actual parsing is done.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../angstd/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../angstd/model/io/AbstractDataReader.html#getDataFromFile(java.io.File)">getDataFromFile</A></B>(java.io.File&nbsp;file)</CODE>
+<CODE>&nbsp;<A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../domosaics/model/io/AbstractDataReader.html#getDataFromFile(java.io.File)">getDataFromFile</A></B>(java.io.File&nbsp;file)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retrieves data from a file.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../angstd/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../angstd/model/io/AbstractDataReader.html#getDataFromStream(java.io.InputStream)">getDataFromStream</A></B>(java.io.InputStream&nbsp;is)</CODE>
+<CODE>&nbsp;<A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../domosaics/model/io/AbstractDataReader.html#getDataFromStream(java.io.InputStream)">getDataFromStream</A></B>(java.io.InputStream&nbsp;is)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retrieves data from a stream.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../angstd/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../angstd/model/io/AbstractDataReader.html#getDataFromString(java.lang.String)">getDataFromString</A></B>(java.lang.String&nbsp;dataStr)</CODE>
+<CODE>&nbsp;<A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../domosaics/model/io/AbstractDataReader.html#getDataFromString(java.lang.String)">getDataFromString</A></B>(java.lang.String&nbsp;dataStr)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retrieves data from a string.</TD>
@@ -225,18 +225,18 @@ public <B>AbstractDataReader</B>()</PRE>
 <A NAME="getDataFromStream(java.io.InputStream)"><!-- --></A><H3>
 getDataFromStream</H3>
 <PRE>
-public <A HREF="../../../angstd/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[] <B>getDataFromStream</B>(java.io.InputStream&nbsp;is)</PRE>
+public <A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[] <B>getDataFromStream</B>(java.io.InputStream&nbsp;is)</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../angstd/model/io/DataReader.html#getDataFromStream(java.io.InputStream)">DataReader</A></CODE></B></DD>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../domosaics/model/io/DataReader.html#getDataFromStream(java.io.InputStream)">DataReader</A></CODE></B></DD>
 <DD>Retrieves data from a stream. This comes in handy when parsing 
  data from within a jar file.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../angstd/model/io/DataReader.html#getDataFromStream(java.io.InputStream)">getDataFromStream</A></CODE> in interface <CODE><A HREF="../../../angstd/model/io/DataReader.html" title="interface in angstd.model.io">DataReader</A>&lt;<A HREF="../../../angstd/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A> extends <A HREF="../../../angstd/model/AngstdData.html" title="interface in angstd.model">AngstdData</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../domosaics/model/io/DataReader.html#getDataFromStream(java.io.InputStream)">getDataFromStream</A></CODE> in interface <CODE><A HREF="../../../domosaics/model/io/DataReader.html" title="interface in domosaics.model.io">DataReader</A>&lt;<A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A> extends <A HREF="../../../domosaics/model/AngstdData.html" title="interface in domosaics.model">AngstdData</A>&gt;</CODE></DL>
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>is</CODE> - stream containing data
-<DT><B>Returns:</B><DD>parsing result from the stream<DT><B>See Also:</B><DD><A HREF="../../../angstd/model/io/DataReader.html" title="interface in angstd.model.io"><CODE>DataReader</CODE></A></DL>
+<DT><B>Returns:</B><DD>parsing result from the stream<DT><B>See Also:</B><DD><A HREF="../../../domosaics/model/io/DataReader.html" title="interface in domosaics.model.io"><CODE>DataReader</CODE></A></DL>
 </DD>
 </DL>
 <HR>
@@ -244,17 +244,17 @@ public <A HREF="../../../angstd/model/io/AbstractDataReader.html" title="type pa
 <A NAME="getDataFromFile(java.io.File)"><!-- --></A><H3>
 getDataFromFile</H3>
 <PRE>
-public <A HREF="../../../angstd/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[] <B>getDataFromFile</B>(java.io.File&nbsp;file)</PRE>
+public <A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[] <B>getDataFromFile</B>(java.io.File&nbsp;file)</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../angstd/model/io/DataReader.html#getDataFromFile(java.io.File)">DataReader</A></CODE></B></DD>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../domosaics/model/io/DataReader.html#getDataFromFile(java.io.File)">DataReader</A></CODE></B></DD>
 <DD>Retrieves data from a file.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../angstd/model/io/DataReader.html#getDataFromFile(java.io.File)">getDataFromFile</A></CODE> in interface <CODE><A HREF="../../../angstd/model/io/DataReader.html" title="interface in angstd.model.io">DataReader</A>&lt;<A HREF="../../../angstd/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A> extends <A HREF="../../../angstd/model/AngstdData.html" title="interface in angstd.model">AngstdData</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../domosaics/model/io/DataReader.html#getDataFromFile(java.io.File)">getDataFromFile</A></CODE> in interface <CODE><A HREF="../../../domosaics/model/io/DataReader.html" title="interface in domosaics.model.io">DataReader</A>&lt;<A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A> extends <A HREF="../../../domosaics/model/AngstdData.html" title="interface in domosaics.model">AngstdData</A>&gt;</CODE></DL>
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>file</CODE> - file containing data
-<DT><B>Returns:</B><DD>parsing result from the file<DT><B>See Also:</B><DD><A HREF="../../../angstd/model/io/DataReader.html" title="interface in angstd.model.io"><CODE>DataReader</CODE></A></DL>
+<DT><B>Returns:</B><DD>parsing result from the file<DT><B>See Also:</B><DD><A HREF="../../../domosaics/model/io/DataReader.html" title="interface in domosaics.model.io"><CODE>DataReader</CODE></A></DL>
 </DD>
 </DL>
 <HR>
@@ -262,17 +262,17 @@ public <A HREF="../../../angstd/model/io/AbstractDataReader.html" title="type pa
 <A NAME="getDataFromString(java.lang.String)"><!-- --></A><H3>
 getDataFromString</H3>
 <PRE>
-public <A HREF="../../../angstd/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[] <B>getDataFromString</B>(java.lang.String&nbsp;dataStr)</PRE>
+public <A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[] <B>getDataFromString</B>(java.lang.String&nbsp;dataStr)</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../angstd/model/io/DataReader.html#getDataFromString(java.lang.String)">DataReader</A></CODE></B></DD>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../domosaics/model/io/DataReader.html#getDataFromString(java.lang.String)">DataReader</A></CODE></B></DD>
 <DD>Retrieves data from a string.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../angstd/model/io/DataReader.html#getDataFromString(java.lang.String)">getDataFromString</A></CODE> in interface <CODE><A HREF="../../../angstd/model/io/DataReader.html" title="interface in angstd.model.io">DataReader</A>&lt;<A HREF="../../../angstd/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A> extends <A HREF="../../../angstd/model/AngstdData.html" title="interface in angstd.model">AngstdData</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../domosaics/model/io/DataReader.html#getDataFromString(java.lang.String)">getDataFromString</A></CODE> in interface <CODE><A HREF="../../../domosaics/model/io/DataReader.html" title="interface in domosaics.model.io">DataReader</A>&lt;<A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A> extends <A HREF="../../../domosaics/model/AngstdData.html" title="interface in domosaics.model">AngstdData</A>&gt;</CODE></DL>
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>dataStr</CODE> - string containing data
-<DT><B>Returns:</B><DD>parsing result from the string<DT><B>See Also:</B><DD><A HREF="../../../angstd/model/io/DataReader.html" title="interface in angstd.model.io"><CODE>DataReader</CODE></A></DL>
+<DT><B>Returns:</B><DD>parsing result from the string<DT><B>See Also:</B><DD><A HREF="../../../domosaics/model/io/DataReader.html" title="interface in domosaics.model.io"><CODE>DataReader</CODE></A></DL>
 </DD>
 </DL>
 <HR>
@@ -280,22 +280,22 @@ public <A HREF="../../../angstd/model/io/AbstractDataReader.html" title="type pa
 <A NAME="getData(java.io.Reader)"><!-- --></A><H3>
 getData</H3>
 <PRE>
-public abstract <A HREF="../../../angstd/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[] <B>getData</B>(java.io.Reader&nbsp;reader)
+public abstract <A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A>[] <B>getData</B>(java.io.Reader&nbsp;reader)
                                         throws java.io.IOException</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../angstd/model/io/DataReader.html#getData(java.io.Reader)">DataReader</A></CODE></B></DD>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../domosaics/model/io/DataReader.html#getData(java.io.Reader)">DataReader</A></CODE></B></DD>
 <DD>In this method the actual parsing is done. All other
  methods just create the Inputstream which is then passed to
  this method.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../angstd/model/io/DataReader.html#getData(java.io.Reader)">getData</A></CODE> in interface <CODE><A HREF="../../../angstd/model/io/DataReader.html" title="interface in angstd.model.io">DataReader</A>&lt;<A HREF="../../../angstd/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A> extends <A HREF="../../../angstd/model/AngstdData.html" title="interface in angstd.model">AngstdData</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../domosaics/model/io/DataReader.html#getData(java.io.Reader)">getData</A></CODE> in interface <CODE><A HREF="../../../domosaics/model/io/DataReader.html" title="interface in domosaics.model.io">DataReader</A>&lt;<A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="type parameter in AbstractDataReader">T</A> extends <A HREF="../../../domosaics/model/AngstdData.html" title="interface in domosaics.model">AngstdData</A>&gt;</CODE></DL>
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>reader</CODE> - Reader generated from a stream, file or string
 <DT><B>Returns:</B><DD>parsing result
 <DT><B>Throws:</B>
-<DD><CODE>java.io.IOException</CODE> - exceptions which may occur during the parsing progress.<DT><B>See Also:</B><DD><A HREF="../../../angstd/model/io/DataReader.html" title="interface in angstd.model.io"><CODE>DataReader</CODE></A></DL>
+<DD><CODE>java.io.IOException</CODE> - exceptions which may occur during the parsing progress.<DT><B>See Also:</B><DD><A HREF="../../../domosaics/model/io/DataReader.html" title="interface in domosaics.model.io"><CODE>DataReader</CODE></A></DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -330,9 +330,9 @@ public abstract <A HREF="../../../angstd/model/io/AbstractDataReader.html" title
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../angstd/model/io/AbstractDataWriter.html" title="class in angstd.model.io"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../domosaics/model/io/AbstractDataWriter.html" title="class in domosaics.model.io"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?angstd/model/io/AbstractDataReader.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?domosaics/model/io/AbstractDataReader.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="AbstractDataReader.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--

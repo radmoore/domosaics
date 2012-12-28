@@ -55,10 +55,10 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../angstd/ui/workspace/WorkspaceTreeModel.html" title="class in angstd.ui.workspace"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../domosaics/ui/workspace/WorkspaceTreeModel.html" title="class in domosaics.ui.workspace"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?angstd/ui/workspace/WorkspaceView.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?domosaics/ui/workspace/WorkspaceView.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="WorkspaceView.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
@@ -88,7 +88,7 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-angstd.ui.workspace</FONT>
+domosaics.ui.workspace</FONT>
 <BR>
 Class WorkspaceView</H2>
 <PRE>
@@ -97,7 +97,7 @@ java.lang.Object
       <IMG SRC="../../../resources/inherit.gif" ALT="extended by ">java.awt.Container
           <IMG SRC="../../../resources/inherit.gif" ALT="extended by ">javax.swing.JComponent
               <IMG SRC="../../../resources/inherit.gif" ALT="extended by ">javax.swing.JTree
-                  <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>angstd.ui.workspace.WorkspaceView</B>
+                  <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>domosaics.ui.workspace.WorkspaceView</B>
 </PRE>
 <DL>
 <DT><B>All Implemented Interfaces:</B> <DD>java.awt.image.ImageObserver, java.awt.MenuContainer, java.io.Serializable, javax.accessibility.Accessible, javax.swing.Scrollable</DD>
@@ -111,10 +111,10 @@ java.lang.Object
 The workspace panel which is basically just a JTree wrapped in a JScrollPane.
  <p>
  This class only is for the use of displaying. To change the underlying
- data model see methods in <A HREF="../../../angstd/model/workspace/Workspace.html" title="class in angstd.model.workspace"><CODE>Workspace</CODE></A> which triggers automatically
+ data model see methods in <A HREF="../../../domosaics/model/workspace/Workspace.html" title="class in domosaics.model.workspace"><CODE>Workspace</CODE></A> which triggers automatically
  the tree model when its changed which results in an repaint of this view.
  <p>
- To access the methods and this view the <A HREF="../../../angstd/ui/WorkspaceManager.html" title="class in angstd.ui"><CODE>WorkspaceManager</CODE></A> should be
+ To access the methods and this view the <A HREF="../../../domosaics/ui/WorkspaceManager.html" title="class in domosaics.ui"><CODE>WorkspaceManager</CODE></A> should be
  used.
 <P>
 
@@ -122,7 +122,7 @@ The workspace panel which is basically just a JTree wrapped in a JScrollPane.
 <DL>
 <DT><B>Author:</B></DT>
   <DD>Andreas Held</DD>
-<DT><B>See Also:</B><DD><A HREF="../../../serialized-form.html#angstd.ui.workspace.WorkspaceView">Serialized Form</A></DL>
+<DT><B>See Also:</B><DD><A HREF="../../../serialized-form.html#domosaics.ui.workspace.WorkspaceView">Serialized Form</A></DL>
 <HR>
 
 <P>
@@ -220,7 +220,7 @@ The workspace panel which is basically just a JTree wrapped in a JScrollPane.
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../angstd/ui/workspace/WorkspaceView.html#WorkspaceView(angstd.model.workspace.Workspace)">WorkspaceView</A></B>(<A HREF="../../../angstd/model/workspace/Workspace.html" title="class in angstd.model.workspace">Workspace</A>&nbsp;workspace)</CODE>
+<TD><CODE><B><A HREF="../../../domosaics/ui/workspace/WorkspaceView.html#WorkspaceView(domosaics.model.workspace.Workspace)">WorkspaceView</A></B>(<A HREF="../../../domosaics/model/workspace/Workspace.html" title="class in domosaics.model.workspace">Workspace</A>&nbsp;workspace)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic constructor for the workspace view which generates the JTree
@@ -239,17 +239,17 @@ The workspace panel which is basically just a JTree wrapped in a JScrollPane.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../angstd/ui/workspace/WorkspaceView.html#expandAll()">expandAll</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../domosaics/ui/workspace/WorkspaceView.html#expandAll()">expandAll</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Because there is no control over the collapsing behavior of the
- JTree within <A HREF="../../../angstd/ui/workspace/WorkspaceTreeModel.html" title="class in angstd.ui.workspace"><CODE>WorkspaceTreeModel</CODE></A> this is a helper method
+ JTree within <A HREF="../../../domosaics/ui/workspace/WorkspaceTreeModel.html" title="class in domosaics.ui.workspace"><CODE>WorkspaceTreeModel</CODE></A> this is a helper method
  to expand the hole tree each time it was changed.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.awt.Component</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../angstd/ui/workspace/WorkspaceView.html#getComponent()">getComponent</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../domosaics/ui/workspace/WorkspaceView.html#getComponent()">getComponent</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To access the JTree directly this method can be used.</TD>
@@ -257,7 +257,7 @@ The workspace panel which is basically just a JTree wrapped in a JScrollPane.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;javax.swing.JPanel</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../angstd/ui/workspace/WorkspaceView.html#getParentPane()">getParentPane</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../domosaics/ui/workspace/WorkspaceView.html#getParentPane()">getParentPane</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Method to get a grip on the panel which embeds this view.</TD>
@@ -321,10 +321,10 @@ The workspace panel which is basically just a JTree wrapped in a JScrollPane.
 </TR>
 </TABLE>
 
-<A NAME="WorkspaceView(angstd.model.workspace.Workspace)"><!-- --></A><H3>
+<A NAME="WorkspaceView(domosaics.model.workspace.Workspace)"><!-- --></A><H3>
 WorkspaceView</H3>
 <PRE>
-public <B>WorkspaceView</B>(<A HREF="../../../angstd/model/workspace/Workspace.html" title="class in angstd.model.workspace">Workspace</A>&nbsp;workspace)</PRE>
+public <B>WorkspaceView</B>(<A HREF="../../../domosaics/model/workspace/Workspace.html" title="class in domosaics.model.workspace">Workspace</A>&nbsp;workspace)</PRE>
 <DL>
 <DD>Basic constructor for the workspace view which generates the JTree
  based on the backend workspace model.
@@ -379,7 +379,7 @@ expandAll</H3>
 public void <B>expandAll</B>()</PRE>
 <DL>
 <DD>Because there is no control over the collapsing behavior of the
- JTree within <A HREF="../../../angstd/ui/workspace/WorkspaceTreeModel.html" title="class in angstd.ui.workspace"><CODE>WorkspaceTreeModel</CODE></A> this is a helper method
+ JTree within <A HREF="../../../domosaics/ui/workspace/WorkspaceTreeModel.html" title="class in domosaics.ui.workspace"><CODE>WorkspaceTreeModel</CODE></A> this is a helper method
  to expand the hole tree each time it was changed.
  This would be a point for future development.
 <P>
@@ -418,10 +418,10 @@ public void <B>expandAll</B>()</PRE>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../angstd/ui/workspace/WorkspaceTreeModel.html" title="class in angstd.ui.workspace"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../domosaics/ui/workspace/WorkspaceTreeModel.html" title="class in domosaics.ui.workspace"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?angstd/ui/workspace/WorkspaceView.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?domosaics/ui/workspace/WorkspaceView.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="WorkspaceView.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--

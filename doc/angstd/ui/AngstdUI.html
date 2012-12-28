@@ -56,9 +56,9 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../angstd/ui/ViewHandler.html" title="class in angstd.ui"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../domosaics/ui/ViewHandler.html" title="class in domosaics.ui"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../index.html?angstd/ui/AngstdUI.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../index.html?domosaics/ui/AngstdUI.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="AngstdUI.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
@@ -88,7 +88,7 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHO
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-angstd.ui</FONT>
+domosaics.ui</FONT>
 <BR>
 Class AngstdUI</H2>
 <PRE>
@@ -98,7 +98,7 @@ java.lang.Object
           <IMG SRC="../../resources/inherit.gif" ALT="extended by ">java.awt.Window
               <IMG SRC="../../resources/inherit.gif" ALT="extended by ">java.awt.Frame
                   <IMG SRC="../../resources/inherit.gif" ALT="extended by ">javax.swing.JFrame
-                      <IMG SRC="../../resources/inherit.gif" ALT="extended by "><B>angstd.ui.AngstdUI</B>
+                      <IMG SRC="../../resources/inherit.gif" ALT="extended by "><B>domosaics.ui.DoMosaicsUI</B>
 </PRE>
 <DL>
 <DT><B>All Implemented Interfaces:</B> <DD>java.awt.image.ImageObserver, java.awt.MenuContainer, java.io.Serializable, javax.accessibility.Accessible, javax.swing.RootPaneContainer, javax.swing.WindowConstants</DD>
@@ -117,26 +117,26 @@ The user interface class showing the Angstd main frame. <br>
  A docking desktop is added to the main frame using the external 
  library VLDocking. Within this docking desktop the workspace and the view 
  space are managed (if you are interested in the details take a look at 
- <A HREF="../../angstd/ui/docking/AngstdDesktop.html" title="class in angstd.ui.docking"><CODE>AngstdDesktop</CODE></A>. 
+ <A HREF="../../domosaics/ui/docking/AngstdDesktop.html" title="class in domosaics.ui.docking"><CODE>AngstdDesktop</CODE></A>. 
  <p>
- Also an important point here is the menu creation. the <A HREF="../../angstd/ui/io/menureader/JMenuBarFactory.html" title="class in angstd.ui.io.menureader"><CODE>JMenuBarFactory</CODE></A>
+ Also an important point here is the menu creation. the <A HREF="../../domosaics/ui/io/menureader/JMenuBarFactory.html" title="class in domosaics.ui.io.menureader"><CODE>JMenuBarFactory</CODE></A>
  class is used to automatically create menus from xml formatted files.
  The menu items are defined by actions. To get control over the status 
- of an action, an <A HREF="../../angstd/ui/io/menureader/MenuActionManager.html" title="interface in angstd.ui.io.menureader"><CODE>MenuActionManager</CODE></A> is used. Therefore it is possible
+ of an action, an <A HREF="../../domosaics/ui/io/menureader/MenuActionManager.html" title="interface in domosaics.ui.io.menureader"><CODE>MenuActionManager</CODE></A> is used. Therefore it is possible
  to manually alter a check box status if an invalid option was triggered.
- For details on extending menus see <A HREF="../../angstd/ui/io/menureader/JMenuBarFactory.html" title="class in angstd.ui.io.menureader"><CODE>JMenuBarFactory</CODE></A> and
- <A HREF="../../angstd/ui/io/menureader/MenuReader.html" title="class in angstd.ui.io.menureader"><CODE>MenuReader</CODE></A>. For just adding new entrieslook into a 
+ For details on extending menus see <A HREF="../../domosaics/ui/io/menureader/JMenuBarFactory.html" title="class in domosaics.ui.io.menureader"><CODE>JMenuBarFactory</CODE></A> and
+ <A HREF="../../domosaics/ui/io/menureader/MenuReader.html" title="class in domosaics.ui.io.menureader"><CODE>MenuReader</CODE></A>. For just adding new entrieslook into a 
  xml formatted menu file within a resource folder.
  <p>
  If you are searching information on how to add views into the mainframe 
- the <A HREF="../../angstd/ui/ViewHandler.html" title="class in angstd.ui"><CODE>ViewHandler</CODE></A> will be of interest to you.
+ the <A HREF="../../domosaics/ui/ViewHandler.html" title="class in domosaics.ui"><CODE>ViewHandler</CODE></A> will be of interest to you.
 <P>
 
 <P>
 <DL>
 <DT><B>Author:</B></DT>
   <DD>Andreas Held</DD>
-<DT><B>See Also:</B><DD><A HREF="../../serialized-form.html#angstd.ui.AngstdUI">Serialized Form</A></DL>
+<DT><B>See Also:</B><DD><A HREF="../../serialized-form.html#domosaics.ui.DoMosaicsUI">Serialized Form</A></DL>
 <HR>
 
 <P>
@@ -225,23 +225,23 @@ The user interface class showing the Angstd main frame. <br>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../angstd/ui/AngstdUI.html#addView(angstd.ui.views.view.View)">addView</A></B>(<A HREF="../../angstd/ui/views/view/View.html" title="interface in angstd.ui.views.view">View</A>&nbsp;view)</CODE>
+<TD><CODE><B><A HREF="../../domosaics/ui/AngstdUI.html#addView(domosaics.ui.views.view.View)">addView</A></B>(<A HREF="../../domosaics/ui/views/view/View.html" title="interface in domosaics.ui.views.view">View</A>&nbsp;view)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a new view to <A HREF="../../angstd/ui/docking/AngstdDesktop.html" title="class in angstd.ui.docking"><CODE>AngstdDesktop</CODE></A>.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a new view to <A HREF="../../domosaics/ui/docking/AngstdDesktop.html" title="class in domosaics.ui.docking"><CODE>AngstdDesktop</CODE></A>.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../angstd/ui/AngstdUI.html#changeViewName(java.lang.String)">changeViewName</A></B>(java.lang.String&nbsp;newName)</CODE>
+<TD><CODE><B><A HREF="../../domosaics/ui/AngstdUI.html#changeViewName(java.lang.String)">changeViewName</A></B>(java.lang.String&nbsp;newName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wrapper around the rename method for views within AngstdDektop.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../angstd/ui/AngstdUI.html" title="class in angstd.ui">AngstdUI</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../angstd/ui/AngstdUI.html#getInstance()">getInstance</A></B>()</CODE>
+<CODE>static&nbsp;<A HREF="../../domosaics/ui/AngstdUI.html" title="class in domosaics.ui">AngstdUI</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../domosaics/ui/AngstdUI.html#getInstance()">getInstance</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the current AngstdUI instance.</TD>
@@ -249,10 +249,10 @@ The user interface class showing the Angstd main frame. <br>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../angstd/ui/AngstdUI.html#removeView()">removeView</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../domosaics/ui/AngstdUI.html#removeView()">removeView</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removes a view from the <A HREF="../../angstd/ui/docking/AngstdDesktop.html" title="class in angstd.ui.docking"><CODE>AngstdDesktop</CODE></A>.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removes a view from the <A HREF="../../domosaics/ui/docking/AngstdDesktop.html" title="class in domosaics.ui.docking"><CODE>AngstdDesktop</CODE></A>.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_javax.swing.JFrame"><!-- --></A>
@@ -334,7 +334,7 @@ The user interface class showing the Angstd main frame. <br>
 <A NAME="getInstance()"><!-- --></A><H3>
 getInstance</H3>
 <PRE>
-public static <A HREF="../../angstd/ui/AngstdUI.html" title="class in angstd.ui">AngstdUI</A> <B>getInstance</B>()</PRE>
+public static <A HREF="../../domosaics/ui/AngstdUI.html" title="class in domosaics.ui">AngstdUI</A> <B>getInstance</B>()</PRE>
 <DL>
 <DD>Returns the current AngstdUI instance. If not initialized, 
  it creates a new instance.
@@ -348,12 +348,12 @@ public static <A HREF="../../angstd/ui/AngstdUI.html" title="class in angstd.ui"
 </DL>
 <HR>
 
-<A NAME="addView(angstd.ui.views.view.View)"><!-- --></A><H3>
+<A NAME="addView(domosaics.ui.views.view.View)"><!-- --></A><H3>
 addView</H3>
 <PRE>
-public void <B>addView</B>(<A HREF="../../angstd/ui/views/view/View.html" title="interface in angstd.ui.views.view">View</A>&nbsp;view)</PRE>
+public void <B>addView</B>(<A HREF="../../domosaics/ui/views/view/View.html" title="interface in domosaics.ui.views.view">View</A>&nbsp;view)</PRE>
 <DL>
-<DD>Adds a new view to <A HREF="../../angstd/ui/docking/AngstdDesktop.html" title="class in angstd.ui.docking"><CODE>AngstdDesktop</CODE></A>. This one is invoked 
+<DD>Adds a new view to <A HREF="../../domosaics/ui/docking/AngstdDesktop.html" title="class in domosaics.ui.docking"><CODE>AngstdDesktop</CODE></A>. This one is invoked 
  by the ViewHandler and works only as wrapper for the addView method
  within AngstdDesktop.
 <P>
@@ -368,7 +368,7 @@ removeView</H3>
 <PRE>
 public void <B>removeView</B>()</PRE>
 <DL>
-<DD>Removes a view from the <A HREF="../../angstd/ui/docking/AngstdDesktop.html" title="class in angstd.ui.docking"><CODE>AngstdDesktop</CODE></A>. This one is invoked 
+<DD>Removes a view from the <A HREF="../../domosaics/ui/docking/AngstdDesktop.html" title="class in domosaics.ui.docking"><CODE>AngstdDesktop</CODE></A>. This one is invoked 
  by the ViewHandler and works only as wrapper for the addView method
  within AngstdDesktop.
 <P>
@@ -423,9 +423,9 @@ public void <B>changeViewName</B>(java.lang.String&nbsp;newName)</PRE>
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../angstd/ui/ViewHandler.html" title="class in angstd.ui"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../domosaics/ui/ViewHandler.html" title="class in domosaics.ui"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../index.html?angstd/ui/AngstdUI.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../index.html?domosaics/ui/AngstdUI.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="AngstdUI.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--

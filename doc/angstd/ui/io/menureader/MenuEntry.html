@@ -55,10 +55,10 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../angstd/ui/io/menureader/MenuActionManager.html" title="interface in angstd.ui.io.menureader"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../angstd/ui/io/menureader/MenuEntryType.html" title="enum in angstd.ui.io.menureader"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../domosaics/ui/io/menureader/MenuActionManager.html" title="interface in domosaics.ui.io.menureader"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../domosaics/ui/io/menureader/MenuEntryType.html" title="enum in domosaics.ui.io.menureader"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../index.html?angstd/ui/io/menureader/MenuEntry.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../index.html?domosaics/ui/io/menureader/MenuEntry.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="MenuEntry.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
@@ -88,12 +88,12 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-angstd.ui.io.menureader</FONT>
+domosaics.ui.io.menureader</FONT>
 <BR>
 Class MenuEntry</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>angstd.ui.io.menureader.MenuEntry</B>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>domosaics.ui.io.menureader.MenuEntry</B>
 </PRE>
 <HR>
 <DL>
@@ -104,16 +104,16 @@ java.lang.Object
 Class MenuEntry represents a JComponent within a JMenu. 
  This could for example be a JMenuBar, Menu, MenuItem, JSeparator or 
  JCheckboxItem. For a list of all supported menu item types see enumeration
- class <A HREF="../../../../angstd/ui/io/menureader/MenuEntryType.html" title="enum in angstd.ui.io.menureader"><CODE>MenuEntryType</CODE></A>.
+ class <A HREF="../../../../domosaics/ui/io/menureader/MenuEntryType.html" title="enum in domosaics.ui.io.menureader"><CODE>MenuEntryType</CODE></A>.
  <p>
  A MenuEntry can hold a name, shortcut, tooltip, image and action.
  <p>
  To add new types of menu entry do the following: <br>
- 1. add the new type to <A HREF="../../../../angstd/ui/io/menureader/MenuEntryType.html" title="enum in angstd.ui.io.menureader"><CODE>MenuEntryType</CODE></A>. <br>
- 2. Extend the <A HREF="../../../../angstd/ui/io/menureader/MenuEntry.html#create(angstd.ui.io.menureader.MenuActionManager)"><CODE>create(MenuActionManager)</CODE></A> method, so that the correct JComponent 
+ 1. add the new type to <A HREF="../../../../domosaics/ui/io/menureader/MenuEntryType.html" title="enum in domosaics.ui.io.menureader"><CODE>MenuEntryType</CODE></A>. <br>
+ 2. Extend the <A HREF="../../../../domosaics/ui/io/menureader/MenuEntry.html#create(domosaics.ui.io.menureader.MenuActionManager)"><CODE>create(MenuActionManager)</CODE></A> method, so that the correct JComponent 
     for the new type is returned. <br>
  3. Use the new type in the menu XML format <br>
- 4. Add an entry for the new type in the menu parser <A HREF="../../../../angstd/ui/io/menureader/MenuReader.html" title="class in angstd.ui.io.menureader"><CODE>MenuReader</CODE></A> <br>
+ 4. Add an entry for the new type in the menu parser <A HREF="../../../../domosaics/ui/io/menureader/MenuReader.html" title="class in domosaics.ui.io.menureader"><CODE>MenuReader</CODE></A> <br>
 <P>
 
 <P>
@@ -134,7 +134,7 @@ Class MenuEntry represents a JComponent within a JMenu.
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../angstd/ui/io/menureader/MenuEntry.html#MenuEntry(angstd.ui.io.menureader.MenuEntryType)">MenuEntry</A></B>(<A HREF="../../../../angstd/ui/io/menureader/MenuEntryType.html" title="enum in angstd.ui.io.menureader">MenuEntryType</A>&nbsp;type)</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/io/menureader/MenuEntry.html#MenuEntry(domosaics.ui.io.menureader.MenuEntryType)">MenuEntry</A></B>(<A HREF="../../../../domosaics/ui/io/menureader/MenuEntryType.html" title="enum in domosaics.ui.io.menureader">MenuEntryType</A>&nbsp;type)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor for a new MenuEntry object.</TD>
@@ -152,7 +152,7 @@ Class MenuEntry represents a JComponent within a JMenu.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/io/menureader/MenuEntry.html#addEntry(angstd.ui.io.menureader.MenuEntry)">addEntry</A></B>(<A HREF="../../../../angstd/ui/io/menureader/MenuEntry.html" title="class in angstd.ui.io.menureader">MenuEntry</A>&nbsp;entry)</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/io/menureader/MenuEntry.html#addEntry(domosaics.ui.io.menureader.MenuEntry)">addEntry</A></B>(<A HREF="../../../../domosaics/ui/io/menureader/MenuEntry.html" title="class in domosaics.ui.io.menureader">MenuEntry</A>&nbsp;entry)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;adds a new MenuEntry to this component</TD>
@@ -160,7 +160,7 @@ Class MenuEntry represents a JComponent within a JMenu.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;javax.swing.JComponent</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/io/menureader/MenuEntry.html#create(angstd.ui.io.menureader.MenuActionManager)">create</A></B>(<A HREF="../../../../angstd/ui/io/menureader/MenuActionManager.html" title="interface in angstd.ui.io.menureader">MenuActionManager</A>&nbsp;manager)</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/io/menureader/MenuEntry.html#create(domosaics.ui.io.menureader.MenuActionManager)">create</A></B>(<A HREF="../../../../domosaics/ui/io/menureader/MenuActionManager.html" title="interface in domosaics.ui.io.menureader">MenuActionManager</A>&nbsp;manager)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a JComponent which can be used as MenuItem based on
@@ -169,7 +169,7 @@ Class MenuEntry represents a JComponent within a JMenu.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/io/menureader/MenuEntry.html#setActionclassURL(java.lang.String)">setActionclassURL</A></B>(java.lang.String&nbsp;actionClassURL)</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/io/menureader/MenuEntry.html#setActionclassURL(java.lang.String)">setActionclassURL</A></B>(java.lang.String&nbsp;actionClassURL)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sets the action class URL for this component</TD>
@@ -177,7 +177,7 @@ Class MenuEntry represents a JComponent within a JMenu.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/io/menureader/MenuEntry.html#setIcon(java.lang.String)">setIcon</A></B>(java.lang.String&nbsp;iconURL)</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/io/menureader/MenuEntry.html#setIcon(java.lang.String)">setIcon</A></B>(java.lang.String&nbsp;iconURL)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sets the icon URL for this component</TD>
@@ -185,7 +185,7 @@ Class MenuEntry represents a JComponent within a JMenu.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/io/menureader/MenuEntry.html#setMnemonic(java.lang.String)">setMnemonic</A></B>(java.lang.String&nbsp;mnemonic)</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/io/menureader/MenuEntry.html#setMnemonic(java.lang.String)">setMnemonic</A></B>(java.lang.String&nbsp;mnemonic)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sets the shortcut for this component</TD>
@@ -193,7 +193,7 @@ Class MenuEntry represents a JComponent within a JMenu.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/io/menureader/MenuEntry.html#setName(java.lang.String)">setName</A></B>(java.lang.String&nbsp;name)</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/io/menureader/MenuEntry.html#setName(java.lang.String)">setName</A></B>(java.lang.String&nbsp;name)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sets the name for this component</TD>
@@ -201,7 +201,7 @@ Class MenuEntry represents a JComponent within a JMenu.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/io/menureader/MenuEntry.html#setSelected(java.lang.String)">setSelected</A></B>(java.lang.String&nbsp;flag)</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/io/menureader/MenuEntry.html#setSelected(java.lang.String)">setSelected</A></B>(java.lang.String&nbsp;flag)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets the Selection flag for CheckBox items</TD>
@@ -209,7 +209,7 @@ Class MenuEntry represents a JComponent within a JMenu.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/io/menureader/MenuEntry.html#setTooltip(java.lang.String)">setTooltip</A></B>(java.lang.String&nbsp;tooltip)</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/io/menureader/MenuEntry.html#setTooltip(java.lang.String)">setTooltip</A></B>(java.lang.String&nbsp;tooltip)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sets the tooltip for this component</TD>
@@ -237,10 +237,10 @@ Class MenuEntry represents a JComponent within a JMenu.
 </TR>
 </TABLE>
 
-<A NAME="MenuEntry(angstd.ui.io.menureader.MenuEntryType)"><!-- --></A><H3>
+<A NAME="MenuEntry(domosaics.ui.io.menureader.MenuEntryType)"><!-- --></A><H3>
 MenuEntry</H3>
 <PRE>
-public <B>MenuEntry</B>(<A HREF="../../../../angstd/ui/io/menureader/MenuEntryType.html" title="enum in angstd.ui.io.menureader">MenuEntryType</A>&nbsp;type)</PRE>
+public <B>MenuEntry</B>(<A HREF="../../../../domosaics/ui/io/menureader/MenuEntryType.html" title="enum in domosaics.ui.io.menureader">MenuEntryType</A>&nbsp;type)</PRE>
 <DL>
 <DD>Constructor for a new MenuEntry object.
 <P>
@@ -256,11 +256,11 @@ public <B>MenuEntry</B>(<A HREF="../../../../angstd/ui/io/menureader/MenuEntryTy
 </TR>
 </TABLE>
 
-<A NAME="create(angstd.ui.io.menureader.MenuActionManager)"><!-- --></A><H3>
+<A NAME="create(domosaics.ui.io.menureader.MenuActionManager)"><!-- --></A><H3>
 create</H3>
 <PRE>
-public javax.swing.JComponent <B>create</B>(<A HREF="../../../../angstd/ui/io/menureader/MenuActionManager.html" title="interface in angstd.ui.io.menureader">MenuActionManager</A>&nbsp;manager)
-                              throws <A HREF="../../../../angstd/ui/io/menureader/CreateActionException.html" title="class in angstd.ui.io.menureader">CreateActionException</A></PRE>
+public javax.swing.JComponent <B>create</B>(<A HREF="../../../../domosaics/ui/io/menureader/MenuActionManager.html" title="interface in domosaics.ui.io.menureader">MenuActionManager</A>&nbsp;manager)
+                              throws <A HREF="../../../../domosaics/ui/io/menureader/CreateActionException.html" title="class in domosaics.ui.io.menureader">CreateActionException</A></PRE>
 <DL>
 <DD>Creates a JComponent which can be used as MenuItem based on
  the specified type of the menu entry.
@@ -269,7 +269,7 @@ public javax.swing.JComponent <B>create</B>(<A HREF="../../../../angstd/ui/io/me
 
 <DT><B>Returns:</B><DD>Component to add in a JMenu or JMenuBar
 <DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../../angstd/ui/io/menureader/CreateActionException.html" title="class in angstd.ui.io.menureader">CreateActionException</A></CODE></DL>
+<DD><CODE><A HREF="../../../../domosaics/ui/io/menureader/CreateActionException.html" title="class in domosaics.ui.io.menureader">CreateActionException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
@@ -339,10 +339,10 @@ public void <B>setActionclassURL</B>(java.lang.String&nbsp;actionClassURL)</PRE>
 </DL>
 <HR>
 
-<A NAME="addEntry(angstd.ui.io.menureader.MenuEntry)"><!-- --></A><H3>
+<A NAME="addEntry(domosaics.ui.io.menureader.MenuEntry)"><!-- --></A><H3>
 addEntry</H3>
 <PRE>
-public void <B>addEntry</B>(<A HREF="../../../../angstd/ui/io/menureader/MenuEntry.html" title="class in angstd.ui.io.menureader">MenuEntry</A>&nbsp;entry)</PRE>
+public void <B>addEntry</B>(<A HREF="../../../../domosaics/ui/io/menureader/MenuEntry.html" title="class in domosaics.ui.io.menureader">MenuEntry</A>&nbsp;entry)</PRE>
 <DL>
 <DD>adds a new MenuEntry to this component
 <P>
@@ -394,10 +394,10 @@ public void <B>setSelected</B>(java.lang.String&nbsp;flag)</PRE>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../angstd/ui/io/menureader/MenuActionManager.html" title="interface in angstd.ui.io.menureader"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../angstd/ui/io/menureader/MenuEntryType.html" title="enum in angstd.ui.io.menureader"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../domosaics/ui/io/menureader/MenuActionManager.html" title="interface in domosaics.ui.io.menureader"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../domosaics/ui/io/menureader/MenuEntryType.html" title="enum in domosaics.ui.io.menureader"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../index.html?angstd/ui/io/menureader/MenuEntry.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../index.html?domosaics/ui/io/menureader/MenuEntry.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="MenuEntry.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--

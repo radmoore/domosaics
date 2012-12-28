@@ -3,7 +3,7 @@ Major Bugs
 * ConfigurationPanel opens only once (thread?) -> DONE.
 * After the annotator is canceled, an annotation job cannot be restarted (JDK > 1.6.15) -> DONE
 * Annotation process never returns any results (JDK > 1.6.15) -> DONE
-* Closing the HMMer2 local service closes angstd ->
+* Closing the HMMer2 local service closes domosaics ->
 
 
 - Wizard background ()
