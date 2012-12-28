@@ -20,8 +20,6 @@ import domosaics.ui.util.MessageUtil;
 import domosaics.webservices.RADS.util.RADSResultsTableModel;
 
 
-
-
 /**
  * This class describes a RADSResultsProcessor, which performs
  * the parsing of RADSScan Results. It has access to the RADSPanel
@@ -75,6 +73,9 @@ public class RADSResultsProcessor {
 		Object[][] tableData = new Object[proteins.size()][resultTableModel.getColumnCount()];
 		
 		for (RADSProtein p: proteins) {
+			
+			//queryID+"\t"+p.getID()+"\t"+p.getRADSScore()
+//			System.out.println("This is the protein: "+p.getID()+", score: "+p.getRADSScore());
 			
 			progressBar.setValue(i);
 			da = new DomainArrangement();

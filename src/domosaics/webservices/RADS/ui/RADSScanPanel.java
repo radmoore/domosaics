@@ -817,23 +817,26 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 			int intExtenGapPenValue = Integer.valueOf(radsIntGapExt.getText());
 			qBuilder.setRads_g(intExtenGapPenValue);
 			
+			// this one
 			int terOpenGapPenValue = Integer.valueOf(radsTerGapOpen.getText());
 			qBuilder.setRads_T(terOpenGapPenValue);
-			
+
+			// and this one
 			int terExtenGapPenValue = Integer.valueOf(radsTerGapExt.getText());
 			qBuilder.setRads_t(terExtenGapPenValue);
 			
 			int rampIntOpenGapPenValue = Integer.valueOf(rampageIntGapOpen.getText());
-			qBuilder.setRads_G(rampIntOpenGapPenValue);
+			qBuilder.setRampage_I(rampIntOpenGapPenValue);
 			
 			int rampIntExtenGapPenValue = Integer.valueOf(rampageIntGapExt.getText());
-			qBuilder.setRads_g(rampIntExtenGapPenValue);
-			
+			qBuilder.setRampage_i(rampIntExtenGapPenValue);
+
 			int rampTerOpenGapPenValue = Integer.valueOf(rampageTerGapOpen.getText());
-			qBuilder.setRads_T(rampTerOpenGapPenValue);
+			qBuilder.setRampage_E(rampTerOpenGapPenValue);
 			
 			int rampTerExtenGapPenValue = Integer.valueOf(rampageTerGapExt.getText());
-			qBuilder.setRads_t(rampTerExtenGapPenValue);
+			qBuilder.setRampage_e(rampTerExtenGapPenValue);
+
 		}
 		catch (NumberFormatException nfe) {
 			MessageUtil.showWarning(parent, "Values for scores and penalties must be numbers");
@@ -865,6 +868,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		
 		if (buildQuery()) {
 			if (validateParams()) {
+
 				submit.setText("Running scan");
 				submit.setEnabled(false);
 				reset.setEnabled(false);
