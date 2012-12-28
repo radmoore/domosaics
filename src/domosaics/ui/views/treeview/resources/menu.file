@@ -1,0 +1,169 @@
+<menubar>
+
+	<menu id="File">
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Save To Newick File"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.SaveNewickFileAction"/> 
+			<parameter id="tooltip" value="Saves the tree to a file"/> 
+		</menuItem>
+			
+		<menu id="Image Export">
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As PNG"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As JPG"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/>
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As BMP"/>
+				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As PDF"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As SVG"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+		</menu>
+		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Close"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.view.actions.CloseAction"/> 
+			<parameter id="tooltip" value="Closes the view"/> 
+		</menuItem>
+		
+	</menu>
+
+
+	<menu id="View">
+	
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="ZoomMode"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.view.actions.ToggleZoomModeAction"/> 
+			<parameter id="tooltip" value="Makes zooming possible using the mouse wheel"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Expand Leaves"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ExpandLeavesAction"/> 
+			<parameter id="tooltip" value="Aligns the labels to the right"/> 
+			<parameter id="isSelected" value="true"/> 
+		</menuItem>
+	
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Use Edge Weights"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.UseDistancesAction"/> 
+			<parameter id="tooltip" value="Draws the tree edges using their weights"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+	
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Show Edge Weights"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ShowEdgeLabelsAction"/> 
+			<parameter id="tooltip" value="Shows the weights for edges"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+		
+		<menuitem id="JCheckBox"> 
+			<parameter id="name" value="Show Bootstrap Values"/>  
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ShowBootStrapValuesAction"/>  
+			<parameter id="tooltip" value="Shows the bootstrap values instead of the edge weights"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem> 
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Use Label As Bootstrap Value"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.UseLabelAsBootstrapAction"/> 
+			<parameter id="tooltip" value="Uses numeric node labels as bootstrap values"/> 
+			<parameter id="isSelected" value="true"/>
+		</menuItem>
+	
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Show Inner Nodes"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ShowInnerNodesAction"/> 
+			<parameter id="tooltip" value="Shows the inner nodes to use menus on them"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Show Ruler"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ShowTreeRulerAction"/> 
+			<parameter id="tooltip" value="Shows a distance based ruler for the tree"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+		
+	</menu>
+	
+	<menu id="Edit">
+	
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Default Font"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ChangeDefaultFontAction"/>
+			<parameter id="tooltip" value="Changes the default font and therefore all non edited node fonts at once"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Default Edge Style"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ChangeDefaultEdgeStyleAction"/>
+			<parameter id="tooltip" value="Changes the default edge style and therefore all non edited edge styles at once"/> 
+		</menuItem>
+		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Font for Selection"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ChangeFontForSelectionAction"/>
+			<parameter id="tooltip" value="Changes the font for all selected nodes"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Edge Style for Selection"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ChangeEdgeStyleForSelectionAction"/> 
+			<parameter id="tooltip" value="Changes the style for all selected edges"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Colorize Selected Edges"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ColorizeSelectionAction"/>
+			<parameter id="tooltip" value="Colorizes all selected edges"/> 
+		</menuItem>
+		
+	</menu>
+	
+	<menu id="Select">
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="All"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.SelectAllAction"/> 
+			<parameter id="tooltip" value="Selects all nodes within the tree"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="None"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ClearSelectionAction"/> 
+			<parameter id="tooltip" value="Deselects all nodes within the tree"/> 
+		</menuItem>
+	</menu>
+	
+</menubar>
+
+<!--		<menuitem id="JMenuItem">	-->
+<!--				<parameter id="name" value="Node Color for Selection"/> -->
+<!--				<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ColorizeSelectedNodesAction"/> -->
+<!--				<parameter id="tooltip" value="Colorizes all selected node labels"/> -->
+<!--			</menuItem> -->
+
+

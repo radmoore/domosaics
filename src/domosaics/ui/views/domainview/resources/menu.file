@@ -1,0 +1,342 @@
+<menubar>
+
+	<menu id="File">
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Save Arrangements To File"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SaveXdomFileAction"/> 
+			<parameter id="tooltip" value="Saves the arrangements to a file"/> 
+		</menuItem>
+
+		<menu id="Image Export">
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As PNG"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As JPG"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/>
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As BMP"/>
+				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As PDF"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="As SVG"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+			</menuItem>
+		</menu>
+		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Close"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.view.actions.CloseAction"/> 
+			<parameter id="tooltip" value="Closes the view"/> 
+		</menuItem>
+	</menu>
+
+	<menu id="View">
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="ZoomMode"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.view.actions.ToggleZoomModeAction"/> 
+			<parameter id="tooltip" value="Makes zooming possible using the mouse wheel"/> 
+			<parameter id="isSelected" value="false"/>
+		</menuItem>
+				
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Accession IDs"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowNameAction"/> 
+			<parameter id="tooltip" value="Label the domains by their native database name accession number"/> 
+			<parameter id="isSelected" value="true"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Domain Names"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowAccAction"/> 
+			<parameter id="tooltip" value="Label the domains by their native database name"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Proportional View"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ProportionalViewAction"/> 
+			<parameter id="tooltip" value="Draws all domains by their real size"/> 
+			<parameter id="isSelected" value="true"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Unproportional View"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.UnproportionalViewAction"/> 
+			<parameter id="tooltip" value="Draws all domains using the same size"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="MSA View"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.MsaViewAction"/> 
+			<parameter id="tooltip" value="Shows the sequence instead of the drawn arrangement"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="FitToScreen"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.FitDomainsToScreenAction"/> 
+			<parameter id="tooltip" value="Fits the domains into screen size"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Evalue Colorization"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.EvalueColorizationAction"/> 
+			<parameter id="tooltip" value="Colorizes domains based on their evalues"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Show Shapes"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowShapesAction"/> 
+			<parameter id="tooltip" value="Shows shapes for domains instead of its name"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Show Notes"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowNotesAction"/> 
+			<parameter id="tooltip" value="Shows a note marker for arrangements which have a note assigned"/> 
+			<parameter id="isSelected" value="true"/> 
+		</menuItem>
+		
+		<menuitem id="JSeparator"/>
+		
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Align Domains"/> 
+<!--			<parameter id="actionClass" value="domosaics.ui.views.domaintreeview.actions.AlignDomainsAction"/> 
+<!--			<parameter id="tooltip" value="Aligns the domain within the proportional view."/> 
+<!--		</menuItem>
+<!--		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Show Legend"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowDomainLegendAction"/> 
+			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/tools/legend.png"/>
+			<parameter id="tooltip" value="Opens a new window where the domain legend is displayed"/> 
+		</menuItem>
+		
+<!--		<menuitem id="JCheckBox">
+<!--			<parameter id="name" value="Show Ruler"/> 
+<!--			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowDomainRulerAction"/> 
+<!--			<parameter id="tooltip" value="Shows a ruler below the domain view"/> 
+<!--			<parameter id="isSelected" value="false"/> 
+<!--		</menuItem>
+		
+	</menu>
+	
+	<menu id="Edit">
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Domain Composition"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ChangeArrangementAction"/> 
+			<parameter id="tooltip" value="Opens a new window where the domain arrangement can be changed"/> 
+		</menuItem>
+		
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Data Set"/> 
+<!--			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.EditDatasetAction"/> 
+<!--			<parameter id="tooltip" value="Opens a new window where the data set can be changed"/> 
+<!--		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Associate With Sequences"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.AssociateWithSeqsAction"/> 
+			<parameter id="tooltip" value="Gives the opportunity to associate sequences to the arrangements"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Delete Selected Arrangements"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.DeleteArrangementAction"/> 
+			<parameter id="tooltip" value="Removes the selected arrangements from the view"/> 
+		</menuItem>
+
+		<menuitem id="JSeparator"/>
+	
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Collapse Same Arrangements"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.CollapseSameArrangementsAction"/> 
+			<parameter id="tooltip" value="Shows only non redundant domain compositions"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Collapse By Similarity"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SimilarityColorizationAction"/> 
+			<parameter id="tooltip" value="Colorizes arrangements based on a similarity measure"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+<!--		<menuitem id="JCheckBox">
+<!--			<parameter id="name" value="Domain Sequence Comparison"/> 
+<!--			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.context.SearchOrthologousAction"/> 
+<!--			<parameter id="tooltip" value="Uses the NW algorithm to compare domain sequences for all domains within the selected arrangement"/> 
+<!--			<parameter id="isSelected" value="false"/> 
+<!--		</menuItem>
+		
+	</menu>
+	
+	<menu id="Select">
+	
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Select All Domain Arrangements"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SelectAllDomainArrangementsAction"/> 
+						<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/menu/selectallarrangements.png"/>
+			<parameter id="tooltip" value="Selects all domain arrangements at once"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Select Domain Arrangements"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SelectDomainArrangementsAction"/> 
+			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/menu/selectarrangement.png"/>
+			<parameter id="tooltip" value="Gives the opportunity to select domain arrangements"/> 
+			<parameter id="isSelected" value="true"/> 
+		</menuItem>
+	
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Select Sequences"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SelectSequencesAction"/> 
+			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/menu/selectseq.png"/>
+			<parameter id="tooltip" value="Gives the opportunity to select parts of sequences"/> 
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Reset Shift positions"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ResetShiftAction"/> 
+			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/menu/resetshift.png"/>
+			<parameter id="tooltip" value="Automatically position all arrangements at the left side"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Export selection to new view"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.CreateViewUsingSelectionAction"/> 
+			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/menu/exportselection.png"/>
+			<parameter id="tooltip" value="Opens a new domain view containing the selected arrangements"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Export selection to existing view"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.AddSelectionToViewAction"/> 
+			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/menu/exportselection.png"/>
+			<parameter id="tooltip" value="Opens a new domain view containing the selected arrangements"/> 
+		</menuItem>
+		
+	</menu>
+	
+<!--	<menu id="Search">
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Arrangement"/> 
+<!--			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.FindArrangementAction"/> 
+<!--			<parameter id="tooltip" value="Searches for arrangements with the specified name"/> 
+<!--		</menuItem>
+		
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Domain"/> 
+<!--			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.FindDomainAction"/> 
+<!--			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/menu/finddom.png"/>
+<!--			<parameter id="tooltip" value="Opens a search window to highlight a specific domain family"/> 
+<!--		</menuItem>
+<!--	</menu>
+
+	
+	<menu id="Tools">
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Statistics"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowStatisticsAction"/> 
+			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/tools/stats.png"/>
+			<parameter id="tooltip" value="Opens a new window where some data set statistics are displayed"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Domain Matrix"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowDomainMatrixAction"/> 
+			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/tools/domainmatrix.png"/>
+			<parameter id="tooltip" value="Opens a new window where a domain matrix is displayed"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Distance Matrix"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowDistMatrixAction"/> 
+			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/tools/distancematrix.png"/>
+			<parameter id="tooltip" value="Opens a new window where the domain distance is calculated for each arrangement"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Domain Graph"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowDomainGraphAction"/> 
+			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/tools/domgraph.png"/>
+			<parameter id="tooltip" value="Opens a new window where a domain graph is displayed"/> 
+		</menuItem>
+	
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Domain Dotplot"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowDotplotAction"/> 
+			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/tools/dotplot.png"/>
+			<parameter id="tooltip" value="Opens a new window where a domain dotplot is displayed"/> 
+		</menuItem>
+	
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Evalue Slider"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowEvalueSliderAction"/> 
+			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/tools/evalslider.png"/>
+			<parameter id="tooltip" value="Opens a new window where an evalue slider can be used to adjust the domain compositions"/> 
+		</menuItem>
+	
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Overlap Resolver"/> 
+<!--			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowOverlapFilterAction"/> 
+<!--			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/tools/overlaps.png"/>
+<!--			<parameter id="tooltip" value="Opens a new window where several heuristics can be used to resolve the overlaps between domains"/> 
+<!--		</menuItem>
+	
+	
+	</menu>
+	
+</menubar>
+
+<!--	<menu id="Domains">
+			
+<!--		<menu id="Align Domains..."> 
+<!--			<menuitem id="JCheckBox"> 
+<!--				<parameter id="name" value="Left"/> 
+<!--				<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.AlignDomainsLeftAction"/>  
+<!--				<parameter id="tooltip" value="Aligns the domains to the left"/>  
+<!--				<parameter id="isSelected" value="true"/>  
+<!--			</menuItem> 
+			
+<!--			<menuitem id="JCheckBox"> 
+<!--				<parameter id="name" value="Right"/>  
+<!--				<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.AlignDomainsRightAction"/>  
+<!--				<parameter id="tooltip" value="Aligns the domains within the proportional view to the right"/>  
+<!--				<parameter id="isSelected" value="false"/>  
+<!--			</menuItem> 
+				
+<!--			<menuitem id="JCheckBox"> 
+<!--				<parameter id="name" value="In Columns"/>  
+<!--				<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.AlignDomainsColumnsAction"/>  
+<!--				<parameter id="tooltip" value="Calculates a progressive multiple domain alignment which aligns the domains in columns "/> 
+<!--				<parameter id="isSelected" value="false"/>  
+<!--			</menuItem> 
+			
+<!--		</menu> 
