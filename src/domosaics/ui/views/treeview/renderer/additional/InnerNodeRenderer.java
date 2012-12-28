@@ -9,6 +9,8 @@ import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * InnerNodeRenderer renders inner nodes as circles so they can be
  * identified more easily by the user. This renderer can be

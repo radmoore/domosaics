@@ -12,6 +12,8 @@ import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.view.manager.DefaultViewManager;
 
 
+
+
 /**
  * CollapseSameArrangementsManager manages the collapsing of same 
  * arrangements for a domain view. The collapsing is done

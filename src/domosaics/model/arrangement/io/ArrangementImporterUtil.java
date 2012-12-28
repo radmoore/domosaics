@@ -5,6 +5,8 @@ import java.io.File;
 import domosaics.model.arrangement.DomainArrangement;
 
 
+
+
 public class ArrangementImporterUtil {
 
 	public static DomainArrangement[] importData(File file) {

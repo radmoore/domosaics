@@ -3,10 +3,11 @@ package domosaics.ui.docking;
 import java.awt.Component;
 
 
+import domosaics.ui.views.view.View;
+
 import com.vlsolutions.swing.docking.DockKey;
 import com.vlsolutions.swing.docking.Dockable;
 
-import domosaics.ui.views.view.View;
 
 /**
  * Simple dockable wrapper around a component. This wrapper

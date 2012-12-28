@@ -19,6 +19,8 @@ import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 public class InnerNodeArrangementRenderer implements Renderer{
 
 	protected static final Color DEFAULT_BACKGROUND = new Color(225,225,225,200);

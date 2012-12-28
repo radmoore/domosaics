@@ -7,6 +7,8 @@ import java.util.Locale;
 import domosaics.model.arrangement.ArrangementManager;
 
 
+
+
 public enum Stats {
 
 	PROTS				("arrangements"),

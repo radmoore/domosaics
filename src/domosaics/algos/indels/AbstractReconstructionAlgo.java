@@ -21,6 +21,8 @@ import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 import domosaics.ui.views.domaintreeview.manager.InnerNodeArrangementManager;
 
 
+
+
 public abstract class AbstractReconstructionAlgo extends SwingWorker<String, Void> {
 
 	/** the tree which nodes are being reconstructed */

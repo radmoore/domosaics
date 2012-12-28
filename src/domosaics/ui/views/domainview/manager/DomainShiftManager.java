@@ -9,6 +9,8 @@ import domosaics.ui.views.domainview.components.DomainComponent;
 import domosaics.ui.views.view.manager.DefaultViewManager;
 
 
+
+
 /**
  * The DomainShiftManager manages the shift coordinates for 
  * arrangement and domain view components. <br>

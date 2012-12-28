@@ -11,6 +11,8 @@ import domosaics.model.sequence.SequenceI;
 import domosaics.model.tree.TreeNodeI;
 
 
+
+
 /**
  * Class DomainArrangement represents a data structure do describe domain 
  * arrangements of proteins. 

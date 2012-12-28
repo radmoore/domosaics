@@ -11,6 +11,8 @@ import domosaics.ui.tools.dotplot.components.DotplotComponent;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * Additional renderer used to renderer the domain match boxes 
  * indicating how similiar representantss of the same domain family

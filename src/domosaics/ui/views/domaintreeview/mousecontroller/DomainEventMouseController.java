@@ -9,6 +9,8 @@ import domosaics.ui.views.domaintreeview.components.DomainEventComponent;
 import domosaics.ui.views.domaintreeview.components.DomainEventComponentDetector;
 
 
+
+
 /**
  * DomainEventMouseController handles the mouse events which are made on
  * a domain tree view (and specially on domain events). 

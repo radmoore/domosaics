@@ -39,6 +39,8 @@ import domosaics.ui.wizards.WizardManager;
 
 
 
+
+
 /**
  * 
  * ApplicationHandler actually initialized the DomosaicsUI frame, and

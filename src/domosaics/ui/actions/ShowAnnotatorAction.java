@@ -7,6 +7,8 @@ import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.webservices.interproscan.ui.AnnotatorFrame;
 
 
+
+
 /**
  * Opens a new AnnotatorFrame
  * 

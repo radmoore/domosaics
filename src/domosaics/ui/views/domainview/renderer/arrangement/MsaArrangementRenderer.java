@@ -10,6 +10,8 @@ import domosaics.ui.views.domainview.layout.MSALayout;
 import domosaics.ui.views.domainview.renderer.domain.MsaDomainRenderer;
 
 
+
+
 /**
  * The MSA arrangement renderer renders proteins with their
  * underlying sequence.

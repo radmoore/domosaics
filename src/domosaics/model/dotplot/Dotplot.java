@@ -14,6 +14,8 @@ import domosaics.model.matrix.MatrixType;
 import domosaics.ui.util.DoMosaicsSlider;
 
 
+
+
 /**
  * Class which represents Dotplots. Generally visuell components, like a
  * DotplotView can be registered as listener to the dotplot, so it will

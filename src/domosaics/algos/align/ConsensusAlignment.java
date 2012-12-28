@@ -20,6 +20,8 @@ import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.domainview.components.DomainComponent;
 
 
+
+
 public class ConsensusAlignment {
 	
 	protected static Map<TreeNodeI, DomainVector> node2domains;

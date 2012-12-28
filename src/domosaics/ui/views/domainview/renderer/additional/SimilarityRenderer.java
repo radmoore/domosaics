@@ -11,6 +11,8 @@ import domosaics.ui.views.domainview.manager.DomainSimilarityManager;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * The SimilarityRenderer draws a transparent white rectangle on top
  * of each arrangement. The transparency grade depends on the

@@ -9,6 +9,8 @@ import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.view.manager.DefaultSelectionManager;
 
 
+
+
 /**
  * TreeSelectionManager provides method to automatically select elements of the tree
  * such as a subtree of a node. Therefore the selection of tree nodes

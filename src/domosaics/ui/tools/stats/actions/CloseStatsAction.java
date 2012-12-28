@@ -8,6 +8,8 @@ import javax.swing.Action;
 import domosaics.ui.tools.stats.StatsFrame;
 
 
+
+
 public class CloseStatsAction extends AbstractAction {
 	private static final long serialVersionUID = 1L;
 	

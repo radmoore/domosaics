@@ -8,6 +8,8 @@ import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * HighlightNodeRenderer highlights a node component when the user
  * is mouse over on it. The renderer can be added additionally to a 

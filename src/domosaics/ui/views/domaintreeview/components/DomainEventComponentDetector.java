@@ -6,6 +6,8 @@ import java.util.Iterator;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 
 
+
+
 /**
  * The DomainEventComponentDetector detects if a an domain event component is 
  * visible at a given Point within the screen.

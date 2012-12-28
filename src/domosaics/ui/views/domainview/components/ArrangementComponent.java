@@ -11,6 +11,8 @@ import domosaics.ui.views.domainview.manager.DomainArrangementComponentManager;
 import domosaics.ui.views.view.components.AbstractViewComponent;
 
 
+
+
 /**
  * The ArrangementComponent is the graphical representation for a 
  * backend data model, the {@link DomainArrangement} which is

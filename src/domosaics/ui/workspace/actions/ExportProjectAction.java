@@ -9,6 +9,8 @@ import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.wizards.WizardManager;
 
 
+
+
 /**
  * Creates a new project
  * 

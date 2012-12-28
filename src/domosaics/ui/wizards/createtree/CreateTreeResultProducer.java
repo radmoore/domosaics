@@ -55,6 +55,7 @@ import pal.substmodel.SubstitutionTool;
 import pal.substmodel.VT;
 import pal.substmodel.WAG;
 
+
 /**
  * Class producing the resulting tree and the corresponding tree view based
  * on the CreateTree wizard.

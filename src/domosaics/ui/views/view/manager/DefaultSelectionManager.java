@@ -7,6 +7,8 @@ import java.util.Iterator;
 import domosaics.ui.views.view.components.ViewComponent;
 
 
+
+
 /**
  * Basic implementation of the SelectionManager interface. This
  * class provides the functionalities for a selection manager for

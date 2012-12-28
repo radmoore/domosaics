@@ -10,6 +10,8 @@ import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
 
 
+
+
 /**
  * AnnotationThreadSpawner spawns for a set of query sequences 
  * {@link AnnotationThread_old}s to annotate the sequences against InterPro using

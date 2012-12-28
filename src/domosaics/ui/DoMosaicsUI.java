@@ -44,6 +44,8 @@ import domosaics.webservices.RADS.ui.RADSScanPanel;
 import domosaics.webservices.interproscan.ui.AnnotatorFrame;
 
 
+
+
 /**
  * The user interface class showing the DoMosaicS main frame. <br>
  * When calling the constructor which follows the singleton pattern

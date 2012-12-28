@@ -8,6 +8,8 @@ import domosaics.model.DomosaicsData;
 import domosaics.ui.views.view.components.ViewComponent;
 
 
+
+
 /**
  * Basic implementation for the ComponentManager interface.
  * <p>

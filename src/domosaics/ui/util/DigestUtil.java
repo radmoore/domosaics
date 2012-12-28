@@ -7,6 +7,8 @@ import java.security.MessageDigest;
 import domosaics.model.configuration.Configuration;
 
 
+
+
 public class DigestUtil {
 
 	private static String ALGO = "MD5";

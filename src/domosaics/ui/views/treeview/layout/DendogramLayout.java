@@ -9,6 +9,8 @@ import domosaics.model.tree.TreeNodeI;
 import domosaics.ui.views.treeview.components.NodeComponent;
 
 
+
+
 /**
  * Class DendogramLayout manages to layout a {@link TreeI} within a given area
  * using a dendogram as layout.

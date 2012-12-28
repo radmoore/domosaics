@@ -11,6 +11,8 @@ import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
 
 
+
+
 /**
  * Workspace action which shows a view within the main frame.
  * 

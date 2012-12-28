@@ -12,6 +12,8 @@ import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.domainview.renderer.arrangement.BackBoneArrangementRenderer;
 
 
+
+
 /**
  * Changes the arrangement attributes
  * 

@@ -10,6 +10,8 @@ import domosaics.model.configuration.Configuration;
 import domosaics.ui.views.ViewType;
 
 
+
+
 /**
  * Class FileDialogs is able to open a JfileChooser for opening and saving 
  * files. <br>

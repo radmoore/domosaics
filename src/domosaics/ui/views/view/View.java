@@ -14,6 +14,8 @@ import domosaics.ui.views.view.layout.ViewLayout;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * The View interface defining all methods which can be applied to each view.
  * <p>

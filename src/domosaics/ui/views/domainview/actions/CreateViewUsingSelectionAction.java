@@ -24,6 +24,8 @@ import domosaics.ui.wizards.WizardManager;
 import domosaics.ui.wizards.pages.SelectNamePage;
 
 
+
+
 /**
  * Creates a new view out of the current selected arrangements. Therefore
  * the selected arrangements as well as their associated sequences are 

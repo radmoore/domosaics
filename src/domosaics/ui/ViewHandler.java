@@ -16,6 +16,8 @@ import domosaics.ui.views.view.View;
 import domosaics.ui.views.view.ViewInfo;
 
 
+
+
 /**
  * Class ViewManager manages the creation, adding and removing of view 
  * objects to DoMosaics and its main frame. The adding to the workspace
@@ -152,10 +154,10 @@ public class ViewHandler {
 				WorkspaceManager.getInstance().addViewToWorkspace(view, project);
 
 				// if the view is a domain tree view , remove the backend views from the workspace
-				if (view instanceof DomainTreeViewI) {
+				/*if (view instanceof DomainTreeViewI) {
 					removeView(((DomainTreeViewI) view).getDomainView().getViewInfo());
 					removeView(((DomainTreeViewI) view).getTreeView().getViewInfo());
-				}
+				}*/
 				
 				// finally add the ViewPanel to the MainFrame
 				DoMosaicsUI.getInstance().addView(view);

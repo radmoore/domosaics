@@ -13,6 +13,8 @@ import javax.swing.JMenuBar;
 import domosaics.model.configuration.Configuration;
 
 
+
+
 /**
  * Class MenuReader defines the methods to load a {@link JMenuBar} 
  * from a XML formatted file.

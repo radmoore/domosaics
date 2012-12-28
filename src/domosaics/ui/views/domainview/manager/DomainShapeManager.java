@@ -12,6 +12,8 @@ import domosaics.ui.views.domainview.components.shapes.DomainShapes;
 import domosaics.ui.views.view.manager.DefaultViewManager;
 
 
+
+
 /**
  * DomainShapeManager defines the mapping between DomainFamilys 
  * and their shapes. This class extends DefaultViewManager to ensure the

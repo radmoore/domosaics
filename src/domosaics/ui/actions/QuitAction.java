@@ -6,6 +6,8 @@ import domosaics.ApplicationHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 
 
+
+
 /**
  * Closes the application
  * 

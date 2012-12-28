@@ -16,6 +16,8 @@ import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.view.View;
 
 
+
+
 /**
  * Class SVGImageExporter exports an image in SVG format using the
  * open source batik library which is published under the Apache 

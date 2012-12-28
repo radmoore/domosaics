@@ -10,6 +10,8 @@ import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
 
 
+
+
 /**
  * Workspace action which triggers a delete event on a workspace element.
  * 

@@ -10,6 +10,8 @@ import domosaics.ui.tools.ToolFrame;
 import domosaics.ui.views.view.View;
 
 
+
+
 /**
  * DotplotFrame containing the domain dotplot view and the slider panel.
  * Using the method addSliderListener() ChangeListener

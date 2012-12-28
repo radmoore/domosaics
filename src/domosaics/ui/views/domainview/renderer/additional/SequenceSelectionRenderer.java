@@ -12,6 +12,8 @@ import domosaics.ui.views.domainview.mousecontroller.SequenceSelectionMouseContr
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * The sequence selection renderer renders the selection rectangle
  * as well as the already selected underlying sequences of

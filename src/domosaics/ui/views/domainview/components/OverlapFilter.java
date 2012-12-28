@@ -23,6 +23,8 @@ import domosaics.model.arrangement.DomainArrangement;
 import domosaics.ui.views.domainview.DomainViewI;
 
 
+
+
    public class OverlapFilter extends JDialog implements ChangeListener, ActionListener
    {
 	protected JButton jbtApply, jbtCoverage, jbtEvalue, jbtCancel;

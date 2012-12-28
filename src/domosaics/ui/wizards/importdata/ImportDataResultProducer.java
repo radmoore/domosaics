@@ -37,6 +37,8 @@ import domosaics.ui.wizards.WizardManager;
 import domosaics.ui.wizards.pages.SelectNamePage;
 
 
+
+
 /**
  * Class producing the resulting view based on the ImportData wizard.
  * 

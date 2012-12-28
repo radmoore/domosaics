@@ -13,6 +13,8 @@ import javax.swing.JToolBar;
 import domosaics.ui.views.domainview.DomainView;
 
 
+
+
 /**
  * Class ViewPanel is the basic class for embedding views, such as 
  * {@link DomainView} into the user interface.

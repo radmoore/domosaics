@@ -11,6 +11,8 @@ import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.wizards.WizardManager;
 
 
+
+
 public class EditSequenceAction extends AbstractAction{
 	private static final long serialVersionUID = 1L;
 	

@@ -6,6 +6,8 @@ import java.util.Map;
 import domosaics.model.DomosaicsData;
 
 
+
+
 /**
  * Class Matrix represents a substitution matrix which can be used when 
  * computing dotplots. 

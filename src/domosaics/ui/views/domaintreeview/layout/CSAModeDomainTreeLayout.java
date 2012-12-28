@@ -7,6 +7,8 @@ import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.treeview.components.NodeComponent;
 
 
+
+
 /**
  * CSAModeDomainTreeLayout is the layout class used to layout 
  * a domain tree view whenever at least one node is collapsed 

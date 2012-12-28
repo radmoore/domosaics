@@ -25,6 +25,8 @@ import domosaics.ui.util.MessageUtil;
 import domosaics.util.StringUtils;
 
 
+
+
 /**
  * The Xdom-Parser parses Xdom-formatted files which are produced 
  * for example by the MKDOM program.

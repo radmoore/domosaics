@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 import domosaics.model.configuration.Configuration;
 
 
+
+
 /**
  * The HelpManager manages the showing of advice dialogs, which can be 
  * disabled within the configurations menu. To ensure that each advice is 

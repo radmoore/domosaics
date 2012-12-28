@@ -13,6 +13,8 @@ import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 import domosaics.ui.wizards.pages.WorkspaceDirectoryPage;
 
 
+
+
 public class WorkspaceDirectoryWizard {
 	
 	protected String defaultDir;

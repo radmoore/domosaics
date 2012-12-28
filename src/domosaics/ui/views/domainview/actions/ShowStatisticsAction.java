@@ -9,6 +9,8 @@ import domosaics.ui.tools.stats.StatsFrame;
 import domosaics.ui.views.domainview.DomainViewI;
 
 
+
+
 public class ShowStatisticsAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 

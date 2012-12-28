@@ -13,6 +13,8 @@ import domosaics.ui.views.sequenceview.SequenceView;
 import domosaics.ui.views.view.io.ViewExporter;
 
 
+
+
 /**
  * Class exporting a sequence view into a XML formatted file.
  * 

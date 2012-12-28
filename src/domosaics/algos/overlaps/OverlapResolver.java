@@ -12,6 +12,8 @@ import domosaics.ui.views.domainview.components.DomainComponent;
 import domosaics.util.PowerSet;
 
 
+
+
 /**
  * Class initiated by Andreas Held to resolve arrangements with overlaps
  * by a maximum coverage heuristic.

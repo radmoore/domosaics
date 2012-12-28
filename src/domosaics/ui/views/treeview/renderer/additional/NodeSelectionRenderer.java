@@ -8,6 +8,8 @@ import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * NodeSelectionRenderer renders the selection mark for nodes and can be
  * added additionally to a tree view.

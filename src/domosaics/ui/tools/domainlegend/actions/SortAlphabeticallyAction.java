@@ -8,6 +8,8 @@ import domosaics.ui.tools.domainlegend.DomainLegendView;
 import domosaics.ui.views.ViewType;
 
 
+
+
 /**
  * Sets the sorting of domains to alphabetical order
  * 

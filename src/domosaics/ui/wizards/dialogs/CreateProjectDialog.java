@@ -17,6 +17,8 @@ import domosaics.ui.WorkspaceManager;
 import domosaics.ui.wizards.pages.CreateProjectPage;
 
 
+
+
 /**
  * Wizard dialog asking the user for a project name which is then going to be
  * created and added to the workspace.

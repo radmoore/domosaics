@@ -9,6 +9,8 @@ import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 import domosaics.ui.views.view.manager.DefaultViewManager;
 
 
+
+
 public class InnerNodeArrangementManager extends DefaultViewManager {
 
 	protected Map<TreeNodeI, DomainArrangement> node2da;

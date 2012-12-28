@@ -10,6 +10,8 @@ import domosaics.ui.views.ViewType;
 import domosaics.ui.views.view.View;
 
 
+
+
 /**
  * The domain graph frame containing a DomainGraphView.
  * 

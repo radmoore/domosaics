@@ -12,6 +12,8 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
 
 
+
+
 public class AddNoteAction extends AbstractAction{
 	private static final long serialVersionUID = 1L;
 	

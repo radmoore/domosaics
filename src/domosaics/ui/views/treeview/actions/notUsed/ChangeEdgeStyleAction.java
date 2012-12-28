@@ -11,6 +11,8 @@ import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.views.treeview.components.EdgeStyleChooser;
 
 
+
+
 /**
  * Action allowing the user to choose a new edge style for the selected edges.
  * 

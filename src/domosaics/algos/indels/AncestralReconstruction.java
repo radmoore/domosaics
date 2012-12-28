@@ -20,6 +20,8 @@ import domosaics.model.tree.TreeI;
 import domosaics.model.tree.TreeNodeI;
 
 
+
+
 public class AncestralReconstruction extends SwingWorker<String, Void> {
 	
 	private static DomainVector domCols; 

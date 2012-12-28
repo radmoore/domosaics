@@ -16,6 +16,8 @@ import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.WorkspaceManager;
 
 
+
+
 /**
  * WizardPage allowing the user to enter a name for a project which is
  * going to be created.

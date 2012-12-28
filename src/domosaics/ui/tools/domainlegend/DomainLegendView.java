@@ -37,6 +37,8 @@ import domosaics.ui.views.view.manager.ViewManager;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * The legend view follows the structure of the main views like
  * {@link DomainView}. It has a layout, a renderer and manager controlling

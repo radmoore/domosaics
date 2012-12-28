@@ -10,6 +10,8 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
 
 
+
+
 public class DeleteArrangementContextAction extends AbstractAction{
 	private static final long serialVersionUID = 1L;
 

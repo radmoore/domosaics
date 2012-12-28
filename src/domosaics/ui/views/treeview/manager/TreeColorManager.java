@@ -9,6 +9,8 @@ import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.view.manager.DefaultViewManager;
 
 
+
+
 /**
  * TreeColorManager defines the color mapping between node components and
  * tree edges to colors. This class extends DefaultViewManager to ensure 

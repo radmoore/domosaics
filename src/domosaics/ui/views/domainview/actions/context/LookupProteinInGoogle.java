@@ -12,6 +12,8 @@ import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.util.BrowserLauncher;
 
 
+
+
 /**
  * Action which opens a browser window and looks up the selected
  * protein in google.

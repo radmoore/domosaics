@@ -21,6 +21,8 @@ import domosaics.util.UiUtil;
 import domosaics.webservices.WebservicePrinter;
 
 
+
+
 /**
  * A Panel to access the ClustalW2 webservice in a GUI form.
  * The panel can also be embedded within a wizard page, but can be 

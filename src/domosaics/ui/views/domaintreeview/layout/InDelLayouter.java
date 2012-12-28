@@ -12,6 +12,8 @@ import domosaics.ui.views.domainview.layout.UnproportionalLayout;
 import domosaics.ui.views.treeview.components.NodeComponent;
 
 
+
+
 /**
  * InDelLayouter is a layouter class used to layout domain event components.
  * 

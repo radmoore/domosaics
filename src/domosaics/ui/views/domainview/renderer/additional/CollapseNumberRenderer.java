@@ -15,6 +15,8 @@ import domosaics.ui.views.domainview.manager.CollapseSameArrangementsManager;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * 
  * Renders a number behind each arrangement, if the view is in 

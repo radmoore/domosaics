@@ -26,6 +26,8 @@ import domosaics.ui.views.domainview.components.shapes.DoMosaicsShapeIcon;
 import domosaics.ui.views.domainview.components.shapes.DomainShapes;
 
 
+
+
 /**
  * ShapeChooser is displayed for DomainComponents to change their shapes.
  * Whenever a new shape is chosen the domain view updates with

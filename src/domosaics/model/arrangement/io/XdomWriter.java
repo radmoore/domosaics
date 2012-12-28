@@ -14,6 +14,8 @@ import domosaics.model.io.DataWriter;
 import domosaics.util.StringUtils;
 
 
+
+
 /**
  * Class XdomWriter produces xdom format from an arrangement view.
  * 

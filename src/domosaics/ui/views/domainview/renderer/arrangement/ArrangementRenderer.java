@@ -7,6 +7,8 @@ import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.domainview.renderer.domain.DomainRenderer;
 
 
+
+
 /**
  * The basic ArrangementRenderer interface which defines all needed 
  * methods to render domain arrangements.

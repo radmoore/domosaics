@@ -14,6 +14,8 @@ import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.domainview.manager.CollapseSameArrangementsManager;
 
 
+
+
 /**
  * This action changes the collapse same arrangements mode.
  * If the mode is set to true, same arrangements are collapsed

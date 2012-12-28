@@ -7,6 +7,8 @@ import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.views.domainview.DomainViewI;
 
 
+
+
 /**
  * Class which fits all domains into the screen size.
  * 

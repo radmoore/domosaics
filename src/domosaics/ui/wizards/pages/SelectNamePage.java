@@ -20,6 +20,8 @@ import domosaics.ui.views.view.View;
 import domosaics.ui.views.view.ViewInfo;
 
 
+
+
 /**
  * WizardPage shown within the SelectViewNameDialog.
  * 

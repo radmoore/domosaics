@@ -15,6 +15,8 @@ import domosaics.ui.views.domainview.components.shapes.DoMosaicsPolygon;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * The DomainLegendRenderer is used to render the domain legend by
  * iterating over all registered domains.

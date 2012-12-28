@@ -5,6 +5,8 @@ import javax.swing.SwingWorker;
 import domosaics.model.configuration.Configuration;
 
 
+
+
 /**
  * 
  * Class for process creation

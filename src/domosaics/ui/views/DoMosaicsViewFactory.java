@@ -17,6 +17,8 @@ import domosaics.ui.views.view.io.ViewPropertyReader;
 
 
 
+
+
 /**
  * DoMosaicsViewFactory specifies the method which is used to create new views.
  * <p>

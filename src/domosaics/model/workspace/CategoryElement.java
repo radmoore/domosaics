@@ -8,6 +8,8 @@ import domosaics.ui.views.ViewType;
 import domosaics.ui.views.view.ViewInfo;
 
 
+
+
 /**
  * CategoryElement describes Workspace elements, representing categories
  * for views respectively datasets.

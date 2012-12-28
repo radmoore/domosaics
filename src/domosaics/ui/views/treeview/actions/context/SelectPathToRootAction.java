@@ -11,6 +11,8 @@ import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.treeview.manager.TreeSelectionManager.TreeSelectionType;
 
 
+
+
 /**
  * Select the path to the root node based on a selected node
  * 

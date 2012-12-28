@@ -10,6 +10,8 @@ import domosaics.ui.views.domainview.components.detectors.DomainComponentDetecto
 import domosaics.ui.views.view.manager.SelectionManager;
 
 
+
+
 /**
  * Mouse Controller for the ChangeArrangementView which allows
  * selecting domains.

@@ -15,6 +15,8 @@ import domosaics.ui.views.domainview.components.DomainComponent;
 import domosaics.ui.views.domainview.layout.DomainLayout;
 
 
+
+
 /**
  * The basic implementation of the DomainRenderer interface.
  * All DomainRenderer should extend this abstract class. This
@@ -84,10 +86,10 @@ public abstract class AbstractDomainRenderer implements DomainRenderer {
 		// and render the domain
 		g2.fill(shape);
 		g2.setPaint(oldPaint);
-		if ( dc.getDomain().isPutative() )
+		/*if ( dc.getDomain().isPutative() )
 			g2.setColor(Color.red);
-			else 
-				g2.setColor(Color.black);
+		else*/ 
+			g2.setColor(Color.black);
 		g2.draw(shape);
 		
 		// restore the settings then

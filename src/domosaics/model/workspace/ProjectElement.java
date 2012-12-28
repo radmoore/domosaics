@@ -14,6 +14,8 @@ import domosaics.ui.views.ViewType;
 import domosaics.ui.views.view.ViewInfo;
 
 
+
+
 /**
  * ProjectElement describes Workspace elements, representing whole projects.
  * <p>

@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 import domosaics.model.configuration.Configuration;
 
 
+
+
 /**
  * Supported domain types
  * @author Andrew D. Moore <radmoore@uni-muenster.de>

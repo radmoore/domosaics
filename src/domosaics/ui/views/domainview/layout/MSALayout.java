@@ -9,6 +9,8 @@ import domosaics.model.arrangement.DomainArrangement;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
 
 
+
+
 /**
  * MSALayout defines the requested properties for 
  * arrangements and domains for AbstractDomainlayout.

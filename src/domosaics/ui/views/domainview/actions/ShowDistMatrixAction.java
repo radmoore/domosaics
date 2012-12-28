@@ -11,6 +11,8 @@ import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.DomainViewI;
 
 
+
+
 /**
  * Shows the distance matrix tool
  * 

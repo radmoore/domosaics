@@ -8,6 +8,8 @@ import domosaics.ui.tools.domaingraph.DomainGraphView;
 import domosaics.ui.views.ViewType;
 
 
+
+
 /**
  * Action which toggles the option to draw edges curved or straight.
  * 

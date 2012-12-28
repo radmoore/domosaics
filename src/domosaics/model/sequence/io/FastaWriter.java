@@ -11,6 +11,8 @@ import domosaics.model.io.AbstractDataWriter;
 import domosaics.model.sequence.SequenceI;
 
 
+
+
 /**
  * Class to convert Sequences into Fasta Format.
  * 

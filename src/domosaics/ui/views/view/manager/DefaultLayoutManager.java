@@ -10,6 +10,8 @@ import domosaics.ui.views.view.ViewActionManager;
 import domosaics.ui.views.view.components.ZoomCompatible;
 
 
+
+
 /**
  * The workflow of DoMosaics is action driven which means that in 
  * various situations the action state is requested and based on the 

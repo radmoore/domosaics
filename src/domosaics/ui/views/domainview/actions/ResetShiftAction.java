@@ -7,6 +7,8 @@ import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.views.domainview.DomainViewI;
 
 
+
+
 /**
  * Action which resets all shift positions which were made by the user.
  * 

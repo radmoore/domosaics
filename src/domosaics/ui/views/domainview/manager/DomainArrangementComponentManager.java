@@ -10,6 +10,8 @@ import domosaics.ui.views.view.manager.AbstractComponentManager;
 import domosaics.ui.views.view.manager.ComponentManager;
 
 
+
+
 /**
  * The DomainArrangementComponentManager maps DomainArrangementComponents
  * to their backend data DomainArrangement as well as DomainComponents

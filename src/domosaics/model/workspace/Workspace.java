@@ -16,6 +16,8 @@ import domosaics.ui.workspace.components.WorkspaceChangeEvent;
 import domosaics.ui.workspace.components.WorkspaceChangeListener;
 
 
+
+
 /**
  * Workspace is the top level hierarchy from all workspace elements.
  * <p>

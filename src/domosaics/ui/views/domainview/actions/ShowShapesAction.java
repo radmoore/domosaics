@@ -8,6 +8,8 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.view.components.ZoomCompatible;
 
 
+
+
 /**
  * Changes the drawing of domains into shape rendering. This action is
  * only allowed within the proportional view.

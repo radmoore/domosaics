@@ -39,6 +39,8 @@ import domosaics.webservices.RADS.util.RADSResultsTable;
 import domosaics.webservices.RADS.util.RADSResultsTableModel;
 
 
+
+
 /**
  * This class describes the JPanel which shows the RADS/RAMPAGE scan results table.
  * It is implemented as a signelton.

@@ -6,6 +6,8 @@ import domosaics.model.DomosaicsData;
 import domosaics.model.sequence.SequenceI;
 
 
+
+
 /**
  * Class Domain is the representing data structure for domains. <br>
  * <p>

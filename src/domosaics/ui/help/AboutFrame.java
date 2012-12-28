@@ -18,6 +18,8 @@ import domosaics.model.configuration.Configuration;
 
 
 
+
+
 public class AboutFrame extends JFrame{
 
 	JPanel panel;

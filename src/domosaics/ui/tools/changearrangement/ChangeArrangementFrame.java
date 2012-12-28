@@ -6,6 +6,8 @@ import domosaics.ui.tools.ToolFrame;
 import domosaics.ui.views.view.View;
 
 
+
+
 /**
  * The ChangeArrangementFrame contains the ChangeArrangementView and allows
  * changing and adding of domains to an arrangement.

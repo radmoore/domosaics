@@ -13,6 +13,8 @@ import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.domainview.components.DomainComponent;
 
 
+
+
 /**
  * Action which selects all arrangements containing the specified domain
  * 

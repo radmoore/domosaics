@@ -17,6 +17,8 @@ import domosaics.ui.views.domainview.components.shapes.DoMosaicsPolygon;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * The DefaultDomainMatrixRenderer is used to render the domain matrix.
  * 

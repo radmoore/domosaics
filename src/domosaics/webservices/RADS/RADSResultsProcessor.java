@@ -4,7 +4,9 @@ import info.radm.radscan.model.RADSDomain;
 import info.radm.radscan.model.RADSProtein;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.TreeSet;
+import java.util.Vector;
 
 import javax.swing.JProgressBar;
 
@@ -16,6 +18,8 @@ import domosaics.model.arrangement.DomainType;
 import domosaics.model.arrangement.io.GatheringThresholdsReader;
 import domosaics.ui.util.MessageUtil;
 import domosaics.webservices.RADS.util.RADSResultsTableModel;
+
+
 
 
 /**
@@ -78,11 +82,23 @@ public class RADSResultsProcessor {
 			da.setSeqLen(p.getLength());
 			
 			for (RADSDomain resDom: p.getDomains()) {
-				String acc = GatheringThresholdsReader.getAccFromID(resDom.getID());
-				DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(acc);
+				DomainFamily domFamily = null;
+				Vector<String> df = GatheringThresholdsReader.getIDFromName(resDom.getID());
+				if(df!=null) {
+					if(df.size()==1)
+						domFamily = GatheringThresholdsReader.getInstance().get(df.firstElement());
+					else {
+						Iterator<String> iS=df.iterator();
+						while(iS.hasNext()) {
+							domFamily = GatheringThresholdsReader.getInstance().get(iS.next());
+							if(DomainType.getType(domFamily.getId()).getName().equals("Pfam"))
+								break;
+						}
+					}	
+				}
 				if (domFamily == null) {
-					domFamily = new DomainFamily(acc, acc, DomainType.getType(acc));
-					GatheringThresholdsReader.getInstance().put(acc, domFamily);
+					domFamily = new DomainFamily(resDom.getID(), resDom.getID(), DomainType.getType(resDom.getID()));
+					GatheringThresholdsReader.add(domFamily);
 				}
 				int from = resDom.getFrom();
 				int to = resDom.getTo();
@@ -124,8 +140,6 @@ public class RADSResultsProcessor {
 	 */
 	public ArrangementManager process() {
 		if (proteins == null) {
-			progressBar.setIndeterminate(false);
-			MessageUtil.showInformation(radsPanel.getParentFrame(), "No hits found");
 			return null;
 		}
 		progressBar.setIndeterminate(false);
@@ -148,11 +162,23 @@ public class RADSResultsProcessor {
 			da.setSeqLen(p.getLength());
 			
 			for (RADSDomain resDom: p.getDomains()) {
-				String acc = GatheringThresholdsReader.getAccFromID(resDom.getID());
-				DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(acc);
+				DomainFamily domFamily = null;
+				Vector<String> df = GatheringThresholdsReader.getIDFromName(resDom.getID());
+				if(df!=null) {
+					if(df.size()==1)
+						domFamily = GatheringThresholdsReader.getInstance().get(df.firstElement());
+					else {
+						Iterator<String> iS=df.iterator();
+						while(iS.hasNext()) {
+							domFamily = GatheringThresholdsReader.getInstance().get(iS.next());
+							if(DomainType.getType(domFamily.getId()).getName().equals("Pfam"))
+								break;
+						}
+					}
+				}
 				if (domFamily == null) {
-					domFamily = new DomainFamily(acc, acc, DomainType.getType(acc));
-					GatheringThresholdsReader.getInstance().put(acc, domFamily);
+					domFamily = new DomainFamily(resDom.getID(), resDom.getID(), DomainType.getType(resDom.getID()));
+					GatheringThresholdsReader.getInstance().put(resDom.getID(), domFamily);
 				}
 				int from = resDom.getFrom();
 				int to = resDom.getTo();

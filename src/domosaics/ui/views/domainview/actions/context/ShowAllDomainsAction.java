@@ -13,6 +13,8 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
 
 
+
+
 public class ShowAllDomainsAction extends AbstractAction{
 	private static final long serialVersionUID = 1L;
 	

@@ -9,6 +9,8 @@ import javax.swing.table.TableModel;
 import domosaics.model.arrangement.DomainArrangement;
 
 
+
+
 /**
  * RADSResultsTableModel is the back-end data model for the
  * RADSResultsTable, which displays the results of RADS/RAMPAGE

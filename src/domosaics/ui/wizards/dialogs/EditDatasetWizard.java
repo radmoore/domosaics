@@ -23,6 +23,8 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.wizards.pages.EditDatasetPage;
 
 
+
+
 /**
  * Wizard dialog asking the user for arrangements which are the going to be
  * added to the data set.

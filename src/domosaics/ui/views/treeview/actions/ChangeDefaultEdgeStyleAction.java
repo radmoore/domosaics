@@ -9,6 +9,8 @@ import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.views.treeview.components.EdgeStyleChooser;
 
 
+
+
 /**
  * Action to change the default edge stroke.
  * 

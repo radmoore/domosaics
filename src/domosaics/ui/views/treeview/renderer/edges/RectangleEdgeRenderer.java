@@ -8,6 +8,8 @@ import domosaics.ui.util.StringUIUtils;
 import domosaics.ui.views.treeview.TreeViewI;
 
 
+
+
 /**
  * The RectangleEdgeRenderer extends AbstractEdgeRenderer to draw rectangeled 
  * edges used for a dendogram layout.

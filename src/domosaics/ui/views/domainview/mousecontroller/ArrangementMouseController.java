@@ -14,6 +14,8 @@ import domosaics.ui.views.domainview.renderer.domain.OrthologousDomainRenderer;
 import domosaics.ui.views.view.manager.SelectionManager;
 
 
+
+
 /**
  * ArrangementMouseController handles the mouse events in which domain
  * arrangements are interested. The selection of arrangements per mouse 

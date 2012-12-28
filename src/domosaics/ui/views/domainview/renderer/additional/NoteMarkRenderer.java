@@ -15,6 +15,8 @@ import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 public class NoteMarkRenderer implements Renderer {
 	
 	private static final String NOTEMARKPATH = "../../../../resources/notemarker.jpg";

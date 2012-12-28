@@ -9,6 +9,8 @@ import domosaics.ui.tools.dotplot.DotplotView;
 import domosaics.ui.views.ViewType;
 
 
+
+
 /**
  * Action which makes the dotplot use the Blosum65  matrix as 
  * substitution matrix.

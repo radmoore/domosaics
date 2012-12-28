@@ -13,6 +13,8 @@ import domosaics.ui.views.view.components.AbstractViewComponent;
 
 
 
+
+
 /**
  * Class NodeComponent represents the graphical unit of a node. 
  * <p> 

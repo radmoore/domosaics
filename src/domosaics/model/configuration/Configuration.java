@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import domosaics.ui.tools.configuration.ConfigurationFrame;
 
 
+
+
 /**
  * Configuration holds all specified URLs to look up nodes in trees and 
  * domains from an arrangement. The entrys can be changed using the 

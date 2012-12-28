@@ -10,6 +10,8 @@ import domosaics.ui.tools.distmatrix.DistMatrixView;
 import domosaics.ui.views.ViewType;
 
 
+
+
 /**
  * Sets the distance measure for the active distance matrix to 
  * domain edit distance.

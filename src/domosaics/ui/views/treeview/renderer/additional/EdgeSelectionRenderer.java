@@ -12,6 +12,8 @@ import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * EdgeSelectionRenderer renders selected edges and can be added 
  * additionally to a tree view.

@@ -9,6 +9,8 @@ import domosaics.util.UiUtil;
 import domosaics.webservices.clustalw.ClustalW2Panel;
 
 
+
+
 /**
  * WizardPage allowing the use the EBI web service CLustalW2.
  * 

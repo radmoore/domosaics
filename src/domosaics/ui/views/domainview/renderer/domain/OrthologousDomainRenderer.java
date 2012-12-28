@@ -12,6 +12,8 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.DomainComponent;
 
 
+
+
 /**
  * OrthologousDomainRenderer draws domains in search orthologous mode.
  * All domains which are not of interest are colored gray.
@@ -59,10 +61,10 @@ public class OrthologousDomainRenderer extends AbstractDomainRenderer {
 	 * @see AbstractDomainRenderer
 	 */
 	public Stroke getStroke(DomainComponent dc, DomainViewI view) {
-		if (dc.getDomain().isPutative()) {
+		/*if (dc.getDomain().isPutative()) {
 			float dash[] = { 5.0f, 10.0f };
 			return new BasicStroke(1.375f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
-		}
+		}*/
 		return new BasicStroke(1.375f);
 	}
 

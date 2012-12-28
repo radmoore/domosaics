@@ -14,6 +14,8 @@ import domosaics.ui.WorkspaceManager;
 import domosaics.ui.workspace.components.WorkspaceMouseController;
 
 
+
+
 /**
  * The workspace panel which is basically just a JTree wrapped in a JScrollPane.
  * <p>

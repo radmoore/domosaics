@@ -20,6 +20,8 @@ import domosaics.ui.wizards.GUIComponentFactory;
 import domosaics.ui.wizards.WizardManager;
 
 
+
+
 /**
  * WizardPage containing all workspace projects and makes the user choose
  * one.

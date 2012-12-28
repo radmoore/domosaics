@@ -16,6 +16,8 @@ import domosaics.ui.workspace.actions.RenameElementAction;
 import domosaics.ui.workspace.actions.ShowViewAction;
 
 
+
+
 /**
  * The workspace context menu containing actions defined in  
  * action subpackage. Its triggered on a mouse event caught by 

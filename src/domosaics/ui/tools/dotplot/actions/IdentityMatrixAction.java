@@ -9,6 +9,8 @@ import domosaics.ui.tools.dotplot.DotplotView;
 import domosaics.ui.views.ViewType;
 
 
+
+
 /**
  * Action which makes the dotplot use the identity matrix as 
  * substitution matrix.

@@ -17,6 +17,8 @@ import domosaics.ui.workspace.WorkspaceSelectionManager;
 import domosaics.ui.workspace.WorkspaceView;
 
 
+
+
 /**
  * The WorkspaceManager is the interface to all workspace related classes.
  * <p>

@@ -784,7 +784,6 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 					MessageUtil.showWarning(parent, "RADS currently only supports Pfam - consider running RAMPAGE if sequences are available");
 					return false;
 				}
-				String xdom = queryProtein.toXdom();
 				qBuilder.setQueryXdomString(queryProtein.toXdom());
 			}
 		}

@@ -17,6 +17,8 @@ import domosaics.ui.workspace.components.WorkspaceChangeEvent;
 import domosaics.ui.workspace.components.WorkspaceChangeListener;
 
 
+
+
 /**
  * TreeModel for the workspace tree. Represents the hierarchical structure of 
  * the given workspace.

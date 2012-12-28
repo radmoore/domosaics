@@ -17,6 +17,8 @@ import domosaics.model.configuration.Configuration;
 import domosaics.ui.util.MessageUtil;
 
 
+
+
 /**
  * Class to run a local version of hmmpress (Hmmer3).
  * Pressed files are required to run hmmscan. Hmmpress

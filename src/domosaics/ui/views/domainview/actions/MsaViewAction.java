@@ -10,6 +10,8 @@ import domosaics.ui.views.domainview.layout.MSALayout;
 import domosaics.ui.views.domainview.renderer.arrangement.MsaArrangementRenderer;
 
 
+
+
 /**
  * Action which switches the domain arrangement renderer of a domain view
  * into the MsaArrangementRenderer, which draws the underlying sequence 

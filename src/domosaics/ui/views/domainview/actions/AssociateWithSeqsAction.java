@@ -8,6 +8,8 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.wizards.WizardManager;
 
 
+
+
 public class AssociateWithSeqsAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	

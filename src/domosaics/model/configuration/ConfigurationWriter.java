@@ -8,6 +8,8 @@ import java.io.IOException;
 import domosaics.ui.util.MessageUtil;
 
 
+
+
 public class ConfigurationWriter {
 
 	public static final String DEFAULT_LOCATION = "default file location:";

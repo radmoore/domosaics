@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import domosaics.model.configuration.Configuration;
 
 
+
+
 /**
  * Configuration frame allows modifications on the lookup addresses.
  * 

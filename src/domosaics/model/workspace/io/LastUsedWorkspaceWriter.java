@@ -14,6 +14,8 @@ import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 
 
+
+
 public class LastUsedWorkspaceWriter {
 
 	public static void write() {

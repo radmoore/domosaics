@@ -9,6 +9,8 @@ import domosaics.ui.tools.ToolFrameI;
 import domosaics.ui.views.view.View;
 
 
+
+
 /**
  * This class describes a RADSFrame, which is the parent frame
  * to the RADSScanPanel when called from the main menu (ie. not as tool).

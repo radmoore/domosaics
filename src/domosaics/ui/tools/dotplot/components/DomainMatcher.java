@@ -8,6 +8,8 @@ import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
 
 
+
+
 /**
  * Helper class to calculate and save the similarity values for the
  * domain matches which are then represented as boxes containing

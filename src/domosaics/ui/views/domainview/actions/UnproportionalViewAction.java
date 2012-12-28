@@ -9,6 +9,8 @@ import domosaics.ui.views.domainview.layout.UnproportionalLayout;
 import domosaics.ui.views.domainview.renderer.arrangement.BackBoneArrangementRenderer;
 
 
+
+
 /**
  * Action which switches the DomainView into an unproportional view.
  * 

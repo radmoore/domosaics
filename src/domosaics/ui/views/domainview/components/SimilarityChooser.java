@@ -48,6 +48,8 @@ import domosaics.ui.wizards.WizardManager;
 import domosaics.ui.wizards.pages.SelectNamePage;
 
 
+
+
 /**
  * The similarity chooser dialog is used in compination with the 
  * {@link DomainSimilarityManager} which processes the dialog changes.

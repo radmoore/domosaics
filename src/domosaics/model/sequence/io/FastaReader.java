@@ -17,6 +17,8 @@ import domosaics.model.sequence.util.SeqUtil;
 import domosaics.ui.util.MessageUtil;
 
 
+
+
 /**
  * Class FastaReader parses fasta formatted sequences based on an 
  * input stream.

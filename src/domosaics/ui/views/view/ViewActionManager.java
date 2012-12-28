@@ -7,6 +7,8 @@ import domosaics.ui.io.menureader.DefaultMenuActionManager;
 import domosaics.ui.io.menureader.MenuReader;
 
 
+
+
 /**
  * The view specific action manager extending the  {@link DefaultMenuActionManager}
  * from {@link MenuReader}. This manager provides all loaded actions for

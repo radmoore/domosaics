@@ -10,6 +10,8 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.DomainComponent;
 
 
+
+
 // TODO:
 // Allow the undoing of a confirmation
 public class ConfirmPutativeDomain extends AbstractAction {

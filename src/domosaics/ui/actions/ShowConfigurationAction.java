@@ -10,6 +10,8 @@ import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.tools.configuration.ConfigurationFrame;
 
 
+
+
 /**
  * Opens the configuration frame to specify lookup adresses
  * 

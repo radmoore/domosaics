@@ -12,6 +12,8 @@ import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.util.BrowserLauncher;
 
 
+
+
 /**
  * The context menu action LookupProteinInUniprotAction opens a browser
  * window and addresses Uniprot with the domain id of the triggering domain.

@@ -15,6 +15,8 @@ import domosaics.ui.views.view.View;
 
 
 
+
+
 /**
  * DefaultImageExporter is the basic implementation for the ImageExporter 
  * interface allowing the export in PNG, BMP and JPG format.

@@ -5,6 +5,8 @@ import java.io.File;
 import domosaics.ui.views.view.View;
 
 
+
+
 /**
  * Interface ImageExporter defines all methods which are needed to
  * export views in various formats.

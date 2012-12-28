@@ -17,6 +17,8 @@ import domosaics.model.workspace.WorkspaceElement;
 import domosaics.ui.WorkspaceManager;
 
 
+
+
 /**
  * WorkspaceSelectionManager manages the selection of elements within
  * the WorkspaceView. 

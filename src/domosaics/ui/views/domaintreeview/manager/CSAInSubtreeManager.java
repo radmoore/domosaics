@@ -14,6 +14,8 @@ import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.view.manager.DefaultViewManager;
 
 
+
+
 /**
  * CSAInSubtreeManager manages the collapsing of a subtree by collapsing
  * at the node and also redundant arrangements. The non redundant 

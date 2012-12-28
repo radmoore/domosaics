@@ -15,6 +15,8 @@ import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * The DefaultDotplotViewRenderer is used to render the domain 
  * dotplot.

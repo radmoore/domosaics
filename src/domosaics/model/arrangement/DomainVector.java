@@ -5,6 +5,8 @@ import java.util.Vector;
 import domosaics.model.configuration.Configuration;
 
 
+
+
 /**
  * Class DomainVector is the basic data structure to store Domains within an
  * arrangement. <br>

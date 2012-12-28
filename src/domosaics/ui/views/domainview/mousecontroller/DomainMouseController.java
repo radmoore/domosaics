@@ -10,6 +10,8 @@ import domosaics.ui.views.domainview.components.detectors.DomainComponentDetecto
 import domosaics.ui.views.view.manager.SelectionManager;
 
 
+
+
 /**
  * DomainMouseController handles the mouse events in which domains
  * are interested. The highlighting of domains is done in this class.

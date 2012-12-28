@@ -16,6 +16,8 @@ import domosaics.ui.views.domainview.manager.DomainSimilarityManager;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * 
  * Renders the percentage of similarity behind each arrangement compared

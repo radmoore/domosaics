@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 import domosaics.model.configuration.Configuration;
 
 
+
+
 /**
  * Opens a browser window to a specified url.
  *

@@ -7,6 +7,8 @@ import domosaics.model.DomosaicsData;
 import domosaics.model.arrangement.io.XdomWriter;
 
 
+
+
 /**
  * Interface DataWriter defines the methods to write data into a file. <br>
  * {@link AbstractDataWriter} is the basic implementation for this 

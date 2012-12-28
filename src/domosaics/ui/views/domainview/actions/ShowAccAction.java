@@ -9,6 +9,8 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.view.components.ZoomCompatible;
 
 
+
+
 public class ShowAccAction extends AbstractMenuAction implements ZoomCompatible{
 	private static final long serialVersionUID = 1L;
 

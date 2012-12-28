@@ -7,6 +7,8 @@ import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.views.treeview.components.NodeComponent;
 
 
+
+
 /**
  * Interface EdgeRenderer is used to render edges 
  * connecting a specified parent node with its child.

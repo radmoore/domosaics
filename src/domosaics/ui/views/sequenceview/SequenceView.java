@@ -23,6 +23,8 @@ import domosaics.ui.views.view.layout.ViewLayout;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 public class SequenceView extends AbstractView{
 	private static final long serialVersionUID = 1L;
 

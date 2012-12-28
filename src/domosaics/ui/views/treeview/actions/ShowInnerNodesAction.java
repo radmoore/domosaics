@@ -8,6 +8,8 @@ import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.views.treeview.components.NodeComponentDetector;
 
 
+
+
 /**
  * Action used to show inner nodes as circles if no label is set for them.
  * <p>

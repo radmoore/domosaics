@@ -19,6 +19,8 @@ import domosaics.ui.views.view.View;
 import domosaics.webservices.RADS.ui.RADSScanPanel;
 
 
+
+
 /**
  * RADSScanToolFrame is the parent frame of a RADSScanPanel when
  * called as a tool (from context menu of an arrangement).

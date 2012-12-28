@@ -15,6 +15,8 @@ import domosaics.model.configuration.Configuration;
 import domosaics.ui.util.MessageUtil;
 
 
+
+
 /**
  * Abstract class AbstractDataReader is the basic implementation
  * for the {@link DataReader} interface. A Reader object is created from 

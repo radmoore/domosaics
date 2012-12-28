@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import domosaics.ui.views.view.View;
 
 
+
+
 /**
  * Tools are views which are embedded in a Toolframe. This class is the 
  * basic implementation for a ToolFrame.

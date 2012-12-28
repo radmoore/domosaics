@@ -13,6 +13,8 @@ import domosaics.model.sequence.Sequence;
 import domosaics.model.sequence.SequenceI;
 
 
+
+
 public class ClustalW2ResultParser {
 	
 	public SequenceI[] parseResult(String alignmentStr) {

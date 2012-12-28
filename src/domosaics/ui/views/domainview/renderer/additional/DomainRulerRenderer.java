@@ -12,6 +12,8 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * Additional renderer which can be assigned to the DomainView.
  * This renderer renders a ruler on bottom of the arrangements

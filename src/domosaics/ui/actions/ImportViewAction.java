@@ -10,6 +10,8 @@ import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.wizards.WizardManager;
 
 
+
+
 public class ImportViewAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	

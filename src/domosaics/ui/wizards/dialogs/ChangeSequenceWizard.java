@@ -29,6 +29,8 @@ import domosaics.ui.views.view.manager.SelectionManager;
 import domosaics.ui.wizards.pages.ChangeSequencePage;
 
 
+
+
 public class ChangeSequenceWizard {
 	
 	/** the view which is going to be changed */

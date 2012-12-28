@@ -10,14 +10,14 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.image.BufferedImage;
 
+import prefuse.data.Node;
+import prefuse.data.Table;
 import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainFamily;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.shapes.DoMosaicsShapeIcon;
 import domosaics.ui.views.domainview.components.shapes.DomainShapes;
 
-import prefuse.data.Node;
-import prefuse.data.Table;
 
 /**
  * DomainGraph represents the backend data structure for a domain

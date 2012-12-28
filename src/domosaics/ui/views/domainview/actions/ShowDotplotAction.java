@@ -13,6 +13,8 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
 
 
+
+
 /**
  * Action which opens the domain dotplot.
  * 

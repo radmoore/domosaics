@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -185,15 +186,16 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	    overlapRadioNone = new JRadioButton("None      ", true);
 	    overlapRadioEvalue = new JRadioButton("E-value based        ");
 	    overlapRadioCoverage = new JRadioButton("Max. coverage");
-	    radioPane.add(overlapRadioNone);
-	    radioPane.add(overlapRadioEvalue);
-	    radioPane.add(overlapRadioCoverage);
+	    overlapRadioNone.setActionCommand("None");
+	    overlapRadioEvalue.setActionCommand("Evalue");
+	    overlapRadioCoverage.setActionCommand("Coverage");
 	    groupRadio.add(overlapRadioNone);
 	    groupRadio.add(overlapRadioEvalue);
 	    groupRadio.add(overlapRadioCoverage);
-	    overlapRadioNone.setActionCommand("None");
-	    overlapRadioEvalue.setActionCommand("OverlapFilterEvalue");
-	    overlapRadioCoverage.setActionCommand("OverlapFilterCoverage");
+	    radioPane.add(overlapRadioNone);
+	    radioPane.add(overlapRadioEvalue);
+	    radioPane.add(overlapRadioCoverage);
+	   
 	    
 	    // gathering threshold checkbox. If disabled,
 		// the panel for the evalue is set to visible
@@ -404,6 +406,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		
 		/*if(hmmPressTF.getText().equals("")) {
 			MessageUtil.showWarning("Please choose a hmmpress binary.");
+			hmmPressTF.setBackground(highlightColor);
 			return;	
 		}*/
 
@@ -432,11 +435,14 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		if (!checkDB(new File(hmmTF.getText()))) {
 			hmmTF.setBackground(highlightColor);
 			return;
+		} else {
+			hmmDBFile = new File(hmmTF.getText());
 		}
 		if (!checkDBpressed(new File(hmmTF.getText()))) {
+			hmmPressTF.setBackground(highlightColor);
 			return;
 		}
-		if ( !FastaReader.isValidFasta(fastaTF.getText()) ) {
+		if ( !FastaReader.isValidFasta( fastaTF.getText() ) ) {
 			MessageUtil.showWarning("Malformated fasta file or unknown sequence format");
 			fastaTF.setBackground(highlightColor);
 			return;
@@ -464,6 +470,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		}
 		hmmScan.setBiasFilter(biasCkb.isSelected());
 		hmmScan.setOverlapMethod(groupRadio.getSelection().getActionCommand());
+		System.out.println(groupRadio.getSelection().getActionCommand());
 		hmmScan.setCoddFilter(coddCkb.isSelected());
 		hmmScan.setSeqView(seqView);
 		
@@ -610,7 +617,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 					HmmPress hmmPress = new HmmPress(Hmmer3Engine.getInstance().getAvailableServicePath("hmmpress"), dbFile, this);
 					Hmmer3Engine.getInstance().launchInBackground(hmmPress);
 					progressBar.setIndeterminate(true);
-					// we must return false, even if the press was successful to ensure that the engine instance is free
+					// ATTENTION: we must return false, even if the press was successful to ensure that the engine instance is free
 					// before we init the actual scan
 					return false;
 				}
@@ -709,5 +716,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		});
 	}
 	
-	
+	public boolean usingCODD() {
+		return coddCkb.isSelected();
+	}
 }

@@ -9,6 +9,8 @@ import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domainview.DomainViewI;
 
 
+
+
 /**
  * Action which makes it possible to select underlying sequences for
  * domain arrangements. This action is only supported for the proportional

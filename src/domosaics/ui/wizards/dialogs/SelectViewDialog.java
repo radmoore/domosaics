@@ -13,6 +13,8 @@ import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.wizards.pages.SelectViewPage;
 
 
+
+
 /**
  * Wizard dialog allowing user to choose a domain-view
  * 

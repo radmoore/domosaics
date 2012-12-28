@@ -18,6 +18,8 @@ import domosaics.ui.wizards.pages.ClustalW2Page;
 import domosaics.webservices.clustalw.ClustalW2ResultParser;
 
 
+
+
 /**
  * Wizard dialog allowing the user to perform a ClustalW2 alignment on
  * a set of sequences. Therefore the ebi webservice ClustalW2 is used.

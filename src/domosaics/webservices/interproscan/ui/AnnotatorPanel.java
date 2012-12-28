@@ -46,6 +46,8 @@ import domosaics.webservices.interproscan.AnnotatorProcessWriter;
 import domosaics.webservices.interproscan.Method;
 
 
+
+
 /**
  * Class AnnotatorPanel displays the annotation process and allows
  * setting all needed parameters, which are: <br>

@@ -7,6 +7,8 @@ import domosaics.model.arrangement.DomainArrangement;
 import domosaics.ui.views.view.manager.DefaultViewManager;
 
 
+
+
 public class NoteManager extends DefaultViewManager {
 
 	/** mapping between arrangements and their notes */

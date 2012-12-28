@@ -8,6 +8,8 @@ import domosaics.model.configuration.Configuration;
 import domosaics.ui.views.view.components.AbstractViewComponent;
 
 
+
+
 /**
  * The DomainComponent is the graphical representation for a 
  * backend data model, the {@link Domain} which is

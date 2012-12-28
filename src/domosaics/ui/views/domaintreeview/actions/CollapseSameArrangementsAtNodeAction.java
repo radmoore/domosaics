@@ -15,6 +15,8 @@ import domosaics.ui.views.domaintreeview.layout.DefaultDomainTreeLayout;
 import domosaics.ui.views.treeview.components.NodeComponent;
 
 
+
+
 /**
  * Collapses a subtree as well as redundant arrangements along this subtree.
  * Only non redundant arrangements remain visible, the corresponding 

@@ -10,6 +10,8 @@ import domosaics.model.tree.TreeEdgeI;
 import domosaics.ui.views.view.manager.DefaultViewManager;
 
 
+
+
 /**
  * TreeStrokeManager defines the mapping between tree edges and their 
  * strokes. This class extends DefaultViewManager to ensure the

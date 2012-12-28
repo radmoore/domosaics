@@ -7,6 +7,8 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
 
 
+
+
 /**
  * The ArrangementComponentDetector detects if a an arrangements is 
  * visible at a given Point within the screen.

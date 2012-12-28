@@ -7,6 +7,8 @@ import domosaics.model.domainevent.DomainEventI;
 
 
 
+
+
 /**
  * The TreeEdge class represents Edges within a {@link TreeI} which connects two
  * {@link TreeNodeI}s. 

@@ -6,6 +6,8 @@ import domosaics.ui.views.domainview.manager.DomainViewManagerFactory;
 import domosaics.ui.views.view.components.ViewComponent;
 
 
+
+
 /**
  * Views within DoMosaics display graphical components {@link ViewComponent}
  * for backend data models. The concept to manage the attributes of those

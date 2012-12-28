@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 
 
+
+
 // TODO move the selecting procedure to the selectionmanager
 public class FindDomainAction extends AbstractMenuAction { //implements FindDialogListener{
 	private static final long serialVersionUID = 1L;

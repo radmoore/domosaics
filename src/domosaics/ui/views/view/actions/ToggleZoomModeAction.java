@@ -8,6 +8,8 @@ import domosaics.ui.views.view.View;
 import domosaics.ui.views.view.components.ZoomCompatible;
 
 
+
+
 public class ToggleZoomModeAction extends AbstractMenuAction implements ZoomCompatible {
 	private static final long serialVersionUID = 1L;
 	

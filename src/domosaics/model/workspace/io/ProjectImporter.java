@@ -11,6 +11,8 @@ import domosaics.ui.views.view.io.ViewImporter;
 import domosaics.ui.wizards.WizardManager;
 
 
+
+
 public class ProjectImporter {
 	protected static ProjectElement project = null;
 	

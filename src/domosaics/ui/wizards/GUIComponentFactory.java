@@ -27,6 +27,8 @@ import domosaics.ui.views.view.View;
 import domosaics.ui.views.view.ViewInfo;
 
 
+
+
 /**
  * Helper class for GUI components that are used frequently
  * 

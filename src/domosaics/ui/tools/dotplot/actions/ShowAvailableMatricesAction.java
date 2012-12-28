@@ -6,6 +6,8 @@ import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.util.BrowserLauncher;
 
 
+
+
 /**
  * Action which opens a brwoser showing the available 
  * substitution matrices

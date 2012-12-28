@@ -12,6 +12,8 @@ import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.util.BrowserLauncher;
 
 
+
+
 /**
  * Action opening a browser window and performing a NCBI search
  * using the nodes label

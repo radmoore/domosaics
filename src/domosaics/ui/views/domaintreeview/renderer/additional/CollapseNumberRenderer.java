@@ -14,6 +14,8 @@ import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * 
  * Renders a number behind each arrangement, if the view is in 

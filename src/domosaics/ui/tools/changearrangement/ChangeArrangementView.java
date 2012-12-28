@@ -33,6 +33,8 @@ import domosaics.ui.views.view.layout.ViewLayout;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * The ChangeArrangementView consists of a panel where changes can be made,
  * a help panel explaining how changes can be made and a small domain

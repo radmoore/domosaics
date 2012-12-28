@@ -11,6 +11,8 @@ import java.util.Map;
 import domosaics.model.configuration.Configuration;
 
 
+
+
 public class ClustalW2ToolOutputParser {
 	private static final int ID2NAME = 0;
 	private static final int ID2SCORE = 1;

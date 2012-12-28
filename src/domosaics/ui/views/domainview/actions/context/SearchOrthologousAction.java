@@ -17,6 +17,8 @@ import domosaics.ui.views.domainview.renderer.arrangement.BackBoneArrangementRen
 import domosaics.ui.views.domainview.renderer.domain.OrthologousDomainRenderer;
 
 
+
+
 /**
  * Performs the "compare domain sequences" feature
  * for the selected domain only.

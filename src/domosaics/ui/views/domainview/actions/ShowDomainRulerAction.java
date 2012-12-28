@@ -8,6 +8,8 @@ import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.views.domainview.DomainViewI;
 
 
+
+
 /**
  * Actions which triggers the drawing of a amino acid ruler below
  * the rendered arrangements.

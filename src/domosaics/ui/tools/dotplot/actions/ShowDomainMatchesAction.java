@@ -8,6 +8,8 @@ import domosaics.ui.tools.dotplot.DotplotView;
 import domosaics.ui.views.ViewType;
 
 
+
+
 /**
  * Action toggling the rendering of domain similarity boxes
  * 

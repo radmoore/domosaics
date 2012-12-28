@@ -9,6 +9,8 @@ import domosaics.model.DataType;
 import domosaics.model.workspace.WorkspaceElement;
 
 
+
+
 /**
  * Class to render entries within a JComponent such as JComboBox. 
  * Its just ensured to draw icons (if present) next to their title.

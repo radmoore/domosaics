@@ -8,6 +8,8 @@ import javax.swing.event.ChangeListener;
 import domosaics.ui.util.DoMosaicsSlider;
 
 
+
+
 /**
  * Sliderbox for the cutoff threshold and window size which are added
  * to the toolframe. Using the method addSliderListener() ChangeListener

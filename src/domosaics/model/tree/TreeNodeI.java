@@ -8,6 +8,8 @@ import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.DomainSet;
 
 
+
+
 /**
  * Interface TreeNodeI represents nodes within a {@link TreeI}.
  * <p>

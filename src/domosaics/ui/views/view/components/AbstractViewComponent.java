@@ -8,6 +8,8 @@ import java.awt.geom.Rectangle2D;
 import domosaics.ui.views.domainview.components.DomainComponent;
 
 
+
+
 /**
  * The basic implementation of the {@link ViewComponent} interface.
  * <p>

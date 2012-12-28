@@ -10,6 +10,8 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
 
 
+
+
 /**
  * Action which selects all arrangements at once
  * 

@@ -10,6 +10,8 @@ import domosaics.model.sequence.SequenceI;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 public class DefaultSequenceViewRenderer implements Renderer {
 	
 	private SequenceView view;

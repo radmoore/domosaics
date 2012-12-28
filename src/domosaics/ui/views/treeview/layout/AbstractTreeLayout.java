@@ -15,6 +15,8 @@ import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.view.View;
 
 
+
+
 /**
  * The basic method {@link #layoutContainer(Container)} of a LayoutManager 
  * is triggered by the {@link TreeView#doLayout()} method. For instance

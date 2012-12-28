@@ -8,6 +8,8 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import domosaics.model.workspace.WorkspaceElement;
 
 
+
+
 /**
  * Class to render the workspace tree entries. Its just ensured to draw the
  * workspace elements icon next to its title.

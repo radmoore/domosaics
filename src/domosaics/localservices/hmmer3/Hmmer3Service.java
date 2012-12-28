@@ -18,6 +18,8 @@ import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
 
 
+
+
 /**
  * A generic class for handeling a {@link Hmmer3Program}. Provides
  * methods to handel the execution of the program via

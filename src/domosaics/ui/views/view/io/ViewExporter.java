@@ -18,6 +18,8 @@ import domosaics.ui.util.DigestUtil;
 import domosaics.ui.views.view.View;
 
 
+
+
 public abstract class ViewExporter<V extends View> {
 	
 	public abstract void write(BufferedWriter out, V view);

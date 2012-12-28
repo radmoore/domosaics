@@ -14,6 +14,8 @@ import domosaics.ui.views.domainview.layout.UnproportionalLayout;
 import domosaics.ui.views.domainview.manager.DomainShiftManager;
 
 
+
+
 /**
  * This mouse handler changes the start point of domain arrangements 
  * and domains making it possible to shift them around. <br>

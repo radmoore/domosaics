@@ -9,6 +9,8 @@ import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 import domosaics.ui.views.domaintreeview.components.TreeSpaceSlider;
 
 
+
+
 public class ChangeTreeSpaceAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 

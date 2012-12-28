@@ -28,6 +28,8 @@ import domosaics.ui.wizards.WizardManager;
 import domosaics.ui.wizards.pages.SelectNamePage;
 
 
+
+
 /**
  * The SequenceSelectionMouseController is more than just an ordinary
  * MouseController. First it handles the mouse events being relevant

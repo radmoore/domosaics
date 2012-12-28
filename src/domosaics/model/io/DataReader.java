@@ -9,6 +9,8 @@ import domosaics.model.DomosaicsData;
 import domosaics.model.arrangement.io.XdomReader;
 
 
+
+
 /**
  * Interface DataReader defines the methods to retrieve data from
  * a stream, file or a string. <br>

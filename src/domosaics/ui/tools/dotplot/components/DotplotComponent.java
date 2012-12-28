@@ -7,6 +7,8 @@ import domosaics.model.dotplot.Dotplot;
 import domosaics.ui.views.view.components.AbstractViewComponent;
 
 
+
+
 /**
  * DotplotComponent is the graphical representation of a dotplot 
  * data structure. A grayscale image produced out of the dotplot is used

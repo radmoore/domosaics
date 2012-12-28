@@ -5,6 +5,8 @@ import javax.swing.ImageIcon;
 import domosaics.ui.views.view.ViewInfo;
 
 
+
+
 /**
  * ViewElement describes workspace elements, representing views which 
  * were loaded.

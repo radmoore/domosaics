@@ -20,6 +20,8 @@ import domosaics.ui.util.FileDialogs;
 import domosaics.ui.wizards.GUIComponentFactory;
 
 
+
+
 public class AssociateWithSeqsPage extends WizardPage implements ActionListener {
 	private static final long serialVersionUID = 1L;
 

@@ -20,6 +20,8 @@ import domosaics.ui.views.sequenceview.SequenceView;
 import domosaics.ui.views.treeview.TreeViewI;
 
 
+
+
 /**
  * Class which gives access to example files within the JAR package.
  * <p>

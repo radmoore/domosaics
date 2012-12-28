@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 import domosaics.model.arrangement.DomainFamily;
 import domosaics.model.arrangement.DomainType;
@@ -20,6 +21,7 @@ public class GatheringThresholdsReader {
 
 	protected static Map<String, DomainFamily> domFamilyMap;
 	protected static Map<String, String> id2acc/*, acc2id*/;
+	private static HashMap<String, Vector<String>> name2id;
 
 	
 	 /**
@@ -36,22 +38,23 @@ public class GatheringThresholdsReader {
 	 
 	public static void read() {
 		domFamilyMap = new HashMap<String , DomainFamily >();
+		name2id = new HashMap<String , Vector<String> >();
 		domFamilyMap.put(GapDomain.getGapID(), new DomainFamily(GapDomain.getGapID(), GapDomain.getGapID(), DomainType.GAPDOM));
 		//acc2id = new HashMap<String, String>();
-		id2acc = new HashMap<String, String>();
+		name2id = new HashMap<String, Vector<String> >();
 		
 		BufferedReader in;
 		
 		try {
-			InputStream is = GatheringThresholdsReader.class.getResourceAsStream("resources/gath-Thresholds_Pfam-v24.0");
+			// TODO Update to the most recent Pfam + Create automatic script
+			InputStream is = GatheringThresholdsReader.class.getResourceAsStream("resources/gath-Thresholds_Pfam-v26.0");
 			in = new BufferedReader(new InputStreamReader(is));
 			String line;
 			while((line = in.readLine()) != null) {
 				if(!line.isEmpty()) {
-					String[] entryFields = line.split(" ");
+					String[] entryFields = line.split("\t");
 					DomainFamily d=new DomainFamily(entryFields[0], entryFields[1], DomainType.PFAM, Double.parseDouble(entryFields[2]), Double.parseDouble(entryFields[3]));
-					domFamilyMap.put(entryFields[0], d);
-					id2acc.put(entryFields[1],entryFields[0]);
+					add(d);
 				}
 			}
 		}
@@ -63,9 +66,15 @@ public class GatheringThresholdsReader {
 		}
 	}
 
+	public static void add(DomainFamily d) {
+		domFamilyMap.put(d.getId(), d);
+		if(name2id.get(d.getName())==null)
+			name2id.put(d.getName(), new Vector<String>());
+		name2id.get(d.getName()).add(d.getId());
+	}
 	
-	public static String getAccFromID(String id) {
-     return id2acc.get(id);
+	public static Vector<String> getIDFromName(String id) {
+     return name2id.get(id);
 	}
 
 	

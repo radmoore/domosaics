@@ -17,6 +17,8 @@ import domosaics.ui.views.view.View;
 import domosaics.ui.views.view.layout.ViewLayout;
 
 
+
+
 /**
  * DefaultDomainLegendLayout does the layouting of the legend components.
  * 

@@ -13,6 +13,8 @@ import domosaics.ui.views.domainview.components.DomainComponent;
 import domosaics.ui.views.view.manager.DefaultViewManager;
 
 
+
+
 /**
  * The DomainSearchOrthologsManager maps each DomainComponent a 
  * percentage similarity score to a specified query domain. <br>

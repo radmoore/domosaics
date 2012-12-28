@@ -9,6 +9,8 @@ import javax.swing.ImageIcon;
 import domosaics.model.configuration.Configuration;
 
 
+
+
 /**
  * Enumeration of loadable data types storing the types name and icon. 
  * Can be used for instance within the import data wizard.

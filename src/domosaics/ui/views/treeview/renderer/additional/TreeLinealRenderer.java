@@ -15,6 +15,8 @@ import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.view.renderer.Renderer;
 
 
+
+
 /**
  * TreeLinealRenderer renders a legend for a tree view showing the 
  * summed up distances (edge weights). This renderer can be added  

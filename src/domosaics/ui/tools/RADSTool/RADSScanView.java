@@ -15,6 +15,8 @@ import domosaics.ui.views.view.renderer.Renderer;
 import domosaics.webservices.RADS.ui.RADSScanPanel;
 
 
+
+
 /**
  * This class is used when RADSScan is called as a tool (via context menu of an arrangement).
  * It extends the abstract class {@link AbstractView} and implements the interface

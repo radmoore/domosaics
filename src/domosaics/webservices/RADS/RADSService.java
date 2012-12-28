@@ -13,6 +13,8 @@ import javax.swing.SwingWorker;
 import domosaics.model.arrangement.DomainArrangement;
 
 
+
+
 /**
  * The RADSService is the class that delegates the actual scan of a query
  * using RADS or RAMPAGE to the RADSRunner defined in the RADSScan lib. It

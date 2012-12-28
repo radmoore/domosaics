@@ -16,6 +16,8 @@ import domosaics.ui.views.view.AbstractView;
 import domosaics.ui.views.view.View;
 
 
+
+
 /**
  * The ZoomController controls the zoom settings for a {@link AbstractView}.
  * <p>

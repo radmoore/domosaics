@@ -13,6 +13,8 @@ import domosaics.model.configuration.Configuration;
 
 
 
+
+
 /**
  * The abstract class AbstractMenuAction makes it possible to set all 
  * Action specific settings for {@link MenuEntry}s.

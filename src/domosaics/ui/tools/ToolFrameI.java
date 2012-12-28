@@ -6,6 +6,8 @@ import javax.swing.JMenuBar;
 import domosaics.ui.views.view.View;
 
 
+
+
 /**
  * Tools are views which are embedded in a Toolframe. This
  * interface defines the methods a ToolFrame has to implement.

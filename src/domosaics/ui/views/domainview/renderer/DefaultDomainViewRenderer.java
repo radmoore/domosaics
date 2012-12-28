@@ -12,6 +12,8 @@ import domosaics.ui.views.domainview.renderer.arrangement.ArrangementRenderer;
 import domosaics.ui.views.domainview.renderer.arrangement.BackBoneArrangementRenderer;
 
 
+
+
 /**
  * The DefaultDomainViewRenderer provides all methods necessary to
  * render a DomainView.

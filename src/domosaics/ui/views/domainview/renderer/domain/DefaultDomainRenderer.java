@@ -13,6 +13,8 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.DomainComponent;
 
 
+
+
 /**
  * Default domain renderer which draws domains with their normal shapes
  * and labels.
@@ -68,11 +70,11 @@ public class DefaultDomainRenderer extends AbstractDomainRenderer{
 	 * @see AbstractDomainRenderer
 	 */
 	public Stroke getStroke(DomainComponent dc, DomainViewI view) {
-		if (dc.getDomain().isPutative()) {
+		/*if (dc.getDomain().isPutative()) {
 			float dash[] = { 5.0f, 10.0f };
 //			return new BasicStroke(1.375f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
 			return new BasicStroke(1.75f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
-		}
+		}*/
 		return new BasicStroke(1.375f);
 	}
 	

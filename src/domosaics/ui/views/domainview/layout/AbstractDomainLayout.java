@@ -19,6 +19,8 @@ import domosaics.ui.views.domainview.manager.DomainShiftManager;
 import domosaics.ui.views.view.View;
 
 
+
+
 /**
  * AbstractDomainLayout provides the actual layout methods and just uses
  * methods from implementing subclasses to get arrangement bounds and so

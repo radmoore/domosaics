@@ -9,6 +9,8 @@ import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.DomainViewI;
 
 
+
+
 /**
  * Action which opens a domain matrix.
  * 

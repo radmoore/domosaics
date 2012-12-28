@@ -13,6 +13,8 @@ import domosaics.ui.views.treeview.renderer.nodes.DefaultNodeRenderer;
 import domosaics.ui.views.treeview.renderer.nodes.NodeRenderer;
 
 
+
+
 /**
  * Class DefaultTreeViewRenderer manages the rendering of a tree view.
  * Therefore it has a {@link NodeRenderer} and a {@link EdgeRenderer}

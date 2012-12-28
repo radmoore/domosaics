@@ -17,6 +17,8 @@ import domosaics.ui.WorkspaceManager;
 import domosaics.ui.views.ViewType;
 
 
+
+
 /**
  * WizardPage shown within the SelectViewNameDialog.
  * 

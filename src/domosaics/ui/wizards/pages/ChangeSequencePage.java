@@ -21,6 +21,8 @@ import org.netbeans.spi.wizard.WizardPage;
 import domosaics.model.arrangement.DomainArrangement;
 
 
+
+
 public class ChangeSequencePage extends WizardPage {
 	private static final long serialVersionUID = 1L;
 

@@ -8,6 +8,8 @@ import domosaics.ui.tools.domaingraph.DomainGraphView;
 import domosaics.ui.views.ViewType;
 
 
+
+
 /**
  * Action which toggles the force driven layout.
  * 

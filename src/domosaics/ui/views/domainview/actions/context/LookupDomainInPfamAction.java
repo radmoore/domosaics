@@ -12,6 +12,8 @@ import domosaics.ui.views.domainview.components.DomainComponent;
 import domosaics.util.BrowserLauncher;
 
 
+
+
 /**
  * The context menu action LookupDomainInPfamAction opens a browser
  * window and addresses pfam with the domain id of the triggering domain.

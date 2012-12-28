@@ -13,6 +13,8 @@ import domosaics.ui.views.domainview.components.SimilarityChooser;
 import domosaics.ui.views.view.manager.DefaultViewManager;
 
 
+
+
 /**
  * DomainSimilarityManager manages the collapsing and calculating
  * of similarities of all arrangements to a reference arrangement,

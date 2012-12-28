@@ -12,6 +12,8 @@ import domosaics.model.tree.TreeNodeI;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 
 
+
+
 public class ProgressiveAlignment {
 	
 	public static DomainArrangement[] align(DomainTreeViewI view) {

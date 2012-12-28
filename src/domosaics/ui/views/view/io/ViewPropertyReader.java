@@ -15,6 +15,8 @@ import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.view.ViewInfo;
 
 
+
+
 /**
  * Class for reading a views property file. This parser is called by
  * DoMosaicsViewFactory during the creation process. 

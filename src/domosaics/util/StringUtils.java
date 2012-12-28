@@ -7,6 +7,8 @@ import java.util.Locale;
 import domosaics.model.configuration.Configuration;
 
 
+
+
 /**
  * A collection of some string converter methods which comes in handy at various
  * places within the program.

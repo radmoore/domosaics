@@ -8,6 +8,8 @@ import domosaics.ui.views.ViewType;
 import domosaics.ui.views.view.io.ViewPropertyReader;
 
 
+
+
 /**
  * Class containing all needed information to create a new view or tool.
  * The information are gathered by reading a xml-formatted property file

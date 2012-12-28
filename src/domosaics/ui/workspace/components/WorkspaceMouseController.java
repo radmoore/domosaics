@@ -9,6 +9,8 @@ import domosaics.ui.WorkspaceManager;
 import domosaics.ui.workspace.WorkspaceView;
 
 
+
+
 /**
  * Class which handles mouse events on the {@link WorkspaceView}.
  * Basically the context menu opens on right click and on left double click on

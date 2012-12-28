@@ -9,6 +9,8 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
 
 
+
+
 /**
  * Action which deletes the selected arrangements from the view.
  * 

@@ -14,6 +14,8 @@ import domosaics.ui.util.DigestUtil;
 import domosaics.ui.util.MessageUtil;
 
 
+
+
 public class ProjectExporter {
 	
 	public static String PROJECTFILE = ".domosaics_project";

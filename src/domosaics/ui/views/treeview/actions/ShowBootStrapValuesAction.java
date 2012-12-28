@@ -10,6 +10,8 @@ import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.treeview.TreeViewI;
 
 
+
+
 /**
  * Action which displays the bootstrap values instead of the edge weights.
  * 

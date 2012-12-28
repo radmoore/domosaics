@@ -7,6 +7,8 @@ import domosaics.ui.views.domainview.components.DomainComponent;
 import domosaics.ui.views.view.components.AbstractViewComponent;
 
 
+
+
 /**
  * DomainMatrixEntry is the type of component which gets layouted and
  * rendered within the DomainMatrixView. It is based on a
