@@ -15,11 +15,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import net.miginfocom.swing.MigLayout;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.io.FastaReader;
 import angstd.ui.views.domainview.DomainViewI;
+
+
+import net.miginfocom.swing.MigLayout;
 
 public class SequenceMatchErrorFrame extends JDialog implements ActionListener{
 	private static final long serialVersionUID = 1L;

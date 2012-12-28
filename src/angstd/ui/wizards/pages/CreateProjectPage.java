@@ -15,6 +15,8 @@ import org.netbeans.spi.wizard.WizardPage;
 import angstd.ui.AngstdUI;
 import angstd.ui.WorkspaceManager;
 
+
+
 /**
  * WizardPage allowing the user to enter a name for a project which is
  * going to be created.

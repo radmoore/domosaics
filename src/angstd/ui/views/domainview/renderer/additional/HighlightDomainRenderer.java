@@ -10,6 +10,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * HighlightDomainRenderer can be added as additional renderer to the 
  * DomainView and is responsible for highlighting domains.

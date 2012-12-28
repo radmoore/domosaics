@@ -11,8 +11,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//import org.apache.log4j.Logger;
-
 import angstd.model.GO.GeneOntology;
 import angstd.model.GO.GeneOntologyTerm;
 import angstd.model.arrangement.Domain;
@@ -21,6 +19,10 @@ import angstd.model.arrangement.DomainFamily;
 import angstd.model.arrangement.DomainType;
 import angstd.model.arrangement.io.GatheringThresholdsReader;
 import angstd.model.configuration.Configuration;
+
+
+//import org.apache.log4j.Logger;
+
 
 /**
  * Parses the result produces by WSInterproScan package into

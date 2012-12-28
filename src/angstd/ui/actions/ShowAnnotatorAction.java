@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.webservices.interproscan.ui.AnnotatorFrame;
 
+
+
 /**
  * Opens a new AnnotatorFrame
  * 

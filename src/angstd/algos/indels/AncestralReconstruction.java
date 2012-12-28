@@ -19,6 +19,8 @@ import angstd.model.tree.TreeEdgeI;
 import angstd.model.tree.TreeI;
 import angstd.model.tree.TreeNodeI;
 
+
+
 public class AncestralReconstruction extends SwingWorker<String, Void> {
 	
 	private static DomainVector domCols; 

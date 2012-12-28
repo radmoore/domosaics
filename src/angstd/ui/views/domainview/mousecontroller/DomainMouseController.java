@@ -9,6 +9,8 @@ import angstd.ui.views.domainview.components.DomainPopupMenu;
 import angstd.ui.views.domainview.components.detectors.DomainComponentDetector;
 import angstd.ui.views.view.manager.SelectionManager;
 
+
+
 /**
  * DomainMouseController handles the mouse events in which domains
  * are interested. The highlighting of domains is done in this class.

@@ -10,6 +10,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.wizards.WizardManager;
 
+
+
 public class EditSequenceAction extends AbstractAction{
 	private static final long serialVersionUID = 1L;
 	

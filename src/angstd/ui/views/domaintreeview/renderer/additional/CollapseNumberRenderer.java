@@ -13,6 +13,8 @@ import angstd.ui.views.domainview.layout.DomainLayout;
 import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * 
  * Renders a number behind each arrangement, if the view is in 

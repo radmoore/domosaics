@@ -12,6 +12,8 @@ import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
 import angstd.ui.wizards.pages.WorkspaceDirectoryPage;
 
+
+
 public class WorkspaceDirectoryWizard {
 	
 	protected String defaultDir;

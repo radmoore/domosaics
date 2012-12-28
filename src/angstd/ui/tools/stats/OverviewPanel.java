@@ -6,8 +6,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import net.miginfocom.swing.MigLayout;
 import angstd.model.arrangement.ArrangementManager;
+
+
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Basic Overview panel for stats on a dataset.

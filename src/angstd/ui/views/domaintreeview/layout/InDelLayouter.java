@@ -11,6 +11,8 @@ import angstd.ui.views.domaintreeview.components.DomainEventComponent;
 import angstd.ui.views.domainview.layout.UnproportionalLayout;
 import angstd.ui.views.treeview.components.NodeComponent;
 
+
+
 /**
  * InDelLayouter is a layouter class used to layout domain event components.
  * 

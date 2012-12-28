@@ -5,6 +5,8 @@ import java.text.DecimalFormat;
 import angstd.model.AngstdData;
 import angstd.model.sequence.SequenceI;
 
+
+
 /**
  * Class Domain is the representing data structure for domains. <br>
  * <p>

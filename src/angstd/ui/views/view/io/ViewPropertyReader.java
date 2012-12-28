@@ -14,6 +14,8 @@ import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.view.ViewInfo;
 
+
+
 /**
  * Class for reading a views property file. This parser is called by
  * AngstdViewFactory during the creation process. 

@@ -18,6 +18,8 @@ import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.view.View;
 import angstd.webservices.RADS.ui.RADSScanPanel;
 
+
+
 /**
  * RADSScanToolFrame is the parent frame of a RADSScanPanel when
  * called as a tool (from context menu of an arrangement).

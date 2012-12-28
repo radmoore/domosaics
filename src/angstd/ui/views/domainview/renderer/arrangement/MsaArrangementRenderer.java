@@ -9,6 +9,8 @@ import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.layout.MSALayout;
 import angstd.ui.views.domainview.renderer.domain.MsaDomainRenderer;
 
+
+
 /**
  * The MSA arrangement renderer renders proteins with their
  * underlying sequence.

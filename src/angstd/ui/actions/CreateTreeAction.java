@@ -6,6 +6,8 @@ import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.wizards.WizardManager;
 import angstd.ui.wizards.createtree.CreateTreeResultProducer;
 
+
+
 /**
  * CreateTreeAction opens a wizard to create a tree based on sequences or domains. 
  * The informations given by the user using the wizard are processed in 

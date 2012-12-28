@@ -4,6 +4,8 @@ import java.awt.event.MouseAdapter;
 
 import angstd.ui.views.domainview.DomainViewI;
 
+
+
 /**
  * A class creating all MouseController which are needed
  * to provide the complete mouse event handling for a DomainView.

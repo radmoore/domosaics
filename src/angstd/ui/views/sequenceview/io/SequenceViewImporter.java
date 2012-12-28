@@ -11,6 +11,8 @@ import angstd.ui.views.ViewType;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.views.view.io.ViewImporter;
 
+
+
 public class SequenceViewImporter extends ViewImporter<SequenceView>{
 	private static final int DEFAULTSETTINGS = 0;
 	private static final int LAYOUTSETTINGS = 1;

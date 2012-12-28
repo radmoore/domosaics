@@ -13,6 +13,8 @@ import angstd.ui.views.domainview.components.detectors.DomainComponentDetector;
 import angstd.ui.views.domainview.layout.UnproportionalLayout;
 import angstd.ui.views.domainview.manager.DomainShiftManager;
 
+
+
 /**
  * This mouse handler changes the start point of domain arrangements 
  * and domains making it possible to shift them around. <br>

@@ -17,6 +17,8 @@ import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.views.treeview.TreeView;
 import angstd.ui.views.view.io.ViewImporter;
 
+
+
 public class LastUsedWorkspaceImporter {
 	
 	protected static ProjectElement project = null;

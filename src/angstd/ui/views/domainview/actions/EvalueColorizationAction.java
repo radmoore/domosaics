@@ -7,6 +7,8 @@ import angstd.ui.ViewHandler;
 import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.views.domainview.DomainViewI;
 
+
+
 /**
  * Actions which triggers the evalue colorization mode.
  * Each domain is colored transparently depending on its evalue.

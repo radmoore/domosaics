@@ -15,6 +15,8 @@ import angstd.ui.workspace.WorkspaceTreeModel;
 import angstd.ui.workspace.components.WorkspaceChangeEvent;
 import angstd.ui.workspace.components.WorkspaceChangeListener;
 
+
+
 /**
  * Workspace is the top level hierarchy from all workspace elements.
  * <p>

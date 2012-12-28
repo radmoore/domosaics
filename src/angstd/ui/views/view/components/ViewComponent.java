@@ -8,6 +8,8 @@ import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.view.manager.ComponentManager;
 
+
+
 /**
  * View components represent the graphical component for 
  * backend data models rendered within a view. 

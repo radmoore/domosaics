@@ -8,6 +8,8 @@ import javax.swing.JList;
 import angstd.model.DataType;
 import angstd.model.workspace.WorkspaceElement;
 
+
+
 /**
  * Class to render entries within a JComponent such as JComboBox. 
  * Its just ensured to draw icons (if present) next to their title.

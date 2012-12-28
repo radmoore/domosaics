@@ -13,6 +13,8 @@ import angstd.ui.views.domainview.renderer.arrangement.BackBoneArrangementRender
 import angstd.ui.views.domainview.renderer.domain.OrthologousDomainRenderer;
 import angstd.ui.views.view.manager.SelectionManager;
 
+
+
 /**
  * ArrangementMouseController handles the mouse events in which domain
  * arrangements are interested. The selection of arrangements per mouse 

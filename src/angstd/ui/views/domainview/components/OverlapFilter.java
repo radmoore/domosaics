@@ -22,6 +22,8 @@ import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.ui.views.domainview.DomainViewI;
 
+
+
    public class OverlapFilter extends JDialog implements ChangeListener, ActionListener
    {
 	protected JButton jbtApply, jbtCoverage, jbtEvalue, jbtCancel;

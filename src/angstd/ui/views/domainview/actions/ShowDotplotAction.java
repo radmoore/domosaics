@@ -12,6 +12,8 @@ import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 
+
+
 /**
  * Action which opens the domain dotplot.
  * 

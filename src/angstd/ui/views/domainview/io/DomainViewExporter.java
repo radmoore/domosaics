@@ -25,6 +25,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.manager.DomainLayoutManager;
 import angstd.ui.views.view.io.ViewExporter;
 
+
+
 public class DomainViewExporter extends ViewExporter<DomainViewI> {
 
 	public void write(BufferedWriter out, DomainViewI view) {

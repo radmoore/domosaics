@@ -12,6 +12,8 @@ import angstd.ui.views.treeview.manager.TreeComponentManager;
 import angstd.ui.views.view.components.AbstractViewComponent;
 
 
+
+
 /**
  * Class NodeComponent represents the graphical unit of a node. 
  * <p> 

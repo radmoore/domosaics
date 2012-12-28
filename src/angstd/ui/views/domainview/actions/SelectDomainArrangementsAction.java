@@ -7,6 +7,8 @@ import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.domainview.DomainViewI;
 
+
+
 /**
  * Action which toggles the SelectArrangements mode which allows the
  * user to manually select arrangements.

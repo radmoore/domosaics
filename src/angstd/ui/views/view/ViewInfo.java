@@ -7,6 +7,8 @@ import angstd.ui.views.AngstdViewFactory;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.view.io.ViewPropertyReader;
 
+
+
 /**
  * Class containing all needed information to create a new view or tool.
  * The information are gathered by reading a xml-formatted property file

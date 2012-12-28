@@ -19,6 +19,8 @@ import angstd.ui.views.view.export.GraphicFormats;
 import angstd.ui.views.view.export.PDFImageExporter;
 import angstd.ui.views.view.export.SVGImageExporter;
 
+
+
 /**
  * ExportViewAsImageAction exports a view (or the actual focused tool) as
  * image within the format specified by the triggering MenuItems name.

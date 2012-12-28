@@ -26,6 +26,8 @@ import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 import angstd.util.StringUtils;
 
+
+
 /**
  * Panel where the domain attributes can be edited.
  * 

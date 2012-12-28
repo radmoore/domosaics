@@ -8,6 +8,8 @@ import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.view.manager.DefaultViewManager;
 
+
+
 /**
  * The DomainShiftManager manages the shift coordinates for 
  * arrangement and domain view components. <br>

@@ -5,6 +5,8 @@ import java.util.Iterator;
 import angstd.model.AngstdData;
 import angstd.ui.views.view.components.ViewComponent;
 
+
+
 /**
  * The ComponentManager interface is a manager which maps backend data
  * to their UI ViewComponents. The actual Types are generic as long as 

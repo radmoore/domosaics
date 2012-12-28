@@ -4,6 +4,8 @@ import javax.swing.ImageIcon;
 
 import angstd.ui.views.view.ViewInfo;
 
+
+
 /**
  * ViewElement describes workspace elements, representing views which 
  * were loaded.

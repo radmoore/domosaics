@@ -13,6 +13,8 @@ import angstd.model.configuration.Configuration;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.view.ViewInfo;
 
+
+
 /**
  * ProjectElement describes Workspace elements, representing whole projects.
  * <p>

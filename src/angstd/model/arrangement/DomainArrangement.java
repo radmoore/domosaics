@@ -10,6 +10,8 @@ import angstd.model.sequence.Sequence;
 import angstd.model.sequence.SequenceI;
 import angstd.model.tree.TreeNodeI;
 
+
+
 /**
  * Class DomainArrangement represents a data structure do describe domain 
  * arrangements of proteins. 

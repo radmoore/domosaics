@@ -7,6 +7,8 @@ import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * NodeSelectionRenderer renders the selection mark for nodes and can be
  * added additionally to a tree view.

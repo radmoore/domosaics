@@ -10,6 +10,8 @@ import angstd.ui.tools.dotplot.DotplotView;
 import angstd.ui.tools.dotplot.components.DotplotComponent;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * Additional renderer used to renderer the domain match boxes 
  * indicating how similiar representantss of the same domain family

@@ -10,6 +10,8 @@ import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.util.MessageUtil;
 
+
+
 /**
  * Workspace action which shows a view within the main frame.
  * 

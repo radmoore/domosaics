@@ -12,6 +12,8 @@ import angstd.ui.util.MessageUtil;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.util.PowerSet;
 
+
+
 /**
  * Class initiated by Andreas Held to resolve arrangements with overlaps
  * by a maximum coverage heuristic.

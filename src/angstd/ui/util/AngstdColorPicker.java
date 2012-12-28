@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+
 import angstd.ui.AngstdUI;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.DomainComponent;
@@ -26,6 +27,7 @@ import angstd.ui.views.treeview.manager.TreeSelectionManager;
 import angstd.ui.views.view.View;
 
 import com.bric.swing.ColorPicker;
+
 
 /**
  * The AngstdColorPicker interfaces the external library ColorPicker

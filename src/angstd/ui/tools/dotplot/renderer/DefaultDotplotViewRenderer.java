@@ -14,6 +14,8 @@ import angstd.ui.tools.dotplot.components.DotplotComponent;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * The DefaultDotplotViewRenderer is used to render the domain 
  * dotplot.

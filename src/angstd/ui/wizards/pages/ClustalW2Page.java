@@ -8,6 +8,8 @@ import angstd.model.sequence.SequenceI;
 import angstd.util.UiUtil;
 import angstd.webservices.clustalw.ClustalW2Panel;
 
+
+
 /**
  * WizardPage allowing the use the EBI web service CLustalW2.
  * 

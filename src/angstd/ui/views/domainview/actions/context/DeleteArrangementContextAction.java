@@ -9,6 +9,8 @@ import angstd.ui.ViewHandler;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 
+
+
 public class DeleteArrangementContextAction extends AbstractAction{
 	private static final long serialVersionUID = 1L;
 

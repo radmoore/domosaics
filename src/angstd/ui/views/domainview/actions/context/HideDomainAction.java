@@ -11,6 +11,8 @@ import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.DomainComponent;
 
+
+
 public class HideDomainAction extends AbstractAction{
 	private static final long serialVersionUID = 1L;
 	

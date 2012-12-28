@@ -10,6 +10,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * HighlightArrangementRenderer can be added as additional renderer to 
  * the DomainView and is responsible for highlighting arangements.

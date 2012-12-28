@@ -16,6 +16,8 @@ import angstd.model.configuration.Configuration;
 import angstd.model.tree.io.NewickTreeReader;
 import angstd.ui.util.MessageUtil;
 
+
+
 public class GatheringThresholdsReader {
 
 	protected static Map<String, DomainFamily> domFamilyMap;
@@ -45,7 +47,7 @@ public class GatheringThresholdsReader {
 		
 		try {
 			// TODO Update to the most recent Pfam + Create automatic script
-			InputStream is = GatheringThresholdsReader.class.getResourceAsStream("resources/gath-Thresholds_Pfam-v24.0");
+			InputStream is = GatheringThresholdsReader.class.getResourceAsStream("resources/gath-Thresholds_Pfam-v26.0");
 			in = new BufferedReader(new InputStreamReader(is));
 			String line;
 			while((line = in.readLine()) != null) {

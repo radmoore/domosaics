@@ -8,6 +8,8 @@ import angstd.model.tree.TreeI;
 import angstd.model.tree.TreeNodeI;
 import angstd.ui.views.treeview.components.NodeComponent;
 
+
+
 /**
  * Class DendogramLayout manages to layout a {@link TreeI} within a given area
  * using a dendogram as layout.

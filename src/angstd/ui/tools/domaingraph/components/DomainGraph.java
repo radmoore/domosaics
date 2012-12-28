@@ -10,13 +10,15 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.image.BufferedImage;
 
-import prefuse.data.Node;
-import prefuse.data.Table;
 import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainFamily;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.shapes.AngstdShapeIcon;
 import angstd.ui.views.domainview.components.shapes.DomainShapes;
+
+
+import prefuse.data.Node;
+import prefuse.data.Table;
 
 /**
  * DomainGraph represents the backend data structure for a domain

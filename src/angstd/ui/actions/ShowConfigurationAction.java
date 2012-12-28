@@ -9,6 +9,8 @@ import angstd.model.configuration.Configuration;
 import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.tools.configuration.ConfigurationFrame;
 
+
+
 /**
  * Opens the configuration frame to specify lookup adresses
  * 

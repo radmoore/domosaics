@@ -5,6 +5,8 @@ import java.beans.PropertyChangeListener;
 import angstd.ui.views.domainview.manager.DomainViewManagerFactory;
 import angstd.ui.views.view.components.ViewComponent;
 
+
+
 /**
  * Views within Angstd display graphical components {@link ViewComponent}
  * for backend data models. The concept to manage the attributes of those

@@ -16,6 +16,8 @@ import angstd.ui.views.domainview.manager.DomainLayoutManager.DomainAction;
 import angstd.ui.views.domainview.renderer.arrangement.BackBoneArrangementRenderer;
 import angstd.ui.views.domainview.renderer.domain.OrthologousDomainRenderer;
 
+
+
 /**
  * Performs the "compare domain sequences" feature
  * for the selected domain only.

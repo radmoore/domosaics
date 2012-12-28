@@ -10,6 +10,8 @@ import angstd.ui.views.domaintreeview.actions.CollapseSameArrangementsAtNodeActi
 import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.wizards.WizardManager;
 
+
+
 /**
  * CreateSpeciesTreeAction opens the wizard for creating a species trees
  * based on the associated descriptions of domain arrangements.

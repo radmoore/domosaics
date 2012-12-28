@@ -17,6 +17,8 @@ import angstd.model.workspace.ProjectElement;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.util.MessageUtil;
 
+
+
 /**
  * A generic class for handeling a {@link Hmmer3Program}. Provides
  * methods to handel the execution of the program via

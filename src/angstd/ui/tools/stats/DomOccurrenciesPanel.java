@@ -10,9 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import net.miginfocom.swing.MigLayout;
 import angstd.model.arrangement.ArrangementManager;
 import angstd.model.arrangement.DomainFamily;
+
+
+import net.miginfocom.swing.MigLayout;
 
 public class DomOccurrenciesPanel extends JPanel{
 	private static final long serialVersionUID = 1L;

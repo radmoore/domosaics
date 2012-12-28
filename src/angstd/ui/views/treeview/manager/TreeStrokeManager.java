@@ -9,6 +9,8 @@ import java.util.Map;
 import angstd.model.tree.TreeEdgeI;
 import angstd.ui.views.view.manager.DefaultViewManager;
 
+
+
 /**
  * TreeStrokeManager defines the mapping between tree edges and their 
  * strokes. This class extends DefaultViewManager to ensure the

@@ -19,6 +19,8 @@ import angstd.model.arrangement.io.GatheringThresholdsReader;
 import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 
+
+
 /**
  * Class for reading and creating the Map of Conditionally Dependent Pairs (CDP).
  * The CDP appear in a file that is generated like described in [TERRAPON et al. 2009].
@@ -59,14 +61,14 @@ public class ConditionallyDependentDomainPairMap implements AngstdData
   BufferedReader in;
   try
   {
-   URL path = ConditionallyDependentDomainPairMap.class.getResource(file);
+   URL path = this.getClass().getResource(file);
    in = new BufferedReader(new FileReader(path.getFile()));
    String line;
    while((line = in.readLine()) != null)
    {
-    if(!line.isEmpty())			
+    if(!line.isEmpty())	
     {
-     String[] entryFields = line.split(" ");
+     String[] entryFields = line.split("\t");
      if(Double.parseDouble(entryFields[2])<=pvalueThreshold)
      {
       if(!CDP.containsKey(entryFields[0]))
@@ -110,7 +112,7 @@ public class ConditionallyDependentDomainPairMap implements AngstdData
  {
   if (instance == null)
   {
-   instance = new ConditionallyDependentDomainPairMap("resources/CDP_Pfam-v24.0",0.001);
+   instance = new ConditionallyDependentDomainPairMap("resources/CDP_Pfam-v26.0",0.001);
   }
   return instance;
  }
@@ -136,7 +138,7 @@ public class ConditionallyDependentDomainPairMap implements AngstdData
   ConditionallyDependentDomainPairMap cdp=ConditionallyDependentDomainPairMap.getInstance();
   
   //Filtering overlaps based on E-value
-  arrangeSets=OverlapResolver.resolveOverlaps(arrangeSets,"OverlapFilterEvalue");
+  arrangeSets=OverlapResolver.resolveOverlaps(arrangeSets,"Evalue");
   
   for(int i=0; i<arrangeSets.length; i++)
   {

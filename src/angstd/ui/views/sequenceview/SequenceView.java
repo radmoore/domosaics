@@ -22,6 +22,8 @@ import angstd.ui.views.view.View;
 import angstd.ui.views.view.layout.ViewLayout;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 public class SequenceView extends AbstractView{
 	private static final long serialVersionUID = 1L;
 

@@ -14,6 +14,8 @@ import angstd.ui.tools.domainlegend.DomainLegendView;
 import angstd.ui.views.domainview.components.shapes.AngstdPolygon;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * The DomainLegendRenderer is used to render the domain legend by
  * iterating over all registered domains.

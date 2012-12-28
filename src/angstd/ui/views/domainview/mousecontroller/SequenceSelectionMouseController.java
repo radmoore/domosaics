@@ -27,6 +27,8 @@ import angstd.ui.views.view.View;
 import angstd.ui.wizards.WizardManager;
 import angstd.ui.wizards.pages.SelectNamePage;
 
+
+
 /**
  * The SequenceSelectionMouseController is more than just an ordinary
  * MouseController. First it handles the mouse events being relevant

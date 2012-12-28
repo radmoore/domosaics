@@ -12,6 +12,8 @@ import angstd.model.workspace.CategoryElement;
 import angstd.model.workspace.ProjectElement;
 import angstd.ui.wizards.pages.SelectViewPage;
 
+
+
 /**
  * Wizard dialog allowing user to choose a domain-view
  * 

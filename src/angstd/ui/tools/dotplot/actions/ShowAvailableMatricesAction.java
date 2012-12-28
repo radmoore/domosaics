@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.util.BrowserLauncher;
 
+
+
 /**
  * Action which opens a brwoser showing the available 
  * substitution matrices

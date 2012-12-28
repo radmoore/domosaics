@@ -4,6 +4,8 @@ import java.util.EventObject;
 
 import angstd.model.workspace.WorkspaceElement;
 
+
+
 /**
  * WorkspaceChangeEvent describes events which are fired to registered
  * listeners, when an workspace element changed.

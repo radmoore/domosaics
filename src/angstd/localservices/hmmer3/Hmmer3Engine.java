@@ -3,10 +3,12 @@ package angstd.localservices.hmmer3;
 import java.io.File;
 import java.util.HashMap;
 
-import sun.security.krb5.Config;
-
 import angstd.localservices.hmmer3.programs.Hmmer3Program;
 import angstd.model.configuration.Configuration;
+
+
+import sun.security.krb5.Config;
+
 
 /**
  * Singleton class to ensure that only one instance of a {@link Hmmer3Program}

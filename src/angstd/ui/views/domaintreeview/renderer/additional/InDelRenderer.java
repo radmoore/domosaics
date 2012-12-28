@@ -20,6 +20,8 @@ import angstd.ui.views.domainview.components.shapes.AngstdPolygon;
 import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 public class InDelRenderer implements Renderer{
 
 	private DomainTreeViewI view;

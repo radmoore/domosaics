@@ -9,6 +9,8 @@ import angstd.ui.tools.domaingraph.components.PrefuseGraph;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.view.View;
 
+
+
 /**
  * The domain graph frame containing a DomainGraphView.
  * 

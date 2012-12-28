@@ -8,6 +8,8 @@ import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.domainview.DomainViewI;
 
+
+
 /**
  * Action which makes it possible to select underlying sequences for
  * domain arrangements. This action is only supported for the proportional

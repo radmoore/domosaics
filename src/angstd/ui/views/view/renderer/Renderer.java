@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 
 import angstd.ui.views.view.AbstractView;
 
+
+
 /**
  * All renderer assigned to a view must implement the renderer() method.
  * <p>

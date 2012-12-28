@@ -2,10 +2,12 @@ package angstd.ui.docking;
 
 import java.awt.Component;
 
+
 import angstd.ui.views.view.View;
 
 import com.vlsolutions.swing.docking.DockKey;
 import com.vlsolutions.swing.docking.Dockable;
+
 
 /**
  * Simple dockable wrapper around a component. This wrapper

@@ -15,6 +15,8 @@ import angstd.ui.views.domainview.actions.context.RADSScanAction;
 import angstd.ui.views.domainview.actions.context.ShowAllDomainsAction;
 import angstd.ui.views.view.manager.SelectionManager;
 
+
+
 /**
  * ArrangementPopupMenu is the context menu which is shown on
  * right click at a domain arrangement.

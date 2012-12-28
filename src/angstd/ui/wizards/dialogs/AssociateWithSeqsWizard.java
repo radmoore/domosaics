@@ -23,6 +23,8 @@ import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.wizards.pages.AssociateWithSeqsPage;
 import angstd.ui.wizards.pages.EditDatasetPage;
 
+
+
 public class AssociateWithSeqsWizard {
 	
 	/** the view which is going to be changed */

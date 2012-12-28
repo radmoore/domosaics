@@ -23,6 +23,8 @@ import angstd.ui.views.treeview.TreeView;
 import angstd.ui.views.view.io.ViewImporter;
 import angstd.ui.wizards.pages.ImportViewPage;
 
+
+
 /**
  * Wizard dialog asking the user for a name to assign to a specified 
  * object. This object can be a project within the workspace or a view.

@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 import angstd.ui.tools.ToolFrame;
 import angstd.ui.views.view.View;
 
+
+
 /**
  * The ChangeArrangementFrame contains the ChangeArrangementView and allows
  * changing and adding of domains to an arrangement.

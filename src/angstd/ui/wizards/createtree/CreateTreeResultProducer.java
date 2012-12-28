@@ -11,24 +11,6 @@ import org.netbeans.spi.wizard.ResultProgressHandle;
 import org.netbeans.spi.wizard.WizardException;
 import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
-import pal.alignment.Alignment;
-import pal.alignment.AlignmentUtils;
-import pal.datatype.DataType;
-import pal.datatype.DataTypeTool;
-import pal.distance.DistanceMatrix;
-import pal.distance.DistanceParseException;
-import pal.distance.DistanceTool;
-import pal.distance.ReadDistanceMatrix;
-import pal.substmodel.BLOSUM62;
-import pal.substmodel.CPREV;
-import pal.substmodel.Dayhoff;
-import pal.substmodel.JTT;
-import pal.substmodel.MTREV24;
-import pal.substmodel.RateMatrix;
-import pal.substmodel.SubstitutionModel;
-import pal.substmodel.SubstitutionTool;
-import pal.substmodel.VT;
-import pal.substmodel.WAG;
 import angstd.algos.distance.DistanceMeasureType;
 import angstd.algos.treecreation.PALAdapter;
 import angstd.algos.treecreation.TreeCreationAlgoType;
@@ -53,6 +35,26 @@ import angstd.ui.wizards.WizardManager;
 import angstd.ui.wizards.pages.ClustalW2Page;
 import angstd.ui.wizards.pages.SelectNamePage;
 import angstd.webservices.clustalw.ClustalW2ResultParser;
+
+
+import pal.alignment.Alignment;
+import pal.alignment.AlignmentUtils;
+import pal.datatype.DataType;
+import pal.datatype.DataTypeTool;
+import pal.distance.DistanceMatrix;
+import pal.distance.DistanceParseException;
+import pal.distance.DistanceTool;
+import pal.distance.ReadDistanceMatrix;
+import pal.substmodel.BLOSUM62;
+import pal.substmodel.CPREV;
+import pal.substmodel.Dayhoff;
+import pal.substmodel.JTT;
+import pal.substmodel.MTREV24;
+import pal.substmodel.RateMatrix;
+import pal.substmodel.SubstitutionModel;
+import pal.substmodel.SubstitutionTool;
+import pal.substmodel.VT;
+import pal.substmodel.WAG;
 
 /**
  * Class producing the resulting tree and the corresponding tree view based

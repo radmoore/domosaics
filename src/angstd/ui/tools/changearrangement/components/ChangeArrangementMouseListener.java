@@ -9,6 +9,8 @@ import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.domainview.components.detectors.DomainComponentDetector;
 import angstd.ui.views.view.manager.SelectionManager;
 
+
+
 /**
  * Mouse Controller for the ChangeArrangementView which allows
  * selecting domains.

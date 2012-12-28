@@ -16,6 +16,8 @@ import angstd.model.sequence.SequenceI;
 import angstd.model.sequence.util.SeqUtil;
 import angstd.ui.util.MessageUtil;
 
+
+
 /**
  * Class FastaReader parses fasta formatted sequences based on an 
  * input stream.

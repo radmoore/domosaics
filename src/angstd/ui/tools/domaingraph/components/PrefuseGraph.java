@@ -14,6 +14,9 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import angstd.ui.tools.domaingraph.DomainGraphView;
+
+
 import prefuse.Constants;
 import prefuse.Display;
 import prefuse.Visualization;
@@ -52,7 +55,6 @@ import prefuse.visual.DecoratorItem;
 import prefuse.visual.NodeItem;
 import prefuse.visual.VisualItem;
 import prefuse.visual.expression.InGroupPredicate;
-import angstd.ui.tools.domaingraph.DomainGraphView;
 
 /**
  * Prefuse Graph is the class which sets up the hole domain co occurrence

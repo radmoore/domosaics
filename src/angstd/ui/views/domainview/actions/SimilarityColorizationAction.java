@@ -7,6 +7,8 @@ import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.domainview.DomainViewI;
 
+
+
 /**
  * Starts the Similarity collapsing manager.
  * 

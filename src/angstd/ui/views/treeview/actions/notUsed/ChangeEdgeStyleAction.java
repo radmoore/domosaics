@@ -10,6 +10,8 @@ import angstd.ui.ViewHandler;
 import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.EdgeStyleChooser;
 
+
+
 /**
  * Action allowing the user to choose a new edge style for the selected edges.
  * 

@@ -15,6 +15,8 @@ import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.domaintreeview.components.DomainEventComponent;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 public class DomainEventTooltipRenderer implements Renderer {
 	    
 		protected static final Color DEFAULT_BACKGROUND = new Color(225,225,225,200);

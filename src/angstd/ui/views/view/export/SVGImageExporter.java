@@ -15,6 +15,8 @@ import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.view.View;
 
+
+
 /**
  * Class SVGImageExporter exports an image in SVG format using the
  * open source batik library which is published under the Apache 

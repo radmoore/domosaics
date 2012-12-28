@@ -9,6 +9,8 @@ import angstd.ui.views.view.View;
 import angstd.ui.views.view.ViewActionManager;
 import angstd.ui.views.view.components.ZoomCompatible;
 
+
+
 /**
  * The workflow of Angstd is action driven which means that in 
  * various situations the action state is requested and based on the 

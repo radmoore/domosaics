@@ -26,6 +26,8 @@ import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainView;
 import angstd.ui.views.view.io.ViewImporter;
 
+
+
 /**
  * WizardPage shown within the SelectViewNameDialog.
  * 

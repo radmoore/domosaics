@@ -9,6 +9,8 @@ import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.domainview.renderer.domain.DefaultDomainRenderer;
 import angstd.ui.views.domainview.renderer.domain.DomainRenderer;
 
+
+
 /**
  * Renderer used to draw the arrangement on top and aside of the dotplot.
  * By using the Dotplotview there is no inference between the managers

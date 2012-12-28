@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import angstd.model.dotplot.Dotplot;
 import angstd.ui.views.view.components.AbstractViewComponent;
 
+
+
 /**
  * DotplotComponent is the graphical representation of a dotplot 
  * data structure. A grayscale image produced out of the dotplot is used

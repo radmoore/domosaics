@@ -7,6 +7,8 @@ import javax.swing.ImageIcon;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.view.ViewInfo;
 
+
+
 /**
  * CategoryElement describes Workspace elements, representing categories
  * for views respectively datasets.

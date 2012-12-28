@@ -7,6 +7,8 @@ import java.util.Map;
 import angstd.model.AngstdData;
 import angstd.ui.views.view.components.ViewComponent;
 
+
+
 /**
  * Basic implementation for the ComponentManager interface.
  * <p>

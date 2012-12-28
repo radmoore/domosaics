@@ -8,6 +8,8 @@ import angstd.ui.tools.domainmatrix.DomainMatrixView;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 
+
+
 /**
  * Action which opens a domain matrix.
  * 

@@ -19,6 +19,8 @@ import angstd.ui.views.view.View;
 import angstd.ui.views.view.layout.ViewLayout;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * This view shows a co-occurrence graph for all visible domains within 
  * the dataset. To display the network the external package prefuse is used

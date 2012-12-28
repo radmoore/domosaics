@@ -11,6 +11,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.util.BrowserLauncher;
 
+
+
 /**
  * The context menu action LookupProteinInUniprotAction opens a browser
  * window and addresses Uniprot with the domain id of the triggering domain.

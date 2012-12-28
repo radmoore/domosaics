@@ -7,6 +7,8 @@ import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.tools.dotplot.DotplotView;
 import angstd.ui.views.ViewType;
 
+
+
 /**
  * Action toggling the rendering of domain similarity boxes
  * 

@@ -6,6 +6,8 @@ import angstd.ui.views.domaintreeview.manager.CSAInSubtreeManager;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.treeview.components.NodeComponent;
 
+
+
 /**
  * CSAModeDomainTreeLayout is the layout class used to layout 
  * a domain tree view whenever at least one node is collapsed 

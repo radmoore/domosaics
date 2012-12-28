@@ -12,6 +12,8 @@ import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.domainview.renderer.domain.DefaultDomainRenderer;
 
+
+
 /**
  * The default implementation of the ArrangementRenderer interface
  * by extending the AbstractArrangementRenderer.

@@ -12,6 +12,8 @@ import angstd.model.configuration.Configuration;
 import angstd.model.sequence.Sequence;
 import angstd.model.sequence.SequenceI;
 
+
+
 public class ClustalW2ResultParser {
 	
 	public SequenceI[] parseResult(String alignmentStr) {

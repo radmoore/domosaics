@@ -9,6 +9,8 @@ import java.awt.Shape;
 import angstd.model.sequence.SequenceI;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 public class DefaultSequenceViewRenderer implements Renderer {
 	
 	private SequenceView view;

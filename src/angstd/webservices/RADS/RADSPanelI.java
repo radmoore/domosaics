@@ -7,6 +7,8 @@ import javax.swing.JProgressBar;
 
 import angstd.ui.views.view.View;
 
+
+
 /**
  * Interface that describes a RADSPanel. Ensures access
  * to some graphical components of the panel as well

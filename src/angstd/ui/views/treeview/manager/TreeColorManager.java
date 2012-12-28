@@ -8,6 +8,8 @@ import angstd.model.tree.TreeEdgeI;
 import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.view.manager.DefaultViewManager;
 
+
+
 /**
  * TreeColorManager defines the color mapping between node components and
  * tree edges to colors. This class extends DefaultViewManager to ensure 

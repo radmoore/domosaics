@@ -79,6 +79,8 @@ import angstd.ui.views.view.manager.SelectionManager;
 import angstd.ui.views.view.manager.ViewManager;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * The DomainView handles the visualization and manipulation of
  * a backend dataset consisting of domain arrangements. The view

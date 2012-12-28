@@ -12,6 +12,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.components.DomainComponent;
 
+
+
 /**
  * Action which selects all arrangements containing the specified domain
  * 

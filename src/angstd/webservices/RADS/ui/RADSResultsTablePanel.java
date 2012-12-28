@@ -38,6 +38,8 @@ import angstd.util.BrowserLauncher;
 import angstd.webservices.RADS.util.RADSResultsTable;
 import angstd.webservices.RADS.util.RADSResultsTableModel;
 
+
+
 /**
  * This class describes the JPanel which shows the RADS/RAMPAGE scan results table.
  * It is implemented as a signelton.

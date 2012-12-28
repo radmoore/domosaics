@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -51,6 +52,8 @@ import angstd.ui.util.MessageUtil;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.wizards.WizardListCellRenderer;
 import angstd.util.StringUtils;
+
+
 
 /**
  * HmmScanPanel holds the GUI components necessary to start local
@@ -184,15 +187,15 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	    overlapRadioNone = new JRadioButton("None      ", true);
 	    overlapRadioEvalue = new JRadioButton("E-value based        ");
 	    overlapRadioCoverage = new JRadioButton("Max. coverage");
-	    radioPane.add(overlapRadioNone);
-	    radioPane.add(overlapRadioEvalue);
-	    radioPane.add(overlapRadioCoverage);
-	    groupRadio.add(overlapRadioNone);
-	    groupRadio.add(overlapRadioEvalue);
-	    groupRadio.add(overlapRadioCoverage);
 	    overlapRadioNone.setActionCommand("None");
 	    overlapRadioEvalue.setActionCommand("Evalue");
 	    overlapRadioCoverage.setActionCommand("Coverage");
+	    groupRadio.add(overlapRadioNone);
+	    groupRadio.add(overlapRadioEvalue);
+	    groupRadio.add(overlapRadioCoverage);
+	    radioPane.add(overlapRadioNone);
+	    radioPane.add(overlapRadioEvalue);
+	    radioPane.add(overlapRadioCoverage);
 	    
 	    // gathering threshold checkbox. If disabled,
 		// the panel for the evalue is set to visible
@@ -207,9 +210,8 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				overlapRadioCoverage.setEnabled(!coddCkb.isSelected());
 				if (coddCkb.isSelected())
 					evalueTF.setText("10");
-					else 
-						evalueTF.setText("0.1");
-				//groupRadio.setSelected(overlapRadioEvalue,coddCkb.isSelected());
+				else 
+					evalueTF.setText("0.1");
 				//ePane.setVisible(coddCkb.isSelected());
 			}
 		});
@@ -465,6 +467,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		}
 		hmmScan.setBiasFilter(biasCkb.isSelected());
 		hmmScan.setOverlapMethod(groupRadio.getSelection().getActionCommand());
+		System.out.println(groupRadio.getSelection().getActionCommand());
 		hmmScan.setCoddFilter(coddCkb.isSelected());
 		hmmScan.setSeqView(seqView);
 		

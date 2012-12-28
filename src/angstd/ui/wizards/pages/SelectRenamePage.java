@@ -16,6 +16,8 @@ import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.views.ViewType;
 
+
+
 /**
  * WizardPage shown within the SelectViewNameDialog.
  * 

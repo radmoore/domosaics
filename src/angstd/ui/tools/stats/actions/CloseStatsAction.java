@@ -7,6 +7,8 @@ import javax.swing.Action;
 
 import angstd.ui.tools.stats.StatsFrame;
 
+
+
 public class CloseStatsAction extends AbstractAction {
 	private static final long serialVersionUID = 1L;
 	

@@ -8,6 +8,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.layout.ProportionalLayout;
 import angstd.ui.views.domainview.renderer.arrangement.BackBoneArrangementRenderer;
 
+
+
 /**
  * Action which switches the domain arrangement renderer of a domain view
  * into the DefaultArrangementRenderer, which draws arrangements as a

@@ -13,6 +13,8 @@ import angstd.model.matrix.Matrix;
 import angstd.model.matrix.MatrixType;
 import angstd.ui.util.AngstdSlider;
 
+
+
 /**
  * Class which represents Dotplots. Generally visuell components, like a
  * DotplotView can be registered as listener to the dotplot, so it will

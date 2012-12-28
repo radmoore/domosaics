@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 
 import angstd.ui.io.menureader.AbstractMenuAction;
 
+
+
 public class ShowStatisticsAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 

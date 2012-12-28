@@ -9,6 +9,8 @@ import javax.swing.event.ChangeListener;
 import angstd.ui.tools.ToolFrame;
 import angstd.ui.views.view.View;
 
+
+
 /**
  * DotplotFrame containing the domain dotplot view and the slider panel.
  * Using the method addSliderListener() ChangeListener

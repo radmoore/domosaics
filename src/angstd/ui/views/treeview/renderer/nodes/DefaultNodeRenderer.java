@@ -9,6 +9,8 @@ import angstd.ui.util.StringUIUtils;
 import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
 
+
+
 /**
  * Class DefaultNodeRenderer draws tree node components if they are visible.
  * If a node is collapsed the collapsed triangle is drawn, else its label.

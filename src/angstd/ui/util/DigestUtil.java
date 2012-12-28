@@ -6,6 +6,8 @@ import java.security.MessageDigest;
 
 import angstd.model.configuration.Configuration;
 
+
+
 public class DigestUtil {
 
 	private static String ALGO = "MD5";

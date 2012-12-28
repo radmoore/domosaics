@@ -11,6 +11,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.util.BrowserLauncher;
 
+
+
 /**
  * The context menu action LookupDomainInPfamAction opens a browser
  * window and addresses pfam with the domain id of the triggering domain.

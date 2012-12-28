@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import angstd.ApplicationHandler;
 import angstd.ui.io.menureader.AbstractMenuAction;
 
+
+
 /**
  * Closes the application
  * 

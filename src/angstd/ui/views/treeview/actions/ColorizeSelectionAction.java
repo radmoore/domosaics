@@ -13,6 +13,8 @@ import angstd.ui.util.AngstdColorPicker;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.treeview.TreeViewI;
 
+
+
 /**
  * Action which colorizes the selected edges.
  * 

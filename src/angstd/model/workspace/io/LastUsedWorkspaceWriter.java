@@ -13,6 +13,8 @@ import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.ViewHandler;
 import angstd.ui.WorkspaceManager;
 
+
+
 public class LastUsedWorkspaceWriter {
 
 	public static void write() {

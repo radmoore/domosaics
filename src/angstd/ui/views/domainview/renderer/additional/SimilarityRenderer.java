@@ -10,6 +10,8 @@ import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.manager.DomainSimilarityManager;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * The SimilarityRenderer draws a transparent white rectangle on top
  * of each arrangement. The transparency grade depends on the

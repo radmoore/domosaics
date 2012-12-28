@@ -4,6 +4,8 @@ import java.util.Vector;
 
 import angstd.model.configuration.Configuration;
 
+
+
 /**
  * Class DomainVector is the basic data structure to store Domains within an
  * arrangement. <br>

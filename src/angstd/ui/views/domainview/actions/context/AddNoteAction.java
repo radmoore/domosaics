@@ -11,6 +11,8 @@ import angstd.ui.util.NoteEditor;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 
+
+
 public class AddNoteAction extends AbstractAction{
 	private static final long serialVersionUID = 1L;
 	

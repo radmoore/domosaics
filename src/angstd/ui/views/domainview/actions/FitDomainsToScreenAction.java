@@ -6,6 +6,8 @@ import angstd.ui.ViewHandler;
 import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.views.domainview.DomainViewI;
 
+
+
 /**
  * Class which fits all domains into the screen size.
  * 

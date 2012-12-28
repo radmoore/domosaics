@@ -14,6 +14,8 @@ import angstd.model.AngstdData;
 import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 
+
+
 /**
  * Abstract class AbstractDataReader is the basic implementation
  * for the {@link DataReader} interface. A Reader object is created from 

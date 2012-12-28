@@ -20,6 +20,8 @@ import org.netbeans.spi.wizard.WizardPage;
 
 import angstd.model.arrangement.DomainArrangement;
 
+
+
 public class ChangeSequencePage extends WizardPage {
 	private static final long serialVersionUID = 1L;
 

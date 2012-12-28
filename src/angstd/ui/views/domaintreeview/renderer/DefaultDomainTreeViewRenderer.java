@@ -12,6 +12,8 @@ import angstd.ui.views.treeview.renderer.edges.EdgeRenderer;
 import angstd.ui.views.treeview.renderer.edges.RectangleEdgeRenderer;
 import angstd.ui.views.treeview.renderer.nodes.NodeRenderer;
 
+
+
 /**
  * The DefaultDomainTreeViewRenderer provides all methods necessary to
  * render a DomainTreeView. The {@link DefaultTreeViewRenderer} is extended

@@ -16,6 +16,8 @@ import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.treeview.renderer.nodes.DefaultNodeRenderer;
 import angstd.ui.views.treeview.renderer.nodes.NodeRenderer;
 
+
+
 /**
  * Class DefaultDomainNodeRenderer draws tree node components if they are visible.
  * If a node is collapsed the collapsed triangle is drawn, else its label

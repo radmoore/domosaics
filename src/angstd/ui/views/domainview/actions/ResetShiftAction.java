@@ -6,6 +6,8 @@ import angstd.ui.ViewHandler;
 import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.views.domainview.DomainViewI;
 
+
+
 /**
  * Action which resets all shift positions which were made by the user.
  * 

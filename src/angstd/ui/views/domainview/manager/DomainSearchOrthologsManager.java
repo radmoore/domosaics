@@ -12,6 +12,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.view.manager.DefaultViewManager;
 
+
+
 /**
  * The DomainSearchOrthologsManager maps each DomainComponent a 
  * percentage similarity score to a specified query domain. <br>

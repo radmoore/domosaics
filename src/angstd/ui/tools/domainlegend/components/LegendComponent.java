@@ -6,6 +6,8 @@ import java.awt.geom.RoundRectangle2D;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.view.components.AbstractViewComponent;
 
+
+
 /**
  * LegendComponent is the type of component which gets layouted and
  * rendered within the DomainLegendView. It is based on a

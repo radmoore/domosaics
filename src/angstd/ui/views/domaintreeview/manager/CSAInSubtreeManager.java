@@ -13,6 +13,8 @@ import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.view.manager.DefaultViewManager;
 
+
+
 /**
  * CSAInSubtreeManager manages the collapsing of a subtree by collapsing
  * at the node and also redundant arrangements. The non redundant 

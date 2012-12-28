@@ -9,6 +9,8 @@ import javax.swing.filechooser.FileFilter;
 import angstd.model.configuration.Configuration;
 import angstd.ui.views.ViewType;
 
+
+
 /**
  * Class FileDialogs is able to open a JfileChooser for opening and saving 
  * files. <br>

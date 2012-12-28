@@ -7,6 +7,8 @@ import javax.xml.rpc.ServiceException;
 
 import angstd.model.configuration.Configuration;
 
+
+
 public abstract class AbstractEBIWebservice extends SwingWorker<String, Void> implements WebservicePrinter {
 
 	/** the services name, very important for displaying messages **/

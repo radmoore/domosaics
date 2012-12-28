@@ -11,6 +11,8 @@ import angstd.model.tree.TreeI;
 import angstd.model.tree.TreeNodeI;
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
 
+
+
 public class ProgressiveAlignment {
 	
 	public static DomainArrangement[] align(DomainTreeViewI view) {

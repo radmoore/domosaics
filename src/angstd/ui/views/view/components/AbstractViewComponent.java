@@ -7,6 +7,8 @@ import java.awt.geom.Rectangle2D;
 
 import angstd.ui.views.domainview.components.DomainComponent;
 
+
+
 /**
  * The basic implementation of the {@link ViewComponent} interface.
  * <p>

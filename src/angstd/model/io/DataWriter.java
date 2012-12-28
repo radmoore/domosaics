@@ -6,6 +6,8 @@ import java.io.File;
 import angstd.model.AngstdData;
 import angstd.model.arrangement.io.XdomWriter;
 
+
+
 /**
  * Interface DataWriter defines the methods to write data into a file. <br>
  * {@link AbstractDataWriter} is the basic implementation for this 

@@ -10,6 +10,8 @@ import angstd.ui.views.domainview.components.DomainColors;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.view.manager.DefaultViewManager;
 
+
+
 /**
  * DomainColorManager defines the mapping between DomainFamilys 
  * and their color. This class extends DefaultViewManager to ensure the

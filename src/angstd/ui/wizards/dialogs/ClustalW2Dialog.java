@@ -17,6 +17,8 @@ import angstd.ui.util.MessageUtil;
 import angstd.ui.wizards.pages.ClustalW2Page;
 import angstd.webservices.clustalw.ClustalW2ResultParser;
 
+
+
 /**
  * Wizard dialog allowing the user to perform a ClustalW2 alignment on
  * a set of sequences. Therefore the ebi webservice ClustalW2 is used.

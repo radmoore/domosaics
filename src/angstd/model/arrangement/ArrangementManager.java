@@ -8,6 +8,8 @@ import java.util.Map;
 
 import angstd.algos.distance.JaccardDistance;
 
+
+
 /**
  * Class ArrangementManager can store arrangements and provides methods to 
  * retrieve statistical information about the dataset. For instance number of 

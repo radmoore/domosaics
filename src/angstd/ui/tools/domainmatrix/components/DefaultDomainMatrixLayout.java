@@ -12,6 +12,8 @@ import angstd.ui.tools.domainmatrix.DomainMatrixView;
 import angstd.ui.views.view.View;
 import angstd.ui.views.view.layout.ViewLayout;
 
+
+
 /**
  * DefaultDomainLegendLayout does the layouting of the domain matrix.
  * 

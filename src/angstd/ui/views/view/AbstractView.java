@@ -35,6 +35,8 @@ import angstd.ui.views.domainview.renderer.additional.DomainTooltipRenderer;
 import angstd.ui.views.view.components.ZoomController;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * AbstractView is the basic implementation for the {@link View} 
  * interface. It defines all methods for the handling of a view 

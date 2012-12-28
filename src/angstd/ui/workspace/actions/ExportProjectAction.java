@@ -8,6 +8,8 @@ import javax.swing.Action;
 import angstd.model.workspace.ProjectElement;
 import angstd.ui.wizards.WizardManager;
 
+
+
 /**
  * Creates a new project
  * 

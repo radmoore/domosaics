@@ -1,7 +1,5 @@
 package angstd.model.arrangement.io;
 
-import angstd.model.GO.*;
-import angstd.model.arrangement.DomainFamily;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,10 +14,12 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import angstd.model.GO.GeneOntology;
+import angstd.model.GO.*;
 import angstd.model.arrangement.DomainFamily;
 import angstd.model.configuration.Configuration;
 import angstd.util.CheckConnectivity;
+
+
 
 
 

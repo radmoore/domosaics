@@ -30,6 +30,8 @@ import angstd.ui.util.MessageUtil;
 import angstd.util.BrowserLauncher;
 import angstd.util.URLReader;
 
+
+
 /**
  * This class describes the JPanel which shows the RADS/RAMPAGE scan log.
  * It is implemented as a signelton, such that only one instance

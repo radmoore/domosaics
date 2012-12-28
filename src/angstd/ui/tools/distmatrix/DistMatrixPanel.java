@@ -15,6 +15,8 @@ import javax.swing.event.ListSelectionListener;
 import angstd.ui.tools.distmatrix.components.MatrixTableCellRenderer;
 import angstd.ui.tools.distmatrix.components.MatrixTableModel;
 
+
+
 /**
  * The Panel containing the distance matrix table. This panel is
  * embedded in the ToolFrame so the view is only used for creation and

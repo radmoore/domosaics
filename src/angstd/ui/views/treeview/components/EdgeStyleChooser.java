@@ -33,6 +33,8 @@ import javax.swing.event.ListSelectionEvent;
 import angstd.model.tree.TreeEdgeI;
 import angstd.ui.views.treeview.TreeViewI;
 
+
+
 /**
  * EdgeStyleChooser is the graphical front end to let the user choose
  * a new edge style for tree edges.

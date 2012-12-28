@@ -8,6 +8,8 @@ import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.domaintreeview.components.TreeSpaceSlider;
 
+
+
 public class ChangeTreeSpaceAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 

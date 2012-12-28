@@ -14,6 +14,8 @@ import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * TreeLinealRenderer renders a legend for a tree view showing the 
  * summed up distances (edge weights). This renderer can be added  

@@ -6,6 +6,8 @@ import java.util.Iterator;
 
 import angstd.model.GO.GeneOntologyTerm;
 
+
+
 /**
  * Class DomainFamily represents the attributes
  * of a domain family.

@@ -18,6 +18,8 @@ import angstd.ui.views.domainview.renderer.arrangement.MsaArrangementRenderer;
 import angstd.ui.views.treeview.layout.DendogramLayout;
 import angstd.ui.views.treeview.renderer.DefaultTreeViewRenderer;
 
+
+
 /**
  * Displays the domain arrangements within the domain tree view
  * 

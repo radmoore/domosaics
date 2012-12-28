@@ -45,6 +45,8 @@ import angstd.webservices.interproscan.AnnotationThreadSpawner;
 import angstd.webservices.interproscan.AnnotatorProcessWriter;
 import angstd.webservices.interproscan.Method;
 
+
+
 /**
  * Class AnnotatorPanel displays the annotation process and allows
  * setting all needed parameters, which are: <br>

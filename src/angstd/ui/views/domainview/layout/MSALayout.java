@@ -8,6 +8,8 @@ import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 
+
+
 /**
  * MSALayout defines the requested properties for 
  * arrangements and domains for AbstractDomainlayout.

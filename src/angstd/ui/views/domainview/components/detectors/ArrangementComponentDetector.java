@@ -6,6 +6,8 @@ import java.util.Iterator;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 
+
+
 /**
  * The ArrangementComponentDetector detects if a an arrangements is 
  * visible at a given Point within the screen.

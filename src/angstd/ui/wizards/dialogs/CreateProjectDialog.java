@@ -16,6 +16,8 @@ import angstd.model.workspace.ProjectElement;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.wizards.pages.CreateProjectPage;
 
+
+
 /**
  * Wizard dialog asking the user for a project name which is then going to be
  * created and added to the workspace.

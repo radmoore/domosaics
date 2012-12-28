@@ -7,6 +7,8 @@ import angstd.model.arrangement.Domain;
 import angstd.model.configuration.Configuration;
 import angstd.ui.views.view.components.AbstractViewComponent;
 
+
+
 /**
  * The DomainComponent is the graphical representation for a 
  * backend data model, the {@link Domain} which is

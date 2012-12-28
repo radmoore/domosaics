@@ -5,6 +5,8 @@ import javax.swing.JProgressBar;
 
 import angstd.localservices.hmmer3.programs.Hmmer3Program;
 
+
+
 /**
  * Class to allow access to the panel that triggered
  * the respective {@link Hmmer3Program}, is meant

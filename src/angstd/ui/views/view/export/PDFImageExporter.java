@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileOutputStream;
 
+
 import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.views.view.View;
@@ -14,6 +15,7 @@ import com.lowagie.text.pdf.DefaultFontMapper;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfTemplate;
 import com.lowagie.text.pdf.PdfWriter;
+
 
 /**
  * Class PDFImageExporter exports an image in PDF format using the

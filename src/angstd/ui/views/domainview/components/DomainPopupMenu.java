@@ -19,6 +19,8 @@ import angstd.ui.views.domainview.actions.context.LookupDomainInUniprot;
 import angstd.ui.views.domainview.actions.context.SearchOrthologousAction;
 import angstd.ui.views.domainview.actions.context.SelectArrangementsContainingDomAction;
 
+
+
 /**
  * DomainPopupMenu is the context menu which is shown on
  * right click at a domain component.
@@ -65,8 +67,8 @@ public class DomainPopupMenu extends JPopupMenu {
 		add(new LookupDomainInGoogle(dc.getLabel()));
 		add(new LookupDomainInSourceDBAction(dc.getLabel(),dc.getDomain().getFamily().getDomainType().getName()));
 		add(new LookupDomainInUniprot(dc.getLabel()));
-		add(new JSeparator());
-		add(new ConfirmPutativeDomain());
+		//add(new JSeparator());
+		//add(new ConfirmPutativeDomain());
 	}
 
 }

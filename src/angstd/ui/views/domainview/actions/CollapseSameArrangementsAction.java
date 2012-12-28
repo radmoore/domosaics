@@ -13,6 +13,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.manager.CollapseSameArrangementsManager;
 
+
+
 /**
  * This action changes the collapse same arrangements mode.
  * If the mode is set to true, same arrangements are collapsed

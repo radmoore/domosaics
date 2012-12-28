@@ -9,6 +9,8 @@ import angstd.ui.ViewHandler;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.DomainComponent;
 
+
+
 // TODO:
 // Allow the undoing of a confirmation
 public class ConfirmPutativeDomain extends AbstractAction {

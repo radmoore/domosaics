@@ -9,6 +9,8 @@ import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.domainview.renderer.domain.DomainRenderer;
 
+
+
 /**
  * The basic implementation of the ArrangementRenderer interface.
  * <p>

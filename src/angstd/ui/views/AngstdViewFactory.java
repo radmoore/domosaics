@@ -16,6 +16,8 @@ import angstd.ui.views.view.ViewPanel;
 import angstd.ui.views.view.io.ViewPropertyReader;
 
 
+
+
 /**
  * AngstdViewFactory specifies the method which is used to create new views.
  * <p>

@@ -19,6 +19,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * Renderer a tooltip for domains on mouse over. 
  * The tooltip renderer tries to show the domain label, the sequence 
@@ -138,7 +140,7 @@ public class DomainTooltipRenderer implements Renderer {
         
         if (dc.getDomain().isPutative()) {
         	elements++;
-            String codd = "CODD STATUS: putative";
+            String codd = "Certified by CODD";
             g2d.setPaint(Color.RED);
             g2d.drawString(codd,b.x+2,2+b.y+vertical_row_height*elements-4);
             g2d.setPaint(Color.BLACK);
@@ -249,7 +251,7 @@ public class DomainTooltipRenderer implements Renderer {
         elements++;
         
         if (dc.getDomain().isPutative()) {
-            String codd = "CODD STATUS: putative";
+            String codd = "Certified by CODD";
             labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), codd);
             width = labelWidth > width ? labelWidth : width;
             elements++;

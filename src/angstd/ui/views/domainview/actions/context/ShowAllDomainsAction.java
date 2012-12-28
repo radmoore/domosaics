@@ -12,6 +12,8 @@ import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 
+
+
 public class ShowAllDomainsAction extends AbstractAction{
 	private static final long serialVersionUID = 1L;
 	

@@ -7,6 +7,13 @@ import javax.xml.rpc.ServiceException;
 import java.rmi.RemoteException;
 import javax.xml.rpc.ServiceException;
 import org.apache.commons.cli.*;
+
+import angstd.model.configuration.Configuration;
+import angstd.model.sequence.SequenceI;
+import angstd.webservices.AbstractEBIWebservice;
+import angstd.webservices.EBIServiceType;
+import angstd.webservices.WebservicePrinter;
+
 import uk.ac.ebi.webservices.axis1.stubs.clustalw2.*;
 //import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_Service;
 //import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_ServiceLocator;
@@ -16,11 +23,6 @@ import uk.ac.ebi.webservices.axis1.stubs.clustalw2.*;
 //import uk.ac.ebi.webservices.wsclustalw2.WSClustalW2Service;
 //import uk.ac.ebi.webservices.wsclustalw2.WSClustalW2ServiceLocator;
 //import uk.ac.ebi.webservices.wsclustalw2.WSClustalW2_PortType;
-import angstd.model.configuration.Configuration;
-import angstd.model.sequence.SequenceI;
-import angstd.webservices.AbstractEBIWebservice;
-import angstd.webservices.EBIServiceType;
-import angstd.webservices.WebservicePrinter;
 
 public class ClustalW2ServiceII extends AbstractEBIWebservice {
 	/** the service type holding some important informations */

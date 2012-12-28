@@ -49,6 +49,8 @@ import angstd.ui.views.domainview.manager.DomainSimilarityManager;
 import angstd.ui.wizards.WizardManager;
 import angstd.ui.wizards.pages.SelectNamePage;
 
+
+
 /**
  * The similarity chooser dialog is used in compination with the 
  * {@link DomainSimilarityManager} which processes the dialog changes.

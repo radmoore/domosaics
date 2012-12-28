@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+
 import angstd.model.configuration.Configuration;
 import angstd.ui.ViewHandler;
 import angstd.ui.io.menureader.AbstractMenuAction;
@@ -14,6 +15,7 @@ import angstd.ui.util.FileDialogs;
 import angstd.ui.views.ViewType;
 
 import com.csvreader.CsvWriter;
+
 
 public class SaveMatrixToCSVAction  extends AbstractMenuAction {
 	private static final long serialVersionUID = 1L;

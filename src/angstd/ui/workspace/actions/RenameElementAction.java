@@ -15,6 +15,8 @@ import angstd.ui.util.MessageUtil;
 import angstd.ui.views.view.View;
 import angstd.ui.wizards.WizardManager;
 
+
+
 /**
  * Workspace action which triggers a rename event on a workspace element.
  * 

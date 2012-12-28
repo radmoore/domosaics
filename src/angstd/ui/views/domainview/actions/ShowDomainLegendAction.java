@@ -8,6 +8,8 @@ import angstd.ui.tools.domainlegend.DomainLegendView;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 
+
+
 /**
  * Action which opens the domain legend.
  * 

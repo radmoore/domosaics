@@ -8,6 +8,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.layout.UnproportionalLayout;
 import angstd.ui.views.domainview.renderer.arrangement.BackBoneArrangementRenderer;
 
+
+
 /**
  * Action which switches the DomainView into an unproportional view.
  * 

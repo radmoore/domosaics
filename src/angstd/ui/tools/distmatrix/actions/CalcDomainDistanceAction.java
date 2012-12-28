@@ -9,6 +9,8 @@ import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.tools.distmatrix.DistMatrixView;
 import angstd.ui.views.ViewType;
 
+
+
 /**
  * Sets the distance measure for the active distance matrix to 
  * domain edit distance.

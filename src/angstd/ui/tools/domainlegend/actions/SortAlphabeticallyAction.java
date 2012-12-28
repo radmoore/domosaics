@@ -7,6 +7,8 @@ import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.tools.domainlegend.DomainLegendView;
 import angstd.ui.views.ViewType;
 
+
+
 /**
  * Sets the sorting of domains to alphabetical order
  * 

@@ -6,6 +6,8 @@ import java.util.Iterator;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.DomainComponent;
 
+
+
 /**
  * The DomainComponentDetector detects if a an domain is 
  * visible at a given Point within the screen.

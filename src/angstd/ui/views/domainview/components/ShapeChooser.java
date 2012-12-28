@@ -25,6 +25,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.shapes.AngstdShapeIcon;
 import angstd.ui.views.domainview.components.shapes.DomainShapes;
 
+
+
 /**
  * ShapeChooser is displayed for DomainComponents to change their shapes.
  * Whenever a new shape is chosen the domain view updates with

@@ -22,6 +22,8 @@ import angstd.ui.views.view.View;
 import angstd.ui.wizards.GUIComponentFactory;
 import angstd.ui.wizards.WizardListCellRenderer;
 
+
+
 /**
  * WizardPage shown within the SelectViewDialog.
  * 

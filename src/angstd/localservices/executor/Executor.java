@@ -4,6 +4,8 @@ import javax.swing.SwingWorker;
 
 import angstd.model.configuration.Configuration;
 
+
+
 /**
  * 
  * Class for process creation

@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
+
 import angstd.model.arrangement.ArrangementManager;
 import angstd.model.configuration.Configuration;
 import angstd.ui.AngstdUI;
@@ -16,6 +17,7 @@ import angstd.ui.tools.stats.Stats;
 import angstd.ui.util.FileDialogs;
 
 import com.csvreader.CsvWriter;
+
 
 public class SaveStatsToCSVAction extends AbstractAction {
 	private static final long serialVersionUID = 1L;

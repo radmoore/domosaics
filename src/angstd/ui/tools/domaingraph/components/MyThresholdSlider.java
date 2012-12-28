@@ -17,9 +17,11 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import angstd.ui.tools.domaingraph.DomainGraphView;
+
+
 import prefuse.util.FontLib;
 import prefuse.util.ui.JFastLabel;
-import angstd.ui.tools.domaingraph.DomainGraphView;
 
 /**
  * The slider which is embedded below the prefuse graph to change the

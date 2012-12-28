@@ -28,6 +28,8 @@ import org.jdesktop.swingx.JXTitledSeparator;
 
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
 
+
+
 public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionListener {
 	private static final long serialVersionUID = 1L;
 

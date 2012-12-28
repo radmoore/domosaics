@@ -25,6 +25,8 @@ import angstd.ui.views.view.ViewInfo;
 import angstd.ui.wizards.WizardManager;
 import angstd.ui.wizards.pages.SelectViewPage;
 
+
+
 /**
  * Creates a new view out of the current selected arrangements. Therefore
  * the selected arrangements as well as their associated sequences are 

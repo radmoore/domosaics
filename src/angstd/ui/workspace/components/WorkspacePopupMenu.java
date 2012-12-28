@@ -15,6 +15,8 @@ import angstd.ui.workspace.actions.ExportViewAction;
 import angstd.ui.workspace.actions.RenameElementAction;
 import angstd.ui.workspace.actions.ShowViewAction;
 
+
+
 /**
  * The workspace context menu containing actions defined in  
  * action subpackage. Its triggered on a mouse event caught by 

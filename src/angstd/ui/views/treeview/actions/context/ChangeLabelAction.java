@@ -11,6 +11,8 @@ import angstd.ui.ViewHandler;
 import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
 
+
+
 /**
  * Action to change a nodes label
  * 

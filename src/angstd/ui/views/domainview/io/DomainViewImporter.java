@@ -21,6 +21,8 @@ import angstd.ui.views.domainview.renderer.arrangement.MsaArrangementRenderer;
 import angstd.ui.views.view.io.ViewImporter;
 import angstd.ui.views.view.layout.ViewLayout;
 
+
+
 public class DomainViewImporter extends ViewImporter<DomainViewI> {
 	// settings for the actual domain family
 	private static DomainFamily fam = null;

@@ -26,6 +26,8 @@ import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.view.View;
 import angstd.ui.views.view.ViewInfo;
 
+
+
 /**
  * Helper class for GUI components that are used frequently
  * 

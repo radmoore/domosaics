@@ -11,6 +11,8 @@ import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 import angstd.model.workspace.ProjectElement;
 import angstd.ui.wizards.pages.SelectNamePage;
 
+
+
 /**
  * Wizard dialog asking the user for a name to assign to a specified 
  * object. This object can be a project within the workspace or a view.

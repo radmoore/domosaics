@@ -23,6 +23,8 @@ import angstd.model.workspace.ProjectElement;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.wizards.GUIComponentFactory;
 
+
+
 /**
  * WizardPage allowing to choose a file which is used to create a sequence view.
  * Additionally a domain view can be chosen which then will be used to associate the

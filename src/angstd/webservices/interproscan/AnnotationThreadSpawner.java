@@ -9,6 +9,8 @@ import angstd.model.arrangement.DomainArrangement;
 import angstd.model.configuration.Configuration;
 import angstd.model.sequence.SequenceI;
 
+
+
 /**
  * AnnotationThreadSpawner spawns for a set of query sequences 
  * {@link AnnotationThread_old}s to annotate the sequences against InterPro using

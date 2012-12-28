@@ -16,6 +16,8 @@ import angstd.localservices.hmmer3.ui.HmmerServicePanel;
 import angstd.model.configuration.Configuration;
 import angstd.ui.util.MessageUtil;
 
+
+
 /**
  * Class to run a local version of hmmpress (Hmmer3).
  * Pressed files are required to run hmmscan. Hmmpress

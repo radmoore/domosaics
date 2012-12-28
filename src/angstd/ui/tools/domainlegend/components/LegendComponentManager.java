@@ -10,6 +10,8 @@ import java.util.Map;
 
 import angstd.ui.views.domainview.components.DomainComponent;
 
+
+
 /**
  * The LegendComponentManager maps the domain components to their
  * legend components which get layouted and rendered by the legend view.

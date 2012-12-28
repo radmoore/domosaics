@@ -43,6 +43,8 @@ import angstd.webservices.RADS.ui.RADSFrame;
 import angstd.webservices.RADS.ui.RADSScanPanel;
 import angstd.webservices.interproscan.ui.AnnotatorFrame;
 
+
+
 /**
  * The user interface class showing the Angstd main frame. <br>
  * When calling the constructor which follows the singleton pattern

@@ -5,14 +5,16 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import angstd.model.arrangement.Domain;
+import angstd.model.arrangement.DomainArrangement;
+import angstd.ui.views.domainview.DomainViewI;
+
+
 import prefuse.data.Edge;
 import prefuse.data.Graph;
 import prefuse.data.Node;
 import prefuse.data.Schema;
 import prefuse.data.Table;
-import angstd.model.arrangement.Domain;
-import angstd.model.arrangement.DomainArrangement;
-import angstd.ui.views.domainview.DomainViewI;
 
 /**
  * DomainGraphFactory initializes the backing node and edge tables for the

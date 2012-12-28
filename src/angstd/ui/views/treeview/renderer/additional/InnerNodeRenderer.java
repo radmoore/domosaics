@@ -8,6 +8,8 @@ import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * InnerNodeRenderer renders inner nodes as circles so they can be
  * identified more easily by the user. This renderer can be

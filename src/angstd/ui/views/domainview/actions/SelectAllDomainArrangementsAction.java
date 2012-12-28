@@ -9,6 +9,8 @@ import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 
+
+
 /**
  * Action which selects all arrangements at once
  * 

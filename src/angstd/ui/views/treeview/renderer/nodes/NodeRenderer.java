@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
 
+
+
 /**
  * Interface NodeRenderer which renders a NodeComponent within a tree.
  * 

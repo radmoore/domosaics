@@ -14,6 +14,8 @@ import angstd.ui.views.domaintreeview.layout.CSAModeDomainTreeLayout;
 import angstd.ui.views.domaintreeview.layout.DefaultDomainTreeLayout;
 import angstd.ui.views.treeview.components.NodeComponent;
 
+
+
 /**
  * Collapses a subtree as well as redundant arrangements along this subtree.
  * Only non redundant arrangements remain visible, the corresponding 

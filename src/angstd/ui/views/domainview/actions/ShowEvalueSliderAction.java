@@ -8,6 +8,8 @@ import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.EvalueSliderTool;
 
+
+
 public class ShowEvalueSliderAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 

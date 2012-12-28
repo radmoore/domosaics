@@ -13,6 +13,8 @@ import angstd.model.workspace.Workspace;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.workspace.components.WorkspaceMouseController;
 
+
+
 /**
  * The workspace panel which is basically just a JTree wrapped in a JScrollPane.
  * <p>

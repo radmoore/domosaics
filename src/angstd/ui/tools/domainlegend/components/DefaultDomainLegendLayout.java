@@ -16,6 +16,8 @@ import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.view.View;
 import angstd.ui.views.view.layout.ViewLayout;
 
+
+
 /**
  * DefaultDomainLegendLayout does the layouting of the legend components.
  * 

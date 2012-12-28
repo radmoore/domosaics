@@ -6,6 +6,8 @@ import java.util.Locale;
 
 import angstd.model.arrangement.ArrangementManager;
 
+
+
 public enum Stats {
 
 	PROTS				("arrangements"),

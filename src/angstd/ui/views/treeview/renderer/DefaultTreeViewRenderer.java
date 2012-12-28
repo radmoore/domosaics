@@ -12,6 +12,8 @@ import angstd.ui.views.treeview.renderer.edges.RectangleEdgeRenderer;
 import angstd.ui.views.treeview.renderer.nodes.DefaultNodeRenderer;
 import angstd.ui.views.treeview.renderer.nodes.NodeRenderer;
 
+
+
 /**
  * Class DefaultTreeViewRenderer manages the rendering of a tree view.
  * Therefore it has a {@link NodeRenderer} and a {@link EdgeRenderer}

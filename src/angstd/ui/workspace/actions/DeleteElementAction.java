@@ -9,6 +9,8 @@ import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.util.MessageUtil;
 
+
+
 /**
  * Workspace action which triggers a delete event on a workspace element.
  * 

@@ -6,6 +6,8 @@ import java.util.Locale;
 
 import angstd.model.configuration.Configuration;
 
+
+
 /**
  * A collection of some string converter methods which comes in handy at various
  * places within the program.

@@ -19,6 +19,8 @@ import angstd.ui.views.ViewType;
 import angstd.ui.views.view.View;
 import angstd.ui.views.view.ViewInfo;
 
+
+
 /**
  * WizardPage shown within the SelectViewNameDialog.
  * 

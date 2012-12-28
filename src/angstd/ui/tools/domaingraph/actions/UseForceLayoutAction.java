@@ -7,6 +7,8 @@ import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.tools.domaingraph.DomainGraphView;
 import angstd.ui.views.ViewType;
 
+
+
 /**
  * Action which toggles the force driven layout.
  * 

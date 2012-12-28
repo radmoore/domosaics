@@ -8,6 +8,8 @@ import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.tools.dotplot.DotplotView;
 import angstd.ui.views.ViewType;
 
+
+
 /**
  * Action which makes the dotplot use the identity matrix as 
  * substitution matrix.

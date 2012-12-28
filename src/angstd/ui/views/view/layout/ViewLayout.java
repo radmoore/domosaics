@@ -4,6 +4,8 @@ import java.awt.Container;
 
 import angstd.ui.views.view.View;
 
+
+
 /**
  * The ViewLayout interface has to be implemented by all 
  * view specific classes which manage the layout process for

@@ -11,6 +11,8 @@ import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.view.View;
 import angstd.ui.views.view.layout.ViewLayout;
 
+
+
 /**
  * Layout used to layout the dotplot view. This class uses the component
  * manager of the dotplot view instead of the component manager of the 

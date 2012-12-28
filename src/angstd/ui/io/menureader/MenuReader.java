@@ -12,6 +12,8 @@ import javax.swing.JMenuBar;
 
 import angstd.model.configuration.Configuration;
 
+
+
 /**
  * Class MenuReader defines the methods to load a {@link JMenuBar} 
  * from a XML formatted file.

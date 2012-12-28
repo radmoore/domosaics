@@ -10,6 +10,8 @@ import angstd.ui.tools.distmatrix.DistMatrixView;
 import angstd.ui.views.ViewType;
 import angstd.ui.views.domainview.DomainViewI;
 
+
+
 /**
  * Shows the distance matrix tool
  * 

@@ -4,6 +4,8 @@ import java.awt.Font;
 
 import angstd.ui.views.view.components.ViewComponent;
 
+
+
 /**
  * The FontManager is a ViewManager which handles the font attribute for
  * ViewComponents.

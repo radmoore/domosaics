@@ -10,6 +10,8 @@ import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.domainview.layout.UnproportionalLayout;
 import angstd.ui.views.domainview.renderer.arrangement.BackBoneArrangementRenderer;
 
+
+
 public class AlignDomainsAction extends AbstractMenuAction {
 	private static final long serialVersionUID = 1L;
 	

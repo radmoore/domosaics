@@ -17,6 +17,8 @@ import angstd.model.configuration.Configuration;
 import angstd.ui.util.DigestUtil;
 import angstd.ui.views.view.View;
 
+
+
 public abstract class ViewExporter<V extends View> {
 	
 	public abstract void write(BufferedWriter out, V view);

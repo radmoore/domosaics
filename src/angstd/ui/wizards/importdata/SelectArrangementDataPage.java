@@ -25,6 +25,8 @@ import angstd.ui.util.FileDialogs;
 import angstd.ui.util.MessageUtil;
 import angstd.ui.wizards.GUIComponentFactory;
 
+
+
 /**
  * WizardPage allowing to choose a file which is used to create a domain view.
  * Additionally a tree view can be chosen which then will be used to create a 

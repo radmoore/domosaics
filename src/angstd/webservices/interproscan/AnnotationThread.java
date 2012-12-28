@@ -7,13 +7,15 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.axis.AxisFault;
 
+import angstd.model.configuration.Configuration;
+import angstd.model.sequence.SequenceI;
+
+
 import uk.ac.ebi.webservices.axis1.stubs.iprscan.InputParameters;
 import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_PortType;
 import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_Service;
 import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_ServiceLocator;
 
-import angstd.model.configuration.Configuration;
-import angstd.model.sequence.SequenceI;
 
 /**
  * AnnotationThread is the interface between the iprscan API 

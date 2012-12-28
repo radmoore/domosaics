@@ -8,6 +8,8 @@ import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.view.manager.DefaultSelectionManager;
 
+
+
 /**
  * TreeSelectionManager provides method to automatically select elements of the tree
  * such as a subtree of a node. Therefore the selection of tree nodes

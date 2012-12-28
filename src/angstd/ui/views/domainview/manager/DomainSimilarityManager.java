@@ -12,6 +12,8 @@ import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.components.SimilarityChooser;
 import angstd.ui.views.view.manager.DefaultViewManager;
 
+
+
 /**
  * DomainSimilarityManager manages the collapsing and calculating
  * of similarities of all arrangements to a reference arrangement,

@@ -19,6 +19,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.views.treeview.TreeViewI;
 
+
+
 /**
  * Class which gives access to example files within the JAR package.
  * <p>

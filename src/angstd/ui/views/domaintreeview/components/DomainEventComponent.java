@@ -7,6 +7,8 @@ import angstd.model.domainevent.DomainEventI;
 import angstd.ui.views.domaintreeview.manager.DomainEventComponentManager;
 import angstd.ui.views.view.components.AbstractViewComponent;
 
+
+
 /**
  * The DomainEventComponent is the graphical representation for a 
  * backend domain event (such as insertion or deletion).

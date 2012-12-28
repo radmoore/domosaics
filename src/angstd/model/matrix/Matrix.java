@@ -5,6 +5,8 @@ import java.util.Map;
 
 import angstd.model.AngstdData;
 
+
+
 /**
  * Class Matrix represents a substitution matrix which can be used when 
  * computing dotplots. 

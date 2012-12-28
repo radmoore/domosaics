@@ -16,6 +16,8 @@ import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.workspace.components.WorkspaceChangeEvent;
 import angstd.ui.workspace.components.WorkspaceChangeListener;
 
+
+
 /**
  * TreeModel for the workspace tree. Represents the hierarchical structure of 
  * the given workspace.

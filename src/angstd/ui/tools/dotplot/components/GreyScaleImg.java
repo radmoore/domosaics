@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 
 import angstd.model.dotplot.Dotplot;
 
+
+
 /**
  * Image class to represent the graphical content of a dotplot as
  * gray scale image.

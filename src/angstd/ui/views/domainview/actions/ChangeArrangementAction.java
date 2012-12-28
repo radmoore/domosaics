@@ -11,6 +11,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.renderer.arrangement.BackBoneArrangementRenderer;
 
+
+
 /**
  * Changes the arrangement attributes
  * 

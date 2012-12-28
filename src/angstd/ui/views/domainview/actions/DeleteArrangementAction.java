@@ -8,6 +8,8 @@ import angstd.ui.util.MessageUtil;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 
+
+
 /**
  * Action which deletes the selected arrangements from the view.
  * 

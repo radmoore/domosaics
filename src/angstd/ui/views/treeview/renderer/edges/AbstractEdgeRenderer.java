@@ -11,6 +11,8 @@ import java.util.Locale;
 import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
 
+
+
 /**
  * Abstract class AbstractdgeRenderer initiates the rendering process for 
  * edges.

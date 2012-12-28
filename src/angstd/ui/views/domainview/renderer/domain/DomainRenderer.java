@@ -6,6 +6,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.domainview.renderer.arrangement.ArrangementRenderer;
 
+
+
 /**
  * The basic DomainRenderer interface which defines all needed 
  * methods to render domains.

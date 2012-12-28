@@ -15,6 +15,8 @@ import angstd.ui.views.domainview.layout.DomainLayout;
 import angstd.ui.views.domainview.manager.DomainSimilarityManager;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * 
  * Renders the percentage of similarity behind each arrangement compared

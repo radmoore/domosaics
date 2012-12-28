@@ -28,6 +28,8 @@ import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.view.manager.SelectionManager;
 import angstd.ui.wizards.pages.ChangeSequencePage;
 
+
+
 public class ChangeSequenceWizard {
 	
 	/** the view which is going to be changed */

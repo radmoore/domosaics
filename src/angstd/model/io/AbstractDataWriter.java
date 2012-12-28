@@ -8,6 +8,8 @@ import java.io.IOException;
 import angstd.model.AngstdData;
 import angstd.model.configuration.Configuration;
 
+
+
 /**
  * Abstract class AbstractDataWriter is the basic implementation
  * for the {@link DataWriter} interface. A BufferedWriter object is created 

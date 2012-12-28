@@ -1,5 +1,8 @@
 package angstd.algos.treecreation;
 
+import angstd.algos.distance.DistanceMeasureType;
+import angstd.model.arrangement.DomainArrangement;
+import angstd.model.sequence.SequenceI;
 import pal.alignment.Alignment;
 import pal.alignment.AlignmentUtils;
 import pal.alignment.SimpleAlignment;
@@ -9,9 +12,6 @@ import pal.distance.DistanceMatrix;
 import pal.misc.IdGroup;
 import pal.misc.Identifier;
 import pal.misc.SimpleIdGroup;
-import angstd.algos.distance.DistanceMeasureType;
-import angstd.model.arrangement.DomainArrangement;
-import angstd.model.sequence.SequenceI;
 
 /**
  * PALAdapter is a helper class which helps to create objects of the

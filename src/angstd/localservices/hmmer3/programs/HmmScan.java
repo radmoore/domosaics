@@ -30,6 +30,8 @@ import angstd.ui.wizards.WizardManager;
 import angstd.ui.wizards.pages.SelectNamePage;
 
 
+
+
 /**
  * Class to run a local version of hmmscan (Hmmer3).
  * Implements the {@link Hmmer3Program} interface. Is not

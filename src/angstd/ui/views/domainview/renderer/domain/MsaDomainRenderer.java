@@ -12,6 +12,8 @@ import angstd.ui.util.ColorUtil;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.DomainComponent;
 
+
+
 /**
  * MsaDomainRenderer which draws domains in MSA mode. Basically
  * it just draws a colored and transparent rectangle for each domain.
@@ -43,10 +45,10 @@ public class MsaDomainRenderer extends AbstractDomainRenderer {
 	 * @see AbstractDomainRenderer
 	 */
 	public Stroke getStroke(DomainComponent dc, DomainViewI view) {
-		if (dc.getDomain().isPutative()) {
+		/*if (dc.getDomain().isPutative()) {
 			float dash[] = { 5.0f, 10.0f };
 			return new BasicStroke(1.375f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
-		}
+		}*/
 		return new BasicStroke(1.375f);
 	}
 

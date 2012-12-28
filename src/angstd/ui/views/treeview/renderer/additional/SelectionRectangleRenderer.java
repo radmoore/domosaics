@@ -7,6 +7,8 @@ import java.awt.Rectangle;
 import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * SelectionRectangleRenderer renders the selection rectangle which can be used
  * to select tree components. This renderer can be

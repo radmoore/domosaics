@@ -11,6 +11,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.util.BrowserLauncher;
 
+
+
 /**
  * Action which opens a browser window and looks up the selected
  * domain in google.

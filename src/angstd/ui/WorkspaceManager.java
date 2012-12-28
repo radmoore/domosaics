@@ -16,6 +16,8 @@ import angstd.ui.views.view.ViewInfo;
 import angstd.ui.workspace.WorkspaceSelectionManager;
 import angstd.ui.workspace.WorkspaceView;
 
+
+
 /**
  * The WorkspaceManager is the interface to all workspace related classes.
  * <p>

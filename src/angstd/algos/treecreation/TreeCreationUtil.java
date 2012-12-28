@@ -1,10 +1,10 @@
 package angstd.algos.treecreation;
 
+import angstd.model.tree.TreeI;
+import angstd.model.tree.io.NewickTreeReader;
 import pal.distance.DistanceMatrix;
 import pal.tree.Tree;
 import pal.tree.TreeTool;
-import angstd.model.tree.TreeI;
-import angstd.model.tree.io.NewickTreeReader;
 
 /**
  * TreeCreationUtil provides methods for creating a new tree using the 

@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 
 import angstd.ui.io.menureader.AbstractMenuAction;
 
+
+
 /**
  * Opens the AnGSTD manual
  * 

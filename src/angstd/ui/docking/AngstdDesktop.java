@@ -1,5 +1,6 @@
 package angstd.ui.docking;
 
+
 import angstd.ui.AngstdUI;
 import angstd.ui.WorkspaceManager;
 import angstd.ui.views.view.View;
@@ -8,6 +9,7 @@ import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableContainerFactory;
 import com.vlsolutions.swing.docking.DockingConstants;
 import com.vlsolutions.swing.docking.DockingDesktop;
+
 
 /**
  * The Angstd docking desktop uses the external library VLDocking to 

@@ -8,6 +8,8 @@ import angstd.ui.views.view.manager.DefaultFontManager;
 import angstd.ui.views.view.manager.DefaultSelectionManager;
 import angstd.ui.views.view.manager.ViewManager;
 
+
+
 /**
  * A class creating all needed {@link ViewManager} which are needed
  * to provide the complete manager driven functionality for a DomainView.

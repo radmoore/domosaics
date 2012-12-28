@@ -8,6 +8,8 @@ import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.layout.DomainLayout;
 import angstd.ui.views.treeview.components.NodeComponent;
 
+
+
 /**
  * DefaultDomainTreeLayout is the default layout to layout arrangements
  * in a domain tree view.

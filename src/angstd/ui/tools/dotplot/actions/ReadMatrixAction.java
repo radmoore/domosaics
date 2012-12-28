@@ -12,6 +12,8 @@ import angstd.ui.tools.dotplot.DotplotView;
 import angstd.ui.util.FileDialogs;
 import angstd.ui.views.ViewType;
 
+
+
 /**
  * Action which allows the loading of a new substitution matrix.
  * 

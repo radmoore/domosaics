@@ -18,6 +18,8 @@ import angstd.ui.views.domainview.components.DomainComponent;
 import angstd.ui.views.domainview.manager.DomainShiftManager;
 import angstd.ui.views.view.View;
 
+
+
 /**
  * AbstractDomainLayout provides the actual layout methods and just uses
  * methods from implementing subclasses to get arrangement bounds and so

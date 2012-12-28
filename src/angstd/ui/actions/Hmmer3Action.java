@@ -9,6 +9,8 @@ import angstd.localservices.hmmer3.ui.Hmmer3Frame;
 import angstd.model.workspace.ProjectElement;
 import angstd.ui.io.menureader.AbstractMenuAction;
 
+
+
 /**
  * Method triggering the hmmscan panel
  * 

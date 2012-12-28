@@ -10,6 +10,8 @@ import angstd.model.arrangement.DomainArrangement;
 import angstd.ui.views.domainview.manager.DomainArrangementComponentManager;
 import angstd.ui.views.view.components.AbstractViewComponent;
 
+
+
 /**
  * The ArrangementComponent is the graphical representation for a 
  * backend data model, the {@link DomainArrangement} which is

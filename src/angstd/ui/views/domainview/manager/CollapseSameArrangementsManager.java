@@ -11,6 +11,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.view.manager.DefaultViewManager;
 
+
+
 /**
  * CollapseSameArrangementsManager manages the collapsing of same 
  * arrangements for a domain view. The collapsing is done

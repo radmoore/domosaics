@@ -11,6 +11,8 @@ import angstd.ui.views.domainview.components.shapes.AngstdPolygon;
 import angstd.ui.views.domainview.components.shapes.DomainShapes;
 import angstd.ui.views.view.manager.DefaultViewManager;
 
+
+
 /**
  * DomainShapeManager defines the mapping between DomainFamilys 
  * and their shapes. This class extends DefaultViewManager to ensure the

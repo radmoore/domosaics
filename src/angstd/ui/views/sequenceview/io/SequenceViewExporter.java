@@ -12,6 +12,8 @@ import angstd.model.sequence.io.FastaWriter;
 import angstd.ui.views.sequenceview.SequenceView;
 import angstd.ui.views.view.io.ViewExporter;
 
+
+
 /**
  * Class exporting a sequence view into a XML formatted file.
  * 

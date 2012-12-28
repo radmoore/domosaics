@@ -9,6 +9,8 @@ import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.layout.AbstractDomainLayout.ArrangementParameter;
 import angstd.ui.views.view.layout.ViewLayout;
 
+
+
 /**
  * Class DomainLayout specifies all methods necessary to layout
  * the ArrangementComponents within a DomainView.

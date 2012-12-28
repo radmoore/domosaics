@@ -15,6 +15,8 @@ import angstd.model.configuration.Configuration;
 import angstd.ui.views.view.AbstractView;
 import angstd.ui.views.view.View;
 
+
+
 /**
  * The ZoomController controls the zoom settings for a {@link AbstractView}.
  * <p>

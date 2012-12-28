@@ -20,6 +20,8 @@ import angstd.model.tree.TreeNodeI;
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.domaintreeview.manager.InnerNodeArrangementManager;
 
+
+
 public abstract class AbstractReconstructionAlgo extends SwingWorker<String, Void> {
 
 	/** the tree which nodes are being reconstructed */

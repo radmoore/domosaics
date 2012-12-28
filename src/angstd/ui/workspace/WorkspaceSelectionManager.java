@@ -16,6 +16,8 @@ import angstd.model.workspace.ProjectElement;
 import angstd.model.workspace.WorkspaceElement;
 import angstd.ui.WorkspaceManager;
 
+
+
 /**
  * WorkspaceSelectionManager manages the selection of elements within
  * the WorkspaceView. 

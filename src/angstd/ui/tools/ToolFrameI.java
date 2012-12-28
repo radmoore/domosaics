@@ -5,6 +5,8 @@ import javax.swing.JMenuBar;
 
 import angstd.ui.views.view.View;
 
+
+
 /**
  * Tools are views which are embedded in a Toolframe. This
  * interface defines the methods a ToolFrame has to implement.

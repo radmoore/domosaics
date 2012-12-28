@@ -15,6 +15,8 @@ import java.util.Iterator;
 
 import angstd.model.configuration.Configuration;
 
+
+
 public class GeneOntology {
 
 	private static String url="resources/gene_ontology.1_2.obo";

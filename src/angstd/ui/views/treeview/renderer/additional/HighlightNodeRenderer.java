@@ -7,6 +7,8 @@ import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * HighlightNodeRenderer highlights a node component when the user
  * is mouse over on it. The renderer can be added additionally to a 

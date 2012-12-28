@@ -19,6 +19,8 @@ import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.components.DomainComponent;
 
+
+
 public class ConsensusAlignment {
 	
 	protected static Map<TreeNodeI, DomainVector> node2domains;

@@ -8,6 +8,8 @@ import angstd.model.tree.TreeNodeI;
 import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.view.manager.DefaultViewManager;
 
+
+
 public class InnerNodeArrangementManager extends DefaultViewManager {
 
 	protected Map<TreeNodeI, DomainArrangement> node2da;

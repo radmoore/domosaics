@@ -14,6 +14,8 @@ import angstd.ui.util.MessageUtil;
 
 
 
+
+
 /**
  * Welcome to the main class of AnGSTD. All initialization is delegated 
  * to the {@link ApplicationHandler}. So no fun here.

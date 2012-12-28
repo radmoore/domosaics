@@ -39,6 +39,8 @@ import angstd.model.arrangement.Domain;
 import angstd.model.arrangement.DomainArrangement;
 import angstd.ui.views.domainview.DomainViewI;
 
+
+
 public class EvalueSliderTool extends JDialog implements ChangeListener, ActionListener {
 	private static final long serialVersionUID = 1L;
 	

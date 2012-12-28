@@ -11,6 +11,8 @@ import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
 import angstd.util.BrowserLauncher;
 
+
+
 /**
  * Action opening a browser window and performing a NCBI search
  * using the nodes label

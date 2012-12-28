@@ -7,6 +7,8 @@ import javax.swing.event.ChangeListener;
 
 import angstd.ui.util.AngstdSlider;
 
+
+
 /**
  * Sliderbox for the cutoff threshold and window size which are added
  * to the toolframe. Using the method addSliderListener() ChangeListener

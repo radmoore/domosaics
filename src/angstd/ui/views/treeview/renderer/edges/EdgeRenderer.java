@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
 
+
+
 /**
  * Interface EdgeRenderer is used to render edges 
  * connecting a specified parent node with its child.

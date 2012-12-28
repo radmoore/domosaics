@@ -14,6 +14,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 public class NoteMarkRenderer implements Renderer {
 	
 	private static final String NOTEMARKPATH = "../../../../resources/notemarker.jpg";

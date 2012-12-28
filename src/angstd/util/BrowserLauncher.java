@@ -6,6 +6,8 @@ import javax.swing.JOptionPane;
 
 import angstd.model.configuration.Configuration;
 
+
+
 /**
  * Opens a browser window to a specified url.
  *

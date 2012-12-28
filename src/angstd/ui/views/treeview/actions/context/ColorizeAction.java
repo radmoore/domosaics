@@ -14,6 +14,8 @@ import angstd.ui.util.AngstdColorPicker;
 import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.views.treeview.components.NodeComponent;
 
+
+
 /**
  * Action which colorizes elements of the tree. The elements being 
  * colorized can be defined by setting the type flag when using the 

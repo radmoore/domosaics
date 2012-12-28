@@ -10,6 +10,8 @@ import angstd.model.configuration.Configuration;
 import angstd.model.io.AbstractDataWriter;
 import angstd.model.sequence.SequenceI;
 
+
+
 /**
  * Class to convert Sequences into Fasta Format.
  * 

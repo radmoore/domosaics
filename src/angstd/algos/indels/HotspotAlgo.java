@@ -8,6 +8,8 @@ import angstd.model.arrangement.Domain;
 import angstd.model.tree.TreeI;
 import angstd.model.tree.TreeNodeI;
 
+
+
 /**
  * The algorithm finds the node in a tree which is the LCA of a specified domain.
  * 

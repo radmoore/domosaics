@@ -27,6 +27,8 @@ import angstd.ui.views.view.View;
 import angstd.ui.views.view.manager.FontManager;
 import angstd.ui.views.view.manager.SelectionManager;
 
+
+
 /**
  * DomainViewI describes all methods the DomainView must support to
  * fit in the applications work flow. The basic implementation of this 

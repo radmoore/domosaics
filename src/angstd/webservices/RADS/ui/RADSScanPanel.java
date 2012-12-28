@@ -58,10 +58,8 @@ import angstd.webservices.RADS.RADSParms;
 import angstd.webservices.RADS.RADSResultsProcessor;
 import angstd.webservices.RADS.RADSService;
 import angstd.webservices.RADS.util.RADSResultsTableModel;
-//import javax.swing.JScrollPane;
-//import javax.swing.JTextArea;
-//import javax.swing.event.DocumentEvent;
-//import javax.swing.event.DocumentListener;
+
+
 
 /**
  * This class describes the RADS scan panel that can be used to conduct

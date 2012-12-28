@@ -8,6 +8,8 @@ import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.domaintreeview.components.DomainEventComponent;
 import angstd.ui.views.domaintreeview.components.DomainEventComponentDetector;
 
+
+
 /**
  * DomainEventMouseController handles the mouse events which are made on
  * a domain tree view (and specially on domain events). 

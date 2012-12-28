@@ -36,6 +36,8 @@ import angstd.ui.views.treeview.TreeViewI;
 import angstd.ui.wizards.WizardManager;
 import angstd.ui.wizards.pages.SelectNamePage;
 
+
+
 /**
  * Class producing the resulting view based on the ImportData wizard.
  * 

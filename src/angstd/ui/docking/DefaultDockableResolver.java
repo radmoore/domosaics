@@ -5,12 +5,14 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 
+
 import angstd.ui.views.view.View;
 
 import com.vlsolutions.swing.docking.DockKey;
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableResolver;
 import com.vlsolutions.swing.docking.DockingDesktop;
+
 
 /**
  * Creates new dockable components such as "dockable desktops" which

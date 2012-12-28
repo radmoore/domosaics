@@ -8,6 +8,8 @@ import angstd.ui.tools.domaingraph.DomainGraphView;
 import angstd.ui.tools.domaingraph.components.GraphLayoutManager;
 import angstd.ui.views.ViewType;
 
+
+
 /**
  * Action which triggers the domain rendering to 
  * circular shape rendering inclusing the domain names

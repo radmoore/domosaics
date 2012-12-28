@@ -14,6 +14,8 @@ import angstd.ui.views.view.View;
 import angstd.ui.views.view.layout.ViewLayout;
 import angstd.ui.views.view.renderer.Renderer;
 
+
+
 /**
  * The DistanceMatrixView created by the view manager. This class
  * is just used for initialization the real matrix is realized

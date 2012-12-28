@@ -20,6 +20,8 @@ import angstd.ui.wizards.pages.ClustalW2Page;
 import angstd.util.UiUtil;
 import angstd.webservices.WebservicePrinter;
 
+
+
 /**
  * A Panel to access the ClustalW2 webservice in a GUI form.
  * The panel can also be embedded within a wizard page, but can be 

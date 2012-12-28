@@ -6,6 +6,8 @@ import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.io.menureader.DefaultMenuActionManager;
 import angstd.ui.io.menureader.MenuReader;
 
+
+
 /**
  * The view specific action manager extending the  {@link DefaultMenuActionManager}
  * from {@link MenuReader}. This manager provides all loaded actions for

@@ -7,6 +7,8 @@ import java.io.IOException;
 
 import angstd.ui.util.MessageUtil;
 
+
+
 public class ConfigurationWriter {
 
 	public static final String DEFAULT_LOCATION = "default file location:";

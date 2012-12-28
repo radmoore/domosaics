@@ -8,6 +8,8 @@ import angstd.ui.io.menureader.AbstractMenuAction;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.view.components.ZoomCompatible;
 
+
+
 public class ShowNameAction extends AbstractMenuAction implements ZoomCompatible{
 	private static final long serialVersionUID = 1L;
 

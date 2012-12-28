@@ -11,6 +11,8 @@ import angstd.ui.util.AngstdColorPicker;
 import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.DomainComponent;
 
+
+
 /**
  * Action which triggers the opening of a {@link AngstdColorPicker}
  * dialog. The color changing is then handled by the color chooser.

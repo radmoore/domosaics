@@ -15,6 +15,8 @@ import angstd.ui.views.domaintreeview.DomainTreeViewI;
 import angstd.ui.views.view.View;
 import angstd.ui.views.view.ViewInfo;
 
+
+
 /**
  * Class ViewManager manages the creation, adding and removing of view 
  * objects to Angstd and its main frame. The adding to the workspace

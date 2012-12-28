@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 
 import angstd.model.configuration.Configuration;
 
+
+
 /**
  * Configuration frame allows modifications on the lookup addresses.
  * 

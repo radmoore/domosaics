@@ -12,6 +12,8 @@ import angstd.model.arrangement.ArrangementManager;
 import angstd.ui.tools.stats.actions.CloseStatsAction;
 import angstd.ui.tools.stats.actions.SaveStatsToCSVAction;
 
+
+
 /**
  * Frame for the stats module in AnGSTD.
  * @author Andreas Held

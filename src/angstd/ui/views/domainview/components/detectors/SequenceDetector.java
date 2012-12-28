@@ -13,6 +13,8 @@ import angstd.ui.views.domainview.DomainViewI;
 import angstd.ui.views.domainview.components.ArrangementComponent;
 import angstd.ui.views.domainview.mousecontroller.SequenceSelectionMouseController;
 
+
+
 /**
  * The SequenceDetector can be used to retrieve underlying sequences
  * of drawn domain arrangements. This detector works only in the

@@ -5,6 +5,8 @@ import java.util.Iterator;
 
 import angstd.ui.views.view.components.ViewComponent;
 
+
+
 /**
  * The SelectionManager is a ViewManager which handles the selection
  * of ViewComponents. In most cases it would be triggered by mouseHandlers

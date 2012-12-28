@@ -38,6 +38,8 @@ import angstd.ui.util.MessageUtil;
 import angstd.ui.wizards.WizardManager;
 
 
+
+
 /**
  * 
  * ApplicationHandler actually initialized the AngstdUI frame, and
