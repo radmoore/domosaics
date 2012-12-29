@@ -70,14 +70,11 @@ public class TreeViewImporter extends ViewImporter<TreeViewI> {
 				if(idEquals(line, "ID")) {
 					id = str2int(getValue(line));
 					if (id2node.get(id) == null) {
-						//System.out.println("New Child "+line);
 						actNode = new TreeNode(id);
 						tree.addNode(actNode);
 						id2node.put(id, actNode);
-					} else {
-						//System.out.println("Deja-vu child "+line);
+					} else
 						actNode = id2node.get(id);
-					}
 					if (tree.getRoot() == null)
 						tree.setRoot(actNode);
 				} else if(idEquals(line, "NAME") && !getValue(line).equals("null")) 

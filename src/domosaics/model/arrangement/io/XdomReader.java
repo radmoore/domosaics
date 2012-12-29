@@ -61,46 +61,24 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 
 	
 	
-	public boolean checkFormat(File file) {
-		DomainArrangement prot = null;
-		boolean okay=false;
-		// flag indicating whether or not the first sequence was parsed
-		boolean firstRead = false;
+	public static boolean checkFormat(File file) {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(file)); 
 			String line;
-			
+		
 			while((line = in.readLine()) != null) {
 				if (line.isEmpty())					// ignore empty lines
 					continue;
 				if (line.startsWith("#"))			// ignore comments
 					continue;
-				if (line.startsWith(">")) {			// parse header line
-					if (firstRead) {	
-						if(prot!=null) {
-							if(!prot.getName().equals(""))
-								okay=true;	
-							else {
-								return false;							
-							}
-						}
-				}else {
-					firstRead = true;
-				}
-					prot = parseHeader(line);
-				} else {							// parse domain line
-					try {
-						prot = parseDomain(line, prot);
-						okay=true;
-					} catch (NumberFormatException nfe) {
-						return false;
-					}
-					catch (WrongFormatException wfe) {
-						return false;
-					}
-				}
+				
+				in.close();
+				if (line.startsWith(">")) 
+					return true;
+				break;
 			}
-			return okay;
+			
+			return false;
 		} catch (IOException e) {
 			Configuration.getLogger().debug(e.toString());
 			return false;
@@ -125,8 +103,6 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 		
 		DomainArrangement prot = null;
 		Domain dom = null;
-		// flag indicating whether or not the first sequence was parsed
-		boolean firstRead = false;
 	
 		// parse the document line by line
 		BufferedReader in = new BufferedReader(reader); 
@@ -136,17 +112,9 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 				continue;
 			if (line.startsWith("#"))			// ignore comments
 				continue;
-			if (line.startsWith(">")) {	// parse header line
-				if (firstRead) {			
-					if (prot != null) 
-						res.add(prot);
-					else {
-						MessageUtil.showWarning("Error while parsing protein line.");
-						return null;
-					}
-				}else {
-					firstRead = true;
-				}
+			if (line.startsWith(">")) {			// parse header line
+				if (prot != null) 
+					res.add(prot);
 				prot = parseHeader(line);
 			} else {							// parse domain line
 				try {
@@ -187,35 +155,34 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 		// kill ">" char and split header into token
 		headerStr = headerStr.replace(">", "");
 		String[] token = headerStr.split("\\s+");
-		if(token.length!=0) {
-
-			// make both cases "> protID" and ">protID" valid
-			if (token[actToken].isEmpty())
-				actToken++;
-
-			// first token is always the protein name
-			prot.setName(token[actToken]);
-
-			// check if protein contains more information, e.g. seqLen and description
-			if (token.length == actToken+1)
-				return prot;
+		
+		// make both cases "> protID" and ">protID" valid
+		if (token[actToken].isEmpty())
 			actToken++;
+		
+		// first token is always the protein name
+		prot.setName(token[actToken]);
+		
+		// check if protein contains more information, e.g. seqLen and description
+		if (token.length == actToken+1)
+			return prot;
+		actToken++;
 
-			// just in case create the description buffer
-			StringBuffer desc = new StringBuffer();
+		// just in case create the description buffer
+		StringBuffer desc = new StringBuffer();
+		
+		// check if protein contains the sequence length
+		if (StringUtils.isNumber(token[actToken]))		// if it is a number its the length
+			prot.setSeqLen(Integer.parseInt(token[actToken]));
+		else 											// else it is the description	
+			desc.append(token[actToken].replace(";",""));
+			
+		// everything which comes now must be the description
+		for (int t = actToken+1; t < token.length; t++) 
+			desc.append(" "+token[t].replace(";",""));
+		
+		prot.setDesc(desc.toString());
 
-			// check if protein contains the sequence length
-			if (StringUtils.isNumber(token[actToken]))		// if it is a number its the length
-				prot.setSeqLen(Integer.parseInt(token[actToken]));
-			else 											// else it is the description	
-				desc.append(token[actToken].replace(";",""));
-
-			// everything which comes now must be the description
-			for (int t = actToken+1; t < token.length; t++) 
-				desc.append(" "+token[t].replace(";",""));
-
-			prot.setDesc(desc.toString());
-		}
 		return prot;
 	}
 	
@@ -260,12 +227,12 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 		domFamily = GatheringThresholdsReader.getInstance().get(dId);
 		
 		if (domFamily == null) { 				
-			if (dName == null)
-				dName = dId;
+			if (dName == dId)
+				dName = null;
 			
 			domFamily = new DomainFamily(dId, dName, dType);
 //			domFamily.setPfamID(pfamID);
-			GatheringThresholdsReader.add(domFamily);
+			GatheringThresholdsReader.getInstance().put(dId, domFamily);
 		}
 		
 		// "from", "to" must be the first two tokens
@@ -290,7 +257,7 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 			for (int i=0; i < comment.length; i++) {
 				String c = comment[i];
 				if ( c.equals("putative") || c.equals("asserted") ) {
-		//			dom.setPutative(c.equals("putative"));
+					dom.setPutative(c.equals("putative"));
 				}
 				else if ( Pattern.matches("GO:\\d+", c) ) {
 					

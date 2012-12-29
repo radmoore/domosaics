@@ -8,8 +8,6 @@ import javax.swing.JTextArea;
 
 import domosaics.model.arrangement.ArrangementManager;
 
-
-
 import net.miginfocom.swing.MigLayout;
 
 /**

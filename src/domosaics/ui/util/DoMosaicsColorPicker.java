@@ -18,7 +18,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 
-
 import com.bric.swing.ColorPicker;
 
 import domosaics.ui.DoMosaicsUI;
@@ -28,7 +27,6 @@ import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.treeview.manager.TreeSelectionManager;
 import domosaics.ui.views.view.View;
-
 
 /**
  * The DoMosaicsColorPicker interfaces the external library ColorPicker
@@ -122,8 +120,8 @@ public class DoMosaicsColorPicker implements PropertyChangeListener{
 	 * 		the chosen color
 	 */
 	public Color show() {
-		AngstdColorPickerDialog dialog = new AngstdColorPickerDialog(picker, DoMosaicsUI.getInstance(), startColor, false);
-		dialog.setTitle("DoMosaics");
+		DoMosaicsColorPickerDialog dialog = new DoMosaicsColorPickerDialog(picker, DoMosaicsUI.getInstance(), startColor, false);
+		dialog.setTitle("DoMosaicS");
 		dialog.pack();
 		
 		// if the start color is black, convert it to red, because its difficult to start with black
@@ -233,7 +231,7 @@ public class DoMosaicsColorPicker implements PropertyChangeListener{
 	 * @author Andreas Held
 	 *
 	 */
-	class AngstdColorPickerDialog extends JDialog { 
+	class DoMosaicsColorPickerDialog extends JDialog { 
 		private static final long serialVersionUID = 1L;
 		
 		protected int alpha;
@@ -242,12 +240,12 @@ public class DoMosaicsColorPicker implements PropertyChangeListener{
 		protected Color returnValue = null;
 		protected ActionListener buttonListener;
 		
-		public AngstdColorPickerDialog(ColorPicker cp, Frame owner, Color color, boolean includeOpacity) {
+		public DoMosaicsColorPickerDialog(ColorPicker cp, Frame owner, Color color, boolean includeOpacity) {
 			super(owner);
 			initialize(cp, owner,color,includeOpacity);
 		}
 
-		public AngstdColorPickerDialog(ColorPicker cp, Dialog owner, Color color, boolean includeOpacity) {
+		public DoMosaicsColorPickerDialog(ColorPicker cp, Dialog owner, Color color, boolean includeOpacity) {
 			super(owner);
 			initialize(cp, owner,color,includeOpacity);
 		}

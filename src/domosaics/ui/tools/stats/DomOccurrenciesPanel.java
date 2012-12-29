@@ -13,8 +13,6 @@ import javax.swing.JTextArea;
 import domosaics.model.arrangement.ArrangementManager;
 import domosaics.model.arrangement.DomainFamily;
 
-
-
 import net.miginfocom.swing.MigLayout;
 
 public class DomOccurrenciesPanel extends JPanel{

@@ -36,8 +36,6 @@ import domosaics.ui.wizards.pages.ClustalW2Page;
 import domosaics.ui.wizards.pages.SelectNamePage;
 import domosaics.webservices.clustalw.ClustalW2ResultParser;
 
-
-
 import pal.alignment.Alignment;
 import pal.alignment.AlignmentUtils;
 import pal.datatype.DataType;
@@ -56,6 +54,7 @@ import pal.substmodel.SubstitutionModel;
 import pal.substmodel.SubstitutionTool;
 import pal.substmodel.VT;
 import pal.substmodel.WAG;
+
 
 /**
  * Class producing the resulting tree and the corresponding tree view based

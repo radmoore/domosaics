@@ -11,7 +11,7 @@ import domosaics.ui.views.view.components.ViewComponent;
 /**
  * The ComponentManager interface is a manager which maps backend data
  * to their UI ViewComponents. The actual Types are generic as long as 
- * the bakend data implements the {@link AngstData} and the
+ * the bakend data implements the {@link DoMosaicsData} and the
  * UI component the {@link ViewData} interface.
  * <p>
  * The interface provides methods for requesting a view component based on

@@ -45,7 +45,7 @@ public class DeleteElementAction extends AbstractAction{
 //			if (viewFile.exists())
 //				if (MessageUtil.showDialog(""+ selected.getTypeName()+" \""+selected.getTitle()+"\"+ from hard drive as well?")) {
 //					viewFile.delete();
-//					WorkspaceManager.getInstance().removeFromAngstd(selected);
+//					WorkspaceManager.getInstance().removeFromDoMosaics(selected);
 //					
 //					// if category is empty remove it as well
 //					File catFile = new File(Configuration.getInstance().getWorkspaceDir()+"/"+project.getTitle()+"/"+cat.getTitle());
@@ -99,7 +99,7 @@ public class DeleteElementAction extends AbstractAction{
 			return;
 		
 		// delete the workspace element and its children if there are any
-		WorkspaceManager.getInstance().removeFromAngstd(selected);
+		WorkspaceManager.getInstance().removeFromDomosaics(selected);
 	}
 
 }

@@ -64,7 +64,7 @@ public class ProjectElement extends WorkspaceElement{
 	
 	/**
 	 * Create a list containing all deleted views, which can then be 
-	 * further processed by the DoMosaics internal view management.
+	 * further processed by the DoMosaicS internal view management.
 	 * While generating this list, the workspace elements representing
 	 * the category and views are deleted.
 	 * 

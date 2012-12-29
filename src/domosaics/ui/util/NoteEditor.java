@@ -15,8 +15,6 @@ import javax.swing.JTextArea;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.ui.views.domainview.DomainViewI;
 
-
-
 import net.miginfocom.swing.MigLayout;
 
 public class NoteEditor extends JDialog implements ActionListener {

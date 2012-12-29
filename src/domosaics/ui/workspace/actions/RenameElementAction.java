@@ -58,7 +58,7 @@ public class RenameElementAction extends AbstractAction{
 			view.getViewInfo().setName(newTitle);
 			view.getParentPane().setName(newTitle);
 			
-			// if it is also the active view within the AngstdDektop the dockable name has to be updated as well
+			// if it is also the active view within the DoMosaicsDektop the dockable name has to be updated as well
 			View activeView = ViewHandler.getInstance().getActiveView();
 			if ( (activeView != null) && (ViewHandler.getInstance().getActiveView().equals(view)) )
 				DoMosaicsUI.getInstance().changeViewName(newTitle);

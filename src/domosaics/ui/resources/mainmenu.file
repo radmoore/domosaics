@@ -83,7 +83,7 @@
 		
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="RADS/RAMPAGE"/> 
-			<parameter id="actionClass" value="domosaics.ui.actions.Hmmer3Action"/> 
+			<parameter id="actionClass" value="domosaics.ui.actions.RADSAction"/> 
 			<parameter id="tooltip" value="Find similar domain arrangement in UniProt"/> 
 		</menuItem>
 		
@@ -110,28 +110,25 @@
 <!--		</menuItem>
 
 		</menu>
-		
-		<menuitem id="JSeparator"/>
 	
-		<menu id="Load Example">
-		
+	</menu>
+
+	<menu id="Help">
+
+<!--		<menu id="Load Example Set">
 			<menuitem id="JMenuItem">
-				<parameter id="name" value="Small Example Dataset"/> 
+<!--			<parameter id="name" value="Small Example Dataset"/>
+				<parameter id="name" value="Load Example Dataset"/> 
 				<parameter id="actionClass" value="domosaics.ui.actions.LoadSmallExampleDataActon"/> 
 				<parameter id="tooltip" value="Loads a small example data set"/> 
 			</menuItem>
 		
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="Large Example Dataset"/> 
-				<parameter id="actionClass" value="domosaics.ui.actions.LoadBigExampleDataAction"/> 
-				<parameter id="tooltip" value="Loads a large example data set"/> 
-			</menuItem>
-		
-		</menu>
-		
-	</menu>
-
-	<menu id="Help">
+<!--			<menuitem id="JMenuItem">
+<!--				<parameter id="name" value="Large Example Dataset"/> 
+<!--				<parameter id="actionClass" value="domosaics.ui.actions.LoadBigExampleDataAction"/> 
+<!--				<parameter id="tooltip" value="Loads a large example data set"/> 
+<!--			</menuItem>
+<!--		</menu>
 
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="DoMosaics help"/> 
@@ -146,6 +143,6 @@
 		</menuItem>
 		
 	</menu>
-
+</menubar>
 
 </menubar>

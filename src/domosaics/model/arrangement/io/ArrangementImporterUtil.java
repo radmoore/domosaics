@@ -12,7 +12,8 @@ public class ArrangementImporterUtil {
 	public static DomainArrangement[] importData(File file) {
 		
 		DomainArrangement[] arrangementSet = null;
-		if (new XdomReader().checkFormat(file))
+		
+		if (XdomReader.checkFormat(file))
 			arrangementSet  = new XdomReader().getDataFromFile(file); 
 		else {
 			if (HmmOutReader.checkFileFormat(file));

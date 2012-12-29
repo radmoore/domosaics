@@ -9,8 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -102,13 +100,9 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 	public SimilarityChooser(DomainViewI view) {
 		this.view = view;
 		Container container = getContentPane();
-		
+
 		// create components
 		distanceList = new JComboBox(DistanceMeasureType.values());
-		if(view.getDomainSimilarityManager().getMemorizedSettingDMT()!=null)
-			distanceList.setSelectedItem(view.getDomainSimilarityManager().getMemorizedSettingDMT());
-		else
-			distanceList.setSelectedItem(DistanceMeasureType.JACARD);
 		distanceList.addActionListener(this);
 		
 		jbtClose = new JButton("Close");
@@ -123,9 +117,9 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 				"Similarity Measure:" 							
 		)); 	
 		distanceListBox.add(distanceList);
-
-		sliderBox = new Box(BoxLayout.Y_AXIS);
 		
+		createJaccardSliderBox();
+
 		// create the button box
 		Box buttonBox = new Box(BoxLayout.X_AXIS);
 		buttonBox.add(Box.createHorizontalGlue());
@@ -152,17 +146,8 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setModal(false);
-		this.addWindowListener(new WindowListener() {
-			public void windowActivated(WindowEvent arg0) {}
-			public void windowClosed(WindowEvent arg0) {}
-			public void windowClosing(WindowEvent arg0) {
-				close();
-			}
-			public void windowDeactivated(WindowEvent arg0) {}
-			public void windowDeiconified(WindowEvent arg0) {}
-			public void windowIconified(WindowEvent arg0) {}
-			public void windowOpened(WindowEvent arg0) {}
-		});
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE );
+		
 		updateDistances();
 	}
 	
@@ -170,8 +155,10 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 	 * Create Sliderbox for usage with the jacard index
 	 */
 	public void createJaccardSliderBox() {
-		if(sliderBox!=null && slider!=null)
+		if (sliderBox != null)
 			sliderBox.remove(slider);
+		else
+			sliderBox = new Box(BoxLayout.Y_AXIS);
 		
 		Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
 		labelTable.put(new Integer(0), new JLabel("0"));
@@ -188,12 +175,6 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 				new LineBorder(Color.black, 1, true),
 				"Percentage collapse:" 							
 		)); 	
-		
-		int tmp =view.getDomainSimilarityManager().getMemorizedSettingTjaccard();
-		if( tmp != -1 ) {
-			slider.setValue(tmp);
-		}
-		
 		sliderBox.add(slider);
 		sliderBox.doLayout();
 		sliderBox.repaint();
@@ -203,8 +184,10 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 	 * Create Sliderbox for usage with the domain edit distance
 	 */
 	public void createDomainDistanceSliderBox() {
-		if(sliderBox!=null && slider!=null)
+		if (sliderBox != null)
 			sliderBox.remove(slider);
+		else
+			sliderBox = new Box(BoxLayout.Y_AXIS);
 		
 		int max = view.getDomainSimilarityManager().getMaxDomainDistance();
 		Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
@@ -221,9 +204,6 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 				new LineBorder(Color.black, 1, true),
 				"edit operation collapse:" 							
 		)); 	
-		int tmp =view.getDomainSimilarityManager().getMemorizedSettingTdd();
-		if( tmp != -1 )
-			slider.setValue(tmp);
 		sliderBox.add(slider);
 		sliderBox.doLayout();
 		sliderBox.repaint();
@@ -263,7 +243,7 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 	 * after the threshold was changed.
 	 */
 	public void processSlider() {
-			view.getDomainSimilarityManager().setThreshold(view, slider.getValue());
+		view.getDomainSimilarityManager().setThreshold(view, slider.getValue());
 	}
 
 	/**
@@ -274,11 +254,13 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		DistanceMeasureType type = (DistanceMeasureType) distanceList.getSelectedItem();
 		ArrangementComponent dac = view.getArrangementSelectionManager().getSelection().iterator().next();
 		view.getDomainSimilarityManager().init(view, dac.getDomainArrangement(), type);
+		
 		// change to the correct slider
 		switch(type) {
 			case JACARD: createJaccardSliderBox(); break;
 			case DOMAINDISTANCE: createDomainDistanceSliderBox(); break;
 		}
+
 		processSlider();
 	}
 	

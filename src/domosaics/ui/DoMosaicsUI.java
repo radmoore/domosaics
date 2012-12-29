@@ -47,7 +47,7 @@ import domosaics.webservices.interproscan.ui.AnnotatorFrame;
 
 
 /**
- * The user interface class showing the DoMosaics main frame. <br>
+ * The user interface class showing the DoMosaicS main frame. <br>
  * When calling the constructor which follows the singleton pattern
  * using getInstance(), the main window builds up and the application is 
  * ready to run. 
@@ -86,7 +86,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
 	/** the actionManager to manipulate the main menu entries */
 	protected DefaultMenuActionManager actionManager;
 	
-	/** the DoMosaics desktop managing the workspace and the view dockings */
+	/** the DoMosaicS desktop managing the workspace and the view dockings */
 	protected DoMosaicsDesktop desktop;
 
 	private JPanel glassPane;
@@ -259,7 +259,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
     		is = this.getClass().getResourceAsStream("resources/icons/tree.png");
     		treeIcon = new ImageIcon(ImageIO.read(is));
     		
-    		is = this.getClass().getResourceAsStream("resources/icons/settings.png");
+    		is = this.getClass().getResourceAsStream("resources/icons/domtree.png");
     		domainTreeIcon = new ImageIcon(ImageIO.read(is));
     		
     		is = this.getClass().getResourceAsStream("resources/icons/settings.png");
@@ -434,7 +434,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
     }
     
     /**
-     * Wrapper around the rename method for views within AngstdDektop.
+     * Wrapper around the rename method for views within DoMosaicsDesktop.
      * This method allows the the view name update within the dockable
      * view component.
      * 

@@ -26,7 +26,7 @@ public class AnnotatorFrame extends JFrame implements WindowListener {
 	private static AnnotatorFrame instance = null;
 	
     public AnnotatorFrame() {
-		super("AnGSTD InterProScan");	
+		super("DoMosaicS InterProScan");	
 		
 		addWindowListener(this);
 		annotatorPanel = new AnnotatorPanel(this);

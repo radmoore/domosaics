@@ -152,7 +152,7 @@ public class SequenceView extends AbstractView{
 
 	@Override
 	public void xmlRead(Element viewType) {
-		this.setName(viewType.getAttributeValue("name"));
+		this.setName(viewType.getName());
 		// Read proteins
 		List<Element> prots = viewType.getChildren("PROTEIN");
 		List<SequenceI> list = new ArrayList<SequenceI>();
@@ -163,7 +163,6 @@ public class SequenceView extends AbstractView{
 			list.add(new Sequence(protein.getAttributeValue("id"),protein.getChildTextTrim("SEQUENCE")));
 		}
 		seqs = list.toArray(new Sequence[list.size()]);
-		setSeqs(seqs);
 	}
 
 }

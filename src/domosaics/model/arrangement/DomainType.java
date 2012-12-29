@@ -30,19 +30,16 @@ public enum DomainType {
 	PRODOM ("ProDom", "BlastProDom", "http://prodom.prabi.fr/prodom/current/html/home.php", "PD.+"),
 	UNKNOWN ("unknown", null, null, null);*/
 	
-	PFAM ("Pfam", "http://pfam.sanger.ac.uk/family/", "PF.+"),
-	SUPERFAMILY ("Superfamily", "http://supfam.cs.bris.ac.uk/SUPERFAMILY/cgi-bin/scop.cgi?sunid=/", "SSF.+"),
-	SMART ("SMART", "http://smart.embl-heidelberg.de/smart/do_annotation.pl?ACC=", "SM.+"),
-	PIRSF ("PIRSF", "http://pir.georgetown.edu/cgi-bin/ipcSF?id=", "PIRSF.+"),
-	PROSITE ("PROSITE", "http://www.expasy.ch/prosite/", "PS.+"),
-	PANTHER ("PANTHER", "http://www.pantherdb.org/panther/family.do?clsAccession=", "PTHR.+"),
-	GENE3D ("Gene3D", "http://gene3d.biochem.ucl.ac.uk/superfamily/?accession=", "G3D.+"),
-	TIGRFAMs ("TIGRFAMs", "http://www.jcvi.org/cgi-bin/tigrfams/HmmReportPage.cgi?acc=", "TIGR.+"),
-	PRINTS ("PRINTS", "http://www.bioinf.manchester.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?display_opts=Prints&category=None&queryform=false&regexpr=off&prints_accn=", "PR.+"),
-	PRODOM ("ProDom", "http://prodom.prabi.fr/prodom/current/cgi-bin/request.pl?", "PD.+"),
-	HAMAP ("HAMAP", "http://hamap.expasy.org/unirule/", "MF.+"),
-	SIGNALP ("SIGNALP", "http://www.cbs.dtu.dk/services/SignalP/", "SignalP.+"),
-	THHMM ("THHMM", "http://www.cbs.dtu.dk/services/TMHMM/", "tmhmm"),
+	PFAM ("Pfam", "http://pfam.sanger.ac.uk", "PF.+"),
+	SUPERFAMILY ("Superfamily", "http://supfam.cs.bris.ac.uk/SUPERFAMILY/", "SSF.+"),
+	SMART ("SMART", "http://smart.embl-heidelberg.de/", "SM.+"),
+	PIRSF ("PIRSF", "http://pir.georgetown.edu/", "PIRSF.+"),
+	PROSITE ("PROSITE", "http://www.expasy.org/prosite/", "PS.+"),
+	PANTHER ("PANTHER", "http://www.pantherdb.org/", "PTHR.+"),
+	GENE3D ("Gene3D", "http://gene3d.biochem.ucl.ac.uk/Gene3D/", "G3D.+"),
+	TIGRFAMs ("TIGRFAMs", "http://www.jcvi.org/cgi-bin/tigrfams/index.cgi", "TIGR.+"),
+	PRINTS ("PRINTS", "http://www.bioinf.manchester.ac.uk/dbbrowser/PRINTS/index.php", "PR.+"),
+	PRODOM ("ProDom", "http://prodom.prabi.fr/prodom/current/html/home.php", "PD.+"),
 	GAPDOM ("gapdom", null, null),
 	UNKNOWN ("unknown", null, null);
 
@@ -91,15 +88,6 @@ public enum DomainType {
 	    	else if ( Pattern.matches(PRINTS.getPattern().toString(), id) ) {
 	    		return PRINTS;
 	    	}
-	    	else if ( Pattern.matches(HAMAP.getPattern().toString(), id) ) {
-	    		return HAMAP;
-	    	}
-	    	else if ( Pattern.matches(SIGNALP.getPattern().toString(), id) ) {
-	    		return SIGNALP;
-	    	}
-	    	else if ( Pattern.matches(THHMM.getPattern().toString(), id) ) {
-	    		return THHMM;
-	    	}
 	    	else
 	    		return UNKNOWN;
     	
@@ -125,10 +113,7 @@ public enum DomainType {
     }*/
 
     public String getUrl(String label) {
-    	if(!name.equals("SIGNALP") && !name.equals("THHMM"))
-    		return homeUrl+label;
-    	else
-    		return homeUrl;
+    	return homeUrl;
     }
     
     private DomainType(String name, String homeUrl, String regexp) {

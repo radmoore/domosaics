@@ -362,5 +362,4 @@ public interface DomainViewI extends View {
 	 * 
 	 */
 	public void setCompareDomainsMode(boolean b);
-
 }

@@ -60,8 +60,6 @@ import domosaics.webservices.RADS.RADSService;
 import domosaics.webservices.RADS.util.RADSResultsTableModel;
 
 
-
-
 /**
  * This class describes the RADS scan panel that can be used to conduct
  * a scan against RADS and RAMPAGE. Besides implementing the ActionListner
@@ -855,8 +853,14 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		if ( radsService != null && radsService.isDone() && radsService.hasResults() ) {
 			boolean choice = true;
 			choice = MessageUtil.showDialog(parent, "Submitting this job will delete your current results. Are you sure?");
+			
 			if (!choice)
 				return;
+			
+			showReport.setEnabled(false);
+			apply.setEnabled(false);
+			
+			
 		}
 		
 		if (buildQuery()) {
@@ -882,12 +886,17 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 								//TODO should retrun a table model
 								//arrSet = resultProcessor.process();
 								resultsTableModel = createResultTable();
-								progressBar.setString("Scan complete");
-								if (resultsTableModel != null) {
-									apply.setEnabled(true);
-//									browse.setEnabled(true);
-									showReport.setEnabled(true);
+								if (resultsTableModel == null) {
+									progressBar.setIndeterminate(false);
+									progressBar.setMaximum(100);
+									progressBar.setValue(100);
+									MessageUtil.showInformation(parent, "No hits found");
+									return;
 								}
+								progressBar.setString("Scan complete");
+								apply.setEnabled(true);
+//								browse.setEnabled(true);
+								showReport.setEnabled(true);
 								submit.setEnabled(true);
 								reset.setEnabled(true);
 							}

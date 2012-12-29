@@ -24,9 +24,9 @@ import domosaics.util.BrowserLauncher;
 public class LookupDomainInGoogle extends AbstractAction {
 	private static final long serialVersionUID = 1L;
 
-	public LookupDomainInGoogle (String domain) {
+	public LookupDomainInGoogle () {
 		super();
-		putValue(Action.NAME, "Lookup for "+domain+" in Google");
+		putValue(Action.NAME, "Lookup At Google");
 		putValue(Action.SHORT_DESCRIPTION, "Opens a browserwindow showing the Google homepage");
 	}
 	

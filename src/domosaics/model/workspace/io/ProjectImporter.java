@@ -181,7 +181,7 @@ public class ProjectImporter {
 			
 			switch (choice) {
 				case 0: 
-					WorkspaceManager.getInstance().removeFromAngstd(project); 
+					WorkspaceManager.getInstance().removeFromDomosaics(project); 
 					project = WorkspaceManager.getInstance().addProject(project.getTitle(), true);
 					break;  	// overwrite;
 				case 1: WizardManager.getInstance().showCreateProjectWizard(projectName);	break; 	// rename

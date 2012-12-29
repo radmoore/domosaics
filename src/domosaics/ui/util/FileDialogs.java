@@ -18,7 +18,7 @@ import domosaics.ui.views.ViewType;
  * If a file was chosen correctly the file object is returned else null 
  * is returned.
  * <p>
- * The SaveDialog must be called using a {@link AngstdFileFilter} object to ensure
+ * The SaveDialog must be called using a {@link DoMosaicsFileFilter} object to ensure
  * that the correct extension is chosen. This type can be accessed by using 
  * {@link ViewType}. <br>
  * Also the last used file location is remembered by this class.
@@ -81,7 +81,7 @@ public class FileDialogs {
 		else
 			f = new JFileChooser(Configuration.getInstance().getDefaultLocation());
 		
-		FileFilter filter = new AngstdFileFilter(extension);
+		FileFilter filter = new DoMosaicsFileFilter(extension);
 		f.setFileFilter(filter);
 		
 		if (f.showSaveDialog(parent) == JFileChooser.APPROVE_OPTION) {
@@ -141,7 +141,7 @@ public class FileDialogs {
 }
 
 /**
- * Class AngstdFileFilter adds a file filter to a save dialog.
+ * Class DoMosaicsFileFilter adds a file filter to a save dialog.
  * <p>
  * Therefore a pre selection of a specific export format is done 
  * by setting the correct file extension.
@@ -152,7 +152,7 @@ public class FileDialogs {
  * @author Andreas Held
  *
  */
-class AngstdFileFilter extends FileFilter{
+class DoMosaicsFileFilter extends FileFilter{
 	
 	/**
 	 * The file extension
@@ -164,7 +164,7 @@ class AngstdFileFilter extends FileFilter{
 	 * 
 	 * @param desc the filters extension
 	 */
-	public AngstdFileFilter (String desc) {
+	public DoMosaicsFileFilter (String desc) {
 		this.description = desc;
 	}
 	

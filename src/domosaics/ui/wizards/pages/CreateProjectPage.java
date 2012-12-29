@@ -67,8 +67,8 @@ public class CreateProjectPage extends WizardPage {
 		if (projectName.isEmpty())
 			return "Select a name";
 
-		if (projectName.length() > 50)
-			return "Name should not exceed 50 characters";
+		if (projectName.length() > 25)
+			return "Name should not exceed 25 characters";
 		
 		if (projectName.equals("Default Project"))
 			return "Default Project name disallowed";

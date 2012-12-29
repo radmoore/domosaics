@@ -197,12 +197,6 @@ public class AnnotationThreadSpawner {
 		}
 		else {
 			//System.out.println("*** I: No hits found.");
-			SequenceI seq = annotator.getQuerySequence();
-			DomainArrangement da = new DomainArrangement();
-			da.setSequence(seq);
-			da.setName(seq.getName());
-			da.setSeqLen(seq.getLen(true));
-			daSet.add(da);
 			out.print(annotator.getQuerySequence().getName()+": no hits found.\n");
 		}
 		activeQuerys.remove(annotator);

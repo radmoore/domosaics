@@ -36,8 +36,6 @@ public class MsaViewAction extends AbstractMenuAction{
 		view.setViewLayout(new MSALayout());
 		view.getDomainViewRenderer().setArrangementRenderer(new MsaArrangementRenderer());		
 		view.getDomainLayoutManager().setToMsaView();
-		view.getArrangementSelectionManager().clearSelection();
-		view.getDomainSelectionManager().clearSelection();
 		view.registerMouseListeners();
 	}
 }

@@ -1,4 +1,4 @@
-package domosaics.model.arrangement.io;
+package angstd.model.arrangement.io;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

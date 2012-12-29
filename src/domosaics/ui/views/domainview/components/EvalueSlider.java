@@ -15,9 +15,11 @@ import javax.swing.plaf.metal.MetalSliderUI;
 public class EvalueSlider extends JSlider{
 	private static final long serialVersionUID = 1L;
 	
-	/** static variable used to memorize the indice (Hash key) of the default Evalue threshold */
-	protected static int threshold = 37;
+	/** static variable used to memorize the Evalue threshold */
+	protected static int oldThreshold = 10;
 	
+	/** the actual threshold */
+	protected int threshold = 1;
 	
 	protected Hashtable<Integer, Double> threshold2value;
 	protected Hashtable<Integer, JLabel> threshold2label;
@@ -45,28 +47,28 @@ public class EvalueSlider extends JSlider{
 	/**
 	 * Give the index of the memorized evalue threshold.
 	 */
-	public double getEvalueThreshold() {
-		return threshold2value.get(threshold);
+	public double getEvalueOldThreshold() {
+		return threshold2value.get(oldThreshold);
 	}
 	
 	/**
 	 * Give the index of the memorized evalue threshold.
 	 */
-	public int getThreshold() {
-		return threshold;
+	public int getOldThreshold() {
+		return oldThreshold;
 	}
 	
 	/**
 	 * Set the index for the memorized evalue threshold.
 	 * 
 	 */
-	public void setThreshold(double evalue)
+	public void setOldThreshold(double evalue)
 	{
 	 for(int i=0; i<threshold2value.size(); i++)
 	 {
 	  if(threshold2value.get(i)==evalue)
 	  {
-	   threshold=i;
+	   oldThreshold=i;
 	   break;
 	  }
 	 }

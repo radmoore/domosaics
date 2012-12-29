@@ -69,8 +69,7 @@ public class ArrangementMouseController extends MouseAdapter{
 			// show arrangement context menu
 			if (selectedArrangement != null) {
 				// show arrangement context menu
-				if(!view.getDomainLayoutManager().isCollapseBySimilarity() && !view.getDomainLayoutManager().isCollapseSameArrangements())
-					new ArrangementPopupMenu(view).show(view.getViewComponent(), e.getX(), e.getY());
+				new ArrangementPopupMenu(view).show(view.getViewComponent(), e.getX(), e.getY());
 				return;
 			}
 			return;

@@ -13,7 +13,7 @@ import pal.tree.TreeTool;
  * such as UPGMA or NJ, which must be specified when calling createTree().
  * The trees are created based on a PAL distance matrix. Using the class
  * {@link DistanceMatrixUtil} helps to create those PAL objects using
- * DoMosaics data.
+ * DoMosaicS data.
  * 
  * @author Andreas Held
  *
@@ -55,7 +55,7 @@ public class TreeCreationUtil {
 		// root the tree
 		Tree midPointRooted = TreeTool.getMidPointRooted( palTree );
 		
-		// parse it to DoMosaics tree
+		// parse it to DoMosaicS tree
 		return new NewickTreeReader().getTreeFromString(midPointRooted.toString());
 		//return new NewickTreeReader().getTreeFromString(palTree.toString());
 	}
@@ -76,7 +76,7 @@ public class TreeCreationUtil {
 		// root the tree
 		Tree midPointRooted = TreeTool.getMidPointRooted( palTree );
 		
-		// parse it to DoMosaics tree
+		// parse it to DoMosaicS tree
 		return new NewickTreeReader().getTreeFromString(midPointRooted.toString());
 	}
 	

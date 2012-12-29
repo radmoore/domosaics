@@ -20,9 +20,9 @@ import domosaics.ui.DoMosaicsUI;
  */
 public class MessageUtil {
 	
-	private static final String ANGSTD = "DoMosaics";
-	private static final String ERRORTITLE = "DoMosaics - Error occured";
-	private static final String INFORMTITLE = "DoMosaics - Information";
+	private static final String DOMOSAICS = "DoMosaicS";
+	private static final String ERRORTITLE = "DoMosaicS - Error";
+	private static final String INFORMTITLE = "DoMosaicS - Information";
 	
 	/**
      * Shows a basic error message dialog with a specified message.
@@ -67,7 +67,7 @@ public class MessageUtil {
      */
     public static boolean showDialog(String msg) {
     	Object[] options = {"Yes", "No"};
-    	int choice = JOptionPane.showOptionDialog(DoMosaicsUI.getInstance(), msg, ANGSTD, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+    	int choice = JOptionPane.showOptionDialog(DoMosaicsUI.getInstance(), msg, DOMOSAICS, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
     	if (choice == JOptionPane.NO_OPTION)
     		return false;
     	return true;
@@ -85,7 +85,7 @@ public class MessageUtil {
      */
     public static boolean showDialog(Component parent, String msg) {
     	Object[] options = {"Yes", "No"};
-    	int choice = JOptionPane.showOptionDialog(parent, msg, ANGSTD, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+    	int choice = JOptionPane.showOptionDialog(parent, msg, DOMOSAICS, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
     	if (choice == JOptionPane.NO_OPTION)
     		return false;
     	return true;
@@ -105,7 +105,7 @@ public class MessageUtil {
      * 		the users choice corresponding to order of given choices as integer
      */
     public static int show3ChoiceDialog(String msg, Object[] options) {
-    	return JOptionPane.showOptionDialog(DoMosaicsUI.getInstance(), msg, ANGSTD, JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+    	return JOptionPane.showOptionDialog(DoMosaicsUI.getInstance(), msg, DOMOSAICS, JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
     }
     
 }

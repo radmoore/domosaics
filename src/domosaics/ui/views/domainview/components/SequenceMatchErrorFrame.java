@@ -20,9 +20,8 @@ import domosaics.model.sequence.SequenceI;
 import domosaics.model.sequence.io.FastaReader;
 import domosaics.ui.views.domainview.DomainViewI;
 
-
-
 import net.miginfocom.swing.MigLayout;
+
 
 public class SequenceMatchErrorFrame extends JDialog implements ActionListener{
 	private static final long serialVersionUID = 1L;

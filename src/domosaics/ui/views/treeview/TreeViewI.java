@@ -1,7 +1,6 @@
 package domosaics.ui.views.treeview;
 
 import java.beans.PropertyChangeListener;
-import java.util.Vector;
 
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.TreeNodeI;
@@ -183,5 +182,4 @@ public interface TreeViewI extends View{
    	 */
 	public NodeComponent getNodesComponent(TreeNodeI node);
 
-	public Vector<TreeNodeI> getToCollapseCSA();
 }

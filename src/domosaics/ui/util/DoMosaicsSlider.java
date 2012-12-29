@@ -14,7 +14,7 @@ import javax.swing.JSlider;
 import javax.swing.plaf.metal.MetalSliderUI;
 
 /**
- * Slider style within AnGSTD
+ * Slider style within DoMosaics
  * 
  * @author Andreas Held
  *

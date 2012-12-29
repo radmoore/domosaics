@@ -275,15 +275,5 @@ public class SequenceSelectionMouseController extends MouseAdapter {
 			}
 		}	
 	}
-
-	public void clearSelection() {
-		// TODO Auto-generated method stub
-		movePoint = null;
-		clickPoint = null;
-		selectionRectangle = null;
-		dragging = false;	
-		area = new Area();
-		
-	}
 	
 }

@@ -10,7 +10,6 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 
-
 import com.csvreader.CsvWriter;
 
 import domosaics.model.arrangement.ArrangementManager;
@@ -18,7 +17,6 @@ import domosaics.model.configuration.Configuration;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.tools.stats.Stats;
 import domosaics.ui.util.FileDialogs;
-
 
 public class SaveStatsToCSVAction extends AbstractAction {
 	private static final long serialVersionUID = 1L;

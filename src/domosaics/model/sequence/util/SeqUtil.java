@@ -62,7 +62,7 @@ public class SeqUtil {
 		}
 		//TODO: only allow protein for the time being
 		// check for PROTEIN (all AA + '-', '*', 'X', 'U')
-		//if ( (letters.size() > 4) && (letters.size() <= 24) ) {
+		//if ( (letters.size() > 4) && (letters.size() <= 23) ) {
 		if ( letters.size() <= 24 ) {
 			
 			Pattern nonRes = Pattern.compile(NONVALIDRESEXP);

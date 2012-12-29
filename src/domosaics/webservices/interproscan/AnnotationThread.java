@@ -10,8 +10,6 @@ import org.apache.axis.AxisFault;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
 
-
-
 import uk.ac.ebi.webservices.axis1.stubs.iprscan.InputParameters;
 import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_PortType;
 import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_Service;
@@ -20,7 +18,7 @@ import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_ServiceLocat
 
 /**
  * AnnotationThread is the interface between the iprscan API 
- * and AnGSTD.
+ * and DoMosaics.
  * (see http://www.ebi.ac.uk/Tools/webservices/services/pfa/iprscan_soap#getresult_jobid_type_parameters)
  * <p>
  * Annotation threads are created by a {@link AnnotationThreadSpawner}. <br>

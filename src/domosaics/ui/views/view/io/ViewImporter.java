@@ -62,7 +62,7 @@ public abstract class ViewImporter<V extends View> {
 
 			if ((firstLine = in.readLine()) != null) {
 				// check domosaics file format stamp
-				if (!firstLine.contains("# angstd_view: ")) {
+				if (!firstLine.contains("# domosaics_view: ")) {
 					if (!MessageUtil.showDialog( viewFile.getName()+" does not appear to be a view file. Continue?"))
 						return null;
 				}

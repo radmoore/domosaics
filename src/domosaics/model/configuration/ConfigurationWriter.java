@@ -14,7 +14,7 @@ public class ConfigurationWriter {
 
 	public static final String DEFAULT_LOCATION = "default file location:";
 	public static final String GOOGLE_URL = "google search:";
-	//public static final String NCBI_URL = "ncbi search:";
+	public static final String NCBI_URL = "ncbi search:";
 	public static final String PFAM_URL = "pfam search:";
 	public static final String UNIPROT_URL = "uniprot search:";
 	public static final String EMAIL_ADDR = "email address:";
@@ -33,10 +33,10 @@ public class ConfigurationWriter {
 
 		    Configuration config = Configuration.getInstance();
 		    
-		    out.write("AnGSTD Configuration File \n\n");
+		    out.write("DoMosaicS Configuration File \n\n");
 		    out.write(DEFAULT_LOCATION+config.getDefaultLocation()+"\n");	
 		    out.write(GOOGLE_URL+config.getGoogleUrl()+"\n");
-		    //out.write(NCBI_URL+config.getNcbiUrl()+"\n");
+		    out.write(NCBI_URL+config.getNcbiUrl()+"\n");
 		    out.write(PFAM_URL+config.getPfamUrl()+"\n");
 		    out.write(UNIPROT_URL+config.getUniprotUrl()+"\n");
 		    out.write(EMAIL_ADDR+config.getEmailAddr()+"\n");

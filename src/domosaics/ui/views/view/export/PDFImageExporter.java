@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 
-
 import com.lowagie.text.Document;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.DefaultFontMapper;
@@ -16,7 +15,6 @@ import com.lowagie.text.pdf.PdfWriter;
 import domosaics.model.configuration.Configuration;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.view.View;
-
 
 /**
  * Class PDFImageExporter exports an image in PDF format using the

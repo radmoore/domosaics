@@ -45,9 +45,8 @@ public class LookupDomainInSourceDBAction extends AbstractAction {
 		String label = selectedDomain.getLabel();
 		if(label == null)
 			label = "";		
-
-		// TODO uncomment when debugged 
-		//BrowserLauncher.openURL(view.getDomainSelectionManager().getClickedComp().getDomain().getFamily().getDomainType().getUrl(label)); //"http://www.ncbi.nlm.nih.gov/sites/gquery?term="+label);
+		
+		BrowserLauncher.openURL(view.getDomainSelectionManager().getClickedComp().getDomain().getFamily().getDomainType().getUrl(label)); //"http://www.ncbi.nlm.nih.gov/sites/gquery?term="+label);
 		
 		// deselect the node within the Selection manager 
 		view.getDomainSelectionManager().setMouseOverComp(null);

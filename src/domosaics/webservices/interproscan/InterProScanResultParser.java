@@ -20,8 +20,6 @@ import domosaics.model.arrangement.DomainType;
 import domosaics.model.arrangement.io.GatheringThresholdsReader;
 import domosaics.model.configuration.Configuration;
 
-
-
 //import org.apache.log4j.Logger;
 
 

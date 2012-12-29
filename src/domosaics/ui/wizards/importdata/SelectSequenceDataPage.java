@@ -51,6 +51,7 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 
 	private ProjectElement project;
 	
+	
 	/**
 	 * Constructor for a new SelectArrangementDataPage
 	 */

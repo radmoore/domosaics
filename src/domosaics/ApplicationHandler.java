@@ -54,7 +54,7 @@ import domosaics.ui.wizards.WizardManager;
  */
 public class ApplicationHandler {
 
-	protected String workspace_dir = System.getProperty("user.home")+"/.domosaics-workspace";
+	protected String workspace_dir = System.getProperty("user.home")+"/domosaics-workspace";
 	protected static ApplicationHandler instance;
 	
 	protected StartupPage startUpProgress;
@@ -125,7 +125,7 @@ public class ApplicationHandler {
 		if (DoMosaicsUI.getInstance().isShowing())
 			DoMosaicsUI.getInstance().dispose();
 		
-		Configuration.getLogger().info("INFO: closing AnGSTD");
+		Configuration.getLogger().info("INFO: closing DoMosaicS");
 		LastUsedWorkspaceWriter.write();
 		System.exit(0);		
 	}
@@ -244,7 +244,7 @@ public class ApplicationHandler {
 		erronousJava.put("Sun", true);
 		if (erronousJava.containsKey(jversion)) {
 			startUpProgress.dispose();
-			String msg = "Some of DoMosaics's functionalities will not work correctly\n";
+			String msg = "Some of DoMosaicS's functionalities will not work correctly\n";
 			msg += "with your version of Java. Please update your \nJava Runtime Environment to 1.6.0_21.";
 			msg += "\nJava version: "+ jversion + " \nVendor: "+ jvendor;
 			JOptionPane.showMessageDialog(startUpProgress, msg);
@@ -349,8 +349,8 @@ public class ApplicationHandler {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				
-				DoMosaicsUI angstd = DoMosaicsUI.getInstance();
-				angstd.disableFrame();
+				DoMosaicsUI domosaics = DoMosaicsUI.getInstance();
+				domosaics.disableFrame();
 				
 			 }
 		 });

@@ -24,7 +24,7 @@ public class SelectSequencesAction extends AbstractMenuAction{
 	
 	/** message shown within a help dialog */
 	private static final String HELPMSG = 
-			"Select underlying sequences via selection rectangle \n" +
+			"Select unerlying sequences via selection rectangle \n" +
 			"which expands when dragging the mouse. Each new selection \n" +
 			"is added to the previous one. To clear the current \n" +
 			"selection use a single left click. To export the \n" +

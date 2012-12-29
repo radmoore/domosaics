@@ -43,9 +43,8 @@ public class LookupNodeAtNcbiAction extends AbstractAction {
 		if(label == null)
 			label = "";
 		
-		//BrowserLauncher.openURL(Configuration.getInstance().getNcbiUrl(label)); //"http://www.ncbi.nlm.nih.gov/sites/gquery?term="+label);
-		BrowserLauncher.openURL("http://www.ncbi.nlm.nih.gov/sites/gquery?term=");
-				
+		BrowserLauncher.openURL(Configuration.getInstance().getNcbiUrl(label)); //"http://www.ncbi.nlm.nih.gov/sites/gquery?term="+label);
+		
 		// deselect the node within the Selection manager 
 		view.getTreeSelectionManager().setMouseOverComp(null);
 	}

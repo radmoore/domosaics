@@ -13,7 +13,8 @@ import domosaics.model.configuration.Configuration;
 /**
  * Configuration frame allows modifications on the lookup addresses.
  * 
- * @author Andreas Held, Andrew Moore
+ * @author Andreas Held
+ * @author Andrew Moore <radmoore@uni-muenster.de>
  *
  */
 public class ConfigurationFrame extends JFrame implements WindowListener {
@@ -24,7 +25,7 @@ public class ConfigurationFrame extends JFrame implements WindowListener {
 	 * Constructor for a new ConfigurationFrame
 	 */
     public ConfigurationFrame() {
-		super("AnGSTD Settings");	
+		super("DoMosaicS Settings");	
 		
 		getContentPane().add(new ConfigurationPanel(this));
 		

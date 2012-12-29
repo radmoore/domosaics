@@ -13,8 +13,6 @@ import domosaics.model.sequence.SequenceI;
 import domosaics.webservices.AbstractEBIWebservice;
 import domosaics.webservices.EBIServiceType;
 import domosaics.webservices.WebservicePrinter;
-
-
 import uk.ac.ebi.webservices.axis1.stubs.clustalw2.*;
 //import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_Service;
 //import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_ServiceLocator;

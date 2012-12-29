@@ -139,10 +139,10 @@ public class HmmPress implements Hmmer3Program {
 	 * 		true if all pressed files (by extension) are present
 	 */
 	public static boolean hmmFilePressed(File hmmDBFile) {
-		if (new File(hmmDBFile+H3F).exists() && (new File(hmmDBFile+H3F).length())!=0)
-			if (new File(hmmDBFile+H3I).exists() && (new File(hmmDBFile+H3I).length())!=0)
-				if (new File(hmmDBFile+H3M).exists() && (new File(hmmDBFile+H3M).length())!=0)
-					if (new File(hmmDBFile+H3P).exists() && (new File(hmmDBFile+H3P).length())!=0)
+		if (new File(hmmDBFile+H3F).exists())
+			if (new File(hmmDBFile+H3I).exists())
+				if (new File(hmmDBFile+H3M).exists())
+					if (new File(hmmDBFile+H3P).exists())
 						return true;
 		
 		return false;
@@ -161,11 +161,9 @@ public class HmmPress implements Hmmer3Program {
 	 * Implementation required by {@link Hmmer3Program} interface.
 	 */
 	public void prepare() {
-		args = new String[3];
+		args = new String[2];
 		args[0] = hmmPressBin.getAbsolutePath();
-		// Force overwriting
-		args[1] = "-f";
-		args[2] = hmmDBFile.getAbsolutePath();
+		args[1] = hmmDBFile.getAbsolutePath();
 	}
 	
 	/**
