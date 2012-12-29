@@ -19,6 +19,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -529,6 +530,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		progressBar.setValue(0);
 		progressBar.setIndeterminate(false);
 		progressBar.setString("");
+		System.out.println("Resetting panel.");
 		run.setEnabled(true);
 	}
 	
@@ -715,5 +717,9 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	
 	public boolean usingCODD() {
 		return coddCkb.isSelected();
+	}
+
+	public JFrame getParent() {
+		return parent;
 	}
 }
