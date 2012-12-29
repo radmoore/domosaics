@@ -24,7 +24,7 @@ public class Configuration {
 	public static final String DEF_FILE_LOCATION = System.getProperty("user.home");
 	//public static final String DEF_LOG_LOCATION = DEF_FILE_LOCATION+"/domosaics.log";
 	public static final String DEF_GOOGLE_SEARCH = "http://www.google.com/search?q=XXX";
-	public static final String DEF_NCBI_SEARCH = "http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&cmd=search&term=XXX";
+	//public static final String DEF_NCBI_SEARCH = "http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&cmd=search&term=XXX";
 	public static final String DEF_PFAM_SEARCH = "http://pfam.sanger.ac.uk/family?acc=XXX";
 	public static final String DEF_UNIPROT_SEARCH = "http://www.uniprot.org/uniprot/?query=XXX";
 	public static final String DEF_EMAIL_ADDR = "";
@@ -45,7 +45,7 @@ public class Configuration {
 	protected String defaultFileLocation;
 
 	protected String googleUrl;
-	protected String ncbiUrl; 
+	//protected String ncbiUrl; 
 	protected String pfamUrl; 
 	protected String uniprotUrl;
 	protected String emailAddr;
@@ -98,7 +98,7 @@ public class Configuration {
 	public void restoreDefaults() {
 		defaultFileLocation = DEF_FILE_LOCATION;
 		googleUrl = DEF_GOOGLE_SEARCH;
-		ncbiUrl = DEF_NCBI_SEARCH; 
+		//ncbiUrl = DEF_NCBI_SEARCH; 
 		pfamUrl = DEF_PFAM_SEARCH; 
 		uniprotUrl = DEF_UNIPROT_SEARCH;
 		emailAddr = DEF_EMAIL_ADDR;
@@ -218,7 +218,7 @@ public class Configuration {
 		return googleUrl.replace("XXX", searchItem);
 	}
 	
-	public void setNcbiUrl(String newUrl) {
+	/*public void setNcbiUrl(String newUrl) {
 		ncbiUrl = newUrl;
 	}
 	
@@ -228,7 +228,7 @@ public class Configuration {
 	
 	public String getNcbiUrl(String searchItem) {
 		return ncbiUrl.replace("XXX", searchItem);
-	}
+	}*/
 	
 	public void setPfamUrl(String newUrl) {
 		pfamUrl = newUrl;

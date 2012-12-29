@@ -29,56 +29,65 @@ import domosaics.ui.util.MessageUtil;
  */
 public class FastaReader extends AbstractDataReader<SequenceI>{
 	
-	public static boolean isValidFasta(String fastaFile) {
+	public static boolean isValidFasta(File fastaFile) {
 		
         BufferedReader inputStream = null;
-        Boolean firstRead = true;
-        Boolean header = false;
-        Boolean sequence = false;
-        String line;
         Pattern p = Pattern.compile("^$");
         Matcher emptyLine; 
-        
+        	
+		// string buffer holding the actual sequence which can be over more than one line
+		StringBuffer seqBuf = new StringBuffer();
+		// actual line
+		String line;		
+		// flag indicating whether or not the first sequence was parsed
+		boolean firstRead = false;
+		
+		// the initial sequence type before guessing the format
+		int type = SeqUtil.UNKNOWN;
 
         try {
-        	File file = new File(fastaFile);
-            inputStream = new BufferedReader(new FileReader(file));
+            inputStream = new BufferedReader(new FileReader(fastaFile));
             
             while ((line = inputStream.readLine()) != null) {
             	 emptyLine = p.matcher(line);
 
             	// ignore comments (and empty lines)
-            	if ( line.startsWith("#") || emptyLine.matches())
+            	if ( line.startsWith(";") || emptyLine.matches())
             		continue;
             	
-            	if ( line.startsWith(">") ) {	
-            		if (!firstRead) {
-            			if ( !(header && sequence) )
-            				return false;
-            			
-            		}
-            		firstRead = false;
-            		header = true;
-            		sequence = false;
-            		
-            	}
-            	// sequence line (instead of concat, check every line -> will terminate as soon
-            	// as something is wrong (as opposed to reading the rest of the faulty entry)
-            	else if ( SeqUtil.checkFormat(line.trim()) == SeqUtil.UNKNOWN )
-            		return false;
-            	
-            	else 
-            		sequence = true;
-            	
-            	
-            }
-            if ( !(header & sequence) )
-            		return false;
-		}
-		catch(Exception e) {
+            	if (line.startsWith(">")) {		// parse header line
+    				if (firstRead) {
+    					
+    					// guess the format
+    					type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
+    					if (type == SeqUtil.UNKNOWN) {
+    						MessageUtil.showWarning("Can't determine the sequence format.");
+    						return false;
+    					}
+    				}else {
+    					firstRead = true;
+    				}
+    				seqBuf = new StringBuffer();
+    				if(getNameFromHeader(line)==null) {
+    					MessageUtil.showWarning("Error while parsing protein line.");
+    					return false;
+    				}
+    			} else {
+    				line = line.replaceAll("\\s+", "");
+    				seqBuf.append(line.toUpperCase());
+    			}
+    		}
+    		// add also the last protein
+    		type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
+    		if (type == SeqUtil.UNKNOWN) {
+    			MessageUtil.showWarning("Can't determine the sequence format.");
+    			return false;
+    		}
+		} catch(Exception e) {
+			MessageUtil.showWarning("Error while parsing the file.");
 			e.printStackTrace();
+			return false;
 		}
-		
 		return true;
 	}
 	
@@ -117,19 +126,23 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 					
 					// guess the format
 					type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
-			
 					if (type == SeqUtil.UNKNOWN) {
 						MessageUtil.showWarning("Can't determine the sequence format.");
 						return null;
 					}
-
 					seq.setSeq(convertToAminoAcidSeq(seqBuf.toString(), type));
 					seqs.add(seq);
+				}else {
+					firstRead = true;
 				}
-				firstRead = true;
 				seq = new Sequence();
 				seqBuf = new StringBuffer();
 				seq.setName(getNameFromHeader(line));
+				if(seq.getName()==null) {
+					MessageUtil.showWarning("Error while parsing protein line.");
+					return null;
+				}
+					
 			} else {							// add seq line
 				// TODO make sure not to read line numbers if present
 //				String[] token = line.split("\\s+");
@@ -140,14 +153,11 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 		}
 		
 		// add also the last protein
+		type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
 		if (type == SeqUtil.UNKNOWN) {
-			type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
-			if (type == SeqUtil.UNKNOWN) {
-				MessageUtil.showWarning("Can't determine the sequence format.");
-				return null;
-			}
+			MessageUtil.showWarning("Can't determine the sequence format.");
+			return null;
 		}
-		
 		seq.setSeq(convertToAminoAcidSeq(seqBuf.toString(), type));
 		seqs.add(seq);
 		
@@ -176,19 +186,23 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 	 * @return
 	 * 		sequence name.
 	 */
-	private String getNameFromHeader(String header) {
+	private static String getNameFromHeader(String header) {
 		header = header.replace(">", "");
 		String[] token = header.split("\\s+");
+		if(token.length!=0) {
+			// we are only interested in the sequence name, which is the first word within the header
+			String name = token[0];
+			
+			// its possible that empty spaces occur here, so we have to split again
+			String[] nameToken = name.split(" ");
+			for (int i = 0; i < nameToken.length; i++)
+				if (!nameToken[i].isEmpty()) 
+					return nameToken[i];
+			return nameToken[0];
+		}else
+		{
+			return null;
+		}
 		
-		// we are only interested in the sequence name, which is the first word within the header
-		String name = token[0];
-		
-		// its possible that empty spaces occur here, so we have to split again
-		String[] nameToken = name.split(" ");
-		for (int i = 0; i < nameToken.length; i++)
-			if (!nameToken[i].isEmpty()) 
-				return nameToken[i];
-		
-		return nameToken[0];
 	}
 }

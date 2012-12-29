@@ -13,7 +13,7 @@ import domosaics.ui.views.view.components.ZoomCompatible;
 
 
 /**
- * The workflow of DoMosaics is action driven which means that in 
+ * The workflow of DoMosaicS is action driven which means that in 
  * various situations the action state is requested and based on the 
  * result the classes interact differently.
  * For instance if the domain ruler action is activated within the

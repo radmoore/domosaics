@@ -216,7 +216,7 @@ public class ApplicationHandler {
 	public void start() {
 		startUpProgress = new StartupPage();
 		
-		startUpProgress.setProgress("Loading DoMosaics", 5);
+		startUpProgress.setProgress("Loading DoMosaicS", 5);
 		initPreferences();
 		
 		startUpProgress.setProgress("Initiating workspace", 25);
@@ -295,7 +295,7 @@ public class ApplicationHandler {
 	}
 	
 	/**
-	 * Helper method checking if the DoMosaics workspace already exists.
+	 * Helper method checking if the DoMosaicS workspace already exists.
 	 */
 	protected void initWorkspaceDir() {
 		File workspace = new File(workspace_dir);
@@ -337,7 +337,7 @@ public class ApplicationHandler {
 			Configuration.getInstance().setLockFile();
 		}
 		else {
-			MessageUtil.showWarning(startUpProgress, "The default workspace is in use. Please close all DoMosaics instances and try again. ");
+			MessageUtil.showWarning(startUpProgress, "The default workspace is in use. Please close all DoMosaicS instances and try again. ");
 			System.exit(0);
 		}
 	}

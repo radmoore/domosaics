@@ -185,6 +185,11 @@ public class Hmmer3Service implements ProcessListener{
 				hmmPanel.writeToConsole("*** E: "+ out);
 				hmmPanel.writeToConsole("\n");
 				executor.stop();
+			}else
+			{
+				System.out.println("*** W: "+out);
+				/*hmmPanel.writeToConsole("*** W: "+ out);
+				hmmPanel.writeToConsole("\n");*/
 			}
 
 		}

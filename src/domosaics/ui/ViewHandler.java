@@ -20,7 +20,7 @@ import domosaics.ui.views.view.ViewInfo;
 
 /**
  * Class ViewManager manages the creation, adding and removing of view 
- * objects to DoMosaics and its main frame. The adding to the workspace
+ * objects to DoMosaicS and its main frame. The adding to the workspace
  * view is delegated to the {@link WorkspaceManager}.
  * <p>
  * The class follows the singleton pattern, which means only one instance is
@@ -172,7 +172,7 @@ public class ViewHandler {
 	
 
 	/**
-	 * Completely eliminates a view from DoMosaics. If you are just interested 
+	 * Completely eliminates a view from DoMosaicS. If you are just interested 
 	 * in removing the view from the desktop but not from the workspace, 
 	 * you may be interested in disableView().
 	 *  

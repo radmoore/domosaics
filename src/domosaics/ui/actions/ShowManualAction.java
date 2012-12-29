@@ -8,7 +8,7 @@ import domosaics.ui.io.menureader.AbstractMenuAction;
 
 
 /**
- * Opens the AnGSTD manual
+ * Opens the DoMosaicS manual
  * 
  * @author Andreas Held
  *

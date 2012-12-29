@@ -114,7 +114,7 @@ public class Workspace extends WorkspaceElement {
 	 * When removing an element from the workspace the procedure
 	 * has to vary based on the elements type, because the views
 	 * also have to be removed from the ViewHandler and if active
-	 * from the DoMosaicSDesktop.
+	 * from the DoMosaicsDesktop.
 	 * <p>
 	 * The view (TreeModel) is changed automatically by sending him a
 	 * change event.

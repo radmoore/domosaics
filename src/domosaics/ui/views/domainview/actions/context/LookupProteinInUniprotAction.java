@@ -25,9 +25,9 @@ import domosaics.util.BrowserLauncher;
 public class LookupProteinInUniprotAction extends AbstractAction {
 	private static final long serialVersionUID = 1L;
 
-	public LookupProteinInUniprotAction () {
+	public LookupProteinInUniprotAction (String protein) {
 		super();
-		putValue(Action.NAME, "Lookup At Uniprot");
+		putValue(Action.NAME, "Lookup for protein "+protein+" in Uniprot");
 		putValue(Action.SHORT_DESCRIPTION, "Opens a browserwindow showing the Uniprot homepage");
 	}
 	

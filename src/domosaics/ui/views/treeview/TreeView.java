@@ -92,7 +92,7 @@ import domosaics.ui.views.view.renderer.Renderer;
  * To reach the panel which embeds the view the method {@link #getParentPane()}
  * has to be used.
  * <p>
- * DoMosaics handles bootstrap values which can be coded in newick format 
+ * DoMosaicS handles bootstrap values which can be coded in newick format 
  * as node labels. Therefore the TreeComponentManager provides a method to
  * switch between the display of bootstrap values and edge weights.
  * If the user wants to show the bootstrap values the useLabelAsBootstrap()
