@@ -11,6 +11,8 @@ import domosaics.ui.views.view.View;
 import domosaics.ui.wizards.WizardManager;
 
 
+
+
 public class ExportViewAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 		    

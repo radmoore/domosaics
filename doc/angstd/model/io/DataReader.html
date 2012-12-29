@@ -55,10 +55,10 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../angstd/model/io/AbstractDataWriter.html" title="class in angstd.model.io"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../angstd/model/io/DataWriter.html" title="interface in angstd.model.io"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../domosaics/model/io/AbstractDataWriter.html" title="class in domosaics.model.io"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../domosaics/model/io/DataWriter.html" title="interface in domosaics.model.io"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?angstd/model/io/DataReader.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?domosaics/model/io/DataReader.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="DataReader.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
@@ -88,26 +88,26 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHO
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-angstd.model.io</FONT>
+domosaics.model.io</FONT>
 <BR>
-Interface DataReader&lt;T extends <A HREF="../../../angstd/model/AngstdData.html" title="interface in angstd.model">AngstdData</A>&gt;</H2>
+Interface DataReader&lt;T extends <A HREF="../../../domosaics/model/AngstdData.html" title="interface in domosaics.model">AngstdData</A>&gt;</H2>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../angstd/model/io/AbstractDataReader.html" title="class in angstd.model.io">AbstractDataReader</A>, <A HREF="../../../angstd/model/arrangement/io/XdomReader.html" title="class in angstd.model.arrangement.io">XdomReader</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="class in domosaics.model.io">AbstractDataReader</A>, <A HREF="../../../domosaics/model/arrangement/io/XdomReader.html" title="class in domosaics.model.arrangement.io">XdomReader</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public interface <B>DataReader&lt;T extends <A HREF="../../../angstd/model/AngstdData.html" title="interface in angstd.model">AngstdData</A>&gt;</B></DL>
+<DT><PRE>public interface <B>DataReader&lt;T extends <A HREF="../../../domosaics/model/AngstdData.html" title="interface in domosaics.model">AngstdData</A>&gt;</B></DL>
 </PRE>
 
 <P>
 Interface DataReader defines the methods to retrieve data from
  a stream, file or a string. <br>
- <A HREF="../../../angstd/model/io/AbstractDataReader.html" title="class in angstd.model.io"><CODE>AbstractDataReader</CODE></A> is the basic implementation for this 
- interface and special parser classes like <A HREF="../../../angstd/model/arrangement/io/XdomReader.html" title="class in angstd.model.arrangement.io"><CODE>XdomReader</CODE></A> should
+ <A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="class in domosaics.model.io"><CODE>AbstractDataReader</CODE></A> is the basic implementation for this 
+ interface and special parser classes like <A HREF="../../../domosaics/model/arrangement/io/XdomReader.html" title="class in domosaics.model.arrangement.io"><CODE>XdomReader</CODE></A> should
  extend this AbstractDataReader.
  <p>
  Because the return type of the methods are generic the requested type
- must implement the empty <A HREF="../../../angstd/model/AngstdData.html" title="interface in angstd.model"><CODE>AngstdData</CODE></A> interface.
+ must implement the empty <A HREF="../../../domosaics/model/AngstdData.html" title="interface in domosaics.model"><CODE>AngstdData</CODE></A> interface.
 <P>
 
 <P>
@@ -129,32 +129,32 @@ Interface DataReader defines the methods to retrieve data from
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../angstd/model/io/DataReader.html" title="type parameter in DataReader">T</A>[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../angstd/model/io/DataReader.html#getData(java.io.Reader)">getData</A></B>(java.io.Reader&nbsp;r)</CODE>
+<CODE>&nbsp;<A HREF="../../../domosaics/model/io/DataReader.html" title="type parameter in DataReader">T</A>[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../domosaics/model/io/DataReader.html#getData(java.io.Reader)">getData</A></B>(java.io.Reader&nbsp;r)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In this method the actual parsing is done.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../angstd/model/io/DataReader.html" title="type parameter in DataReader">T</A>[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../angstd/model/io/DataReader.html#getDataFromFile(java.io.File)">getDataFromFile</A></B>(java.io.File&nbsp;file)</CODE>
+<CODE>&nbsp;<A HREF="../../../domosaics/model/io/DataReader.html" title="type parameter in DataReader">T</A>[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../domosaics/model/io/DataReader.html#getDataFromFile(java.io.File)">getDataFromFile</A></B>(java.io.File&nbsp;file)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retrieves data from a file.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../angstd/model/io/DataReader.html" title="type parameter in DataReader">T</A>[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../angstd/model/io/DataReader.html#getDataFromStream(java.io.InputStream)">getDataFromStream</A></B>(java.io.InputStream&nbsp;is)</CODE>
+<CODE>&nbsp;<A HREF="../../../domosaics/model/io/DataReader.html" title="type parameter in DataReader">T</A>[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../domosaics/model/io/DataReader.html#getDataFromStream(java.io.InputStream)">getDataFromStream</A></B>(java.io.InputStream&nbsp;is)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retrieves data from a stream.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../angstd/model/io/DataReader.html" title="type parameter in DataReader">T</A>[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../angstd/model/io/DataReader.html#getDataFromString(java.lang.String)">getDataFromString</A></B>(java.lang.String&nbsp;dataStr)</CODE>
+<CODE>&nbsp;<A HREF="../../../domosaics/model/io/DataReader.html" title="type parameter in DataReader">T</A>[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../domosaics/model/io/DataReader.html#getDataFromString(java.lang.String)">getDataFromString</A></B>(java.lang.String&nbsp;dataStr)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retrieves data from a string.</TD>
@@ -176,7 +176,7 @@ Interface DataReader defines the methods to retrieve data from
 <A NAME="getDataFromStream(java.io.InputStream)"><!-- --></A><H3>
 getDataFromStream</H3>
 <PRE>
-<A HREF="../../../angstd/model/io/DataReader.html" title="type parameter in DataReader">T</A>[] <B>getDataFromStream</B>(java.io.InputStream&nbsp;is)</PRE>
+<A HREF="../../../domosaics/model/io/DataReader.html" title="type parameter in DataReader">T</A>[] <B>getDataFromStream</B>(java.io.InputStream&nbsp;is)</PRE>
 <DL>
 <DD>Retrieves data from a stream. This comes in handy when parsing 
  data from within a jar file.
@@ -191,7 +191,7 @@ getDataFromStream</H3>
 <A NAME="getDataFromFile(java.io.File)"><!-- --></A><H3>
 getDataFromFile</H3>
 <PRE>
-<A HREF="../../../angstd/model/io/DataReader.html" title="type parameter in DataReader">T</A>[] <B>getDataFromFile</B>(java.io.File&nbsp;file)</PRE>
+<A HREF="../../../domosaics/model/io/DataReader.html" title="type parameter in DataReader">T</A>[] <B>getDataFromFile</B>(java.io.File&nbsp;file)</PRE>
 <DL>
 <DD>Retrieves data from a file.
 <P>
@@ -205,7 +205,7 @@ getDataFromFile</H3>
 <A NAME="getDataFromString(java.lang.String)"><!-- --></A><H3>
 getDataFromString</H3>
 <PRE>
-<A HREF="../../../angstd/model/io/DataReader.html" title="type parameter in DataReader">T</A>[] <B>getDataFromString</B>(java.lang.String&nbsp;dataStr)</PRE>
+<A HREF="../../../domosaics/model/io/DataReader.html" title="type parameter in DataReader">T</A>[] <B>getDataFromString</B>(java.lang.String&nbsp;dataStr)</PRE>
 <DL>
 <DD>Retrieves data from a string.
 <P>
@@ -219,7 +219,7 @@ getDataFromString</H3>
 <A NAME="getData(java.io.Reader)"><!-- --></A><H3>
 getData</H3>
 <PRE>
-<A HREF="../../../angstd/model/io/DataReader.html" title="type parameter in DataReader">T</A>[] <B>getData</B>(java.io.Reader&nbsp;r)
+<A HREF="../../../domosaics/model/io/DataReader.html" title="type parameter in DataReader">T</A>[] <B>getData</B>(java.io.Reader&nbsp;r)
                                throws java.io.IOException</PRE>
 <DL>
 <DD>In this method the actual parsing is done. All other
@@ -264,10 +264,10 @@ getData</H3>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../angstd/model/io/AbstractDataWriter.html" title="class in angstd.model.io"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../angstd/model/io/DataWriter.html" title="interface in angstd.model.io"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../domosaics/model/io/AbstractDataWriter.html" title="class in domosaics.model.io"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../domosaics/model/io/DataWriter.html" title="interface in domosaics.model.io"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?angstd/model/io/DataReader.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?domosaics/model/io/DataReader.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="DataReader.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--

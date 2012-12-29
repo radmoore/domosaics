@@ -55,10 +55,10 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../angstd/ui/views/view/components/ZoomCompatible.html" title="interface in angstd.ui.views.view.components"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../domosaics/ui/views/view/components/ZoomCompatible.html" title="interface in domosaics.ui.views.view.components"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../index.html?angstd/ui/views/view/components/ZoomController.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../index.html?domosaics/ui/views/view/components/ZoomController.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="ZoomController.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
@@ -88,13 +88,13 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-angstd.ui.views.view.components</FONT>
+domosaics.ui.views.view.components</FONT>
 <BR>
 Class ZoomController</H2>
 <PRE>
 java.lang.Object
   <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by ">java.awt.event.MouseAdapter
-      <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>angstd.ui.views.view.components.ZoomController</B>
+      <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>domosaics.ui.views.view.components.ZoomController</B>
 </PRE>
 <DL>
 <DT><B>All Implemented Interfaces:</B> <DD>java.awt.event.MouseListener, java.awt.event.MouseMotionListener, java.awt.event.MouseWheelListener, java.util.EventListener</DD>
@@ -105,11 +105,11 @@ java.lang.Object
 </PRE>
 
 <P>
-The ZoomController controls the zoom settings for a <A HREF="../../../../../angstd/ui/views/view/AbstractView.html" title="class in angstd.ui.views.view"><CODE>AbstractView</CODE></A>.
+The ZoomController controls the zoom settings for a <A HREF="../../../../../domosaics/ui/views/view/AbstractView.html" title="class in domosaics.ui.views.view"><CODE>AbstractView</CODE></A>.
  <p>
  The zoom is represented by an AffineTransform object which must be 
  applied to the active graphical context in a rendering method.
- See <A HREF="../../../../../angstd/ui/views/view/AbstractView.html#render(java.awt.Graphics)"><CODE>AbstractView.render(Graphics)</CODE></A> for details.
+ See <A HREF="../../../../../domosaics/ui/views/view/AbstractView.html#render(java.awt.Graphics)"><CODE>AbstractView.render(Graphics)</CODE></A> for details.
  <p>
  The AffineTransforms scale factor is calculated when the mouse wheel
  is scrolled and its translation is calculated if the mouse is dragged around.
@@ -118,7 +118,7 @@ The ZoomController controls the zoom settings for a <A HREF="../../../../../angs
  for a view by using toggleZoomMode().
  <p>
  if the view switches into zoom mode all actions are disabled except
- those actions which implement the empty interface <A HREF="../../../../../angstd/ui/views/view/components/ZoomCompatible.html" title="interface in angstd.ui.views.view.components"><CODE>ZoomCompatible</CODE></A>.
+ those actions which implement the empty interface <A HREF="../../../../../domosaics/ui/views/view/components/ZoomCompatible.html" title="interface in domosaics.ui.views.view.components"><CODE>ZoomCompatible</CODE></A>.
 <P>
 
 <P>
@@ -139,7 +139,7 @@ The ZoomController controls the zoom settings for a <A HREF="../../../../../angs
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../angstd/ui/views/view/components/ZoomController.html#ZoomController(angstd.ui.views.view.View)">ZoomController</A></B>(<A HREF="../../../../../angstd/ui/views/view/View.html" title="interface in angstd.ui.views.view">View</A>&nbsp;view)</CODE>
+<TD><CODE><B><A HREF="../../../../../domosaics/ui/views/view/components/ZoomController.html#ZoomController(domosaics.ui.views.view.View)">ZoomController</A></B>(<A HREF="../../../../../domosaics/ui/views/view/View.html" title="interface in domosaics.ui.views.view">View</A>&nbsp;view)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor for the ZoomController</TD>
@@ -157,7 +157,7 @@ The ZoomController controls the zoom settings for a <A HREF="../../../../../angs
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.awt.geom.AffineTransform</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../angstd/ui/views/view/components/ZoomController.html#getZoomTransform()">getZoomTransform</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../domosaics/ui/views/view/components/ZoomController.html#getZoomTransform()">getZoomTransform</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return the calculated zoom transformation.</TD>
@@ -165,7 +165,7 @@ The ZoomController controls the zoom settings for a <A HREF="../../../../../angs
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../angstd/ui/views/view/components/ZoomController.html#isZoomMode()">isZoomMode</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../domosaics/ui/views/view/components/ZoomController.html#isZoomMode()">isZoomMode</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return whether or not the view is within zoom mode</TD>
@@ -173,7 +173,7 @@ The ZoomController controls the zoom settings for a <A HREF="../../../../../angs
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../angstd/ui/views/view/components/ZoomController.html#mouseDragged(java.awt.event.MouseEvent)">mouseDragged</A></B>(java.awt.event.MouseEvent&nbsp;e)</CODE>
+<TD><CODE><B><A HREF="../../../../../domosaics/ui/views/view/components/ZoomController.html#mouseDragged(java.awt.event.MouseEvent)">mouseDragged</A></B>(java.awt.event.MouseEvent&nbsp;e)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calculates the translation of AffineTransform object
@@ -182,7 +182,7 @@ The ZoomController controls the zoom settings for a <A HREF="../../../../../angs
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../angstd/ui/views/view/components/ZoomController.html#mousePressed(java.awt.event.MouseEvent)">mousePressed</A></B>(java.awt.event.MouseEvent&nbsp;e)</CODE>
+<TD><CODE><B><A HREF="../../../../../domosaics/ui/views/view/components/ZoomController.html#mousePressed(java.awt.event.MouseEvent)">mousePressed</A></B>(java.awt.event.MouseEvent&nbsp;e)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Indicates that the dragging started</TD>
@@ -190,7 +190,7 @@ The ZoomController controls the zoom settings for a <A HREF="../../../../../angs
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../angstd/ui/views/view/components/ZoomController.html#mouseReleased(java.awt.event.MouseEvent)">mouseReleased</A></B>(java.awt.event.MouseEvent&nbsp;e)</CODE>
+<TD><CODE><B><A HREF="../../../../../domosaics/ui/views/view/components/ZoomController.html#mouseReleased(java.awt.event.MouseEvent)">mouseReleased</A></B>(java.awt.event.MouseEvent&nbsp;e)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Indicates that the dragging was stopped</TD>
@@ -198,7 +198,7 @@ The ZoomController controls the zoom settings for a <A HREF="../../../../../angs
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../angstd/ui/views/view/components/ZoomController.html#mouseWheelMoved(java.awt.event.MouseWheelEvent)">mouseWheelMoved</A></B>(java.awt.event.MouseWheelEvent&nbsp;e)</CODE>
+<TD><CODE><B><A HREF="../../../../../domosaics/ui/views/view/components/ZoomController.html#mouseWheelMoved(java.awt.event.MouseWheelEvent)">mouseWheelMoved</A></B>(java.awt.event.MouseWheelEvent&nbsp;e)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calculates and applies a scale on the AffineTransform object 
@@ -207,7 +207,7 @@ The ZoomController controls the zoom settings for a <A HREF="../../../../../angs
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../angstd/ui/views/view/components/ZoomController.html#toggleZoomMode()">toggleZoomMode</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../domosaics/ui/views/view/components/ZoomController.html#toggleZoomMode()">toggleZoomMode</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toggles the zoom mode feature for the controlled view.</TD>
@@ -244,10 +244,10 @@ The ZoomController controls the zoom settings for a <A HREF="../../../../../angs
 </TR>
 </TABLE>
 
-<A NAME="ZoomController(angstd.ui.views.view.View)"><!-- --></A><H3>
+<A NAME="ZoomController(domosaics.ui.views.view.View)"><!-- --></A><H3>
 ZoomController</H3>
 <PRE>
-public <B>ZoomController</B>(<A HREF="../../../../../angstd/ui/views/view/View.html" title="interface in angstd.ui.views.view">View</A>&nbsp;view)</PRE>
+public <B>ZoomController</B>(<A HREF="../../../../../domosaics/ui/views/view/View.html" title="interface in domosaics.ui.views.view">View</A>&nbsp;view)</PRE>
 <DL>
 <DD>Constructor for the ZoomController
 <P>
@@ -404,10 +404,10 @@ public void <B>mouseReleased</B>(java.awt.event.MouseEvent&nbsp;e)</PRE>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../angstd/ui/views/view/components/ZoomCompatible.html" title="interface in angstd.ui.views.view.components"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../domosaics/ui/views/view/components/ZoomCompatible.html" title="interface in domosaics.ui.views.view.components"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../index.html?angstd/ui/views/view/components/ZoomController.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../index.html?domosaics/ui/views/view/components/ZoomController.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="ZoomController.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--

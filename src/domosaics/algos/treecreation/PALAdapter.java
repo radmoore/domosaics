@@ -13,7 +13,6 @@ import pal.misc.IdGroup;
 import pal.misc.Identifier;
 import pal.misc.SimpleIdGroup;
 
-
 /**
  * PALAdapter is a helper class which helps to create objects of the
  * external PAL library using DoMosaicS data objects. For instance a

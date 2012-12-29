@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import domosaics.localservices.hmmer3.ui.Hmmer3Frame;
 import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.DomainFamily;
@@ -89,28 +90,31 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 	 */
 	public static boolean checkFileFormat(File file) {
 		
+		BufferedReader in=null;
+		String line = null;
 		try {
 				
-			BufferedReader in = new BufferedReader(new FileReader(file));
-			String line;
+			in = new BufferedReader(new FileReader(file));
 			
 			while ((line = in.readLine()) != null) {
 				
-				if (line.isEmpty())					
-					continue;
-				if (line.startsWith("#"))			
-					continue;
-				
-				
-				in.close(); // only read first 'meaningful' line
-				if (line.split("\\s+").length >= 15)
+				if(line.contains("full sequence") && line.contains("this domain") && line.contains("coord"))
+				{
+					in.close(); 
 					return true;
+				}else {
+					in.close(); 
+					return false;
+					
+				}
 			}
+			in.close(); // only read first 'meaningful' line
+			return false;
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
 	
@@ -184,7 +188,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				if (domFamily == null) { 				
 					domFamily = new DomainFamily(id, null, DomainType.PFAM);
 //					domFamily.setPfamID(pfamID);
-					GatheringThresholdsReader.getInstance().put(id, domFamily);
+					GatheringThresholdsReader.add(domFamily);
 				}
 				
 					
@@ -202,7 +206,8 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				dom = new Domain(from, to, domFamily); 		// same protein as last entry
 				dom.setEvalue(evalue);
 				dom.setScore(score);   // log odds score
-				if(domFamily.getGathThreshByFam()!=Double.POSITIVE_INFINITY) {
+				
+				if(domFamily.getGathThreshByFam()!=Double.POSITIVE_INFINITY && Hmmer3Frame.getFrame().getHmmScanPanel().usingCODD()) {
 					if(score < domFamily.getGathThreshByDom())
 						dom.setPutative(true);
 				}
@@ -278,7 +283,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				if (domFamily == null) { 				
 					domFamily = new DomainFamily(acc, id, dType);
 //					domFamily.setPfamID(pfamID);
-					GatheringThresholdsReader.getInstance().put(acc, domFamily);
+					GatheringThresholdsReader.add(domFamily);
 				}
 				
 				if (evalue > 10 || evalue > userThresh)
@@ -301,7 +306,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				dom.setEvalue(evalue);
 				//System.out.println(dom.toString());
 				dom.setScore(score);   // log odds score
-				if (domFamily.getGathThreshByFam()!=Double.POSITIVE_INFINITY) {
+				if (domFamily.getGathThreshByFam()!=Double.POSITIVE_INFINITY && Hmmer3Frame.getFrame().getHmmScanPanel().usingCODD()) {
 					if (Double.parseDouble(entryFields[13]) < domFamily.getGathThreshByFam() || score < domFamily.getGathThreshByDom()) {
 						dom.setPutative(true);
 						//System.out.println("Putative");

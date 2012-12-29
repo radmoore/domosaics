@@ -3,7 +3,7 @@ package domosaics.model.tree;
 import java.util.Iterator;
 import java.util.List;
 
-import domosaics.model.DomosaicsData;
+import domosaics.model.DoMosaicsData;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.DomainSet;
 
@@ -19,7 +19,7 @@ import domosaics.model.arrangement.DomainSet;
  * @author Andreas Held (loosely based on the EPOS code by Thasso Griebel - thasso@minet.uni-jena.de)
  *
  */
-public interface TreeNodeI extends DomosaicsData{
+public interface TreeNodeI extends DoMosaicsData{
 
 	/**
 	 * Returns the unique id for the node within the graph, which was assigned 
@@ -213,7 +213,7 @@ public interface TreeNodeI extends DomosaicsData{
 	 * 		assigned domain arrangement
 	 */
 	public DomainArrangement getArrangement();
-	
+
 //	/**
 //	 * Returns the actual state for an inner node.
 //	 * 

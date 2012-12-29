@@ -55,10 +55,10 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../angstd/ui/io/menureader/DefaultMenuActionManager.html" title="class in angstd.ui.io.menureader"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../angstd/ui/io/menureader/MenuActionManager.html" title="interface in angstd.ui.io.menureader"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../domosaics/ui/io/menureader/DefaultMenuActionManager.html" title="class in domosaics.ui.io.menureader"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../domosaics/ui/io/menureader/MenuActionManager.html" title="interface in domosaics.ui.io.menureader"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../index.html?angstd/ui/io/menureader/JMenuBarFactory.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../index.html?domosaics/ui/io/menureader/JMenuBarFactory.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="JMenuBarFactory.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
@@ -88,12 +88,12 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-angstd.ui.io.menureader</FONT>
+domosaics.ui.io.menureader</FONT>
 <BR>
 Class JMenuBarFactory</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>angstd.ui.io.menureader.JMenuBarFactory</B>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>domosaics.ui.io.menureader.JMenuBarFactory</B>
 </PRE>
 <HR>
 <DL>
@@ -101,15 +101,15 @@ java.lang.Object
 </PRE>
 
 <P>
-Class JMenuBarFactory uses <A HREF="../../../../angstd/ui/io/menureader/MenuReader.html" title="class in angstd.ui.io.menureader"><CODE>MenuReader</CODE></A> to parse a xml 
+Class JMenuBarFactory uses <A HREF="../../../../domosaics/ui/io/menureader/MenuReader.html" title="class in domosaics.ui.io.menureader"><CODE>MenuReader</CODE></A> to parse a xml 
  formatted menu file and by invoking 
- <A HREF="../../../../angstd/ui/io/menureader/MenuEntry.html#create(angstd.ui.io.menureader.MenuActionManager)"><CODE>MenuEntry.create(MenuActionManager)</CODE></A> it makes
+ <A HREF="../../../../domosaics/ui/io/menureader/MenuEntry.html#create(domosaics.ui.io.menureader.MenuActionManager)"><CODE>MenuEntry.create(MenuActionManager)</CODE></A> it makes
  the menu bar usable as JMenuBar. 
  <p>
  To set up the menuBar in a main frame its enough to call: <br>
  setJMenuBar(new JMenuBarFactory().createMenuBar(String fileURL, 
  MenuActionManager manager)); <br>
- Where MenuActionManager can be an instance of <A HREF="../../../../angstd/ui/io/menureader/DefaultMenuActionManager.html" title="class in angstd.ui.io.menureader"><CODE>DefaultMenuActionManager</CODE></A> to
+ Where MenuActionManager can be an instance of <A HREF="../../../../domosaics/ui/io/menureader/DefaultMenuActionManager.html" title="class in domosaics.ui.io.menureader"><CODE>DefaultMenuActionManager</CODE></A> to
  hold the defined actions and make them accessible in other program contexts.
 <P>
 
@@ -131,7 +131,7 @@ Class JMenuBarFactory uses <A HREF="../../../../angstd/ui/io/menureader/MenuRead
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../angstd/ui/io/menureader/JMenuBarFactory.html#JMenuBarFactory()">JMenuBarFactory</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/io/menureader/JMenuBarFactory.html#JMenuBarFactory()">JMenuBarFactory</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -149,8 +149,8 @@ Class JMenuBarFactory uses <A HREF="../../../../angstd/ui/io/menureader/MenuRead
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;javax.swing.JMenuBar</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/io/menureader/JMenuBarFactory.html#createMenuBar(java.lang.String, angstd.ui.io.menureader.MenuActionManager)">createMenuBar</A></B>(java.lang.String&nbsp;fileURL,
-              <A HREF="../../../../angstd/ui/io/menureader/MenuActionManager.html" title="interface in angstd.ui.io.menureader">MenuActionManager</A>&nbsp;actionManager)</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/io/menureader/JMenuBarFactory.html#createMenuBar(java.lang.String, domosaics.ui.io.menureader.MenuActionManager)">createMenuBar</A></B>(java.lang.String&nbsp;fileURL,
+              <A HREF="../../../../domosaics/ui/io/menureader/MenuActionManager.html" title="interface in domosaics.ui.io.menureader">MenuActionManager</A>&nbsp;actionManager)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creates an instanciated JMenuBar from a file path.</TD>
@@ -158,8 +158,8 @@ Class JMenuBarFactory uses <A HREF="../../../../angstd/ui/io/menureader/MenuRead
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;javax.swing.JMenuBar</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/io/menureader/JMenuBarFactory.html#createMenuBar(java.net.URL, angstd.ui.io.menureader.MenuActionManager)">createMenuBar</A></B>(java.net.URL&nbsp;fileURL,
-              <A HREF="../../../../angstd/ui/io/menureader/MenuActionManager.html" title="interface in angstd.ui.io.menureader">MenuActionManager</A>&nbsp;actionManager)</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/io/menureader/JMenuBarFactory.html#createMenuBar(java.net.URL, domosaics.ui.io.menureader.MenuActionManager)">createMenuBar</A></B>(java.net.URL&nbsp;fileURL,
+              <A HREF="../../../../domosaics/ui/io/menureader/MenuActionManager.html" title="interface in domosaics.ui.io.menureader">MenuActionManager</A>&nbsp;actionManager)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creates an instanciated JMenuBar from a file URL.</TD>
@@ -204,13 +204,13 @@ public <B>JMenuBarFactory</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="createMenuBar(java.lang.String, angstd.ui.io.menureader.MenuActionManager)"><!-- --></A><H3>
+<A NAME="createMenuBar(java.lang.String, domosaics.ui.io.menureader.MenuActionManager)"><!-- --></A><H3>
 createMenuBar</H3>
 <PRE>
 public static javax.swing.JMenuBar <B>createMenuBar</B>(java.lang.String&nbsp;fileURL,
-                                                 <A HREF="../../../../angstd/ui/io/menureader/MenuActionManager.html" title="interface in angstd.ui.io.menureader">MenuActionManager</A>&nbsp;actionManager)
-                                          throws <A HREF="../../../../angstd/ui/io/menureader/MenuParsingException.html" title="class in angstd.ui.io.menureader">MenuParsingException</A>,
-                                                 <A HREF="../../../../angstd/ui/io/menureader/CreateActionException.html" title="class in angstd.ui.io.menureader">CreateActionException</A></PRE>
+                                                 <A HREF="../../../../domosaics/ui/io/menureader/MenuActionManager.html" title="interface in domosaics.ui.io.menureader">MenuActionManager</A>&nbsp;actionManager)
+                                          throws <A HREF="../../../../domosaics/ui/io/menureader/MenuParsingException.html" title="class in domosaics.ui.io.menureader">MenuParsingException</A>,
+                                                 <A HREF="../../../../domosaics/ui/io/menureader/CreateActionException.html" title="class in domosaics.ui.io.menureader">CreateActionException</A></PRE>
 <DL>
 <DD>creates an instanciated JMenuBar from a file path.
 <P>
@@ -218,19 +218,19 @@ public static javax.swing.JMenuBar <B>createMenuBar</B>(java.lang.String&nbsp;fi
 <DT><B>Parameters:</B><DD><CODE>fileURL</CODE> - file containing the menu xml<DD><CODE>actionManager</CODE> - manager which stores all actions for the menu items
 <DT><B>Returns:</B><DD>the instanciated JMenuBar
 <DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../../angstd/ui/io/menureader/MenuParsingException.html" title="class in angstd.ui.io.menureader">MenuParsingException</A></CODE>
-<DD><CODE><A HREF="../../../../angstd/ui/io/menureader/CreateActionException.html" title="class in angstd.ui.io.menureader">CreateActionException</A></CODE></DL>
+<DD><CODE><A HREF="../../../../domosaics/ui/io/menureader/MenuParsingException.html" title="class in domosaics.ui.io.menureader">MenuParsingException</A></CODE>
+<DD><CODE><A HREF="../../../../domosaics/ui/io/menureader/CreateActionException.html" title="class in domosaics.ui.io.menureader">CreateActionException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="createMenuBar(java.net.URL, angstd.ui.io.menureader.MenuActionManager)"><!-- --></A><H3>
+<A NAME="createMenuBar(java.net.URL, domosaics.ui.io.menureader.MenuActionManager)"><!-- --></A><H3>
 createMenuBar</H3>
 <PRE>
 public static javax.swing.JMenuBar <B>createMenuBar</B>(java.net.URL&nbsp;fileURL,
-                                                 <A HREF="../../../../angstd/ui/io/menureader/MenuActionManager.html" title="interface in angstd.ui.io.menureader">MenuActionManager</A>&nbsp;actionManager)
-                                          throws <A HREF="../../../../angstd/ui/io/menureader/MenuParsingException.html" title="class in angstd.ui.io.menureader">MenuParsingException</A>,
-                                                 <A HREF="../../../../angstd/ui/io/menureader/CreateActionException.html" title="class in angstd.ui.io.menureader">CreateActionException</A></PRE>
+                                                 <A HREF="../../../../domosaics/ui/io/menureader/MenuActionManager.html" title="interface in domosaics.ui.io.menureader">MenuActionManager</A>&nbsp;actionManager)
+                                          throws <A HREF="../../../../domosaics/ui/io/menureader/MenuParsingException.html" title="class in domosaics.ui.io.menureader">MenuParsingException</A>,
+                                                 <A HREF="../../../../domosaics/ui/io/menureader/CreateActionException.html" title="class in domosaics.ui.io.menureader">CreateActionException</A></PRE>
 <DL>
 <DD>creates an instanciated JMenuBar from a file URL.
 <P>
@@ -238,8 +238,8 @@ public static javax.swing.JMenuBar <B>createMenuBar</B>(java.net.URL&nbsp;fileUR
 <DT><B>Parameters:</B><DD><CODE>fileURL</CODE> - url to the menu xml<DD><CODE>actionManager</CODE> - manager which stores all actions for the menu items
 <DT><B>Returns:</B><DD>the instanciated JMenuBar
 <DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../../angstd/ui/io/menureader/MenuParsingException.html" title="class in angstd.ui.io.menureader">MenuParsingException</A></CODE>
-<DD><CODE><A HREF="../../../../angstd/ui/io/menureader/CreateActionException.html" title="class in angstd.ui.io.menureader">CreateActionException</A></CODE></DL>
+<DD><CODE><A HREF="../../../../domosaics/ui/io/menureader/MenuParsingException.html" title="class in domosaics.ui.io.menureader">MenuParsingException</A></CODE>
+<DD><CODE><A HREF="../../../../domosaics/ui/io/menureader/CreateActionException.html" title="class in domosaics.ui.io.menureader">CreateActionException</A></CODE></DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -273,10 +273,10 @@ public static javax.swing.JMenuBar <B>createMenuBar</B>(java.net.URL&nbsp;fileUR
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../angstd/ui/io/menureader/DefaultMenuActionManager.html" title="class in angstd.ui.io.menureader"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../angstd/ui/io/menureader/MenuActionManager.html" title="interface in angstd.ui.io.menureader"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../domosaics/ui/io/menureader/DefaultMenuActionManager.html" title="class in domosaics.ui.io.menureader"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../domosaics/ui/io/menureader/MenuActionManager.html" title="interface in domosaics.ui.io.menureader"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../index.html?angstd/ui/io/menureader/JMenuBarFactory.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../index.html?domosaics/ui/io/menureader/JMenuBarFactory.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="JMenuBarFactory.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--

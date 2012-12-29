@@ -3,7 +3,7 @@ package domosaics.model.matrix;
 import java.util.HashMap;
 import java.util.Map;
 
-import domosaics.model.DomosaicsData;
+import domosaics.model.DoMosaicsData;
 
 
 
@@ -15,7 +15,7 @@ import domosaics.model.DomosaicsData;
  * @author Andreas Held
  *
  */
-public class Matrix implements DomosaicsData {
+public class Matrix implements DoMosaicsData {
 
 	/** the alphabet of the substitution matrix */
 	protected char[] alphabet;

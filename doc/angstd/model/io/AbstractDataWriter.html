@@ -55,10 +55,10 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../angstd/model/io/AbstractDataReader.html" title="class in angstd.model.io"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../angstd/model/io/DataReader.html" title="interface in angstd.model.io"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="class in domosaics.model.io"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../domosaics/model/io/DataReader.html" title="interface in domosaics.model.io"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?angstd/model/io/AbstractDataWriter.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?domosaics/model/io/AbstractDataWriter.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="AbstractDataWriter.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
@@ -88,33 +88,33 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-angstd.model.io</FONT>
+domosaics.model.io</FONT>
 <BR>
-Class AbstractDataWriter&lt;T extends <A HREF="../../../angstd/model/AngstdData.html" title="interface in angstd.model">AngstdData</A>&gt;</H2>
+Class AbstractDataWriter&lt;T extends <A HREF="../../../domosaics/model/AngstdData.html" title="interface in domosaics.model">AngstdData</A>&gt;</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>angstd.model.io.AbstractDataWriter&lt;T&gt;</B>
+  <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>domosaics.model.io.AbstractDataWriter&lt;T&gt;</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../angstd/model/io/DataWriter.html" title="interface in angstd.model.io">DataWriter</A>&lt;T&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../domosaics/model/io/DataWriter.html" title="interface in domosaics.model.io">DataWriter</A>&lt;T&gt;</DD>
 </DL>
 <DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../angstd/model/arrangement/io/XdomWriter.html" title="class in angstd.model.arrangement.io">XdomWriter</A></DD>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../domosaics/model/arrangement/io/XdomWriter.html" title="class in domosaics.model.arrangement.io">XdomWriter</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public abstract class <B>AbstractDataWriter&lt;T extends <A HREF="../../../angstd/model/AngstdData.html" title="interface in angstd.model">AngstdData</A>&gt;</B><DT>extends java.lang.Object<DT>implements <A HREF="../../../angstd/model/io/DataWriter.html" title="interface in angstd.model.io">DataWriter</A>&lt;T&gt;</DL>
+<DT><PRE>public abstract class <B>AbstractDataWriter&lt;T extends <A HREF="../../../domosaics/model/AngstdData.html" title="interface in domosaics.model">AngstdData</A>&gt;</B><DT>extends java.lang.Object<DT>implements <A HREF="../../../domosaics/model/io/DataWriter.html" title="interface in domosaics.model.io">DataWriter</A>&lt;T&gt;</DL>
 </PRE>
 
 <P>
 Abstract class AbstractDataWriter is the basic implementation
- for the <A HREF="../../../angstd/model/io/DataWriter.html" title="interface in angstd.model.io"><CODE>DataWriter</CODE></A> interface. A BufferedWriter object is created 
+ for the <A HREF="../../../domosaics/model/io/DataWriter.html" title="interface in domosaics.model.io"><CODE>DataWriter</CODE></A> interface. A BufferedWriter object is created 
  for a file which is then passed to the abstract method writeData().
  This method must be implemented by a subclass and should be responsible
  for the actual writing.
  <p>
  Because the type of data which has to be written into a file 
- is generic the requested type must implement the empty <A HREF="../../../angstd/model/AngstdData.html" title="interface in angstd.model"><CODE>AngstdData</CODE></A> 
+ is generic the requested type must implement the empty <A HREF="../../../domosaics/model/AngstdData.html" title="interface in domosaics.model"><CODE>AngstdData</CODE></A> 
  interface.
 <P>
 
@@ -136,7 +136,7 @@ Abstract class AbstractDataWriter is the basic implementation
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../angstd/model/io/AbstractDataWriter.html#AbstractDataWriter()">AbstractDataWriter</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../domosaics/model/io/AbstractDataWriter.html#AbstractDataWriter()">AbstractDataWriter</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -154,20 +154,20 @@ Abstract class AbstractDataWriter is the basic implementation
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>abstract &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../angstd/model/io/AbstractDataWriter.html#write(java.io.BufferedWriter, T[])">write</A></B>(java.io.BufferedWriter&nbsp;out,
-      <A HREF="../../../angstd/model/io/AbstractDataWriter.html" title="type parameter in AbstractDataWriter">T</A>[]&nbsp;data)</CODE>
+<TD><CODE><B><A HREF="../../../domosaics/model/io/AbstractDataWriter.html#write(java.io.BufferedWriter, T[])">write</A></B>(java.io.BufferedWriter&nbsp;out,
+      <A HREF="../../../domosaics/model/io/AbstractDataWriter.html" title="type parameter in AbstractDataWriter">T</A>[]&nbsp;data)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See interface <A HREF="../../../angstd/model/io/DataWriter.html" title="interface in angstd.model.io"><CODE>DataWriter</CODE></A>.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See interface <A HREF="../../../domosaics/model/io/DataWriter.html" title="interface in domosaics.model.io"><CODE>DataWriter</CODE></A>.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../angstd/model/io/AbstractDataWriter.html#write(java.io.File, T[])">write</A></B>(java.io.File&nbsp;file,
-      <A HREF="../../../angstd/model/io/AbstractDataWriter.html" title="type parameter in AbstractDataWriter">T</A>[]&nbsp;data)</CODE>
+<TD><CODE><B><A HREF="../../../domosaics/model/io/AbstractDataWriter.html#write(java.io.File, T[])">write</A></B>(java.io.File&nbsp;file,
+      <A HREF="../../../domosaics/model/io/AbstractDataWriter.html" title="type parameter in AbstractDataWriter">T</A>[]&nbsp;data)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See interface <A HREF="../../../angstd/model/io/DataWriter.html" title="interface in angstd.model.io"><CODE>DataWriter</CODE></A>.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See interface <A HREF="../../../domosaics/model/io/DataWriter.html" title="interface in domosaics.model.io"><CODE>DataWriter</CODE></A>.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -209,16 +209,16 @@ public <B>AbstractDataWriter</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="write(java.io.File,angstd.model.AngstdData[])"><!-- --></A><A NAME="write(java.io.File, T[])"><!-- --></A><H3>
+<A NAME="write(java.io.File,domosaics.model.DoMosaicsData[])"><!-- --></A><A NAME="write(java.io.File, T[])"><!-- --></A><H3>
 write</H3>
 <PRE>
 public void <B>write</B>(java.io.File&nbsp;file,
-                  <A HREF="../../../angstd/model/io/AbstractDataWriter.html" title="type parameter in AbstractDataWriter">T</A>[]&nbsp;data)</PRE>
+                  <A HREF="../../../domosaics/model/io/AbstractDataWriter.html" title="type parameter in AbstractDataWriter">T</A>[]&nbsp;data)</PRE>
 <DL>
-<DD>See interface <A HREF="../../../angstd/model/io/DataWriter.html" title="interface in angstd.model.io"><CODE>DataWriter</CODE></A>.
+<DD>See interface <A HREF="../../../domosaics/model/io/DataWriter.html" title="interface in domosaics.model.io"><CODE>DataWriter</CODE></A>.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../angstd/model/io/DataWriter.html#write(java.io.File, T[])">write</A></CODE> in interface <CODE><A HREF="../../../angstd/model/io/DataWriter.html" title="interface in angstd.model.io">DataWriter</A>&lt;<A HREF="../../../angstd/model/io/AbstractDataWriter.html" title="type parameter in AbstractDataWriter">T</A> extends <A HREF="../../../angstd/model/AngstdData.html" title="interface in angstd.model">AngstdData</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../domosaics/model/io/DataWriter.html#write(java.io.File, T[])">write</A></CODE> in interface <CODE><A HREF="../../../domosaics/model/io/DataWriter.html" title="interface in domosaics.model.io">DataWriter</A>&lt;<A HREF="../../../domosaics/model/io/AbstractDataWriter.html" title="type parameter in AbstractDataWriter">T</A> extends <A HREF="../../../domosaics/model/AngstdData.html" title="interface in domosaics.model">AngstdData</A>&gt;</CODE></DL>
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>file</CODE> - file to be created<DD><CODE>data</CODE> - the data to be written</DL>
@@ -226,16 +226,16 @@ public void <B>write</B>(java.io.File&nbsp;file,
 </DL>
 <HR>
 
-<A NAME="write(java.io.BufferedWriter,angstd.model.AngstdData[])"><!-- --></A><A NAME="write(java.io.BufferedWriter, T[])"><!-- --></A><H3>
+<A NAME="write(java.io.BufferedWriter,domosaics.model.DoMosaicsData[])"><!-- --></A><A NAME="write(java.io.BufferedWriter, T[])"><!-- --></A><H3>
 write</H3>
 <PRE>
 public abstract void <B>write</B>(java.io.BufferedWriter&nbsp;out,
-                           <A HREF="../../../angstd/model/io/AbstractDataWriter.html" title="type parameter in AbstractDataWriter">T</A>[]&nbsp;data)</PRE>
+                           <A HREF="../../../domosaics/model/io/AbstractDataWriter.html" title="type parameter in AbstractDataWriter">T</A>[]&nbsp;data)</PRE>
 <DL>
-<DD>See interface <A HREF="../../../angstd/model/io/DataWriter.html" title="interface in angstd.model.io"><CODE>DataWriter</CODE></A>.
+<DD>See interface <A HREF="../../../domosaics/model/io/DataWriter.html" title="interface in domosaics.model.io"><CODE>DataWriter</CODE></A>.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../angstd/model/io/DataWriter.html#write(java.io.BufferedWriter, T[])">write</A></CODE> in interface <CODE><A HREF="../../../angstd/model/io/DataWriter.html" title="interface in angstd.model.io">DataWriter</A>&lt;<A HREF="../../../angstd/model/io/AbstractDataWriter.html" title="type parameter in AbstractDataWriter">T</A> extends <A HREF="../../../angstd/model/AngstdData.html" title="interface in angstd.model">AngstdData</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../domosaics/model/io/DataWriter.html#write(java.io.BufferedWriter, T[])">write</A></CODE> in interface <CODE><A HREF="../../../domosaics/model/io/DataWriter.html" title="interface in domosaics.model.io">DataWriter</A>&lt;<A HREF="../../../domosaics/model/io/AbstractDataWriter.html" title="type parameter in AbstractDataWriter">T</A> extends <A HREF="../../../domosaics/model/AngstdData.html" title="interface in domosaics.model">AngstdData</A>&gt;</CODE></DL>
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>out</CODE> - the created BufferedWriter used to write into the file<DD><CODE>data</CODE> - the data to be written</DL>
@@ -272,10 +272,10 @@ public abstract void <B>write</B>(java.io.BufferedWriter&nbsp;out,
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../angstd/model/io/AbstractDataReader.html" title="class in angstd.model.io"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../angstd/model/io/DataReader.html" title="interface in angstd.model.io"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../domosaics/model/io/AbstractDataReader.html" title="class in domosaics.model.io"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../domosaics/model/io/DataReader.html" title="interface in domosaics.model.io"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?angstd/model/io/AbstractDataWriter.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?domosaics/model/io/AbstractDataWriter.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="AbstractDataWriter.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--

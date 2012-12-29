@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -70,12 +71,12 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private HashMap<String, File> hmmer3bins;
 	private HmmScan hmmScan;
 	private JTextField hmmScanTF, hmmPressTF, hmmTF, fastaTF, evalueTF;
-	private JCheckBox gaCkb, biasCkb, coddCkb; 
+	private JCheckBox gaCkb, biasCkb, maxCkb, coddCkb; 
 	private ButtonGroup groupRadio;
 	private JRadioButton overlapRadioNone, overlapRadioEvalue, overlapRadioCoverage;
 	private JButton loadScanBin, loadPressBin, loadHmmDB, loadFastaFile, run, cancel;
 	private JComboBox cpuCB, selectView;
-	private JLabel thresholdLabel, evalLabel, cpuLabel, biasFilterLabel;
+	private JLabel thresholdLabel, evalLabel, cpuLabel, filterLabel;
 	private JTextArea console;
 	private JPanel ePane, radioPane;
 	private File hmmDBFile, fastaFile;
@@ -152,7 +153,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		evalueTF.setText("0.1"); // default evalue
 		evalueTF.setToolTipText("Max: 10");
 		evalLabel = new JLabel("E-value:");
-		biasFilterLabel = new JLabel("Filter");
+		filterLabel = new JLabel("Filter");
 		
 		// the evalue label and field
 		// are conditionally shown if ga is not selected
@@ -178,7 +179,15 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		});
 	
 	    biasCkb = new JCheckBox("Bias filter", true);
-	    
+	    maxCkb = new JCheckBox("Max filter", true);
+	    maxCkb.addItemListener(new ItemListener() {	
+			public void itemStateChanged(ItemEvent e) {
+				if(!maxCkb.isSelected())
+					biasCkb.setSelected(false);
+				biasCkb.setEnabled(maxCkb.isSelected());
+			}
+		});
+		
 	    // RadioButton to choose (or not) a post processing method
 	    // to resolve overlaps
 	    radioPane = new JPanel();
@@ -186,15 +195,15 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	    overlapRadioNone = new JRadioButton("None      ", true);
 	    overlapRadioEvalue = new JRadioButton("E-value based        ");
 	    overlapRadioCoverage = new JRadioButton("Max. coverage");
-	    radioPane.add(overlapRadioNone);
-	    radioPane.add(overlapRadioEvalue);
-	    radioPane.add(overlapRadioCoverage);
+	    overlapRadioNone.setActionCommand("None");
+	    overlapRadioEvalue.setActionCommand("Evalue");
+	    overlapRadioCoverage.setActionCommand("Coverage");
 	    groupRadio.add(overlapRadioNone);
 	    groupRadio.add(overlapRadioEvalue);
 	    groupRadio.add(overlapRadioCoverage);
-	    overlapRadioNone.setActionCommand("None");
-	    overlapRadioEvalue.setActionCommand("OverlapFilterEvalue");
-	    overlapRadioCoverage.setActionCommand("OverlapFilterCoverage");
+	    radioPane.add(overlapRadioNone);
+	    radioPane.add(overlapRadioEvalue);
+	    radioPane.add(overlapRadioCoverage);
 	    
 	    // gathering threshold checkbox. If disabled,
 		// the panel for the evalue is set to visible
@@ -209,9 +218,8 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				overlapRadioCoverage.setEnabled(!coddCkb.isSelected());
 				if (coddCkb.isSelected())
 					evalueTF.setText("10");
-					else 
-						evalueTF.setText("0.1");
-				//groupRadio.setSelected(overlapRadioEvalue,coddCkb.isSelected());
+				else 
+					evalueTF.setText("0.1");
 				//ePane.setVisible(coddCkb.isSelected());
 			}
 		});
@@ -272,20 +280,20 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private void initPanel() {
 		
 		add(loadScanBin, "gap 5, w 165!");
-		add(hmmScanTF, "h 25!, gap 5, gapright 5, span2, growX, wrap");
+		add(hmmScanTF, "h 25!, gap 5, gapright 5, span 2, growX, wrap");
 		add(loadPressBin, "gap 5, w 165!");
-		add(hmmPressTF, "h 25!, gap 5, gapright 5, span2, growX, wrap");
+		add(hmmPressTF, "h 25!, gap 5, gapright 5, span 2, growX, wrap");
 		
 		add(loadHmmDB, "gap 5, w 165!");
-		add(hmmTF, "h 25!, gap 5, gapright 5, span2, growX, wrap");
+		add(hmmTF, "h 25!, gap 5, gapright 5, span 2, growX, wrap");
 		
 		add(new JXTitledSeparator("Sequences"), "growx, span, wrap, gaptop 10");
 	
 		add(loadFastaFile, "gap 5, w 165!");
-		add(fastaTF, "h 25!, gap 5, gapright 5, span2, growX, wrap");
+		add(fastaTF, "h 25!, gap 5, gapright 5, span 2, growX, wrap");
 		
 		add(new JLabel("Or Select Loaded View:"),"gap 5");
-		add(selectView, "h 25!, gap 5, gapright 5, span2, growX, wrap");
+		add(selectView, "h 25!, gap 5, gapright 5, span 2, growX, wrap");
 		
 		add(new JXTitledSeparator("Options"), "growX, span, wrap, gaptop 10");
 		
@@ -293,11 +301,12 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		add(gaCkb, "gap 5, split 2");
 		add(ePane, "growX, wrap");
 		
-		add(biasFilterLabel, "gap 5");
-		add(biasCkb, "gap 5, span2, growX, wrap");
+		add(filterLabel, "gap 5");
+		add(biasCkb, "gap 5, split 2");
+		add(maxCkb, "gap 80, wrap");
 		
 		add(cpuLabel, "gap 5");
-		add(cpuCB, "gap 5, span2, wrap");
+		add(cpuCB, "gap 5, span 2, wrap");
 		
 		add(new JXTitledSeparator("Post processing"), "growX, span, wrap, gaptop 10");
 		add(new JLabel("Resolve overlaps by:"), "gap 5");
@@ -307,7 +316,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		add(coddCkb, "gap 5, span 2, growX, wrap");
 
 		add(new JXTitledSeparator("Progress"), "growX, span, wrap, gaptop 10");
-		add(progressBar, "h 25!, gap 5, gapright 5, span3, growX, wrap");
+		add(progressBar, "h 25!, gap 5, gapright 5, span 3, growX, wrap");
 		
 		add(new JXTitledSeparator("Console"), "growX, span, wrap, gaptop 10");
 		add(new JScrollPane(console), "align center, span, wrap");	
@@ -362,8 +371,6 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		File file = FileDialogs.showOpenDialog(this);
 		if (file == null || !file.canRead())
 			return;
-		
-		hmmDBFile = file;
 		hmmTF.setText(hmmDBFile.getAbsolutePath());
 	}
 	
@@ -405,6 +412,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		
 		/*if(hmmPressTF.getText().equals("")) {
 			MessageUtil.showWarning("Please choose a hmmpress binary.");
+			hmmPressTF.setBackground(highlightColor);
 			return;	
 		}*/
 
@@ -433,11 +441,14 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		if (!checkDB(new File(hmmTF.getText()))) {
 			hmmTF.setBackground(highlightColor);
 			return;
+		} else {
+			hmmDBFile = new File(hmmTF.getText());
 		}
 		if (!checkDBpressed(new File(hmmTF.getText()))) {
+			hmmPressTF.setBackground(highlightColor);
 			return;
 		}
-		if ( !FastaReader.isValidFasta(fastaTF.getText()) ) {
+		if ( !FastaReader.isValidFasta(new File(fastaTF.getText())) ) {
 			MessageUtil.showWarning("Malformated fasta file or unknown sequence format");
 			fastaTF.setBackground(highlightColor);
 			return;
@@ -464,6 +475,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			}
 		}
 		hmmScan.setBiasFilter(biasCkb.isSelected());
+		hmmScan.setMaxFilter(maxCkb.isSelected());
 		hmmScan.setOverlapMethod(groupRadio.getSelection().getActionCommand());
 		hmmScan.setCoddFilter(coddCkb.isSelected());
 		hmmScan.setSeqView(seqView);
@@ -596,13 +608,10 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				
 		// check if pressed files are available
 		if (!HmmPress.hmmFilePressed(dbFile)) {
-			// check if hmmpress service is available
-			if (!Hmmer3Engine.getInstance().isAvailableService("hmmpress")) {
-				// if not, check whether press bin in the selected textfield is valid
-				if (!hmmPressTF.getText().equals("")) {
-					pressAvail = checkBins(new File(hmmPressTF.getText()));
-				}
-			}
+			// if not, check whether press bin in the selected textfield is valid
+			if (!hmmPressTF.getText().equals(""))
+				pressAvail = checkBins(new File(hmmPressTF.getText()));
+			
 			// Check if want to/can press
 			if (MessageUtil.showDialog(this, "The HMMERDBFILE is not pressed. Do you want DoMosaicS to press it now?")) {					
 				if (pressAvail) {
@@ -611,11 +620,11 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				
 					// TODO: I would like to disable GUI components here
 					// and enable them _after_ the run is complete.
-					// See also angstd.localservices.hmmer3.programs.HmmPress
+					// See also domosaics.localservices.hmmer3.programs.HmmPress
 					HmmPress hmmPress = new HmmPress(Hmmer3Engine.getInstance().getAvailableServicePath("hmmpress"), dbFile, this);
 					Hmmer3Engine.getInstance().launchInBackground(hmmPress);
 					progressBar.setIndeterminate(true);
-					// we must return false, even if the press was successful to ensure that the engine instance is free
+					// ATTENTION: we must return false, even if the press was successful to ensure that the engine instance is free
 					// before we init the actual scan
 					return false;
 				}
@@ -633,7 +642,6 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				return false;
 			}	
 		}
-		hmmDBFile = dbFile;
 		run.setEnabled(true);
 		return true;
 	}

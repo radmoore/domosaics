@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
+
 import com.csvreader.CsvWriter;
 
 import domosaics.model.configuration.Configuration;
@@ -15,6 +16,7 @@ import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.tools.distmatrix.DistMatrixView;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.views.ViewType;
+
 
 public class SaveMatrixToCSVAction  extends AbstractMenuAction {
 	private static final long serialVersionUID = 1L;

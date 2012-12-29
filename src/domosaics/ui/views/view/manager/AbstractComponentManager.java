@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import domosaics.model.DomosaicsData;
+import domosaics.model.DoMosaicsData;
 import domosaics.ui.views.view.components.ViewComponent;
 
 
@@ -30,7 +30,7 @@ import domosaics.ui.views.view.components.ViewComponent;
  * @param <C>
  * 		@see ComponentManager
  */
-public abstract class AbstractComponentManager <T extends DomosaicsData, C extends ViewComponent> 
+public abstract class AbstractComponentManager <T extends DoMosaicsData, C extends ViewComponent> 
 	   		extends DefaultViewManager
 	   		implements ComponentManager<T, C>
 {

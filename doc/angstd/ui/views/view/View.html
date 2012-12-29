@@ -55,10 +55,10 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../angstd/ui/views/view/AbstractView.html" title="class in angstd.ui.views.view"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../angstd/ui/views/view/ViewActionManager.html" title="class in angstd.ui.views.view"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../domosaics/ui/views/view/AbstractView.html" title="class in domosaics.ui.views.view"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../domosaics/ui/views/view/ViewActionManager.html" title="class in domosaics.ui.views.view"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../index.html?angstd/ui/views/view/View.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../index.html?domosaics/ui/views/view/View.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="View.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
@@ -88,14 +88,14 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHO
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-angstd.ui.views.view</FONT>
+domosaics.ui.views.view</FONT>
 <BR>
 Interface View</H2>
 <DL>
-<DT><B>All Known Subinterfaces:</B> <DD><A HREF="../../../../angstd/ui/views/domainview/DomainViewI.html" title="interface in angstd.ui.views.domainview">DomainViewI</A></DD>
+<DT><B>All Known Subinterfaces:</B> <DD><A HREF="../../../../domosaics/ui/views/domainview/DomainViewI.html" title="interface in domosaics.ui.views.domainview">DomainViewI</A></DD>
 </DL>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../angstd/ui/views/view/AbstractView.html" title="class in angstd.ui.views.view">AbstractView</A>, <A HREF="../../../../angstd/ui/views/domainview/DomainView.html" title="class in angstd.ui.views.domainview">DomainView</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../domosaics/ui/views/view/AbstractView.html" title="class in domosaics.ui.views.view">AbstractView</A>, <A HREF="../../../../domosaics/ui/views/domainview/DomainView.html" title="class in domosaics.ui.views.domainview">DomainView</A></DD>
 </DL>
 <HR>
 <DL>
@@ -108,13 +108,13 @@ The View interface defining all methods which can be applied to each view.
  A view object for rendering, layouting and manipulating a backend 
  data set such as domain arrangements needs to store various information
  about itself. To mention only a couple of them: its unique id (created by
- <A HREF="../../../../angstd/ui/views/AngstdViewFactory.html" title="class in angstd.ui.views"><CODE>AngstdViewFactory</CODE></A> during its creations), various icons for display
+ <A HREF="../../../../domosaics/ui/views/AngstdViewFactory.html" title="class in domosaics.ui.views"><CODE>AngstdViewFactory</CODE></A> during its creations), various icons for display
  within the workspace, its type and so on. All those information are stored
- in form of a <A HREF="../../../../angstd/ui/views/view/ViewInfo.html" title="class in angstd.ui.views.view"><CODE>ViewInfo</CODE></A> object and can be accessed using getViewInformation().
+ in form of a <A HREF="../../../../domosaics/ui/views/view/ViewInfo.html" title="class in domosaics.ui.views.view"><CODE>ViewInfo</CODE></A> object and can be accessed using getViewInformation().
  <p>
  Each possible view can be created using the AngstdViewFactory (but look
- first into <A HREF="../../../../angstd/ui/ViewHandler.html" title="class in angstd.ui"><CODE>ViewHandler</CODE></A> where methods are defined for this purpose.
- When creating a new view someone just have to know its <A HREF="../../../../angstd/ui/views/ViewType.html" title="enum in angstd.ui.views"><CODE>ViewType</CODE></A> the
+ first into <A HREF="../../../../domosaics/ui/ViewHandler.html" title="class in domosaics.ui"><CODE>ViewHandler</CODE></A> where methods are defined for this purpose.
+ When creating a new view someone just have to know its <A HREF="../../../../domosaics/ui/views/ViewType.html" title="enum in domosaics.ui.views"><CODE>ViewType</CODE></A> the
  rest is done automatically.
  <p>
  When a view is automatically created its properties file is used, which MUST
@@ -122,7 +122,7 @@ The View interface defining all methods which can be applied to each view.
  structure as the special view class itself (The path to this view class
  is stored in the ViewType and used to find the properties file).
  <p>
- For more details on the view see its basic implementation <A HREF="../../../../angstd/ui/views/view/AbstractView.html" title="class in angstd.ui.views.view"><CODE>AbstractView</CODE></A>.
+ For more details on the view see its basic implementation <A HREF="../../../../domosaics/ui/views/view/AbstractView.html" title="class in domosaics.ui.views.view"><CODE>AbstractView</CODE></A>.
 <P>
 
 <P>
@@ -145,7 +145,7 @@ The View interface defining all methods which can be applied to each view.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/views/view/View.html#addRenderer(angstd.ui.views.view.renderer.Renderer)">addRenderer</A></B>(<A HREF="../../../../angstd/ui/views/view/renderer/Renderer.html" title="interface in angstd.ui.views.view.renderer">Renderer</A>&nbsp;r)</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/views/view/View.html#addRenderer(domosaics.ui.views.view.renderer.Renderer)">addRenderer</A></B>(<A HREF="../../../../domosaics/ui/views/view/renderer/Renderer.html" title="interface in domosaics.ui.views.view.renderer">Renderer</A>&nbsp;r)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a new renderer to the view</TD>
@@ -153,15 +153,15 @@ The View interface defining all methods which can be applied to each view.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;javax.swing.JComponent</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/views/view/View.html#getComponent()">getComponent</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/views/view/View.html#getComponent()">getComponent</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the component containing the view.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../angstd/ui/views/view/ViewPanel.html" title="class in angstd.ui.views.view">ViewPanel</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/views/view/View.html#getParentPane()">getParentPane</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../../domosaics/ui/views/view/ViewPanel.html" title="class in domosaics.ui.views.view">ViewPanel</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/views/view/View.html#getParentPane()">getParentPane</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the panel displaying this view</TD>
@@ -169,15 +169,15 @@ The View interface defining all methods which can be applied to each view.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;javax.swing.JComponent</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/views/view/View.html#getViewComponent()">getViewComponent</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/views/view/View.html#getViewComponent()">getViewComponent</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the real view component.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../angstd/ui/views/view/ViewInfo.html" title="class in angstd.ui.views.view">ViewInfo</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/views/view/View.html#getViewInfo()">getViewInfo</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../../domosaics/ui/views/view/ViewInfo.html" title="class in domosaics.ui.views.view">ViewInfo</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/views/view/View.html#getViewInfo()">getViewInfo</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the views information such as unique id various icons and so on
@@ -186,7 +186,7 @@ The View interface defining all methods which can be applied to each view.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/views/view/View.html#isZoomMode()">isZoomMode</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/views/view/View.html#isZoomMode()">isZoomMode</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns whether or not the view is in zoom mode.</TD>
@@ -194,7 +194,7 @@ The View interface defining all methods which can be applied to each view.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/views/view/View.html#render(java.awt.Graphics)">render</A></B>(java.awt.Graphics&nbsp;g)</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/views/view/View.html#render(java.awt.Graphics)">render</A></B>(java.awt.Graphics&nbsp;g)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Render the view on the given graphics object.</TD>
@@ -202,7 +202,7 @@ The View interface defining all methods which can be applied to each view.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/views/view/View.html#setParentPane(angstd.ui.views.view.ViewPanel)">setParentPane</A></B>(<A HREF="../../../../angstd/ui/views/view/ViewPanel.html" title="class in angstd.ui.views.view">ViewPanel</A>&nbsp;parent)</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/views/view/View.html#setParentPane(domosaics.ui.views.view.ViewPanel)">setParentPane</A></B>(<A HREF="../../../../domosaics/ui/views/view/ViewPanel.html" title="class in domosaics.ui.views.view">ViewPanel</A>&nbsp;parent)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets this views parent pane.</TD>
@@ -210,7 +210,7 @@ The View interface defining all methods which can be applied to each view.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/views/view/View.html#setViewInfo(angstd.ui.views.view.ViewInfo)">setViewInfo</A></B>(<A HREF="../../../../angstd/ui/views/view/ViewInfo.html" title="class in angstd.ui.views.view">ViewInfo</A>&nbsp;info)</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/views/view/View.html#setViewInfo(domosaics.ui.views.view.ViewInfo)">setViewInfo</A></B>(<A HREF="../../../../domosaics/ui/views/view/ViewInfo.html" title="class in domosaics.ui.views.view">ViewInfo</A>&nbsp;info)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the ViewInfo which contains all backend data for the view (e.g.</TD>
@@ -218,7 +218,7 @@ The View interface defining all methods which can be applied to each view.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../angstd/ui/views/view/View.html#toggleZoomMode()">toggleZoomMode</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../domosaics/ui/views/view/View.html#toggleZoomMode()">toggleZoomMode</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Switches the zoom mode for a view between on and off.</TD>
@@ -237,10 +237,10 @@ The View interface defining all methods which can be applied to each view.
 </TR>
 </TABLE>
 
-<A NAME="setViewInfo(angstd.ui.views.view.ViewInfo)"><!-- --></A><H3>
+<A NAME="setViewInfo(domosaics.ui.views.view.ViewInfo)"><!-- --></A><H3>
 setViewInfo</H3>
 <PRE>
-void <B>setViewInfo</B>(<A HREF="../../../../angstd/ui/views/view/ViewInfo.html" title="class in angstd.ui.views.view">ViewInfo</A>&nbsp;info)</PRE>
+void <B>setViewInfo</B>(<A HREF="../../../../domosaics/ui/views/view/ViewInfo.html" title="class in domosaics.ui.views.view">ViewInfo</A>&nbsp;info)</PRE>
 <DL>
 <DD>Set the ViewInfo which contains all backend data for the view (e.g.
  its unique id, icons ...).
@@ -254,7 +254,7 @@ void <B>setViewInfo</B>(<A HREF="../../../../angstd/ui/views/view/ViewInfo.html"
 <A NAME="getViewInfo()"><!-- --></A><H3>
 getViewInfo</H3>
 <PRE>
-<A HREF="../../../../angstd/ui/views/view/ViewInfo.html" title="class in angstd.ui.views.view">ViewInfo</A> <B>getViewInfo</B>()</PRE>
+<A HREF="../../../../domosaics/ui/views/view/ViewInfo.html" title="class in domosaics.ui.views.view">ViewInfo</A> <B>getViewInfo</B>()</PRE>
 <DL>
 <DD>Returns the views information such as unique id various icons and so on
  all coupled within the ViewInfo object.
@@ -289,7 +289,7 @@ javax.swing.JComponent <B>getViewComponent</B>()</PRE>
 <DD>Returns the real view component. This is used to split the view component
  from a component that is returned by getComponent(). 
  <p>
- For example, <A HREF="../../../../angstd/ui/views/view/View.html#getComponent()"><CODE>getComponent()</CODE></A> might return a ScrollPane that 
+ For example, <A HREF="../../../../domosaics/ui/views/view/View.html#getComponent()"><CODE>getComponent()</CODE></A> might return a ScrollPane that 
  contains the JComponent returned by this method.
 <P>
 <DD><DL>
@@ -302,7 +302,7 @@ javax.swing.JComponent <B>getViewComponent</B>()</PRE>
 <A NAME="getParentPane()"><!-- --></A><H3>
 getParentPane</H3>
 <PRE>
-<A HREF="../../../../angstd/ui/views/view/ViewPanel.html" title="class in angstd.ui.views.view">ViewPanel</A> <B>getParentPane</B>()</PRE>
+<A HREF="../../../../domosaics/ui/views/view/ViewPanel.html" title="class in domosaics.ui.views.view">ViewPanel</A> <B>getParentPane</B>()</PRE>
 <DL>
 <DD>Returns the panel displaying this view
 <P>
@@ -313,10 +313,10 @@ getParentPane</H3>
 </DL>
 <HR>
 
-<A NAME="setParentPane(angstd.ui.views.view.ViewPanel)"><!-- --></A><H3>
+<A NAME="setParentPane(domosaics.ui.views.view.ViewPanel)"><!-- --></A><H3>
 setParentPane</H3>
 <PRE>
-void <B>setParentPane</B>(<A HREF="../../../../angstd/ui/views/view/ViewPanel.html" title="class in angstd.ui.views.view">ViewPanel</A>&nbsp;parent)</PRE>
+void <B>setParentPane</B>(<A HREF="../../../../domosaics/ui/views/view/ViewPanel.html" title="class in domosaics.ui.views.view">ViewPanel</A>&nbsp;parent)</PRE>
 <DL>
 <DD>Sets this views parent pane.
 <P>
@@ -341,10 +341,10 @@ void <B>render</B>(java.awt.Graphics&nbsp;g)</PRE>
 </DL>
 <HR>
 
-<A NAME="addRenderer(angstd.ui.views.view.renderer.Renderer)"><!-- --></A><H3>
+<A NAME="addRenderer(domosaics.ui.views.view.renderer.Renderer)"><!-- --></A><H3>
 addRenderer</H3>
 <PRE>
-void <B>addRenderer</B>(<A HREF="../../../../angstd/ui/views/view/renderer/Renderer.html" title="interface in angstd.ui.views.view.renderer">Renderer</A>&nbsp;r)</PRE>
+void <B>addRenderer</B>(<A HREF="../../../../domosaics/ui/views/view/renderer/Renderer.html" title="interface in domosaics.ui.views.view.renderer">Renderer</A>&nbsp;r)</PRE>
 <DL>
 <DD>Adds a new renderer to the view
 <P>
@@ -410,10 +410,10 @@ void <B>toggleZoomMode</B>()</PRE>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../angstd/ui/views/view/AbstractView.html" title="class in angstd.ui.views.view"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../angstd/ui/views/view/ViewActionManager.html" title="class in angstd.ui.views.view"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../domosaics/ui/views/view/AbstractView.html" title="class in domosaics.ui.views.view"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../domosaics/ui/views/view/ViewActionManager.html" title="class in domosaics.ui.views.view"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../index.html?angstd/ui/views/view/View.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../index.html?domosaics/ui/views/view/View.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="View.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--

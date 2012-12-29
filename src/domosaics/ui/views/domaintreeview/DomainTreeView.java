@@ -11,10 +11,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
 import org.jdom2.Attribute;
 import org.jdom2.Element;
@@ -24,11 +26,15 @@ import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.TreeNodeI;
+import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
+import domosaics.ui.views.ViewType;
+import domosaics.ui.views.domaintreeview.actions.CollapseSameArrangementsAtNodeAction;
 import domosaics.ui.views.domaintreeview.components.DomainEventComponent;
 import domosaics.ui.views.domaintreeview.components.ReconstructionTool;
 import domosaics.ui.views.domaintreeview.io.DomainTreeViewExporter;
+import domosaics.ui.views.domaintreeview.layout.CSAModeDomainTreeLayout;
 import domosaics.ui.views.domaintreeview.layout.DefaultDomainTreeLayout;
 import domosaics.ui.views.domaintreeview.layout.DomainTreeLayout;
 import domosaics.ui.views.domaintreeview.manager.CSAInSubtreeManager;
@@ -69,6 +75,8 @@ import domosaics.ui.views.domainview.renderer.DomainViewRenderer;
 import domosaics.ui.views.domainview.renderer.additional.NoteMarkRenderer;
 import domosaics.ui.views.treeview.TreeView;
 import domosaics.ui.views.treeview.TreeViewI;
+import domosaics.ui.views.treeview.actions.context.CollapseTreeAction;
+import domosaics.ui.views.treeview.actions.context.RotateAction;
 import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.treeview.components.TreeMouseController;
 import domosaics.ui.views.treeview.layout.TreeLayout;
@@ -1056,6 +1064,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 
 	@Override
 	public void xmlWrite(Element viewType) {
+		buildToCollapsedCSA(treeView.getTree().getRoot());
 		domView.xmlWrite(viewType);
 		treeView.xmlWrite(viewType);		
 	}
@@ -1067,18 +1076,97 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 		viewType.setAttribute(type);
 	}
 
-
+	public void buildToCollapsedCSA(TreeNodeI node) {
+		if(getCSAInSubtreeManager().isCollapsedAndCSAMode(getNodesComponent(node))) {
+			getToCollapseCSA().add(node);
+		}
+		for (TreeNodeI child : node.getChildren()) 
+			buildToCollapsedCSA(child);
+	}
+	
 	@Override
 	public void xmlRead(Element viewType) {
-		DomainView dV = new DomainView();
+		DomainView dV = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewType.getAttributeValue("name")+"domDummy");
+		TreeView tV = ViewHandler.getInstance().createView(ViewType.TREE, viewType.getAttributeValue("name")+"treeDummy");
 		dV.xmlRead(viewType);
-		TreeView tV = new TreeView();
 		tV.xmlRead(viewType);
 		setBackendViews(tV, dV);
+
+		getDomainTreeLayoutManager().structuralChange();
+		collapseHelper(treeView.getTree().getRoot(), treeView.getToCollapseCSA());
+
 		// TODO integrate in TreeView the parsimony method and costs and recompute things
+	}
+	
+	public void collapseHelper(TreeNodeI node, Vector<TreeNodeI> myVect) {
+		for (TreeNodeI child : node.getChildren()) 
+			collapseHelper(child, myVect);
+		/*
+		 * TODO Currently does work but with a layout/display issue.
+		 * Hence commented and considered as "simply" collapsed (see below)
+		 * 
+		if (myVect.contains(node)) {
+			CollapseSameArrangementsAtNodeAction.collapse(this, getNodesComponent(node));
+			return;
+		}
+		 */
+
+		if (getNodesComponent(node).isCollapsed() /**/ || myVect.contains(node) /**/) {
+			setNodeCollapsed(getNodesComponent(node), true);
+		}
+	}
+
+	/**
+	 * Collapse/expands a given node. Triggered by {@link CollapseTreeAction}.
+	 * <p>
+	 * Changes the nodes status by delegating to the nodes {@link NodeComponent#setCollapsed(boolean)}
+	 * method. The Helper method {@link #shrinkChildren(boolean, NodeComponent) is
+	 * triggered where new visibility status for the nodes within the subtree is set. 
+	 * Afterwards a structural change is fired.
+	 * 
+	 * @param node 
+	 * 		the node to collapse or expand
+	 * @param collapsed 
+	 * 		if true, the node gets collapsed, otherwise it gets expanded
+	 */
+	public void setNodeCollapsed(NodeComponent node, boolean collapsed){
+		node.setCollapsed(collapsed);
+		shrinkChildren(collapsed, node);
+		this.getTreeComponentManager().structuralChange();	
+	}
+	
+	/**
+	 * Recursive helper method to shrink all children of a collapsed node. Sets the
+	 * new visibility status for the node components of the subtree depending
+	 * on whether the node was collapsed or expanded.
+	 * 
+	 * @param collapse 
+	 * 		the new collapsed status for the node
+	 * @param collapsedNode 
+	 * 		the node to be collapsed /expanded
+	 */
+	private void shrinkChildren(boolean collapse, NodeComponent collapsedNode) {
+		
+		for (NodeComponent nc : collapsedNode.children()) {
+			if (collapse) {
+				nc.setVisible(false);	
+				if (nc.getNode().hasArrangement())  // means domtree is loaded
+					this.getArrangementComponentManager().setVisible(this.getArrangementComponentManager().getComponent(nc.getNode().getArrangement()), false);
+				shrinkChildren(collapse,nc);
+			} else {
+				nc.setVisible(true);
+				if (nc.getNode().hasArrangement())		
+					this.getArrangementComponentManager().setVisible(this.getArrangementComponentManager().getComponent(nc.getNode().getArrangement()), true);
+				if (!nc.isCollapsed()) 
+					shrinkChildren(collapse, nc);
+			}
+		}
 	}
 
 
-
-
+	@Override
+	public Vector<TreeNodeI> getToCollapseCSA() {
+		// TODO Auto-generated method stub
+		return treeView.getToCollapseCSA();
+	}
 }

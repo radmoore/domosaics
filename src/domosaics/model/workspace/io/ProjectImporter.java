@@ -5,8 +5,14 @@ import java.io.File;
 import javax.swing.SwingUtilities;
 
 import domosaics.model.workspace.ProjectElement;
+import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
+import domosaics.ui.views.ViewType;
+import domosaics.ui.views.domaintreeview.DomainTreeView;
+import domosaics.ui.views.domainview.DomainView;
+import domosaics.ui.views.sequenceview.SequenceView;
+import domosaics.ui.views.treeview.TreeView;
 import domosaics.ui.views.view.io.ViewImporter;
 import domosaics.ui.wizards.WizardManager;
 
@@ -128,16 +134,31 @@ public class ProjectImporter {
 			for (String v : views) {
     			File viewFile = new File(catDir+"/"+v);
     			switch(flag) {
-    				// Nic import
-    				//case 1: DomainView domView = new DomainView(); domView.importXML(viewFile); ViewHandler.getInstance().addView(domView, project, false); break;
-    				//case 2: TreeView treeView = new TreeView(); treeView.importXML(viewFile); ViewHandler.getInstance().addView(treeView, project, false); break;
-    				//case 3: SequenceView seqView = new SequenceView(); seqView.importXML(viewFile); ViewHandler.getInstance().addView(seqView, project, false); break;
-    				//case 4: DomainTreeView domTreeView = new DomainTreeView(); domTreeView.importXML(viewFile); ViewHandler.getInstance().addView(domTreeView, project, false); break;
-
-    				case 1: ViewImporter.readDomainView(viewFile, project); break;
-    				case 2: ViewImporter.readTreeView(viewFile, project); break;
-    				case 3: ViewImporter.readSequenceView(viewFile, project); break;
-    				case 4: ViewImporter.readDomainTreeView(viewFile, project); break;
+				// Nic import
+    			case 1:
+    				DomainView domView = ViewHandler.getInstance().createView(ViewType.DOMAINS, v);
+    				domView.importXML(viewFile);
+    				ViewHandler.getInstance().addView(domView, project, false);
+    				break;
+    			case 2:
+    				TreeView treeView = ViewHandler.getInstance().createView(ViewType.TREE, v);
+    				treeView.importXML(viewFile);
+    				ViewHandler.getInstance().addView(treeView, project, false);
+    				break;
+    			case 3:
+    				SequenceView seqView = ViewHandler.getInstance().createView(ViewType.SEQUENCE, v);
+    				seqView.importXML(viewFile);
+    				ViewHandler.getInstance().addView(seqView, project, false);
+    				break;
+    			case 4:
+    				DomainTreeView domTreeView = ViewHandler.getInstance().createView(ViewType.DOMAINTREE, v);
+    				domTreeView.importXML(viewFile);
+    				ViewHandler.getInstance().addView(domTreeView, project, false);
+    				break;
+    			//	case 1: ViewImporter.readDomainView(viewFile, project); break;
+    			//	case 2: ViewImporter.readTreeView(viewFile, project); break;
+    			//	case 3: ViewImporter.readSequenceView(viewFile, project); break;
+    			//	case 4: ViewImporter.readDomainTreeView(viewFile, project); break;
     			}
 			}
 		}

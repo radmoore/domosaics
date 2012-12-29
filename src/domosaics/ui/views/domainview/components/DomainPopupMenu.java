@@ -14,8 +14,12 @@ import domosaics.ui.views.domainview.actions.context.ExportDomainSequencesAction
 import domosaics.ui.views.domainview.actions.context.HideDomainAction;
 import domosaics.ui.views.domainview.actions.context.LookupDomainInGoogle;
 import domosaics.ui.views.domainview.actions.context.LookupDomainInPfamAction;
+import domosaics.ui.views.domainview.actions.context.LookupDomainInSourceDBAction;
+import domosaics.ui.views.domainview.actions.context.LookupDomainInUniprot;
 import domosaics.ui.views.domainview.actions.context.SearchOrthologousAction;
 import domosaics.ui.views.domainview.actions.context.SelectArrangementsContainingDomAction;
+
+
 
 
 /**
@@ -40,12 +44,12 @@ public class DomainPopupMenu extends JPopupMenu {
 
 		// add title
 		DomainComponent dc = view.getDomainSelectionManager().getClickedComp();
-		JLabel title = new JLabel("<html><b><i>"+dc.getLabel());
+		JLabel title = new JLabel("<html><b>Domain <i>"+dc.getLabel()+"</i></b></html>");
 		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setVerticalAlignment(JLabel.CENTER);
 		add(title);
 		add(new JSeparator());
-		
+			
 		// add actions
 		add(new HideDomainAction());
 		add(new ChangeShapeAction());
@@ -61,10 +65,11 @@ public class DomainPopupMenu extends JPopupMenu {
 		add(new JSeparator());
 		add(new SearchOrthologousAction());
 		add(new JSeparator());
-		add(new LookupDomainInGoogle());
-		add(new LookupDomainInPfamAction());
-		add(new JSeparator());
-		add(new ConfirmPutativeDomain());
+		add(new LookupDomainInGoogle(dc.getLabel()));
+		add(new LookupDomainInSourceDBAction(dc.getLabel(),dc.getDomain().getFamily().getDomainType().getName()));
+		add(new LookupDomainInUniprot(dc.getLabel()));
+		//add(new JSeparator());
+		//add(new ConfirmPutativeDomain());
 	}
 
 }

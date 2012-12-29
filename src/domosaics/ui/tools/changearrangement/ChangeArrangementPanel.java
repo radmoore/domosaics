@@ -28,6 +28,7 @@ import domosaics.util.StringUtils;
 
 
 
+
 /**
  * Panel where the domain attributes can be edited.
  * 

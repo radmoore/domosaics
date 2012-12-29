@@ -22,6 +22,7 @@ import domosaics.model.arrangement.io.ArrangementImporterUtil;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.FileDialogs;
+import domosaics.ui.util.MessageUtil;
 import domosaics.ui.wizards.GUIComponentFactory;
 
 

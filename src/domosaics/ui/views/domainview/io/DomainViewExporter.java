@@ -2,10 +2,21 @@ package domosaics.ui.views.domainview.io;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
+import org.jdom2.Attribute;
+import org.jdom2.Element;
+
+import domosaics.model.GO.GeneOntologyTerm;
 import domosaics.model.arrangement.ArrangementManager;
+import domosaics.model.arrangement.Domain;
+import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.DomainFamily;
+import domosaics.model.arrangement.DomainType;
+import domosaics.model.arrangement.DomainVector;
 import domosaics.model.arrangement.io.XdomWriter;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
@@ -13,6 +24,7 @@ import domosaics.model.sequence.io.FastaWriter;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.manager.DomainLayoutManager;
 import domosaics.ui.views.view.io.ViewExporter;
+
 
 
 

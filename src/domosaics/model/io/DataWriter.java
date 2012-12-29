@@ -3,7 +3,7 @@ package domosaics.model.io;
 import java.io.BufferedWriter;
 import java.io.File;
 
-import domosaics.model.DomosaicsData;
+import domosaics.model.DoMosaicsData;
 import domosaics.model.arrangement.io.XdomWriter;
 
 
@@ -16,13 +16,13 @@ import domosaics.model.arrangement.io.XdomWriter;
  * extend this AbstractDataWriter.
  * <p>
  * Because the type of data which has to be written into a file 
- * is generic the requested type must implement the empty {@link DomosaicsData} 
+ * is generic the requested type must implement the empty {@link DoMosaicsData} 
  * interface.
  * 
  * @author Andreas Held
  *
  */
-public interface DataWriter <T extends DomosaicsData> {
+public interface DataWriter <T extends DoMosaicsData> {
 
 	/**
 	 * Writes the data into a file.

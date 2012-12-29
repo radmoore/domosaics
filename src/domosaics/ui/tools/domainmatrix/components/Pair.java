@@ -1,6 +1,6 @@
 package domosaics.ui.tools.domainmatrix.components;
 
-import domosaics.model.DomosaicsData;
+import domosaics.model.DoMosaicsData;
 import domosaics.ui.views.domainview.components.DomainComponent;
 
 /**
@@ -14,7 +14,7 @@ import domosaics.ui.views.domainview.components.DomainComponent;
  * @author Andreas Held
  *
  */
-public class Pair implements DomosaicsData{
+public class Pair implements DoMosaicsData{
 
 	/** the domain component */
 	protected DomainComponent dom;

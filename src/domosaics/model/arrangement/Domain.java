@@ -2,7 +2,7 @@ package domosaics.model.arrangement;
 
 import java.text.DecimalFormat;
 
-import domosaics.model.DomosaicsData;
+import domosaics.model.DoMosaicsData;
 import domosaics.model.sequence.SequenceI;
 
 
@@ -21,7 +21,7 @@ import domosaics.model.sequence.SequenceI;
  * @author Andreas Held
  *
  */
-public class Domain implements Comparable<Domain>, Cloneable, DomosaicsData {
+public class Domain implements Comparable<Domain>, Cloneable, DoMosaicsData {
 	
 	/** position specific parameters */ 
     protected int from, fromWithGaps, to;
@@ -103,6 +103,16 @@ public class Domain implements Comparable<Domain>, Cloneable, DomosaicsData {
 		this.seq = seq;
 	}
 
+	
+	/**
+	 * Sets the amino acid sequence for this domain
+	 * 
+	 * @param seq
+	 * 		sequence from which a subsequence is gained
+	 */
+	public void setSequence (SequenceI seq) {
+		this.seq = seq;
+	}
 	/**
 	 * Returns the sequence of the domain 
 	 * 

@@ -35,14 +35,13 @@ public class DomainSimilarityManager extends DefaultViewManager {
 	protected Map<ArrangementComponent, Integer> dac2similarity;
 	
 	/** the similarity measure used to comparethe domain arrangements */
-	protected DistanceMeasureType type;
+	protected DistanceMeasureType type, memorizedSettingDMT;
 	
 	/** the threshold used to collapse arrangements */
-	protected int threshold;
+	protected int threshold, memorizedSettingTdd=-1, memorizedSettingTjaccard=-1;
 	
 	/** the dialog used to communicate with the user */
 	protected SimilarityChooser chooser;
-
 	
 	/**
 	 * Constructor for a new similarity manager.
@@ -99,9 +98,10 @@ public class DomainSimilarityManager extends DefaultViewManager {
 	 * @param type
 	 * 		the similarity measure used to compare the arrangements
 	 */
-	public void init(DomainViewI view, DomainArrangement da, DistanceMeasureType type) {
+	public void init(DomainViewI view, DomainArrangement da, DistanceMeasureType typeDMT) {
 		reset(view);
-		this.type = type;
+		this.type = typeDMT;
+		setMemorizedSettingDMT(type);
 		
 		// create similarity matrix
 		DomainArrangement[] daSet = view.getDaSet();
@@ -180,8 +180,7 @@ public class DomainSimilarityManager extends DefaultViewManager {
 		view.getDomainLayoutManager().setCollapseBySimilarityState(false);
 		view.getDomainLayoutManager().toggleCollapseBySimilarity();
 		
-		chooser.setVisible(false);
-		chooser = null;
+		chooser.dispose();
 		structuralChange();
 	}
 	
@@ -208,6 +207,13 @@ public class DomainSimilarityManager extends DefaultViewManager {
 	 * 		the new threshold
 	 */
 	public void setThreshold(DomainViewI view, int thres) {
+		if (type == DistanceMeasureType.JACARD) {
+			this.memorizedSettingTjaccard = thres;
+		} else {
+			if (type == DistanceMeasureType.DOMAINDISTANCE) {
+					this.memorizedSettingTdd = thres;
+			}
+		}
 		Iterator<ArrangementComponent> iter = view.getArrangementComponentManager().getComponentsIterator();
 		while(iter.hasNext()) {
 			ArrangementComponent dac = iter.next();
@@ -268,6 +274,21 @@ public class DomainSimilarityManager extends DefaultViewManager {
 		double similarityVal = 1 - val;
 		return (int) (similarityVal * 100);
 	}
+
+	public int getMemorizedSettingTdd() {
+		return memorizedSettingTdd;
+	}
 	
+	public int getMemorizedSettingTjaccard() {
+		return memorizedSettingTjaccard;
+	}
+	
+	public void setMemorizedSettingDMT(DistanceMeasureType dmt) {
+		memorizedSettingDMT=dmt;
+	}
+	
+	public DistanceMeasureType getMemorizedSettingDMT() {
+		return memorizedSettingDMT;
+	}
 }
 

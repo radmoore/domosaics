@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 
-import domosaics.model.DomosaicsData;
+import domosaics.model.DoMosaicsData;
 import domosaics.model.configuration.Configuration;
 import domosaics.ui.util.MessageUtil;
 
@@ -25,12 +25,12 @@ import domosaics.ui.util.MessageUtil;
  * for the actual parsing.
  * <p>
  * Because the return type of the methods are generic the requested type
- * must implement the empty {@link DomosaicsData} interface.
+ * must implement the empty {@link DoMosaicsData} interface.
  * 
  * @author Andreas Held
  * 
  */
-public abstract class AbstractDataReader <T extends DomosaicsData> implements DataReader<T>{
+public abstract class AbstractDataReader <T extends DoMosaicsData> implements DataReader<T>{
 	
 	/**  get the line separator for the running system */
 	protected static final String LINE_SEPARATOR = System.getProperty("line.separator");

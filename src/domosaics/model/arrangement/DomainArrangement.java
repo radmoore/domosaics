@@ -1,10 +1,10 @@
-package domosaics.model.arrangement;
+package angstd.model.arrangement;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import domosaics.model.DomosaicsData;
+import domosaics.model.DoMosaicsData;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.Sequence;
 import domosaics.model.sequence.SequenceI;
@@ -30,7 +30,7 @@ import domosaics.model.tree.TreeNodeI;
  * @author Andrew Moore <radmoore@uni-muenster.de>
  *
  */
-public class DomainArrangement implements Cloneable, DomosaicsData{
+public class DomainArrangement implements Cloneable, DoMosaicsData{
 
 	/** arrangement name to connect arrangement with a tree and sequence */
 	protected String id;

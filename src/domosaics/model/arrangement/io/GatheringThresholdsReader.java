@@ -1,4 +1,4 @@
-package domosaics.model.arrangement.io;
+package angstd.model.arrangement.io;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -17,11 +17,12 @@ import domosaics.model.tree.io.NewickTreeReader;
 import domosaics.ui.util.MessageUtil;
 
 
+
+
 public class GatheringThresholdsReader {
 
 	protected static Map<String, DomainFamily> domFamilyMap;
-	protected static Map<String, String> id2acc/*, acc2id*/;
-	private static HashMap<String, Vector<String>> name2id;
+	protected static Map<String, Vector<String> > name2id/*, acc2id*/;
 
 	
 	 /**
@@ -33,7 +34,7 @@ public class GatheringThresholdsReader {
 			 read();
 		 
 		 return domFamilyMap;
-	 }
+	}
 	
 	 
 	public static void read() {

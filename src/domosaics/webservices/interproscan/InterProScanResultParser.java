@@ -124,7 +124,7 @@ public class InterProScanResultParser {
 				//domFamily = new DomainFamily(acc, name, domType);
 				domFamily = new DomainFamily(acc, name, DomainType.getType(acc));
 
-				GatheringThresholdsReader.getInstance().put(acc, domFamily);
+				GatheringThresholdsReader.add(domFamily);
 			}
 			if(domFamily.getInterproEntry()==null)
 				domFamily.setInterproEntry(interproEntry);

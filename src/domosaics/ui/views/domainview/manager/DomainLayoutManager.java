@@ -2,15 +2,19 @@ package domosaics.ui.views.domainview.manager;
 
 import domosaics.model.configuration.Configuration;
 import domosaics.ui.io.menureader.AbstractMenuAction;
+import domosaics.ui.views.domainview.actions.AddSelectionToViewAction;
+import domosaics.ui.views.domainview.actions.AssociateWithSeqsAction;
 import domosaics.ui.views.domainview.actions.ChangeArrangementAction;
 import domosaics.ui.views.domainview.actions.CollapseSameArrangementsAction;
 import domosaics.ui.views.domainview.actions.CreateViewUsingSelectionAction;
+import domosaics.ui.views.domainview.actions.DeleteArrangementAction;
 import domosaics.ui.views.domainview.actions.EvalueColorizationAction;
 import domosaics.ui.views.domainview.actions.FitDomainsToScreenAction;
 import domosaics.ui.views.domainview.actions.MsaViewAction;
 import domosaics.ui.views.domainview.actions.ProportionalViewAction;
 import domosaics.ui.views.domainview.actions.ResetShiftAction;
 import domosaics.ui.views.domainview.actions.SaveXdomFileAction;
+import domosaics.ui.views.domainview.actions.SelectAllDomainArrangementsAction;
 import domosaics.ui.views.domainview.actions.SelectDomainArrangementsAction;
 import domosaics.ui.views.domainview.actions.SelectSequencesAction;
 import domosaics.ui.views.domainview.actions.ShowAccAction;
@@ -52,6 +56,7 @@ import domosaics.ui.views.view.manager.DefaultLayoutManager;
  * within the view menu.
  * 
  * @author Andreas Held
+ * @author Nicolas Terrapon
  *
  */
 public class DomainLayoutManager extends DefaultLayoutManager {
@@ -68,6 +73,7 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	public enum DomainAction implements ActionEnumeration {
 		
 		EXPORT_SELECTION 		(CreateViewUsingSelectionAction.class),
+		MERGE_SELECTION			(AddSelectionToViewAction.class),
 		EVALUE_COLORIZATION 	(EvalueColorizationAction.class),
 		FIT_TO_SCREEN 			(FitDomainsToScreenAction.class),
 		ACC_RATHER_THAN_NAME	(ShowNameAction.class),
@@ -76,6 +82,7 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		PROP_VIEW 				(ProportionalViewAction.class),
 		UNPROP_VIEW 			(UnproportionalViewAction.class),
 		SAVE_AS_XDOM 			(SaveXdomFileAction.class),
+		SELECT_ALL_ARRANGEMENTS (SelectAllDomainArrangementsAction.class),
 		SELECT_ARRANGEMENTS 	(SelectDomainArrangementsAction.class),
 		SELECT_SEQUENCES 		(SelectSequencesAction.class),
 		SHOW_RULER 				(ShowDomainRulerAction.class),
@@ -93,6 +100,8 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		ZOOMMODE				(ToggleZoomModeAction.class),
 		RESETSHIFT				(ResetShiftAction.class),
 		EDITARRANGEMENT			(ChangeArrangementAction.class),
+		DELETE_ARRANGEMENT		(DeleteArrangementAction.class),
+		ASSOCIATE_SEQUENCE		(AssociateWithSeqsAction.class),
 		;
 		
 		private Class<?> clazz;
@@ -132,19 +141,12 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 			disable(DomainAction.PROP_VIEW);
 		
 		if (isUnproportionalView())
-			
 			disable(DomainAction.UNPROP_VIEW);
-		if (isMsaView())
 			
+		if (isMsaView())
 			disable(DomainAction.MSA_VIEW);
-	}
-	
-	/**
-	 * Enables all action
-	 */
-	public void enableAll() {
-		for (DomainAction action : DomainAction.values())
-			enable(action);
+		
+		disable(DomainAction.SELECT_ARRANGEMENTS);
 	}
 	
 	/**
@@ -167,17 +169,34 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	/**
 	 * switches the layout to proportional view.
 	 */
-	public void setToProportionalView() {
-		enableAll();
-		
+	public void setToProportionalView() {		
 		disable(DomainAction.PROP_VIEW);
+		enable(DomainAction.UNPROP_VIEW);
+		enable(DomainAction.MSA_VIEW);
 		
 		setState(DomainAction.PROP_VIEW, true);
 		setState(DomainAction.UNPROP_VIEW, false);
 		setState(DomainAction.MSA_VIEW, false);
 		setState(DomainAction.SHOW_SHAPES, oldPropShapeState);
-		setState(DomainAction.SELECT_SEQUENCES, false);
-
+		
+		disable(DomainAction.SHOW_RULER);
+		enable(DomainAction.SHOW_SHAPES);
+		enable(DomainAction.EVALUE_COLORIZATION);
+		enable(DomainAction.FIT_TO_SCREEN);
+		if (getState(DomainAction.COLLAPSE_BY_SIMILARITY)) {
+			disable(DomainAction.MSA_VIEW);
+			enable(DomainAction.COLLAPSE_BY_SIMILARITY);
+		} else {
+			if (getState(DomainAction.COLLAPSE_IDENTICAL)) {
+				disable(DomainAction.MSA_VIEW);
+				enable(DomainAction.COLLAPSE_IDENTICAL);
+			} else {
+				enable(DomainAction.COLLAPSE_IDENTICAL);
+				enable(DomainAction.COLLAPSE_BY_SIMILARITY);
+				setState(DomainAction.SELECT_ARRANGEMENTS, true);
+				toggleSelectArrangements();
+			}
+		}
 		structuralChange();	
 	}
 	
@@ -185,8 +204,9 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	 * switches the layout to unproportional view.
 	 */
 	public void setToUnproportionalView() {
-		enableAll();
 		disable(DomainAction.UNPROP_VIEW);
+		enable(DomainAction.PROP_VIEW);
+		enable(DomainAction.MSA_VIEW);
 		
 		if(isProportionalView())
 			oldPropShapeState = getState(DomainAction.SHOW_SHAPES);
@@ -196,10 +216,28 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		setState(DomainAction.MSA_VIEW, false);
 		setState(DomainAction.SHOW_SHAPES, true);
 		setState(DomainAction.SELECT_SEQUENCES, false);
+		setState(DomainAction.SELECT_ARRANGEMENTS, true);
 		
 		disable(DomainAction.SHOW_RULER);
+		disable(DomainAction.SHOW_SHAPES);
+		disable(DomainAction.SELECT_ARRANGEMENTS);
 		disable(DomainAction.SELECT_SEQUENCES);
-		
+		enable(DomainAction.EVALUE_COLORIZATION);
+		enable(DomainAction.FIT_TO_SCREEN);
+		if (getState(DomainAction.COLLAPSE_BY_SIMILARITY)) {
+			disable(DomainAction.MSA_VIEW);
+			enable(DomainAction.COLLAPSE_BY_SIMILARITY);
+		} else {
+			if (getState(DomainAction.COLLAPSE_IDENTICAL)) {
+				disable(DomainAction.MSA_VIEW);
+				enable(DomainAction.COLLAPSE_IDENTICAL);
+			} else {
+				enable(DomainAction.COLLAPSE_IDENTICAL);
+				enable(DomainAction.COLLAPSE_BY_SIMILARITY);
+				setState(DomainAction.SELECT_ARRANGEMENTS, true);
+				toggleSelectArrangements();
+			}			
+		}
 		structuralChange();	
 	}
 	
@@ -207,21 +245,25 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	 * switches the layout to MSA view. 
 	 */
 	public void setToMsaView() {
-		enableAll();
 		disable(DomainAction.MSA_VIEW);
+		enable(DomainAction.UNPROP_VIEW);
+		enable(DomainAction.PROP_VIEW);
 		
 		setState(DomainAction.MSA_VIEW, true);
 		setState(DomainAction.PROP_VIEW, false);
 		setState(DomainAction.UNPROP_VIEW, false);
-		setState(DomainAction.SELECT_SEQUENCES, false);
-	
-		disable(DomainAction.MSA_VIEW);
+		setState(DomainAction.FIT_TO_SCREEN, false);
+		setState(DomainAction.EVALUE_COLORIZATION, false);
+		setState(DomainAction.SHOW_SHAPES, false);
+
+		disable(DomainAction.EVALUE_COLORIZATION);
 		disable(DomainAction.FIT_TO_SCREEN);
 		disable(DomainAction.SHOW_SHAPES);
-		disable(DomainAction.SELECT_ARRANGEMENTS);
-		disable(DomainAction.SELECT_SEQUENCES);
 		disable(DomainAction.COLLAPSE_BY_SIMILARITY);
-		disable(DomainAction.EVALUE_COLORIZATION);
+		disable(DomainAction.COLLAPSE_IDENTICAL);
+
+		setState(DomainAction.SELECT_SEQUENCES, true);
+		toggleSelectSequences();
 		
 		structuralChange();	
 	}
@@ -232,17 +274,58 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	public void toggleCollapseSameArrangements() {
 		if (getState(DomainAction.COLLAPSE_IDENTICAL)) {
 			disable(DomainAction.COLLAPSE_BY_SIMILARITY);
-			disable(DomainAction.ZOOMMODE);
-			disable(DomainAction.SHOW_NOTES);
+			disableAfterCollapse();
 		} 
 		else {
 			enable(DomainAction.COLLAPSE_BY_SIMILARITY);
-			enable(DomainAction.ZOOMMODE);
-			enable(DomainAction.SHOW_NOTES);
+			enableAfterCollapse();
 		}
-			
 	}
 	
+
+	
+	/**
+	 * Toggles the SimilarityColorization flag.
+	 */
+	public void toggleCollapseBySimilarity() {
+		if (getState(DomainAction.COLLAPSE_BY_SIMILARITY)) {
+			disable(DomainAction.COLLAPSE_IDENTICAL);
+			disableAfterCollapse();
+		} 
+		else {
+			enable(DomainAction.COLLAPSE_IDENTICAL);
+			enableAfterCollapse();
+		}
+	}
+	
+	void enableAfterCollapse() {
+		enable(DomainAction.DELETE_ARRANGEMENT);
+		enable(DomainAction.ASSOCIATE_SEQUENCE);
+		enable(DomainAction.MSA_VIEW);
+		enable(DomainAction.ZOOMMODE);
+		enable(DomainAction.SELECT_SEQUENCES);
+		enable(DomainAction.EXPORT_SELECTION);
+		enable(DomainAction.MERGE_SELECTION);
+		enable(DomainAction.SHOW_NOTES);
+		enable(DomainAction.EDITARRANGEMENT);
+		setState(DomainAction.SELECT_SEQUENCES, false);
+		setState(DomainAction.SELECT_ARRANGEMENTS, true);
+	}
+	
+	void disableAfterCollapse() {
+		disable(DomainAction.DELETE_ARRANGEMENT);
+		disable(DomainAction.ASSOCIATE_SEQUENCE);
+		disable(DomainAction.MSA_VIEW);
+		disable(DomainAction.ZOOMMODE);
+		disable(DomainAction.SELECT_SEQUENCES);
+		disable(DomainAction.EXPORT_SELECTION);
+		disable(DomainAction.SELECT_ARRANGEMENTS);
+		disable(DomainAction.SHOW_NOTES);
+		disable(DomainAction.MERGE_SELECTION);
+		disable(DomainAction.EDITARRANGEMENT);
+		setState(DomainAction.SELECT_SEQUENCES, false);
+		setState(DomainAction.SELECT_ARRANGEMENTS, true);
+	}
 	
 	/**
 	 * toggles the internal flag for the select underlying 
@@ -252,20 +335,35 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		if (getState(DomainAction.SELECT_SEQUENCES)) {
 			disable(DomainAction.COLLAPSE_IDENTICAL);
 			disable(DomainAction.COLLAPSE_BY_SIMILARITY);
-			disable(DomainAction.SELECT_ARRANGEMENTS);
+			disable(DomainAction.SELECT_SEQUENCES);
+			setState(DomainAction.SELECT_ARRANGEMENTS, false);
+			disable(DomainAction.SELECT_ALL_ARRANGEMENTS);
 			disable(DomainAction.FIT_TO_SCREEN);
 			disable(DomainAction.ZOOMMODE);
 			disable(DomainAction.EXPORT_SELECTION);
+			disable(DomainAction.MERGE_SELECTION);
 			disable(DomainAction.SHOW_RULER);
-		} 
-		else {
+			disable(DomainAction.SELECT_ARRANGEMENTS);
+		}
+	}
+	
+	/**
+	 * toggles the internal flag for the select underlying 
+	 * sequences mode
+	 */
+	public void toggleSelectArrangements() {
+		if (getState(DomainAction.SELECT_ARRANGEMENTS)) {
+			disable(DomainAction.SELECT_ARRANGEMENTS);
+			setState(DomainAction.SELECT_SEQUENCES, false);
+			enable(DomainAction.SELECT_SEQUENCES);
+			enable(DomainAction.SELECT_ALL_ARRANGEMENTS);
 			enable(DomainAction.COLLAPSE_IDENTICAL);
 			enable(DomainAction.COLLAPSE_BY_SIMILARITY);
-			enable(DomainAction.SELECT_ARRANGEMENTS);
 			enable(DomainAction.FIT_TO_SCREEN);
 			enable(DomainAction.ZOOMMODE);
 			enable(DomainAction.EXPORT_SELECTION);
-			enable(DomainAction.SHOW_RULER);
+			enable(DomainAction.MERGE_SELECTION);
+			disable(DomainAction.SELECT_SEQUENCES);
 		}
 	}
 	
@@ -283,10 +381,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 			disable(DomainAction.EXPORT_SELECTION);
 			disable(DomainAction.ZOOMMODE);
 			disable(DomainAction.MSA_VIEW);
-			if (isProportionalView())
-				disable(DomainAction.UNPROP_VIEW);
-			else
-				disable(DomainAction.PROP_VIEW);
 		} 
 		else {
 			enable(DomainAction.EVALUE_COLORIZATION);
@@ -295,10 +389,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 			enable(DomainAction.EXPORT_SELECTION);
 			enable(DomainAction.ZOOMMODE);
 			enable(DomainAction.MSA_VIEW);
-			if (isProportionalView())
-				enable(DomainAction.UNPROP_VIEW);
-			else
-				enable(DomainAction.PROP_VIEW);
 		}
 	}
 	
@@ -310,43 +400,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	 */
 	public void setCollapseBySimilarityState(boolean state) {
 		setState(DomainAction.COLLAPSE_BY_SIMILARITY, state);
-	}
-	
-	/**
-	 * Toggles the SimilarityColorization flag.
-	 */
-	public void toggleCollapseBySimilarity() {
-		if (getState(DomainAction.COLLAPSE_BY_SIMILARITY)) {
-			disable(DomainAction.COLLAPSE_IDENTICAL);
-			disable(DomainAction.MSA_VIEW);
-			disable(DomainAction.ZOOMMODE);
-			disable(DomainAction.SELECT_SEQUENCES);
-			disable(DomainAction.EXPORT_SELECTION);
-			disable(DomainAction.SELECT_ARRANGEMENTS);
-			disable(DomainAction.COLLAPSE_BY_SIMILARITY);
-			disable(DomainAction.SHOW_NOTES);
-			
-			if (isProportionalView())
-				disable(DomainAction.UNPROP_VIEW);
-			else
-				disable(DomainAction.PROP_VIEW);
-		} 
-		else {
-			enable(DomainAction.COLLAPSE_IDENTICAL);
-			enable(DomainAction.MSA_VIEW);
-			enable(DomainAction.ZOOMMODE);
-			enable(DomainAction.SELECT_SEQUENCES);
-			enable(DomainAction.EXPORT_SELECTION);
-			enable(DomainAction.SELECT_ARRANGEMENTS);
-			enable(DomainAction.COLLAPSE_BY_SIMILARITY);
-			enable(DomainAction.SHOW_NOTES);
-			
-			if (isProportionalView())
-				enable(DomainAction.UNPROP_VIEW);
-			else
-				enable(DomainAction.PROP_VIEW);
-			
-		}
 	}
 	
 	/**
@@ -393,8 +446,8 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	 * 		whether or not the arrangement selection mode is enabled
 	 */
 	public boolean isSelectArrangements() {
-		if(!isEnabled(DomainAction.SELECT_ARRANGEMENTS))
-			return false;
+		/*if(!isEnabled(DomainAction.SELECT_ARRANGEMENTS))
+			return false;*/
 		return getState(DomainAction.SELECT_ARRANGEMENTS);
 	}
 	
@@ -405,8 +458,8 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	 * 		whether or not the select underlying sequence mode is enabled
 	 */
 	public boolean isSelectSequences() {
-		if(!isEnabled(DomainAction.SELECT_SEQUENCES))
-			return false;
+		/*if(!isEnabled(DomainAction.SELECT_SEQUENCES))
+			return false;*/
 		return getState(DomainAction.SELECT_SEQUENCES);
 	}
 	
@@ -424,8 +477,8 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	 * 		whether or not the domains should be fit into screen size
 	 */
 	public boolean isFitDomainsToScreen() {
-		if(!isEnabled(DomainAction.FIT_TO_SCREEN))
-			return false;
+		/*if(!isEnabled(DomainAction.FIT_TO_SCREEN))
+			return false;*/
 		return getState(DomainAction.FIT_TO_SCREEN);
 	}
 	
@@ -436,8 +489,8 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	 * 		whether or not shapes should be drawn
 	 */
 	public boolean isShowShapes() {
-		if(!isEnabled(DomainAction.SHOW_SHAPES))
-			return false;
+		/*if(!isEnabled(DomainAction.SHOW_SHAPES))
+			return false;*/
 		return getState(DomainAction.SHOW_SHAPES);
 	}
 	
@@ -448,8 +501,8 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	 * 		whether or not the amino acid ruler should be drawn
 	 */
 	public boolean isShowLineal() {
-		if(!isEnabled(DomainAction.SHOW_RULER))
-			return false;
+		/*if(!isEnabled(DomainAction.SHOW_RULER))
+			return false;*/
 		return getState(DomainAction.SHOW_RULER);
 	}
 	
@@ -460,8 +513,8 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	 * 		whether or not CollapseSameArrangements mode is active
 	 */
 	public boolean isCollapseSameArrangements() {
-		if(!isEnabled(DomainAction.COLLAPSE_IDENTICAL))
-			return false;
+		/*if(!isEnabled(DomainAction.COLLAPSE_IDENTICAL))
+			return false;*/
 		return getState(DomainAction.COLLAPSE_IDENTICAL);
 	}
 	
@@ -499,12 +552,11 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	}
 	
 	public boolean isShowNotes() {
-		if (!isEnabled(DomainAction.SHOW_NOTES))
-			return false;
+		/*if (!isEnabled(DomainAction.SHOW_NOTES))
+			return false;*/
 		return getState(DomainAction.SHOW_NOTES);
 	}
 }
-
 
 
 

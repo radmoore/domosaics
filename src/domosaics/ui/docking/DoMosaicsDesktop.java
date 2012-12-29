@@ -1,6 +1,7 @@
 package domosaics.ui.docking;
 
 
+
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableContainerFactory;
 import com.vlsolutions.swing.docking.DockingConstants;
@@ -10,8 +11,9 @@ import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.views.view.View;
 
+
 /**
- * The DoMosaics docking desktop uses the external library VLDocking to 
+ * The DoMosaicS docking desktop uses the external library VLDocking to 
  * arrange the main frame components such as the workspace or views.
  * <p>
  * An extended version of the VLDocking DockableContainerFactory 

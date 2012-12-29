@@ -54,7 +54,7 @@ public class HmmScan implements Hmmer3Program {
 
 	
 	private File hmmScanBin, fasta, hmmDB, outfile;
-	private boolean ga, biasFilter, coddFilter;
+	private boolean ga, biasFilter, maxFilter, coddFilter;
 	
 	private int totalFastaEntries, completedScans;
 	private String name, evalue, cpu, overlapResolvMethod;
@@ -116,7 +116,7 @@ public class HmmScan implements Hmmer3Program {
 			Configuration.getLogger().debug(e.toString());
 		}
 		
-		if (biasFilter) {
+		if (!maxFilter) {
 			if (ga) { // gathering threshold is on (no evalue needed)
 				args = new String[10];
 				args[0] = hmmScanBin.getAbsolutePath();
@@ -124,7 +124,7 @@ public class HmmScan implements Hmmer3Program {
 				args[2] = outfile.getAbsolutePath();
 				args[3] = "--noali";
 				args[4] = "--cut_ga";
-				args[5] = "--nobias";
+				args[5] = "--max";
 				args[6] = "--cpu";
 				args[7] = cpu; 
 				args[8] = hmmDB.getAbsolutePath();
@@ -138,38 +138,68 @@ public class HmmScan implements Hmmer3Program {
 				args[3] = "--noali";
 				args[4] = "--domE";
 				args[5] = evalue;
-				args[6] = "--nobias";
+				args[6] = "--max";
 				args[7] = "--cpu";
 				args[8] = cpu;
 				args[9] = hmmDB.getAbsolutePath();
 				args[10] = fasta.getAbsolutePath();
 			}	
 		}
-		else { // bias filter is off
-			if (ga) { // gathering threshold (no evalue)
-				args = new String[9];
-				args[0] = hmmScanBin.getAbsolutePath();
-				args[1] = "--domtblout";
-				args[2] = outfile.getAbsolutePath();
-				args[3] = "--noali";
-				args[4] = "--cut_ga";
-				args[5] = "--cpu";
-				args[6] = cpu;
-				args[7] = hmmDB.getAbsolutePath();
-				args[8] = fasta.getAbsolutePath();
-			}
-			else { // no gatherin threshold (evalue needed)
-				args = new String[10];
-				args[0] = hmmScanBin.getAbsolutePath();
-				args[1] = "--domtblout";
-				args[2] = outfile.getAbsolutePath();
-				args[3] = "--noali";
-				args[4] = "--domE";
-				args[5] = evalue;
-				args[6] = "--cpu";
-				args[7] = cpu;
-				args[8] = hmmDB.getAbsolutePath();
-				args[9] = fasta.getAbsolutePath();
+		else { 
+			if(!biasFilter) {
+				if (ga) { // gathering threshold (no evalue)
+						args = new String[10];
+						args[0] = hmmScanBin.getAbsolutePath();
+						args[1] = "--domtblout";
+						args[2] = outfile.getAbsolutePath();
+						args[3] = "--noali";
+						args[4] = "--cut_ga";
+						args[5] = "--nobias";
+						args[6] = "--cpu";
+						args[7] = cpu; 
+						args[8] = hmmDB.getAbsolutePath();
+						args[9] = fasta.getAbsolutePath();
+				}
+				else { // gathering threshold is off (evalue needed)
+					args = new String[11];
+					args[0] = hmmScanBin.getAbsolutePath();
+					args[1] = "--domtblout";
+					args[2] = outfile.getAbsolutePath();
+					args[3] = "--noali";
+					args[4] = "--domE";
+					args[5] = evalue;
+					args[6] = "--nobias";
+					args[7] = "--cpu";
+					args[8] = cpu;
+					args[9] = hmmDB.getAbsolutePath();
+					args[10] = fasta.getAbsolutePath();
+				}
+			} else {
+				if (ga) { // gathering threshold (no evalue)
+					args = new String[9];
+					args[0] = hmmScanBin.getAbsolutePath();
+					args[1] = "--domtblout";
+					args[2] = outfile.getAbsolutePath();
+					args[3] = "--noali";
+					args[4] = "--cut_ga";
+					args[5] = "--cpu";
+					args[6] = cpu;
+					args[7] = hmmDB.getAbsolutePath();
+					args[8] = fasta.getAbsolutePath();
+				}
+				else { // no gatherin threshold (evalue needed)
+					args = new String[10];
+					args[0] = hmmScanBin.getAbsolutePath();
+					args[1] = "--domtblout";
+					args[2] = outfile.getAbsolutePath();
+					args[3] = "--noali";
+					args[4] = "--domE";
+					args[5] = evalue;
+					args[6] = "--cpu";
+					args[7] = cpu;
+					args[8] = hmmDB.getAbsolutePath();
+					args[9] = fasta.getAbsolutePath();
+				}
 			}
 		}
 
@@ -258,6 +288,15 @@ public class HmmScan implements Hmmer3Program {
 	 */
 	public void setBiasFilter(boolean biasFilter) {
 		this.biasFilter = biasFilter;
+	}
+
+
+	/**
+	 * Toggle bias filter
+	 * @param biasFilter
+	 */
+	public void setMaxFilter(boolean maxFilter) {
+		this.maxFilter = maxFilter;
 	}
 
 	/**

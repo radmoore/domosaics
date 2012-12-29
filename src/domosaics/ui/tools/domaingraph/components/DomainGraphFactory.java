@@ -9,12 +9,13 @@ import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.ui.views.domainview.DomainViewI;
 
+
+
 import prefuse.data.Edge;
 import prefuse.data.Graph;
 import prefuse.data.Node;
 import prefuse.data.Schema;
 import prefuse.data.Table;
-
 
 /**
  * DomainGraphFactory initializes the backing node and edge tables for the

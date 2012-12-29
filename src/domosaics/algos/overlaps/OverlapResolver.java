@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
+import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domainview.components.DomainComponent;
 import domosaics.util.PowerSet;
 
@@ -35,21 +36,24 @@ public class OverlapResolver {
 	public static DomainArrangement[] resolveOverlaps(DomainArrangement[] daSet, String method)
 	{
 	 List<Domain> toRemove = new ArrayList<Domain>();
-	 for (DomainArrangement da : daSet)
-	 {
-	  if(method.equals("OverlapFilterCoverage"))
-	  {
-	   //System.out.println(toRemove.size());
-	   toRemove = resolveOverlapsByBestCoverage(da);
-	   //System.out.println(toRemove.size());
-	  }else
-	  {
-	   toRemove = resolveOverlapsByBestEvalue(da);
-	  }
-	  for (Domain dom : toRemove)
-	  {
-	   da.hideDomain(dom);
-	  }
+	 for (DomainArrangement da : daSet) {
+		 if(method.equals("Coverage")) {
+			 //System.out.println(toRemove.size());
+			 toRemove = resolveOverlapsByBestCoverage(da);
+			 //System.out.println(toRemove.size());
+		 }else {
+			 if(method.equals("Evalue"))
+			 {
+				 toRemove = resolveOverlapsByBestEvalue(da);
+			 }else
+			 {
+				 MessageUtil.showInformation(null, "Overlap method does not exist. Contact the developpers");
+			 }
+		 }
+		 for (Domain dom : toRemove)
+		 {
+			 da.hideDomain(dom);
+		 }
 	 }
 	 return daSet;
 	}
@@ -80,13 +84,11 @@ public class OverlapResolver {
 	 for(int i=1; i< ordered.size(); i++)
 	 {
 	  Domain currentDom=ordered.get(i);
-	  //System.out.println(da.getName()+" "+currentDom.getID()+" "+currentDom.getFrom()+" "+currentDom.getTo());
 	  for(int j=i-1; j>= 0; j--)
 	  {
 	   Domain bestDom=ordered.get(j);
 	   if(bestDom.getFrom() <= currentDom.getTo() && currentDom.getFrom() <= bestDom.getTo())
 	   {
-		//System.out.println("Inconsistent with "+bestDom.getID()+" "+bestDom.getFrom()+" "+bestDom.getTo());
 	    toRemove.add(currentDom);
 	    ordered.remove(i);
 	    i--;
@@ -165,13 +167,11 @@ public class OverlapResolver {
 				if (cluster.intersects(dom)) {
 					cluster.add(dom);
 					added = true;
+					break;
 				}
-			
-			if (added)
-				continue;
-			
 			// if domain were not added into a cluster, create a new one
-			clusters.add(new DomainCluster(dom));
+			if (!added)
+				clusters.add(new DomainCluster(dom));
 		}
 		
 		return clusters;

@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import domosaics.algos.overlaps.OverlapResolver;
-import domosaics.model.DomosaicsData;
+import domosaics.model.DoMosaicsData;
 import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.io.GatheringThresholdsReader;
@@ -40,7 +40,7 @@ import domosaics.ui.util.MessageUtil;
  *
  */
 
-public class ConditionallyDependentDomainPairMap implements DomosaicsData
+public class ConditionallyDependentDomainPairMap implements DoMosaicsData
 {
 	
  private HashMap<String , HashSet<String> > CDP;

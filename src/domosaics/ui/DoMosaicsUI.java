@@ -104,9 +104,9 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
 	
 	
 	/**
-     * Constructor which creates a new DoMosaicSUI instance. 
+     * Constructor which creates a new DoMosaicsUI instance. 
      * This is a protected constructor to support the singleton pattern. 
-     * To get an instance of DoMosaicSUI, use the static {@link #getInstance()}
+     * To get an instance of DoMosaicsUI, use the static {@link #getInstance()}
      * method. 
      */
     protected DoMosaicsUI() {

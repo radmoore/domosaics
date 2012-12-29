@@ -22,6 +22,8 @@ import domosaics.util.CheckConnectivity;
 
 
 
+
+
 public class Pfam2GOreader {
 
 	private static Pfam2GOreader instance;

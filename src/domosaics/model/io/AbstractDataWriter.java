@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import domosaics.model.DomosaicsData;
+import domosaics.model.DoMosaicsData;
 import domosaics.model.configuration.Configuration;
 
 
@@ -19,13 +19,13 @@ import domosaics.model.configuration.Configuration;
  * for the actual writing.
  * <p>
  * Because the type of data which has to be written into a file 
- * is generic the requested type must implement the empty {@link DomosaicsData} 
+ * is generic the requested type must implement the empty {@link DoMosaicsData} 
  * interface.
  * 
  * @author Andreas Held
  *
  */
-public abstract class AbstractDataWriter<T extends DomosaicsData> implements DataWriter<T> {
+public abstract class AbstractDataWriter<T extends DoMosaicsData> implements DataWriter<T> {
 
 	/**
 	 * See interface {@link DataWriter}.

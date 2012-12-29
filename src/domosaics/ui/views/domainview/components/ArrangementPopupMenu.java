@@ -13,6 +13,9 @@ import domosaics.ui.views.domainview.actions.context.LookupProteinInGoogle;
 import domosaics.ui.views.domainview.actions.context.LookupProteinInUniprotAction;
 import domosaics.ui.views.domainview.actions.context.RADSScanAction;
 import domosaics.ui.views.domainview.actions.context.ShowAllDomainsAction;
+import domosaics.ui.views.view.manager.SelectionManager;
+
+
 
 
 /**
@@ -22,6 +25,7 @@ import domosaics.ui.views.domainview.actions.context.ShowAllDomainsAction;
  * @author Andreas Held
  *
  */
+
 public class ArrangementPopupMenu extends JPopupMenu {
 	private static final long serialVersionUID = 1L;
 	
@@ -35,7 +39,9 @@ public class ArrangementPopupMenu extends JPopupMenu {
 		super("Arrangement Menu");
 
 		// add title
-		String str = "<html><b>Arrangement";
+		SelectionManager<ArrangementComponent> arSel = view.getArrangementSelectionManager();
+		ArrangementComponent ac = arSel.getClickedComp();
+		String str = "<html><b>Arrangement for protein <i>"+ac.getLabel()+"</i></b></html>";
 		JLabel title = new JLabel(str);
 		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setVerticalAlignment(JLabel.CENTER);
@@ -51,8 +57,8 @@ public class ArrangementPopupMenu extends JPopupMenu {
 		add(new ShowAllDomainsAction());
 		add(new JSeparator());
 		add(new RADSScanAction());
-		add(new LookupProteinInGoogle());
-		add(new LookupProteinInUniprotAction());
+		add(new LookupProteinInGoogle(ac.getLabel()));
+		add(new LookupProteinInUniprotAction(ac.getLabel()));
 	}
 	
 }
