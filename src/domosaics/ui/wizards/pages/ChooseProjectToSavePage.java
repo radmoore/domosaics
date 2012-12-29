@@ -51,7 +51,7 @@ public class ChooseProjectToSavePage extends WizardPage {
 		
 		list.setName(PROJECT_KEY);
 		
-		name = new JTextField(25);
+		name = new JTextField(50);
 		name.setName(FILE_NAME);
 		
 		// call has been made from context menu of a project node
@@ -97,8 +97,8 @@ public class ChooseProjectToSavePage extends WizardPage {
     	if (elem == null)
 			return "Please select a project";	
 
-		if (name.getText().length() > 25)
-			return "Name must not exceed 25 characters";
+		if (name.getText().length() > 50)
+			return "Name must not exceed 50 characters";
     		
     	if (name.getText().trim().equals("Default Project"))
     		return "Please choose a different name for export";

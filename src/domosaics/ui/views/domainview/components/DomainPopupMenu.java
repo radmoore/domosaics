@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 
+import domosaics.model.arrangement.DomainType;
 import domosaics.ui.views.domaintreeview.DomainTreeView;
 import domosaics.ui.views.domaintreeview.actions.TraceDomainAction;
 import domosaics.ui.views.domainview.DomainViewI;
@@ -66,7 +67,10 @@ public class DomainPopupMenu extends JPopupMenu {
 		add(new SearchOrthologousAction());
 		add(new JSeparator());
 		add(new LookupDomainInGoogle(dc.getLabel()));
-		add(new LookupDomainInSourceDBAction(dc.getLabel(),dc.getDomain().getFamily().getDomainType().getName()));
+		DomainType dt=DomainType.getType(dc.getDomain().getID());
+		if(dt.getUrl("")!=null && !dt.getUrl("").isEmpty()) {
+			add(new LookupDomainInSourceDBAction(dc.getLabel(),dc.getDomain().getFamily().getDomainType().getName()));
+		}
 		add(new LookupDomainInUniprot(dc.getLabel()));
 		//add(new JSeparator());
 		//add(new ConfirmPutativeDomain());

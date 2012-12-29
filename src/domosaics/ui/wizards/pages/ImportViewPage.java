@@ -139,8 +139,8 @@ public class ImportViewPage extends WizardPage {
 		if (newName.equals(""))
 			return "Please choose a name for view";
 		
-		if (newName.length() > 25)
-			return "View name should not exceed 25 characters";
+		if (newName.length() > 50)
+			return "View name should not exceed 50 characters";
 		
 		// ensure that project is selected
 		if (selectProject.getSelectedItem() == null)

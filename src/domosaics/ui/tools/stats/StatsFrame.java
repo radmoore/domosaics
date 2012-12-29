@@ -16,7 +16,7 @@ import domosaics.ui.tools.stats.actions.SaveStatsToCSVAction;
 
 
 /**
- * Frame for the stats module in DoMosaics.
+ * Frame for the stats module in DoMosaicS
  * @author Andreas Held
  *
  */

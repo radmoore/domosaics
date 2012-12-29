@@ -21,7 +21,7 @@ import domosaics.ui.util.DoMosaicsSlider;
  * DotplotView can be registered as listener to the dotplot, so it will
  * be informed, when recalculations occurred.
  * <p>
- * The Dotplot itsel can be registered to DoMosaicSSliders as ChangeListener
+ * The Dotplot itsel can be registered to DoMosaicsSliders as ChangeListener
  * to be up to date if the user manipulates a slider.
  * A computation is started by triggering the compute() method and the data
  * can be retrieved by using getDotMatrix().
@@ -202,7 +202,7 @@ public class Dotplot implements ChangeListener {
 	}
 	
 	/** 
-	 * The Dotplot can be registered to DoMosaicSSliders as Listeners and
+	 * The Dotplot can be registered to DoMosaicsSliders as Listeners and
 	 * therefore this method is triggered, if the state of the slider changes.
 	 * E.G. because the user changed a threshold. A recomputation is triggered.
 	 */

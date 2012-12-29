@@ -18,16 +18,18 @@ public class Hmmer3Frame extends JFrame{
 	private static Hmmer3Frame instance = null;
 		
 	// panel which holds the components 
+	protected HmmScanPanel hmmScanPanel; 
 	protected JPanel content;
 		
 	/**
 	 * Constructor for a new Hmmer3Frame
 	**/	
 	public Hmmer3Frame() {
-		super("Run local hmmscan");
+		super("Local HMMER job");
 		instance = this;
 		content = new JPanel(new BorderLayout());
-		content.add(new HmmScanPanel(this), BorderLayout.CENTER);
+		hmmScanPanel = new HmmScanPanel(this); 
+		content.add(hmmScanPanel, BorderLayout.CENTER);
 		getContentPane().add(content);
 		setSize(500, 500);
 		pack();
@@ -46,5 +48,9 @@ public class Hmmer3Frame extends JFrame{
 		return instance;
 	}
 	
+	// weak singleton
+	public HmmScanPanel getHmmScanPanel() {
+		return hmmScanPanel;
+	}
 	
 }

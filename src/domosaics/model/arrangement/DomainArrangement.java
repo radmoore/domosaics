@@ -1,4 +1,4 @@
-package angstd.model.arrangement;
+package domosaics.model.arrangement;
 
 import java.util.Collections;
 import java.util.HashMap;
