@@ -17,18 +17,19 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
-<<<<<<< HEAD
-import domosaics.model.arrangement.io.HmmOutReader;
-import domosaics.model.arrangement.io.XdomReader;
-=======
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.io.ArrangementImporterUtil;
->>>>>>> b9838d631e8aea8e51b42b33ef69e622d900cc1a
 import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.FileDialogs;
+<<<<<<< HEAD:src/domosaics/ui/wizards/importdata/SelectArrangementDataPage.java
 import domosaics.ui.util.MessageUtil;
+=======
+>>>>>>> 8e5aa41caa146293d4053acf24b45a5f44db4c72:src/domosaics/ui/wizards/importdata/SelectArrangementDataPage.java
 import domosaics.ui.wizards.GUIComponentFactory;
+
+
+
 
 /**
  * WizardPage allowing to choose a file which is used to create a domain view.
@@ -130,22 +131,12 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	public void actionPerformed(ActionEvent e) {	
 		File file = FileDialogs.showOpenDialog(this);
 		if(file != null) {
-<<<<<<< HEAD
-			if (new XdomReader().checkFormat(file) || HmmOutReader.checkFileFormat(file)) {
-				path.setText(file.getAbsolutePath());
-				viewName.setText(file.getName().split("\\.")[0]);				
-			}else
-			{
-				MessageUtil.showWarning("Can't determine the file format! Accepted: xdom or hmmscan tabular output.");
-			}
-=======
 			File test = new File(file.getAbsolutePath());
 			daSet = ArrangementImporterUtil.importData(test);
 		}
-		if(daSet == null) {
+		if(daSet != null) {
 			path.setText(file.getAbsolutePath());
 			viewName.setText(file.getName().split("\\.")[0]);
->>>>>>> b9838d631e8aea8e51b42b33ef69e622d900cc1a
 		}
 	}	
 	

@@ -13,10 +13,6 @@ import domosaics.model.configuration.ConfigurationWriter;
 import domosaics.ui.util.MessageUtil;
 
 
-
-
-
-
 /**
  * Welcome to the main class of DoMosaicS. All initialization is delegated 
  * to the {@link ApplicationHandler}. So no fun here.

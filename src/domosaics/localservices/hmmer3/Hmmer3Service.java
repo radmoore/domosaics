@@ -1,8 +1,10 @@
 package domosaics.localservices.hmmer3;
 
+import java.awt.Cursor;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,8 +18,6 @@ import domosaics.model.configuration.Configuration;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
-
-
 
 
 /**
@@ -176,22 +176,17 @@ public class Hmmer3Service implements ProcessListener{
 		
 		if (type.equals(StreamHandler.ERROR)) {
 			// TODO modify a file (like Pfam-A.hmm) to make HMMSCAN crash under WINDOWS and see if "error" is written!
-			if(out.contains("error"))
-				error=true;
-			if(error)
-			{
-				System.out.println("*** E: "+out);
+			if (out.contains("Error") || out.contains("error"))
+				error = true;
+			
+			if (error) {
+				//System.out.println("*** E: "+out);
 				//hmmPanel.writeToConsole("*** E: occurred while running Hmmer3Service: ");
 				hmmPanel.writeToConsole("*** E: "+ out);
 				hmmPanel.writeToConsole("\n");
 				executor.stop();
-			}else
-			{
-				System.out.println("*** W: "+out);
-				/*hmmPanel.writeToConsole("*** W: "+ out);
-				hmmPanel.writeToConsole("\n");*/
 			}
-			return;
+
 		}
 		try {
 			logFileWriter.write(out+"\n");
@@ -201,6 +196,9 @@ public class Hmmer3Service implements ProcessListener{
 			System.out.println("*** E: Problem handling output.");
 			e.printStackTrace();
 		}
+		
+		if (error)
+			return;
 			
 	}
 
@@ -224,7 +222,7 @@ public class Hmmer3Service implements ProcessListener{
 			hmmerProgram.parseResults();
 		}
 		else {
-			MessageUtil.showWarning(hmmPanel, hmmerProgram.getName()+" was killed or died unexpectedly.");
+			MessageUtil.showWarning(hmmPanel, hmmerProgram.getName()+" was canceled or died unexpectedly.");
 			hmmPanel.resetPanel();
 			System.out.println(hmmerProgram.getName() + " was closed or died unexpectedly.");
 		}

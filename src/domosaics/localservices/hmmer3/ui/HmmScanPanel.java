@@ -54,13 +54,11 @@ import domosaics.ui.wizards.WizardListCellRenderer;
 import domosaics.util.StringUtils;
 
 
-
-
 /**
  * HmmScanPanel holds the GUI components necessary to start local
  * hmmscan jobs. It is of type {@link HmmerServicePanel}.
  * The general setup is closely related to other panels used in
- * AnGSTD.
+ * DoMosaicS.
  * 
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
@@ -478,7 +476,6 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		hmmScan.setBiasFilter(biasCkb.isSelected());
 		hmmScan.setMaxFilter(maxCkb.isSelected());
 		hmmScan.setOverlapMethod(groupRadio.getSelection().getActionCommand());
-		System.out.println(groupRadio.getSelection().getActionCommand());
 		hmmScan.setCoddFilter(coddCkb.isSelected());
 		hmmScan.setSeqView(seqView);
 		
@@ -539,9 +536,11 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 */
 	public void resetPanel() {
 		Configuration.getInstance().setServiceRunning(false);
+		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		run.setText("  Run  ");
 		progressBar.setValue(0);
 		progressBar.setIndeterminate(false);
+		progressBar.setString("");
 		run.setEnabled(true);
 	}
 	
@@ -612,9 +611,10 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				pressAvail = checkBins(new File(hmmPressTF.getText()));
 			
 			// Check if want to/can press
-			if (MessageUtil.showDialog(this, "The HMMERDBFILE is not pressed. Do you want AnGSTD to press it now?")) {					
+			if (MessageUtil.showDialog(this, "The HMMERDBFILE is not pressed. Do you want DoMosaicS to press it now?")) {					
 				if (pressAvail) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+					run.setEnabled(false);
 				
 					// TODO: I would like to disable GUI components here
 					// and enable them _after_ the run is complete.
@@ -627,10 +627,10 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 					return false;
 				}
 				else {
-					if (!hmmPressTF.getText().equals("")) {
+					if (hmmPressTF.getText().equals("")) {
 						MessageUtil.showInformation(this.parent, "Please first provide hmmpress binary");
 					} else {
-						MessageUtil.showInformation(this.parent, "Please first provide correct Hmmpress binary");
+						MessageUtil.showInformation(this.parent, "Please first provide correct hmmpress binary");
 					}
 					hmmPressTF.setBackground(highlightColor);
 					return false; 
@@ -640,6 +640,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				return false;
 			}	
 		}
+		run.setEnabled(true);
 		return true;
 	}
 	
@@ -703,7 +704,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				try {
 					console.setText("");
 					fastaFile = File.createTempFile(selected.getTitle()+"_", ".fasta");
-					writeToConsole("*** I: Writing sequence view to tmpfile... ");
+					writeToConsole("I: Writing sequence view to tmpfile... ");
 					new FastaWriter().wrappedWrite(fastaFile, seqs, 60);
 					writeToConsole("done.\n");
 				}

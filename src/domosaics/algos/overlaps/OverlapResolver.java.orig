@@ -8,9 +8,15 @@ import java.util.Vector;
 
 import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
+<<<<<<< HEAD:src/domosaics/algos/overlaps/OverlapResolver.java
 import domosaics.ui.util.MessageUtil;
+=======
+>>>>>>> 8e5aa41caa146293d4053acf24b45a5f44db4c72:src/domosaics/algos/overlaps/OverlapResolver.java
 import domosaics.ui.views.domainview.components.DomainComponent;
 import domosaics.util.PowerSet;
+
+
+
 
 /**
  * Class initiated by Andreas Held to resolve arrangements with overlaps
@@ -33,24 +39,21 @@ public class OverlapResolver {
 	public static DomainArrangement[] resolveOverlaps(DomainArrangement[] daSet, String method)
 	{
 	 List<Domain> toRemove = new ArrayList<Domain>();
-	 for (DomainArrangement da : daSet) {
-		 if(method.equals("Coverage")) {
-			 //System.out.println(toRemove.size());
-			 toRemove = resolveOverlapsByBestCoverage(da);
-			 //System.out.println(toRemove.size());
-		 }else {
-			 if(method.equals("Evalue"))
-			 {
-				 toRemove = resolveOverlapsByBestEvalue(da);
-			 }else
-			 {
-				 MessageUtil.showInformation(null, "Overlap method does not exist. Contact the developpers");
-			 }
-		 }
-		 for (Domain dom : toRemove)
-		 {
-			 da.hideDomain(dom);
-		 }
+	 for (DomainArrangement da : daSet)
+	 {
+	  if(method.equals("OverlapFilterCoverage"))
+	  {
+	   //System.out.println(toRemove.size());
+	   toRemove = resolveOverlapsByBestCoverage(da);
+	   //System.out.println(toRemove.size());
+	  }else
+	  {
+	   toRemove = resolveOverlapsByBestEvalue(da);
+	  }
+	  for (Domain dom : toRemove)
+	  {
+	   da.hideDomain(dom);
+	  }
 	 }
 	 return daSet;
 	}
@@ -77,30 +80,17 @@ public class OverlapResolver {
 		   break;
 	  }
   	  ordered.add(i, dom);
-	  if(da.getName().contains("PHUM"))
-		  System.out.println("compo "+dom.toString());
 	 }
 	 for(int i=1; i< ordered.size(); i++)
 	 {
 	  Domain currentDom=ordered.get(i);
-<<<<<<< HEAD
-	  if(da.getName().contains("PHUM"))
-		  System.out.println(currentDom.toString());
-	  for(int j=i-1; j >= 0; j--)
-=======
 	  //System.out.println(da.getName()+" "+currentDom.getID()+" "+currentDom.getFrom()+" "+currentDom.getTo());
 	  for(int j=i-1; j>= 0; j--)
->>>>>>> b9838d631e8aea8e51b42b33ef69e622d900cc1a
 	  {
 	   Domain bestDom=ordered.get(j);
 	   if(bestDom.getFrom() <= currentDom.getTo() && currentDom.getFrom() <= bestDom.getTo())
 	   {
-<<<<<<< HEAD
-		if(da.getName().contains("PHUM"))
-			System.out.println("Overlap with "+ordered.toString());
-=======
 		//System.out.println("Inconsistent with "+bestDom.getID()+" "+bestDom.getFrom()+" "+bestDom.getTo());
->>>>>>> b9838d631e8aea8e51b42b33ef69e622d900cc1a
 	    toRemove.add(currentDom);
 	    ordered.remove(i);
 	    i--;
@@ -179,11 +169,12 @@ public class OverlapResolver {
 				if (cluster.intersects(dom)) {
 					cluster.add(dom);
 					added = true;
-					break;
 				}
-
+			
+			if (added)
+				continue;
+			
 			// if domain were not added into a cluster, create a new one
-			if (!added)
 			clusters.add(new DomainCluster(dom));
 		}
 		
