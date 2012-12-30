@@ -406,7 +406,7 @@ public abstract class AbstractView extends JComponent implements View {
 		this.xmlWrite(viewType);
         XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
         try {
-			sortie.output(document, System.out);
+			//sortie.output(document, System.out);
 	        sortie.output(document, new FileOutputStream(file));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
