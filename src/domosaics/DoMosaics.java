@@ -14,12 +14,53 @@ import domosaics.ui.util.MessageUtil;
 
 
 /**
- * Welcome to the main class of DoMosaicS. All initialization is delegated 
- * to the {@link ApplicationHandler}. So no fun here.
+ * Copyright 2012 Evolutionary Bioinformatics Group, IEB, WWU Muenster, Germany
  * 
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  * @author Andreas Held <a.held@uni-muenster.de>
  * @author Nicolas Terrapon <n.terrapon@uni-muenster.de>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+
+ * NOTICE: 
+ * =======================================================================
+ * DoMosaicS
+ * Copyright 2012, Evolutionary Bioinformatics Group, IEB
+ *
+ * This product includes software developed at
+ * The Apache Software Foundation (http://www.apache.org/),
+ * and makes use of the Phylogenetic Analysis Library (PAL), 
+ * Version 1.5 (January 15, 2004) [1].
+ *
+ * Furthermore, this software contains code loosely based on work published
+ * by [2] Griebel T et al., Bioinformatics 24(20): 2399-2400 (2008)
+ * and [3] Clemente JC et al., BMC Bioinformatics  2009, 10:51. 
+ *
+ * [1] Drummond, A., and K. Strimmer
+ * PAL: An object-oriented programming library for molecular evolution and phylogenetics. 
+ * Bioinformatics 17: 662-663, 2001 
+ *
+ * [2] Thasso Griebel, Malte Brinkmeyer, and Sebastian Böcker
+ * EPoS: a modular software framework for phylogenetic analysis 
+ * Bioinformatics 24(20): 2399-2400 2008
+ *
+ * [3] José C Clemente, Kazuho Ikeo, Gabriel Valiente and Takashi Gojobori	
+ * Optimized ancestral state reconstruction using Sankoff parsimony
+ * BMC Bioinformatics, 10:51, 2009
+ * ===============================================================================
+ * 
+ * 
+ * 
  *
  */
 public class DoMosaics {
