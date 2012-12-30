@@ -1011,7 +1011,6 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		Iterator<Element> p = prots.iterator();
 		while(p.hasNext()) {
 			Element protein = p.next();
-			String AAseq = protein.getChild("SEQUENCE").getText();
 			DomainArrangement da = new DomainArrangement();
 			da.setName(protein.getAttributeValue("id"));
 			// Iterate over domains
