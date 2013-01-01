@@ -367,8 +367,8 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * Triggered when the load DB button is pressed.
 	 */
 	private void loadDBAction() {
-		File file = FileDialogs.showOpenDialog(this);
-		if (file == null || !file.canRead())
+		hmmDBFile = FileDialogs.showOpenDialog(this);
+		if (hmmDBFile == null || !hmmDBFile.canRead())
 			return;
 		hmmTF.setText(hmmDBFile.getAbsolutePath());
 	}
