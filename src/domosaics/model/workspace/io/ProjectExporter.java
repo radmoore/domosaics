@@ -22,6 +22,7 @@ public class ProjectExporter {
 	
 	
 	public static boolean write(ProjectElement project) {
+		String viewFail=""; 
         try {
         	// check for the project within the workspace directory, create it if necessary
         	String workspaceDir = Configuration.getInstance().getWorkspaceDir();
@@ -65,6 +66,7 @@ public class ProjectExporter {
         			
         			// if view exists ask if it should be overwritten
         			File viewFile = new File(catDir+"/"+viewElt.getTitle());
+        			viewFail=viewElt.getTitle();
 //            		if (viewFile.exists()) 
 //                    	if (!MessageUtil.showDialog("View "+viewElt.getTitle()+" already exists. Overwrite it?"))
 //                    		continue;
@@ -77,6 +79,7 @@ public class ProjectExporter {
         } 
         catch (Exception e) {
 			e.printStackTrace();
+        	Configuration.getLogger().debug("Fail to export view: "+viewFail);
         	Configuration.getLogger().debug(e.toString());
         	return false;
         }
@@ -90,10 +93,14 @@ public class ProjectExporter {
         	String fileDir = file.getPath();
         	
         	//String projectDir = fileDir+"/"+project.getTitle();
-        	String projectDir = fileDir+"/"+exportName;
-        	if (!new File(projectDir).exists()) {
-        		new File(projectDir).mkdir();
+        	String projectDirName = fileDir+"/"+exportName;
+        	File projectDir = new File(projectDirName);
+        	if (!projectDir.exists()) {
+        		projectDir.mkdir();
         	}
+
+			// create digest of project name to avoid empty file
+        	DigestUtil.createAndAddDigest(project.getTitle(), projectDir, PROJECTFILE);
         	
         	// export all categories and the views within
         	for (WorkspaceElement child : project.getChildren()) {
@@ -110,7 +117,7 @@ public class ProjectExporter {
         			ViewElement viewElt = (ViewElement) cat.getChildAt(i);
         			
         			// if view exists ask if it should be overwritten
-        			System.out.println(catDir+"/"+viewElt.getTitle());
+        			//System.out.println(catDir+"/"+viewElt.getTitle());
         			File viewFile = new File(catDir+"/"+viewElt.getTitle());
             		if (viewFile.exists()) 
                     	if (!MessageUtil.showDialog("View "+viewElt.getTitle()+" already exists. Overwrite it?"))

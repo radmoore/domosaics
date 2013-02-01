@@ -93,7 +93,7 @@ class ViewImportProgress implements WizardResultProducer{
 			String viewFilePath = (String) m.get(ImportViewPage.FILEPATH_KEY);
 			String viewName = (String) m.get(ImportViewPage.VIEWNAME_KEY);
 
-			System.out.println("Importing viewtype: "+viewType);
+			//System.out.println("Importing viewtype: "+viewType);
 			
 			ProjectElement project = WorkspaceManager.getInstance().getProject(projectName);
 			File viewFile = new File(viewFilePath);
@@ -119,7 +119,7 @@ class ViewImportProgress implements WizardResultProducer{
 				ViewHandler.getInstance().addView(treeView, project, false);
 			}
 				
-			else if ( viewType.equals("DOMAINTREE") ) {
+			else if ( viewType.equals("DOMAIN_TREE") ) {
 				DomainTreeView domTreeView = ViewHandler.getInstance().createView(ViewType.DOMAINTREE, viewName);
 				domTreeView.importXML(viewFile);
 				ViewHandler.getInstance().addView(domTreeView, project, false);

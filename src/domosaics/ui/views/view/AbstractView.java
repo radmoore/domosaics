@@ -444,15 +444,15 @@ public abstract class AbstractView extends JComponent implements View {
 			//Initialize a new element to the root of the document.
 			Element r = doc.getRootElement();
 
-			if(!r.getName().equals("DOMAICS_VIEW"))
-				if (!MessageUtil.showDialog( viewFile.getName()+" does not appear to be a DoMosaic file. Continue?"))
+			if(!r.getName().equals("DOMOSAICS_VIEW"))
+				if (!MessageUtil.showDialog( viewFile.getName()+" does not appear to be a DoMosaicS file. Continue?"))
 					return null;
 
 			String viewType = r.getChildren("VIEW").get(0).getAttributeValue("type");
 			if (viewType.equals("SEQUENCES"))
 				return  ViewType.SEQUENCE;
 
-			if (viewType.equals("DOMAINTREE"))
+			if (viewType.equals("DOMAIN_TREE"))
 				return  ViewType.DOMAINTREE;
 
 			if (viewType.equals("TREE"))
