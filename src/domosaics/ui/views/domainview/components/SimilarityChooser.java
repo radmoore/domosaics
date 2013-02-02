@@ -28,9 +28,13 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JSlider;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.metal.MetalSliderUI;
 
 import domosaics.algos.distance.DistanceMeasureType;
@@ -43,6 +47,7 @@ import domosaics.model.workspace.ViewElement;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
+import domosaics.ui.util.MyMetalSliderUI;
 import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.manager.DomainSimilarityManager;
@@ -181,8 +186,22 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		slider = new JSlider(0, 100, 0);
 		slider.setLabelTable(labelTable);
 		slider.setPaintLabels(true); 
-		slider.setUI(new MySliderUI(slider));
-		slider.addChangeListener(this);
+
+		//Correction for MAC OS
+	    LookAndFeel save = UIManager.getLookAndFeel();
+	    LookAndFeel laf = new MetalLookAndFeel();
+	    try {
+			UIManager.setLookAndFeel(laf);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		slider.setUI(new MyMetalSliderUI(slider));
+	    try {
+			UIManager.setLookAndFeel(save);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+	    slider.addChangeListener(this);
 		
 		sliderBox.setBorder(BorderFactory.createTitledBorder(
 				new LineBorder(Color.black, 1, true),
@@ -214,7 +233,21 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		slider = new JSlider(0, max, max);
 		slider.setLabelTable(labelTable);
 		slider.setPaintLabels(true); 
-		slider.setUI(new MySliderUI(slider));
+		
+		//Correction for MAC OS
+	    LookAndFeel save = UIManager.getLookAndFeel();
+	    LookAndFeel laf = new MetalLookAndFeel();
+	    try {
+			UIManager.setLookAndFeel(laf);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		slider.setUI(new MyMetalSliderUI(slider));
+	    try {
+			UIManager.setLookAndFeel(save);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
 		slider.addChangeListener(this);
 		
 		sliderBox.setBorder(BorderFactory.createTitledBorder(
@@ -370,57 +403,5 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		if(e.getSource() == jbtExport) 
 			export();
 	}
-
-	/**
-	 * Give the slider a nice look and show the current threshold as popup.
-	 * 
-	 * @author Andreas Held
-	 *
-	 */
-	private class MySliderUI extends MetalSliderUI implements MouseMotionListener, MouseListener {
-    	final JPopupMenu pop = new JPopupMenu();
-    	JMenuItem item = new JMenuItem();
-   
-    	public MySliderUI ( JSlider slider ) {
-    		super();
-    		slider.addMouseMotionListener( this );
-    		slider.addMouseListener( this );
-    		pop.add( item );
-    		pop.setDoubleBuffered( true );
-    	}
-   
-    	public void showToolTip ( MouseEvent me ) {      
-    		item.setText(""+slider.getValue());
-        
-    		//limit the tooltip location relative to the slider
-    		Rectangle b = me.getComponent().getBounds();
-    		int x = me.getX();  
-    		x = (x < b.x) ? b.x : (x > b.width) ? b.width : x;
-
-        	pop.show( me.getComponent(), x - 5, -30 );
-        	item.setArmed( false );
-    	}
-   
-    	public void mouseDragged ( MouseEvent me ) {
-    		showToolTip( me );
-    	}
-    	
-      	public void mousePressed ( MouseEvent me ) {
-    		showToolTip( me );
-    	}
-    	
-    	public void mouseReleased ( MouseEvent me ) {
-    		pop.setVisible( false );
-    	}
-   
-    	public void mouseMoved ( MouseEvent me ) {}
-
-    	public void mouseClicked ( MouseEvent me ) {}
-   
-    	public void mouseEntered ( MouseEvent me ) {}
-   
-    	public void mouseExited ( MouseEvent me ) {}
-    }
-
 	
 }

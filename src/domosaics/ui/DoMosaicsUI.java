@@ -110,7 +110,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
      * method. 
      */
     protected DoMosaicsUI() {
-		super("DoMoasics");
+		super("DoMosaicS");
 		 
 		// add the docking desktop (the workspace is created in here)
 		desktop = new DoMosaicsDesktop();
@@ -119,7 +119,8 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
 		// set frame attributes (e.g. fullscreen)
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(screenSize.width, screenSize.height);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//Next line create a bug under MAC OS
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setResizable(true);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //.EXIT_ON_CLOSE);
 		addWindowListener(this);

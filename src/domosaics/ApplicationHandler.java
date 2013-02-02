@@ -254,7 +254,7 @@ public class ApplicationHandler {
 		//Reading the gathering thresholds
 		startUpProgress.setProgress("Reading data files", 70);
 		GatheringThresholdsReader.read();
-		Pfam2GOreader.readFile();
+		Pfam2GOreader.readGOFile();
 		
 		
 		// END of workaround

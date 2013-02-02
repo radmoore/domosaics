@@ -24,10 +24,14 @@ import javax.swing.JPopupMenu;
 import javax.swing.JProgressBar;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.metal.MetalSliderUI;
 
 import net.miginfocom.swing.MigLayout;
@@ -40,6 +44,7 @@ import domosaics.algos.indels.Dollo4Sets;
 import domosaics.algos.indels.Sankoff;
 import domosaics.algos.indels.Sankoff4Sets;
 import domosaics.ui.util.MessageUtil;
+import domosaics.ui.util.MyMetalSliderUI;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 import domosaics.ui.views.domaintreeview.manager.DomainTreeLayoutManager.DomainTreeAction;
 
@@ -110,15 +115,31 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 		inSlider.setToolTipText("insertion cost");
 		inSlider.setLabelTable(labelTable);
 		inSlider.setPaintLabels(true); 
-		inSlider.setUI(new MySliderUI(inSlider));
-		inSlider.addChangeListener(this);
+
+		//Correction for MAC OS
+	    LookAndFeel save = UIManager.getLookAndFeel();
+	    LookAndFeel laf = new MetalLookAndFeel();
+	    try {
+			UIManager.setLookAndFeel(laf);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+	    inSlider.setUI(new MyMetalSliderUI(inSlider));
+	    inSlider.addChangeListener(this);
 		
 		delSlider = new JSlider(1, 10, oldDelThres);
 		delSlider.setName("delCost");
 		delSlider.setToolTipText("deletion cost");
 		delSlider.setLabelTable(labelTable);
 		delSlider.setPaintLabels(true); 
-		delSlider.setUI(new MySliderUI(delSlider));
+
+		//Correction for MAC OS
+		delSlider.setUI(new MyMetalSliderUI(delSlider));
+		try {
+			UIManager.setLookAndFeel(save);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
 		delSlider.addChangeListener(this);	
 		
 		progress = new JProgressBar(0, 100);
@@ -374,56 +395,5 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 		((Sankoff4Sets) algo).setParams(view.getDomTree(), inSlider.getValue(), delSlider.getValue());
 		algo.execute();
 	}
-
-	/**
-	 * Give the slider a nice look and show the current threshold as popup.
-	 * 
-	 * @author Andreas Held
-	 *
-	 */
-	private class MySliderUI extends MetalSliderUI implements MouseMotionListener, MouseListener {
-    	final JPopupMenu pop = new JPopupMenu();
-    	JMenuItem item = new JMenuItem();
-   
-    	public MySliderUI ( JSlider slider ) {
-    		super();
-    		slider.addMouseMotionListener( this );
-    		slider.addMouseListener( this );
-    		pop.add( item );
-    		pop.setDoubleBuffered( true );
-    	}
-   
-    	public void showToolTip ( MouseEvent me ) {      
-    		item.setText(""+slider.getValue());
-        
-    		//limit the tooltip location relative to the slider
-    		Rectangle b = me.getComponent().getBounds();
-    		int x = me.getX();  
-    		x = (x < b.x) ? b.x : (x > b.width) ? b.width : x;
-
-        	pop.show( me.getComponent(), x - 5, -30 );
-        	item.setArmed( false );
-    	}
-   
-    	public void mouseDragged ( MouseEvent me ) {
-    		showToolTip( me );
-    	}
-    	
-      	public void mousePressed ( MouseEvent me ) {
-    		showToolTip( me );
-    	}
-    	
-    	public void mouseReleased ( MouseEvent me ) {
-    		pop.setVisible( false );
-    	}
-   
-    	public void mouseMoved ( MouseEvent me ) {}
-
-    	public void mouseClicked ( MouseEvent me ) {}
-   
-    	public void mouseEntered ( MouseEvent me ) {}
-   
-    	public void mouseExited ( MouseEvent me ) {}
-    }
 
 }
