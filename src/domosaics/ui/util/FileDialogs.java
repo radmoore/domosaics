@@ -47,7 +47,7 @@ public class FileDialogs {
 		if (!lastLocation.isEmpty())
 			f = new JFileChooser(lastLocation);
 		else
-			f = new JFileChooser(Configuration.getInstance().getDefaultLocation());
+			f = new JFileChooser(Configuration.getInstance().getWorkspaceDir());
 		
 		// wait for the chooser to be approved and set the file as well as the last location.
 		if (f.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
@@ -79,7 +79,7 @@ public class FileDialogs {
 		if (!lastLocation.isEmpty())
 			f = new JFileChooser(lastLocation);
 		else
-			f = new JFileChooser(Configuration.getInstance().getDefaultLocation());
+			f = new JFileChooser(Configuration.getInstance().getWorkspaceDir());
 		
 		FileFilter filter = new DoMosaicsFileFilter(extension);
 		f.setFileFilter(filter);
@@ -107,7 +107,7 @@ public class FileDialogs {
 		final JFileChooser fc;
 	
 		// start the file chooser depending on the last used location
-		fc = new JFileChooser(Configuration.getInstance().getDefaultLocation());
+		fc = new JFileChooser(Configuration.getInstance().getWorkspaceDir());
 		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		fc.setMultiSelectionEnabled(false);
 		

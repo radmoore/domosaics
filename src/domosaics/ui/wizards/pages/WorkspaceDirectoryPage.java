@@ -73,6 +73,7 @@ public class WorkspaceDirectoryPage extends WizardPage implements ActionListener
 		if(file == null)
 			return;
 		
-		fileField.setText(file.getAbsolutePath());
+		fileField.setText(file.getAbsolutePath()+"/domosaics-workspace");
+		fileField.setEditable(false);
 	}
 }

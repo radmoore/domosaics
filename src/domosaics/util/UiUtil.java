@@ -49,6 +49,14 @@ public class UiUtil {
 		return email;
 	}
 
+	/**
+	 * Checks whether or not the email address is valid.
+	 * 
+	 * @param
+	 * 		the address entered in the email text field
+	 * @return
+	 * 		whether or not the address is valid
+	 */
 	public static boolean isValidEmail (String address) {
 		if (address.contains(" "))			// white spaces
 			return false;
