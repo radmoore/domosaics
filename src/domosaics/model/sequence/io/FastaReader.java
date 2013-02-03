@@ -127,6 +127,7 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 					// guess the format
 					type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
 					if (type == SeqUtil.UNKNOWN) {
+						System.out.println(seqBuf.toString());
 						MessageUtil.showWarning("Can't determine the sequence format.");
 						return null;
 					}

@@ -63,7 +63,7 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	}
 
 	public SelectArrangementDataPage(ProjectElement project) {
-		super("Select Arrangements for "+ project.getShortTitle(5));
+		super("Select Arrangements file");
 		this.project = project;
 		init();
 	}
