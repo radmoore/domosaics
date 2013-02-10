@@ -21,7 +21,7 @@ import domosaics.ui.tools.configuration.ConfigurationFrame;
 public class Configuration {
 	
 	public static final String CONFIGFILE = "config";
-	public static final String DEF_FILE_LOCATION = System.getProperty("user.home");
+	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
 	//public static final String DEF_LOG_LOCATION = DEF_FILE_LOCATION+"/domosaics.log";
 	public static final String DEF_GOOGLE_SEARCH = "http://www.google.com/search?q=XXX";
 	//public static final String DEF_NCBI_SEARCH = "http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&cmd=search&term=XXX";
@@ -42,7 +42,7 @@ public class Configuration {
 	private static boolean debugState = false;
 	
 
-	protected String defaultFileLocation;
+	//protected String defaultFileLocation;
 
 	protected String googleUrl;
 	//protected String ncbiUrl; 
@@ -56,9 +56,9 @@ public class Configuration {
 	
 	protected static Configuration instance;
 	protected static ConfigurationFrame frame;
-	protected String workspace_dir; // this is null and seems to cause an exception, see below
+	protected String workspace_dir;
 	
-	protected boolean visible = false;
+	//protected boolean visible = false;
 	protected static boolean nameRatherThanAcc = false;
 	
 	
@@ -86,7 +86,7 @@ public class Configuration {
 	public static boolean isDebug() {
 		return debugState;
 	}
-	
+	/*
 	public boolean isVisible() {
 		return visible;
 	}
@@ -94,9 +94,9 @@ public class Configuration {
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
-	
+	*/
 	public void restoreDefaults() {
-		defaultFileLocation = DEF_FILE_LOCATION;
+		workspace_dir = DEF_HOMEFOLDER_LOCATION;
 		googleUrl = DEF_GOOGLE_SEARCH;
 		//ncbiUrl = DEF_NCBI_SEARCH; 
 		pfamUrl = DEF_PFAM_SEARCH; 
@@ -128,10 +128,12 @@ public class Configuration {
 		return frame;
 	}
 	
-	public File getConfigFile() {
+	/* Now attribute of ApplicationHandler
+	 * 
+	  public File getConfigFile() {
 		return new File(workspace_dir+"/"+CONFIGFILE);
 	}
-	
+	*/
 	public void setWorkspaceDir(String workspace_dir) {
 		this.workspace_dir = workspace_dir;
 	}
@@ -169,6 +171,7 @@ public class Configuration {
 		return overwriteProjects;
 	}
 	
+	/*
 	/**
 	 * TODO:
 	 * There are some problems here when in the ebb lab.
@@ -177,13 +180,13 @@ public class Configuration {
 	 * The workdir folder ends up being >null< and cant be found,
 	 * which leads to an IO exception when the ConfigurationWriter
 	 * is called. (ADM)
-	**/
-	public void setDefaultLocation(String location) {
-		if (!defaultFileLocation.equals(location))
-			ConfigurationWriter.write(getConfigFile());
+	*
+	*public void setDefaultLocation(String location) {
+		//if (!defaultFileLocation.equals(location))
+		//	ConfigurationWriter.write(getConfigFile());
 		this.defaultFileLocation = location;
 		
-	}
+	}*/
 
 	public void setLockFile() {
 		ConfigurationWriter.setLockFile();
@@ -202,9 +205,10 @@ public class Configuration {
 		Configuration.getInstance().getLockFile().delete();
 	}
 	
+	/*
 	public String getDefaultLocation() {
 		return defaultFileLocation;
-	}
+	}*/
 	
 	public void setGoogleUrl(String newUrl) {
 		googleUrl = newUrl;

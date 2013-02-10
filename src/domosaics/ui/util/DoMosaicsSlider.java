@@ -11,7 +11,13 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JSlider;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.metal.MetalSliderUI;
+
+//import domosaics.ui.views.domainview.components.SimilarityChooser.MySliderUI;
 
 /**
  * Slider style within DoMosaics
@@ -47,8 +53,20 @@ public class DoMosaicsSlider extends JSlider{
 		setBackground(Color.WHITE);
 		setForeground(Color.BLACK);
 		
-		MySliderUI ms = new MySliderUI(this);
-		setUI(ms);
+		//Correction for MAC OS
+	    LookAndFeel save = UIManager.getLookAndFeel();
+	    LookAndFeel laf = new MetalLookAndFeel();
+	    try {
+			UIManager.setLookAndFeel(laf);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		this.setUI(new MyMetalSliderUI(this));
+	    try {
+			UIManager.setLookAndFeel(save);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -56,51 +74,4 @@ public class DoMosaicsSlider extends JSlider{
 		return name;
 	}
 	
-    private class MySliderUI extends MetalSliderUI implements MouseMotionListener, MouseListener {
-    	final JPopupMenu pop = new JPopupMenu();
-    	JMenuItem item = new JMenuItem();
-   
-    	public MySliderUI ( JSlider slider ) {
-    		super();
-    		slider.addMouseMotionListener( this );
-    		slider.addMouseListener( this );
-    		pop.add( item );
-    		pop.setDoubleBuffered( true );
-    	}
-   
-    	public void showToolTip ( MouseEvent me ) {      
-    		item.setText(""+slider.getValue());
-        
-    		//limit the tooltip location relative to the slider
-    		Rectangle b = me.getComponent().getBounds();
-    		int x = me.getX();  
-    		x = (x < b.x) ? b.x : (x > b.width) ? b.width : x;
-
-        	pop.show( me.getComponent(), x - 5, -30 );
-        	item.setArmed( false );
-    	}
-   
-    	public void mouseDragged ( MouseEvent me ) {
-    		showToolTip( me );
-    	}
-    	
-      	public void mousePressed ( MouseEvent me ) {
-    		showToolTip( me );
-    	}
-    	
-    	public void mouseReleased ( MouseEvent me ) {
-    		pop.setVisible( false );
-    	}
-   
-    	public void mouseMoved ( MouseEvent me ) {}
-
-    	public void mouseClicked ( MouseEvent me ) {}
-   
-    	public void mouseEntered ( MouseEvent me ) {}
-   
-    	public void mouseExited ( MouseEvent me ) {}
-    }
-    
-    
-
 }

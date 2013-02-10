@@ -1,5 +1,6 @@
 package domosaics;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Enumeration;
@@ -130,7 +131,7 @@ public class DoMosaics {
 					if (Configuration.getInstance().hasLockfile()) {
 						// TODO Save the the views: i) all and the user will remove the fucking one ii) only the working ones
 						// Save the configuration
-						ConfigurationWriter.write(Configuration.getInstance().getConfigFile());						
+						ConfigurationWriter.write();						
 						Configuration.getInstance().getLockFile().delete();
 					}
 					System.exit(1);

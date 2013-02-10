@@ -32,6 +32,7 @@ import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.io.LastUsedWorkspaceImporter;
 import domosaics.model.workspace.io.LastUsedWorkspaceWriter;
 import domosaics.model.workspace.io.ProjectExporter;
+import domosaics.model.workspace.io.ProjectImporter;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
@@ -54,10 +55,12 @@ import domosaics.ui.wizards.WizardManager;
  */
 public class ApplicationHandler {
 
-	protected String workspace_dir = System.getProperty("user.home")+"/domosaics-workspace";
+	//protected String workspace_dir = System.getProperty("user.home")+"/domosaics-workspace";
 	protected static ApplicationHandler instance;
 	
 	protected StartupPage startUpProgress;
+	
+	public File configFile = new File("../"+Configuration.CONFIGFILE);
 	
 	
 	public static ApplicationHandler getInstance() {
@@ -90,8 +93,8 @@ public class ApplicationHandler {
 			if (!(Configuration.getInstance().saveOnExit())) {
 				Object[] options = {"Yes", "No", "Cancel"};
 				choice = MessageUtil.show3ChoiceDialog("Restore workspace in next session?", options);
+				Configuration.getInstance().setSaveOnExit((boolean)(choice==0));
 			}
-			
 			
 			// save workspace
 			if (choice == 0){
@@ -118,7 +121,7 @@ public class ApplicationHandler {
 		}
 
 		// Save Configuration
-		ConfigurationWriter.write(Configuration.getInstance().getConfigFile());
+		ConfigurationWriter.write();
 		
 		// remove lockfile
 		Configuration.getInstance().removeLockFile();
@@ -173,12 +176,13 @@ public class ApplicationHandler {
         			(!overwriteAll) && 
         			(!Configuration.getInstance().getOverwriteProjects())) {
         		
-				Object[] options = {"Yes", "No", "Overwrite all", "Cancel"};
+				Object[] options = {"Yes", "No", "Always overwrite", "Cancel"};
 				int choice = 0; 
 				
 				// ask if we are to overwrite...
 				choice = MessageUtil.show3ChoiceDialog("Project "+project.getTitle()+" exists in workspace. Do you want to overwrite?", options);
-        		
+    			Configuration.getInstance().setOverwriteProjects((boolean)(choice==2));
+    			
         		//... if not, 
         		if (choice == 1) {
         			// get new name for project
@@ -192,7 +196,7 @@ public class ApplicationHandler {
         		// otherwise dont ask again (always overwrite)
         		else if(choice == 2) {
         			overwriteAll = true;
-        		}
+            	}
         		else if (choice == 3) {
         			return false;
         		}
@@ -220,14 +224,6 @@ public class ApplicationHandler {
 		startUpProgress.setProgress("Loading DoMosaicS", 5);
 		initPreferences();
 		
-		startUpProgress.setProgress("Initiating workspace", 25);
-		initWorkspaceDir();
-		
-		startUpProgress.setProgress("Checking Java version", 50);
-		initGUI();
-		
-		startUpProgress.setProgress("Checking Java version", 60);
-		
 		/**
 		 * TODO
 		 * This is a hack related to Java Bug 
@@ -239,35 +235,40 @@ public class ApplicationHandler {
 		String jversion = System.getProperty("java.version");
 		String jvendor = System.getProperty("java.vendor");
 		HashMap<String, Boolean> erronousJava = new HashMap<String, Boolean>();
-		erronousJava.put("1.6.0_18", true);
-		erronousJava.put("1.6.0_19", true);
-		erronousJava.put("1.6.0_20", true);
+		erronousJava.put("1.4", true);
+		erronousJava.put("1.5", true);
+		erronousJava.put("1.6", true);
 		erronousJava.put("Sun", true);
-		if (erronousJava.containsKey(jversion)) {
+		if (erronousJava.containsKey(jversion.substring(0,3))) {
 			startUpProgress.dispose();
-			String msg = "Some of DoMosaicS's functionalities will not work correctly\n";
-			msg += "with your version of Java. Please update your \nJava Runtime Environment to 1.6.0_21.";
+			String msg = "DoMosaics' functionalities will not work correctly\n";
+			msg += "with your current version of Java. Please update your\n";
+	    	msg += "Java Runtime Environment to 1.7";
 			msg += "\nJava version: "+ jversion + " \nVendor: "+ jvendor;
 			JOptionPane.showMessageDialog(startUpProgress, msg);
 			//System.exit(-1);
 		}	
 		
+		startUpProgress.setProgress("Initiating workspace", 25);
+		initWorkspaceDir();
+		
+		startUpProgress.setProgress("Checking Java version", 50);
+		initGUI();
+		
+		startUpProgress.setProgress("Checking Java version", 60);
+		
 		//Reading the gathering thresholds
 		startUpProgress.setProgress("Reading data files", 70);
 		GatheringThresholdsReader.read();
-		Pfam2GOreader.readFile();
-		
+		Pfam2GOreader.readGOFile();
 		
 		// END of workaround
 		startUpProgress.setProgress("Restoring projects", 85);
 		initLastWorkspace();
 
-
-		
 		startUpProgress.setProgress("Enjoy... ", 100);
 		startUpProgress.dispose();
 		DoMosaicsUI.getInstance().enableFrame();
-		
 		
 	}
 	
@@ -278,12 +279,22 @@ public class ApplicationHandler {
     	
     	// get the workspace file 
     	File workspaceFile = new File (workspaceDir+"/lastusedworkspace.file");
-    	if (!workspaceFile.exists()) 
-    		return;
-    	
-    	// Import the elements from the workspace file
-    	LastUsedWorkspaceImporter.initWorkspace(workspaceFile);
-//    	ProjectImporter.initWorkspace();
+    	if (!workspaceFile.exists()) { 
+    		//return;
+    		System.out.println(workspaceDir);
+    		File projectDir = new File(workspaceDir);
+    		String[] projectFiles = projectDir.list();
+    		for (String elem : projectFiles) {
+        		System.out.println(elem);
+        		File elemDir = new File(workspaceDir+"/"+elem);
+    			if(elemDir.isDirectory() && !elem.equals("logs"))
+    				ProjectImporter.read(elemDir);
+    		}
+    	} else
+    	{
+    		// Import the elements from the workspace file
+    		LastUsedWorkspaceImporter.initWorkspace(workspaceFile);
+    	}
 	}
 	
 	/**
@@ -299,18 +310,25 @@ public class ApplicationHandler {
 	 * Helper method checking if the DoMosaicS workspace already exists.
 	 */
 	protected void initWorkspaceDir() {
-		File workspace = new File(workspace_dir);
-		// if default directory does not exist choose and create a workspace dir
-		if (!workspace.exists()) {
-			workspace = WizardManager.getInstance().showWorkingDirectoyWizard(startUpProgress, workspace_dir);
-			if (workspace == null) // user aborted wizard
-				System.exit(0);
-			workspace.mkdir();
+
+		File workspace=null;
+		//File configFile = new File(workspace.getAbsolutePath()+"/"+Configuration.CONFIGFILE);
+		if (!configFile.exists())
+		{
+			// if default directory does not exist choose and create a workspace dir
+			while(workspace == null) // user aborted wizard
+				workspace = WizardManager.getInstance().showWorkingDirectoyWizard(startUpProgress, Configuration.DEF_HOMEFOLDER_LOCATION);
+			if(!workspace.exists())
+				workspace.mkdir();
+					
+			Configuration.getInstance().setWorkspaceDir(workspace.getPath());
+		} else {
+			ConfigurationReader.read();
 		}
 		
 		// TODO In next version 
 //		else {
-//			// check if alread in use
+//			// check if already in use
 //			boolean choose = MessageUtil.showDialog("The default workspace is in use. Would you like to choose a new workspace?");
 //			if (choose){
 //				workspace = WizardManager.getInstance().showWorkingDirectoyWizard(startUpProgress, workspace_dir);
@@ -327,13 +345,6 @@ public class ApplicationHandler {
 		startUpProgress.setProgress("", 35);
 //		startUpProgress.setProgress("Configure proclivities", 35);
 		
-		File configFile = new File(workspace.getAbsolutePath()+"/"+Configuration.CONFIGFILE);
-		if (!configFile.exists())
-			ConfigurationWriter.write(configFile);
-		else
-			ConfigurationReader.read(configFile);
-		
-		Configuration.getInstance().setWorkspaceDir(workspace_dir);
 		if (!Configuration.getInstance().workspaceInUse()) { 
 			Configuration.getInstance().setLockFile();
 		}

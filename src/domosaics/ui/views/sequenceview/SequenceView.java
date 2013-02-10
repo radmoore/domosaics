@@ -43,6 +43,7 @@ public class SequenceView extends AbstractView{
 		
 		// set up the scrollPane
 		scrollPane = new JScrollPane(super.getComponent());
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		scrollPane.setFocusable(false);
 	}
 	

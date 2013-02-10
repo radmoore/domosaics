@@ -44,6 +44,7 @@ public class DigestUtil {
 		} 
 		catch (Exception e) {
 			Configuration.getLogger().debug(e.toString());
+			e.printStackTrace();
 		}
 		return false;
 	}

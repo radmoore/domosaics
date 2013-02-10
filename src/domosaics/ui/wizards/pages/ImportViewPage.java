@@ -66,15 +66,22 @@ public class ImportViewPage extends WizardPage {
 		browse = new JButton("Browse");
 		browse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				type=null;
+				typeField.setText("");
 				File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 				if(file != null) {
 					if (file.canRead()) {
 						path.setText(file.getAbsolutePath());
 						name.setText(file.getName());
 						File viewFile = new File(path.getText());
-						type = ViewImporter.detectViewType(viewFile);
+						//type = ViewImporter.detectViewType(viewFile);
 						// Nic import
-						//type = DomainView.detectViewType(viewFile);
+						type = DomainView.detectViewType(viewFile);
+						if(type==null) {
+							MessageUtil.showWarning(file.getName()+ " does not appearto be a DoMosaicS file.");
+							path.setText("");
+							name.setName("");
+						}
 						typeField.setText(type.toString());
 					}
 					else {

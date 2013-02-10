@@ -32,6 +32,7 @@ import domosaics.model.workspace.ViewElement;
 import domosaics.model.workspace.WorkspaceElement;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
+import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
@@ -41,6 +42,7 @@ import domosaics.ui.wizards.WizardListCellRenderer;
 import domosaics.ui.wizards.WizardManager;
 import domosaics.ui.wizards.pages.SelectNamePage;
 import domosaics.util.CheckConnectivity;
+import domosaics.util.UiUtil;
 import domosaics.webservices.interproscan.AnnotationThreadSpawner;
 import domosaics.webservices.interproscan.AnnotatorProcessWriter;
 import domosaics.webservices.interproscan.Method;
@@ -261,17 +263,34 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		console.setText("");
 		
 		if (annotationSpawner.getSeqs() == null) {
-			print("Please load sequences first! \n");
+			MessageUtil.showWarning("Please load sequences first!");
+			//print("Please load sequences first! \n");
 			return;
 		}
 		
-		if (!isValidEmail(email.getText())) {
-			print("Please enter a correct email address! \n");
+		if (!UiUtil.isValidEmail(email.getText())) {
+			MessageUtil.showWarning("Please enter a valid email!");
+			//print("Please enter a correct email address! \n");
 			return;
+		} else {
+			if(Configuration.getInstance().getEmailAddr().equals("")) {
+				Configuration.getInstance().setEmailAddr(email.getText());
+			} else {
+				if(!email.getText().equals(Configuration.getInstance().getEmailAddr()))
+					if(MessageUtil.showDialog(this.getParent(),"A distinct email is saved in settings. Overwrite?"))
+					{
+						Configuration.getInstance().setEmailAddr(email.getText());
+						if(Configuration.getInstance().getFrame()!=null && Configuration.getInstance().getFrame().isVisible()) {
+							Configuration.getInstance().getFrame().dispose();
+							Configuration.getInstance().setFrame(new ConfigurationFrame());
+						}				
+					}
+			}
 		}
 		
 		if (!isNumber(evalue.getText())) {
-			print("Please enter an E value! \n");
+			MessageUtil.showWarning("Please enter an E-value!");
+			//print("Please enter an E value! \n");
 			return;
 		}
 		
@@ -304,31 +323,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * 						CORECTNESS CHECKING						 *
 	 * ************************************************************* */
 
-	/**
-	 * Checks whether or not the email address is valid.
-	 * 
-	 * @param
-	 * 		the address entered in the email text field
-	 * @return
-	 * 		whether or not the address is valid
-	 */
-	private boolean isValidEmail (String adress) {
-		if (adress.contains(" "))			// white spaces
-			return false;
-
-		String[] nameDomain = adress.split("@");
-		if (nameDomain.length != 2 		||	// no or more than one @
-			nameDomain[0].length() == 0	||	// empty name
-			!nameDomain[1].contains(".")||	// no .
-			nameDomain[1].substring(0, nameDomain[1].lastIndexOf(".")).length() < 1 ||
-			nameDomain[1].substring(nameDomain[1].lastIndexOf(".")).length()-1 < 2
-		   )								// x.xx
-			return false;
-		
-		return true;
-	}
-	
-	private boolean isNumber(String word) {
+		private boolean isNumber(String word) {
 		try {
 			Double.parseDouble(word);
 			return true;
@@ -483,13 +478,13 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	
 	private void initEmailText() {
 		String email_text = (config.getEmailAddr().isEmpty()) ? DEFAULT_EMAIL : config.getEmailAddr() ;
-		email = new JTextField(email_text);
-		if (isValidEmail(email_text)) {
+		email = UiUtil.createEmailField(email_text);
+		/*if (UiUtil.isValidEmail(email_text)) {
 			// colorize green, if email is valid
 			email.setForeground(new Color(60, 120, 30));
-		} else				
+		} else	{			
 			email.setForeground(new Color(210, 60, 60));
-		
+		}
 		email.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent arg0) {
 				email.setForeground(getCorrectColor(email.getText()));
@@ -508,7 +503,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 					return new Color(60, 120, 30);
 				return new Color(210, 60, 60);
 			}
-		}); 
+		})*/; 
 	}
 	
 	private void initEvalText() {

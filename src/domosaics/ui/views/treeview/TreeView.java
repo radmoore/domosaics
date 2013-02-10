@@ -148,6 +148,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 		
 		// set up the scrollPane
 		scrollPane = new JScrollPane(super.getComponent());
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		scrollPane.setFocusable(false);
 	}
 	

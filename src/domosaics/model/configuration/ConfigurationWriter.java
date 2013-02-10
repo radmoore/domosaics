@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import domosaics.ApplicationHandler;
 import domosaics.ui.util.MessageUtil;
 
 
@@ -12,7 +13,7 @@ import domosaics.ui.util.MessageUtil;
 
 public class ConfigurationWriter {
 
-	public static final String DEFAULT_LOCATION = "default file location:";
+	public static final String WORKSPACE_LOCATION = "Workspace location:";
 	public static final String GOOGLE_URL = "google search:";
 	//public static final String NCBI_URL = "ncbi search:";
 	public static final String PFAM_URL = "pfam search:";
@@ -27,14 +28,14 @@ public class ConfigurationWriter {
 	public static final String DOMAINBYNAME = "domain by name:";
 	
 	
-	public static void write(File file) {
+	public static void write() {
 		try {
-		    BufferedWriter out = new BufferedWriter(new FileWriter(file)); 
+		    BufferedWriter out = new BufferedWriter(new FileWriter(ApplicationHandler.getInstance().configFile)); 
 
 		    Configuration config = Configuration.getInstance();
 		    
 		    out.write("DoMosaicS Configuration File \n\n");
-		    out.write(DEFAULT_LOCATION+config.getDefaultLocation()+"\n");	
+		    out.write(WORKSPACE_LOCATION+config.getWorkspaceDir()+"\n");	
 		    out.write(GOOGLE_URL+config.getGoogleUrl()+"\n");
 		    //out.write(NCBI_URL+config.getNcbiUrl()+"\n");
 		    out.write(PFAM_URL+config.getPfamUrl()+"\n");
@@ -53,7 +54,7 @@ public class ConfigurationWriter {
 		   
 		} catch (IOException e) {
 			Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning("Configuration file "+file.getAbsolutePath()+" not found");
+			MessageUtil.showWarning("Configuration file not found");
 		}
 	}
 	

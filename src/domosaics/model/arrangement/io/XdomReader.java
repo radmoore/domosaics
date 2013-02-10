@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -255,17 +257,47 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
         	dName = domInfo;
         	dId = domInfo;
         }
-        	
+        
+        /*domFamily 	= GatheringThresholdsReader.getInstance().get(id);
+		if (domFamily == null) { 				
+			domFamily = new DomainFamily(id, null, DomainType.PFAM);
+//			domFamily.setPfamID(pfamID);
+			GatheringThresholdsReader.add(domFamily);
+		}*/
+		
+        if (dId == null)
+        	dId = dName;
 		DomainType dType = DomainType.getType(dId);
 		domFamily = GatheringThresholdsReader.getInstance().get(dId);
 		
 		if (domFamily == null) { 				
-			if (dName == null)
+			if (dName == null) {
 				dName = dId;
-			
-			domFamily = new DomainFamily(dId, dName, dType);
-//			domFamily.setPfamID(pfamID);
-			GatheringThresholdsReader.add(domFamily);
+				domFamily = new DomainFamily(dId, dName, dType);
+//				domFamily.setPfamID(pfamID);
+				GatheringThresholdsReader.add(domFamily);
+			} else {
+				Vector<String> df = GatheringThresholdsReader.getIDFromName(dName);
+				if(df!=null) {
+					if(df.size()==1)
+						domFamily = GatheringThresholdsReader.getInstance().get(df.firstElement());
+					else {
+						Iterator<String> iS=df.iterator();
+						while(iS.hasNext()) {
+							domFamily = GatheringThresholdsReader.getInstance().get(iS.next());
+							if(DomainType.getType(domFamily.getId())!=DomainType.UNKNOWN)
+								break;
+						}
+						if(domFamily==null) {
+							domFamily = new DomainFamily(dId, dName, dType);
+							GatheringThresholdsReader.add(domFamily);
+						}	
+					}
+				} else {
+					domFamily = new DomainFamily(dId, dName, dType);
+					GatheringThresholdsReader.add(domFamily);
+				}
+			}
 		}
 		
 		// "from", "to" must be the first two tokens

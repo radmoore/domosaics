@@ -48,9 +48,9 @@ public class ConfigurationPanel extends JPanel{
 	protected JPanel configPanel;
 	
 	/** textfields for lookup addresses */
-	protected JTextField googleField, ncbiField, pfamField, uniprotField, emailField, hmmerScanTF, hmmerPressTF, hmmer3dbTF;
+	protected JTextField googleField, ncbiField, pfamField, uniprotField, emailField, hmmerScanTF, hmmerPressTF, hmmer3dbTF, workspace;
 	
-	protected JButton loadHmmScanBin, loadHmmPressBin, loadHmmDB;
+	protected JButton loadHmmScanBin, loadHmmPressBin, loadHmmDB, loadWorkspace;
 	
 	/** buttons for apply and cancel */
 	protected JButton apply, cancel, restore;
@@ -96,10 +96,11 @@ public class ConfigurationPanel extends JPanel{
 		config.setHmmPressBin(hmmerPressTF.getText());
 		config.setHmmerDB(hmmer3dbTF.getText());
 		//config.setShowAdvices(showAdvices.isSelected());
+		config.setWorkspaceDir(workspace.getText());
 		config.setSaveOnExit(saveOnExit.isSelected());
 		config.setOverwriteProjects(overwriteProject.isSelected());
 
-		ConfigurationWriter.write(config.getConfigFile());
+		ConfigurationWriter.write();
 		
 		dispose();
 	}
@@ -119,6 +120,7 @@ public class ConfigurationPanel extends JPanel{
 		uniprotField.setText(config.getUniprotUrl());
 		emailField.setText(config.getEmailAddr());
 		//showAdvices.setSelected(config.isShowAdvices());
+		workspace.setText(config.getWorkspaceDir());
 		saveOnExit.setSelected(config.saveOnExit());
 		overwriteProject.setSelected(config.getOverwriteProjects());
 	}
@@ -128,6 +130,7 @@ public class ConfigurationPanel extends JPanel{
 	 */
 	private void dispose() {
 		parentFrame.dispose();
+		Configuration.getInstance().setFrame(null);
 	}
 	
 	/**
@@ -136,31 +139,43 @@ public class ConfigurationPanel extends JPanel{
 	private void initComponents() {
 		Configuration config = Configuration.getInstance();
 		hmmerScanTF = new JTextField(config.getHmmScanBin());
-		hmmerScanTF.addFocusListener(new FocusListener() {
+		hmmerScanTF.setEditable(false);
+		hmmerScanTF.setBackground(Color.WHITE);
+		/*hmmerScanTF.addFocusListener(new FocusListener() {
 			public void focusLost(FocusEvent e) {}
 			public void focusGained(FocusEvent e) {
-				hmmerScanTF.setBackground(Color.WHITE);
 			}
-		});
+		});*/
 		hmmerPressTF = new JTextField(config.getHmmPressBin());
-		hmmerPressTF.addFocusListener(new FocusListener() {
+		hmmerPressTF.setEditable(false);
+		hmmerPressTF.setBackground(Color.WHITE);
+		/*hmmerPressTF.addFocusListener(new FocusListener() {
 			public void focusLost(FocusEvent e) {}
 			public void focusGained(FocusEvent e) {
-				hmmerPressTF.setBackground(Color.WHITE);
 			}
-		});
+		});*/
 		hmmer3dbTF = new JTextField(config.getHmmerDB());
-		hmmer3dbTF.addFocusListener(new FocusListener() {
+		hmmer3dbTF.setEditable(false);
+		hmmer3dbTF.setBackground(Color.WHITE);
+		/*hmmer3dbTF.addFocusListener(new FocusListener() {
 			public void focusLost(FocusEvent e) {}
 			public void focusGained(FocusEvent e) {
-				hmmer3dbTF.setBackground(Color.WHITE);
 			}
-		});
+		});*/
+		workspace = new JTextField(config.getWorkspaceDir());
+		workspace.setEditable(false);
+		workspace.setBackground(Color.WHITE);
+		/*workspace.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+			}
+		});*/
 		googleField = new JTextField(config.getGoogleUrl(), 50);
 		//ncbiField = new JTextField(config.getNcbiUrl(), 50);
 		pfamField = new JTextField(config.getPfamUrl(), 50);
 		uniprotField = new JTextField(config.getUniprotUrl(), 50);
 		//emailField = new JTextField(config.getEmailAddr(), 50);
+
 		emailField = UiUtil.createEmailField(config.getEmailAddr());
 		
 		loadHmmScanBin = new JButton("hmmscan bin");
@@ -193,7 +208,16 @@ public class ConfigurationPanel extends JPanel{
 				hmmer3dbTF.setText(file.getAbsolutePath());
 			}
 		});
-		
+
+		loadWorkspace = new JButton("Folder location");
+		loadWorkspace.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File workspaceFile = FileDialogs.openChooseDirectoryDialog(parentFrame);
+				if (workspaceFile == null)
+					return;
+				workspace.setText(workspaceFile.getAbsolutePath()+"/domosaics-workspace");
+			}
+		});
 		
 //		showAdvices = new JCheckBox("Show Advices", config.isShowAdvices());
 		saveOnExit = new JCheckBox(" Save Workspace on Exit", config.saveOnExit());
@@ -207,7 +231,7 @@ public class ConfigurationPanel extends JPanel{
 				
 				if (!emailField.getText().equals(""))
 					if (!UiUtil.isValidEmail(emailField.getText())) {
-						MessageUtil.showWarning("Please enter a valid email (or non at all)");
+						MessageUtil.showWarning("Please enter a valid email!");
 						return;
 					}
 				
@@ -239,7 +263,8 @@ public class ConfigurationPanel extends JPanel{
 						return;
 					}
 				
-				}	
+				}
+				new File(workspace.getText()).mkdir();
 				apply();
 			}
 		});
@@ -290,6 +315,8 @@ public class ConfigurationPanel extends JPanel{
 //		add(new JXTitledSeparator("Advice"),"growx, span, wrap, gaptop 10");
 //		add(showAdvices, 	"h 25!, gap 10, wrap");
 		add(new JXTitledSeparator("Workspace"),"growx, span, wrap, gaptop 10");
+		add(loadWorkspace, "h 25!, w 165!, gap 10");
+		add(workspace, "h 25!, gap 10, span, growX, gapright 10, wrap");
 		add(saveOnExit, 	"h 25!, gap 10, span 2, wrap");
 		add(overwriteProject, 	"h 25!, gap 10, span 2, wrap");
 		

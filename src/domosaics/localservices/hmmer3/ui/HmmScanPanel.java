@@ -47,6 +47,7 @@ import domosaics.model.workspace.ViewElement;
 import domosaics.model.workspace.WorkspaceElement;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
+import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.sequenceview.SequenceView;
@@ -110,38 +111,46 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		initSelectViewBox();
 		
 		hmmScanTF = new JTextField(25);
+		hmmScanTF.setEditable(false);
+		hmmScanTF.setBackground(Color.WHITE);
 		hmmScanTF.setText(config.getHmmScanBin());
-		hmmScanTF.addFocusListener(new FocusListener() {
+		/*hmmScanTF.addFocusListener(new FocusListener() {
 			public void focusLost(FocusEvent e) {}
 			public void focusGained(FocusEvent e) {
 				hmmScanTF.setBackground(Color.WHITE);
 			}
-		});
+		});*/
 		
 		hmmPressTF = new JTextField(25);
+		hmmPressTF.setEditable(false);
+		hmmPressTF.setBackground(Color.WHITE);
 		hmmPressTF.setText(config.getHmmPressBin());
-		hmmPressTF.addFocusListener(new FocusListener() {
+		/*hmmPressTF.addFocusListener(new FocusListener() {
 			public void focusLost(FocusEvent e) {}
 			public void focusGained(FocusEvent e) {
 				hmmPressTF.setBackground(Color.WHITE);
 			}
-		});
+		});*/
 		
 		hmmTF = new JTextField(25);
+		hmmTF.setEditable(false);
+		hmmTF.setBackground(Color.WHITE);
 		hmmTF.setText(config.getHmmerDB());
-		hmmTF.addFocusListener(new FocusListener() {
+		/*hmmTF.addFocusListener(new FocusListener() {
 			public void focusLost(FocusEvent e) {}
 			public void focusGained(FocusEvent e) {
 				hmmTF.setBackground(Color.WHITE);
 			}
-		});
+		});*/
 		fastaTF = new JTextField(25);
-		fastaTF.addFocusListener(new FocusListener() {
+		fastaTF.setEditable(false);
+		fastaTF.setBackground(Color.WHITE);
+		/*fastaTF.addFocusListener(new FocusListener() {
 			public void focusLost(FocusEvent e) {}
 			public void focusGained(FocusEvent e) {
 				fastaTF.setBackground(Color.WHITE);
 			}
-		});
+		});*/
 		evalueTF = new JTextField(5);
 		evalueTF.addFocusListener(new FocusListener() {
 			public void focusLost(FocusEvent e) {}
@@ -356,9 +365,11 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		
 		if (src.getName().equals("scan")) {
 			hmmScanTF.setText(bin.getAbsolutePath());
+			hmmScanTF.setBackground(Color.WHITE);
 		}
 		else {
 			hmmPressTF.setText(bin.getAbsolutePath());
+			hmmPressTF.setBackground(Color.WHITE);
 		}	
 	}
 	
@@ -370,7 +381,8 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		hmmDBFile = FileDialogs.showOpenDialog(this);
 		if (hmmDBFile == null || !hmmDBFile.canRead())
 			return;
-		hmmTF.setText(hmmDBFile.getAbsolutePath());
+		hmmTF.setText(file.getAbsolutePath());
+		hmmTF.setBackground(Color.WHITE);
 	}
 	
 	/**
@@ -387,6 +399,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		seqView = null; // sequences come from fasta file
 		fastaFile = file;
 		fastaTF.setText(file.getAbsolutePath());
+		fastaTF.setBackground(Color.WHITE);
 	}
 	
 	/**
@@ -432,6 +445,20 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		if (!checkBins(new File(hmmScanTF.getText()))) {
 			hmmScanTF.setBackground(highlightColor);
 			return;
+		} else {
+			if(Configuration.getInstance().getHmmScanBin().equals("")) {
+				Configuration.getInstance().setHmmScanBin(hmmScanTF.getText());
+			} else {
+				if(!hmmScanTF.getText().equals(Configuration.getInstance().getHmmScanBin()))
+					if(MessageUtil.showDialog(this.getParent(),"A distinct HmmScan binary is recorded in settings. Overwrite?"))
+					{
+						Configuration.getInstance().setHmmScanBin(hmmScanTF.getText());
+						if(Configuration.getInstance().getFrame()!=null && Configuration.getInstance().getFrame().isVisible()) {
+							Configuration.getInstance().getFrame().dispose();
+							Configuration.getInstance().setFrame(new ConfigurationFrame());
+						}				
+					}
+			}
 		}
 		/*if (!checkBins(new File(hmmPressTF.getText()))) {
 			hmmPressTF.setBackground(highlightColor);
@@ -442,10 +469,37 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			return;
 		} else {
 			hmmDBFile = new File(hmmTF.getText());
+			if(Configuration.getInstance().getHmmerDB().equals("")) {
+				Configuration.getInstance().setHmmerDB(hmmTF.getText());
+			} else {
+				if(!hmmTF.getText().equals(Configuration.getInstance().getHmmerDB()))
+					if(MessageUtil.showDialog(this.getParent(),"A distinct HMM library is recorded in settings. Overwrite?"))
+					{
+						Configuration.getInstance().setHmmerDB(hmmTF.getText());
+						if(Configuration.getInstance().getFrame()!=null && Configuration.getInstance().getFrame().isVisible()) {
+							Configuration.getInstance().getFrame().dispose();
+							Configuration.getInstance().setFrame(new ConfigurationFrame());
+						}				
+					}
+			}
 		}
 		if (!checkDBpressed(new File(hmmTF.getText()))) {
 			hmmPressTF.setBackground(highlightColor);
 			return;
+		} else {
+			if(Configuration.getInstance().getHmmPressBin().equals("")) {
+				Configuration.getInstance().setHmmPressBin(hmmPressTF.getText());
+			} else {
+				if(!hmmPressTF.getText().equals(Configuration.getInstance().getHmmPressBin()))
+					if(MessageUtil.showDialog(this.getParent(),"A distinct HmmScan binary is recorded in settings. Overwrite?"))
+					{
+						Configuration.getInstance().setHmmPressBin(hmmPressTF.getText());
+						if(Configuration.getInstance().getFrame()!=null && Configuration.getInstance().getFrame().isVisible()) {
+							Configuration.getInstance().getFrame().dispose();
+							Configuration.getInstance().setFrame(new ConfigurationFrame());
+						}				
+					}
+			}
 		}
 		if ( !FastaReader.isValidFasta(new File(fastaTF.getText())) ) {
 			MessageUtil.showWarning("Malformated fasta file or unknown sequence format");

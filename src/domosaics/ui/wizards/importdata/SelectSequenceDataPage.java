@@ -61,7 +61,7 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 	}
 
 	public SelectSequenceDataPage(ProjectElement project) {
-		super("Select sequences for "+ project.getShortTitle(5));
+		super("Select sequence file");
 		this.project = project;
 		init();
 	}
