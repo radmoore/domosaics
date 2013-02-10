@@ -93,18 +93,15 @@ public class DoMosaics {
 	public static void main(String[] args) {
 		
 		Configuration.setDebug(true);
-////		System.setProperty("mail.smtps.host", "smtp.gmail.com");
-//		System.setProperty("mail.smtps.host", "secmail.uni-muenster.de");
-//		System.setProperty("mail.smtps.auth", "true");
-//		System.setProperty("mail.smtp.socketFactory.port", "587");
-//		System.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-//		System.setProperty("mail.smtp.port", "587");
-// 
+		Configuration.setReportExceptionsMode(true); 
 		 
 		if (args.length > 0) {
 			for(String a : args) {
 				if (a.equals("--debug")) {
 					Configuration.setDebug(true);
+				}
+				if (a.equals("--report")) {
+					Configuration.setReportExceptionsMode(true);
 				}
 				else {
 					System.out.println("DoMosaics: dunno what >"+args[0]+"< means. Exiting.");
