@@ -36,7 +36,10 @@ public class ProjectExporter {
         			FileUtils.cleanDirectory(projectDir);
         		}
         		catch (Exception e) {
-        			Configuration.getLogger().debug(e.toString());
+        			if (Configuration.getReportExceptionsMode())
+        				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+        			else			
+        				Configuration.getLogger().debug(e.toString());
         			MessageUtil.showWarning("Could not remove old project directory - will append");
         		}
         	}
@@ -78,9 +81,12 @@ public class ProjectExporter {
  
         } 
         catch (Exception e) {
-			e.printStackTrace();
         	Configuration.getLogger().debug("Fail to export view: "+viewFail);
         	Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
         	return false;
         }
         return true;
@@ -130,7 +136,10 @@ public class ProjectExporter {
  
         } 
         catch (Exception e) {
-            e.printStackTrace();
+   			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
         }
     }
 	

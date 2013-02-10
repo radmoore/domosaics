@@ -274,7 +274,11 @@ public class AncestralReconstruction extends SwingWorker<String, Void> {
 			
 		}
 		catch(Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		
 		return null;
@@ -612,8 +616,10 @@ public class AncestralReconstruction extends SwingWorker<String, Void> {
 			try {
 				res.addDomain((Domain) dom.clone());
 			} catch (CloneNotSupportedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(e);
+				else			
+					Configuration.getLogger().debug(e.toString());
 			}
 		return res;
 	}

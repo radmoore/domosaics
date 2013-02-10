@@ -386,8 +386,12 @@ public class ApplicationHandler {
 			try {
 				logo = new ImageIcon(ImageIO.read(is));
 				startupPanel.add(new JLabel(logo), BorderLayout.CENTER);
-			} catch (IOException e) {
-				Configuration.getLogger().debug(e.toString());
+			} 
+			catch (IOException e) {
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(e);
+				else			
+					Configuration.getLogger().debug(e.toString());
 			}
 			
 			// create and display progressbar
@@ -424,7 +428,10 @@ public class ApplicationHandler {
 				Thread.sleep(ms);
 			} 
 			catch (Exception e) {
-				Configuration.getLogger().debug(e.toString());
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(e);
+				else			
+					Configuration.getLogger().debug(e.toString());
 			}
 		}
 	}

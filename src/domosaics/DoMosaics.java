@@ -118,7 +118,6 @@ public class DoMosaics {
 			ApplicationHandler.getInstance().start();
 		}
 		catch (Exception e) {
-			
 			if (Configuration.getReportExceptionsMode())
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
