@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.configuration.ConfigurationWriter;
 import domosaics.ui.util.MessageUtil;
+import domosaics.util.ExceptionComunicator;
 
 
 /**
@@ -64,6 +65,23 @@ import domosaics.ui.util.MessageUtil;
  *
  */
 public class DoMosaics {
+
+	/**
+	static
+	{
+	     System.setProperty("mail.smtp.auth", "true");
+	     System.setProperty("mail.smtp.socketFactory.port", "465");
+	     System.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+	     System.setProperty("mail.smtp.socketFactory.fallback", "false");
+	     System.setProperty("mail.smtp.user","radmoore@gmail.com");
+	     System.setProperty("mail.smtp.starttls.enable","true");
+	     System.setProperty("mail.transport.protocol", "smtp");
+	     System.setProperty("mail.smtp.starttls.enable", "true");
+	     System.setProperty("mail.smtp.host", "smtp.gmail.com");
+	     System.setProperty("mail.smtp.port", "465");
+	     System.setProperty("mail.smtp.quitwait", "false");
+	}
+	**/
 	
 	/** 
 	 * The main method of DoMosaicS and the anchor point to start the program. 
@@ -74,6 +92,14 @@ public class DoMosaics {
 	public static void main(String[] args) {
 		
 		Configuration.setDebug(true);
+////		System.setProperty("mail.smtps.host", "smtp.gmail.com");
+//		System.setProperty("mail.smtps.host", "secmail.uni-muenster.de");
+//		System.setProperty("mail.smtps.auth", "true");
+//		System.setProperty("mail.smtp.socketFactory.port", "587");
+//		System.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+//		System.setProperty("mail.smtp.port", "587");
+// 
+		 
 		if (args.length > 0) {
 			for(String a : args) {
 				if (a.equals("--debug")) {
@@ -85,6 +111,8 @@ public class DoMosaics {
 				}
 			}
 		}
+ 
+//		Configuration.getLogger().error("Fatal log message.", new NullPointerException("Null pointer exception."));
 
 		
 		// if we are not in debug mode, catch all 
@@ -114,11 +142,17 @@ public class DoMosaics {
 			ApplicationHandler.getInstance().start();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			ExceptionComunicator com = ExceptionComunicator.getInstance();
+			com.reportBug(e);
+//			com.send();
+//			e.printStackTrace();
 			Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("There was a problem starting DoMosaicS. Please consult log file.");
 		}
 
 	}
+	
+	
+	
 	
 }
