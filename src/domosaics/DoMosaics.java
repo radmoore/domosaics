@@ -36,7 +36,7 @@ import domosaics.util.ExceptionComunicator;
 
  * NOTICE: 
  * =======================================================================
- * DoMosaicS
+ * DoMosaics
  * Copyright 2012, Evolutionary Bioinformatics Group, IEB
  *
  * This product includes software developed at
@@ -66,26 +66,9 @@ import domosaics.util.ExceptionComunicator;
  *
  */
 public class DoMosaics {
-
-	/**
-	static
-	{
-	     System.setProperty("mail.smtp.auth", "true");
-	     System.setProperty("mail.smtp.socketFactory.port", "465");
-	     System.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-	     System.setProperty("mail.smtp.socketFactory.fallback", "false");
-	     System.setProperty("mail.smtp.user","radmoore@gmail.com");
-	     System.setProperty("mail.smtp.starttls.enable","true");
-	     System.setProperty("mail.transport.protocol", "smtp");
-	     System.setProperty("mail.smtp.starttls.enable", "true");
-	     System.setProperty("mail.smtp.host", "smtp.gmail.com");
-	     System.setProperty("mail.smtp.port", "465");
-	     System.setProperty("mail.smtp.quitwait", "false");
-	}
-	**/
 	
 	/** 
-	 * The main method of DoMosaicS and the anchor point to start the program. 
+	 * The main method of DoMosaics and the anchor point to start the program. 
 	 * 
 	 * @param args
 	 * 		arguments you wish to run with DoMosaicS
@@ -109,12 +92,7 @@ public class DoMosaics {
 				}
 			}
 		}
- 
-//		Configuration.getLogger().error("Fatal log message.", new NullPointerException("Null pointer exception."));
 
-		
-		// if we are not in debug mode, catch all 
-		// unhandled exceptions
 		if (!Configuration.isDebug()) {
 			Thread.setDefaultUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler(){
 
@@ -126,7 +104,7 @@ public class DoMosaics {
 					MessageUtil.showWarning("There was a unexpected problem running DoMosaicS; consult log file.");
 					// remove lock file if possible
 					if (Configuration.getInstance().hasLockfile()) {
-						// TODO Save the the views: i) all and the user will remove the fucking one ii) only the working ones
+						// TODO Save the the views: i) all and the user will remove the busted one ii) only the working ones
 						// Save the configuration
 						ConfigurationWriter.write();						
 						Configuration.getInstance().getLockFile().delete();
@@ -136,16 +114,17 @@ public class DoMosaics {
 			});
 		}
 		try {
-			Configuration.getLogger().info("*** INFO: Starting DoMosaicS.");
+			Configuration.getLogger().info("*** INFO: Starting DoMosaics.");
 			ApplicationHandler.getInstance().start();
 		}
 		catch (Exception e) {
-//			ExceptionComunicator com = ExceptionComunicator.getInstance();
-//			com.reportBug(e);
-//			com.send();
-//			e.printStackTrace();
-			Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning("There was a problem starting DoMosaicS. Please consult log file.");
+			
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
+			
+			MessageUtil.showWarning("There was a problem starting DoMosaics. Please consult log file.");
 		}
 
 	}

@@ -5,6 +5,7 @@ import java.io.File;
 import org.apache.log4j.Logger;
 
 import domosaics.ui.tools.configuration.ConfigurationFrame;
+import domosaics.util.ExceptionComunicator;
 
 
 
@@ -42,6 +43,8 @@ public class Configuration {
 	private static boolean debugState = false;
 	private static boolean reportExceptions = false;
 	
+	private ExceptionComunicator exceptionComunicator = null;
+	
 
 	//protected String defaultFileLocation;
 
@@ -65,6 +68,8 @@ public class Configuration {
 	
 	public Configuration() {
 		restoreDefaults();
+		if (exceptionComunicator == null)
+			exceptionComunicator = ExceptionComunicator.getInstance();
 	}
 
 	public static boolean isNamePreferedToAcc() {
@@ -177,6 +182,10 @@ public class Configuration {
 	
 	public boolean getOverwriteProjects() {
 		return overwriteProjects;
+	}
+	
+	public ExceptionComunicator getExceptionComunicator() {
+		return exceptionComunicator;
 	}
 	
 	/*
