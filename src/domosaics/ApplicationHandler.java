@@ -66,8 +66,8 @@ public class ApplicationHandler {
 	public static ApplicationHandler getInstance() {
 		if (instance == null)
 			instance = new ApplicationHandler();
-		throw new NullPointerException();
-//		return instance;
+//		throw new NullPointerException();
+		return instance;
 	}
 	
 	public void end () {

@@ -381,7 +381,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		hmmDBFile = FileDialogs.showOpenDialog(this);
 		if (hmmDBFile == null || !hmmDBFile.canRead())
 			return;
-		hmmTF.setText(file.getAbsolutePath());
+		hmmTF.setText(hmmDBFile.getAbsolutePath());
 		hmmTF.setBackground(Color.WHITE);
 	}
 	

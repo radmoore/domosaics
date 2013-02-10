@@ -107,7 +107,7 @@ public class DoMosaics {
 					Configuration.setDebug(true);
 				}
 				else {
-					System.out.println("DoMosaicS: dunno what >"+args[0]+"< means. Exiting.");
+					System.out.println("DoMosaics: dunno what >"+args[0]+"< means. Exiting.");
 					System.exit(1);
 				}
 			}
@@ -143,8 +143,8 @@ public class DoMosaics {
 			ApplicationHandler.getInstance().start();
 		}
 		catch (Exception e) {
-			ExceptionComunicator com = ExceptionComunicator.getInstance();
-			com.reportBug(e);
+//			ExceptionComunicator com = ExceptionComunicator.getInstance();
+//			com.reportBug(e);
 //			com.send();
 //			e.printStackTrace();
 			Configuration.getLogger().debug(e.toString());

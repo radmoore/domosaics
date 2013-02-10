@@ -11,7 +11,7 @@ import domosaics.ui.tools.configuration.ConfigurationFrame;
 
 /**
  * Configuration holds all specified URLs to look up nodes in trees and 
- * domains from an arrangement. The entrys can be changed using the 
+ * domains from an arrangement. The entries can be changed using the 
  * configuration module.
  * 
  * @author Andreas Held
@@ -40,6 +40,7 @@ public class Configuration {
 	
 	private boolean service_running = false;
 	private static boolean debugState = false;
+	private static boolean reportExceptions = false;
 	
 
 	//protected String defaultFileLocation;
@@ -76,11 +77,18 @@ public class Configuration {
 	
 	public static Logger getLogger() {
     	return Logger.getLogger("domosaicslog");
-    	
 	}
 	
 	public static void setDebug(Boolean debug) {
 		debugState = debug;
+	}
+	
+	public static void setReportExceptionsMode(Boolean report) {
+		reportExceptions = report;
+	}
+	
+	public static Boolean getReportExceptionsMode() {
+		return reportExceptions;
 	}
 	
 	public static boolean isDebug() {
