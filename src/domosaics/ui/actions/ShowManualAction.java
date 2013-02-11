@@ -2,6 +2,7 @@ package domosaics.ui.actions;
 
 import java.awt.event.ActionEvent;
 
+import domosaics.model.configuration.Configuration;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.util.MessageUtil;
 
@@ -35,7 +36,10 @@ public class ShowManualAction extends AbstractMenuAction{
             desktop.browse( uri );
         }
         catch ( Exception excp ) {
-        	System.err.println( excp.getMessage() );
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(excp);
+			else			
+				Configuration.getLogger().debug(excp.toString());
          }
     }
 

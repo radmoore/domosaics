@@ -72,7 +72,10 @@ class ClustalW2Progress extends DeferredWizardResult implements WizardResultProd
 			p.finished(new ClustalW2ResultParser().parseResult(alignmentStr));
 		}
 		catch(Exception e){
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			p.failed("Error while creating Project, please try again.", false);
 			p.finished(null);
 		}

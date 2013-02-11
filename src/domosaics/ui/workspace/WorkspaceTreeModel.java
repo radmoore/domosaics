@@ -111,7 +111,10 @@ public class WorkspaceTreeModel implements TreeModel, WorkspaceChangeListener {
 			view.expandAll();
 		}
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 	}
 	

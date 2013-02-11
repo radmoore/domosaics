@@ -29,11 +29,9 @@ import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.swingx.JXTitledSeparator;
 
+import domosaics.model.configuration.Configuration;
 import domosaics.ui.util.MyMetalSliderUI;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
-
-
-
 
 public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -79,14 +77,22 @@ public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionLi
 	    LookAndFeel laf = new MetalLookAndFeel();
 	    try {
 			UIManager.setLookAndFeel(laf);
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+		} 
+	    catch (UnsupportedLookAndFeelException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		spaceSlider.setUI(new MyMetalSliderUI(spaceSlider));
 	    try {
 			UIManager.setLookAndFeel(save);
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+		} 
+	    catch (UnsupportedLookAndFeelException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 	    spaceSlider.addChangeListener(this);
 		

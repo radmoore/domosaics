@@ -196,8 +196,10 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
     		
 		}
 		catch(Exception e){
-			Configuration.getLogger().debug(e.toString());
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			p.failed("Error while editing data set.", false);
 			p.finished(null);
 		}

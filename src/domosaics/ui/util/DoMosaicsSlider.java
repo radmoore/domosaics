@@ -17,6 +17,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.metal.MetalSliderUI;
 
+import domosaics.model.configuration.Configuration;
+
 //import domosaics.ui.views.domainview.components.SimilarityChooser.MySliderUI;
 
 /**
@@ -59,13 +61,19 @@ public class DoMosaicsSlider extends JSlider{
 	    try {
 			UIManager.setLookAndFeel(laf);
 		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		this.setUI(new MyMetalSliderUI(this));
 	    try {
 			UIManager.setLookAndFeel(save);
 		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		
 	}

@@ -15,11 +15,6 @@ import javax.swing.JPanel;
 
 import domosaics.model.configuration.Configuration;
 
-
-
-
-
-
 public class AboutFrame extends JFrame{
 
 	JPanel panel;
@@ -39,7 +34,10 @@ public class AboutFrame extends JFrame{
 			panel.add(new JLabel(about), BorderLayout.CENTER);
 		} 
 		catch (IOException e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		
 		

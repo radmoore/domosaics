@@ -127,7 +127,10 @@ class EditDatasetProgress extends DeferredWizardResult implements WizardResultPr
 			p.finished(null);		
 		}
 		catch(Exception e){
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			p.failed("Error while editing data set.", false);
 			p.finished(null);
 		}	

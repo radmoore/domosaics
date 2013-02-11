@@ -28,10 +28,6 @@ import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
 import domosaics.util.UiUtil;
 
-
-
-
-
 /**
  * Panel which is displayed in the configuration frame to change 
  * for instance lookup addresses. The changed data is stored

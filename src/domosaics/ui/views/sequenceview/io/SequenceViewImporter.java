@@ -11,9 +11,6 @@ import domosaics.ui.views.ViewType;
 import domosaics.ui.views.sequenceview.SequenceView;
 import domosaics.ui.views.view.io.ViewImporter;
 
-
-
-
 public class SequenceViewImporter extends ViewImporter<SequenceView>{
 	private static final int DEFAULTSETTINGS = 0;
 	private static final int LAYOUTSETTINGS = 1;
@@ -69,8 +66,12 @@ public class SequenceViewImporter extends ViewImporter<SequenceView>{
 			in.close();
 		} 
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
-			Configuration.getLogger().debug("Error occured during project import - reading attribute file for view: "+view.getViewInfo().getName());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else {
+				Configuration.getLogger().debug(e.toString());
+				Configuration.getLogger().debug("Error occured during project import - reading attribute file for view: "+view.getViewInfo().getName());
+			}
 		}
 		
 	}

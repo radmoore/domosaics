@@ -30,9 +30,6 @@ import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.treeview.io.TreeViewImporter;
 import domosaics.ui.views.view.View;
 
-
-
-
 /**
  * Importer for views
  * 
@@ -85,7 +82,10 @@ public abstract class ViewImporter<V extends View> {
 			}
 		}
 		catch(Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		return null;
 		
@@ -179,7 +179,10 @@ public abstract class ViewImporter<V extends View> {
 			return res;
 		} 
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		return null;
 	}
@@ -192,7 +195,10 @@ public abstract class ViewImporter<V extends View> {
 			return res;
 		} 
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		return null;
 	}
@@ -258,8 +264,12 @@ public abstract class ViewImporter<V extends View> {
 			setLayoutSettings(view);
 
 			return view;
-		} catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+		} 
+		catch (Exception e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			return null;
 		}
 	}

@@ -20,9 +20,6 @@ import domosaics.ui.views.domainview.manager.DomainLayoutManager;
 import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.view.io.ViewExporter;
 
-
-
-
 public class DomainTreeViewExporter extends ViewExporter<DomainTreeViewI>{
 
 	public void write(BufferedWriter out, DomainTreeViewI view) {
@@ -99,8 +96,12 @@ public class DomainTreeViewExporter extends ViewExporter<DomainTreeViewI>{
 			writeTag(out, 1, "DOMAINTREEVIEW", false);
 
     		out.flush();
-        } catch (IOException e) {
-			Configuration.getLogger().debug(e.toString());	
+        } 
+        catch (IOException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());	
         }
     }
 	

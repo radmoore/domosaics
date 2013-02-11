@@ -45,7 +45,10 @@ public class PDFImageExporter implements ImageExporter{
          } 
          catch(Exception e) {
         	 MessageUtil.showWarning("Error while writing PDF document.");
-        	 Configuration.getLogger().debug(e.toString());
+ 			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
          }
 	}
 

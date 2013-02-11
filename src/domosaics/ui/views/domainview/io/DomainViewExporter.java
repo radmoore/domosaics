@@ -25,9 +25,6 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.manager.DomainLayoutManager;
 import domosaics.ui.views.view.io.ViewExporter;
 
-
-
-
 public class DomainViewExporter extends ViewExporter<DomainViewI> {
 
 	public void write(BufferedWriter out, DomainViewI view) {
@@ -85,7 +82,10 @@ public class DomainViewExporter extends ViewExporter<DomainViewI> {
         	out.flush();
         } 
         catch (IOException e) {
-        	Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
         }
     }
 	

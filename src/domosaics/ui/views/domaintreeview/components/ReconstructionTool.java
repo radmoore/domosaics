@@ -43,13 +43,11 @@ import domosaics.algos.indels.Dollo;
 import domosaics.algos.indels.Dollo4Sets;
 import domosaics.algos.indels.Sankoff;
 import domosaics.algos.indels.Sankoff4Sets;
+import domosaics.model.configuration.Configuration;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.util.MyMetalSliderUI;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 import domosaics.ui.views.domaintreeview.manager.DomainTreeLayoutManager.DomainTreeAction;
-
-
-
 
 public class ReconstructionTool extends JDialog implements ChangeListener, ActionListener, PropertyChangeListener {
 	private static final long serialVersionUID = 1L;
@@ -121,8 +119,12 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 	    LookAndFeel laf = new MetalLookAndFeel();
 	    try {
 			UIManager.setLookAndFeel(laf);
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+		} 
+	    catch (UnsupportedLookAndFeelException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 	    inSlider.setUI(new MyMetalSliderUI(inSlider));
 	    inSlider.addChangeListener(this);
@@ -137,8 +139,12 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 		delSlider.setUI(new MyMetalSliderUI(delSlider));
 		try {
 			UIManager.setLookAndFeel(save);
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+		} 
+		catch (UnsupportedLookAndFeelException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		delSlider.addChangeListener(this);	
 		

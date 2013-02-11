@@ -14,9 +14,6 @@ import domosaics.model.configuration.Configuration;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.view.ViewInfo;
 
-
-
-
 /**
  * Class for reading a views property file. This parser is called by
  * DoMosaicsViewFactory during the creation process. 
@@ -75,7 +72,10 @@ public class ViewPropertyReader {
 							is.close();
 						} 
 						catch(Exception e) {
-				        	 Configuration.getLogger().debug(e.toString());
+							if (Configuration.getReportExceptionsMode())
+								Configuration.getInstance().getExceptionComunicator().reportBug(e);
+							else			
+								Configuration.getLogger().debug(e.toString());
 						}
 						
 						continue;
@@ -90,7 +90,10 @@ public class ViewPropertyReader {
 							is.close();
 						} 
 						catch(Exception e) {
-							Configuration.getLogger().debug(e.toString());
+							if (Configuration.getReportExceptionsMode())
+								Configuration.getInstance().getExceptionComunicator().reportBug(e);
+							else			
+								Configuration.getLogger().debug(e.toString());
 						}
 						continue;
 					}
@@ -104,7 +107,10 @@ public class ViewPropertyReader {
 							is.close();
 						} 
 						catch(Exception e) {
-							Configuration.getLogger().debug(e.toString());
+							if (Configuration.getReportExceptionsMode())
+								Configuration.getInstance().getExceptionComunicator().reportBug(e);
+							else			
+								Configuration.getLogger().debug(e.toString());
 						}
 						continue;
 					}
@@ -118,7 +124,10 @@ public class ViewPropertyReader {
 							is.close();
 						} 
 						catch(Exception e) {
-							Configuration.getLogger().debug(e.toString());	
+							if (Configuration.getReportExceptionsMode())
+								Configuration.getInstance().getExceptionComunicator().reportBug(e);
+							else			
+								Configuration.getLogger().debug(e.toString());	
 						}
 						continue;
 					}
@@ -161,8 +170,12 @@ public class ViewPropertyReader {
 							viewInfo.setFrameClazz(frameClazz);
 						} 
 						catch (ClassNotFoundException e) {
-				        	Configuration.getLogger().debug(e.toString());
-				        	Configuration.getLogger().debug("ClassURL for tool frame "+getValue(line)+" not found");
+							if (Configuration.getReportExceptionsMode())
+								Configuration.getInstance().getExceptionComunicator().reportBug(e);
+							else {
+								Configuration.getLogger().debug(e.toString());
+								Configuration.getLogger().debug("ClassURL for tool frame "+getValue(line)+" not found");
+							}
 						}
 						continue;
 					}
@@ -174,11 +187,17 @@ public class ViewPropertyReader {
 			return viewInfo;	
 		} 
 		catch (FileNotFoundException fnfe) {
-       	 	Configuration.getLogger().debug(fnfe.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(fnfe);
+			else			
+				Configuration.getLogger().debug(fnfe.toString());
 			MessageUtil.showWarning("Property file not found");
 		}
 		catch (IOException ioe) {
-       	 	Configuration.getLogger().debug(ioe.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(ioe);
+			else			
+				Configuration.getLogger().debug(ioe.toString());
 			MessageUtil.showWarning("Property file couldnt be parsed");
 		}
 		return null;

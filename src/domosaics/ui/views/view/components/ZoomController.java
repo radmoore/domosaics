@@ -15,9 +15,6 @@ import domosaics.model.configuration.Configuration;
 import domosaics.ui.views.view.AbstractView;
 import domosaics.ui.views.view.View;
 
-
-
-
 /**
  * The ZoomController controls the zoom settings for a {@link AbstractView}.
  * <p>
@@ -148,9 +145,14 @@ public class ZoomController extends MouseAdapter {
 			Point2D p2 = null;
 			try {
 				p2 = zoom.inverseTransform(p1, null);
-			} catch (NoninvertibleTransformException ex) {
-				Configuration.getLogger().debug(ex.toString());
-				Configuration.getLogger().debug("Zoom calculation failed");
+			} 
+			catch (NoninvertibleTransformException ex) {
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(ex);
+				else {			
+					Configuration.getLogger().debug(ex.toString());
+					Configuration.getLogger().debug("Zoom calculation failed");
+				}
 				return;
 			}
 

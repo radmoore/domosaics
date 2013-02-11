@@ -23,9 +23,6 @@ import domosaics.ui.views.view.View;
 import domosaics.ui.wizards.WizardManager;
 import domosaics.ui.wizards.pages.SelectNamePage;
 
-
-
-
 /**
  * Creates a new view out of the current selected arrangements. Therefore
  * the selected arrangements as well as their associated sequences are 
@@ -84,7 +81,10 @@ public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 				daSet[i] = (DomainArrangement)da.clone();
 			} 
 			catch (Exception ex) {
-				Configuration.getLogger().debug(ex.toString());
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(ex);
+				else			
+					Configuration.getLogger().debug(ex.toString());
 			}
 			i++;
 		}

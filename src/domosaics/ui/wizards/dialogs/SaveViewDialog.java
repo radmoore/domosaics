@@ -77,8 +77,10 @@ class SaveViewProgress extends DeferredWizardResult implements WizardResultProdu
 			
 		} 
 		catch (Exception e) {
-			e.printStackTrace();
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			p.failed("Error while saving project", false);
 		}
 
