@@ -31,8 +31,8 @@ public class ExceptionComunicator{
 	private static final long serialVersionUID = 1L;
 	
 	private final String reportUrl = "http://iebservices.uni-muenster.de/bugzilla";
-	private final String reportUser = "radmoore@uni-muenster.de";
-	private final String reportPass = "handshake4bugzilla";
+	private final String reportUser = "domosaics@uni-muenster.de";
+	private final String reportPass = "pass4domosaics;";
 	private final int queueLength = 0;
 	
 	
@@ -82,6 +82,7 @@ public class ExceptionComunicator{
 			
 			sendBugs();
 			System.out.println("Sending exception message");
+			e.printStackTrace();
 		}
 		
 		reportedBugs.add(bug);
@@ -158,7 +159,6 @@ public class ExceptionComunicator{
 		Bug bug = factory.newBug()
 		    .setOperatingSystem(System.getProperty("os.name"))
 		    .setPlatform("PC")
-//		    .setPriority("P1")
 		    .setProduct("DoMosaics")
 		    .setComponent("autosubmission")
 		    .setSummary(issue)

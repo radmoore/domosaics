@@ -29,11 +29,13 @@ import domosaics.ui.util.MessageUtil;
 import domosaics.util.UiUtil;
 
 /**
- * Panel which is displayed in the configuration frame to change 
- * for instance lookup addresses. The changed data is stored
+ * Panel displayed in the configuration frame.
+ * Allows management of program-wide configuration.
+ * All changes made here are adjusted accordingly
  * within the backend data type {@link Configuration}
  * 
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
+ * @author Andreas Held
  *
  */
 public class ConfigurationPanel extends JPanel{

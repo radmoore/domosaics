@@ -38,10 +38,6 @@ import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.wizards.WizardManager;
 
-
-
-
-
 /**
  * 
  * ApplicationHandler actually initialized the DoMosaicsUI frame, and
@@ -50,23 +46,21 @@ import domosaics.ui.wizards.WizardManager;
  * In rv. 174 we also check the java version as part of the start-up procedure.
  * 
  * 
- * @author Andrew Moore, Andreas Held
+ * @author Andreas Held
+ * @author <a href='http://radm.info'>Andrew D. Moore</a>
  * 
  */
 public class ApplicationHandler {
 
-	//protected String workspace_dir = System.getProperty("user.home")+"/domosaics-workspace";
-	protected static ApplicationHandler instance;
-	
+	protected static ApplicationHandler instance;	
 	protected StartupPage startUpProgress;
 	
-	public File configFile = new File("../"+Configuration.CONFIGFILE);
+	public File configFile = new File(Configuration.getDefaultConfig());
 	
 	
 	public static ApplicationHandler getInstance() {
 		if (instance == null)
 			instance = new ApplicationHandler();
-//		throw new NullPointerException();
 		return instance;
 	}
 	
@@ -129,7 +123,7 @@ public class ApplicationHandler {
 		if (DoMosaicsUI.getInstance().isShowing())
 			DoMosaicsUI.getInstance().dispose();
 		
-		Configuration.getLogger().info("INFO: closing DoMosaicS");
+		Configuration.getLogger().info("INFO: closing DoMosaics");
 		LastUsedWorkspaceWriter.write();
 		System.exit(0);		
 	}
@@ -221,7 +215,7 @@ public class ApplicationHandler {
 	public void start() {
 		startUpProgress = new StartupPage();
 		
-		startUpProgress.setProgress("Loading DoMosaicS", 5);
+		startUpProgress.setProgress("Loading DoMosaics", 5);
 		initPreferences();
 		
 		/**
@@ -313,8 +307,7 @@ public class ApplicationHandler {
 
 		File workspace=null;
 		//File configFile = new File(workspace.getAbsolutePath()+"/"+Configuration.CONFIGFILE);
-		if (!configFile.exists())
-		{
+		if ( !configFile.exists() ) {
 			// if default directory does not exist choose and create a workspace dir
 			while(workspace == null) // user aborted wizard
 				workspace = WizardManager.getInstance().showWorkingDirectoyWizard(startUpProgress, Configuration.DEF_HOMEFOLDER_LOCATION);
@@ -322,7 +315,8 @@ public class ApplicationHandler {
 				workspace.mkdir();
 					
 			Configuration.getInstance().setWorkspaceDir(workspace.getPath());
-		} else {
+		} 
+		else {
 			ConfigurationReader.read();
 		}
 		

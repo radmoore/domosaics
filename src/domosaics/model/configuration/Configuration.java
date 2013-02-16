@@ -21,11 +21,9 @@ import domosaics.util.ExceptionComunicator;
  */
 public class Configuration {
 	
-	public static final String CONFIGFILE = "config";
+	public static final String CONFIGFILE = ".domosaics_config";
 	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
-	//public static final String DEF_LOG_LOCATION = DEF_FILE_LOCATION+"/domosaics.log";
 	public static final String DEF_GOOGLE_SEARCH = "http://www.google.com/search?q=XXX";
-	//public static final String DEF_NCBI_SEARCH = "http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&cmd=search&term=XXX";
 	public static final String DEF_PFAM_SEARCH = "http://pfam.sanger.ac.uk/family?acc=XXX";
 	public static final String DEF_UNIPROT_SEARCH = "http://www.uniprot.org/uniprot/?query=XXX";
 	public static final String DEF_EMAIL_ADDR = "";
@@ -46,10 +44,7 @@ public class Configuration {
 	private ExceptionComunicator exceptionComunicator = null;
 	
 
-	//protected String defaultFileLocation;
-
 	protected String googleUrl;
-	//protected String ncbiUrl; 
 	protected String pfamUrl; 
 	protected String uniprotUrl;
 	protected String emailAddr;
@@ -90,6 +85,10 @@ public class Configuration {
 	
 	public static void setReportExceptionsMode(Boolean report) {
 		reportExceptions = report;
+	}
+
+	public static String getDefaultConfig() {
+		return System.getProperty("user.home")+System.getProperty("file.separator")+CONFIGFILE;
 	}
 	
 	public static Boolean getReportExceptionsMode() {
