@@ -5,13 +5,14 @@ import java.io.File;
 import org.apache.log4j.Logger;
 
 import domosaics.ui.tools.configuration.ConfigurationFrame;
+import domosaics.util.ExceptionComunicator;
 
 
 
 
 /**
  * Configuration holds all specified URLs to look up nodes in trees and 
- * domains from an arrangement. The entrys can be changed using the 
+ * domains from an arrangement. The entries can be changed using the 
  * configuration module.
  * 
  * @author Andreas Held
@@ -20,11 +21,9 @@ import domosaics.ui.tools.configuration.ConfigurationFrame;
  */
 public class Configuration {
 	
-	public static final String CONFIGFILE = "config";
+	public static final String CONFIGFILE = ".domosaics_config";
 	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
-	//public static final String DEF_LOG_LOCATION = DEF_FILE_LOCATION+"/domosaics.log";
 	public static final String DEF_GOOGLE_SEARCH = "http://www.google.com/search?q=XXX";
-	//public static final String DEF_NCBI_SEARCH = "http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&cmd=search&term=XXX";
 	public static final String DEF_PFAM_SEARCH = "http://pfam.sanger.ac.uk/family?acc=XXX";
 	public static final String DEF_UNIPROT_SEARCH = "http://www.uniprot.org/uniprot/?query=XXX";
 	public static final String DEF_EMAIL_ADDR = "";
@@ -40,12 +39,12 @@ public class Configuration {
 	
 	private boolean service_running = false;
 	private static boolean debugState = false;
+	private static boolean reportExceptions = false;
+	
+	private ExceptionComunicator exceptionComunicator = null;
 	
 
-	//protected String defaultFileLocation;
-
 	protected String googleUrl;
-	//protected String ncbiUrl; 
 	protected String pfamUrl; 
 	protected String uniprotUrl;
 	protected String emailAddr;
@@ -64,6 +63,8 @@ public class Configuration {
 	
 	public Configuration() {
 		restoreDefaults();
+		if (exceptionComunicator == null)
+			exceptionComunicator = ExceptionComunicator.getInstance();
 	}
 
 	public static boolean isNamePreferedToAcc() {
@@ -76,11 +77,22 @@ public class Configuration {
 	
 	public static Logger getLogger() {
     	return Logger.getLogger("domosaicslog");
-    	
 	}
 	
 	public static void setDebug(Boolean debug) {
 		debugState = debug;
+	}
+	
+	public static void setReportExceptionsMode(Boolean report) {
+		reportExceptions = report;
+	}
+
+	public static String getDefaultConfig() {
+		return System.getProperty("user.home")+System.getProperty("file.separator")+CONFIGFILE;
+	}
+	
+	public static Boolean getReportExceptionsMode() {
+		return reportExceptions;
 	}
 	
 	public static boolean isDebug() {
@@ -169,6 +181,10 @@ public class Configuration {
 	
 	public boolean getOverwriteProjects() {
 		return overwriteProjects;
+	}
+	
+	public ExceptionComunicator getExceptionComunicator() {
+		return exceptionComunicator;
 	}
 	
 	/*

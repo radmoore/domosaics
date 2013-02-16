@@ -379,10 +379,10 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * Triggered when the load DB button is pressed.
 	 */
 	private void loadDBAction() {
-		File file = FileDialogs.showOpenDialog(this);
-		if (file == null || !file.canRead())
+		hmmDBFile = FileDialogs.showOpenDialog(this);
+		if (hmmDBFile == null || !hmmDBFile.canRead())
 			return;
-		hmmTF.setText(file.getAbsolutePath());
+		hmmTF.setText(hmmDBFile.getAbsolutePath());
 		hmmTF.setBackground(Color.WHITE);
 	}
 	
@@ -767,7 +767,10 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				catch (Exception e) {
 					writeToConsole("*** E: Something went wrong while creating the tmp file.\n");
 					writeToConsole("*** I: Please ensure sufficient space and permissions on the system temp dir\n");
-					Configuration.getLogger().debug(e.toString());
+					if (Configuration.getReportExceptionsMode())
+						Configuration.getInstance().getExceptionComunicator().reportBug(e);
+					else			
+						Configuration.getLogger().debug(e.toString());
 				}
 				fastaTF.setText(fastaFile.getAbsolutePath());
 				view2file.put(selected.getViewID(), fastaFile);

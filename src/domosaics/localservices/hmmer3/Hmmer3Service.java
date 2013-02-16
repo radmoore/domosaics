@@ -128,7 +128,10 @@ public class Hmmer3Service implements ProcessListener{
 			hmmPanel.writeToConsole("*** I: Started "+hmmerProgram.getName()+" run\n");
 		} 
 		catch(Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			executor.stop();
 		}
 	}
@@ -162,7 +165,10 @@ public class Hmmer3Service implements ProcessListener{
 			executor.execute();
 		} 
 		catch(Exception e) {
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			executor.stop();
 			return 1;
 		}
@@ -198,8 +204,10 @@ public class Hmmer3Service implements ProcessListener{
 		    System.out.println(out);
 		}
 		catch(Exception e) {
-			System.out.println("*** E: Problem handling output.");
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		
 		if (error)
@@ -220,7 +228,10 @@ public class Hmmer3Service implements ProcessListener{
 			logFileWriter.close();
 		} 
 		catch (Exception e) {
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		
 		if (res == 0) {
@@ -258,9 +269,12 @@ public class Hmmer3Service implements ProcessListener{
 			FileWriter fstream = new FileWriter(logFile.getAbsolutePath());
 			writer = new BufferedWriter(fstream);
 			
-		} catch(Exception e) {
-			System.out.println("*** E: Problem creating log file: ");
-			e.printStackTrace();
+		} 
+		catch(Exception e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		System.out.println("*** I: log file of run: "+logFile.getAbsolutePath());
 		this.logFile = logFile;

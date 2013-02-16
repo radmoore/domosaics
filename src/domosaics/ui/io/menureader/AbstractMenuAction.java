@@ -65,7 +65,10 @@ public abstract class AbstractMenuAction extends AbstractAction {
 				is.close();
 			} 
 			catch(Exception e) {
-				Configuration.getLogger().debug(e.toString());
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(e);
+				else			
+					Configuration.getLogger().debug(e.toString());
 			}
 		}
 	}

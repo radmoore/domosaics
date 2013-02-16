@@ -50,7 +50,10 @@ public class SaveStatsToCSVAction extends AbstractAction {
 			csvWriter.close();
 		} 
 		catch (IOException e1) {
-			Configuration.getLogger().debug(e1.toString());	
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e1);
+			else			
+				Configuration.getLogger().debug(e1.toString());
 		}
 	}
 		

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import domosaics.model.configuration.Configuration;
+
 /**
  * 
  * @author <a href='http://radm.info'>Andrew D. Moore</a>
@@ -41,6 +43,10 @@ public class XdomUtil {
 				Integer.valueOf(fields[1]);
 			}
 			catch(NumberFormatException nfe) {
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(nfe);
+				else			
+					Configuration.getLogger().debug(nfe.toString());
 				return false;
 			}
 		}
@@ -86,7 +92,10 @@ public class XdomUtil {
 				entries.add(xdom.toString());
 		}
 		catch (Exception e) {
-			 
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		return entries;
 	}

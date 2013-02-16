@@ -36,8 +36,12 @@ public class NewickWriter {
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
             write(out, tree);        
             out.close();
-        } catch (IOException e) {
-        	Configuration.getLogger().debug(e.toString());
+        } 
+		catch (IOException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
         }
     }
 	
@@ -47,8 +51,12 @@ public class NewickWriter {
             out.write(theString);
             out.write("\r\n");
             out.flush();            
-        } catch (IOException e) {
-        	Configuration.getLogger().debug(e.toString());
+        } 
+		catch (IOException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
         }
     }
 	

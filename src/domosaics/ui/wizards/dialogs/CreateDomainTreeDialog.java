@@ -86,7 +86,10 @@ class CreateDomTreeProgress extends DeferredWizardResult implements WizardResult
 			return;
 		}
 		catch(Exception e){
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			p.failed("Error while creating DomainTree view, please try again.", false);
 		}
 

@@ -45,8 +45,13 @@ public enum ViewType {
 			clazz = Class.forName(classURL);
 		} 
 		catch (ClassNotFoundException e) {
-			Configuration.getLogger().debug(e.toString());
-			Configuration.getLogger().debug("Could not find view class: "+classURL);
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else {			
+				Configuration.getLogger().debug(e.toString());
+				Configuration.getLogger().debug("Could not find view class: "+classURL);
+			}
+			
 		}
 	}
 	

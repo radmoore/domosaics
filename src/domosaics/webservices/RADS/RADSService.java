@@ -11,6 +11,7 @@ import java.util.TreeSet;
 import javax.swing.SwingWorker;
 
 import domosaics.model.arrangement.DomainArrangement;
+import domosaics.model.configuration.Configuration;
 
 
 
@@ -67,7 +68,12 @@ public class RADSService extends SwingWorker<TreeSet<RADSProtein>, Void> {
 			running = false;
 			proteins = get();
 		}
-		catch (Exception e) {};
+		catch (Exception e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
+		}
 	}
 	
 	/**

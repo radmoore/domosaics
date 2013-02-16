@@ -52,12 +52,16 @@ public class InterProScanResultParser {
 			return getArrangement(new StringReader(arrangementsStr));
 		} 
 		catch (IOException ioe) {
-			Configuration.getLogger().debug(ioe.toString());
-		//	Logger.getLogger("logger").warn("IO Exception: could not read domain arrangement from string");
-		//	Logger.getLogger("logger").warn("Reading InterproScan result  aborted");
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(ioe);
+			else			
+				Configuration.getLogger().debug(ioe.toString());
 		}
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			return null;
 		}
 		return null;
@@ -169,7 +173,10 @@ public class InterProScanResultParser {
 			
 			}
 			catch (Exception e) {
-				Configuration.getLogger().debug(e.toString());
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(e);
+				else			
+					Configuration.getLogger().debug(e.toString());
 			}
 			
 		}

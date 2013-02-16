@@ -52,7 +52,10 @@ public abstract class AbstractTreeReader implements TreeReader{
 			return getTreeFromString(strBuffer.toString());
 		} 
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Reading Tree file aborted");
 		}
 		return null;
@@ -79,8 +82,12 @@ public abstract class AbstractTreeReader implements TreeReader{
 
 			in.close();	
 			return getTreeFromString(strBuffer.toString());
-		} catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+		} 
+		catch (Exception e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Reading Tree file aborted");
 		}
 		return null;

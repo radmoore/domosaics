@@ -55,8 +55,6 @@ import domosaics.ui.wizards.WizardManager;
 import domosaics.ui.wizards.pages.SelectNamePage;
 
 
-
-
 /**
  * The similarity chooser dialog is used in compination with the 
  * {@link DomainSimilarityManager} which processes the dialog changes.
@@ -192,14 +190,22 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 	    LookAndFeel laf = new MetalLookAndFeel();
 	    try {
 			UIManager.setLookAndFeel(laf);
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+		} 
+	    catch (UnsupportedLookAndFeelException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		slider.setUI(new MyMetalSliderUI(slider));
 	    try {
 			UIManager.setLookAndFeel(save);
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+		} 
+	    catch (UnsupportedLookAndFeelException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 	    slider.addChangeListener(this);
 		
@@ -239,14 +245,22 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 	    LookAndFeel laf = new MetalLookAndFeel();
 	    try {
 			UIManager.setLookAndFeel(laf);
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+		} 
+	    catch (UnsupportedLookAndFeelException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		slider.setUI(new MyMetalSliderUI(slider));
 	    try {
 			UIManager.setLookAndFeel(save);
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+		} 
+	    catch (UnsupportedLookAndFeelException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		slider.addChangeListener(this);
 		
@@ -336,7 +350,10 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 				daSet.add((DomainArrangement)da.clone());
 			} 
 			catch (CloneNotSupportedException e) {
-				Configuration.getLogger().debug(e.toString());
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(e);
+				else			
+					Configuration.getLogger().debug(e.toString());
 			}
 			
 		}

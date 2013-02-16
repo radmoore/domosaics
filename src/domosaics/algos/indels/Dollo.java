@@ -64,7 +64,8 @@ public class Dollo extends AbstractReconstructionAlgo {
 				if (node.isLeaf()) {
 					DomainVector[] aligned = new NW4DomainsAffine(domSeq, node.getArrangement()).getMatch();
 					node2da.put(node, aligned[1]);
-				} else // create dummy arrangements for inner nodes
+				} 
+				else // create dummy arrangements for inner nodes
 					node2da.put(node, new DomainVector());
 			}
 			
@@ -76,7 +77,10 @@ public class Dollo extends AbstractReconstructionAlgo {
 				
 		}
 		catch(Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());;
 		}
 		
 		return null;

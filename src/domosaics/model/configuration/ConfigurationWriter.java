@@ -52,8 +52,12 @@ public class ConfigurationWriter {
 		    out.flush();
 		    out.close();
 		   
-		} catch (IOException e) {
-			Configuration.getLogger().debug(e.toString());
+		} 
+		catch (IOException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Configuration file not found");
 		}
 	}
@@ -69,7 +73,10 @@ public class ConfigurationWriter {
 			
 		}
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 	}
 	

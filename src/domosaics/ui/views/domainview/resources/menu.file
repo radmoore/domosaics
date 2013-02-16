@@ -3,9 +3,15 @@
 	<menu id="File">
 		
 		<menuitem id="JMenuItem">
-			<parameter id="name" value="Save Arrangements To File"/> 
+			<parameter id="name" value="Save Arrangements (xdom)"/> 
 			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SaveXdomFileAction"/> 
 			<parameter id="tooltip" value="Saves the arrangements to a file"/> 
+		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Save Sequences (fasta)"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SaveArrFastaFileAction"/> 
+			<parameter id="tooltip" value="Saves the sequences of the arrangements to a file"/> 
 		</menuItem>
 
 		<menu id="Image Export">

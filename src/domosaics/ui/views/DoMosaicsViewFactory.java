@@ -15,10 +15,6 @@ import domosaics.ui.views.view.ViewInfo;
 import domosaics.ui.views.view.ViewPanel;
 import domosaics.ui.views.view.io.ViewPropertyReader;
 
-
-
-
-
 /**
  * DoMosaicsViewFactory specifies the method which is used to create new views.
  * <p>
@@ -123,7 +119,10 @@ public class DoMosaicsViewFactory {
 			return (V) view;
 		} 
 		catch (Exception e) {
-       	 	Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Failed to create View!");
 			return null;
 		}

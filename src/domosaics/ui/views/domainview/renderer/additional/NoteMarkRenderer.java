@@ -14,9 +14,6 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.view.renderer.Renderer;
 
-
-
-
 public class NoteMarkRenderer implements Renderer {
 	
 	private static final String NOTEMARKPATH = "../../../../resources/notemarker.jpg";
@@ -54,8 +51,12 @@ public class NoteMarkRenderer implements Renderer {
 		ImageIcon logo = null;
 		try {
 			logo = new ImageIcon(ImageIO.read(is));
-		} catch (IOException e) {
-			Configuration.getLogger().debug(e.toString());
+		} 
+		catch (IOException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			return;
 		}
 		

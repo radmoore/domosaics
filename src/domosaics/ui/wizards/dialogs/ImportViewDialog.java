@@ -127,8 +127,10 @@ class ViewImportProgress implements WizardResultProducer{
 
 		} 
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		
 		// set back to default

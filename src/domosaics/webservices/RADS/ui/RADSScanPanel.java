@@ -32,6 +32,7 @@ import org.jdesktop.swingx.JXTitledSeparator;
 import domosaics.model.arrangement.ArrangementManager;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.util.XdomUtil;
+import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.sequence.util.SeqUtil;
 import domosaics.model.workspace.ProjectElement;
@@ -839,6 +840,12 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 
 		}
 		catch (NumberFormatException nfe) {
+			
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(nfe);
+			else			
+				Configuration.getLogger().debug(nfe.toString());
+			
 			MessageUtil.showWarning(parent, "Values for scores and penalties must be numbers");
 			return false;
 		}
@@ -922,12 +929,18 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		worker.execute();
 		try {
 			resultModel = worker.get();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} 
+		catch (InterruptedException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
+		} 
+		catch (ExecutionException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		return resultModel;
 	}

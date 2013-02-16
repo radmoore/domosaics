@@ -147,7 +147,10 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
 			URL menuURL = this.getClass().getResource(MENUFILE);
 			setJMenuBar(JMenuBarFactory.createMenuBar(menuURL, actionManager));
 		} catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			JOptionPane.showMessageDialog(this, e.toString(), "Menu loading FAILED!", JOptionPane.ERROR_MESSAGE); 
 		}
 		// create ToolBar
@@ -267,7 +270,10 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
     		settingsIcon = new ImageIcon(ImageIO.read(is));
     	}
     	catch (Exception e) {
-    		e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
     	}
     	
     	// new project

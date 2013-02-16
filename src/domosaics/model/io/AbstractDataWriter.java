@@ -37,7 +37,10 @@ public abstract class AbstractDataWriter<T extends DoMosaicsData> implements Dat
             out.close();
         } 
         catch (IOException e) {
-        	Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
         }
     }
 	
@@ -52,7 +55,10 @@ public abstract class AbstractDataWriter<T extends DoMosaicsData> implements Dat
             out.close();
         } 
         catch (IOException e) {
-        	Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
         }
     }
 	
@@ -65,8 +71,12 @@ public abstract class AbstractDataWriter<T extends DoMosaicsData> implements Dat
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
             wrappedWrite(out, data, wrapAfter);
             out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } 
+        catch (IOException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
         }
     }
 	

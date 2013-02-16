@@ -14,9 +14,6 @@ import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.view.io.ViewExporter;
 
-
-
-
 public class TreeViewExporter extends ViewExporter<TreeViewI>{
 
 	public void write(BufferedWriter out, TreeViewI view) {
@@ -63,7 +60,10 @@ public class TreeViewExporter extends ViewExporter<TreeViewI>{
         	out.flush();
         } 
         catch (IOException e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
         }
     }
 

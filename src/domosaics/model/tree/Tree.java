@@ -144,8 +144,12 @@ public class Tree implements TreeI {
 					node.setLabel("");
 					((TreeEdgeI) node.getEdgeToParent()).setBootstrap(bootstrap);
 				}
-			} catch( NumberFormatException nfe) {
-				Configuration.getLogger().debug(nfe.toString());
+			} 
+			catch( NumberFormatException nfe) {
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(nfe);
+				else			
+					Configuration.getLogger().debug(nfe.toString());
 			}
 		}
 	}
@@ -358,8 +362,12 @@ public class Tree implements TreeI {
 				if (toClone.contains(da)) {
 					try {
 						da = (DomainArrangement) da.clone();
-					} catch(CloneNotSupportedException cnse) {
-						Configuration.getLogger().debug(cnse.toString());
+					} 
+					catch(CloneNotSupportedException cnse) {
+						if (Configuration.getReportExceptionsMode())
+							Configuration.getInstance().getExceptionComunicator().reportBug(cnse);
+						else			
+							Configuration.getLogger().debug(cnse.toString());
 					}
 				} else
 					toClone.add(da);

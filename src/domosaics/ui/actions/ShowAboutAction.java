@@ -14,6 +14,5 @@ public class ShowAboutAction extends AbstractMenuAction {
 
 	public void actionPerformed(ActionEvent e) {
 		new AboutFrame().setVisible(true);
-		
 	}
 }

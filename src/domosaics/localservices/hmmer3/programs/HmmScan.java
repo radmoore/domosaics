@@ -115,7 +115,10 @@ public class HmmScan implements Hmmer3Program {
 			outfile = File.createTempFile("hmmerJob_", ".hmmout");
 		}
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		
 		if (!maxFilter) {
@@ -540,7 +543,10 @@ public class HmmScan implements Hmmer3Program {
 				br.close();
 		} 
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		return entries;
 	}
