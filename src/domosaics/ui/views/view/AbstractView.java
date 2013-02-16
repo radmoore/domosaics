@@ -399,12 +399,14 @@ public abstract class AbstractView extends JComponent implements View {
 		root.setAttribute(new Attribute("hash",DigestUtil.createDigest(this.getViewInfo().getName())));
 		root.addContent(viewType);
 		this.xmlWriteViewType();
-		Attribute viewName = new Attribute("name",this.getViewInfo().getName());
+		Attribute viewID = new Attribute("id", String.valueOf(this.getViewInfo().getID()));
+		viewType.setAttribute(viewID);
+		Attribute viewName = new Attribute("name", this.getViewInfo().getName());
 		viewType.setAttribute(viewName);
 		this.xmlWrite(viewType);
         XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
         try {
-			sortie.output(document, System.out);
+			//sortie.output(document, System.out);
 	        sortie.output(document, new FileOutputStream(file));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -419,9 +421,9 @@ public abstract class AbstractView extends JComponent implements View {
 
 			//Create a new JDOM document with the XML file
 			document = sxb.build(file);
-
+			
 			//Initialize a new element to the root of the document.
-			viewType = document.getRootElement().getChild("DOMOSAICS_VIEW");
+			viewType = document.getRootElement().getChild("VIEW");
 			this.xmlRead(viewType);
 			
         } catch (Exception e) {
@@ -442,16 +444,15 @@ public abstract class AbstractView extends JComponent implements View {
 			//Initialize a new element to the root of the document.
 			Element r = doc.getRootElement();
 
-			System.out.println(r.getName());
-			if(r.getName()!="DOMAICS_VIEW")
-				if (!MessageUtil.showDialog( viewFile.getName()+" does not appear to be a DoMosaic file. Continue?"))
+			if(!r.getName().equals("DOMOSAICS_VIEW"))
+				if (!MessageUtil.showDialog( viewFile.getName()+" does not appear to be a DoMosaicS file. Continue?"))
 					return null;
 
 			String viewType = r.getChildren("VIEW").get(0).getAttributeValue("type");
 			if (viewType.equals("SEQUENCES"))
 				return  ViewType.SEQUENCE;
 
-			if (viewType.equals("DOMAINTREE"))
+			if (viewType.equals("DOMAIN_TREE"))
 				return  ViewType.DOMAINTREE;
 
 			if (viewType.equals("TREE"))

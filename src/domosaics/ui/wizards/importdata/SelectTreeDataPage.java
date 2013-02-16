@@ -47,7 +47,7 @@ public class SelectTreeDataPage extends WizardPage implements ActionListener {
 	private ProjectElement project;
 	
 	public SelectTreeDataPage(ProjectElement project) {
-		super("Select Tree for "+ project.getShortTitle(5));
+		super("Select Tree file");
 		this.project = project;
 		init();
 	}

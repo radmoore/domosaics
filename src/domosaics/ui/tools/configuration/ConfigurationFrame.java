@@ -1,9 +1,11 @@
 package domosaics.ui.tools.configuration;
 
+import java.awt.Frame;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 import domosaics.model.configuration.Configuration;
 
@@ -29,28 +31,29 @@ public class ConfigurationFrame extends JFrame implements WindowListener {
 		
 		getContentPane().add(new ConfigurationPanel(this));
 		
-		Configuration.getInstance().setVisible(true);
-		Configuration.getInstance().setFrame(this);
+		//Configuration.getInstance().setVisible(true);
+		//Configuration.getInstance().setFrame(this);
 		
 		// set up the main window
 		pack();
 		setLocationRelativeTo(null);
 		setAlwaysOnTop(true);
 		setResizable(false);
+		if(Configuration.getInstance().getFrame()!=null)
+			if(Configuration.getInstance().getFrame().getState() == Frame.ICONIFIED)
+				setState(Frame.ICONIFIED);
 		setVisible(true);
 	}
     
-    /**
-     * When the main frame is closed, the panel has to be disposed and therefore 
-     * the thread spawner cancelled.
-     */
-	public void windowClosing(WindowEvent e) {
-		Configuration.getInstance().setVisible(false);
+    public void windowClosing(WindowEvent e) {
+    	Configuration.getInstance().setFrame(null);
 	}
 	
 	public void windowActivated(WindowEvent e) { }
 	
-	public void windowClosed(WindowEvent e) { }
+	public void windowClosed(WindowEvent e) {
+    	Configuration.getInstance().setFrame(null);
+	}
 
 	public void windowDeactivated(WindowEvent e) { }
 

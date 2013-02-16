@@ -24,8 +24,12 @@ public class ShowConfigurationAction extends AbstractMenuAction{
 	protected ConfigurationFrame configFrame = null;
 	
 	public void actionPerformed(ActionEvent e) {
-			
-		configFrame = Configuration.getInstance().getFrame();
+
+		if (Configuration.getInstance().getFrame() != null)
+			Configuration.getInstance().getFrame().dispose();
+		Configuration.getInstance().setFrame(new ConfigurationFrame());
+		
+		/*configFrame = Configuration.getInstance().getFrame();
 		
 		if (configFrame == null)
 			configFrame = new ConfigurationFrame();
@@ -38,7 +42,7 @@ public class ShowConfigurationAction extends AbstractMenuAction{
 		
 //		if (!Configuration.getInstance().isVisible()) {
 //			configFrame = new ConfigurationFrame();
-//		}
+//		}*/
 //		/**
 //		* TODO
 //		* the bug with the configuration window not opening

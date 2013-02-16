@@ -221,7 +221,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		disable(DomainAction.SHOW_RULER);
 		disable(DomainAction.SHOW_SHAPES);
 		disable(DomainAction.SELECT_ARRANGEMENTS);
-		disable(DomainAction.SELECT_SEQUENCES);
 		enable(DomainAction.EVALUE_COLORIZATION);
 		enable(DomainAction.FIT_TO_SCREEN);
 		if (getState(DomainAction.COLLAPSE_BY_SIMILARITY)) {
@@ -236,6 +235,7 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 				enable(DomainAction.COLLAPSE_BY_SIMILARITY);
 				setState(DomainAction.SELECT_ARRANGEMENTS, true);
 				toggleSelectArrangements();
+				disable(DomainAction.SELECT_SEQUENCES);
 			}			
 		}
 		structuralChange();	
@@ -264,6 +264,7 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 
 		setState(DomainAction.SELECT_SEQUENCES, true);
 		toggleSelectSequences();
+		disable(DomainAction.SELECT_ARRANGEMENTS);
 		
 		structuralChange();	
 	}
@@ -343,7 +344,7 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 			disable(DomainAction.EXPORT_SELECTION);
 			disable(DomainAction.MERGE_SELECTION);
 			disable(DomainAction.SHOW_RULER);
-			disable(DomainAction.SELECT_ARRANGEMENTS);
+			enable(DomainAction.SELECT_ARRANGEMENTS);
 		}
 	}
 	
@@ -363,7 +364,7 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 			enable(DomainAction.ZOOMMODE);
 			enable(DomainAction.EXPORT_SELECTION);
 			enable(DomainAction.MERGE_SELECTION);
-			disable(DomainAction.SELECT_SEQUENCES);
+			enable(DomainAction.SELECT_SEQUENCES);
 		}
 	}
 	

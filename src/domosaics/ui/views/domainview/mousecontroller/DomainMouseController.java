@@ -53,9 +53,8 @@ public class DomainMouseController extends MouseAdapter {
 	 */
 	public void mouseClicked(MouseEvent e) {
 		SelectionManager<DomainComponent> domSelectionManager = view.getDomainSelectionManager();
-		
 		// reset domain selection, e.g. selected because of the find action
-		domSelectionManager.clearSelection();
+		//domSelectionManager.clearSelection();
 		
 		// context menu handling on right click
 		if (e.getButton() == MouseEvent.BUTTON3) {
@@ -67,7 +66,8 @@ public class DomainMouseController extends MouseAdapter {
 			
 			// show domain context menu
 			if (selectedDomain != null) {
-				new DomainPopupMenu(view).show(view.getViewComponent(), e.getX(), e.getY());
+				if(!view.getDomainLayoutManager().isCollapseBySimilarity() && !view.getDomainLayoutManager().isCollapseSameArrangements())
+					new DomainPopupMenu(view).show(view.getViewComponent(), e.getX(), e.getY());
 				return;
 			}
 		}

@@ -83,7 +83,7 @@ public class ProjectImporter {
     	
 		if (! projectDir.isDirectory())
 			return;
-		
+
 		// ensure that no 'Default Project' is being imported
 //		if (projectName.equals("Default Project")) {
 //			MessageUtil.showInformation("The name >Default Project< is disallowed. Please choose a different name.");
@@ -93,9 +93,7 @@ public class ProjectImporter {
 //				return;
 //		}
 		
-		
 		//check if this is a valid project
-		// TODO Check following code seems silly (Nico)
 		String[] projectFiles = projectDir.list();
 		for (String elem : projectFiles) {
 			if (elem.equals(ProjectExporter.PROJECTFILE)) {
@@ -103,7 +101,7 @@ public class ProjectImporter {
 				break;
 			}
 		}
-		
+
 		if (!validProject)
 			if (!MessageUtil.showDialog(file.getName() + " does not appear to be a valid project. Do you want to import anyways?"))
 				return;
@@ -111,7 +109,6 @@ public class ProjectImporter {
 		
 		project = WizardManager.getInstance().showCreateProjectWizard(projectName);
 		//project = WorkspaceManager.getInstance().addProject(projectName, false);
-		
 		
 		// create categorys and load views
 		String[] categories = new File(projectDirPath).list();

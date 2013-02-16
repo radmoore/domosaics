@@ -48,9 +48,9 @@ public class ConfigurationPanel extends JPanel{
 	protected JPanel configPanel;
 	
 	/** textfields for lookup addresses */
-	protected JTextField googleField, ncbiField, pfamField, uniprotField, emailField, hmmerScanTF, hmmerPressTF, hmmer3dbTF;
+	protected JTextField googleField, ncbiField, pfamField, uniprotField, emailField, hmmerScanTF, hmmerPressTF, hmmer3dbTF, workspace;
 	
-	protected JButton loadHmmScanBin, loadHmmPressBin, loadHmmDB;
+	protected JButton loadHmmScanBin, loadHmmPressBin, loadHmmDB, loadWorkspace;
 	
 	/** buttons for apply and cancel */
 	protected JButton apply, cancel, restore;
@@ -88,7 +88,7 @@ public class ConfigurationPanel extends JPanel{
 	private void apply() {
 		Configuration config = Configuration.getInstance();
 		config.setGoogleUrl(googleField.getText());
-		config.setNcbiUrl(ncbiField.getText());
+		//config.setNcbiUrl(ncbiField.getText());
 		config.setPfamUrl(pfamField.getText());
 		config.setUniprotUrl(uniprotField.getText());
 		config.setEmailAddr(emailField.getText());
@@ -96,10 +96,11 @@ public class ConfigurationPanel extends JPanel{
 		config.setHmmPressBin(hmmerPressTF.getText());
 		config.setHmmerDB(hmmer3dbTF.getText());
 		//config.setShowAdvices(showAdvices.isSelected());
+		config.setWorkspaceDir(workspace.getText());
 		config.setSaveOnExit(saveOnExit.isSelected());
 		config.setOverwriteProjects(overwriteProject.isSelected());
 
-		ConfigurationWriter.write(config.getConfigFile());
+		ConfigurationWriter.write();
 		
 		dispose();
 	}
@@ -114,11 +115,12 @@ public class ConfigurationPanel extends JPanel{
 		hmmerPressTF.setText(config.getHmmPressBin());
 		hmmer3dbTF.setText(config.getHmmerDB());
 		googleField.setText(config.getGoogleUrl());
-		ncbiField.setText(config.getNcbiUrl());
+		//ncbiField.setText(config.getNcbiUrl());
 		pfamField.setText(config.getPfamUrl());
 		uniprotField.setText(config.getUniprotUrl());
 		emailField.setText(config.getEmailAddr());
 		//showAdvices.setSelected(config.isShowAdvices());
+		workspace.setText(config.getWorkspaceDir());
 		saveOnExit.setSelected(config.saveOnExit());
 		overwriteProject.setSelected(config.getOverwriteProjects());
 	}
@@ -128,6 +130,7 @@ public class ConfigurationPanel extends JPanel{
 	 */
 	private void dispose() {
 		parentFrame.dispose();
+		Configuration.getInstance().setFrame(null);
 	}
 	
 	/**
@@ -136,31 +139,43 @@ public class ConfigurationPanel extends JPanel{
 	private void initComponents() {
 		Configuration config = Configuration.getInstance();
 		hmmerScanTF = new JTextField(config.getHmmScanBin());
-		hmmerScanTF.addFocusListener(new FocusListener() {
+		hmmerScanTF.setEditable(false);
+		hmmerScanTF.setBackground(Color.WHITE);
+		/*hmmerScanTF.addFocusListener(new FocusListener() {
 			public void focusLost(FocusEvent e) {}
 			public void focusGained(FocusEvent e) {
-				hmmerScanTF.setBackground(Color.WHITE);
 			}
-		});
+		});*/
 		hmmerPressTF = new JTextField(config.getHmmPressBin());
-		hmmerPressTF.addFocusListener(new FocusListener() {
+		hmmerPressTF.setEditable(false);
+		hmmerPressTF.setBackground(Color.WHITE);
+		/*hmmerPressTF.addFocusListener(new FocusListener() {
 			public void focusLost(FocusEvent e) {}
 			public void focusGained(FocusEvent e) {
-				hmmerPressTF.setBackground(Color.WHITE);
 			}
-		});
+		});*/
 		hmmer3dbTF = new JTextField(config.getHmmerDB());
-		hmmer3dbTF.addFocusListener(new FocusListener() {
+		hmmer3dbTF.setEditable(false);
+		hmmer3dbTF.setBackground(Color.WHITE);
+		/*hmmer3dbTF.addFocusListener(new FocusListener() {
 			public void focusLost(FocusEvent e) {}
 			public void focusGained(FocusEvent e) {
-				hmmer3dbTF.setBackground(Color.WHITE);
 			}
-		});
+		});*/
+		workspace = new JTextField(config.getWorkspaceDir());
+		workspace.setEditable(false);
+		workspace.setBackground(Color.WHITE);
+		/*workspace.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {}
+			public void focusGained(FocusEvent e) {
+			}
+		});*/
 		googleField = new JTextField(config.getGoogleUrl(), 50);
-		ncbiField = new JTextField(config.getNcbiUrl(), 50);
+		//ncbiField = new JTextField(config.getNcbiUrl(), 50);
 		pfamField = new JTextField(config.getPfamUrl(), 50);
 		uniprotField = new JTextField(config.getUniprotUrl(), 50);
 		//emailField = new JTextField(config.getEmailAddr(), 50);
+
 		emailField = UiUtil.createEmailField(config.getEmailAddr());
 		
 		loadHmmScanBin = new JButton("hmmscan bin");
@@ -169,9 +184,7 @@ public class ConfigurationPanel extends JPanel{
 				File scanBin = FileDialogs.showOpenDialog(parentFrame);
 				if (scanBin == null || !scanBin.canExecute())
 					return;
-				if (checkHmmBin(scanBin))
-					hmmerScanTF.setText(scanBin.getAbsolutePath());
-					else return;
+				hmmerScanTF.setText(scanBin.getAbsolutePath());
 			}
 		});
 		
@@ -181,9 +194,7 @@ public class ConfigurationPanel extends JPanel{
 				File pressBin = FileDialogs.showOpenDialog(parentFrame);
 				if (pressBin == null || !pressBin.canExecute())
 					return;
-				if (checkHmmBin(pressBin))
-					hmmerPressTF.setText(pressBin.getAbsolutePath());
-					else return;
+				hmmerPressTF.setText(pressBin.getAbsolutePath());
 			}
 		});
 		
@@ -194,13 +205,19 @@ public class ConfigurationPanel extends JPanel{
 				File file = FileDialogs.showOpenDialog(parentFrame);
 				if (file == null || !file.canRead())
 					return;
-
-				if (checkHmmDBDir(file, true))
-					hmmer3dbTF.setText(file.getAbsolutePath());
-					else return;
+				hmmer3dbTF.setText(file.getAbsolutePath());
 			}
 		});
-		
+
+		loadWorkspace = new JButton("Folder location");
+		loadWorkspace.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File workspaceFile = FileDialogs.openChooseDirectoryDialog(parentFrame);
+				if (workspaceFile == null)
+					return;
+				workspace.setText(workspaceFile.getAbsolutePath()+"/domosaics-workspace");
+			}
+		});
 		
 //		showAdvices = new JCheckBox("Show Advices", config.isShowAdvices());
 		saveOnExit = new JCheckBox(" Save Workspace on Exit", config.saveOnExit());
@@ -214,7 +231,7 @@ public class ConfigurationPanel extends JPanel{
 				
 				if (!emailField.getText().equals(""))
 					if (!UiUtil.isValidEmail(emailField.getText())) {
-						MessageUtil.showWarning("Please enter a valid email (or non at all)");
+						MessageUtil.showWarning("Please enter a valid email!");
 						return;
 					}
 				
@@ -231,14 +248,23 @@ public class ConfigurationPanel extends JPanel{
 						return;	
 					}
 				}
-				
+
 				if (!hmmer3dbTF.getText().equals("")) {
-					if (!checkHmmDBDir(new File(hmmer3dbTF.getText()), false)) {
+					if (!checkHmmDB(new File(hmmer3dbTF.getText()))) {
 						hmmer3dbTF.setBackground(highlightColor);
 						return;
 					}
 				
-				}	
+				}
+				
+				if (!hmmer3dbTF.getText().equals("")) {
+					if (!checkHmmDBpressed(new File(hmmer3dbTF.getText()))) {
+						hmmerPressTF.setBackground(highlightColor);
+						return;
+					}
+				
+				}
+				new File(workspace.getText()).mkdir();
 				apply();
 			}
 		});
@@ -279,8 +305,8 @@ public class ConfigurationPanel extends JPanel{
 		add(new JXTitledSeparator("URLs"),"growx, span, wrap, gaptop 10");
 		add(new JLabel("Google Url: "), "h 25!, gap 10");
 		add(googleField, "h 25!, gap 10, span, growx, gapright 10, wrap");
-		add(new JLabel("NCBI Url: "), "h 25!, gap 10");
-		add(ncbiField, "h 25!, gap 10, span, growx, gapright 10, wrap");
+		/*add(new JLabel("NCBI Url: "), "h 25!, gap 10");
+		add(ncbiField, "h 25!, gap 10, span, growx, gapright 10, wrap");*/
 		/*add(new JLabel("Pfam Url: "), "h 25!, gap 10");
 		add(pfamField, "h 25!, gap 10, span, growx, gapright 10, wrap");*/
 		add(new JLabel("Uniprot Url: "), "h 25!, gap 10");
@@ -289,6 +315,8 @@ public class ConfigurationPanel extends JPanel{
 //		add(new JXTitledSeparator("Advice"),"growx, span, wrap, gaptop 10");
 //		add(showAdvices, 	"h 25!, gap 10, wrap");
 		add(new JXTitledSeparator("Workspace"),"growx, span, wrap, gaptop 10");
+		add(loadWorkspace, "h 25!, w 165!, gap 10");
+		add(workspace, "h 25!, gap 10, span, growX, gapright 10, wrap");
 		add(saveOnExit, 	"h 25!, gap 10, span 2, wrap");
 		add(overwriteProject, 	"h 25!, gap 10, span 2, wrap");
 		
@@ -334,13 +362,13 @@ public class ConfigurationPanel extends JPanel{
 	}
 	
 	/**
-	 * Check whether the current HMMER3 database dir
-	 * contains the pressed files
+	 * Check whether the current HMMER3 database 
+	 * file exists and is valid
 	 *
 	 * @param file
 	 * @return
 	 */
-	private boolean checkHmmDBDir(File file, boolean initPress) {
+	private boolean checkHmmDB(File file) {
 		
 		// check if file is still there
 		if (!file.exists()) {
@@ -353,34 +381,44 @@ public class ConfigurationPanel extends JPanel{
 			MessageUtil.showWarning(parentFrame, file.getName()+ " does not appear to be a valid hmmer3 profile");
 			return false;
 		}
+		return true;
+	}
 		
-		boolean pressAvail = true;
+	/**
+	 * Check whether the current HMMER3 database dir
+	 * contains the pressed files
+	 *
+	 * @param file
+	 * @return
+	 */
+	private boolean checkHmmDBpressed(File file) {
 		
-		// check if hmmpress service is available
-		if (!hmmer3Engine.isAvailableService("hmmpress")) {
-			// if not, check whether press bin in the selected textfield is valid
-			if (!hmmerPressTF.getText().equals("")) {
-				pressAvail = checkHmmBin(new File(hmmerPressTF.getText()));
-			}
-		}
+		boolean pressAvail = false;
+		// if not, check whether press bin in the selected textfield is valid
+		if (!hmmerPressTF.getText().equals(""))
+			pressAvail = checkHmmBin(new File(hmmerPressTF.getText()));
 		
 		// check if pressed files are available
-		if (!HmmPress.hmmFilePressed(file) && initPress) {
-			if (MessageUtil.showDialog(parentFrame, file.getName()+" is not pressed. Do you want DoMosaicS to press it now?")) {
-				if (!pressAvail || (hmmerPressTF.getText().isEmpty())) {
+		if (!HmmPress.hmmFilePressed(file)) {
+			if (MessageUtil.showDialog(parentFrame, file.getName()+" is not pressed. Do you want AnGSTD to press it now?")) {
+				if (!pressAvail) {
 					MessageUtil.showInformation(parentFrame, "Please first provide hmmpress binary");
-					hmmer3dbTF.setText("");
 					return false; 
 				}
-				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+				configPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 				HmmPress hmmPress = new HmmPress(hmmer3Engine.getAvailableServicePath("hmmpress"), file, configPanel);
 				//TODO  we should get some type of return here.
 				hmmer3Engine.launch(hmmPress);
+				/* TODO NICO 
+				 * while(hmmer3Engine.isRunning()) {
+					try {
+						wait(5000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}*/
 			}
-			else {
-				return false;
-				// do something else here
-			}	
 		}
 		return true;
 	}

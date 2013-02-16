@@ -36,21 +36,6 @@ public class Pfam2GOreader {
 	}
 	
 	
-	public static void readFile() {
-		try {
-			InputStream is = GatheringThresholdsReader.class.getResourceAsStream("resources/pfam2go");
-			BufferedReader localIn = new BufferedReader(new InputStreamReader(is));
-			URL remoteFile = new URL("http://www.geneontology.org/external2go/pfam2go");
-			BufferedReader remoteIn = new BufferedReader(new InputStreamReader(remoteFile.openStream()));
-			
-		}
-		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
-		}
-	}
-	
-	
-	
 	public static void readGOFile() {
 		
 		
@@ -71,7 +56,9 @@ public class Pfam2GOreader {
 		
 		try {
 		
-			InputStream is = GatheringThresholdsReader.class.getResourceAsStream("resources/pfam2go");
+			//URL remoteFile = new URL("http://www.geneontology.org/external2go/pfam2go");
+			//BufferedReader in = new BufferedReader(new InputStreamReader(remoteFile.openStream()));
+			InputStream is = Pfam2GOreader.class.getResourceAsStream("resources/pfam2go");
 			BufferedReader in = new BufferedReader(new InputStreamReader(is));
 			
 			String line;

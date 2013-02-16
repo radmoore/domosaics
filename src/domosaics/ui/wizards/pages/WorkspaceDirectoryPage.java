@@ -44,7 +44,8 @@ public class WorkspaceDirectoryPage extends WizardPage implements ActionListener
 		setPreferredSize(new Dimension(300,200));
 		
 		//init components
-		fileField = new JTextField(defaultDir);
+		fileField = new JTextField(defaultDir+"/domosaics-workspace");
+		fileField.setEditable(false);
 		fileField.setName(FILE_KEY);
 		
 		JButton browse = new JButton("Browse...");
@@ -73,6 +74,7 @@ public class WorkspaceDirectoryPage extends WizardPage implements ActionListener
 		if(file == null)
 			return;
 		
-		fileField.setText(file.getAbsolutePath());
+		fileField.setText(file.getAbsolutePath()+"/domosaics-workspace");
+		fileField.setEditable(false);
 	}
 }

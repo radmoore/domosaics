@@ -24,9 +24,9 @@ import domosaics.util.BrowserLauncher;
 public class LookupProteinInGoogle extends AbstractAction {
 	private static final long serialVersionUID = 1L;
 
-	public LookupProteinInGoogle () {
+	public LookupProteinInGoogle (String protein) {
 		super();
-		putValue(Action.NAME, "Lookup At Google");
+		putValue(Action.NAME, "Lookup for protein "+protein+" in Google");
 		putValue(Action.SHORT_DESCRIPTION, "Opens a browserwindow showing the Google homepage");
 	}
 	

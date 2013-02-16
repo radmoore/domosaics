@@ -49,8 +49,8 @@ public class GeneOntology {
 		URL oboURL;
 		try {
 			oboURL = GeneOntology.class.getResource(url);
-			in = new BufferedReader(new FileReader(oboURL.getFile()));
-			//in = new BufferedReader(new InputStreamReader(oboURL.openStream()));
+			//in = new BufferedReader(new FileReader(oboURL.getFile()));
+			in = new BufferedReader(new InputStreamReader(oboURL.openStream()));
 			
 			int pos;
 			while((line = in.readLine()) != null && !ended) {

@@ -18,14 +18,18 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JSlider;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.metal.MetalSliderUI;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 
 import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.swingx.JXTitledSeparator;
 
+import domosaics.ui.util.MyMetalSliderUI;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 
 
@@ -69,8 +73,22 @@ public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionLi
 		spaceSlider = new JSlider(1, 100, actThres);
 		spaceSlider.setLabelTable(labelTable);
 		spaceSlider.setPaintLabels(true); 
-		spaceSlider.setUI(new MySliderUI(spaceSlider));
-		spaceSlider.addChangeListener(this);
+		 
+		//Correction for MAC OS
+	    LookAndFeel save = UIManager.getLookAndFeel();
+	    LookAndFeel laf = new MetalLookAndFeel();
+	    try {
+			UIManager.setLookAndFeel(laf);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		spaceSlider.setUI(new MyMetalSliderUI(spaceSlider));
+	    try {
+			UIManager.setLookAndFeel(save);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+	    spaceSlider.addChangeListener(this);
 		
 		componentHolder = new JPanel(new MigLayout());
 
@@ -134,56 +152,5 @@ public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionLi
 			return;
 		}
 	}
-	
-	/**
-	 * Give the slider a nice look and show the current threshold as popup.
-	 * 
-	 * @author Andreas Held
-	 *
-	 */
-	private class MySliderUI extends MetalSliderUI implements MouseMotionListener, MouseListener {
-    	final JPopupMenu pop = new JPopupMenu();
-    	JMenuItem item = new JMenuItem();
-   
-    	public MySliderUI ( JSlider slider ) {
-    		super();
-    		slider.addMouseMotionListener( this );
-    		slider.addMouseListener( this );
-    		pop.add( item );
-    		pop.setDoubleBuffered( true );
-    	}
-   
-    	public void showToolTip ( MouseEvent me ) {      
-    		item.setText(slider.getValue()+"%");
-        
-    		//limit the tooltip location relative to the slider
-    		Rectangle b = me.getComponent().getBounds();
-    		int x = me.getX();  
-    		x = (x < b.x) ? b.x : (x > b.width) ? b.width : x;
-
-        	pop.show( me.getComponent(), x - 5, -30 );
-        	item.setArmed( false );
-    	}
-   
-    	public void mouseDragged ( MouseEvent me ) {
-    		showToolTip( me );
-    	}
-    	
-      	public void mousePressed ( MouseEvent me ) {
-    		showToolTip( me );
-    	}
-    	
-    	public void mouseReleased ( MouseEvent me ) {
-    		pop.setVisible( false );
-    	}
-   
-    	public void mouseMoved ( MouseEvent me ) {}
-
-    	public void mouseClicked ( MouseEvent me ) {}
-   
-    	public void mouseEntered ( MouseEvent me ) {}
-   
-    	public void mouseExited ( MouseEvent me ) {}
-    }
 
 }

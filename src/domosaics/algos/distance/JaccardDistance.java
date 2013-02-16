@@ -12,6 +12,7 @@ import domosaics.model.arrangement.DomainSet;
  * 1 - |intersection of domains | / |union of domains |
  * 
  * @author Andreas Held
+ * @author Nicolas Terrapon <gandarath@gmail.com>
  *
  */
 public class JaccardDistance implements DistanceAlgorithm {
@@ -27,7 +28,13 @@ public class JaccardDistance implements DistanceAlgorithm {
 	 * 		jaccard index for the two domain sets
 	 */
 	private static double calcJacard(DomainSet set1, DomainSet set2) {
-		return 1 - set1.intersect(set2).size() / (double) set1.union(set2).size();
+		if(set1.size()==0 && set2.size()==0)
+			return 0;
+		else
+			if(set1.size()==0 || set2.size()==0)
+				return 1;
+			else
+				return 1 - set1.intersect(set2).size() / (double) set1.union(set2).size();
 	}
 	
 	/**

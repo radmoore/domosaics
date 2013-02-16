@@ -1,25 +1,22 @@
 package domosaics.ui.views.domainview.components;
 
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.Hashtable;
 
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 import javax.swing.JSlider;
-import javax.swing.plaf.metal.MetalSliderUI;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.metal.MetalLookAndFeel;
+
+import domosaics.ui.util.MyMetalSliderUI;
 
 public class EvalueSlider extends JSlider{
 	private static final long serialVersionUID = 1L;
 	
-	/** static variable used to memorize the Evalue threshold */
-	protected static int oldThreshold = 10;
+	/** static variable used to memorize the indice (Hash key) of the default Evalue threshold */
+	protected static int threshold = 37;
 	
-	/** the actual threshold */
-	protected int threshold = 1;
 	
 	protected Hashtable<Integer, Double> threshold2value;
 	protected Hashtable<Integer, JLabel> threshold2label;
@@ -33,8 +30,23 @@ public class EvalueSlider extends JSlider{
 		
 		
 		setLabelTable(threshold2label);
-		setPaintLabels(true); 
-		setUI(new MySliderUI(this));
+		setPaintLabels(true);  
+
+		//Correction for MAC OS
+	    LookAndFeel save = UIManager.getLookAndFeel();
+	    LookAndFeel laf = new MetalLookAndFeel();
+	    try {
+			UIManager.setLookAndFeel(laf);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		this.setUI(new MyMetalSliderUI(this));
+	    try {
+			UIManager.setLookAndFeel(save);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+	    
 	}
 
 	/**
@@ -47,28 +59,28 @@ public class EvalueSlider extends JSlider{
 	/**
 	 * Give the index of the memorized evalue threshold.
 	 */
-	public double getEvalueOldThreshold() {
-		return threshold2value.get(oldThreshold);
+	public double getEvalueThreshold() {
+		return threshold2value.get(threshold);
 	}
 	
 	/**
 	 * Give the index of the memorized evalue threshold.
 	 */
-	public int getOldThreshold() {
-		return oldThreshold;
+	public int getThreshold() {
+		return threshold;
 	}
 	
 	/**
 	 * Set the index for the memorized evalue threshold.
 	 * 
 	 */
-	public void setOldThreshold(double evalue)
+	public void setThreshold(double evalue)
 	{
 	 for(int i=0; i<threshold2value.size(); i++)
 	 {
 	  if(threshold2value.get(i)==evalue)
 	  {
-	   oldThreshold=i;
+	   threshold=i;
 	   break;
 	  }
 	 }
@@ -130,58 +142,5 @@ public class EvalueSlider extends JSlider{
 		threshold2label.put(new Integer(32), new JLabel("5"));
 		threshold2label.put(new Integer(37), new JLabel("10"));
 	}
-   
-    
-    
-	/**
-	 * Give the slider a nice look and show the current threshold as popup.
-	 * 
-	 * @author Andreas Held
-	 *
-	 */
-	private class MySliderUI extends MetalSliderUI implements MouseMotionListener, MouseListener {
-    	final JPopupMenu pop = new JPopupMenu();
-    	JMenuItem item = new JMenuItem();
-   
-    	public MySliderUI ( JSlider slider ) {
-    		super();
-    		slider.addMouseMotionListener( this );
-    		slider.addMouseListener( this );
-    		pop.add( item );
-    		pop.setDoubleBuffered( true );
-    	}
-
-    	public void showToolTip ( MouseEvent me ) {      
-    		item.setText(""+threshold2value.get(slider.getValue()));
-        
-    		//limit the tooltip location relative to the slider
-    		Rectangle b = me.getComponent().getBounds();
-    		int x = me.getX();  
-    		x = (x < b.x) ? b.x : (x > b.width) ? b.width : x;
-
-        	pop.show( me.getComponent(), x - 5, -30 );
-        	item.setArmed( false );
-    	}
-   
-    	public void mouseDragged ( MouseEvent me ) {
-    		showToolTip( me );
-    	}
-    	
-      	public void mousePressed ( MouseEvent me ) {
-    		showToolTip( me );
-    	}
-    	
-    	public void mouseReleased ( MouseEvent me ) {
-    		pop.setVisible( false );
-    	}
-   
-    	public void mouseMoved ( MouseEvent me ) {}
-
-    	public void mouseClicked ( MouseEvent me ) {}
-   
-    	public void mouseEntered ( MouseEvent me ) {}
-   
-    	public void mouseExited ( MouseEvent me ) {}
-    }
 
 }

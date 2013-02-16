@@ -71,6 +71,8 @@ import domosaics.ui.views.domainview.renderer.additional.NoteMarkRenderer;
 import domosaics.ui.views.domainview.renderer.additional.SequenceSelectionRenderer;
 import domosaics.ui.views.domainview.renderer.additional.SimilarityLabelRenderer;
 import domosaics.ui.views.domainview.renderer.additional.SimilarityRenderer;
+import domosaics.ui.views.domainview.renderer.arrangement.BackBoneArrangementRenderer;
+import domosaics.ui.views.domainview.renderer.arrangement.MsaArrangementRenderer;
 import domosaics.ui.views.view.AbstractView;
 import domosaics.ui.views.view.View;
 import domosaics.ui.views.view.layout.ViewLayout;
@@ -179,6 +181,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		
 		// set up the scrollPane which embeds the view
 		scrollPane = new JScrollPane(super.getComponent());
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		scrollPane.setFocusable(false);
 	}
 	
@@ -1011,7 +1014,6 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		Iterator<Element> p = prots.iterator();
 		while(p.hasNext()) {
 			Element protein = p.next();
-			String AAseq = protein.getChild("SEQUENCE").getText();
 			DomainArrangement da = new DomainArrangement();
 			da.setName(protein.getAttributeValue("id"));
 			// Iterate over domains
@@ -1054,20 +1056,24 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		}
 		this.daSet = list.toArray(new DomainArrangement[list.size()]);
 		
+		viewRenderer = new DefaultDomainViewRenderer(this);
 		// Read Layout settings
 		Element layoutSettings = viewType.getChildren("LAYOUT_SETTINGS").get(0);
 		String layoutView = layoutSettings.getAttributeValue("view");
 		if (layoutView.equals("PROPORTIONAL")) {
 			setViewLayout(new ProportionalLayout());
 			domLayoutManager.setToProportionalView();
+			getDomainViewRenderer().setArrangementRenderer(new BackBoneArrangementRenderer());
 		} else {
 			if(layoutView.equals("UNPROPORTIONAL")) {
 				setViewLayout(new UnproportionalLayout());
 				domLayoutManager.setToUnproportionalView();
+				getDomainViewRenderer().setArrangementRenderer(new BackBoneArrangementRenderer());
 			} else {
 			 	if(layoutView.equals("MSA")) {
 			 		setViewLayout(new MSALayout());
-			 		domLayoutManager.setToMsaView();
+			 		getDomainViewRenderer().setArrangementRenderer(new MsaArrangementRenderer());		
+					domLayoutManager.setToMsaView();
 			 	}
 			 }
 		}
@@ -1081,7 +1087,6 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		if(showShapes!=null)
 			domLayoutManager.setShowShapes(true);
 		
-		viewRenderer = new DefaultDomainViewRenderer(this);
 		registerMouseListeners();
 		doLayout();
 		repaint(); 

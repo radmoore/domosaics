@@ -99,7 +99,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
 	
 	private JFrame radsFrame = null;
 	
-	protected ConfigurationFrame configFrame = null;
+	//protected ConfigurationFrame configFrame = null;
 	
 	
 	
@@ -110,7 +110,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
      * method. 
      */
     protected DoMosaicsUI() {
-		super("DoMoasics");
+		super("DoMosaicS");
 		 
 		// add the docking desktop (the workspace is created in here)
 		desktop = new DoMosaicsDesktop();
@@ -119,7 +119,8 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
 		// set frame attributes (e.g. fullscreen)
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(screenSize.width, screenSize.height);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//Next line create a bug under MAC OS
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setResizable(true);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //.EXIT_ON_CLOSE);
 		addWindowListener(this);
@@ -412,8 +413,10 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
 //    	settings.setAction(new ShowConfigurationAction());
     	settings.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			
-    			configFrame = Configuration.getInstance().getFrame();
+    			if (Configuration.getInstance().getFrame() != null)
+    				Configuration.getInstance().getFrame().dispose();
+    			Configuration.getInstance().setFrame(new ConfigurationFrame());
+    			/*configFrame = Configuration.getInstance().getFrame();
     			
     			if (configFrame == null)
     				configFrame = new ConfigurationFrame();
@@ -423,9 +426,9 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
     			
     			else
     				configFrame.setVisible(true);
-    				
+    				*/
 
-    		}		
+    		}	
 		});
     	toolBar.add(settings);
     	

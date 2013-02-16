@@ -28,6 +28,7 @@ public class ProportionalViewAction extends AbstractMenuAction{
 		view.setViewLayout(new ProportionalLayout());
 		view.getDomainLayoutManager().setToProportionalView();
 		view.getDomainViewRenderer().setArrangementRenderer(new BackBoneArrangementRenderer());
+		view.getSequenceSelectionMouseController().clearSelection();
 		view.registerMouseListeners();
 	}
 }

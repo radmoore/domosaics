@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -26,9 +28,13 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JSlider;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.metal.MetalSliderUI;
 
 import domosaics.algos.distance.DistanceMeasureType;
@@ -41,6 +47,7 @@ import domosaics.model.workspace.ViewElement;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
+import domosaics.ui.util.MyMetalSliderUI;
 import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.manager.DomainSimilarityManager;
@@ -100,9 +107,13 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 	public SimilarityChooser(DomainViewI view) {
 		this.view = view;
 		Container container = getContentPane();
-
+		
 		// create components
 		distanceList = new JComboBox(DistanceMeasureType.values());
+		if(view.getDomainSimilarityManager().getMemorizedSettingDMT()!=null)
+			distanceList.setSelectedItem(view.getDomainSimilarityManager().getMemorizedSettingDMT());
+		else
+			distanceList.setSelectedItem(DistanceMeasureType.JACARD);
 		distanceList.addActionListener(this);
 		
 		jbtClose = new JButton("Close");
@@ -117,9 +128,9 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 				"Similarity Measure:" 							
 		)); 	
 		distanceListBox.add(distanceList);
-		
-		createJaccardSliderBox();
 
+		sliderBox = new Box(BoxLayout.Y_AXIS);
+		
 		// create the button box
 		Box buttonBox = new Box(BoxLayout.X_AXIS);
 		buttonBox.add(Box.createHorizontalGlue());
@@ -146,8 +157,17 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setModal(false);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE );
-		
+		this.addWindowListener(new WindowListener() {
+			public void windowActivated(WindowEvent arg0) {}
+			public void windowClosed(WindowEvent arg0) {}
+			public void windowClosing(WindowEvent arg0) {
+				close();
+			}
+			public void windowDeactivated(WindowEvent arg0) {}
+			public void windowDeiconified(WindowEvent arg0) {}
+			public void windowIconified(WindowEvent arg0) {}
+			public void windowOpened(WindowEvent arg0) {}
+		});
 		updateDistances();
 	}
 	
@@ -155,10 +175,8 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 	 * Create Sliderbox for usage with the jacard index
 	 */
 	public void createJaccardSliderBox() {
-		if (sliderBox != null)
+		if(sliderBox!=null && slider!=null)
 			sliderBox.remove(slider);
-		else
-			sliderBox = new Box(BoxLayout.Y_AXIS);
 		
 		Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
 		labelTable.put(new Integer(0), new JLabel("0"));
@@ -168,13 +186,33 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		slider = new JSlider(0, 100, 0);
 		slider.setLabelTable(labelTable);
 		slider.setPaintLabels(true); 
-		slider.setUI(new MySliderUI(slider));
-		slider.addChangeListener(this);
+
+		//Correction for MAC OS
+	    LookAndFeel save = UIManager.getLookAndFeel();
+	    LookAndFeel laf = new MetalLookAndFeel();
+	    try {
+			UIManager.setLookAndFeel(laf);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		slider.setUI(new MyMetalSliderUI(slider));
+	    try {
+			UIManager.setLookAndFeel(save);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+	    slider.addChangeListener(this);
 		
 		sliderBox.setBorder(BorderFactory.createTitledBorder(
 				new LineBorder(Color.black, 1, true),
 				"Percentage collapse:" 							
 		)); 	
+		
+		int tmp =view.getDomainSimilarityManager().getMemorizedSettingTjaccard();
+		if( tmp != -1 ) {
+			slider.setValue(tmp);
+		}
+		
 		sliderBox.add(slider);
 		sliderBox.doLayout();
 		sliderBox.repaint();
@@ -184,10 +222,8 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 	 * Create Sliderbox for usage with the domain edit distance
 	 */
 	public void createDomainDistanceSliderBox() {
-		if (sliderBox != null)
+		if(sliderBox!=null && slider!=null)
 			sliderBox.remove(slider);
-		else
-			sliderBox = new Box(BoxLayout.Y_AXIS);
 		
 		int max = view.getDomainSimilarityManager().getMaxDomainDistance();
 		Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
@@ -197,13 +233,30 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		slider = new JSlider(0, max, max);
 		slider.setLabelTable(labelTable);
 		slider.setPaintLabels(true); 
-		slider.setUI(new MySliderUI(slider));
+		
+		//Correction for MAC OS
+	    LookAndFeel save = UIManager.getLookAndFeel();
+	    LookAndFeel laf = new MetalLookAndFeel();
+	    try {
+			UIManager.setLookAndFeel(laf);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		slider.setUI(new MyMetalSliderUI(slider));
+	    try {
+			UIManager.setLookAndFeel(save);
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
 		slider.addChangeListener(this);
 		
 		sliderBox.setBorder(BorderFactory.createTitledBorder(
 				new LineBorder(Color.black, 1, true),
 				"edit operation collapse:" 							
 		)); 	
+		int tmp =view.getDomainSimilarityManager().getMemorizedSettingTdd();
+		if( tmp != -1 )
+			slider.setValue(tmp);
 		sliderBox.add(slider);
 		sliderBox.doLayout();
 		sliderBox.repaint();
@@ -243,7 +296,7 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 	 * after the threshold was changed.
 	 */
 	public void processSlider() {
-		view.getDomainSimilarityManager().setThreshold(view, slider.getValue());
+			view.getDomainSimilarityManager().setThreshold(view, slider.getValue());
 	}
 
 	/**
@@ -254,13 +307,11 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		DistanceMeasureType type = (DistanceMeasureType) distanceList.getSelectedItem();
 		ArrangementComponent dac = view.getArrangementSelectionManager().getSelection().iterator().next();
 		view.getDomainSimilarityManager().init(view, dac.getDomainArrangement(), type);
-		
 		// change to the correct slider
 		switch(type) {
 			case JACARD: createJaccardSliderBox(); break;
 			case DOMAINDISTANCE: createDomainDistanceSliderBox(); break;
 		}
-
 		processSlider();
 	}
 	
@@ -352,57 +403,5 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		if(e.getSource() == jbtExport) 
 			export();
 	}
-
-	/**
-	 * Give the slider a nice look and show the current threshold as popup.
-	 * 
-	 * @author Andreas Held
-	 *
-	 */
-	private class MySliderUI extends MetalSliderUI implements MouseMotionListener, MouseListener {
-    	final JPopupMenu pop = new JPopupMenu();
-    	JMenuItem item = new JMenuItem();
-   
-    	public MySliderUI ( JSlider slider ) {
-    		super();
-    		slider.addMouseMotionListener( this );
-    		slider.addMouseListener( this );
-    		pop.add( item );
-    		pop.setDoubleBuffered( true );
-    	}
-   
-    	public void showToolTip ( MouseEvent me ) {      
-    		item.setText(""+slider.getValue());
-        
-    		//limit the tooltip location relative to the slider
-    		Rectangle b = me.getComponent().getBounds();
-    		int x = me.getX();  
-    		x = (x < b.x) ? b.x : (x > b.width) ? b.width : x;
-
-        	pop.show( me.getComponent(), x - 5, -30 );
-        	item.setArmed( false );
-    	}
-   
-    	public void mouseDragged ( MouseEvent me ) {
-    		showToolTip( me );
-    	}
-    	
-      	public void mousePressed ( MouseEvent me ) {
-    		showToolTip( me );
-    	}
-    	
-    	public void mouseReleased ( MouseEvent me ) {
-    		pop.setVisible( false );
-    	}
-   
-    	public void mouseMoved ( MouseEvent me ) {}
-
-    	public void mouseClicked ( MouseEvent me ) {}
-   
-    	public void mouseEntered ( MouseEvent me ) {}
-   
-    	public void mouseExited ( MouseEvent me ) {}
-    }
-
 	
 }

@@ -4,20 +4,22 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+import domosaics.ApplicationHandler;
+
 public class ConfigurationReader {
 
-	public static void read(File file) {
+	public static void read() {
 		 try {
-		    BufferedReader in = new BufferedReader(new FileReader(file));
+		    BufferedReader in = new BufferedReader(new FileReader(ApplicationHandler.getInstance().configFile));
 	
 		    String line;
 			while((line = in.readLine()) != null) {
 				if (line.isEmpty())					// ignore empty lines
 					continue;
 				
-				if (line.contains(ConfigurationWriter.DEFAULT_LOCATION)) {
-					Configuration.getInstance().setDefaultLocation(
-							line.replace(ConfigurationWriter.DEFAULT_LOCATION, "").trim()
+				if (line.contains(ConfigurationWriter.WORKSPACE_LOCATION)) {
+					Configuration.getInstance().setWorkspaceDir(
+							line.replace(ConfigurationWriter.WORKSPACE_LOCATION, "").trim()
 					);
 				} else {
 					if (line.contains(ConfigurationWriter.GOOGLE_URL)) { 
