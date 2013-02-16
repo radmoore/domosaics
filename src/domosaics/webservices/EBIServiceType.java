@@ -29,15 +29,3 @@ public enum EBIServiceType {
 	}
 
 }
-
-//public WebserviceResultParser getResultParser() {
-//if (resultParserClass == null)
-//	return null;
-//
-//try {
-//	return (WebserviceResultParser) resultParserClass.newInstance();
-//} catch (Exception e) {
-//	e.printStackTrace();
-//}
-//return null;
-//}

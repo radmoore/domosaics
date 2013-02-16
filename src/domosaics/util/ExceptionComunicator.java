@@ -140,6 +140,7 @@ public class ExceptionComunicator{
 			bugCon.executeMethod(logIn);			
 		}
 		catch (Exception e) {
+			Configuration.getLogger().debug(e.toString());
 			e.printStackTrace();
 		}
 	}

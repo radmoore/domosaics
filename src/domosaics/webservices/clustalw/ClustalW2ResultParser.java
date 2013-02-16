@@ -22,7 +22,10 @@ public class ClustalW2ResultParser {
 			return getSequences(new StringReader(alignmentStr));
 		}
 		catch (IOException ioe) {
-			Configuration.getLogger().debug(ioe.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(ioe);
+			else			
+				Configuration.getLogger().debug(ioe.toString());
 		}
 		return null;
 	}

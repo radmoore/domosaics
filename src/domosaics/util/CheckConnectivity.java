@@ -34,11 +34,17 @@ public abstract class CheckConnectivity {
 			Object objData = urlConnect.getContent();
 		}
 		catch (MalformedURLException e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			return false;
 		}
 		catch (IOException e) {
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			return false;
 		}
 		return true;
