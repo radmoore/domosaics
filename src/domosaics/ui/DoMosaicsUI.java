@@ -26,6 +26,7 @@ import javax.swing.JToolBar;
 import domosaics.ApplicationHandler;
 import domosaics.localservices.hmmer3.ui.Hmmer3Frame;
 import domosaics.model.configuration.Configuration;
+import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.io.ProjectImporter;
 import domosaics.ui.actions.ShowConfigurationAction;
 import domosaics.ui.docking.DoMosaicsDesktop;
@@ -215,8 +216,9 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
     // TODO: consider moving into seperate class and
     // making use of AbstractMenuActions
     private void initToolBar() {
-		
+    	
     	ImageIcon newProjectIcon = null, 
+    	loadFastaIcon = null,
     	openProjectIcon = null, 
     	saveProjectIcon = null, 
     	importViewIcon = null, 
@@ -235,6 +237,9 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
     	try {
     		is = this.getClass().getResourceAsStream("resources/icons/newproject.png");
     		newProjectIcon = new ImageIcon(ImageIO.read(is));
+    		
+    		is = this.getClass().getResourceAsStream("resources/icons/testLoadFasta.png");
+    		loadFastaIcon = new ImageIcon(ImageIO.read(is));
     		
     		is = this.getClass().getResourceAsStream("resources/icons/openproject.png");
     		openProjectIcon = new ImageIcon(ImageIO.read(is));
@@ -280,6 +285,19 @@ public class DoMosaicsUI extends JFrame implements WindowListener{
     		}
 		});
     	toolBar.add(newProject);
+    	
+
+    	// new project
+    	JButton loadFasta = new JButton();
+    	loadFasta.setIcon(loadFastaIcon);
+    	loadFasta.setToolTipText("Load a fasta file");
+    	loadFasta.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			WizardManager.getInstance().startLoadFastaWizard();
+    		}
+		});
+    	toolBar.add(loadFasta);
+    	
     	
     	// open project
     	JButton openProject = new JButton();

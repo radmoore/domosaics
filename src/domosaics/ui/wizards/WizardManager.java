@@ -27,6 +27,7 @@ import domosaics.ui.wizards.dialogs.CreateProjectDialog;
 import domosaics.ui.wizards.dialogs.CreateSpeciesTreeDialog;
 import domosaics.ui.wizards.dialogs.EditDatasetWizard;
 import domosaics.ui.wizards.dialogs.ImportViewDialog;
+import domosaics.ui.wizards.dialogs.LoadFastaDialog;
 import domosaics.ui.wizards.dialogs.SaveProjectDialog;
 import domosaics.ui.wizards.dialogs.SaveViewDialog;
 import domosaics.ui.wizards.dialogs.SelectNameDialog;
@@ -173,6 +174,16 @@ public class WizardManager {
 		//return (Map) new ImportViewDialog(project).show();
 	}
 	
+	/**
+	 * Opens a load fasta file wizard allowing the user to choose
+	 * the fasta he wants to load. The wizard also creates the new
+	 * view
+	 * @return 
+	 */
+	public void startLoadFastaWizard() {
+		new LoadFastaDialog().show();
+		//return (Map) new ImportViewDialog(project).show();
+	}
 	
 	
 	/**

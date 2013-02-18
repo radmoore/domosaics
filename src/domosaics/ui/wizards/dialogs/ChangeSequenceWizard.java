@@ -102,7 +102,7 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
 			p.setBusy("Changing sequence");
 			
 			String fastaSeq = (String) m.get(ChangeSequencePage.SEQ_KEY);
-			
+			fastaSeq=fastaSeq.replaceAll("\\s", "");
 	    	// delete sequence from arrangement if there is no sequence anymore
 	    	if (fastaSeq.isEmpty()) {
 	    		selectedDA.getDomainArrangement().setSequence(null);
