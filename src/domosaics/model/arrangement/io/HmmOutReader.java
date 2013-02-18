@@ -76,7 +76,10 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 			
 		}
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		return totalHits;
 	}
@@ -112,7 +115,10 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 			return false;
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			return false;
 		}
 	}
@@ -219,11 +225,17 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 		} 
 		catch (NumberFormatException e) {
 			MessageUtil.showWarning("Error while parsing pfam_scan output file. Please check file format.");
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		} 
 		catch (IOException e) {
 			MessageUtil.showWarning("Error while reading/parsing pfam_scan output.");
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		
 		if (prot != null) {
@@ -323,11 +335,17 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 		}
 		catch (NumberFormatException e) {
 			MessageUtil.showWarning("Error while parsing hmmscan output file. Please check file format.");
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		} 
 		catch (IOException e) {
 			MessageUtil.showWarning("Error while reading/parsing hmmscan output.");
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		
 		if (prot != null) {

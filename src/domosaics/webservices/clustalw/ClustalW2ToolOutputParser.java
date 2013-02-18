@@ -21,8 +21,12 @@ public class ClustalW2ToolOutputParser {
 	public Map<String, Integer> parseResult(String tooloutput) {
 		try {
 			return parse(new StringReader(tooloutput));
-		} catch (IOException ioe) {
-			Configuration.getLogger().debug(ioe.toString());
+		} 
+		catch (IOException ioe) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(ioe);
+			else			
+				Configuration.getLogger().debug(ioe.toString());
 		}
 		return null;
 	}

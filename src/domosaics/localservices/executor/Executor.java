@@ -48,8 +48,10 @@ public class Executor extends SwingWorker<Integer, Void> {
     		result = p.waitFor();
 		} 
 		catch(Exception e) {
-			//e.printStackTrace();
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			return -1;
 		}
 		return null;
@@ -66,7 +68,10 @@ public class Executor extends SwingWorker<Integer, Void> {
 			listener.setResult(result);
 		} 
 		catch (Exception e) {
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		} 
      }
 	
@@ -82,7 +87,12 @@ public class Executor extends SwingWorker<Integer, Void> {
 			p.destroy();
 			this.cancel(true);
 		}
-		catch (Exception  e){ }
+		catch (Exception  e){ 
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
+		}
 		
 		Configuration.getInstance().setServiceRunning(true);
 		

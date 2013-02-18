@@ -167,7 +167,10 @@ public class AnnotationThreadSpawner {
 			Thread.sleep(ms);
 		} 
 		catch (InterruptedException e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 	}
 
@@ -242,7 +245,10 @@ public class AnnotationThreadSpawner {
 					}
 				}
 				catch(Exception e){
-					Configuration.getLogger().debug(e.toString());
+					if (Configuration.getReportExceptionsMode())
+						Configuration.getInstance().getExceptionComunicator().reportBug(e);
+					else			
+						Configuration.getLogger().debug(e.toString());
 				}
 				return null;
 			}

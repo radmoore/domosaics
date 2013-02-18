@@ -159,7 +159,10 @@ public class ProjectElement extends WorkspaceElement{
 			icon = new ImageIcon(ImageIO.read(is));
 		} 
 		catch (IOException e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		return icon;
 	}

@@ -111,7 +111,10 @@ public abstract class AbstractEBIWebservice extends SwingWorker<String, Void> im
 	        return result;
 		} 
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		} 
 		return null;
     }

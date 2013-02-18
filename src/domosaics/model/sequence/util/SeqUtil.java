@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import domosaics.model.configuration.Configuration;
+
 /**
  * Some sequence utils which are useful to convert DNA, CDNA and 
  * RNA sequences into amino acid sequences.
@@ -178,8 +180,12 @@ public class SeqUtil {
 					entries.add(fasta.toString());
 			}
 			br.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} 
+		catch (Exception e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		return entries;
 	}

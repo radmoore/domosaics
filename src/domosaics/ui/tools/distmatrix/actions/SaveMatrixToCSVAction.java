@@ -61,8 +61,12 @@ public class SaveMatrixToCSVAction  extends AbstractMenuAction {
 			
 			csvWriter.flush();
 			csvWriter.close();
-		} catch (IOException e1) {
-			Configuration.getLogger().debug(e1.toString());
+		} 
+		catch (IOException e1) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e1);
+			else			
+				Configuration.getLogger().debug(e1.toString());
 		}
 	}
 		

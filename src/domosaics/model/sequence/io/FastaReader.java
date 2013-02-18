@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import domosaics.model.configuration.Configuration;
 import domosaics.model.io.AbstractDataReader;
 import domosaics.model.sequence.Sequence;
 import domosaics.model.sequence.SequenceI;
@@ -85,7 +86,10 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
     		}
 		} catch(Exception e) {
 			MessageUtil.showWarning("Error while parsing the file.");
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			return false;
 		}
 		return true;

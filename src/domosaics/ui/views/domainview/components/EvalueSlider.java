@@ -9,6 +9,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 
+import domosaics.model.configuration.Configuration;
 import domosaics.ui.util.MyMetalSliderUI;
 
 public class EvalueSlider extends JSlider{
@@ -37,14 +38,22 @@ public class EvalueSlider extends JSlider{
 	    LookAndFeel laf = new MetalLookAndFeel();
 	    try {
 			UIManager.setLookAndFeel(laf);
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+		} 
+	    catch (UnsupportedLookAndFeelException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		this.setUI(new MyMetalSliderUI(this));
 	    try {
 			UIManager.setLookAndFeel(save);
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+		} 
+	    catch (UnsupportedLookAndFeelException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 	    
 	}

@@ -38,8 +38,6 @@ import domosaics.ui.wizards.importdata.ImportDataBranchController;
 import domosaics.ui.wizards.importdata.ImportDataResultProducer;
 
 
-
-
 /**
  * The WizardManager can be used to spawn wizard dialogs and therefore
  * force the user to give necessary input information to the program.
@@ -71,7 +69,10 @@ public class WizardManager {
 			UIManager.put ("wizard.sidebar.image", img);
 		} 
 		catch (IOException e1) {
-			Configuration.getLogger().debug(e1.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e1);
+			else			
+				Configuration.getLogger().debug(e1.toString());
 		}
 	}
 	

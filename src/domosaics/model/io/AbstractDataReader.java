@@ -46,7 +46,10 @@ public abstract class AbstractDataReader <T extends DoMosaicsData> implements Da
 			return data;
 		} 
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Reading file aborted");
 		} 
 		return null;
@@ -63,11 +66,17 @@ public abstract class AbstractDataReader <T extends DoMosaicsData> implements Da
 			return data;
 		} 
 		catch (FileNotFoundException fnfe) {
-			Configuration.getLogger().debug(fnfe.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(fnfe);
+			else			
+				Configuration.getLogger().debug(fnfe.toString());
 			MessageUtil.showWarning("could not find file:"+ file.getPath());
 		} 
 		catch (IOException ioe) {
-			Configuration.getLogger().debug(ioe.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(ioe);
+			else			
+				Configuration.getLogger().debug(ioe.toString());
 			MessageUtil.showWarning("could not read file:"+ file.getName());
 		}
 		return null;
@@ -84,7 +93,10 @@ public abstract class AbstractDataReader <T extends DoMosaicsData> implements Da
 			return data;
 		} 
 		catch (IOException ioe) {
-			Configuration.getLogger().debug(ioe.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(ioe);
+			else			
+				Configuration.getLogger().debug(ioe.toString());
 			MessageUtil.showWarning("Reading file aborted");
 		}
 		return null;

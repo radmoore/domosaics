@@ -21,9 +21,6 @@ import domosaics.ui.views.domainview.renderer.arrangement.MsaArrangementRenderer
 import domosaics.ui.views.view.io.ViewImporter;
 import domosaics.ui.views.view.layout.ViewLayout;
 
-
-
-
 public class DomainViewImporter extends ViewImporter<DomainViewI> {
 	// settings for the actual domain family
 	private static DomainFamily fam = null;
@@ -66,8 +63,11 @@ public class DomainViewImporter extends ViewImporter<DomainViewI> {
 			}
 			return view;
 		} 
-		catch(Exception e) {
-			Configuration.getLogger().debug(e.toString());
+		catch (Exception e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			return null;
 		}
 	}
@@ -130,8 +130,12 @@ public class DomainViewImporter extends ViewImporter<DomainViewI> {
 			}
 		} 
 		catch (Exception e) {
-			Configuration.getLogger().debug("Error occured during project import - reading attribute file for view: "+view.getViewInfo().getName());
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else {			
+				Configuration.getLogger().debug(e.toString());
+				Configuration.getLogger().debug("Error occured during project import - reading attribute file for view: "+view.getViewInfo().getName());
+			}
 		}
 	}
 

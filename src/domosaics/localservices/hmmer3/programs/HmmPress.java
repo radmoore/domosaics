@@ -122,7 +122,10 @@ public class HmmPress implements Hmmer3Program {
 		
         }
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		
 		return false;
@@ -197,8 +200,9 @@ public class HmmPress implements Hmmer3Program {
 			parentServicePanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			parentServicePanel.setIndetermindateProgressBar(false);
 			parentServicePanel.writeToConsole("*** I: "+getName()+ " run successful.\n");
-			MessageUtil.showInformation(null, "HMMERDB sucessfully pressed");
+			MessageUtil.showInformation(parentServicePanel.getParent(), "HMMERDB sucessfully pressed");
 		}
+		parentServicePanel.resetPanel();
 	}
 
 	/**

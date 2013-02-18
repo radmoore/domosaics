@@ -106,7 +106,10 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 			this.backupDA = (DomainArrangement) da.getDomainArrangement().clone();
 		} 
 		catch (CloneNotSupportedException e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		
 		// create a domain view with just one arrangement
@@ -179,8 +182,12 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 			
 			if (backupDA.getSequence() != null)
 				da.setSequence((SequenceI)backupDA.getSequence().clone());
-		} catch(Exception e) {
-			Configuration.getLogger().debug(e.toString());
+		} 
+		catch(Exception e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		
 		// structural change on both views

@@ -13,8 +13,6 @@ import domosaics.ui.views.sequenceview.SequenceView;
 import domosaics.ui.views.view.io.ViewExporter;
 
 
-
-
 /**
  * Class exporting a sequence view into a XML formatted file.
  * 
@@ -46,7 +44,10 @@ public class SequenceViewExporter extends ViewExporter<SequenceView> {
     		out.flush();
         } 
         catch (IOException e) {
-        	Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
         }
     }
 }

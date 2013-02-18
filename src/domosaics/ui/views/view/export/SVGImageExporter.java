@@ -15,9 +15,6 @@ import domosaics.model.configuration.Configuration;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.view.View;
 
-
-
-
 /**
  * Class SVGImageExporter exports an image in SVG format using the
  * open source batik library which is published under the Apache 
@@ -56,8 +53,12 @@ public class SVGImageExporter implements ImageExporter{
 			svgGenerator.stream(out, useCSS);
 			out.close();
 			stream.close();
-		}catch (IOException e) {
-       	 	Configuration.getLogger().debug(e.toString());
+		}
+		catch (IOException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Error while writing PDF document.");
 		}
 

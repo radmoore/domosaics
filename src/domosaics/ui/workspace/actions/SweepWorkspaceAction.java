@@ -40,7 +40,10 @@ public class SweepWorkspaceAction {
 					FileUtils.cleanDirectory(bckDir);
 				} 
 				catch (IOException e) {
-					Configuration.getLogger().debug(e.toString());
+					if (Configuration.getReportExceptionsMode())
+						Configuration.getInstance().getExceptionComunicator().reportBug(e);
+					else			
+						Configuration.getLogger().debug(e.toString());
 				}
 			}
 			// copy all non-active projects into bckdir
@@ -53,8 +56,12 @@ public class SweepWorkspaceAction {
 				try {
 					FileUtils.copyDirectoryToDirectory(projectDir, bckDir);
 					FileUtils.deleteDirectory(projectDir);
-				} catch (IOException e) {
-					Configuration.getLogger().debug(e.toString());
+				} 
+				catch (IOException e) {
+					if (Configuration.getReportExceptionsMode())
+						Configuration.getInstance().getExceptionComunicator().reportBug(e);
+					else			
+						Configuration.getLogger().debug(e.toString());
 					continue;
 				}
 			}

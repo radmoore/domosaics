@@ -99,7 +99,10 @@ class CreateSpeciesTreeProgress extends DeferredWizardResult implements WizardRe
 					clonedSet[i] = (DomainArrangement) daSet[i].clone();
 			} 
 			catch (Exception e) {
-				Configuration.getLogger().debug(e.toString());
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(e);
+				else			
+					Configuration.getLogger().debug(e.toString());
 			}
 			
 			DomainViewI domView = ViewHandler.getInstance().createView(ViewType.DOMAINS, treeViewName+"2");
@@ -120,7 +123,10 @@ class CreateSpeciesTreeProgress extends DeferredWizardResult implements WizardRe
 			p.finished(domTreeView);
 		}
 		catch(Exception e){
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			p.failed("Error while creating species tree, please try again.", false);
 			p.finished(null);
 		}

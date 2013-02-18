@@ -14,9 +14,6 @@ import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.view.View;
 
 
-
-
-
 /**
  * DefaultImageExporter is the basic implementation for the ImageExporter 
  * interface allowing the export in PNG, BMP and JPG format.
@@ -71,7 +68,10 @@ public class DefaultImageExporter implements ImageExporter{
 			stream.close();
 		} 
 		catch (IOException e) {
-       	 	Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Unable to export image to " + file.getName());
 			writer.abort();
 		}

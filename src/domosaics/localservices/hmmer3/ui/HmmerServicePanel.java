@@ -1,5 +1,6 @@
 package domosaics.localservices.hmmer3.ui;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
@@ -65,6 +66,9 @@ public abstract class HmmerServicePanel extends JPanel {
 	 * (eg. in case of an error while running the program)
 	 */
 	public abstract void resetPanel();
+	
+	
+	public abstract JFrame getParent();
 	
 	
 }

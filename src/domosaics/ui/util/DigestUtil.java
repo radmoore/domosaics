@@ -6,9 +6,11 @@ import java.security.MessageDigest;
 
 import domosaics.model.configuration.Configuration;
 
-
-
-
+/**
+ * 
+ * @author <a href="http://radm.info">Andrew D. Moore</a>
+ *
+ */
 public class DigestUtil {
 
 	private static String ALGO = "MD5";
@@ -23,7 +25,10 @@ public class DigestUtil {
 			hash = digest.digest();
 		} 
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		return hash.toString();
 	}
@@ -43,8 +48,10 @@ public class DigestUtil {
 			return true;
 		} 
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		return false;
 	}

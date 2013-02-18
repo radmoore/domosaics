@@ -56,8 +56,11 @@ public class NewickTreeReader extends AbstractTreeReader {
 			return tree;
 		} 
 		catch (IOException e) {
-			Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning("IO Exception: failed to parse newick tree from string");
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
+			MessageUtil.showWarning("Failed to parse newick tree from string");
 		}
 		return null;				
     }

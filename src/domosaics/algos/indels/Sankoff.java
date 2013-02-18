@@ -149,7 +149,8 @@ public class Sankoff extends AbstractReconstructionAlgo {
 				if (node.isLeaf()) {
 					DomainVector[] aligned = new NW4DomainsAffine(domSeq, node.getArrangement()).getMatch();
 					node2da.put(node, aligned[1]);
-				} else // create dummy arrangements for inner nodes
+				} 
+				else // create dummy arrangements for inner nodes
 					node2da.put(node, new DomainVector());
 		
 				// init score vectors
@@ -174,7 +175,10 @@ public class Sankoff extends AbstractReconstructionAlgo {
 			
 		}
 		catch(Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		
 		return null;
@@ -532,8 +536,12 @@ public class Sankoff extends AbstractReconstructionAlgo {
 ////		testDAs.add(da);
 ////	}
 //	// END ONLY TESTCODE: DISPLAYS INNER ARRANGEMENTS
-//	}catch(Exception e) {
-//		System.out.println("!");
+//	}
+//catch(Exception e) {
+//if (Configuration.getReportExceptionsMode())
+//	Configuration.getInstance().getExceptionComunicator().reportBug(e);
+//else			
+//	Configuration.getLogger().debug(e.toString());
 //	}
 //	return null;
 //}

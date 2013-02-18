@@ -105,8 +105,10 @@ public enum DomainType {
     	
     	}	
     	catch (Exception e) {
-    	//	e.printStackTrace();
-    		Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
     		return UNKNOWN;
 		}
   

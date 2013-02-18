@@ -116,12 +116,24 @@ public class GeneOntology {
 						}
 					}
 				 }
-			} catch (FileNotFoundException e) {
-				Configuration.getLogger().debug(e.toString());
-			} catch (MalformedURLException e) {
-				Configuration.getLogger().debug(e.toString());
-			} catch (IOException e) {
-				Configuration.getLogger().debug(e.toString());
+			} 
+			catch (FileNotFoundException e) {
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(e);
+				else			
+					Configuration.getLogger().debug(e.toString());
+			} 
+			catch (MalformedURLException e) {
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(e);
+				else			
+					Configuration.getLogger().debug(e.toString());
+			} 
+			catch (IOException e) {
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(e);
+				else			
+					Configuration.getLogger().debug(e.toString());
 			}
 		       
 	}

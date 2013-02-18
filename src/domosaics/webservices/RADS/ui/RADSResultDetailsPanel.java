@@ -25,6 +25,7 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 
 import domosaics.model.arrangement.DomainArrangement;
+import domosaics.model.configuration.Configuration;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
 import domosaics.util.BrowserLauncher;
@@ -179,10 +180,16 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 			
 		} 
 		catch (MalformedURLException e) {
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		} 
 		catch (IOException e) {
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 	}
 
@@ -198,7 +205,10 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 			bw.close();
 		} 
 		catch (IOException e) {
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		MessageUtil.showInformation(null, "Scan log written to "+outFile.getAbsolutePath());
 	}

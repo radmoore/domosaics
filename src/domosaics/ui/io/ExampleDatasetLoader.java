@@ -92,9 +92,11 @@ public class ExampleDatasetLoader {
 			
 		} 
 		catch (IOException e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Failed to load example dataset");
-			e.printStackTrace();
 		}
 	}
 	
@@ -123,7 +125,10 @@ public class ExampleDatasetLoader {
 			seqFile.close();
 		}
 		catch (IOException e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			MessageUtil.showWarning("Failed to load example dataset");
 		}
 	}

@@ -146,13 +146,22 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 		}
 		// axis fault caught, but not handled 
 		catch (AxisFault af) {
-			Configuration.getLogger().debug(af.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(af);
+			else			
+				Configuration.getLogger().debug(af.toString());
 		}
 		catch (InterruptedException ie){
-			Configuration.getLogger().debug(ie.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(ie);
+			else			
+				Configuration.getLogger().debug(ie.toString());
 		}
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 
 		return null;

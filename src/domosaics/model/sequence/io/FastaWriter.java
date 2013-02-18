@@ -39,7 +39,10 @@ public class FastaWriter extends AbstractDataWriter<SequenceI> {
     		out.flush();  
         } 
         catch (IOException e) {
-        	Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
         }
     }
 	
@@ -67,8 +70,10 @@ public class FastaWriter extends AbstractDataWriter<SequenceI> {
 			
 		}
 		catch (Exception e) {
-			System.out.println("*** Error writing fasta file:");
-			e.printStackTrace();
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 	}
 

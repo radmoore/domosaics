@@ -89,17 +89,26 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
   }catch(FileNotFoundException e1)
   {
    MessageUtil.showWarning("No corresponding CDP file: "+file);
-   Configuration.getLogger().debug(e1.toString());
+	if (Configuration.getReportExceptionsMode())
+		Configuration.getInstance().getExceptionComunicator().reportBug(e1);
+	else			
+		Configuration.getLogger().debug(e1.toString());
   }
   catch(NumberFormatException e2)
   {
    MessageUtil.showWarning("Error while parsing CDP file.");
-   Configuration.getLogger().debug(e2.toString());
+	if (Configuration.getReportExceptionsMode())
+		Configuration.getInstance().getExceptionComunicator().reportBug(e2);
+	else			
+		Configuration.getLogger().debug(e2.toString());
   } 
   catch (IOException e3)
   {
    MessageUtil.showWarning("Error while reading/parsing CDP file.");
-   Configuration.getLogger().debug(e3.toString());
+	if (Configuration.getReportExceptionsMode())
+		Configuration.getInstance().getExceptionComunicator().reportBug(e3);
+	else			
+		Configuration.getLogger().debug(e3.toString());
   }
  }
  

@@ -35,9 +35,6 @@ import domosaics.ui.views.domainview.renderer.additional.DomainTooltipRenderer;
 import domosaics.ui.views.view.components.ZoomController;
 import domosaics.ui.views.view.renderer.Renderer;
 
-
-
-
 /**
  * AbstractView is the basic implementation for the {@link View} 
  * interface. It defines all methods for the handling of a view 
@@ -409,9 +406,10 @@ public abstract class AbstractView extends JComponent implements View {
 			//sortie.output(document, System.out);
 	        sortie.output(document, new FileOutputStream(file));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 	}
 	
@@ -427,9 +425,10 @@ public abstract class AbstractView extends JComponent implements View {
 			this.xmlRead(viewType);
 			
         } catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 	}
 
@@ -463,7 +462,10 @@ public abstract class AbstractView extends JComponent implements View {
 
 		}
 		catch(Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		
 		return null;

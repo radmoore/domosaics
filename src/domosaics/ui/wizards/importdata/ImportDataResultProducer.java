@@ -36,9 +36,6 @@ import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.wizards.WizardManager;
 import domosaics.ui.wizards.pages.SelectNamePage;
 
-
-
-
 /**
  * Class producing the resulting view based on the ImportData wizard.
  * 
@@ -76,7 +73,10 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 			
 		}
 		catch(Exception e){
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			p.failed("Error while editing the project", false);
 		}
 		if(!noError)

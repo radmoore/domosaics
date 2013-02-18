@@ -21,9 +21,6 @@ import domosaics.ui.views.ViewType;
 import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.views.view.io.ViewImporter;
 
-
-
-
 public class TreeViewImporter extends ViewImporter<TreeViewI> {
 	private Map<Integer, TreeNodeI> id2node = new HashMap<Integer, TreeNodeI>();
 	private Map<TreeNodeI, Boolean> node2collapsed = new HashMap<TreeNodeI, Boolean>();
@@ -127,7 +124,10 @@ public class TreeViewImporter extends ViewImporter<TreeViewI> {
 		
 		} 
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			return null;
 		}
 	}
@@ -165,7 +165,10 @@ public class TreeViewImporter extends ViewImporter<TreeViewI> {
 			
 		} 
 		catch (Exception e) {
-			Configuration.getLogger().debug(e.toString());
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 	}
 	

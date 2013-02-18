@@ -49,8 +49,12 @@ public class MenuReader {
 		try {
 			InputStream stream = fileURL.openStream();
 			return getMenu(stream);
-		} catch (IOException e) {
-			Configuration.getLogger().debug(e.toString());
+		} 
+		catch (IOException e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 		}
 		return null;
 	}
