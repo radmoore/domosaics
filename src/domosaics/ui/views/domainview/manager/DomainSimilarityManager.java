@@ -175,6 +175,7 @@ public class DomainSimilarityManager extends DefaultViewManager {
 		Iterator<ArrangementComponent> iter = view.getArrangementComponentManager().getComponentsIterator();
 		while(iter.hasNext()) 
 			view.getArrangementComponentManager().setVisible(iter.next(), true);
+		view.getDomainLayoutManager().deselectAll();
 		view.getArrangementSelectionManager().clearSelection();
 	
 		view.getDomainLayoutManager().setCollapseBySimilarityState(false);

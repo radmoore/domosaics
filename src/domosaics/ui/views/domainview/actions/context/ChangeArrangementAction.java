@@ -34,10 +34,6 @@ public class ChangeArrangementAction extends AbstractAction{
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI domView = (DomainViewI) ViewHandler.getInstance().getActiveView();
 
-		domView.getArrangementSelectionManager().getSelection().clear();
-		domView.getArrangementSelectionManager().getSelection().add(domView.getArrangementSelectionManager().getClickedComp());
-		domView.getViewComponent().repaint();
-		
 		// Exit from the sequence comparison mode
 		if (domView.isCompareDomainsMode())
 		{

@@ -63,6 +63,7 @@ public class SearchOrthologousAction extends AbstractMenuAction{
 				view.getDomainViewRenderer().setArrangementRenderer(new BackBoneArrangementRenderer());
 				view.setCompareDomainsMode(false);
 				view.getDomainLayoutManager().toggleCompareDomainsMode(view.isCompareDomainsMode());
+				view.getDomainLayoutManager().deselectAll();
 				view.getArrangementSelectionManager().clearSelection();
 				view.getDomainSearchOrthologsManager().reset();
 				view.getViewComponent().repaint();
@@ -73,9 +74,6 @@ public class SearchOrthologousAction extends AbstractMenuAction{
 			MessageUtil.showWarning("No sequences associated with arrangements");
 			return;
 		}
-
-		view.getArrangementSelectionManager().getSelection().clear();
-		view.getArrangementSelectionManager().getSelection().add(view.getArrangementSelectionManager().getClickedComp());
 		
 		queryDom = view.getDomainSelectionManager().getClickedComp();
 		if (queryDom == null)
@@ -84,6 +82,7 @@ public class SearchOrthologousAction extends AbstractMenuAction{
 			view.getDomainViewRenderer().setArrangementRenderer(new BackBoneArrangementRenderer());
 			view.setCompareDomainsMode(false);
 			view.getDomainLayoutManager().toggleCompareDomainsMode(view.isCompareDomainsMode());
+			view.getDomainLayoutManager().deselectAll();
 			view.getArrangementSelectionManager().clearSelection();
 			view.getDomainSearchOrthologsManager().reset();
 			view.getViewComponent().repaint();

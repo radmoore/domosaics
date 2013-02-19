@@ -32,7 +32,8 @@ public class DeleteArrangementContextAction extends AbstractAction{
 //			return;
 			
 		view.removeArrangement(selectedDA.getDomainArrangement());
-		
+
+		view.getDomainLayoutManager().deselectAll();
 		view.getArrangementSelectionManager().clearSelection();
 		view.getDomainSelectionManager().clearSelection();
 			

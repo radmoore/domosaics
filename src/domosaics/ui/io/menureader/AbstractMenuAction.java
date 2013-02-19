@@ -59,6 +59,8 @@ public abstract class AbstractMenuAction extends AbstractAction {
 	public void setIcon(String iconUrl) {
 		if (iconUrl != null) {
 			InputStream is = this.getClass().getClassLoader().getResourceAsStream(iconUrl);
+			if(is == null)
+				System.out.println(iconUrl);
 			try {
 				ImageIcon icon = new ImageIcon(ImageIO.read(is));
 				putValue(Action.SMALL_ICON, icon);

@@ -18,6 +18,7 @@ public class FindArrangementAction extends AbstractMenuAction { //implements Fin
 	
 	public void findAll(String label) {
 //		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
+//		view.getDomainLayoutManager().deselectAll();
 //		view.getArrangementSelectionManager().clearSelection();
 //		view.getParentPane().repaint();
 //		
@@ -64,6 +65,7 @@ public class FindArrangementAction extends AbstractMenuAction { //implements Fin
 
 //public void find(String label) {
 //	DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
+//	view.getDomainLayoutManager().deselectAll();
 //	view.getArrangementSelectionManager().clearSelection();
 //	view.getParentPane().repaint();
 //	
@@ -101,6 +103,7 @@ public class FindArrangementAction extends AbstractMenuAction { //implements Fin
 //		
 //		// select now
 //		if (dac.getLabel().toUpperCase().equals(label.toUpperCase()) && selectNext) {
+//			view.getDomainLayoutManager().deselectAll();
 //			view.getArrangementSelectionManager().clearSelection();
 //			view.getArrangementSelectionManager().addToSelection(dac);
 //			

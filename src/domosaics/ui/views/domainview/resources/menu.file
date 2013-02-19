@@ -139,7 +139,7 @@
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Show Legend"/> 
 			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowDomainLegendAction"/> 
-			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/tools/legend.png"/>
+<!--		<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/tools/legend.png"/>
 			<parameter id="tooltip" value="Opens a new window where the domain legend is displayed"/> 
 		</menuItem>
 		
@@ -204,11 +204,12 @@
 	
 	<menu id="Select">
 	
-		<menuitem id="JMenuItem">
+		<menuitem id="JCheckBox">
 			<parameter id="name" value="Select All Domain Arrangements"/> 
 			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SelectAllDomainArrangementsAction"/> 
-						<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/menu/selectallarrangements.png"/>
-			<parameter id="tooltip" value="Selects all domain arrangements at once"/> 
+			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/menu/selectallarrangements.png"/>
+			<parameter id="tooltip" value="Selects all domain arrangements at once"/>  
+			<parameter id="isSelected" value="false"/> 
 		</menuItem>
 		
 		<menuitem id="JCheckBox">

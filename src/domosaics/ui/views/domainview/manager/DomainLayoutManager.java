@@ -145,8 +145,23 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 			
 		if (isMsaView())
 			disable(DomainAction.MSA_VIEW);
-		
+
 		disable(DomainAction.SELECT_ARRANGEMENTS);
+	}
+	
+	/**
+	 * Uncheck SelectAll box
+	 */
+	public void deselectAll() {
+		setState(DomainAction.SELECT_ALL_ARRANGEMENTS, false);
+	}
+	
+
+	/**
+	 * check SelectAll box
+	 */
+	public void selectAll() {
+		setState(DomainAction.SELECT_ALL_ARRANGEMENTS, true);
 	}
 	
 	/**

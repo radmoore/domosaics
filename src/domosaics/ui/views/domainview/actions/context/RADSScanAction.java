@@ -49,10 +49,6 @@ public class RADSScanAction extends AbstractAction {
 		}
 		DomainViewI domView = (DomainViewI) ViewHandler.getInstance().getActiveView();
 
-		domView.getArrangementSelectionManager().getSelection().clear();
-		domView.getArrangementSelectionManager().getSelection().add(domView.getArrangementSelectionManager().getClickedComp());
-		domView.getViewComponent().repaint();
-		
 		ArrangementComponent selectedDA = domView.getArrangementSelectionManager().getClickedComp();
 		RADSScanView view = ViewHandler.getInstance().createTool(ViewType.RADSCAN);
 		view.setView(selectedDA);

@@ -313,11 +313,13 @@ public class ApplicationHandler {
 				workspace = WizardManager.getInstance().showWorkingDirectoyWizard(startUpProgress, Configuration.DEF_HOMEFOLDER_LOCATION);
 			if(!workspace.exists())
 				workspace.mkdir();
-					
 			Configuration.getInstance().setWorkspaceDir(workspace.getPath());
 		} 
 		else {
 			ConfigurationReader.read();
+			workspace = new File(Configuration.getInstance().getWorkspaceDir());
+			if(!workspace.exists())
+				workspace.mkdir();
 		}
 		
 		// TODO In next version 

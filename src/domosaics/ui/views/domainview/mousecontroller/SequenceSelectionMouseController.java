@@ -194,8 +194,10 @@ public class SequenceSelectionMouseController extends MouseAdapter {
 			
 			view.getViewComponent().repaint();
 			
-			if (view.getArrangementSelectionManager().getMouseOverComp() == null)
+			if (view.getArrangementSelectionManager().getMouseOverComp() == null) {
+				view.getDomainLayoutManager().deselectAll();
 				view.getArrangementSelectionManager().clearSelection();
+			}
 			
 		} else 
 			dragging = false;

@@ -27,9 +27,6 @@ public class EditSequenceAction extends AbstractAction{
 		
 		// get the selected arrangement
 		ArrangementComponent selectedDA = domView.getArrangementSelectionManager().getClickedComp();
-		domView.getArrangementSelectionManager().getSelection().clear();
-		domView.getArrangementSelectionManager().getSelection().add(selectedDA);
-		
 		WizardManager.getInstance().startChangeSequenceWizard(domView, selectedDA);
 	}
 

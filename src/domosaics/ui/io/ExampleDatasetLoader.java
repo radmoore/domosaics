@@ -83,7 +83,7 @@ public class ExampleDatasetLoader {
 			seqFile  = this.getClass().getResourceAsStream(SEQS_SMALL);
 
 			small = true;
-		
+
 			loadViews();
 			
 			treeFile.close();

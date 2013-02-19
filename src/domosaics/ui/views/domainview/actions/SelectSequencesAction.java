@@ -44,6 +44,7 @@ public class SelectSequencesAction extends AbstractMenuAction{
 		view.registerMouseListeners();
 		
 		// the selection manager has to be reset => dont draw highlight artifacts
+		view.getDomainLayoutManager().deselectAll();
 		view.getArrangementSelectionManager().clearSelection();
 		view.getDomainSelectionManager().clearSelection();
 		view.getParentPane().repaint();

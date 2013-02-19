@@ -716,7 +716,6 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		
 		if (seqViews.length == 0) {
 			selectView = new JComboBox(seqViews);
-			
 			selectView.setSelectedItem(null);
 			selectView.setEnabled(false);
 			return;

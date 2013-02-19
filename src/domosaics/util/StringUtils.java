@@ -40,7 +40,7 @@ public class StringUtils {
 		catch (Exception e) {
 			if (Configuration.getReportExceptionsMode())
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
-			else			
+			else                    
 				Configuration.getLogger().debug(e.toString());
 			return false;
 		}

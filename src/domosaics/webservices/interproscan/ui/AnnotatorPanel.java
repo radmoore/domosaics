@@ -42,6 +42,7 @@ import domosaics.ui.wizards.WizardListCellRenderer;
 import domosaics.ui.wizards.WizardManager;
 import domosaics.ui.wizards.pages.SelectNamePage;
 import domosaics.util.CheckConnectivity;
+import domosaics.util.StringUtils;
 import domosaics.util.UiUtil;
 import domosaics.webservices.interproscan.AnnotationThreadSpawner;
 import domosaics.webservices.interproscan.AnnotatorProcessWriter;
@@ -288,8 +289,8 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			}
 		}
 		
-		if (!isNumber(evalue.getText())) {
-			MessageUtil.showWarning("Please enter an E-value!");
+		if (!StringUtils.isNumber(evalue.getText())) {
+			MessageUtil.showWarning("Please enter a numeric E-value!");
 			//print("Please enter an E value! \n");
 			return;
 		}
@@ -316,25 +317,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		selectMethod.setEnabled(false);
 		email.setEnabled(false);
 		apply.setEnabled(true);
-	}
-	
-
-	/* ************************************************************* *
-	 * 						CORECTNESS CHECKING						 *
-	 * ************************************************************* */
-
-		private boolean isNumber(String word) {
-		try {
-			Double.parseDouble(word);
-			return true;
-		} 
-		catch (Exception e){
-			if (Configuration.getReportExceptionsMode())
-				Configuration.getInstance().getExceptionComunicator().reportBug(e);
-			else			
-				Configuration.getLogger().debug(e.toString());
-			return false;
-		}
 	}
 	
 	/* ************************************************************* *

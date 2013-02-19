@@ -125,6 +125,7 @@ public class AddSelectionToViewAction extends AbstractMenuAction{
 		}
 		
 		// clear the selection from this view
+		activeDomView.getDomainLayoutManager().deselectAll();
 		activeDomView.getArrangementSelectionManager().clearSelection();
 		// add arrangements to targetView
 		targetView.addDaSet(daSet);

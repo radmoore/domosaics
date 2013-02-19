@@ -38,7 +38,8 @@ public class DeleteArrangementAction extends AbstractMenuAction{
 		for (ArrangementComponent dac : view.getArrangementSelectionManager().getSelection()) {
 			view.removeArrangement(dac.getDomainArrangement());
 		}
-		
+
+		view.getDomainLayoutManager().deselectAll();
 		view.getArrangementSelectionManager().clearSelection();
 		view.getDomainSelectionManager().clearSelection();
 			

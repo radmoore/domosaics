@@ -218,7 +218,7 @@
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Show Legend"/> 
 			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowDomainLegendAction"/> 
-			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/legend.png"/>
+<!--			<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/tools/legend.png"/>
 			<parameter id="tooltip" value="Opens a new Window where the domain legend is displayed"/> 
 		</menuItem>
 		
@@ -289,7 +289,7 @@
 		</menuItem>
 		
 		<menuitem id="JSeparator"/>
-	
+		
 		<menuitem id="JCheckBox">
 			<parameter id="name" value="Collapse Same Arrangements"/> 
 			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.CollapseSameArrangementsAction"/> 
@@ -331,7 +331,14 @@
 	</menu>
 	
 	<menu id="Arrangements">
-				<menuitem id="JCheckBox">
+		<menuitem id="JCheckBox">
+			<parameter id="name" value="Select All Domain Arrangements"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SelectAllDomainArrangementsAction"/>
+			<parameter id="tooltip" value="Selects all domain arrangements at once"/>  
+			<parameter id="isSelected" value="false"/> 
+		</menuItem>
+		
+		<menuitem id="JCheckBox">
 			<parameter id="name" value="Select Domain Arrangements"/> 
 			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SelectDomainArrangementsAction"/> 
 			<parameter id="tooltip" value="Gives the opportunity to select Domain Arrangements"/> 

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.configuration.Configuration;
+import domosaics.util.StringUtils;
 
 
 
@@ -139,10 +140,14 @@ public class Tree implements TreeI {
 		while (iter.hasNext()) {
 			TreeNodeI node = iter.next();
 			try {
-				double bootstrap = Double.parseDouble(node.getLabel());
-				if (bootstrap >= 0 && bootstrap <= 100 && node.getEdgeToParent() != null) {
-					node.setLabel("");
-					((TreeEdgeI) node.getEdgeToParent()).setBootstrap(bootstrap);
+				if(!node.isLeaf()) {
+					if(!node.getLabel().isEmpty()) {
+						double bootstrap = Double.parseDouble(node.getLabel());
+						if (bootstrap >= 0 && bootstrap <= 100 && node.getEdgeToParent() != null) {
+							node.setLabel("");
+							((TreeEdgeI) node.getEdgeToParent()).setBootstrap(bootstrap);
+						}
+					}
 				}
 			} 
 			catch( NumberFormatException nfe) {

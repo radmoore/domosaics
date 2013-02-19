@@ -90,6 +90,7 @@ public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 		}
 		
 		// clear the selection from this view
+		view.getDomainLayoutManager().deselectAll();
 		view.getArrangementSelectionManager().clearSelection();
 
 		// and create with the new dataset a new domainview with the selected name

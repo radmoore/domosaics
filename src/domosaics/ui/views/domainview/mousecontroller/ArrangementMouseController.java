@@ -2,6 +2,9 @@ package domosaics.ui.views.domainview.mousecontroller;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domainview.DomainViewI;
@@ -81,7 +84,8 @@ public class ArrangementMouseController extends MouseAdapter{
 			ArrangementComponent dac = arrangementDetector.searchArrangementComponent(e.getPoint());
 			if (dac == null) 
 				return;
-			
+
+			view.getDomainLayoutManager().deselectAll();
 			view.getArrangementSelectionManager().clearSelection();
 			arrangementSelectionManager.addToSelection(dac);
 			view.getDomainSimilarityManager().init(view, dac.getDomainArrangement());
@@ -94,6 +98,7 @@ public class ArrangementMouseController extends MouseAdapter{
 			view.getDomainViewRenderer().setArrangementRenderer(new BackBoneArrangementRenderer());
 			view.setCompareDomainsMode(false);
 			view.getDomainLayoutManager().toggleCompareDomainsMode(view.isCompareDomainsMode());
+			view.getDomainLayoutManager().deselectAll();
 			view.getArrangementSelectionManager().clearSelection();
 			view.getDomainSearchOrthologsManager().reset();
 			view.getViewComponent().repaint();
@@ -107,6 +112,7 @@ public class ArrangementMouseController extends MouseAdapter{
 		// check if there is an arrangement to select at the current position
 		ArrangementComponent dac = arrangementDetector.searchArrangementComponent(e.getPoint());
 		if (dac == null) {
+			view.getDomainLayoutManager().deselectAll();
 			view.getArrangementSelectionManager().clearSelection();
 			view.getViewComponent().repaint();
 			return;
@@ -117,6 +123,27 @@ public class ArrangementMouseController extends MouseAdapter{
 			arrangementSelectionManager.addToSelection(dac);	// triggers repaint
 		else // else remove it from selection
 			arrangementSelectionManager.removeFromSelection(dac); // triggers repaint
+		
+		// Nico: if selected is the last then update "SelectAll status"
+		Collection<ArrangementComponent> toSelection = new ArrayList<ArrangementComponent>();
+		for (int i = 0; i < view.getDaSet().length; i++) {
+			ArrangementComponent ac = view.getArrangementComponentManager().getComponent(view.getDaSet()[i]);
+			if(!ac.isVisible())
+				continue;
+			toSelection.add(ac);
+		}
+
+		boolean select = false;
+		Iterator<ArrangementComponent> mem = toSelection.iterator();
+		while(mem.hasNext() && !select) {
+			ArrangementComponent ac = mem.next();
+			if(!arrangementSelectionManager.getSelection().contains(ac))
+				select = true;
+		}
+		if(!select) {
+			view.getDomainLayoutManager().selectAll();
+		}
+
 	}
 	
 	/**
