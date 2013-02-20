@@ -145,9 +145,13 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		
 		while(treeViewName == null) {
 			Map results = WizardManager.getInstance().selectNameWizard(defaultTreeViewName, "tree view", activeProject, true);
-			treeViewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
+			if(results!=null) {
+				treeViewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
 			String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
 			activeProject = WorkspaceManager.getInstance().getProject(projectName);
+			} else {
+				return false;
+			}
 		}
 		
 		// and create the tree view
@@ -156,9 +160,10 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		ViewHandler.getInstance().addView(treeView, activeProject);
 
 		// as well as the domain tree view
-		DomainTreeViewI domTreeView =  ViewHandler.getInstance().createView(ViewType.DOMAINTREE, domTreeViewName);
+		// Nico: NO or with taking care of name of domainTreeView and proposing to create it
+		/*DomainTreeViewI domTreeView =  ViewHandler.getInstance().createView(ViewType.DOMAINTREE, domTreeViewName);
 		domTreeView.setBackendViews(treeView, domView);
-		ViewHandler.getInstance().addView(domTreeView, activeProject);
+		ViewHandler.getInstance().addView(domTreeView, activeProject);*/
 		
 		return true;
 	}
@@ -305,9 +310,13 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		
 		while(treeViewName == null) {
 			Map results = WizardManager.getInstance().selectNameWizard(defaultTreeViewName, "tree view", activeProject, true);
-			treeViewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
-			String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
-			activeProject = WorkspaceManager.getInstance().getProject(projectName);
+			if(results!=null) {
+				treeViewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
+				String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
+				activeProject = WorkspaceManager.getInstance().getProject(projectName);
+			} else {
+				return false;
+			}
 		}
 		
 		// and create the tree view

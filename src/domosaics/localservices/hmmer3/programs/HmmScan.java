@@ -474,13 +474,19 @@ public class HmmScan implements Hmmer3Program {
 			String projectName = null;
 			while (viewName == null) {
 				Map m = WizardManager.getInstance().selectNameWizard(defaultName, "annotation", project, true);
-				viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
-				projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+				if(m!=null) {
+					viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+					projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
 
-				if (viewName == null) 
+					if (viewName == null) 
+						if (MessageUtil.showDialog("You will loose the hmmscan results. Are you sure?"))
+							// will not delete tmp files, just in case
+							return;
+				} else {
 					if (MessageUtil.showDialog("You will loose the hmmscan results. Are you sure?"))
-						// will not delete tmp files, just in case
+					// will not delete tmp files, just in case
 						return;
+				}
 			}
 
 			// get chosen project

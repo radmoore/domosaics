@@ -314,6 +314,9 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 		
 		getDomainComponentManager().clear();
 		getArrangementComponentManager().clear();
+		domView.getDomainLayoutManager().deselectAll();
+		this.getArrangementSelectionManager().clearSelection();
+		this.getDomainSelectionManager().clearSelection();
 		
 		// init the manager, mouse controller and additional renderer 
 		initDomainTreeController();

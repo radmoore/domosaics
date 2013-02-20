@@ -313,15 +313,18 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		String projectName = null;
 		ProjectElement project = null;
 
-		@SuppressWarnings("rawtypes")
-		Map m = WizardManager.getInstance().selectNameWizard(defaultViewName, "RadScan", project, true);
-		viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
-		projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
-		project = WorkspaceManager.getInstance().getProject(projectName);
-			
-		if (viewName == null) 
-			MessageUtil.showWarning("A valid view name is needed to complete this action");
-	
+		//@SuppressWarnings("rawtypes")
+		while(viewName==null) {
+			Map m = WizardManager.getInstance().selectNameWizard(defaultViewName, "RadScan", project, true);
+			if(m!=null) {
+				viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+				projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+				project = WorkspaceManager.getInstance().getProject(projectName);
+			} else {
+				return;
+			}
+		}
+		
 		DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
 		domResultView.setDaSet(selectedHits.toArray(new DomainArrangement[selectedHits.size()]));
 		ViewHandler.getInstance().addView(domResultView, project);

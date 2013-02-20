@@ -56,16 +56,18 @@ public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 		ViewElement elem = WorkspaceManager.getInstance().getViewElement(view.getViewInfo());
 		ProjectElement project = elem.getProject();
 		
-		// get info provided by the user
-		Map m = WizardManager.getInstance().selectNameWizard(defaultName, "domain view", project, true);
-		
-		// in case user canceled renaming
-		if (m == null) 
-			return;
 		while(viewName == null) {
-			viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
-			projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
-			project = WorkspaceManager.getInstance().getProject(projectName);
+			// get info provided by the user
+			Map m = WizardManager.getInstance().selectNameWizard(defaultName, "domain view", project, true);
+
+			// in case user canceled renaming
+			if (m != null) {
+				viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+				projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+				project = WorkspaceManager.getInstance().getProject(projectName);
+			} else {
+				return;
+			}
 		}
 				
 		// clone selected arrangements as well as their sequences into a new dataset

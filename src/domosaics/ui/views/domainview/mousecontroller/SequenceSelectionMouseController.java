@@ -153,8 +153,12 @@ public class SequenceSelectionMouseController extends MouseAdapter {
 			
 			while(viewName == null) {
 				Map m = WizardManager.getInstance().selectNameWizard(defaultName, "sequence view", project, true);
-				viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
-				projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+				if(m!=null) {
+					viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
+					projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
+				} else {
+					return;
+				}
 			}
 			project = WorkspaceManager.getInstance().getProject(projectName);
 						

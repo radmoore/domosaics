@@ -79,8 +79,6 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 				Configuration.getLogger().debug(e.toString());
 			p.failed("Error while editing the project", false);
 		}
-		if(!noError)
-			MessageUtil.showInformation(null, "An error occurred during the import. Please try again.");
 		p.finished(null);
 	}
 	
@@ -113,10 +111,13 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 			MessageUtil.showInformation(null, "The view "+ viewName + " already exists. Please rename.");*/
 		while(validatedNewName == null) {
 			Map results = WizardManager.getInstance().selectNameWizard(viewName, "tree view", project, false);
-			validatedNewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
-			String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
-			project = WorkspaceManager.getInstance().getProject(projectName);
-			
+			if(results!=null) {
+				validatedNewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
+				String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
+				project = WorkspaceManager.getInstance().getProject(projectName);
+			} else{
+				return false;
+			}			
 		}
 		
 		//Nico cannot happen?
@@ -164,7 +165,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		int importedProts = daSet.length;
 		if (importedProts < 1) {
 			MessageUtil.showWarning("0 proteins imported");
-			return false;
+			return false;	
 		}
 			
 
@@ -174,9 +175,13 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 
 		while(validatedNewName == null) {
 			Map results = WizardManager.getInstance().selectNameWizard(viewName, "domain view", project, false);
-			validatedNewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
-			String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
-			project = WorkspaceManager.getInstance().getProject(projectName);
+			if(results!=null) {
+				validatedNewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
+				String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
+				project = WorkspaceManager.getInstance().getProject(projectName);
+			} else {
+				return false;
+			}
 		}
 
 		//Nico: cannot happen?
@@ -233,9 +238,13 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 
 		while(validatedNewName == null) {
 			Map results = WizardManager.getInstance().selectNameWizard(viewName, "sequence view", project, false);
-			validatedNewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
-			String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
-			project = WorkspaceManager.getInstance().getProject(projectName);
+			if(results!=null) {
+				validatedNewName = (String) results.get(SelectNamePage.VIEWNAME_KEY);
+				String projectName = (String) results.get(SelectNamePage.PROJECTNAME_KEY);
+				project = WorkspaceManager.getInstance().getProject(projectName);
+			} else{
+				return false;
+			}		
 		}
 
 		//Nico: cannot happen?
