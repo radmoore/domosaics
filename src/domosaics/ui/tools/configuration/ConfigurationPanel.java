@@ -54,7 +54,7 @@ public class ConfigurationPanel extends JPanel{
 	protected JButton apply, cancel, restore;
 	
 	/** checkbox indicating whether or not advises should be shown */
-	protected JCheckBox showAdvices, saveOnExit, overwriteProject;
+	protected JCheckBox showAdvices, saveOnExit, overwriteProject, helpImprove;
 	
 	protected Hmmer3Engine hmmer3Engine;
 	private HashMap<String, File> hmmer3bins;
@@ -80,6 +80,10 @@ public class ConfigurationPanel extends JPanel{
 		
 	}
 	
+	public void setHelpImprove(boolean improve) {
+		helpImprove.setSelected(improve);
+	}
+	
 	/**
 	 * Stores the changed values in the backend data structure
 	 */
@@ -97,7 +101,8 @@ public class ConfigurationPanel extends JPanel{
 		config.setWorkspaceDir(workspace.getText());
 		config.setSaveOnExit(saveOnExit.isSelected());
 		config.setOverwriteProjects(overwriteProject.isSelected());
-
+		config.setHelpImprove(helpImprove.isSelected());
+		
 		ConfigurationWriter.write();
 		
 		dispose();
@@ -121,6 +126,7 @@ public class ConfigurationPanel extends JPanel{
 		workspace.setText(config.getWorkspaceDir());
 		saveOnExit.setSelected(config.saveOnExit());
 		overwriteProject.setSelected(config.getOverwriteProjects());
+		helpImprove.setSelected(config.getHelpImprove());
 	}
 	
 	/**
@@ -176,7 +182,7 @@ public class ConfigurationPanel extends JPanel{
 
 		emailField = UiUtil.createEmailField(config.getEmailAddr());
 		
-		loadHmmScanBin = new JButton("hmmscan bin");
+		loadHmmScanBin = new JButton("hmmscan");
 		loadHmmScanBin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File scanBin = FileDialogs.showOpenDialog(parentFrame);
@@ -186,7 +192,7 @@ public class ConfigurationPanel extends JPanel{
 			}
 		});
 		
-		loadHmmPressBin = new JButton("hmmpress bin");
+		loadHmmPressBin = new JButton("hmmpress");
 		loadHmmPressBin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File pressBin = FileDialogs.showOpenDialog(parentFrame);
@@ -197,7 +203,7 @@ public class ConfigurationPanel extends JPanel{
 		});
 		
 		
-		loadHmmDB = new JButton("Load profiles");
+		loadHmmDB = new JButton("load profiles");
 		loadHmmDB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File file = FileDialogs.showOpenDialog(parentFrame);
@@ -207,7 +213,7 @@ public class ConfigurationPanel extends JPanel{
 			}
 		});
 
-		loadWorkspace = new JButton("Folder location");
+		loadWorkspace = new JButton("Browse");
 		loadWorkspace.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File workspaceFile = FileDialogs.openChooseDirectoryDialog(parentFrame);
@@ -220,6 +226,8 @@ public class ConfigurationPanel extends JPanel{
 //		showAdvices = new JCheckBox("Show Advices", config.isShowAdvices());
 		saveOnExit = new JCheckBox(" Save Workspace on Exit", config.saveOnExit());
 		overwriteProject = new JCheckBox(" Overwrite existing projects", config.getOverwriteProjects());
+		helpImprove = new JCheckBox(" Help improve DoMosaics", config.getReportExceptionsMode());
+		
 		
 		apply = new JButton ("Apply");
 		apply.addActionListener(new ActionListener() {
@@ -292,12 +300,12 @@ public class ConfigurationPanel extends JPanel{
 		add(emailField, "h 25!, gap 10, span, growx, gapright 10, wrap");
 		
 		add(new JXTitledSeparator("Local HMMER3 setup"),"growx, span, wrap, gaptop 10");
-		add(loadHmmScanBin, "h 25!, w 165!, gap 10");
+		add(loadHmmScanBin, "h 25!, w 135!, gap 10");
 		add(hmmerScanTF, "h 25!, gap 10, span, growX, gapright 10, wrap");
-		add(loadHmmPressBin, "h 25!, w 165!, gap 10");
+		add(loadHmmPressBin, "h 25!, w 135!, gap 10");
 		add(hmmerPressTF, "h 25!, gap 10, span, growX, gapright 10, wrap");
 		
-		add(loadHmmDB, "h 25!, w 165!, gap 10");
+		add(loadHmmDB, "h 25!, w 135!, gap 10");
 		add(hmmer3dbTF, "h 25!, gap 10, span, growX, gapright 10, wrap");
 				
 		add(new JXTitledSeparator("URLs"),"growx, span, wrap, gaptop 10");
@@ -313,10 +321,14 @@ public class ConfigurationPanel extends JPanel{
 //		add(new JXTitledSeparator("Advice"),"growx, span, wrap, gaptop 10");
 //		add(showAdvices, 	"h 25!, gap 10, wrap");
 		add(new JXTitledSeparator("Workspace"),"growx, span, wrap, gaptop 10");
-		add(loadWorkspace, "h 25!, w 165!, gap 10");
+		add(loadWorkspace, "h 25!, w 135!, gap 10");
 		add(workspace, "h 25!, gap 10, span, growX, gapright 10, wrap");
 		add(saveOnExit, 	"h 25!, gap 10, span 2, wrap");
 		add(overwriteProject, 	"h 25!, gap 10, span 2, wrap");
+		
+		add(new JXTitledSeparator("Help improve"),"growx, span, wrap, gaptop 10");
+		add(helpImprove, 	"h 25!, gap 10, span 2, wrap");
+		
 		
 		add(new JXTitledSeparator("Apply"),"growx, span, wrap, gaptop 10");
 		add(apply, "h 25!, w 80!, split 2, gap 10");

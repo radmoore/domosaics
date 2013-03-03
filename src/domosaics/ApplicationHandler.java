@@ -123,7 +123,7 @@ public class ApplicationHandler {
 		if (DoMosaicsUI.getInstance().isShowing())
 			DoMosaicsUI.getInstance().dispose();
 		
-		Configuration.getLogger().info("INFO: closing DoMosaics");
+//		Configuration.getLogger().info("INFO: closing DoMosaics");
 		LastUsedWorkspaceWriter.write();
 		System.exit(0);		
 	}

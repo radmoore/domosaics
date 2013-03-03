@@ -122,6 +122,7 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
 	 */
 	public void writeSimple(BufferedWriter out, DomainArrangement[] daSet) {
         try {
+        	
     		for (int i = 0; i < daSet.length; i++) {
     			
     			// start header
@@ -180,6 +181,12 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
 			if (Configuration.getReportExceptionsMode())
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
+				Configuration.getLogger().debug(e.toString());
+        }
+        catch (Exception e) {
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else
 				Configuration.getLogger().debug(e.toString());
         }
     }

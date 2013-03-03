@@ -1,6 +1,5 @@
 package domosaics.webservices.interproscan.ui;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,8 +15,6 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -47,9 +44,6 @@ import domosaics.webservices.interproscan.AnnotationThreadSpawner;
 import domosaics.webservices.interproscan.AnnotatorProcessWriter;
 import domosaics.webservices.interproscan.Method;
 
-
-
-
 /**
  * Class AnnotatorPanel displays the annotation process and allows
  * setting all needed parameters, which are: <br>
@@ -77,7 +71,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	private JTextField seqPath, email, evalue;
 	
 	/** view selection box */
-	private JComboBox selectView, selectMethod;
+	private JComboBox<?> selectView, selectMethod;
 	
 	/** Buttons for load sequence file, submit job, apply results and cancel */
 	private JButton loadSeqs, submit, apply, cancel; //close;
@@ -139,8 +133,10 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * 		the message to be printed
 	 */
 	public void print(String text) {
-		console.append(text);
-		console.setCaretPosition(console.getText().length());
+		if ( annotationSpawner.isRunning() ) {
+			console.append(text);
+			console.setCaretPosition(console.getText().length());
+		}
 	}
 	
 	/**
@@ -223,7 +219,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * cancels the annotation spawner.
 	 */
 	public void cancel() {
-		if (annotationSpawner.isRunning()) {
+		if ( annotationSpawner.isRunning() ) {
 			annotationSpawner.cancel();
 			submit.setEnabled(true);
 			loadSeqs.setEnabled(true);
@@ -238,22 +234,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		}
 	}
 	
-//	/**
-//	 * cancels the annotation spawner and disposes the GUI.
-//	 */
-//	public void close() {
-//		dispose();
-//		parent.dispose();
-//	}
-//	
-//	/** 
-//	 * stops all active annotation threads
-//	 */
-//	public void dispose() {
-//		// aborts the thread if it is currently running
-//		if (annotationSpawner.isRunning())
-//			annotationSpawner.cancel();
-//	}
 	
 	/**
 	 * Submits a new annotation job for all sequences
@@ -264,33 +244,35 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		
 		if (annotationSpawner.getSeqs() == null) {
 			MessageUtil.showWarning("Please load sequences first!");
-			//print("Please load sequences first! \n");
 			return;
 		}
 		
 		if (!UiUtil.isValidEmail(email.getText())) {
 			MessageUtil.showWarning("Please enter a valid email!");
-			//print("Please enter a correct email address! \n");
 			return;
-		} else {
+		} 
+		else {
+			
 			if(Configuration.getInstance().getEmailAddr().equals("")) {
 				Configuration.getInstance().setEmailAddr(email.getText());
-			} else {
-				if(!email.getText().equals(Configuration.getInstance().getEmailAddr()))
-					if(MessageUtil.showDialog(this.getParent(),"A distinct email is saved in settings. Overwrite?"))
-					{
+			} 
+			else {
+				
+				if( !email.getText().equals(Configuration.getInstance().getEmailAddr()) )
+					if( MessageUtil.showDialog(this.getParent(),"A distinct email is saved in settings. Overwrite?") ) {
+						
 						Configuration.getInstance().setEmailAddr(email.getText());
-						if(Configuration.getInstance().getFrame()!=null && Configuration.getInstance().getFrame().isVisible()) {
+						if( Configuration.getInstance().getFrame() != null && Configuration.getInstance().getFrame().isVisible() ) {
 							Configuration.getInstance().getFrame().dispose();
-							Configuration.getInstance().setFrame(new ConfigurationFrame());
+							Configuration.getInstance().setFrame( new ConfigurationFrame() );
 						}				
 					}
+				
 			}
 		}
 		
 		if (!isNumber(evalue.getText())) {
 			MessageUtil.showWarning("Please enter an E-value!");
-			//print("Please enter an E value! \n");
 			return;
 		}
 		
@@ -329,10 +311,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			return true;
 		} 
 		catch (Exception e){
-			if (Configuration.getReportExceptionsMode())
-				Configuration.getInstance().getExceptionComunicator().reportBug(e);
-			else			
-				Configuration.getLogger().debug(e.toString());
 			return false;
 		}
 	}
@@ -411,13 +389,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				cancel();
 			}
 		});
-				
-//		close = new JButton ("Close");
-//		close.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent evt) {
-//				close();
-//			}
-//		});
 	}
 	
 	private void initSelectViewBox() {
@@ -445,7 +416,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				}
 				else {
 					defaultName = selected.getTitle();
-					//System.out.println(selected.getTitle());
 				}
 				selectedSequenceView = ViewHandler.getInstance().getView(selected.getViewInfo());
 				annotationSpawner.setSeqs(selectedSequenceView.getSeqs());
@@ -459,7 +429,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		loadSeqs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				if (!(selectView.getSelectedItem() == null)) {
-					//MessageUtil.showWarning("You have already loaded sequences, deselecting.");
 					defaultName=null;
 					selectView.setSelectedItem(null);
 				}
@@ -474,7 +443,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	
 	private void initMethodSelection() {
 		selectMethod = new JComboBox(Method.values());
-		// preselect hmmpfam
 		selectMethod.setSelectedIndex(4);
 	}
 	
@@ -482,57 +450,11 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	private void initEmailText() {
 		String email_text = (config.getEmailAddr().isEmpty()) ? DEFAULT_EMAIL : config.getEmailAddr() ;
 		email = UiUtil.createEmailField(email_text);
-		/*if (UiUtil.isValidEmail(email_text)) {
-			// colorize green, if email is valid
-			email.setForeground(new Color(60, 120, 30));
-		} else	{			
-			email.setForeground(new Color(210, 60, 60));
-		}
-		email.getDocument().addDocumentListener(new DocumentListener() {
-			public void changedUpdate(DocumentEvent arg0) {
-				email.setForeground(getCorrectColor(email.getText()));
-			}
-
-			public void insertUpdate(DocumentEvent arg0) {
-				email.setForeground(getCorrectColor(email.getText()));
-			}
-
-			public void removeUpdate(DocumentEvent arg0) {
-				email.setForeground(getCorrectColor(email.getText()));
-			}
-			
-			private Color getCorrectColor(String adress) {
-				if (isValidEmail(adress))
-					return new Color(60, 120, 30);
-				return new Color(210, 60, 60);
-			}
-		})*/; 
 	}
 	
 	private void initEvalText() {
 		evalue = new JTextField("2.04E-4", 25);
-//		evalue.setForeground(new Color(60, 120, 30));
 		evalue.setEditable(false);
-//		evalue.getDocument().addDocumentListener(new DocumentListener() {
-//			// colorize green, if evalue holds a valid number
-//			public void changedUpdate(DocumentEvent arg0) {
-//				evalue.setForeground(getCorrectColor(evalue.getText()));
-//			}
-//
-//			public void insertUpdate(DocumentEvent arg0) {
-//				evalue.setForeground(getCorrectColor(evalue.getText()));
-//			}
-//
-//			public void removeUpdate(DocumentEvent arg0) {
-//				evalue.setForeground(getCorrectColor(evalue.getText()));
-//			}
-//			
-//			private Color getCorrectColor(String eval) {
-//				if (isNumber(eval))
-//					return new Color(60, 120, 30);
-//				return new Color(210, 60, 60);
-//			}
-//		}); 
 	}
 	
 	private void initConsole() {

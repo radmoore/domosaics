@@ -21,24 +21,27 @@ import domosaics.model.configuration.Configuration;
  */
 public class ConfigurationFrame extends JFrame implements WindowListener {
 	private static final long serialVersionUID = 1L;
-	
+
+	ConfigurationPanel configPanel;
 
 	/**
 	 * Constructor for a new ConfigurationFrame
 	 */
     public ConfigurationFrame() {
-		super("DoMosaicS Settings");	
+		super("DoMosaics Settings");	
 		
-		getContentPane().add(new ConfigurationPanel(this));
+		configPanel = new ConfigurationPanel(this);
+		getContentPane().add(configPanel);
 		
 		//Configuration.getInstance().setVisible(true);
 		//Configuration.getInstance().setFrame(this);
 		
 		// set up the main window
 		pack();
+		setSize(500, 540);
 		setLocationRelativeTo(null);
 		setAlwaysOnTop(true);
-		setResizable(false);
+		setResizable(true);
 		if(Configuration.getInstance().getFrame()!=null)
 			if(Configuration.getInstance().getFrame().getState() == Frame.ICONIFIED)
 				setState(Frame.ICONIFIED);
@@ -55,6 +58,10 @@ public class ConfigurationFrame extends JFrame implements WindowListener {
     	Configuration.getInstance().setFrame(null);
 	}
 
+	public ConfigurationPanel getConfigPanel() {
+		return this.configPanel;
+	}
+	
 	public void windowDeactivated(WindowEvent e) { }
 
 	public void windowDeiconified(WindowEvent e) { }

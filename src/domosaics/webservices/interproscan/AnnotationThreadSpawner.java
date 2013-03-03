@@ -9,12 +9,9 @@ import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
 
-
-
-
 /**
- * AnnotationThreadSpawner spawns for a set of query sequences 
- * {@link AnnotationThread_old}s to annotate the sequences against InterPro using
+ * AnnotationThreadSpawner spawns, for a set of query sequences, 
+ * {@link AnnotationThread}s to annotate the sequences against InterPro using
  * a signature method, such as hmmpfam.
  * <p>
  * The thread spawner can be used multithreaded, creating up to 25 threads at a time
@@ -22,6 +19,7 @@ import domosaics.model.sequence.SequenceI;
  * <p>
  * A valid email address must be set to run WSInterproScan successfully.
  * 
+ * @author <a href='http://radm.info'>Andrew D. Moore</a>
  * @author Andreas Held
  *
  */
@@ -40,7 +38,6 @@ public class AnnotationThreadSpawner {
 	protected AnnotatorProcessWriter out;
 	
 	/** list of all annotation threads */
-	//protected ArrayList<AnnotationThread> activeQuerys;
 	protected ArrayList<AnnotationThread> activeQuerys;
 	
 	/** list of all annotation threads */
@@ -84,7 +81,7 @@ public class AnnotationThreadSpawner {
 	 * 		whether or not annotation threads are still running.
 	 */
 	public boolean isRunning() {
-			return activeQuerys.size()!=0;
+		return activeQuerys.size() != 0;
 	}
 	
 	/**
@@ -134,11 +131,14 @@ public class AnnotationThreadSpawner {
 	public void cancel() {
 		jobLauncher.cancel(true);
 		for (int i = 0; i < activeQuerys.size(); i++) {
+			
 			activeQuerys.get(i).cancel(true);
+			activeQuerys.get(i).cancelJob();
 			out.print(activeQuerys.get(i).getQuerySequence().getName()+" aborted! \n");
 		}
 		activeQuerys.clear();
 		out.updateProgress(0);
+		Configuration.getInstance().setServiceRunning(false);
 	}
 	
 	/**
@@ -148,11 +148,13 @@ public class AnnotationThreadSpawner {
 	 * 		the query sequence to be annotated
 	 */
 	protected void spawnAnnotation(SequenceI seq) {
-		AnnotationThread annotator = new AnnotationThread(this);
-		annotator.setParams(email, method);
-		annotator.setQuerySequence(seq);
-		activeQuerys.add(annotator);
-		annotator.execute();
+		if ( (!Thread.currentThread().isInterrupted()) || (!jobLauncher.isCancelled()) ){
+			AnnotationThread annotator = new AnnotationThread(this);
+			annotator.setParams(email, method);
+			annotator.setQuerySequence(seq);
+			activeQuerys.add(annotator);
+			annotator.execute();
+		}
 	}
 	
 	/**
@@ -186,7 +188,6 @@ public class AnnotationThreadSpawner {
 	 * @param res
 	 * 		the result of the annotation thread
 	 */
-	//public void processResults(AnnotationThread annotator, String res) {
 	public void processResults(AnnotationThread annotator, String res) {
 
 		if (!(res == null) ) {	
@@ -199,7 +200,6 @@ public class AnnotationThreadSpawner {
 			out.print(da.getName() + " annotated. \n");
 		}
 		else {
-			//System.out.println("*** I: No hits found.");
 			SequenceI seq = annotator.getQuerySequence();
 			DomainArrangement da = new DomainArrangement();
 			da.setSequence(seq);
@@ -210,14 +210,14 @@ public class AnnotationThreadSpawner {
 		}
 		activeQuerys.remove(annotator);
 		
-		// update progressbar
 		int progress = (int) Math.round( (100/(double)getSeqs().length)*(seqsWaitingForAnnotation-activeQuerys.size()));
 		out.updateProgress(Math.min(5+progress, 105));
 		
-		if(jobLauncher.isDone()) {
-			if(activeQuerys.size()==0)
+		if( jobLauncher.isDone() ) {
+			if( activeQuerys.size() == 0 )
 				out.print("---------------------------------\nAll sequences annotated, click apply to create view of results.");
-			else {
+			else 
+			{
 				out.print("Wait for results (last " + activeQuerys.size() + " job");
 				if (seqsWaitingForAnnotation != getSeqs().length)
 					out.print("s");
@@ -226,7 +226,9 @@ public class AnnotationThreadSpawner {
 		}
 	}
 	
-
+	/*
+	 * Top level thread - SW which spawns SWs.
+	 */
 	public void startMultipleThreadSpawn(){
 		
 		jobLauncher = new SwingWorker<String, Void>() {
@@ -236,12 +238,13 @@ public class AnnotationThreadSpawner {
 					out.updateProgress(5);
 			
 					while (seqsWaitingForAnnotation < getSeqs().length && !isCancelled()) {
-						for (int s = activeQuerys.size(); s < 25 && s < getSeqs().length; s++) {
+						
+						for ( int s = activeQuerys.size(); (s < 25 && s < getSeqs().length); s++ ) {
 							out.print("Preparing annotation for "+getSeqs()[seqsWaitingForAnnotation].getName()+" ("+(seqsWaitingForAnnotation+1)+"/"+getSeqs().length+")\n");
 							spawnAnnotation(getSeqs()[seqsWaitingForAnnotation]);
 							seqsWaitingForAnnotation++;
 						}
-						sleep(10000);	// wait before respawn
+						sleep(10000);
 					}
 				}
 				catch(Exception e){
