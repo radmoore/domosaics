@@ -129,15 +129,14 @@ public class AnnotationThreadSpawner {
 	 * 
 	 */
 	public void cancel() {
-		jobLauncher.cancel(true);
+//		jobLauncher.cancel(true);
 		for (int i = 0; i < activeQuerys.size(); i++) {
-			
 			activeQuerys.get(i).cancel(true);
-			activeQuerys.get(i).cancelJob();
 			out.print(activeQuerys.get(i).getQuerySequence().getName()+" aborted! \n");
 		}
 		activeQuerys.clear();
 		out.updateProgress(0);
+		jobLauncher.cancel(true);
 		Configuration.getInstance().setServiceRunning(false);
 	}
 	
@@ -168,12 +167,7 @@ public class AnnotationThreadSpawner {
 		try {
 			Thread.sleep(ms);
 		} 
-		catch (InterruptedException e) {
-			if (Configuration.getReportExceptionsMode())
-				Configuration.getInstance().getExceptionComunicator().reportBug(e);
-			else			
-				Configuration.getLogger().debug(e.toString());
-		}
+		catch (InterruptedException e) { }
 	}
 
 	/**

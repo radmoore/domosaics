@@ -15,7 +15,6 @@ import com.j2bugzilla.rpc.LogIn;
 import com.j2bugzilla.rpc.ReportBug;
 
 import domosaics.model.configuration.Configuration;
-import domosaics.ui.util.MessageUtil;
 
 /**
  * The ExceptionComunicator is used for submitting

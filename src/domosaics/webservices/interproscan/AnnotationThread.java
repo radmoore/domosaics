@@ -102,14 +102,15 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	@Override
     protected String doInBackground() {
 		
-		String jobId = "";
-		
+		String jobId = "";	
 		
 		try {
 			
 			params.setSequence(fasta);
+			
 			if (Configuration.isDebug())
-//				System.out.println("*** Submitting search for\n"+fasta+"\n");
+				System.out.println("*** Submitting search for\n"+fasta+"\n");
+			
 			srvProxyConnect();
 			jobId = srvProxy.run(email, seq.getName(), params);
 			status = srvProxy.getStatus(jobId);
@@ -156,12 +157,9 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 			else			
 				Configuration.getLogger().debug(af.toString());
 		}
-		catch (InterruptedException ie){
-			if (Configuration.getReportExceptionsMode())
-				Configuration.getInstance().getExceptionComunicator().reportBug(ie);
-			else			
-				Configuration.getLogger().debug(ie.toString());
-		}
+		// this exception is *always* triggered when the thread is interrupted (by canceling)
+		// ergo, we need not report
+		catch (InterruptedException ie){ }
 		catch (Exception e) {
 			if (Configuration.getReportExceptionsMode())
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
@@ -170,17 +168,6 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 		}
 		return null;
     }
-	
-	
-	/**
-	 * cancel method
-	 */
-	protected void cancelJob() {
-		srvProxy = null;
-		this.cancel(true);
-		this.status = "";
-	}
-	
 	
 	/**
 	 * SwingWorker method which is triggered when the annotation process 
@@ -196,13 +183,18 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 				spawner.processResults(this, get());
 			}
 			catch (InterruptedException e) {
-				Configuration.getLogger().debug(e.toString());
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(e);
+				else			
+					Configuration.getLogger().debug(e.toString());
 			}
 			catch (ExecutionException e) {
-				Configuration.getLogger().debug(e.toString());
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(e);
+				else			
+					Configuration.getLogger().debug(e.toString());
 			}
 		}
-		 
      }
 	
 
