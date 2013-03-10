@@ -25,6 +25,7 @@ public class ConfigurationWriter {
 	public static final String SHOWADVISES = "show advice:";
 	public static final String SAVEONEXIT = "save WS:";
 	public static final String OVERWRITEPROJECTS = "overwrite projects:";
+	public static final String HELPIMPROVE = "improve domosaics:";
 	public static final String DOMAINBYNAME = "domain by name:";
 	
 	
@@ -34,7 +35,7 @@ public class ConfigurationWriter {
 
 		    Configuration config = Configuration.getInstance();
 		    
-		    out.write("DoMosaicS Configuration File \n\n");
+		    out.write("DoMosaics Configuration File \n\n");
 		    out.write(WORKSPACE_LOCATION+config.getWorkspaceDir()+"\n");	
 		    out.write(GOOGLE_URL+config.getGoogleUrl()+"\n");
 		    //out.write(NCBI_URL+config.getNcbiUrl()+"\n");
@@ -48,6 +49,7 @@ public class ConfigurationWriter {
 		    out.write(SAVEONEXIT+config.saveOnExit()+"\n");
 		    out.write(OVERWRITEPROJECTS+config.getOverwriteProjects()+"\n");
 		    out.write(DOMAINBYNAME+Configuration.isNamePreferedToAcc()+"\n");
+		    out.write(HELPIMPROVE+config.getHelpImprove()+"\n");
 		    		
 		    out.flush();
 		    out.close();

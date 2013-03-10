@@ -24,4 +24,6 @@ public interface AnnotatorProcessWriter {
 	 * 		value in percent about the total progress
 	 */
 	public void updateProgress(int val);
+	
+	
 }

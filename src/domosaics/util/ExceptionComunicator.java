@@ -33,14 +33,16 @@ public class ExceptionComunicator{
 	private final String reportUrl = "http://iebservices.uni-muenster.de/bugzilla";
 	private final String reportUser = "domosaics@uni-muenster.de";
 	private final String reportPass = "pass4domosaics;";
-	private final int queueLength = 0;
+	private final int queueLength = 1;
 	
 	
 	private static ExceptionComunicator instance = null;
+	
 	private BugzillaConnector bugCon = null;
 	private Exception exception;
 	private ArrayList<Bug> reportedBugs = new ArrayList<Bug>(); 
 	private boolean isSending = false;
+	
 
 	
 	/**
@@ -52,7 +54,8 @@ public class ExceptionComunicator{
 			instance = new ExceptionComunicator();
 		return instance;
 	}
-
+	
+	
 	/**
 	 * Get the connector used to communicate with the
 	 * BUGZILLA instance
@@ -76,15 +79,15 @@ public class ExceptionComunicator{
 		exception = e;
 		Bug bug = createBug();
 		if (reportedBugs.size() >= queueLength) {
-			
+	
 			while (isSending)
 				delaySending(500);
-			
+				
 			sendBugs();
 			System.out.println("Sending exception message");
-			e.printStackTrace();
-		}
+//			e.printStackTrace();
 		
+		}
 		reportedBugs.add(bug);
 	}
 	

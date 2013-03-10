@@ -140,8 +140,10 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * 		the message to be printed
 	 */
 	public void print(String text) {
-		console.append(text);
-		console.setCaretPosition(console.getText().length());
+		if ( annotationSpawner.isRunning() ) {
+			console.append(text);
+			console.setCaretPosition(console.getText().length());
+		}
 	}
 	
 	/**
@@ -195,6 +197,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		}
 
 		while (viewName == null) {
+				
 			Map m = WizardManager.getInstance().selectNameWizard(defaultName, "annotation", project, true);
 			if(m!=null) {
 				viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
@@ -227,15 +230,20 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * cancels the annotation spawner.
 	 */
 	public void cancel() {
-		if (annotationSpawner.isRunning()) {
-			annotationSpawner.cancel();
-			submit.setEnabled(true);
-			loadSeqs.setEnabled(true);
-			seqPath.setEnabled(true);
-			selectView.setEnabled(true);
-			selectMethod.setEnabled(true);
-			email.setEnabled(true);
-			apply.setEnabled(false);
+		if ( annotationSpawner.isRunning() ) {
+			boolean cancel = MessageUtil.showDialog("This will cancel your job. Are you sure?");
+			if (cancel) {
+				annotationSpawner.cancel();
+				submit.setEnabled(true);
+				loadSeqs.setEnabled(true);
+				seqPath.setEnabled(true);
+				selectView.setEnabled(true);
+				selectMethod.setEnabled(true);
+				email.setEnabled(true);
+				apply.setEnabled(false);
+			}
+			else
+				return;
 		}
 		else {
 			parent.dispose();
@@ -322,6 +330,21 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		apply.setEnabled(true);
 	}
 	
+
+	/* ************************************************************* *
+	 * 						CORECTNESS CHECKING						 *
+	 * ************************************************************* */
+
+		private boolean isNumber(String word) {
+		try {
+			Double.parseDouble(word);
+			return true;
+		} 
+		catch (Exception e){
+			return false;
+		}
+	}
+	
 	/* ************************************************************* *
 	 * 						LAYOUTING COMPONENTS					 *
 	 * ************************************************************* */
@@ -376,6 +399,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	
 	private void initFinalButtons() {
 		submit = new JButton("Submit Job");
+		submit.setEnabled(false);
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				submitJob();
@@ -434,7 +458,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				}
 				selectedSequenceView = ViewHandler.getInstance().getView(selected.getViewInfo());
 				annotationSpawner.setSeqs(selectedSequenceView.getSeqs());
-				
+				submit.setEnabled(true);
 			}
 		});
 	}
@@ -447,11 +471,16 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 					//MessageUtil.showWarning("You have already loaded sequences, deselecting.");
 					defaultName=null;
 					selectView.setSelectedItem(null);
+					submit.setEnabled(false);
 				}
 				File file = FileDialogs.showOpenDialog(instance);
 				if(file != null && file.canRead()) {
-					seqPath.setText(file.getAbsolutePath());
-					annotationSpawner.setSeqs((SequenceI[]) new FastaReader().getDataFromFile(file));
+					Object sequences = new FastaReader().getDataFromFile(file);
+					if (sequences != null) {
+						annotationSpawner.setSeqs((SequenceI[]) sequences);
+						seqPath.setText(file.getAbsolutePath());
+						submit.setEnabled(true);
+					}
 				}
 			}
 		});

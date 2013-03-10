@@ -71,6 +71,12 @@ public class ConfigurationReader {
 															Configuration.setNamePreferedToAcc(
 																	Boolean.parseBoolean(line.replace(ConfigurationWriter.DOMAINBYNAME, "").trim())
 																	);
+														} else {
+															if (line.contains(ConfigurationWriter.HELPIMPROVE)) {
+																Configuration.getInstance().setHelpImprove(
+																		Boolean.parseBoolean(line.replace(ConfigurationWriter.HELPIMPROVE, "").trim())
+																);
+															}
 														}
 													}
 												}

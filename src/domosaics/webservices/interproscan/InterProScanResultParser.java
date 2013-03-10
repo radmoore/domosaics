@@ -47,7 +47,7 @@ public class InterProScanResultParser {
 		
 		try {
 			if (Configuration.isDebug())
-				System.out.println("*** Returned from iprscan: "+arrangementsStr);
+//				System.out.println("*** Returned from iprscan: "+arrangementsStr);
 			
 			return getArrangement(new StringReader(arrangementsStr));
 		} 

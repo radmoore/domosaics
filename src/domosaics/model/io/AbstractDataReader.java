@@ -70,14 +70,14 @@ public abstract class AbstractDataReader <T extends DoMosaicsData> implements Da
 				Configuration.getInstance().getExceptionComunicator().reportBug(fnfe);
 			else			
 				Configuration.getLogger().debug(fnfe.toString());
-			MessageUtil.showWarning("could not find file:"+ file.getPath());
+			MessageUtil.showWarning("Could not find file:"+ file.getPath());
 		} 
 		catch (IOException ioe) {
 			if (Configuration.getReportExceptionsMode())
 				Configuration.getInstance().getExceptionComunicator().reportBug(ioe);
 			else			
 				Configuration.getLogger().debug(ioe.toString());
-			MessageUtil.showWarning("could not read file:"+ file.getName());
+			MessageUtil.showWarning("Could not read file:"+ file.getName());
 		}
 		return null;
 	}

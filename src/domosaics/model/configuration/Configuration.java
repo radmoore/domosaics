@@ -5,9 +5,8 @@ import java.io.File;
 import org.apache.log4j.Logger;
 
 import domosaics.ui.tools.configuration.ConfigurationFrame;
+import domosaics.ui.util.MessageUtil;
 import domosaics.util.ExceptionComunicator;
-
-
 
 
 /**
@@ -36,10 +35,12 @@ public class Configuration {
 	public static final boolean DEF_SHOW_ADVICES = false;
 	public static final boolean DEF_SAVE_ON_EXIT = false;
 	public static final boolean OVERWRITEPROJECTS = false;
+	public static final boolean HELPIMPROVE = false;
 	
 	private boolean service_running = false;
 	private static boolean debugState = false;
 	private static boolean reportExceptions = false;
+	private static boolean haveAsked = false;
 	
 	private ExceptionComunicator exceptionComunicator = null;
 	
@@ -51,7 +52,7 @@ public class Configuration {
 	protected String hmmScanBin, hmmPressBin;
 	protected String hmmDB;
 
-	protected boolean showAdvices, saveWSOnExit, overwriteProjects;
+	protected boolean showAdvices, saveWSOnExit, overwriteProjects, helpImprove, hasThrowException;
 	
 	protected static Configuration instance;
 	protected static ConfigurationFrame frame;
@@ -76,6 +77,12 @@ public class Configuration {
 	}
 	
 	public static Logger getLogger() {
+		if ( !haveAsked ) {	
+			boolean sendMes = MessageUtil.showDialog("A problem was detected - enable bug reporting?");
+			if ( sendMes )
+				Configuration.setReportExceptionsMode(true);
+			haveAsked = true;
+		}
     	return Logger.getLogger("domosaicslog");
 	}
 	
@@ -120,6 +127,7 @@ public class Configuration {
 		showAdvices = DEF_SHOW_ADVICES;
 		saveWSOnExit = DEF_SAVE_ON_EXIT;
 		overwriteProjects = OVERWRITEPROJECTS;
+		helpImprove = HELPIMPROVE;
 	}
 	
 	public static Configuration getInstance() {
@@ -181,6 +189,15 @@ public class Configuration {
 	
 	public boolean getOverwriteProjects() {
 		return overwriteProjects;
+	}
+	
+	public void setHelpImprove(boolean help) {
+		Configuration.setReportExceptionsMode(help);
+		this.helpImprove = help;
+	}
+	
+	public boolean getHelpImprove() {
+		return helpImprove;
 	}
 	
 	public ExceptionComunicator getExceptionComunicator() {

@@ -41,6 +41,7 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	private String result, email, fasta;
 	private SequenceI seq;		
 	private AnnotationThreadSpawner spawner;
+	private String status;
 	
 	/**
 	 * Constructor for an annotation against InterPro.
@@ -70,7 +71,6 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	 */
 	public void setQuerySequence(SequenceI seq) {
 		this.seq = seq;
-		// get fasta without gaps
 		this.fasta = seq.toFasta(false);
 	}
 	
@@ -101,20 +101,26 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	 */
 	@Override
     protected String doInBackground() {
+		
+		String jobId = "";	
+		
 		try {
 			
 			params.setSequence(fasta);
+			
 			if (Configuration.isDebug())
 				System.out.println("*** Submitting search for\n"+fasta+"\n");
+			
 			srvProxyConnect();
-			String jobId = srvProxy.run(email, seq.getName(), params);
-			String status = srvProxy.getStatus(jobId);
+			jobId = srvProxy.run(email, seq.getName(), params);
+			status = srvProxy.getStatus(jobId);
 			spawner.out.print("Starting scan [ JOBID " + jobId +" ]\n");
 			Configuration.getInstance().setServiceRunning(true);
 			
 	        while(status.equals("RUNNING")) {
 	        	Thread.sleep(1000);
 	        	status = srvProxy.getStatus(jobId);
+	        	
 	        	if (status.equals("RUNNING"))
 	        		spawner.out.print("waiting for results... \n");
 	        }
@@ -151,31 +157,17 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 			else			
 				Configuration.getLogger().debug(af.toString());
 		}
-		catch (InterruptedException ie){
-			if (Configuration.getReportExceptionsMode())
-				Configuration.getInstance().getExceptionComunicator().reportBug(ie);
-			else			
-				Configuration.getLogger().debug(ie.toString());
-		}
+		// this exception is *always* triggered when the thread is interrupted (by canceling)
+		// ergo, we need not report
+		catch (InterruptedException ie){ }
 		catch (Exception e) {
 			if (Configuration.getReportExceptionsMode())
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
 		}
-
 		return null;
     }
-	
-	// cancel and close connection
-	protected void purgeAllJobs() {
-		if (srvProxy != null) {
-			this.cancel(true);
-			srvProxy = null;
-			Configuration.getInstance().setServiceRunning(false);
-		}
-	}
-	
 	
 	/**
 	 * SwingWorker method which is triggered when the annotation process 
@@ -183,16 +175,24 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	 */
 	 @Override
      protected void done() {
+		 
 		 Configuration.getInstance().setServiceRunning(false);
-		if(!isCancelled()) {
+		
+		 if(!isCancelled()) {
 			try {
 				spawner.processResults(this, get());
 			}
 			catch (InterruptedException e) {
-				Configuration.getLogger().debug(e.toString());
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(e);
+				else			
+					Configuration.getLogger().debug(e.toString());
 			}
 			catch (ExecutionException e) {
-				Configuration.getLogger().debug(e.toString());
+				if (Configuration.getReportExceptionsMode())
+					Configuration.getInstance().getExceptionComunicator().reportBug(e);
+				else			
+					Configuration.getLogger().debug(e.toString());
 			}
 		}
      }

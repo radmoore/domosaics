@@ -63,17 +63,21 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
     					type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
     					if (type == SeqUtil.UNKNOWN) {
     						MessageUtil.showWarning("Can't determine the sequence format.");
+    						inputStream.close();
     						return false;
     					}
-    				}else {
+    				}
+    				else {
     					firstRead = true;
     				}
     				seqBuf = new StringBuffer();
     				if(getNameFromHeader(line)==null) {
     					MessageUtil.showWarning("Error while parsing protein line.");
+    					inputStream.close();
     					return false;
     				}
-    			} else {
+    			} 
+            	else {
     				line = line.replaceAll("\\s+", "");
     				seqBuf.append(line.toUpperCase());
     			}
@@ -82,9 +86,12 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
     		type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
     		if (type == SeqUtil.UNKNOWN) {
     			MessageUtil.showWarning("Can't determine the sequence format.");
+    			inputStream.close();
     			return false;
     		}
-		} catch(Exception e) {
+    		inputStream.close();
+		} 
+        catch(Exception e) {
 			MessageUtil.showWarning("Error while parsing the file.");
 			if (Configuration.getReportExceptionsMode())
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
