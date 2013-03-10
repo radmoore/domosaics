@@ -220,14 +220,19 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 */
 	public void cancel() {
 		if ( annotationSpawner.isRunning() ) {
-			annotationSpawner.cancel();
-			submit.setEnabled(true);
-			loadSeqs.setEnabled(true);
-			seqPath.setEnabled(true);
-			selectView.setEnabled(true);
-			selectMethod.setEnabled(true);
-			email.setEnabled(true);
-			apply.setEnabled(false);
+			boolean cancel = MessageUtil.showDialog("This will cancel your job. Are you sure?");
+			if (cancel) {
+				annotationSpawner.cancel();
+				submit.setEnabled(true);
+				loadSeqs.setEnabled(true);
+				seqPath.setEnabled(true);
+				selectView.setEnabled(true);
+				selectMethod.setEnabled(true);
+				email.setEnabled(true);
+				apply.setEnabled(false);
+			}
+			else
+				return;
 		}
 		else {
 			parent.dispose();
@@ -369,6 +374,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	
 	private void initFinalButtons() {
 		submit = new JButton("Submit Job");
+		submit.setEnabled(false);
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				submitJob();
@@ -419,7 +425,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				}
 				selectedSequenceView = ViewHandler.getInstance().getView(selected.getViewInfo());
 				annotationSpawner.setSeqs(selectedSequenceView.getSeqs());
-				
+				submit.setEnabled(true);
 			}
 		});
 	}
@@ -431,11 +437,16 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				if (!(selectView.getSelectedItem() == null)) {
 					defaultName=null;
 					selectView.setSelectedItem(null);
+					submit.setEnabled(false);
 				}
 				File file = FileDialogs.showOpenDialog(instance);
 				if(file != null && file.canRead()) {
-					seqPath.setText(file.getAbsolutePath());
-					annotationSpawner.setSeqs((SequenceI[]) new FastaReader().getDataFromFile(file));
+					Object sequences = new FastaReader().getDataFromFile(file);
+					if (sequences != null) {
+						annotationSpawner.setSeqs((SequenceI[]) sequences);
+						seqPath.setText(file.getAbsolutePath());
+						submit.setEnabled(true);
+					}
 				}
 			}
 		});

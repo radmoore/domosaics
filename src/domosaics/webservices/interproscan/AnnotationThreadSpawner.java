@@ -266,6 +266,7 @@ public class AnnotationThreadSpawner {
 		};
 		
 		jobLauncher.execute();
+		Configuration.getInstance().setServiceRunning(true);
 	}
 	
 }
