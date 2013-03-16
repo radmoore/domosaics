@@ -121,7 +121,7 @@ public class DoMosaicsColorPicker implements PropertyChangeListener{
 	 */
 	public Color show() {
 		DoMosaicsColorPickerDialog dialog = new DoMosaicsColorPickerDialog(picker, DoMosaicsUI.getInstance(), startColor, false);
-		dialog.setTitle("DoMosaicS");
+		dialog.setTitle("DoMosaics");
 		dialog.pack();
 		
 		// if the start color is black, convert it to red, because its difficult to start with black

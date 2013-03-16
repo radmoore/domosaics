@@ -7,22 +7,19 @@ import javax.swing.JOptionPane;
 
 import domosaics.ui.DoMosaicsUI;
 
-
-
-
 /**
  * An utility class defining methods which make it possible 
  * to show basic warning or an informative message dialogs from any point 
- * within DoMosaicS.
+ * within DoMosaics.
  * 
  * @author Andreas Held
  *
  */
 public class MessageUtil {
 	
-	private static final String DOMOSAICS = "DoMosaicS";
-	private static final String ERRORTITLE = "DoMosaicS - Error";
-	private static final String INFORMTITLE = "DoMosaicS - Information";
+	private static final String DOMOSAICS = "DoMosaics";
+	private static final String ERRORTITLE = "DoMosaics - Error";
+	private static final String INFORMTITLE = "DoMosaics - Information";
 	
 	/**
      * Shows a basic error message dialog with a specified message.

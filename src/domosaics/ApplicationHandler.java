@@ -301,7 +301,7 @@ public class ApplicationHandler {
 	}
 	
 	/**
-	 * Helper method checking if the DoMosaicS workspace already exists.
+	 * Helper method checking if the DoMosaics workspace already exists.
 	 */
 	protected void initWorkspaceDir() {
 
@@ -345,7 +345,7 @@ public class ApplicationHandler {
 			Configuration.getInstance().setLockFile();
 		}
 		else {
-			MessageUtil.showWarning(startUpProgress, "The default workspace is in use. Please close all DoMosaicS instances and try again. ");
+			MessageUtil.showWarning(startUpProgress, "The default workspace is in use. Please close all DoMosaics instances and try again. ");
 			System.exit(0);
 		}
 	}

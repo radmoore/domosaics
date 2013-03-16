@@ -60,7 +60,7 @@ import domosaics.util.StringUtils;
  * HmmScanPanel holds the GUI components necessary to start local
  * hmmscan jobs. It is of type {@link HmmerServicePanel}.
  * The general setup is closely related to other panels used in
- * DoMosaicS.
+ * DoMosaics.
  * 
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *
@@ -667,7 +667,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				pressAvail = checkBins(new File(hmmPressTF.getText()));
 			
 			// Check if want to/can press
-			if (MessageUtil.showDialog(this, "The HMMERDBFILE is not pressed. Do you want DoMosaicS to press it now?")) {					
+			if (MessageUtil.showDialog(this, "The HMMERDBFILE is not pressed. Do you want DoMosaics to press it now?")) {					
 				if (pressAvail) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 					run.setEnabled(false);

@@ -15,7 +15,7 @@ import pal.misc.SimpleIdGroup;
 
 /**
  * PALAdapter is a helper class which helps to create objects of the
- * external PAL library using DoMosaicS data objects. For instance a
+ * external PAL library using DoMosaics data objects. For instance a
  * PAL distance matrix object using domain arrangements and
  * a distance measure can be created.
  * Those PAL objects are used during the tree creation process.
@@ -44,7 +44,7 @@ public class PALAdapter {
 			identifers[i] = new Identifier(daSet[i].getName());
 		IdGroup idGroup = new SimpleIdGroup(identifers);
 		
-		// calculate the matrix using an DoMosaicS similarity measure
+		// calculate the matrix using an DoMosaics similarity measure
 		double[][] matrix = measure.getAlgo().calc(daSet, false);
 		
 		return new DistanceMatrix(matrix, idGroup);

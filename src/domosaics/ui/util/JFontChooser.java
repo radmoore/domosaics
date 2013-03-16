@@ -20,9 +20,6 @@ import javax.swing.event.ListSelectionListener;
 
 import domosaics.ui.DoMosaicsUI;
 
-
-
-
 /**
  * JFontChooser.java
  *
@@ -75,11 +72,11 @@ public class JFontChooser extends JDialog implements ActionListener, ListSelecti
 	 */
 	public JFontChooser(Font aFont)
 	{
-		super(DoMosaicsUI.getInstance(), "DoMosaicS");
+		super(DoMosaicsUI.getInstance(), "DoMosaics");
 		
 		Container container = getContentPane();
 		JPanel panel = new JPanel();
-		TitledBorder panelBorder = new TitledBorder("DoMosaicS");
+		TitledBorder panelBorder = new TitledBorder("DoMosaics");
 		font = aFont;
 		textType = font.getFontName();
 		textStyle = font.getStyle();

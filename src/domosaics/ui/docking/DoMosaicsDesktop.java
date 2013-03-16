@@ -13,7 +13,7 @@ import domosaics.ui.views.view.View;
 
 
 /**
- * The DoMosaicS docking desktop uses the external library VLDocking to 
+ * The DoMosaics docking desktop uses the external library VLDocking to 
  * arrange the main frame components such as the workspace or views.
  * <p>
  * An extended version of the VLDocking DockableContainerFactory 

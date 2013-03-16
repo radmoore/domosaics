@@ -23,7 +23,7 @@ import domosaics.model.configuration.Configuration;
 public class HelpManager {
 
 	/** title displayed in the dialogs frame border */
-	private static final String HELP = "DoMosaicS Advice";
+	private static final String HELP = "DoMosaics Advice";
 	
 	/** track messages which were already shown */
 	private static Map<String, String> tracker = new HashMap<String, String>();

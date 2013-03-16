@@ -1,18 +1,11 @@
 package domosaics;
 
-import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Enumeration;
-
-import org.apache.log4j.Appender;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Logger;
 
 import domosaics.model.configuration.Configuration;
 import domosaics.model.configuration.ConfigurationWriter;
 import domosaics.ui.util.MessageUtil;
-import domosaics.util.ExceptionComunicator;
 
 
 /**
@@ -71,7 +64,7 @@ public class DoMosaics {
 	 * The main method of DoMosaics and the anchor point to start the program. 
 	 * 
 	 * @param args
-	 * 		arguments you wish to run with DoMosaicS
+	 * 		arguments you wish to run with DoMosaics
 	 */
 	public static void main(String[] args) {
 		
