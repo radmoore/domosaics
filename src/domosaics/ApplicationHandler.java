@@ -57,7 +57,6 @@ public class ApplicationHandler {
 	
 	public File configFile = new File(Configuration.getDefaultConfig());
 	
-	
 	public static ApplicationHandler getInstance() {
 		if (instance == null)
 			instance = new ApplicationHandler();
@@ -345,8 +344,14 @@ public class ApplicationHandler {
 			Configuration.getInstance().setLockFile();
 		}
 		else {
-			MessageUtil.showWarning(startUpProgress, "The default workspace is in use. Please close all DoMosaics instances and try again. ");
-			System.exit(0);
+			
+			boolean removeLock = MessageUtil.showDialog(startUpProgress, "Your workspace is in use. Try to remove lock?\n" +
+					"(only recommended if DoMosaics is not running!)");
+			
+			if ( removeLock )
+				Configuration.getInstance().removeLockFile();
+			else
+				System.exit(0);
 		}
 	}
 	

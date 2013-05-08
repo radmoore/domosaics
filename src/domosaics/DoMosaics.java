@@ -69,7 +69,7 @@ public class DoMosaics {
 	public static void main(String[] args) {
 		
 		Configuration.setDebug(true);
-//		Configuration.setReportExceptionsMode(true); 
+		Configuration.setReportExceptionsMode(false); 
 		 
 		if (args.length > 0) {
 			for(String a : args) {
@@ -96,6 +96,7 @@ public class DoMosaics {
 					Configuration.getLogger().debug(w.toString());
 					Configuration.getLogger().debug(e.toString());
 					MessageUtil.showWarning("There was a problem running DoMosaics; consult log file.");
+					
 					// remove lock file if possible
 					if (Configuration.getInstance().hasLockfile()) {
 						// TODO Save the the views: i) all and the user will remove the busted one ii) only the working ones
@@ -104,11 +105,11 @@ public class DoMosaics {
 						Configuration.getInstance().getLockFile().delete();
 					}
 					System.exit(1);
+					
 				}
 			});
 		}
 		try {
-//			Configuration.getLogger().info("*** INFO: Starting DoMosaics.");
 			ApplicationHandler.getInstance().start();
 		}
 		catch (Exception e) {

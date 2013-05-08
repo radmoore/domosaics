@@ -1,6 +1,9 @@
 package domosaics.model.configuration;
 
+import hep.aida.ref.Test;
+
 import java.io.File;
+import java.net.URLDecoder;
 
 import org.apache.log4j.Logger;
 
@@ -20,8 +23,8 @@ import domosaics.util.ExceptionComunicator;
  */
 public class Configuration {
 	
-	public static final String CONFIGFILE = ".domosaics_config";
 	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
+	public static final String CONFIGFILE = DEF_HOMEFOLDER_LOCATION+ System.getProperty("file.separator")+"domosaics_config.txt";
 	public static final String DEF_GOOGLE_SEARCH = "http://www.google.com/search?q=XXX";
 	public static final String DEF_PFAM_SEARCH = "http://pfam.sanger.ac.uk/family?acc=XXX";
 	public static final String DEF_UNIPROT_SEARCH = "http://www.uniprot.org/uniprot/?query=XXX";
@@ -131,6 +134,7 @@ public class Configuration {
 	}
 	
 	public static Configuration getInstance() {
+		getJarPath();
 		if (instance == null)
 			instance = new Configuration();
 		return instance;
@@ -330,6 +334,15 @@ public class Configuration {
 	public void setServiceRunning(boolean running) {
 		this.service_running = running;
 	}
+	
+	
+	private static void getJarPath() {
+		File file = new File(Configuration.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+//		System.out.println("This is the path: "+file.getAbsolutePath());
+	
+	}
+	
+
 	
 }
 
