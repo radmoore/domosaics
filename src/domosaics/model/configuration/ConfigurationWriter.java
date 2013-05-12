@@ -1,7 +1,6 @@
 package domosaics.model.configuration;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -52,7 +51,7 @@ public class ConfigurationWriter {
 		    out.write(OVERWRITEPROJECTS+config.getOverwriteProjects()+"\n");
 		    out.write(DOMAINBYNAME+Configuration.isNamePreferedToAcc()+"\n");
 		    out.write(HELPIMPROVE+config.getHelpImprove()+"\n");
-		    out.write(DOCUMENTATION_LOCATION+config.getDocuPath()+"\n");
+		    out.write(DOCUMENTATION_LOCATION+config.getDocuPath(false)+"\n");
 		    		
 		    out.flush();
 		    out.close();

@@ -47,10 +47,7 @@ public class Configuration {
 	private static boolean reportExceptions = false;
 	private static boolean haveAsked = false;
 	
-
-	
 	private ExceptionComunicator exceptionComunicator = null;
-	
 
 	protected String googleUrl;
 	protected String pfamUrl; 
@@ -342,8 +339,10 @@ public class Configuration {
 		this.service_running = running;
 	}
 	
-	public String getDocuPath() {
-		return this.documentationPath;
+	public String getDocuPath(boolean includeProtocol) {
+		return (includeProtocol) 
+				? "file://"+this.documentationPath 
+						: this.documentationPath;
 	}
 	
 	public void setDocuPath(String path) {

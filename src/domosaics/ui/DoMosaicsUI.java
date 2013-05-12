@@ -35,6 +35,7 @@ import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.views.view.View;
 import domosaics.ui.wizards.WizardManager;
+import domosaics.util.BrowserLauncher;
 import domosaics.webservices.RADS.ui.RADSFrame;
 import domosaics.webservices.RADS.ui.RADSScanPanel;
 import domosaics.webservices.interproscan.ui.AnnotatorFrame;
@@ -217,7 +218,19 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 	// making use of AbstractMenuActions
 	private void initToolBar() {
 
-		ImageIcon newProjectIcon = null, loadFastaIcon = null, openProjectIcon = null, saveProjectIcon = null, importViewIcon = null, exportViewIcon = null, hmmscanIcon = null, iprscanIcon = null, radsIcon = null, settingsIcon = null, treeIcon = null, domainTreeIcon = null;
+		ImageIcon newProjectIcon = null, 
+				loadFastaIcon = null, 
+				openProjectIcon = null, 
+				saveProjectIcon = null, 
+				importViewIcon = null, 
+				exportViewIcon = null, 
+				hmmscanIcon = null, 
+				iprscanIcon = null, 
+				radsIcon = null, 
+				settingsIcon = null, 
+				treeIcon = null, 
+				domainTreeIcon = null,
+				helpIcon = null;
 
 		InputStream is;
 
@@ -270,7 +283,12 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 			is = this.getClass().getResourceAsStream(
 					"resources/icons/settings.png");
 			settingsIcon = new ImageIcon(ImageIO.read(is));
-		} catch (Exception e) {
+			
+			is = this.getClass().getResourceAsStream(
+					"resources/icons/help.png");
+			helpIcon = new ImageIcon(ImageIO.read(is));
+		} 
+		catch (Exception e) {
 			if (Configuration.getReportExceptionsMode())
 				Configuration.getInstance().getExceptionComunicator()
 						.reportBug(e);
@@ -450,6 +468,18 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 			}
 		});
 		toolBar.add(settings);
+		
+		JButton help = new JButton();
+		help.setIcon(helpIcon);
+		help.setToolTipText("Open Documentation");
+		help.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				BrowserLauncher.openURL(Configuration.getInstance().getDocuPath(true));				
+			}
+		});
+		toolBar.add(help);
+		
+		
 
 		toolBar.setFloatable(false);
 		toolBar.setRollover(true);

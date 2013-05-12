@@ -10,18 +10,12 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
-
-import org.apache.log4j.Logger;
-import org.w3c.dom.css.CSSPrimitiveValue;
-import org.w3c.dom.css.RGBColor;
 
 import domosaics.model.arrangement.io.GatheringThresholdsReader;
 import domosaics.model.arrangement.io.Pfam2GOreader;

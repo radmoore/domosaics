@@ -31,6 +31,11 @@ public class FileDialogs {
 	/** remember the last used location */
 	private static String lastLocation = "";
 	
+	
+	public static File showOpenDialog(Component parent) {
+		return showOpenDialog(parent, null);
+	}
+	
 	/**
 	 * Opens a file dialog for opening files. If a file was correctly chosen 
 	 * this file is returned else null is returned.
@@ -40,7 +45,7 @@ public class FileDialogs {
 	 * @return 
 	 * 		the selected file or null if the chooser was aborted
 	 */
-	public static File showOpenDialog(Component parent) {
+	public static File showOpenDialog(Component parent, String filter) {
 		final JFileChooser f;
 		
 		// start the file chooser depending on the last used location
