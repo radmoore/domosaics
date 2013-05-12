@@ -76,6 +76,12 @@ public class ConfigurationReader {
 																Configuration.getInstance().setHelpImprove(
 																		Boolean.parseBoolean(line.replace(ConfigurationWriter.HELPIMPROVE, "").trim())
 																);
+															} else {
+																if (line.contains(ConfigurationWriter.DOCUMENTATION_LOCATION)) {
+																	Configuration.getInstance().setDocuPath(
+																			line.replace(ConfigurationWriter.DOCUMENTATION_LOCATION, "").trim()
+																	);
+																}
 															}
 														}
 													}

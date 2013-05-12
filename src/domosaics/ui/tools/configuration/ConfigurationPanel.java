@@ -46,7 +46,8 @@ public class ConfigurationPanel extends JPanel{
 	protected JPanel configPanel;
 	
 	/** textfields for lookup addresses */
-	protected JTextField googleField, ncbiField, pfamField, uniprotField, emailField, hmmerScanTF, hmmerPressTF, hmmer3dbTF, workspace;
+	protected JTextField googleField, ncbiField, pfamField, uniprotField, 
+	emailField, hmmerScanTF, hmmerPressTF, hmmer3dbTF, workspace, documentationTF;
 	
 	protected JButton loadHmmScanBin, loadHmmPressBin, loadHmmDB, loadWorkspace;
 	
@@ -102,7 +103,7 @@ public class ConfigurationPanel extends JPanel{
 		config.setSaveOnExit(saveOnExit.isSelected());
 		config.setOverwriteProjects(overwriteProject.isSelected());
 		config.setHelpImprove(helpImprove.isSelected());
-		
+		config.setDocuPath(documentationTF.getText());
 		ConfigurationWriter.write();
 		
 		dispose();
@@ -181,6 +182,7 @@ public class ConfigurationPanel extends JPanel{
 		//emailField = new JTextField(config.getEmailAddr(), 50);
 
 		emailField = UiUtil.createEmailField(config.getEmailAddr());
+		documentationTF = new JTextField(config.getDocuPath(), 50);
 		
 		loadHmmScanBin = new JButton("hmmscan");
 		loadHmmScanBin.addActionListener(new ActionListener() {
@@ -226,7 +228,7 @@ public class ConfigurationPanel extends JPanel{
 //		showAdvices = new JCheckBox("Show Advices", config.isShowAdvices());
 		saveOnExit = new JCheckBox(" Save Workspace on Exit", config.saveOnExit());
 		overwriteProject = new JCheckBox(" Overwrite existing projects", config.getOverwriteProjects());
-		helpImprove = new JCheckBox(" Help improve DoMosaics", config.getReportExceptionsMode());
+		helpImprove = new JCheckBox(" Help improve DoMosaics", Configuration.getReportExceptionsMode());
 		
 		
 		apply = new JButton ("Apply");
@@ -298,6 +300,8 @@ public class ConfigurationPanel extends JPanel{
 		add(new JXTitledSeparator("General Settings"),"growx, span, wrap, gaptop 10");
 		add(new JLabel("Email: "), "h 25!, gap 10");
 		add(emailField, "h 25!, gap 10, span, growx, gapright 10, wrap");
+		add(new JLabel("Documentation: "), "h 25!, gap 10");
+		add(documentationTF, "h 25!, gap 10, span, growx, gapright 10, wrap");
 		
 		add(new JXTitledSeparator("Local HMMER3 setup"),"growx, span, wrap, gaptop 10");
 		add(loadHmmScanBin, "h 25!, w 135!, gap 10");

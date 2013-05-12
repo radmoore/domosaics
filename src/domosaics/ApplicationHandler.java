@@ -304,8 +304,8 @@ public class ApplicationHandler {
 	 */
 	protected void initWorkspaceDir() {
 
-		File workspace=null;
-		//File configFile = new File(workspace.getAbsolutePath()+"/"+Configuration.CONFIGFILE);
+		File workspace = null;
+//		File configFile = new File(workspace.getAbsolutePath()+Configuration.sep+Configuration.CONFIGFILE);
 		if ( !configFile.exists() ) {
 			// if default directory does not exist choose and create a workspace dir
 			while(workspace == null) // user aborted wizard

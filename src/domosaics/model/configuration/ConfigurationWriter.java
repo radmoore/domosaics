@@ -27,10 +27,12 @@ public class ConfigurationWriter {
 	public static final String OVERWRITEPROJECTS = "overwrite projects:";
 	public static final String HELPIMPROVE = "improve domosaics:";
 	public static final String DOMAINBYNAME = "domain by name:";
+	public static final String DOCUMENTATION_LOCATION = "Documentation location:";
 	
 	
 	public static void write() {
 		try {
+			
 		    BufferedWriter out = new BufferedWriter(new FileWriter(ApplicationHandler.getInstance().configFile)); 
 
 		    Configuration config = Configuration.getInstance();
@@ -50,6 +52,7 @@ public class ConfigurationWriter {
 		    out.write(OVERWRITEPROJECTS+config.getOverwriteProjects()+"\n");
 		    out.write(DOMAINBYNAME+Configuration.isNamePreferedToAcc()+"\n");
 		    out.write(HELPIMPROVE+config.getHelpImprove()+"\n");
+		    out.write(DOCUMENTATION_LOCATION+config.getDocuPath()+"\n");
 		    		
 		    out.flush();
 		    out.close();

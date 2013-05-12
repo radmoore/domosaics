@@ -1,12 +1,7 @@
 package domosaics.model.configuration;
 
-import hep.aida.ref.Test;
-
 import java.io.File;
-import java.net.URLDecoder;
-
 import org.apache.log4j.Logger;
-
 import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.MessageUtil;
 import domosaics.util.ExceptionComunicator;
@@ -23,8 +18,10 @@ import domosaics.util.ExceptionComunicator;
  */
 public class Configuration {
 	
+	public static final String sep = System.getProperty("file.separator");
+	
 	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
-	public static final String CONFIGFILE = DEF_HOMEFOLDER_LOCATION+ System.getProperty("file.separator")+"domosaics_config.txt";
+	public static final String CONFIGFILE = DEF_HOMEFOLDER_LOCATION + sep +"domosaics_config.txt";
 	public static final String DEF_GOOGLE_SEARCH = "http://www.google.com/search?q=XXX";
 	public static final String DEF_PFAM_SEARCH = "http://pfam.sanger.ac.uk/family?acc=XXX";
 	public static final String DEF_UNIPROT_SEARCH = "http://www.uniprot.org/uniprot/?query=XXX";
@@ -34,16 +31,23 @@ public class Configuration {
 	public static final String DEF_HMMERDB = "";
 	
 	public static final String LOCKFILE = ".lock";
+	public static final String INSTALLATION_PATH = DEF_HOMEFOLDER_LOCATION + sep +"DoMosaics";
+	public static final String DOCUMENTATION_PATH = INSTALLATION_PATH + sep + "docs";
+	
 	
 	public static final boolean DEF_SHOW_ADVICES = false;
 	public static final boolean DEF_SAVE_ON_EXIT = false;
 	public static final boolean OVERWRITEPROJECTS = false;
 	public static final boolean HELPIMPROVE = false;
+
+	
 	
 	private boolean service_running = false;
 	private static boolean debugState = false;
 	private static boolean reportExceptions = false;
 	private static boolean haveAsked = false;
+	
+
 	
 	private ExceptionComunicator exceptionComunicator = null;
 	
@@ -54,6 +58,7 @@ public class Configuration {
 	protected String emailAddr;
 	protected String hmmScanBin, hmmPressBin;
 	protected String hmmDB;
+	protected String documentationPath;
 
 	protected boolean showAdvices, saveWSOnExit, overwriteProjects, helpImprove, hasThrowException;
 	
@@ -98,7 +103,7 @@ public class Configuration {
 	}
 
 	public static String getDefaultConfig() {
-		return System.getProperty("user.home")+System.getProperty("file.separator")+CONFIGFILE;
+		return CONFIGFILE;
 	}
 	
 	public static Boolean getReportExceptionsMode() {
@@ -131,6 +136,8 @@ public class Configuration {
 		saveWSOnExit = DEF_SAVE_ON_EXIT;
 		overwriteProjects = OVERWRITEPROJECTS;
 		helpImprove = HELPIMPROVE;
+		documentationPath = DOCUMENTATION_PATH;
+		
 	}
 	
 	public static Configuration getInstance() {
@@ -145,7 +152,7 @@ public class Configuration {
 	}
 	
 	public void setFrame(ConfigurationFrame frame) {
-		this.frame = frame;
+		Configuration.frame = frame;
 	}
 	
 	public ConfigurationFrame getFrame() {
@@ -230,12 +237,12 @@ public class Configuration {
 	}
 	
 	public boolean hasLockfile() {
-		File f = new File(workspace_dir+"/"+LOCKFILE);
+		File f = new File(workspace_dir+sep+LOCKFILE);
 		return f.exists();
 	}
 	
 	public File getLockFile() {
-		return new File(workspace_dir+"/"+LOCKFILE);
+		return new File(workspace_dir+sep+LOCKFILE);
 	}
 	
 	public void removeLockFile() {
@@ -335,6 +342,13 @@ public class Configuration {
 		this.service_running = running;
 	}
 	
+	public String getDocuPath() {
+		return this.documentationPath;
+	}
+	
+	public void setDocuPath(String path) {
+		this.documentationPath = path;
+	}
 	
 	private static void getJarPath() {
 		File file = new File(Configuration.class.getProtectionDomain().getCodeSource().getLocation().getPath());
