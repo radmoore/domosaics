@@ -346,6 +346,8 @@ public class ApplicationHandler {
 				Configuration.getInstance().removeLockFile();
 			else
 				System.exit(0);
+			
+			Configuration.getInstance().setLockFile();
 		}
 	}
 	
