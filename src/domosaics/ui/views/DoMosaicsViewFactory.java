@@ -5,6 +5,7 @@ import java.net.URL;
 import javax.swing.JMenuBar;
 
 import domosaics.model.configuration.Configuration;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.io.menureader.JMenuBarFactory;
 import domosaics.ui.io.menureader.MenuReader;
 import domosaics.ui.tools.Tool;
@@ -123,7 +124,7 @@ public class DoMosaicsViewFactory {
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning("Failed to create View!");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Failed to create View!");
 			return null;
 		}
 	}

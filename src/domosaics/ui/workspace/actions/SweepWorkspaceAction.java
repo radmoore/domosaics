@@ -7,6 +7,7 @@ import org.apache.commons.io.FileUtils;
 
 import domosaics.model.configuration.Configuration;
 import domosaics.model.workspace.ProjectElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
 
@@ -18,7 +19,7 @@ public class SweepWorkspaceAction {
 	private static String BCKDIR = "workspace_bck";
 	
 	public SweepWorkspaceAction() {
-		boolean sweep = MessageUtil.showDialog("This will remove all projects from your \nworkspace FOLDER (not active projects). Do you want to continue?");
+		boolean sweep = MessageUtil.showDialog(DoMosaicsUI.getInstance(),"This will remove all projects from your \nworkspace FOLDER (not active projects). Do you want to continue?");
 		
 		if (sweep) {
 			// get workspace dir
@@ -30,7 +31,7 @@ public class SweepWorkspaceAction {
 			// if no, create
 			if (!bckDir.exists()) {
 				if (!bckDir.mkdir()) {
-					MessageUtil.showWarning("Failed to back up workspace");
+					MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Failed to back up workspace");
 					return;
 				}	
 			}

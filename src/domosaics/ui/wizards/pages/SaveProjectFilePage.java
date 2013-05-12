@@ -15,6 +15,7 @@ import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
 import domosaics.model.workspace.ProjectElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
 
@@ -64,13 +65,13 @@ public class SaveProjectFilePage extends WizardPage implements ActionListener {
 	 * @see ActionListener
 	 */
 	public void actionPerformed(ActionEvent e) {	
-		File file = FileDialogs.openChooseDirectoryDialog(this);
+		File file = FileDialogs.openChooseDirectoryDialog(DoMosaicsUI.getInstance());
 		if(file != null) {
 			// ensure that we can write in selected dir
 			if (file.canWrite())
 				path.setText(file.getAbsolutePath());
 			else {
-				MessageUtil.showWarning("No permission to write in "+file.getName());
+				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No permission to write in "+file.getName());
 				path.setText("");
 			}
 		}

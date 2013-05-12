@@ -31,7 +31,7 @@ public class SaveArrFastaFileAction extends AbstractMenuAction {
 		DomainViewI view = ViewHandler.getInstance().getActiveView();
 		
 		if (!view.isSequenceLoaded()) {
-			MessageUtil.showWarning("There are no sequence loaded in this view.");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"There are no sequence loaded in this view.");
 			return;
 		}
 		

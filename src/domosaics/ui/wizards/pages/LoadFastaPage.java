@@ -82,7 +82,7 @@ public class LoadFastaPage extends WizardPage {
 						}
 					}
 					else {
-						MessageUtil.showWarning("Cannot read "+file.getName());
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Cannot read "+file.getName());
 						path.setText("");
 					}
 				}

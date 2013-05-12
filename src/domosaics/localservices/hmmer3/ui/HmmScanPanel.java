@@ -360,7 +360,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private void loadBinAction(ActionEvent e) {
 		JButton src = (JButton)e.getSource();
 		
-		File bin = FileDialogs.showOpenDialog(this);
+		File bin = FileDialogs.showOpenDialog(this.getParent());
 		if (bin == null || !bin.canRead())
 			return;
 		
@@ -379,7 +379,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * Triggered when the load DB button is pressed.
 	 */
 	private void loadDBAction() {
-		hmmDBFile = FileDialogs.showOpenDialog(this);
+		hmmDBFile = FileDialogs.showOpenDialog(this.getParent());
 		if (hmmDBFile == null || !hmmDBFile.canRead())
 			return;
 		hmmTF.setText(hmmDBFile.getAbsolutePath());
@@ -393,7 +393,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		if (selectView.getSelectedItem() != null)
 			selectView.setSelectedItem(null);
 		
-		File file = FileDialogs.showOpenDialog(this);
+		File file = FileDialogs.showOpenDialog(this.getParent());
 		if(file == null || !file.canRead())
 			return;
 		
@@ -412,13 +412,13 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 */
 	private void runHmmScanAction() {
 		if (!StringUtils.isNumber(evalueTF.getText())){
-			MessageUtil.showWarning(this, "The E-value field does not contain a valid number.");
+			MessageUtil.showWarning(this.getParent(), "The E-value field does not contain a valid number.");
 			evalueTF.setBackground(highlightColor);
 			return;
 		}
 		
 		if(hmmScanTF.getText().equals("")) {
-			MessageUtil.showWarning("Please choose a hmmscan binary.");
+			MessageUtil.showWarning(this.getParent(), "Please choose a hmmscan binary.");
 			hmmScanTF.setBackground(highlightColor);
 			return;	
 		}
@@ -430,12 +430,12 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		}*/
 
 		else if (hmmTF.getText().equals("")) {
-			MessageUtil.showWarning("Please choose HMMER3 profiles");
+			MessageUtil.showWarning(this.getParent(), "Please choose HMMER3 profiles");
 			hmmTF.setBackground(highlightColor);
 			return;
 		}
 		else if (fastaTF.getText().equals("")) {
-			MessageUtil.showWarning("Please choose a sequence file or view");
+			MessageUtil.showWarning(this.getParent(), "Please choose a sequence file or view");
 			fastaTF.setBackground(highlightColor);
 			return;
 		}
@@ -503,7 +503,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			}
 		}
 		if ( !FastaReader.isValidFasta(new File(fastaTF.getText())) ) {
-			MessageUtil.showWarning("Malformated fasta file or unknown sequence format");
+			MessageUtil.showWarning(this.getParent(), "Malformated fasta file or unknown sequence format");
 			fastaTF.setBackground(highlightColor);
 			return;
 		}
@@ -520,7 +520,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		else {
 			hmmScan.setGA(false);
 			if (evalueTF.getText().equals("")) {
-				MessageUtil.showWarning("Please choose an evalue threshold (or use the gathering threshold).");
+				MessageUtil.showWarning(this.getParent(), "Please choose an evalue threshold (or use the gathering threshold).");
 				evalueTF.setBackground(highlightColor);
 				return;
 			}
@@ -612,12 +612,12 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		
 		if ( Hmmer3Engine.isSupportedService(bin.getName()) ) {
 			if (!(bin.canExecute())) {
-				MessageUtil.showWarning(this, bin.getAbsoluteFile()+" is not executable. Exiting.");
+				MessageUtil.showWarning(this.getParent(), bin.getAbsoluteFile()+" is not executable. Exiting.");
 				return false;
 			}
 		}
 		else {
-			MessageUtil.showWarning(this, bin.getAbsoluteFile()+" is not supported");
+			MessageUtil.showWarning(this.getParent(), bin.getAbsoluteFile()+" is not supported");
 			return false;
 		}
 
@@ -643,13 +643,13 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 
 		// check if file is still there
 		if (!dbFile.exists()) {
-			MessageUtil.showWarning(this.parent, "Warning: could not find specified HMMER db file "+dbFile.getName());
+			MessageUtil.showWarning(this.getParent(), "Warning: could not find specified HMMER db file "+dbFile.getName());
 			return false;
 		}
 		
 		// format check hmme3 profiles
 		if (!HmmPress.isValidProfileFile(dbFile)) {
-			MessageUtil.showWarning(dbFile.getName()+ " does not appear to be a valid hmmer3 profile");
+			MessageUtil.showWarning(this.getParent(), dbFile.getName()+ " does not appear to be a valid hmmer3 profile");
 			return false;
 		} else {
 			return true;
@@ -667,7 +667,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				pressAvail = checkBins(new File(hmmPressTF.getText()));
 			
 			// Check if want to/can press
-			if (MessageUtil.showDialog(this, "The HMMERDBFILE is not pressed. Do you want DoMosaicS to press it now?")) {					
+			if (MessageUtil.showDialog(this.getParent(), "The HMMERDBFILE is not pressed. Do you want DoMosaicS to press it now?")) {					
 				if (pressAvail) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 					run.setEnabled(false);
@@ -684,9 +684,9 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				}
 				else {
 					if (hmmPressTF.getText().equals("")) {
-						MessageUtil.showInformation(this.parent, "Please first provide hmmpress binary");
+						MessageUtil.showInformation(this.getParent(), "Please first provide hmmpress binary");
 					} else {
-						MessageUtil.showInformation(this.parent, "Please first provide correct hmmpress binary");
+						MessageUtil.showInformation(this.getParent(), "Please first provide correct hmmpress binary");
 					}
 					hmmPressTF.setBackground(highlightColor);
 					return false; 

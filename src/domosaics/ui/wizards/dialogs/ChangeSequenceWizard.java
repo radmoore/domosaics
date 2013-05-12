@@ -20,6 +20,7 @@ import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.sequence.io.FastaReader;
 import domosaics.model.sequence.util.SeqUtil;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domainview.DomainViewI;
@@ -115,9 +116,9 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
 			
 	    	// check if the sequence is real
     		if ( SeqUtil.checkFormat(fastaSeq) == SeqUtil.UNKNOWN ) {
-    			if (! MessageUtil.showDialog("Cannot determine sequence type. Continue?")) {
+    			if (! MessageUtil.showDialog(DoMosaicsUI.getInstance(), "Cannot determine sequence type. Continue?")) {
     				cancel(m);
-    				p.failed("Could not determine sequence type", false);
+    				p.finished(null);
     				return;
     			}
     		}
@@ -151,12 +152,13 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
     				
     				// if so, comunicate (and dont ask again)
     				if (!remove) {
-    					if (MessageUtil.showDialog("The sequence is too short. Remove effected domains?") )
+    					if (MessageUtil.showDialog(DoMosaicsUI.getInstance(),"The sequence is too short. Remove effected domains?") )
     						remove = true;
     				
     					else {
     						cancel(m);
-        					p.failed("Sequence too short", false);
+        					//p.failed("Sequence too short", false);
+        					p.finished(null);
         					return;
     					}
     				}
@@ -200,7 +202,7 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
-			p.failed("Error while editing data set.", false);
+			//p.failed("Error while editing data set.", false);
 			p.finished(null);
 		}
 		

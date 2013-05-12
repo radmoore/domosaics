@@ -2,7 +2,6 @@ package domosaics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Frame;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,7 +66,7 @@ public class ApplicationHandler {
 	public void end () {
 		
 		if (Configuration.getInstance().isServiceRunning()) {
-			boolean close = MessageUtil.showDialog("You are running a service and will loose the results if you close. Are you sure?");
+			boolean close = MessageUtil.showDialog(DoMosaicsUI.getInstance(),"You are running a service and will loose the results if you close. Are you sure?");
 			if (!close)
 				return;
 		}
@@ -86,7 +85,7 @@ public class ApplicationHandler {
 			// ask (defaults to save)
 			if (!(Configuration.getInstance().saveOnExit())) {
 				Object[] options = {"Yes", "No", "Cancel"};
-				choice = MessageUtil.show3ChoiceDialog("Restore workspace in next session?", options);
+				choice = MessageUtil.show3ChoiceDialog(DoMosaicsUI.getInstance(),"Restore workspace in next session?", options);
 				Configuration.getInstance().setSaveOnExit((boolean)(choice==0));
 			}
 			
@@ -102,7 +101,7 @@ public class ApplicationHandler {
 				File workspaceFile = new File (Configuration.getInstance().getWorkspaceDir()+"/lastusedworkspace.file");
 				if (workspaceFile.exists()) {
 					if (!workspaceFile.delete()) {
-						MessageUtil.showWarning("Could not delete workspace file");
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Could not delete workspace file");
 					}
 				}
 				Configuration.getInstance().removeLockFile();
@@ -147,7 +146,7 @@ public class ApplicationHandler {
 			if (project.getTitle().equals("Default Project")) {
 				
 				// skip option?
-				if (MessageUtil.showDialog("The Default Project cannot be exported. Export to a different name?")) {
+				if (MessageUtil.showDialog(DoMosaicsUI.getInstance(),"The Default Project cannot be exported. Export to a different name?")) {
 				
 					// first rename project
 					String newName = WizardManager.getInstance().renameWizard(project.getTitle(), project.getTypeName(), project);
@@ -174,7 +173,7 @@ public class ApplicationHandler {
 				int choice = 0; 
 				
 				// ask if we are to overwrite...
-				choice = MessageUtil.show3ChoiceDialog("Project "+project.getTitle()+" exists in workspace. Do you want to overwrite?", options);
+				choice = MessageUtil.show3ChoiceDialog(DoMosaicsUI.getInstance(),"Project "+project.getTitle()+" exists in workspace. Do you want to overwrite?", options);
     			Configuration.getInstance().setOverwriteProjects((boolean)(choice==2));
     			
         		//... if not, 
@@ -197,7 +196,7 @@ public class ApplicationHandler {
         	}
 			// then export (check if it worked)
 			if (!ProjectExporter.write(project)) {
-				if (!MessageUtil.showDialog("Unable to export "+project.getTitle()+". Continue?"))
+				if (!MessageUtil.showDialog(DoMosaicsUI.getInstance(),"Unable to export "+project.getTitle()+". Continue?"))
 					return false;
 			}
 				
@@ -345,7 +344,7 @@ public class ApplicationHandler {
 			Configuration.getInstance().setLockFile();
 		}
 		else {
-			MessageUtil.showWarning(startUpProgress, "The default workspace is in use. Please close all DoMosaicS instances and try again. ");
+			MessageUtil.showWarning(startUpProgress,"The default workspace is in use. Please close all DoMosaicS instances and try again. ");
 			System.exit(0);
 		}
 	}
@@ -364,7 +363,7 @@ public class ApplicationHandler {
 		 });
 	}
 
-	private class StartupPage extends Frame {
+	private class StartupPage extends JFrame {
 		private static final long serialVersionUID = 1L;
 		
 		private static final String LOGOPATH = "ui/resources/DoMosaics_splash_1_small.png";

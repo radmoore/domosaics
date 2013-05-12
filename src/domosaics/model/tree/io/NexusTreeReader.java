@@ -6,6 +6,7 @@ import java.util.Map;
 
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.TreeNodeI;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 
 
@@ -78,7 +79,7 @@ public class NexusTreeReader extends AbstractTreeReader {
 		if (treeBlockStart != -1 && treeBlockEnd != -1)
 			treeStr = nexusStr.substring(treeBlockStart, treeBlockEnd);
 		else {
-			MessageUtil.showWarning("Wrong format Exception: the Nexus file does not contain a TREE-block");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Wrong format Exception: the Nexus file does not contain a TREE-block");
 			return null;
 		}
 		

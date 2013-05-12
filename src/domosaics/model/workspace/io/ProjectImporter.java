@@ -5,6 +5,7 @@ import java.io.File;
 import javax.swing.SwingUtilities;
 
 import domosaics.model.workspace.ProjectElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
@@ -103,7 +104,7 @@ public class ProjectImporter {
 		}
 
 		if (!validProject)
-			if (!MessageUtil.showDialog(file.getName() + " does not appear to be a valid project. Do you want to import anyways?"))
+			if (!MessageUtil.showDialog(DoMosaicsUI.getInstance(),file.getName() + " does not appear to be a valid project. Do you want to import anyways?"))
 				return;
 			
 		
@@ -174,7 +175,7 @@ public class ProjectImporter {
 		project = WorkspaceManager.getInstance().getProject(projectName);
 		if (project != null) { // project already exists
 			Object[] options = {"Overwrite", "Rename", "Cancel"};
-			int choice = MessageUtil.show3ChoiceDialog("Project already exists. Overwrite or rename?", options);
+			int choice = MessageUtil.show3ChoiceDialog(DoMosaicsUI.getInstance(),"Project already exists. Overwrite or rename?", options);
 			
 			switch (choice) {
 				case 0: 

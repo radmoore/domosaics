@@ -42,16 +42,16 @@ import domosaics.model.arrangement.GapDomain;
 public class NW4DomainsAffine {
 	
 	/** score for a match, Bjoerklund used 1 */
-	public static final int MATCH = 1000;
+	public static final int MATCH = 200;
 	
 	/** score for a missmatch, Bjoerklund used 0 */
-	public static final int MISMATCH = 0;
+	public static final int MISMATCH = -100;
 	
 	/** score for a gap opening, Bjoerklund used -0.01 */
-	public static final int GAPOPENING = -10;
+	public static final int GAPOPENING = -100;
 	
 	/** score for a gap extension, Bjoerklund used -0.001 */
-	public static final int GAPEXTENSION = -1;
+	public static final int GAPEXTENSION = -50;
 	
 	/** the input domain architectures */
 	protected DomainArrangement da1, da2;	

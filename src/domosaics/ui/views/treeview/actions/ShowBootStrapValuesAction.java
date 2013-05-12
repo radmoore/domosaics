@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.util.Iterator;
 
 import domosaics.model.tree.TreeNodeI;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.util.MessageUtil;
@@ -25,7 +26,7 @@ public class ShowBootStrapValuesAction extends AbstractMenuAction{
 		TreeViewI view = ViewHandler.getInstance().getActiveView();
 		
 		if (!view.getTreeLayoutManager().isTreatLabelAsBootstrap()) {
-			MessageUtil.showWarning("Please mark use \"label as bootstrap value\" first");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please mark use \"label as bootstrap value\" first");
 			setState(!getState());
 			return;
 		}
@@ -40,7 +41,7 @@ public class ShowBootStrapValuesAction extends AbstractMenuAction{
 			}
 		
 		if (!bootstrapOK) {
-			MessageUtil.showWarning("No bootstrap values assigned as labels within the Newick format");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No bootstrap values assigned as labels within the Newick format");
 			setState(!getState());
 			return;
 		}

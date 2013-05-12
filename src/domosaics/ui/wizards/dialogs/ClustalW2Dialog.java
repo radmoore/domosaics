@@ -13,6 +13,7 @@ import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
 import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.wizards.pages.ClustalW2Page;
 import domosaics.webservices.clustalw.ClustalW2ResultParser;
@@ -65,7 +66,7 @@ class ClustalW2Progress extends DeferredWizardResult implements WizardResultProd
 			String alignmentStr = (String) m.get(ClustalW2Page.ALIGNMENT_KEY);
 			
 			if (alignmentStr == null || alignmentStr.isEmpty()) {
-				MessageUtil.showWarning("Alignment creation was not successful.");
+				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Alignment creation was not successful.");
 				p.finished(null);
 				return;
 			}

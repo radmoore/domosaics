@@ -102,7 +102,7 @@ public class ConfigurationPanel extends JPanel{
 		config.setSaveOnExit(saveOnExit.isSelected());
 		config.setOverwriteProjects(overwriteProject.isSelected());
 		config.setHelpImprove(helpImprove.isSelected());
-		
+		parentFrame.setAlwaysOnTop(false);
 		ConfigurationWriter.write();
 		
 		dispose();
@@ -237,7 +237,7 @@ public class ConfigurationPanel extends JPanel{
 				
 				if (!emailField.getText().equals(""))
 					if (!UiUtil.isValidEmail(emailField.getText())) {
-						MessageUtil.showWarning("Please enter a valid email!");
+						MessageUtil.showWarning(parentFrame, "Please enter a valid email!");
 						return;
 					}
 				

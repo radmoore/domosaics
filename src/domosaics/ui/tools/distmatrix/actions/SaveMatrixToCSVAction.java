@@ -24,7 +24,7 @@ public class SaveMatrixToCSVAction  extends AbstractMenuAction {
 	public void actionPerformed(ActionEvent e) {
 		DistMatrixView view = (DistMatrixView) ViewHandler.getInstance().getTool(ViewType.DISTANCEMATRIX);
 		
-		File file = FileDialogs.showSaveDialog(view, "CSV");
+		File file = FileDialogs.showSaveDialog(view.getParentFrame(), "CSV");
 		if (file == null)
 			return;
 		

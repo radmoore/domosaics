@@ -406,15 +406,16 @@ public class HmmScan implements Hmmer3Program {
 		
 		if (HmmOutReader.checkFileFormat(outfile)) {
 			
+			parent.close();
+			
 			if (!ga)
 				HmmOutReader.setThreshold(Double.parseDouble(evalue));
 			
 			arrangementSet = ArrangementImporterUtil.importData(outfile);
-			parent.close();
 			
 			// If the CODD procedure was requested, launch
 			if(coddFilter) {
-				arrangementSet = ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet);
+				arrangementSet = ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet, parent.getParent());
 			}
 			else {
 				// test for another post-processing filter
@@ -479,11 +480,11 @@ public class HmmScan implements Hmmer3Program {
 					projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
 
 					if (viewName == null) 
-						if (MessageUtil.showDialog("You will loose the hmmscan results. Are you sure?"))
+						if (MessageUtil.showDialog(parent.getParent(),"You will loose the hmmscan results. Are you sure?"))
 							// will not delete tmp files, just in case
 							return;
 				} else {
-					if (MessageUtil.showDialog("You will loose the hmmscan results. Are you sure?"))
+					if (MessageUtil.showDialog(parent.getParent(),"You will loose the hmmscan results. Are you sure?"))
 					// will not delete tmp files, just in case
 						return;
 				}

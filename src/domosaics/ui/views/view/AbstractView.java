@@ -27,6 +27,7 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 import domosaics.model.configuration.Configuration;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.DigestUtil;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
@@ -444,7 +445,7 @@ public abstract class AbstractView extends JComponent implements View {
 			Element r = doc.getRootElement();
 
 			if(!r.getName().equals("DOMOSAICS_VIEW"))
-				if (!MessageUtil.showDialog( viewFile.getName()+" does not appear to be a DoMosaicS file. Continue?"))
+				if (!MessageUtil.showDialog(DoMosaicsUI.getInstance(), viewFile.getName()+" does not appear to be a DoMosaicS file. Continue?"))
 					return null;
 
 			String viewType = r.getChildren("VIEW").get(0).getAttributeValue("type");

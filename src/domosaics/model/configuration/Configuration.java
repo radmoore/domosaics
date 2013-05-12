@@ -78,7 +78,7 @@ public class Configuration {
 	
 	public static Logger getLogger() {
 		if ( !haveAsked ) {	
-			boolean sendMes = MessageUtil.showDialog("A problem was detected - enable bug reporting?");
+			boolean sendMes = MessageUtil.showDialog(frame, "A problem was detected - enable bug reporting?");
 			if ( sendMes )
 				Configuration.setReportExceptionsMode(true);
 			haveAsked = true;

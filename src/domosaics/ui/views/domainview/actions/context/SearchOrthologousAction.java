@@ -6,6 +6,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import domosaics.model.arrangement.Domain;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.HelpManager;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
@@ -71,7 +72,7 @@ public class SearchOrthologousAction extends AbstractMenuAction{
 			}
 		
 		if (!view.isSequenceLoaded()) {
-			MessageUtil.showWarning("No sequences associated with arrangements");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No sequences associated with arrangements");
 			return;
 		}
 		
@@ -86,7 +87,7 @@ public class SearchOrthologousAction extends AbstractMenuAction{
 			view.getArrangementSelectionManager().clearSelection();
 			view.getDomainSearchOrthologsManager().reset();
 			view.getViewComponent().repaint();
-			MessageUtil.showWarning("No sequence associated with this domain");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No sequence associated with this domain");
 			return;
 		}
 		

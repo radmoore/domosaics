@@ -9,6 +9,7 @@ import domosaics.model.workspace.CategoryElement;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.ViewElement;
 import domosaics.model.workspace.WorkspaceElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.util.DigestUtil;
 import domosaics.ui.util.MessageUtil;
@@ -40,7 +41,7 @@ public class ProjectExporter {
         				Configuration.getInstance().getExceptionComunicator().reportBug(e);
         			else			
         				Configuration.getLogger().debug(e.toString());
-        			MessageUtil.showWarning("Could not remove old project directory - will append");
+        			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Could not remove old project directory - will append");
         		}
         	}
         	else {
@@ -126,7 +127,7 @@ public class ProjectExporter {
         			//System.out.println(catDir+"/"+viewElt.getTitle());
         			File viewFile = new File(catDir+"/"+viewElt.getTitle());
             		if (viewFile.exists()) 
-                    	if (!MessageUtil.showDialog("View "+viewElt.getTitle()+" already exists. Overwrite it?"))
+                    	if (!MessageUtil.showDialog(DoMosaicsUI.getInstance(),"View "+viewElt.getTitle()+" already exists. Overwrite it?"))
                     		continue;
                     
                     // export the view

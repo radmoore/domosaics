@@ -24,6 +24,7 @@ import domosaics.model.workspace.CategoryElement;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.ViewElement;
 import domosaics.model.workspace.WorkspaceElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.FileDialogs;
@@ -164,7 +165,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		
 		int importedProts = daSet.length;
 		if (importedProts < 1) {
-			MessageUtil.showWarning("0 proteins imported");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"0 proteins imported");
 			return false;	
 		}
 			

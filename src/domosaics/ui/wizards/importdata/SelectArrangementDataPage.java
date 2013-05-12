@@ -20,6 +20,7 @@ import org.netbeans.spi.wizard.WizardPage;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.io.ArrangementImporterUtil;
 import domosaics.model.workspace.ProjectElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
@@ -126,7 +127,7 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	 * Action performed when the browse button was clicked
 	 */
 	public void actionPerformed(ActionEvent e) {	
-		File file = FileDialogs.showOpenDialog(this);
+		File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 		if(file != null) {
 			File test = new File(file.getAbsolutePath());
 			daSet = ArrangementImporterUtil.importData(test);

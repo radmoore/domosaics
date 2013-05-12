@@ -62,7 +62,6 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
     					// guess the format
     					type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
     					if (type == SeqUtil.UNKNOWN) {
-    						MessageUtil.showWarning("Can't determine the sequence format.");
     						inputStream.close();
     						return false;
     					}
@@ -72,7 +71,6 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
     				}
     				seqBuf = new StringBuffer();
     				if(getNameFromHeader(line)==null) {
-    					MessageUtil.showWarning("Error while parsing protein line.");
     					inputStream.close();
     					return false;
     				}
@@ -85,14 +83,12 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
     		// add also the last protein
     		type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
     		if (type == SeqUtil.UNKNOWN) {
-    			MessageUtil.showWarning("Can't determine the sequence format.");
     			inputStream.close();
     			return false;
     		}
     		inputStream.close();
 		} 
         catch(Exception e) {
-			MessageUtil.showWarning("Error while parsing the file.");
 			if (Configuration.getReportExceptionsMode())
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
@@ -139,7 +135,6 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 					type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
 					if (type == SeqUtil.UNKNOWN) {
 						System.out.println(seqBuf.toString());
-						MessageUtil.showWarning("Can't determine the sequence format.");
 						return null;
 					}
 					seq.setSeq(convertToAminoAcidSeq(seqBuf.toString(), type));
@@ -151,7 +146,6 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 				seqBuf = new StringBuffer();
 				seq.setName(getNameFromHeader(line));
 				if(seq.getName()==null) {
-					MessageUtil.showWarning("Error while parsing protein line.");
 					return null;
 				}
 					
@@ -167,7 +161,6 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 		// add also the last protein
 		type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
 		if (type == SeqUtil.UNKNOWN) {
-			MessageUtil.showWarning("Can't determine the sequence format.");
 			return null;
 		}
 		seq.setSeq(convertToAminoAcidSeq(seqBuf.toString(), type));

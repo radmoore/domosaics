@@ -2,6 +2,7 @@ package domosaics.ui.views.domainview.actions;
 
 import java.awt.event.ActionEvent;
 
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.util.MessageUtil;
@@ -23,7 +24,7 @@ public class SimilarityColorizationAction extends AbstractMenuAction{
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		if(view.getDomainLayoutManager().isCollapseBySimilarity()) {
 			if (view.getArrangementSelectionManager().getSelection().size() != 1) {
-				MessageUtil.showWarning("Please select one arrangement as reference for the similarity calculation");
+				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please select one arrangement as reference for the similarity calculation");
 				setState(!getState());
 				view.getDomainLayoutManager().visualChange();
 				return;

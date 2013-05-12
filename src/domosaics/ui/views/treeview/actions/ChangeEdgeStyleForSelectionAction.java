@@ -26,7 +26,7 @@ public class ChangeEdgeStyleForSelectionAction extends AbstractMenuAction {
 		TreeViewI view = (TreeViewI) ViewHandler.getInstance().getActiveView();
 
 		if (view.getTreeSelectionManager().getSelection().isEmpty()) {
-			MessageUtil.showWarning("Please select edges first");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please select edges first");
 			return;
 		}
 		

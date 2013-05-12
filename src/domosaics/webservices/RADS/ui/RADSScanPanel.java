@@ -590,7 +590,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private void loadSeqFromFile() {
 		loadSeqTF.setText("");
 		submit.setEnabled(false);
-		File file = FileDialogs.showOpenDialog(instance);
+		File file = FileDialogs.showOpenDialog(parent);
 		if (!(selectSeqView.getSelectedItem() == null)) {
 			selectSeqView.setSelectedItem(null);
 		}
@@ -620,7 +620,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private void loadArrFromFile() {
 		loadArrTF.setText("");
 		submit.setEnabled(false);
-		File file = FileDialogs.showOpenDialog(instance);
+		File file = FileDialogs.showOpenDialog(parent);
 		if (!(selectArrView.getSelectedItem() == null)) {
 			selectArrView.setSelectedItem(null);
 		}
@@ -791,7 +791,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		// we have no input, cannot build query
 		else {
 			submit.setEnabled(false);
-			MessageUtil.showWarning("Please provide a XDOM / FASTA or select a view");
+			MessageUtil.showWarning(parent,"Please provide a XDOM / FASTA or select a view");
 			return false;
 		}
 		// query was built

@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import domosaics.model.configuration.Configuration;
 import domosaics.model.configuration.ConfigurationWriter;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 import domosaics.util.ExceptionComunicator;
 
@@ -102,7 +103,7 @@ public class DoMosaics {
 					e.printStackTrace(new PrintWriter(w));
 					Configuration.getLogger().debug(w.toString());
 					Configuration.getLogger().debug(e.toString());
-					MessageUtil.showWarning("There was a problem running DoMosaics; consult log file.");
+					MessageUtil.showWarning(DoMosaicsUI.getInstance(),"There was a problem running DoMosaics; consult log file.");
 					// remove lock file if possible
 					if (Configuration.getInstance().hasLockfile()) {
 						// TODO Save the the views: i) all and the user will remove the busted one ii) only the working ones
@@ -124,7 +125,7 @@ public class DoMosaics {
 			else			
 				Configuration.getLogger().debug(e.toString());
 			
-			MessageUtil.showWarning("There was a problem starting DoMosaics. Please consult log file.");
+			MessageUtil.showWarning(ApplicationHandler.getInstance().startUpProgress,"There was a problem starting DoMosaics. Please consult log file.");
 		}
 
 	}

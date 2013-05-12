@@ -2,6 +2,7 @@ package domosaics.ui.views.domainview.actions;
 
 import java.awt.event.ActionEvent;
 
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.HelpManager;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
@@ -35,7 +36,7 @@ public class SelectSequencesAction extends AbstractMenuAction{
 	
 		if(!view.isSequenceLoaded()) {
 			setState(!getState());
-			MessageUtil.showWarning("No sequences associated with the domain arrangements.");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No sequences associated with the domain arrangements.");
 			return;
 		}
 		view.getDomainLayoutManager().toggleSelectSequences();

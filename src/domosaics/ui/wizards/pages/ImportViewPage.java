@@ -78,14 +78,14 @@ public class ImportViewPage extends WizardPage {
 						// Nic import
 						type = DomainView.detectViewType(viewFile);
 						if(type==null) {
-							MessageUtil.showWarning(file.getName()+ " does not appearto be a DoMosaicS file.");
+							MessageUtil.showWarning(DoMosaicsUI.getInstance(),file.getName()+ " does not appearto be a DoMosaicS file.");
 							path.setText("");
 							name.setName("");
 						}
 						typeField.setText(type.toString());
 					}
 					else {
-						MessageUtil.showWarning("Cannot read "+file.getName());
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Cannot read "+file.getName());
 						path.setText("");
 					}
 				}

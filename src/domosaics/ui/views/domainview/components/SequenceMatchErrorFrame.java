@@ -149,8 +149,9 @@ public class SequenceMatchErrorFrame extends JDialog implements ActionListener{
 		// delete sequence from arrangement
 		if (fastaSeq.isEmpty()) 
 			return;
-		
+		setAlwaysOnTop(false);
 		SequenceI newSeq = new FastaReader().getDataFromString(fastaSeq)[0];
+		setAlwaysOnTop(true);
 		if (newSeq.getName() == null)
 			newSeq.setName(da.getName());
 		

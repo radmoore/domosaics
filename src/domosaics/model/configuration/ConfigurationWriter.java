@@ -5,7 +5,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.swing.JFrame;
+
 import domosaics.ApplicationHandler;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 
 
@@ -60,7 +63,7 @@ public class ConfigurationWriter {
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning("Configuration file not found");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Configuration file not found");
 		}
 	}
 	

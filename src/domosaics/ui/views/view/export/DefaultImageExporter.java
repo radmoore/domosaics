@@ -10,6 +10,7 @@ import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
 
 import domosaics.model.configuration.Configuration;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.view.View;
 
@@ -72,7 +73,7 @@ public class DefaultImageExporter implements ImageExporter{
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning("Unable to export image to " + file.getName());
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Unable to export image to " + file.getName());
 			writer.abort();
 		}
 		

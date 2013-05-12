@@ -11,6 +11,7 @@ import domosaics.model.sequence.io.FastaReader;
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.io.NewickTreeReader;
 import domosaics.model.workspace.ProjectElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
@@ -96,7 +97,7 @@ public class ExampleDatasetLoader {
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning("Failed to load example dataset");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Failed to load example dataset");
 		}
 	}
 	
@@ -129,7 +130,7 @@ public class ExampleDatasetLoader {
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning("Failed to load example dataset");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Failed to load example dataset");
 		}
 	}
 	

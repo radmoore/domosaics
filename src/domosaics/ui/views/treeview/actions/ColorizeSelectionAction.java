@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import domosaics.model.tree.TreeEdgeI;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.util.DoMosaicsColorPicker;
@@ -30,7 +31,7 @@ public class ColorizeSelectionAction extends AbstractMenuAction {
 		
 		// if no edges are selected, we better return
 		if (view.getTreeSelectionManager().getSelection().isEmpty()) {
-			MessageUtil.showWarning("Please select edges first");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please select edges first");
 			return;
 		}
 		

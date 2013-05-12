@@ -20,6 +20,7 @@ import org.netbeans.spi.wizard.WizardPage;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.sequence.io.FastaReader;
 import domosaics.model.workspace.ProjectElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.wizards.GUIComponentFactory;
 
@@ -110,7 +111,7 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 	 * Action performed when the browse button was clicked
 	 */
 	public void actionPerformed(ActionEvent e) {
-		File file = FileDialogs.showOpenDialog(this);
+		File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 		if(file != null) {
 			File test = new File(file.getAbsolutePath());
 			seqs = new FastaReader().getDataFromFile(test);			

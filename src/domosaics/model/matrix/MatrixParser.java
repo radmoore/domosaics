@@ -5,6 +5,7 @@ import java.io.Reader;
 
 import domosaics.model.configuration.Configuration;
 import domosaics.model.io.AbstractDataReader;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 
 
@@ -54,7 +55,7 @@ public class MatrixParser extends AbstractDataReader<Matrix> {
 			return matrix;
 		} 
 		catch (Exception e) {
-			MessageUtil.showWarning("Reading Matrix file aborted");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Reading Matrix file aborted");
 			if (Configuration.getReportExceptionsMode())
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			

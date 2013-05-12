@@ -44,6 +44,7 @@ import domosaics.model.sequence.Sequence;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.ViewElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
@@ -359,7 +360,9 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		}
 		
 		if (daSet.size() == 0) {
-			MessageUtil.showWarning("No arrangements left");
+			setAlwaysOnTop(false);
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No arrangements left");
+			setAlwaysOnTop(true);
 			return;
 		}
 		
