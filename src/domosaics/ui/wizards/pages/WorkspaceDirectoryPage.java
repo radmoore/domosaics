@@ -30,9 +30,8 @@ public class WorkspaceDirectoryPage extends WizardPage implements ActionListener
 	protected Component parent;
 	
 	protected static String text = "<html>" +
-			"Select a workspace directory used to<br>" +
-			"store data, configuration information<br>" +
-			"and computational results.<br>"+
+			"The Workspace directory is used to <br>" +
+			"store all project-related data and settings<br>" +
 			"</html>";
 	
 	public WorkspaceDirectoryPage(Component parent, String defaultDir) {

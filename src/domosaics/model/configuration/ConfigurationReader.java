@@ -9,7 +9,7 @@ public class ConfigurationReader {
 
 	public static void read() {
 		 try {
-		    BufferedReader in = new BufferedReader(new FileReader(ApplicationHandler.getInstance().configFile));
+		    BufferedReader in = new BufferedReader(new FileReader(Configuration.getInstance().getConfigFile()));
 	
 		    String line;
 			while((line = in.readLine()) != null) {

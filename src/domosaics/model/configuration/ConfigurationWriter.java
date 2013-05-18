@@ -31,8 +31,7 @@ public class ConfigurationWriter {
 	
 	public static void write() {
 		try {
-			
-		    BufferedWriter out = new BufferedWriter(new FileWriter(ApplicationHandler.getInstance().configFile)); 
+		    BufferedWriter out = new BufferedWriter(new FileWriter(Configuration.getInstance().getConfigFile())); 
 
 		    Configuration config = Configuration.getInstance();
 		    
@@ -58,6 +57,8 @@ public class ConfigurationWriter {
 		   
 		} 
 		catch (IOException e) {
+			System.out.println(e);
+			
 			if (Configuration.getReportExceptionsMode())
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			

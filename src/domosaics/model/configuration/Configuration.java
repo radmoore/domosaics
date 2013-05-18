@@ -21,7 +21,8 @@ public class Configuration {
 	public static final String sep = System.getProperty("file.separator");
 	
 	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
-	public static final String CONFIGFILE = DEF_HOMEFOLDER_LOCATION + sep +"domosaics_config.txt";
+	public static final String DEF_WORKSPACE = DEF_HOMEFOLDER_LOCATION+sep+"domosaics_workspace";
+	public static final String DEF_CONFIGFILE = DEF_WORKSPACE + sep +"domosaics_config.txt";
 	public static final String DEF_GOOGLE_SEARCH = "http://www.google.com/search?q=XXX";
 	public static final String DEF_PFAM_SEARCH = "http://pfam.sanger.ac.uk/family?acc=XXX";
 	public static final String DEF_UNIPROT_SEARCH = "http://www.uniprot.org/uniprot/?query=XXX";
@@ -31,8 +32,8 @@ public class Configuration {
 	public static final String DEF_HMMERDB = "";
 	
 	public static final String LOCKFILE = ".lock";
-	public static final String INSTALLATION_PATH = DEF_HOMEFOLDER_LOCATION + sep +"DoMosaics";
-	public static final String DOCUMENTATION_PATH = INSTALLATION_PATH + sep + "docs";
+	public static final String DEF_INSTALLATION_PATH = DEF_HOMEFOLDER_LOCATION + sep +"DoMosaics";
+	public static final String DEF_DOCUMENTATION_PATH = DEF_INSTALLATION_PATH + sep + "docs";
 	
 	
 	public static final boolean DEF_SHOW_ADVICES = false;
@@ -46,6 +47,7 @@ public class Configuration {
 	private static boolean debugState = false;
 	private static boolean reportExceptions = false;
 	private static boolean haveAsked = false;
+	private String configFile = "domosaics_config.txt";
 	
 	private ExceptionComunicator exceptionComunicator = null;
 
@@ -100,7 +102,7 @@ public class Configuration {
 	}
 
 	public static String getDefaultConfig() {
-		return CONFIGFILE;
+		return DEF_CONFIGFILE;
 	}
 	
 	public static Boolean getReportExceptionsMode() {
@@ -120,9 +122,8 @@ public class Configuration {
 	}
 	*/
 	public void restoreDefaults() {
-		workspace_dir = DEF_HOMEFOLDER_LOCATION;
+		workspace_dir = DEF_WORKSPACE;
 		googleUrl = DEF_GOOGLE_SEARCH;
-		//ncbiUrl = DEF_NCBI_SEARCH; 
 		pfamUrl = DEF_PFAM_SEARCH; 
 		uniprotUrl = DEF_UNIPROT_SEARCH;
 		emailAddr = DEF_EMAIL_ADDR;
@@ -133,8 +134,7 @@ public class Configuration {
 		saveWSOnExit = DEF_SAVE_ON_EXIT;
 		overwriteProjects = OVERWRITEPROJECTS;
 		helpImprove = HELPIMPROVE;
-		documentationPath = DOCUMENTATION_PATH;
-		
+		documentationPath = DEF_DOCUMENTATION_PATH;
 	}
 	
 	public static Configuration getInstance() {
@@ -155,13 +155,11 @@ public class Configuration {
 	public ConfigurationFrame getFrame() {
 		return frame;
 	}
-	
-	/* Now attribute of ApplicationHandler
-	 * 
-	  public File getConfigFile() {
-		return new File(workspace_dir+"/"+CONFIGFILE);
+	 
+	public File getConfigFile() {
+		return new File(workspace_dir+sep+configFile);
 	}
-	*/
+	
 	public void setWorkspaceDir(String workspace_dir) {
 		this.workspace_dir = workspace_dir;
 	}

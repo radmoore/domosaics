@@ -49,8 +49,6 @@ public class ApplicationHandler {
 	protected static ApplicationHandler instance;	
 	protected StartupPage startUpProgress;
 	
-	public File configFile = new File(Configuration.getDefaultConfig());
-	
 	public static ApplicationHandler getInstance() {
 		if (instance == null)
 			instance = new ApplicationHandler();
@@ -299,14 +297,24 @@ public class ApplicationHandler {
 	protected void initWorkspaceDir() {
 
 		File workspace = null;
-//		File configFile = new File(workspace.getAbsolutePath()+Configuration.sep+Configuration.CONFIGFILE);
+		
+		File configFile = Configuration.getInstance().getConfigFile();
+		// CONTINUE_HERE
 		if ( !configFile.exists() ) {
+			
 			// if default directory does not exist choose and create a workspace dir
-			while(workspace == null) // user aborted wizard
-				workspace = WizardManager.getInstance().showWorkingDirectoyWizard(startUpProgress, Configuration.DEF_HOMEFOLDER_LOCATION);
-			if(!workspace.exists())
+			workspace = WizardManager.getInstance().showWorkingDirectoyWizard(
+					startUpProgress, Configuration.DEF_HOMEFOLDER_LOCATION);
+			// user did not select anything - abort.
+			if ( workspace == null )
+				System.exit(0);
+				
+			if( !workspace.exists() )
 				workspace.mkdir();
+			
 			Configuration.getInstance().setWorkspaceDir(workspace.getPath());
+			// create a new config file in the workspace
+			ConfigurationWriter.write();
 		} 
 		else {
 			ConfigurationReader.read();
@@ -315,30 +323,13 @@ public class ApplicationHandler {
 				workspace.mkdir();
 		}
 		
-		// TODO In next version 
-//		else {
-//			// check if already in use
-//			boolean choose = MessageUtil.showDialog("The default workspace is in use. Would you like to choose a new workspace?");
-//			if (choose){
-//				workspace = WizardManager.getInstance().showWorkingDirectoyWizard(startUpProgress, workspace_dir);
-//				if (workspace == null) // user aborted wizard
-//					System.exit(0);
-//				workspace.mkdir();
-//			}
-//			else{
-//				System.exit(0);
-//			}
-//			
-//		}
-		// check for configuration file 
+ 
 		startUpProgress.setProgress("", 35);
-//		startUpProgress.setProgress("Configure proclivities", 35);
 		
 		if (!Configuration.getInstance().workspaceInUse()) { 
 			Configuration.getInstance().setLockFile();
 		}
 		else {
-			
 			boolean removeLock = MessageUtil.showDialog(startUpProgress, "Your workspace is in use. Try to remove lock?\n" +
 					"(only recommended if DoMosaics is not running!)");
 			
