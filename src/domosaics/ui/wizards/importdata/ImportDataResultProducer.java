@@ -189,7 +189,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		//if (viewName == null)
 		//	return false;
 		
-		
+
 		DomainViewI domView = ViewHandler.getInstance().createView(ViewType.DOMAINS, validatedNewName);
 		domView.setDaSet(daSet);
 		ViewHandler.getInstance().addView(domView, project);

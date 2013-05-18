@@ -45,11 +45,11 @@ public class SDockableContainerFactory extends DefaultDockableContainerFactory{
 	      case PARENT_TABBED_CONTAINER:
 	        return new TabbedDockView(dockable);
 	      case PARENT_DESKTOP:
-	        new SDockView(dockable, true);
+	    	  return new SDockView(dockable, true);
 	      case PARENT_SPLIT_CONTAINER:
 	        return new SDockView(dockable);  
 	      case PARENT_DETACHED_WINDOW:
-	        return new  com.vlsolutions.swing.docking.DetachedDockView(dockable);// DetachedDockView(dockable);
+	        return new com.vlsolutions.swing.docking.DetachedDockView(dockable);// DetachedDockView(dockable);
 	      default :
 	        throw new RuntimeException("Wrong dockable container type");        
 	    }

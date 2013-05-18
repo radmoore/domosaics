@@ -202,7 +202,7 @@ public class AncestralReconstruction extends SwingWorker<String, Void> {
 		
 		public String toString() {
 			if (val == 0)
-				return "NOTPRESET";
+				return "NOTPRESENT";
 			else
 				return "PRESENT";
 		}

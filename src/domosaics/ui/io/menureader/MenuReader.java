@@ -99,7 +99,7 @@ public class MenuReader {
 			MenuEntry menuItem = null;
 			int depth = 0; // depth within the menu structure (e.g. sub menus)
 			
-			while((line = in.readLine()) != null) {	
+			while((line = in.readLine()) != null) {
 				// skip comments
 				if (line.contains("<!--"))
 					continue;

@@ -30,7 +30,6 @@ public class DomainViewImporter extends ViewImporter<DomainViewI> {
 		try {
 			BufferedReader in = new BufferedReader(new StringReader(data));
 			String line;
-		
 			DomainViewI view = null;
 			SequenceI[] seqs = null;		// associated sequences
 			

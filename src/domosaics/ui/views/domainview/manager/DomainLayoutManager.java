@@ -14,6 +14,7 @@ import domosaics.ui.views.domainview.actions.MsaViewAction;
 import domosaics.ui.views.domainview.actions.ProportionalViewAction;
 import domosaics.ui.views.domainview.actions.ResetShiftAction;
 import domosaics.ui.views.domainview.actions.SaveXdomFileAction;
+import domosaics.ui.views.domainview.actions.SearchProteinAction;
 import domosaics.ui.views.domainview.actions.SelectAllDomainArrangementsAction;
 import domosaics.ui.views.domainview.actions.SelectDomainArrangementsAction;
 import domosaics.ui.views.domainview.actions.SelectSequencesAction;
@@ -90,6 +91,7 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		SHOW_NOTES				(ShowNotesAction.class),
 		COLLAPSE_BY_SIMILARITY 	(SimilarityColorizationAction.class),
 		COLLAPSE_IDENTICAL 		(CollapseSameArrangementsAction.class),
+		OPEN_PROTSEARCH 		(SearchProteinAction.class),
 		OPEN_DISTMATRIX 		(ShowDistMatrixAction.class),
 		OPEN_DOMGRAPH 			(ShowDomainGraphAction.class),
 		OPEN_DOMLEGEND 			(ShowDomainLegendAction.class),
@@ -324,6 +326,7 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		enable(DomainAction.MERGE_SELECTION);
 		enable(DomainAction.SHOW_NOTES);
 		enable(DomainAction.EDITARRANGEMENT);
+		enable(DomainAction.OPEN_PROTSEARCH);
 		setState(DomainAction.SELECT_SEQUENCES, false);
 		setState(DomainAction.SELECT_ARRANGEMENTS, true);
 	}
@@ -339,6 +342,7 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		disable(DomainAction.SHOW_NOTES);
 		disable(DomainAction.MERGE_SELECTION);
 		disable(DomainAction.EDITARRANGEMENT);
+		disable(DomainAction.OPEN_PROTSEARCH);
 		setState(DomainAction.SELECT_SEQUENCES, false);
 		setState(DomainAction.SELECT_ARRANGEMENTS, true);
 	}

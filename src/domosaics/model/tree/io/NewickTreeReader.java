@@ -162,12 +162,14 @@ public class NewickTreeReader extends AbstractTreeReader {
 						distance = -1.0;
 					} 
                 break;
-			 case '\'':
              case '"':                    	
                  label.concat(nst.sval);
                  break;
              case '\\':                    	
                  escapedFlag = true;
+                 break;
+			 case '\'':                   	
+                 label.concat(nst.sval);
                  break;
 			}	
 			

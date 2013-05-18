@@ -664,7 +664,8 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	private void openLogWindow() {
 		if (logPanel == null)
 			logPanel = RADSResultDetailsPanel.createResultsFrame(queryProtein, results, proteins);
-			
+
+		parent.setAlwaysOnTop(false);
 		logPanel.showFrame();
 	}
 	
@@ -673,6 +674,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 			resultTablePanel = RADSResultsTablePanel.createResultsTableFrame(queryProtein, results, resultsTableModel);
 		
 		resultTablePanel.setRADSPanel(instance);
+		parent.setAlwaysOnTop(false);
 		resultTablePanel.showFrame();
 	}
 	

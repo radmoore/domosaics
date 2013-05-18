@@ -92,7 +92,7 @@ public class Sankoff4Sets extends AbstractReconstructionAlgo {
 		
 		public String toString() {
 			if (val == 0)
-				return "NOTPRESET";
+				return "NOTPRESENT";
 			else
 				return "PRESENT";
 		}

@@ -17,8 +17,11 @@ import net.miginfocom.swing.MigLayout;
 import domosaics.localservices.codd.ConditionallyDependentDomainPairMap;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.ui.DoMosaicsUI;
+import domosaics.ui.ViewHandler;
 import domosaics.ui.util.MessageUtil;
+import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.DomainViewI;
+import domosaics.ui.views.view.View;
 
 
 
@@ -30,7 +33,7 @@ public class SearchProteinTool extends JDialog implements ActionListener {
 	protected String lastSearchMemory;
 	
 	/** the view providing this feature */
-	protected DomainViewI view;
+	protected View view;
 	
 	public SearchProteinTool(DomainViewI view) {
 		this.view = view;
@@ -38,14 +41,14 @@ public class SearchProteinTool extends JDialog implements ActionListener {
 		JPanel componentHolder = new JPanel();
 		setLayout(new MigLayout("", "[left]"));
 		
-		protQuery=new JTextField(25);
+		protQuery=new JTextField(15);
 		jbtSearch = new JButton("Search");
 	    jbtSearch.addActionListener(this);
 		jbtClose = new JButton("Close");
 	    jbtClose.addActionListener(this);
 
-	    componentHolder.add(protQuery, "h 25!, gap 5, gapright 5, span 2, growX, wrap");
-	    componentHolder.add(jbtSearch, "h 25!, gap 5, gapright 5");
+	    componentHolder.add(protQuery, "h 25!, gap 5, gapright 5, growX, wrap");
+	    componentHolder.add(jbtSearch, "h 25!, gap 5, gapright 5, split 2");
 	    componentHolder.add(jbtClose, "h 25!, gap 5, gapright 5, wrap");
 		getContentPane().add(componentHolder);
 		setSize(200, 50);
@@ -96,36 +99,51 @@ public class SearchProteinTool extends JDialog implements ActionListener {
 	
 	void searchAction(String query) {
 		int i;
-		DomainArrangement[] daSet=view.getDaSet();
-		boolean stop=false, goUntilPrevQuery=lastSearchMemory.contains(query);
-		for(i=0; i!= daSet.length && !stop; i++)
+		view = 	ViewHandler.getInstance().getActiveView();
+		ViewType type = view.getViewInfo().getType();
+		if(type==ViewType.DOMAINS || type==ViewType.DOMAINTREE)
 		{
-			System.out.println(daSet[i].getName());
-			if(goUntilPrevQuery) {
-				if(daSet[i].equals(lastSearchMemory))
-					goUntilPrevQuery=false;
-			} else {				
-				if(daSet[i].getName().contains(query)) {
-					stop=true;
-				}
-			}
-		}
-		if(!stop) {
+			DomainArrangement[] daSet=((DomainViewI) view).getDaSet();
+			boolean stop=false, goUntilPrevQuery=lastSearchMemory.contains(query);
 			for(i=0; i!= daSet.length && !stop; i++)
 			{
-				if(daSet[i].getName().contains(query)) 
-					stop=true;	
+				if(goUntilPrevQuery) {
+					if(daSet[i].getName().equals(lastSearchMemory))
+						goUntilPrevQuery=false;
+				} else {				
+					if(daSet[i].getName().contains(query)) {
+						stop=true;
+					}
+				}
 			}
 			if(!stop) {
-				setAlwaysOnTop(false);
-				MessageUtil.showWarning(DoMosaicsUI.getInstance(), "No corresponding protein IDs!");				 
-				setAlwaysOnTop(true);
+				for(i=0; i!= daSet.length && !stop; i++)
+				{
+					if(daSet[i].getName().contains(query)) 
+						stop=true;	
+				}
+				if(!stop) {
+					setAlwaysOnTop(false);
+					MessageUtil.showWarning(DoMosaicsUI.getInstance(), "No corresponding protein IDs!");				 
+					setAlwaysOnTop(true);
+				} else {
+					lastSearchMemory=daSet[i-1].getName();
+					JScrollPane scrollPane = (JScrollPane)view.getComponent();
+					scrollPane.getVerticalScrollBar().setValue((int)((i-1)*28));
+				}
+			} else {
+				lastSearchMemory=daSet[i-1].getName();
+				JScrollPane scrollPane = (JScrollPane)view.getComponent();
+				scrollPane.getVerticalScrollBar().setValue((int)((i-1)*28));
+				//System.out.println(i+" "+(int)(i*scrollPane.getVerticalScrollBar().getMaximum()/(double)(daSet.length))+" "+scrollPane.getVerticalScrollBar().getMaximum()+" "+scrollPane.getVerticalScrollBar().getSize()+" "+view.getDomainLayout().getDomainParams().da_height+" "+view.getDomainLayout().getDomainParams().offsetY);
+
 			}
-		} else {
-			lastSearchMemory=daSet[i].getName();
-			JScrollPane scrollPane = (JScrollPane)view.getComponent();
-			scrollPane.getVerticalScrollBar().setValue((int)(i*scrollPane.getVerticalScrollBar().getMaximum()/(double)(daSet.length)));
-			System.out.println(i+" "+(int)(i*scrollPane.getVerticalScrollBar().getMaximum()/(double)(daSet.length))+" "+scrollPane.getVerticalScrollBar().getMaximum()+" "+scrollPane.getVerticalScrollBar().getMinimum());
+		} else
+		{
+			setAlwaysOnTop(false);
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Action restricted to domain views!");				 
+			setAlwaysOnTop(true);
+	        setVisible(false);
 		}
 	}
 

@@ -142,6 +142,12 @@
 <!--		<parameter id="icon" value="domosaics/ui/views/domainview/resources/img/tools/legend.png"/>
 			<parameter id="tooltip" value="Opens a new window where the domain legend is displayed"/> 
 		</menuItem>
+
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Search protein"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SearchProteinAction"/> 
+			<parameter id="tooltip" value="Scroll until the required protein"/> 
+		</menuItem>
 		
 <!--		<menuitem id="JCheckBox">
 <!--			<parameter id="name" value="Show Ruler"/> 
@@ -153,6 +159,7 @@
 	</menu>
 	
 	<menu id="Edit">
+		
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Domain Composition"/> 
 			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ChangeArrangementAction"/> 

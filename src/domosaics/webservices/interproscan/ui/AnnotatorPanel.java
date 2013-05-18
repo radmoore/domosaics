@@ -174,7 +174,9 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		
 		if ( (domArrs == null) || (domArrs.length == 0) ) {
 			progressBar.setValue(100);
-			MessageUtil.showInformation(null, "No siginificant hits found.");
+			parent.setAlwaysOnTop(false);
+			MessageUtil.showInformation(parent, "No siginificant hits found.");
+			parent.setAlwaysOnTop(true);
 			return;
 		}
 		
@@ -197,8 +199,10 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		}
 
 		while (viewName == null) {
-				
+
+			parent.setAlwaysOnTop(false);
 			Map m = WizardManager.getInstance().selectNameWizard(defaultName, "annotation", project, true);
+			parent.setAlwaysOnTop(true);
 			if(m!=null) {
 				viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
 				projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);

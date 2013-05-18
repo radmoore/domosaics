@@ -50,7 +50,7 @@ public class JMenuBarFactory {
 		if (fileURL == null)
 			return null;
 		
-		MenuEntry menuBar = new MenuReader().getMenuFromURL(fileURL);
+		MenuEntry menuBar = new MenuReader().getMenuFromURL(fileURL);	
 		return (JMenuBar) menuBar.create(actionManager);
 	}
 }

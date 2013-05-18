@@ -33,30 +33,32 @@ import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.swingx.JXTitledSeparator;
 
-import angstd.localservices.hmmer3.Hmmer3Engine;
-import angstd.localservices.hmmer3.programs.HmmPress;
-import angstd.localservices.hmmer3.programs.HmmScan;
-import angstd.localservices.hmmer3.programs.Hmmer3Program;
-import angstd.model.configuration.Configuration;
-import angstd.model.sequence.SequenceI;
-import angstd.model.sequence.io.FastaReader;
-import angstd.model.sequence.io.FastaWriter;
-import angstd.model.sequence.util.SeqUtil;
-import angstd.model.workspace.ViewElement;
-import angstd.model.workspace.WorkspaceElement;
-import angstd.ui.ViewHandler;
-import angstd.ui.WorkspaceManager;
-import angstd.ui.util.FileDialogs;
-import angstd.ui.util.MessageUtil;
-import angstd.ui.views.sequenceview.SequenceView;
-import angstd.ui.wizards.WizardListCellRenderer;
-import angstd.util.StringUtils;
+import domosaics.localservices.hmmer3.Hmmer3Engine;
+import domosaics.localservices.hmmer3.programs.HmmPress;
+import domosaics.localservices.hmmer3.programs.HmmScan;
+import domosaics.localservices.hmmer3.programs.Hmmer3Program;
+import domosaics.model.configuration.Configuration;
+import domosaics.model.sequence.SequenceI;
+import domosaics.model.sequence.io.FastaReader;
+import domosaics.model.sequence.io.FastaWriter;
+import domosaics.model.sequence.util.SeqUtil;
+import domosaics.model.workspace.ViewElement;
+import domosaics.model.workspace.WorkspaceElement;
+import domosaics.ui.ViewHandler;
+import domosaics.ui.WorkspaceManager;
+import domosaics.ui.tools.configuration.ConfigurationFrame;
+import domosaics.ui.util.FileDialogs;
+import domosaics.ui.util.MessageUtil;
+import domosaics.ui.views.sequenceview.SequenceView;
+import domosaics.ui.wizards.WizardListCellRenderer;
+import domosaics.util.StringUtils;
+
 
 /**
  * HmmScanPanel holds the GUI components necessary to start local
  * hmmscan jobs. It is of type {@link HmmerServicePanel}.
  * The general setup is closely related to other panels used in
- * AnGSTD.
+ * DoMosaicS.
  * 
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  *

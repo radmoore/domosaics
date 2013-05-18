@@ -3,6 +3,8 @@ package domosaics.ui.views.domainview.mousecontroller;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JScrollPane;
+
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.DomainComponent;
 import domosaics.ui.views.domainview.components.DomainPopupMenu;

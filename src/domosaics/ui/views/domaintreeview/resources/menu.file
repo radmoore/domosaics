@@ -222,6 +222,11 @@
 			<parameter id="tooltip" value="Opens a new Window where the domain legend is displayed"/> 
 		</menuItem>
 		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Search protein"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SearchProteinAction"/> 
+			<parameter id="tooltip" value="Scroll until the required protein"/> 
+		</menuItem>	
 		
 <!--		<menuitem id="JCheckBox">
 <!--			<parameter id="name" value="Show Ruler"/> 

@@ -188,7 +188,6 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 		this.setLocationRelativeTo(parent);
 		setLocation(15, getLocation().y);
 		this.setVisible(true);
-	
 		runChosenAlgo();
 
 		return 0;
@@ -364,10 +363,10 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 		if (algo != null && !algo.isDone()) 
 			algo.cancel(true);
 		switch (view.getParsimonyMeth()) {
-		case DOLLO: runDollo();
-		case SANKOFF: runSankoff();
-		case DOLLO4SETS: runDollo4Sets();
-		case SANKOFF4SETS: runSankoff4Sets();
+		case DOLLO: runDollo(); break;
+		case SANKOFF: runSankoff(); break;
+		case DOLLO4SETS: runDollo4Sets(); break;
+		case SANKOFF4SETS: runSankoff4Sets(); break;
 		}
 	}
 	

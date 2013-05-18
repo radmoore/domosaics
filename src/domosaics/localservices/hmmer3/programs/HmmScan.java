@@ -11,6 +11,7 @@ import domosaics.algos.overlaps.OverlapResolver;
 import domosaics.localservices.codd.ConditionallyDependentDomainPairMap;
 import domosaics.localservices.executor.Executor;
 import domosaics.localservices.hmmer3.Hmmer3Engine;
+import domosaics.localservices.hmmer3.ui.HmmScanPanel;
 import domosaics.localservices.hmmer3.ui.HmmerServicePanel;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.io.ArrangementImporterUtil;
@@ -61,7 +62,7 @@ public class HmmScan implements Hmmer3Program {
 	private int totalFastaEntries, completedScans;
 	private String name, evalue, cpu, overlapResolvMethod;
 	private String[] args;
-	private HmmerServicePanel parent;
+	private HmmScanPanel parent;
 	
 	private DomainArrangement[] arrangementSet;
 	private ViewElement seqView;
@@ -74,7 +75,7 @@ public class HmmScan implements Hmmer3Program {
 	 * @param hmmDB
 	 * @param parent
 	 */
-	public HmmScan(File bin, File fasta, File hmmDB, HmmerServicePanel parent) {
+	public HmmScan(File bin, File fasta, File hmmDB, HmmScanPanel parent) {
 		this.overlapResolvMethod=new String("None");
 		this.hmmScanBin = bin;
 		this.fasta = fasta;
@@ -92,7 +93,7 @@ public class HmmScan implements Hmmer3Program {
 	 * @param cpu
 	 * @param parent
 	 */
-	public HmmScan(File bin, File fasta, File hmmDB, String cpu, HmmerServicePanel parent) {
+	public HmmScan(File bin, File fasta, File hmmDB, String cpu, HmmScanPanel parent) {
 		this.hmmScanBin = bin;
 		this.fasta = fasta;
 		this.hmmDB = hmmDB;
@@ -223,7 +224,7 @@ public class HmmScan implements Hmmer3Program {
 	 * Set the panel that triggers this service
 	 * @param parentPanel
 	 */
-	public void setParentPanel(HmmerServicePanel parentPanel) {
+	public void setParentPanel(HmmScanPanel parentPanel) {
 		this.parent = parentPanel;
 	}
 	
@@ -474,6 +475,7 @@ public class HmmScan implements Hmmer3Program {
 			String viewName = null;
 			String projectName = null;
 			while (viewName == null) {
+				parent.getParent().setAlwaysOnTop(false);
 				Map m = WizardManager.getInstance().selectNameWizard(defaultName, "annotation", project, true);
 				if(m!=null) {
 					viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
@@ -488,6 +490,7 @@ public class HmmScan implements Hmmer3Program {
 					// will not delete tmp files, just in case
 						return;
 				}
+				parent.getParent().setAlwaysOnTop(true);
 			}
 
 			// get chosen project

@@ -83,8 +83,9 @@ public class DoMosaicsViewFactory {
 			
 			// read the views menu as well using MenuReader
 			URL menuUrl = viewClazz.getResource(MENUFILE);
+
 			JMenuBar jMenuBar = JMenuBarFactory.createMenuBar(menuUrl, viewInfo.getActionManager());
-			
+
 			// set the unique views id
 			if (!viewInfo.isTool()) 
 				viewInfo.setID(id++);
@@ -96,7 +97,7 @@ public class DoMosaicsViewFactory {
 			
 			// add the viewInfo to the view object
 			view.setViewInfo(viewInfo);
-			
+
 			// create a new ViewPanel: 
 			// a cross reference between the view and its embedding panel is set
 			ViewPanel viewPane = new ViewPanel(viewInfo.getName(), view);
