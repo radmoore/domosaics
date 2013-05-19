@@ -13,6 +13,7 @@ import com.lowagie.text.pdf.PdfTemplate;
 import com.lowagie.text.pdf.PdfWriter;
 
 import domosaics.model.configuration.Configuration;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.view.View;
 
@@ -44,7 +45,7 @@ public class PDFImageExporter implements ImageExporter{
              document.close();
          } 
          catch(Exception e) {
-        	 MessageUtil.showWarning("Error while writing PDF document.");
+        	 MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Error while writing PDF document.");
  			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			

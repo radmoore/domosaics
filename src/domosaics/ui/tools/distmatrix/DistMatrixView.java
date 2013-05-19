@@ -3,6 +3,8 @@ package domosaics.ui.tools.distmatrix;
 import java.awt.Graphics2D;
 import java.io.File;
 
+import javax.swing.JFrame;
+
 import org.jdom2.Element;
 
 import domosaics.ui.tools.Tool;
@@ -154,6 +156,13 @@ public class DistMatrixView extends AbstractView implements Tool {
 	 */
 	public ToolFrameI getToolFrame() {
 		return parentFrame;
+	}
+	
+	/**
+	 * @see Tool
+	 */
+	public JFrame getParentFrame() {
+		return (JFrame) parentFrame;
 	}
 	
 	/**

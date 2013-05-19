@@ -38,7 +38,7 @@ public class RenameElementAction extends AbstractAction{
 		WorkspaceElement selected = WorkspaceManager.getInstance().getSelectionManager().getSelectedElement();
 
 		if (selected.isCategory()) {
-			MessageUtil.showWarning("Categories cannot be renamed");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Categories cannot be renamed");
 			return;
 		}
 		

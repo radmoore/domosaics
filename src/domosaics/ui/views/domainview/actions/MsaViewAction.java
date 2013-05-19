@@ -2,6 +2,7 @@ package domosaics.ui.views.domainview.actions;
 
 import java.awt.event.ActionEvent;
 
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.util.MessageUtil;
@@ -27,7 +28,7 @@ public class MsaViewAction extends AbstractMenuAction{
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		
 		if (!view.isSequenceLoaded()) {
-			MessageUtil.showWarning("No sequences associated with arrangements");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No sequences associated with arrangements");
 			setState(!getState());
 			return;
 		}

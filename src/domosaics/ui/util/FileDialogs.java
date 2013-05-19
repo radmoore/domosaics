@@ -1,12 +1,15 @@
 package domosaics.ui.util;
 
 import java.awt.Component;
+import java.awt.Frame;
 import java.io.File;
 
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
 
 import domosaics.model.configuration.Configuration;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.views.ViewType;
 
 
@@ -31,11 +34,6 @@ public class FileDialogs {
 	/** remember the last used location */
 	private static String lastLocation = "";
 	
-	
-	public static File showOpenDialog(Component parent) {
-		return showOpenDialog(parent, null);
-	}
-	
 	/**
 	 * Opens a file dialog for opening files. If a file was correctly chosen 
 	 * this file is returned else null is returned.
@@ -45,22 +43,31 @@ public class FileDialogs {
 	 * @return 
 	 * 		the selected file or null if the chooser was aborted
 	 */
-	public static File showOpenDialog(Component parent, String filter) {
+	public static File showOpenDialog(JFrame parent) {
 		final JFileChooser f;
-		
-		// start the file chooser depending on the last used location
+		boolean stackingIssue=false;
+    	if(parent==null)
+    		parent=DoMosaicsUI.getInstance();
+		if(parent.isAlwaysOnTop()) {
+			stackingIssue=true;
+			parent.setAlwaysOnTop(false);
+		}
+ 		// start the file chooser depending on the last used location
 		if (!lastLocation.isEmpty())
 			f = new JFileChooser(lastLocation);
 		else
 			f = new JFileChooser(Configuration.getInstance().getWorkspaceDir());
-		
 		// wait for the chooser to be approved and set the file as well as the last location.
 		if (f.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
 			File file = f.getSelectedFile();
 			lastLocation = file.getAbsolutePath();
+			if(stackingIssue)
+				parent.setAlwaysOnTop(true);
 			return file;
 		}
-
+		if(stackingIssue)
+			parent.setAlwaysOnTop(true);
+	
 		// aborted
 		return null;
 	}
@@ -77,9 +84,16 @@ public class FileDialogs {
 	 * @return 
 	 * 		the selected file or null (if aborted)
 	 */
-	public static File showSaveDialog(Component parent, String extension) {
+	public static File showSaveDialog(JFrame parent, String extension) {
 		final JFileChooser f;
-		
+		boolean stackingIssue=false;
+    	if(parent==null)
+    		parent=DoMosaicsUI.getInstance();
+		if(parent.isAlwaysOnTop()) {
+			stackingIssue=true;
+			parent.setAlwaysOnTop(false);
+		}
+ 		
 		// start the file chooser depending on the last used location
 		if (!lastLocation.isEmpty())
 			f = new JFileChooser(lastLocation);
@@ -98,18 +112,32 @@ public class FileDialogs {
 		
 			// check whether or not the file already exists
 			if (file.exists()) 
-				if (!MessageUtil.showDialog("File already exists. Overwrite it?"))
+				if (!MessageUtil.showDialog(parent, "File already exists. Overwrite it?")) {
+					if(stackingIssue)
+						parent.setAlwaysOnTop(true);
 					return null;	        	
-			
+				}
+				
 			// file is valid
 	    	lastLocation = file.getAbsolutePath();
-	    	return file;
+			if(stackingIssue)
+				parent.setAlwaysOnTop(true);
+			return file;
 		}
+		if(stackingIssue)
+			parent.setAlwaysOnTop(true);
 		return null;
 	}
 	
-	public static File openChooseDirectoryDialog(Component parent) {
+	public static File openChooseDirectoryDialog(JFrame parent) {
 		final JFileChooser fc;
+		boolean stackingIssue=false;
+    	if(parent==null)
+    		parent=DoMosaicsUI.getInstance();
+		if(parent.isAlwaysOnTop()) {
+			stackingIssue=true;
+			parent.setAlwaysOnTop(false);
+		}
 	
 		// start the file chooser depending on the last used location
 		fc = new JFileChooser(Configuration.getInstance().getWorkspaceDir());
@@ -120,6 +148,8 @@ public class FileDialogs {
 			File file = fc.getSelectedFile();
 			return file;
 		}
+		if(stackingIssue)
+			parent.setAlwaysOnTop(true);
 
 		// aborted
 		return null;

@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JFrame;
+
 import domosaics.algos.overlaps.OverlapResolver;
 import domosaics.model.DoMosaicsData;
 import domosaics.model.arrangement.Domain;
@@ -42,7 +44,7 @@ import domosaics.ui.util.MessageUtil;
 
 public class ConditionallyDependentDomainPairMap implements DoMosaicsData
 {
-	
+ private static JFrame parent;
  private HashMap<String , HashSet<String> > CDP;
  protected static ConditionallyDependentDomainPairMap instance;
   
@@ -57,6 +59,7 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
 	 */
  public ConditionallyDependentDomainPairMap(String file, double pvalueThreshold)
  {
+  parent = curFrame;
   CDP = new HashMap<String , HashSet<String> >();
    
   BufferedReader in;
@@ -88,7 +91,7 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
    in.close();
   }catch(FileNotFoundException e1)
   {
-   MessageUtil.showWarning("No corresponding CDP file: "+file);
+   MessageUtil.showWarning(parent, "No corresponding CDP file: "+file);
 	if (Configuration.getReportExceptionsMode(true))
 		Configuration.getInstance().getExceptionComunicator().reportBug(e1);
 	else			
@@ -96,7 +99,7 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
   }
   catch(NumberFormatException e2)
   {
-   MessageUtil.showWarning("Error while parsing CDP file.");
+   MessageUtil.showWarning(parent, "Error while parsing CDP file.");
 	if (Configuration.getReportExceptionsMode(true))
 		Configuration.getInstance().getExceptionComunicator().reportBug(e2);
 	else			
@@ -104,7 +107,7 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
   } 
   catch (IOException e3)
   {
-   MessageUtil.showWarning("Error while reading/parsing CDP file.");
+   MessageUtil.showWarning(parent, "Error while reading/parsing CDP file.");
 	if (Configuration.getReportExceptionsMode(true))
 		Configuration.getInstance().getExceptionComunicator().reportBug(e3);
 	else			
@@ -118,11 +121,11 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
   * Currently limited to the Pfam CDP with an arbitrary p-value threshold
   * 
   */
- public static ConditionallyDependentDomainPairMap getInstance()
+ public static ConditionallyDependentDomainPairMap getInstance(JFrame curFrame)
  {
   if (instance == null)
   {
-   instance = new ConditionallyDependentDomainPairMap("resources/CDP_Pfam-v26.0",0.001);
+   instance = new ConditionallyDependentDomainPairMap("resources/CDP_Pfam-v26.01",0.001, curFrame);
   }
   return instance;
  }
@@ -138,14 +141,14 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
  /**
   * Returns the filtered set of arrangement according to the CDP identified
   */
- public static DomainArrangement[] coddProcedure(DomainArrangement[] arrangeSets)
+ public static DomainArrangement[] coddProcedure(DomainArrangement[] arrangeSets, JFrame curFrame)
  {
   boolean certified, hasCertified=false;
   String cooccur;
   List<DomainArrangement> arrList = new ArrayList<DomainArrangement>();
   
   //Instantiation of the CDP if not yet done 
-  ConditionallyDependentDomainPairMap cdp=ConditionallyDependentDomainPairMap.getInstance();
+  ConditionallyDependentDomainPairMap cdp=ConditionallyDependentDomainPairMap.getInstance(curFrame);
   
   //Filtering overlaps based on E-value
   arrangeSets=OverlapResolver.resolveOverlaps(arrangeSets,"Evalue");
@@ -231,7 +234,7 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
   }
   if(!hasCertified)
   {
-   MessageUtil.showWarning("No putative domains in this data set. Try to Hmmscan with higher E-values.");	
+   MessageUtil.showWarning(parent, "No putative domains in this data set. Try to Hmmscan with higher E-values.");	
   }
   return arrList.toArray(new DomainArrangement[arrList.size()]);
  }

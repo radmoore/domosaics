@@ -6,6 +6,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import domosaics.model.arrangement.Domain;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
@@ -28,17 +29,17 @@ public class ShowAllDomainsAction extends AbstractAction{
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		
 		if (view.getDomainLayoutManager().isCollapseBySimilarity()) {
-			MessageUtil.showWarning("While collapsing by similarity this option can not be triggered. ");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"While collapsing by similarity this option can not be triggered. ");
 			return;
 		}
 		
 		if (view.isCompareDomainsMode()) {
-			MessageUtil.showWarning("While in comparing domains mode this option is deactivated ");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"While in comparing domains mode this option is deactivated ");
 			return;
 		}
 		
 		if (view instanceof DomainTreeViewI && ((DomainTreeViewI) view).getDomainTreeLayoutManager().isShowInDels()) {
-			MessageUtil.showWarning("While in show insertion deletion mode this option is deactivated");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"While in show insertion deletion mode this option is deactivated");
 			return;
 		}
 		

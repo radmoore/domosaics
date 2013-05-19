@@ -9,6 +9,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import domosaics.model.tree.TreeNodeI;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
@@ -38,7 +39,7 @@ public class TraceDomainAction extends AbstractAction{
 		DomainTreeViewI view = (DomainTreeViewI) ViewHandler.getInstance().getActiveView();
 
 		if(!view.getDomainTreeLayoutManager().isShowTree()) {
-			MessageUtil.showWarning("Please select the \"Show Tree\" menu entry first");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please select the \"Show Tree\" menu entry first");
 			return;
 		}
 		

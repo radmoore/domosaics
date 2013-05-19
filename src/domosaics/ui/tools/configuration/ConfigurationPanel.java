@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -256,7 +259,7 @@ public class ConfigurationPanel extends JPanel{
 				
 				if (!emailField.getText().equals(""))
 					if (!UiUtil.isValidEmail(emailField.getText())) {
-						MessageUtil.showWarning("Please enter a valid email!");
+						MessageUtil.showWarning(parentFrame, "Please enter a valid email!");
 						return;
 					}
 				

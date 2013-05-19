@@ -26,6 +26,7 @@ import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.TreeNodeI;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
@@ -269,7 +270,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 		// TODO if the view would be added as listener to a tree it could react directly on changes in the underlying data structure (e.g. if in the deletion process more than one node is deleted)
 		List<TreeNodeI> deletedNodes = domTree.deleteNode(node);
 		if (deletedNodes.size() == 0) {
-			MessageUtil.showWarning("Couldn't delete node, e.g. because the node is a child of the root");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Couldn't delete node, e.g. because the node is a child of the root");
 			return;
 		}
 			

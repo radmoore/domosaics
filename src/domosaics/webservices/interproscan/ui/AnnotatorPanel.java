@@ -231,7 +231,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 */
 	public void cancel() {
 		if ( annotationSpawner.isRunning() ) {
-			boolean cancel = MessageUtil.showDialog("This will cancel your job. Are you sure?");
+			boolean cancel = MessageUtil.showDialog(parent,"This will cancel your job. Are you sure?");
 			if (cancel) {
 				annotationSpawner.cancel();
 				submit.setEnabled(true);
@@ -275,13 +275,13 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		console.setText("");
 		
 		if (annotationSpawner.getSeqs() == null) {
-			MessageUtil.showWarning("Please load sequences first!");
+			MessageUtil.showWarning(parent,"Please load sequences first!");
 			//print("Please load sequences first! \n");
 			return;
 		}
 		
 		if (!UiUtil.isValidEmail(email.getText())) {
-			MessageUtil.showWarning("Please enter a valid email!");
+			MessageUtil.showWarning(parent,"Please enter a valid email!");
 			//print("Please enter a correct email address! \n");
 			return;
 		} else {
@@ -289,7 +289,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				Configuration.getInstance().setEmailAddr(email.getText());
 			} else {
 				if(!email.getText().equals(Configuration.getInstance().getEmailAddr()))
-					if(MessageUtil.showDialog(this.getParent(),"A distinct email is saved in settings. Overwrite?"))
+					if(MessageUtil.showDialog(parent,"A distinct email is saved in settings. Overwrite?"))
 					{
 						Configuration.getInstance().setEmailAddr(email.getText());
 						if(Configuration.getInstance().getFrame()!=null && Configuration.getInstance().getFrame().isVisible()) {
@@ -301,7 +301,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		}
 		
 		if (!StringUtils.isNumber(evalue.getText())) {
-			MessageUtil.showWarning("Please enter a numeric E-value!");
+			MessageUtil.showWarning(parent,"Please enter a numeric E-value!");
 			//print("Please enter an E value! \n");
 			return;
 		}
@@ -311,11 +311,11 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		
 		// check inet connectivity
 		if (!CheckConnectivity.checkInternetConnectivity()) {
-			MessageUtil.showWarning("Please check your intenet connection (connection failed)");
+			MessageUtil.showWarning(parent,"Please check your intenet connection (connection failed)");
 			return;
 		}
 		if (!CheckConnectivity.addressAvailable("http://www.ebi.ac.uk/Tools/services/soap/iprscan?wsdl")) {
-			MessageUtil.showWarning("Cannot connect to EBI webservices. Please try again later.");
+			MessageUtil.showWarning(parent,"Cannot connect to EBI webservices. Please try again later.");
 			return;
 		}
 		
@@ -473,9 +473,11 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 					selectView.setSelectedItem(null);
 					submit.setEnabled(false);
 				}
-				File file = FileDialogs.showOpenDialog(instance);
+				File file = FileDialogs.showOpenDialog(parent);
 				if(file != null && file.canRead()) {
+					parent.setAlwaysOnTop(false);
 					Object sequences = new FastaReader().getDataFromFile(file);
+					parent.setAlwaysOnTop(true);
 					if (sequences != null) {
 						annotationSpawner.setSeqs((SequenceI[]) sequences);
 						seqPath.setText(file.getAbsolutePath());

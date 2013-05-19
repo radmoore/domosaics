@@ -2,6 +2,7 @@ package domosaics.ui.views.domainview.actions;
 
 import java.awt.event.ActionEvent;
 
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.tools.changearrangement.ChangeArrangementView;
@@ -26,7 +27,7 @@ public class ChangeArrangementAction extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI domView = (DomainViewI) ViewHandler.getInstance().getActiveView();		
 		if (domView.getArrangementSelectionManager().getSelection().isEmpty() || domView.getArrangementSelectionManager().getSelection().size()>1) {
-			MessageUtil.showWarning("Please select exactly 1 protein.");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please select exactly 1 protein.");
 			return;
 		}
 		

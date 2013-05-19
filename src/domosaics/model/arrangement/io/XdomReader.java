@@ -23,6 +23,7 @@ import domosaics.model.arrangement.DomainType;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.io.AbstractDataReader;
 import domosaics.model.io.DataReader;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 import domosaics.util.StringUtils;
 
@@ -156,7 +157,7 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 					if (prot != null) 
 						res.add(prot);
 					else {
-						MessageUtil.showWarning("Error while parsing protein line.");
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Error while parsing protein line.");
 						return null;
 					}
 				}else {
@@ -169,12 +170,12 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 				} 
 				catch (NumberFormatException nfe) {
 					Configuration.getLogger().debug(nfe.toString());
-					MessageUtil.showWarning("Error while parsing domain line. Make sure the format fullfills: \"name from to [evalue]\"");
+					MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Error while parsing domain line. Make sure the format fullfills: \"name from to [evalue]\"");
 					return null;
 				} 
 				catch (WrongFormatException wfe) {
 					Configuration.getLogger().debug(wfe.toString());
-					MessageUtil.showWarning("Error while parsing domain line. Make sure the format fullfills: \"name from to [evalue]\"");
+					MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Error while parsing domain line. Make sure the format fullfills: \"name from to [evalue]\"");
 					return null;
 				}
 			}

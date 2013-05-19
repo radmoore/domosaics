@@ -17,6 +17,7 @@ import domosaics.model.arrangement.DomainType;
 import domosaics.model.arrangement.DomainVector;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.io.AbstractDataReader;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 
 
@@ -224,15 +225,15 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 			
 		} 
 		catch (NumberFormatException e) {
-			MessageUtil.showWarning("Error while parsing pfam_scan output file. Please check file format.");
-			if (Configuration.getReportExceptionsMode(true))
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Error while parsing pfam_scan output file. Please check file format.");
+			if (Configuration.getReportExceptionsMode())
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
 		} 
 		catch (IOException e) {
-			MessageUtil.showWarning("Error while reading/parsing pfam_scan output.");
-			if (Configuration.getReportExceptionsMode(true))
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Error while reading/parsing pfam_scan output.");
+			if (Configuration.getReportExceptionsMode())
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -334,15 +335,15 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				
 		}
 		catch (NumberFormatException e) {
-			MessageUtil.showWarning("Error while parsing hmmscan output file. Please check file format.");
-			if (Configuration.getReportExceptionsMode(true))
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Error while parsing hmmscan output file. Please check file format.");
+			if (Configuration.getReportExceptionsMode())
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
 		} 
 		catch (IOException e) {
-			MessageUtil.showWarning("Error while reading/parsing hmmscan output.");
-			if (Configuration.getReportExceptionsMode(true))
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Error while reading/parsing hmmscan output.");
+			if (Configuration.getReportExceptionsMode())
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

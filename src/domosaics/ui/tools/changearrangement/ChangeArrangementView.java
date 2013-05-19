@@ -80,7 +80,7 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 		componentHolder = new JPanel(new BorderLayout());
 		componentHolder.setBackground(Color.white);
 		componentHolder.setSize(780,400);
-		componentHolder.add(changePanel = new ChangeArrangementPanel(this), BorderLayout.CENTER);
+		componentHolder.add(changePanel = new ChangeArrangementPanel(this,parentFrame), BorderLayout.CENTER);
 		//componentHolder.add(new ChangeArrangementHelpPanel(), BorderLayout.EAST);
 	}
 	

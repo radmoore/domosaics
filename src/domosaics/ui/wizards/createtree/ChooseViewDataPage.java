@@ -16,6 +16,7 @@ import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
 import domosaics.model.workspace.ViewElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domainview.DomainViewI;
@@ -147,14 +148,14 @@ public class ChooseViewDataPage extends WizardPage implements ItemListener{
 	    	ViewElement view = (ViewElement) selectDomViewList.getSelectedItem();
 	    	
 	    	if (view == null) {
-	    		MessageUtil.showWarning("Please select a view first");
+	    		MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please select a view first");
 	    		source.setSelected(false);
 	    		return;
 	    	}
 	    	
 	    	DomainViewI domView = ViewHandler.getInstance().getView(view.getViewInfo());
 	    	if (!domView.isSequenceLoaded()) {
-	    		MessageUtil.showWarning("No sequences associated with this view");
+	    		MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No sequences associated with this view");
 	    		source.setSelected(false);
 	    		return;
 	    	}

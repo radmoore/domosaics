@@ -8,8 +8,10 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,7 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 import domosaics.model.configuration.Configuration;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.DigestUtil;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
@@ -442,7 +445,7 @@ public abstract class AbstractView extends JComponent implements View {
 			Element r = doc.getRootElement();
 
 			if(!r.getName().equals("DOMOSAICS_VIEW"))
-				if (!MessageUtil.showDialog( viewFile.getName()+" does not appear to be a DoMosaics file. Continue?"))
+				if (!MessageUtil.showDialog(DoMosaicsUI.getInstance(), viewFile.getName()+" does not appear to be a DoMosaicS file. Continue?"))
 					return null;
 
 			String viewType = r.getChildren("VIEW").get(0).getAttributeValue("type");

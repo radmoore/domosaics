@@ -37,6 +37,7 @@ import domosaics.algos.overlaps.OverlapResolver;
 import domosaics.localservices.codd.ConditionallyDependentDomainPairMap;
 import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.views.domainview.DomainViewI;
 
 
@@ -274,7 +275,9 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
     private void actionCODD()
     {
      //view.setDaSet(ConditionallyDependentDomainPairMap.coddProcedure(view.getDaSet()));
- 	 DomainArrangement[] daSet = ConditionallyDependentDomainPairMap.coddProcedure(view.getDaSet());
+     setAlwaysOnTop(false);
+ 	 DomainArrangement[] daSet = ConditionallyDependentDomainPairMap.coddProcedure(view.getDaSet(), DoMosaicsUI.getInstance());
+     setAlwaysOnTop(true);
      for (DomainArrangement da : daSet)
      {
       //System.out.println(da.countDoms()+" "+da.getHiddenDoms().size());

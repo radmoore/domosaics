@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -47,6 +48,8 @@ public class ChangeArrangementPanel extends JPanel {
 	/** the view providing the change mechanism */
 	protected ChangeArrangementView view;
 
+	/** the view providing the change mechanism */
+	protected JFrame parent;
 	
 	/**
 	 * Constructor for a new ChangeArrangementPanel
@@ -54,8 +57,9 @@ public class ChangeArrangementPanel extends JPanel {
 	 * @param view
 	 * 		view providing the change mechanism
 	 */
-	public ChangeArrangementPanel(ChangeArrangementView view) {
+	public ChangeArrangementPanel(ChangeArrangementView view, JFrame parentFrame) {
 		super(new MigLayout());
+		this.parent=parentFrame;
 		this.view = view;
 		initComponents();
 		
@@ -228,7 +232,7 @@ public class ChangeArrangementPanel extends JPanel {
 		String complement="", singularOrPlural;
 		if(id.getText().isEmpty()) {
 			if(name.getText().isEmpty()) {
-				MessageUtil.showWarning(this, "Please provide an ID/Name for the domain.");
+				MessageUtil.showWarning(parent, "Please provide an ID/Name for the domain.");
 				id.setBackground(HmmScanPanel.highlightColor);
 				name.setBackground(HmmScanPanel.highlightColor);
 				return false;
@@ -247,7 +251,7 @@ public class ChangeArrangementPanel extends JPanel {
 							singularOrPlural="a domain ID";
 						else
 							singularOrPlural="several domain IDs";
-						if(!MessageUtil.showDialog(this, "This Name "+name.getText()+" corresponds to "+singularOrPlural+" in DoMosaics:\n"+complement.substring(0,complement.length()-2)+".\nDo you really want to create a new domain family (ID=Name)?")) {
+						if(!MessageUtil.showDialog(parent, "This Name "+name.getText()+" corresponds to "+singularOrPlural+" in DoMosaics:\n"+complement.substring(0,complement.length()-2)+".\nDo you really want to create a new domain family (ID=Name)?")) {
 							id.setBackground(HmmScanPanel.highlightColor);
 							if(vectFam.size()==1)
 								id.setText(GatheringThresholdsReader.getInstance().get(vectFam.firstElement()).getId());
@@ -256,7 +260,7 @@ public class ChangeArrangementPanel extends JPanel {
 							id.setText(name.getText());
 						}
 					} else {
-						if(!MessageUtil.showDialog(this, "This Name "+name.getText()+" is new for DoMosaics.\nCreate a new domain family? (ID=Name)")) {
+						if(!MessageUtil.showDialog(parent, "This Name "+name.getText()+" is new for DoMosaics.\nCreate a new domain family? (ID=Name)")) {
 							name.setBackground(HmmScanPanel.highlightColor);
 							return false;
 						} else {
@@ -264,7 +268,7 @@ public class ChangeArrangementPanel extends JPanel {
 						}
 					}
 				} else {
-					if(!MessageUtil.showDialog(this, "The Name "+name.getText()+" corresponds to a domain ID from the\n"+fam.getDomainType().getName()+" database (Name "+fam.getName()+"). Accept Correction?")) {
+					if(!MessageUtil.showDialog(parent, "The Name "+name.getText()+" corresponds to a domain ID from the\n"+fam.getDomainType().getName()+" database (Name "+fam.getName()+"). Accept Correction?")) {
 						name.setBackground(HmmScanPanel.highlightColor);
 						return false;
 					} else {
@@ -277,14 +281,14 @@ public class ChangeArrangementPanel extends JPanel {
 			if(name.getText().isEmpty()) {
 				fam = GatheringThresholdsReader.getInstance().get(id.getText());
 				if(fam!=null) {
-					if(!MessageUtil.showDialog(this, "The ID "+id.getText()+" corresponds to a domain from\nthe "+fam.getDomainType().getName()+" database, named "+fam.getName()+". Accept?")) {
+					if(!MessageUtil.showDialog(parent, "The ID "+id.getText()+" corresponds to a domain from\nthe "+fam.getDomainType().getName()+" database, named "+fam.getName()+". Accept?")) {
 						name.setBackground(HmmScanPanel.highlightColor);
 						return false;
 					} else {
 						name.setText(fam.getName());
 					}
 				} else {
-					if(!MessageUtil.showDialog(this, "This ID "+id.getText()+" is new for DoMosaics.\nCreate a new domain family?")) {
+					if(!MessageUtil.showDialog(parent, "This ID "+id.getText()+" is new for DoMosaics.\nCreate a new domain family?")) {
 						id.setBackground(HmmScanPanel.highlightColor);
 						return false;
 					} else {
@@ -295,13 +299,13 @@ public class ChangeArrangementPanel extends JPanel {
 				fam = GatheringThresholdsReader.getInstance().get(id.getText());
 				if(fam!=null) {
 					if(name.getText().equals(fam.getName())) {
-						if(!MessageUtil.showDialog(this, "The ID "+id.getText()+" and Name "+fam.getName()+" correspond to a domain\nfrom "+fam.getDomainType().getName()+" database. Validate?")) {
+						if(!MessageUtil.showDialog(parent, "The ID "+id.getText()+" and Name "+fam.getName()+" correspond to a domain\nfrom "+fam.getDomainType().getName()+" database. Validate?")) {
 							id.setBackground(HmmScanPanel.highlightColor);
 							name.setBackground(HmmScanPanel.highlightColor);
 							return false;
 						}
 					} else	{
-						if(!MessageUtil.showDialog(this, "The ID "+id.getText()+" corresponds to a domain from the "+fam.getDomainType().getName()+" database,\nbut with a DIFFERENT Name: "+fam.getName()+". Accept correction?")) {
+						if(!MessageUtil.showDialog(parent, "The ID "+id.getText()+" corresponds to a domain from the "+fam.getDomainType().getName()+" database,\nbut with a DIFFERENT Name: "+fam.getName()+". Accept correction?")) {
 							name.setBackground(HmmScanPanel.highlightColor);
 							return false;
 						} else {
@@ -321,14 +325,14 @@ public class ChangeArrangementPanel extends JPanel {
 							singularOrPlural="a domain ID";
 						else
 							singularOrPlural="several domain IDs";
-							if(!MessageUtil.showDialog(this, "This ID "+id.getText()+" is new for DoMosaics, but the Name "+name.getText()+" corresponds to "+singularOrPlural+" in\n"+complement.substring(0,complement.length()-2)+".\nDo you really want to create a new domain family?")) {
+							if(!MessageUtil.showDialog(parent, "This ID "+id.getText()+" is new for DoMosaics, but the Name "+name.getText()+" corresponds to "+singularOrPlural+" in\n"+complement.substring(0,complement.length()-2)+".\nDo you really want to create a new domain family?")) {
 							id.setBackground(HmmScanPanel.highlightColor);
 							if(vectFam.size()==1)
 								id.setText(GatheringThresholdsReader.getInstance().get(vectFam.firstElement()).getId());
 							return false;
 						}
 					} else {
-						if(!MessageUtil.showDialog(this, "These ID "+id.getText()+" and Name "+name.getText()+" are new for DoMosaics.\nCreate a new domain family?")) {
+						if(!MessageUtil.showDialog(parent, "These ID "+id.getText()+" and Name "+name.getText()+" are new for DoMosaics.\nCreate a new domain family?")) {
 							id.setBackground(HmmScanPanel.highlightColor);
 							name.setBackground(HmmScanPanel.highlightColor);
 							return false;
@@ -340,25 +344,25 @@ public class ChangeArrangementPanel extends JPanel {
 		
 		
 		if (!StringUtils.isNumber(from.getText()) ||  Integer.parseInt(from.getText())<=0) {
-			MessageUtil.showWarning(this, "The FROM field does not contain a valid number.");
+			MessageUtil.showWarning(parent, "The FROM field does not contain a valid number.");
 			from.setBackground(HmmScanPanel.highlightColor);
 			return false;
 		}
 		
 		if (!StringUtils.isNumber(to.getText())){
-			MessageUtil.showWarning(this, "The TO field does not contain a valid number.");
+			MessageUtil.showWarning(parent, "The TO field does not contain a valid number.");
 			to.setBackground(HmmScanPanel.highlightColor);
 			return false;
 		}
 
 		if (!evalue.getText().trim().isEmpty() && !StringUtils.isNumber(evalue.getText())){
-			MessageUtil.showWarning(this, "The EVALUE field does not contain a valid number.");
+			MessageUtil.showWarning(parent, "The EVALUE field does not contain a valid number.");
 			evalue.setBackground(HmmScanPanel.highlightColor);
 			return false;
 		}
 
 		if (Integer.parseInt(to.getText()) <= Integer.parseInt(from.getText())) {
-			MessageUtil.showWarning(this, "The TO value is smaller than the FROM value.");
+			MessageUtil.showWarning(parent, "The TO value is smaller than the FROM value.");
 			from.setBackground(HmmScanPanel.highlightColor);
 			to.setBackground(HmmScanPanel.highlightColor);
 			return false;
@@ -366,12 +370,12 @@ public class ChangeArrangementPanel extends JPanel {
 		
 		if (view.getDA().getSequence() != null) {
 			if (view.getDA().getSequence().getLen(true) < Integer.parseInt(from.getText())) {
-				MessageUtil.showWarning(this, "The domain exceeds sequence length.");
+				MessageUtil.showWarning(parent, "The domain exceeds sequence length.");
 				from.setBackground(HmmScanPanel.highlightColor);
 				return false;
 			}
 			if(view.getDA().getSequence().getLen(true) < Integer.parseInt(to.getText())) {
-				MessageUtil.showWarning(this, "The domain exceeds sequence length.");
+				MessageUtil.showWarning(parent, "The domain exceeds sequence length.");
 				to.setBackground(HmmScanPanel.highlightColor);
 				return false;
 			}

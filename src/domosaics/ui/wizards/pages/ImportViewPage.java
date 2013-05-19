@@ -3,7 +3,9 @@ package domosaics.ui.wizards.pages;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,6 +24,10 @@ import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.DomainView;
+import domosaics.ui.views.view.io.ViewImporter;
+
+
+
 
 /**
  * WizardPage shown within the SelectViewNameDialog.
@@ -75,14 +81,14 @@ public class ImportViewPage extends WizardPage {
 						// Nic import
 						type = DomainView.detectViewType(viewFile);
 						if(type==null) {
-							MessageUtil.showWarning(file.getName()+ " does not appearto be a DoMosaics file.");
+							MessageUtil.showWarning(DoMosaicsUI.getInstance(), file.getName()+ " does not appearto be a DoMosaics file.");
 							path.setText("");
 							name.setName("");
 						}
 						typeField.setText(type.toString());
 					}
 					else {
-						MessageUtil.showWarning("Cannot read "+file.getName());
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Cannot read "+file.getName());
 						path.setText("");
 					}
 				}

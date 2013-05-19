@@ -12,6 +12,7 @@ import java.io.StringReader;
 
 import domosaics.model.DoMosaicsData;
 import domosaics.model.configuration.Configuration;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 
 
@@ -50,7 +51,7 @@ public abstract class AbstractDataReader <T extends DoMosaicsData> implements Da
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning("Reading file aborted");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Reading file aborted");
 		} 
 		return null;
 	}
@@ -70,14 +71,14 @@ public abstract class AbstractDataReader <T extends DoMosaicsData> implements Da
 				Configuration.getInstance().getExceptionComunicator().reportBug(fnfe);
 			else			
 				Configuration.getLogger().debug(fnfe.toString());
-			MessageUtil.showWarning("Could not find file:"+ file.getPath());
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Could not find file:"+ file.getPath());
 		} 
 		catch (IOException ioe) {
 			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(ioe);
 			else			
 				Configuration.getLogger().debug(ioe.toString());
-			MessageUtil.showWarning("Could not read file:"+ file.getName());
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Could not read file:"+ file.getName());
 		}
 		return null;
 	}
@@ -97,7 +98,7 @@ public abstract class AbstractDataReader <T extends DoMosaicsData> implements Da
 				Configuration.getInstance().getExceptionComunicator().reportBug(ioe);
 			else			
 				Configuration.getLogger().debug(ioe.toString());
-			MessageUtil.showWarning("Reading file aborted");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Reading file aborted");
 		}
 		return null;
 	}

@@ -14,6 +14,7 @@ import net.miginfocom.swing.MigLayout;
 
 import org.netbeans.spi.wizard.WizardPage;
 
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.FileDialogs;
 
 
@@ -69,7 +70,7 @@ public class WorkspaceDirectoryPage extends WizardPage implements ActionListener
     }
 	
 	public void actionPerformed(ActionEvent e) {
-		File file = FileDialogs.openChooseDirectoryDialog(parent);
+		File file = FileDialogs.openChooseDirectoryDialog(DoMosaicsUI.getInstance());
 		if(file == null)
 			return;
 		

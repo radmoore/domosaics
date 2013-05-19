@@ -138,7 +138,7 @@ public class SequenceSelectionMouseController extends MouseAdapter {
 		}
 	
 		Object[] options = {"Yes", "Save to fasta file", "Cancel"};
-		int choice = MessageUtil.show3ChoiceDialog("Create new sequence view with selected sequences?", options);
+		int choice = MessageUtil.show3ChoiceDialog(DoMosaicsUI.getInstance(),"Create new sequence view with selected sequences?", options);
 		
 		if (choice == 0) { 		// create new sequence view
 			

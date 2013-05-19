@@ -5,6 +5,7 @@ import java.io.File;
 
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.io.NewickWriter;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.util.FileDialogs;
@@ -26,7 +27,7 @@ public class SaveNewickFileAction extends AbstractMenuAction implements ZoomComp
 	public void actionPerformed(ActionEvent e) {
 		TreeViewI view = (TreeViewI) ViewHandler.getInstance().getActiveView();
 
-		File file = FileDialogs.showSaveDialog(view.getParentPane(), "TREE");
+		File file = FileDialogs.showSaveDialog(DoMosaicsUI.getInstance(), "TREE");
 		if (file == null)
 			return;
 

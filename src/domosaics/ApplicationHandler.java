@@ -10,12 +10,18 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
+
+import org.apache.log4j.Logger;
+import org.w3c.dom.css.CSSPrimitiveValue;
+import org.w3c.dom.css.RGBColor;
 
 import domosaics.model.arrangement.io.GatheringThresholdsReader;
 import domosaics.model.arrangement.io.Pfam2GOreader;
@@ -49,6 +55,9 @@ public class ApplicationHandler {
 	protected static ApplicationHandler instance;	
 	protected StartupPage startUpProgress;
 	
+	public File configFile = new File(Configuration.getDefaultConfig());
+	
+	
 	public static ApplicationHandler getInstance() {
 		if (instance == null)
 			instance = new ApplicationHandler();
@@ -58,7 +67,7 @@ public class ApplicationHandler {
 	public void end () {
 		
 		if (Configuration.getInstance().isServiceRunning()) {
-			boolean close = MessageUtil.showDialog("You are running a service and will loose the results if you close. Are you sure?");
+			boolean close = MessageUtil.showDialog(DoMosaicsUI.getInstance(),"You are running a service and will loose the results if you close. Are you sure?");
 			if (!close)
 				return;
 		}
@@ -77,7 +86,7 @@ public class ApplicationHandler {
 			// ask (defaults to save)
 			if (!(Configuration.getInstance().saveOnExit())) {
 				Object[] options = {"Yes", "No", "Cancel"};
-				choice = MessageUtil.show3ChoiceDialog("Restore workspace in next session?", options);
+				choice = MessageUtil.show3ChoiceDialog(DoMosaicsUI.getInstance(),"Restore workspace in next session?", options);
 				Configuration.getInstance().setSaveOnExit((boolean)(choice==0));
 			}
 			
@@ -93,7 +102,7 @@ public class ApplicationHandler {
 				File workspaceFile = new File (Configuration.getInstance().getWorkspaceDir()+"/lastusedworkspace.file");
 				if (workspaceFile.exists()) {
 					if (!workspaceFile.delete()) {
-						MessageUtil.showWarning("Could not delete workspace file");
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Could not delete workspace file");
 					}
 				}
 				Configuration.getInstance().removeLockFile();
@@ -138,7 +147,7 @@ public class ApplicationHandler {
 			if (project.getTitle().equals("Default Project")) {
 				
 				// skip option?
-				if (MessageUtil.showDialog("The Default Project cannot be exported. Export to a different name?")) {
+				if (MessageUtil.showDialog(DoMosaicsUI.getInstance(),"The Default Project cannot be exported. Export to a different name?")) {
 				
 					// first rename project
 					String newName = WizardManager.getInstance().renameWizard(project.getTitle(), project.getTypeName(), project);
@@ -165,7 +174,7 @@ public class ApplicationHandler {
 				int choice = 0; 
 				
 				// ask if we are to overwrite...
-				choice = MessageUtil.show3ChoiceDialog("Project "+project.getTitle()+" exists in workspace. Do you want to overwrite?", options);
+				choice = MessageUtil.show3ChoiceDialog(DoMosaicsUI.getInstance(),"Project "+project.getTitle()+" exists in workspace. Do you want to overwrite?", options);
     			Configuration.getInstance().setOverwriteProjects((boolean)(choice==2));
     			
         		//... if not, 
@@ -188,7 +197,7 @@ public class ApplicationHandler {
         	}
 			// then export (check if it worked)
 			if (!ProjectExporter.write(project)) {
-				if (!MessageUtil.showDialog("Unable to export "+project.getTitle()+". Continue?"))
+				if (!MessageUtil.showDialog(DoMosaicsUI.getInstance(),"Unable to export "+project.getTitle()+". Continue?"))
 					return false;
 			}
 				
@@ -323,7 +332,24 @@ public class ApplicationHandler {
 				workspace.mkdir();
 		}
 		
+		// TODO In next version 
+//		else {
+//			// check if already in use
+//			boolean choose = MessageUtil.showDialog("The default workspace is in use. Would you like to choose a new workspace?");
+//			if (choose){
+//				workspace = WizardManager.getInstance().showWorkingDirectoyWizard(startUpProgress, workspace_dir);
+//				if (workspace == null) // user aborted wizard
+//					System.exit(0);
+//				workspace.mkdir();
+//			}
+//			else{
+//				System.exit(0);
+//			}
+//			
+//		}
+		// check for configuration file 
 		startUpProgress.setProgress("", 35);
+//		startUpProgress.setProgress("Configure proclivities", 35);
 		
 		if (!Configuration.getInstance().workspaceInUse()) { 
 			Configuration.getInstance().setLockFile();
@@ -375,7 +401,7 @@ public class ApplicationHandler {
 				startupPanel.add(new JLabel(logo), BorderLayout.CENTER);
 			} 
 			catch (IOException e) {
-				if (Configuration.getReportExceptionsMode(true))
+				if (Configuration.getReportExceptionsMode())
 					Configuration.getInstance().getExceptionComunicator().reportBug(e);
 				else			
 					Configuration.getLogger().debug(e.toString());

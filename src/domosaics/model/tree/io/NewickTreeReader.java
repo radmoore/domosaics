@@ -12,6 +12,7 @@ import domosaics.model.tree.TreeEdgeI;
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.TreeNodeFactory;
 import domosaics.model.tree.TreeNodeI;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 
 
@@ -60,7 +61,7 @@ public class NewickTreeReader extends AbstractTreeReader {
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning("Failed to parse newick tree from string");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Failed to parse newick tree from string");
 		}
 		return null;				
     }

@@ -198,7 +198,7 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 	 */
 	private void writeLogToFile() {
 		System.out.println("Writing to file");
-		File outFile = FileDialogs.showOpenDialog(this);
+		File outFile = FileDialogs.showOpenDialog(frame);
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(outFile));
 			bw.write(crampageLog.toString());

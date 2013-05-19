@@ -16,6 +16,7 @@ import org.jdesktop.swingx.JXTitledSeparator;
 
 import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.wizards.pages.ClustalW2Page;
@@ -141,19 +142,19 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 		console.setText("");
 		
 		if(clustalW2.isRunning()) {
-			MessageUtil.showWarning("ClustalW2 is currently running please wait!");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"ClustalW2 is currently running please wait!");
 			//print("ClustalW2 is currently running please wait! \n");
 			return;
 		}
 		
 		if (clustalW2.getSequences() == null) {
-			MessageUtil.showWarning("Please load sequences first!");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please load sequences first!");
 			//print("Please load sequences first! \n");
 			return;
 		}
 		
 		if (!UiUtil.isValidEmail(email.getText())) {
-			MessageUtil.showWarning("Please enter a valid email!");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please enter a valid email!");
 			//print("Please enter a correct email address! \n");
 			return;
 		} else {
@@ -161,7 +162,7 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 				Configuration.getInstance().setEmailAddr(email.getText());
 			} else {
 				if(!email.getText().equals(Configuration.getInstance().getEmailAddr()))
-					if(MessageUtil.showDialog(this.getParent(),"A distinct email is saved in settings. Overwrite?"))
+					if(MessageUtil.showDialog(DoMosaicsUI.getInstance(),"A distinct email is saved in settings. Overwrite?"))
 					{
 						Configuration.getInstance().setEmailAddr(email.getText());
 						if(Configuration.getInstance().getFrame()!=null) {

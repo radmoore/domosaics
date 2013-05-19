@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.Iterator;
 
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.tools.dotplot.DotplotView;
@@ -28,7 +29,7 @@ public class ShowDotplotAction extends AbstractMenuAction{
 		DomainViewI domView = ViewHandler.getInstance().getActiveView();
 		
 		if (domView.getArrangementSelectionManager().getSelection().isEmpty()) {
-			MessageUtil.showWarning("Please select 2 proteins first.");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please select 2 proteins first.");
 			return;
 		}
 		
@@ -37,7 +38,7 @@ public class ShowDotplotAction extends AbstractMenuAction{
 		Iterator<ArrangementComponent> iter = das.iterator();
 		while(iter.hasNext())
 			if (iter.next().getDomainArrangement().getSequence() == null) {
-				MessageUtil.showWarning("The arrangements have no sequence associated.");
+				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"The arrangements have no sequence associated.");
 				return;
 			}
 		

@@ -3,6 +3,7 @@ package domosaics.ui.actions;
 import java.awt.event.ActionEvent;
 
 import domosaics.model.configuration.Configuration;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.util.MessageUtil;
 import domosaics.util.BrowserLauncher;
@@ -23,7 +24,7 @@ public class ShowManualAction extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent e) {
 		
 		if ( Configuration.getInstance().getDocuPath(false) == "" )
-			MessageUtil.showWarning("Could not open help file. Please check the settings.");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Could not open help file. Please check the settings.");
 		
 		else
 			BrowserLauncher.openURL(Configuration.getInstance().getDocuPath(true));

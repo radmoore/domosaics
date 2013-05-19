@@ -16,6 +16,7 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.wizards.GUIComponentFactory;
 
@@ -83,7 +84,7 @@ public class EditDatasetPage extends WizardPage implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {	
 		if (e.getSource() instanceof JButton) {
-			File file = FileDialogs.showOpenDialog(this);
+			File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 			if(file != null) 
 				path.setText(file.getAbsolutePath());
 			if(!path.getText().isEmpty() && selectViewList.getSelectedItem() != null)

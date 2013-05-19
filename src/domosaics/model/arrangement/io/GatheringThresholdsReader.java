@@ -61,9 +61,8 @@ public class GatheringThresholdsReader {
 		}
   
 		catch(Exception e1) {
-			MessageUtil.showWarning("No corresponding Gathering threshold file");
-			if (Configuration.getReportExceptionsMode(true))
-				Configuration.getInstance().getExceptionComunicator().reportBug(e1);
+			if (Configuration.getReportExceptionsMode())
+				Configuration.getInstance().getExceptionComunicator(true).reportBug(e1);
 			else			
 				Configuration.getLogger().debug(e1.toString());
 		}

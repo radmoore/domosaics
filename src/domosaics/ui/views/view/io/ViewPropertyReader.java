@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import domosaics.model.configuration.Configuration;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.view.ViewInfo;
 
@@ -193,14 +194,14 @@ public class ViewPropertyReader {
 				Configuration.getInstance().getExceptionComunicator().reportBug(fnfe);
 			else			
 				Configuration.getLogger().debug(fnfe.toString());
-			MessageUtil.showWarning("Property file not found");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Property file not found");
 		}
 		catch (IOException ioe) {
 			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(ioe);
 			else			
 				Configuration.getLogger().debug(ioe.toString());
-			MessageUtil.showWarning("Property file couldnt be parsed");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Property file couldnt be parsed");
 		}
 		return null;
 	}

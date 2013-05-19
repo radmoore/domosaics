@@ -44,6 +44,7 @@ import domosaics.algos.indels.Dollo4Sets;
 import domosaics.algos.indels.Sankoff;
 import domosaics.algos.indels.Sankoff4Sets;
 import domosaics.model.configuration.Configuration;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.util.MyMetalSliderUI;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
@@ -330,7 +331,9 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 		// close tool
 		if(e.getSource() == jbtApply) {
 			if (algo != null && !algo.isDone()) {
-				MessageUtil.showWarning("Wait for algorithm to finish");
+				setAlwaysOnTop(false);
+				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Wait for algorithm to finish");
+				setAlwaysOnTop(true);
 				return;
 			}
 			

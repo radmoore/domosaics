@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.tools.RADSTool.RADSScanView;
 import domosaics.ui.util.MessageUtil;
@@ -44,7 +45,7 @@ public class RADSScanAction extends AbstractAction {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (RADSService.isRunning()) {
-			MessageUtil.showWarning("RADS/RAMPAGE is currently running. Terminate or wait to complete.");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"RADS/RAMPAGE is currently running. Terminate or wait to complete.");
 			return;
 		}
 		DomainViewI domView = (DomainViewI) ViewHandler.getInstance().getActiveView();

@@ -15,6 +15,7 @@ import javax.swing.SwingUtilities;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.workspace.CategoryElement;
 import domosaics.model.workspace.ProjectElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
@@ -60,7 +61,7 @@ public abstract class ViewImporter<V extends View> {
 			if ((firstLine = in.readLine()) != null) {
 				// check domosaics file format stamp
 				if (!firstLine.contains("# domosaics_view: ")) {
-					if (!MessageUtil.showDialog( viewFile.getName()+" does not appear to be a view file. Continue?"))
+					if (!MessageUtil.showDialog(DoMosaicsUI.getInstance(), viewFile.getName()+" does not appear to be a view file. Continue?"))
 						return null;
 				}
 				else {

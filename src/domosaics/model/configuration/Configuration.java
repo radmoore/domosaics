@@ -1,7 +1,9 @@
 package domosaics.model.configuration;
 
 import java.io.File;
+
 import org.apache.log4j.Logger;
+
 import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.MessageUtil;
 import domosaics.util.ExceptionComunicator;
@@ -135,6 +137,7 @@ public class Configuration {
 	public void restoreDefaults() {
 		workspace_dir = DEF_WORKSPACE;
 		googleUrl = DEF_GOOGLE_SEARCH;
+		//ncbiUrl = DEF_NCBI_SEARCH; 
 		pfamUrl = DEF_PFAM_SEARCH; 
 		uniprotUrl = DEF_UNIPROT_SEARCH;
 		emailAddr = DEF_EMAIL_ADDR;

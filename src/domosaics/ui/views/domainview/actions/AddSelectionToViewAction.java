@@ -13,6 +13,7 @@ import domosaics.model.sequence.SequenceI;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.ViewElement;
 import domosaics.model.workspace.WorkspaceElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.io.menureader.AbstractMenuAction;
@@ -44,7 +45,7 @@ public class AddSelectionToViewAction extends AbstractMenuAction{
 		
 		// this operation currently only works for pure domain views (not for trees / sequences)
 		if (! activeViewType.equals(ViewType.DOMAINS)) {
-			MessageUtil.showWarning("Only domain views can be merged");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Only domain views can be merged");
 			return;
 		}
 		
@@ -53,7 +54,7 @@ public class AddSelectionToViewAction extends AbstractMenuAction{
 		// check the number of selected proteins, if its zero warn the user
 		int numDAs = activeDomView.getArrangementSelectionManager().getSelection().size();
 		if (numDAs == 0) {
-			MessageUtil.showWarning("No proteins selected, please select at least one arrangement");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No proteins selected, please select at least one arrangement");
 			return;
 		}
 		

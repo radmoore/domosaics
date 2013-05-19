@@ -15,6 +15,7 @@ import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.workspace.ViewElement;
 import domosaics.model.workspace.WorkspaceElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.view.View;
@@ -60,13 +61,13 @@ class SaveViewProgress extends DeferredWizardResult implements WizardResultProdu
 
 			// just double checking
 			if (!fileLocation.canWrite())
-				MessageUtil.showWarning("No permission to write in "+fileLocation.getName());
+				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No permission to write in "+fileLocation.getName());
 			
 			// use exportName and location to create file
 			File exportFile = new File(fileLocation.getAbsolutePath()+"/"+exportName);
 			
 			if (exportFile.exists())
-				if (!MessageUtil.showDialog(exportFile.getName()+" exists. Overwrite?"))
+				if (!MessageUtil.showDialog(DoMosaicsUI.getInstance(),exportFile.getName()+" exists. Overwrite?"))
 					return;
 
 			

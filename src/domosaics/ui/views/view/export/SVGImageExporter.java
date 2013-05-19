@@ -12,6 +12,7 @@ import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 
 import domosaics.model.configuration.Configuration;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.view.View;
 
@@ -59,7 +60,7 @@ public class SVGImageExporter implements ImageExporter{
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning("Error while writing PDF document.");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Error while writing PDF document.");
 		}
 
 	}

@@ -295,7 +295,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 				
 		
 		if (!sequencesLoaded) {
-			MessageUtil.showWarning("No match between sequence and protein ids");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No match between sequence and protein ids");
 			return;
 		}
 		
@@ -976,7 +976,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 				GatheringThresholdsReader.add(domFamily);
 			} else {
 				if(!DomainType.getType(family.getAttributeValue("id")).getName().equals(family.getAttributeValue("source")) || !domFamily.getDomainType().getName().equals(family.getAttributeValue("source")) || !domFamily.getName().equals(family.getAttributeValue("name")))
-					MessageUtil.showDialog(parentPane, "Error: import of a domain family inconsistent with DoMosaics data");
+					MessageUtil.showDialog(DoMosaicsUI.getInstance(),"Error: import of a domain family inconsistent with DoMosaics data");
 			}
 			String interproEntry=family.getAttributeValue("interpro");
 			if(interproEntry!=null)
@@ -1003,7 +1003,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 				if(goTerm != null)
 					domFamily.addGoTerm(goTerm);
 				else
-					MessageUtil.showDialog("Error: import of a go term inconsistent with DoMosaics data");
+					MessageUtil.showDialog(DoMosaicsUI.getInstance(),"Error: import of a go term inconsistent with DoMosaics data");
 			}
 		}
 		

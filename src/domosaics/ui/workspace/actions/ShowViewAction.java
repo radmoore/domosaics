@@ -7,6 +7,7 @@ import javax.swing.Action;
 
 import domosaics.model.workspace.ViewElement;
 import domosaics.model.workspace.WorkspaceElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
 
@@ -34,7 +35,7 @@ public class ShowViewAction extends AbstractAction{
 		
 		// if its not a view cancel this action
 		if (selected == null || !selected.isView()) {
-			MessageUtil.showWarning("Please select a view element");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please select a view element");
 			return;
 		}
 		

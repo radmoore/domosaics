@@ -69,7 +69,7 @@ public class ExportViewAsImageAction extends AbstractMenuAction implements ZoomC
 		else if (e.getActionCommand().contains("SVG"))
 			export(GraphicFormats.SVG, view);
 		else {
-			MessageUtil.showWarning("DoMosaics couldn't find the right image exporter");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"DoMosaicS couldn't find the right image exporter");
 			return;
 		}
 		

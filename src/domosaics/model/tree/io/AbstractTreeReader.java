@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 
 import domosaics.model.configuration.Configuration;
 import domosaics.model.tree.TreeI;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 
 
@@ -56,7 +57,7 @@ public abstract class AbstractTreeReader implements TreeReader{
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning("Reading Tree file aborted");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Reading Tree file aborted");
 		}
 		return null;
 	}
@@ -88,7 +89,7 @@ public abstract class AbstractTreeReader implements TreeReader{
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning("Reading Tree file aborted");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Reading Tree file aborted");
 		}
 		return null;
 	}

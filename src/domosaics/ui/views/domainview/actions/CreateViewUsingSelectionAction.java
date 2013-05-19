@@ -12,6 +12,7 @@ import domosaics.model.sequence.Sequence;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.ViewElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.io.menureader.AbstractMenuAction;
@@ -43,7 +44,7 @@ public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 		// check the number of selected proteins, if its zero warn the user
 		int numDAs = view.getArrangementSelectionManager().getSelection().size();
 		if (numDAs == 0) {
-			MessageUtil.showWarning("No proteins selected, please select at least one arrangement");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No proteins selected, please select at least one arrangement");
 			return;
 		}
 		

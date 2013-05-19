@@ -6,6 +6,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import domosaics.model.workspace.WorkspaceElement;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
 
@@ -32,7 +33,7 @@ public class DeleteElementAction extends AbstractAction{
 		WorkspaceElement selected = WorkspaceManager.getInstance().getSelectionManager().getSelectedElement();
 		
 		if (selected == null){
-			MessageUtil.showWarning("Please select a workspace element first");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please select a workspace element first");
 			return;
 		}
 		
@@ -93,7 +94,7 @@ public class DeleteElementAction extends AbstractAction{
 		else
 			msg = msg + " and all its children?";
 			
-		boolean delete = MessageUtil.showDialog(msg);
+		boolean delete = MessageUtil.showDialog(DoMosaicsUI.getInstance(), msg);
 		
 		if (!delete)
 			return;
