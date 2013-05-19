@@ -13,6 +13,4 @@ import domosaics.model.io.DataReader;
  * @author Andreas Held
  *
  */
-public interface DoMosaicsData {
-
-}
+public interface DoMosaicsData { }

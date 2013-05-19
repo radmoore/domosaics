@@ -1,7 +1,6 @@
 package domosaics.model.configuration;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -30,11 +29,12 @@ public class ConfigurationWriter {
 	public static final String OVERWRITEPROJECTS = "overwrite projects:";
 	public static final String HELPIMPROVE = "improve domosaics:";
 	public static final String DOMAINBYNAME = "domain by name:";
+	public static final String DOCUMENTATION_LOCATION = "Documentation location:";
 	
 	
 	public static void write() {
 		try {
-		    BufferedWriter out = new BufferedWriter(new FileWriter(ApplicationHandler.getInstance().configFile)); 
+		    BufferedWriter out = new BufferedWriter(new FileWriter(Configuration.getInstance().getConfigFile())); 
 
 		    Configuration config = Configuration.getInstance();
 		    
@@ -53,13 +53,16 @@ public class ConfigurationWriter {
 		    out.write(OVERWRITEPROJECTS+config.getOverwriteProjects()+"\n");
 		    out.write(DOMAINBYNAME+Configuration.isNamePreferedToAcc()+"\n");
 		    out.write(HELPIMPROVE+config.getHelpImprove()+"\n");
+		    out.write(DOCUMENTATION_LOCATION+config.getDocuPath(false)+"\n");
 		    		
 		    out.flush();
 		    out.close();
 		   
 		} 
 		catch (IOException e) {
-			if (Configuration.getReportExceptionsMode())
+			System.out.println(e);
+			
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -78,7 +81,7 @@ public class ConfigurationWriter {
 			
 		}
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

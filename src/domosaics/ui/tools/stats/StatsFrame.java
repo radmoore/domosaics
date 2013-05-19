@@ -12,11 +12,8 @@ import domosaics.model.arrangement.ArrangementManager;
 import domosaics.ui.tools.stats.actions.CloseStatsAction;
 import domosaics.ui.tools.stats.actions.SaveStatsToCSVAction;
 
-
-
-
 /**
- * Frame for the stats module in DoMosaicS
+ * Frame for the stats module in DoMosaics
  * @author Andreas Held
  *
  */

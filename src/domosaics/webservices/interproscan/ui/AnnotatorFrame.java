@@ -1,12 +1,9 @@
 package domosaics.webservices.interproscan.ui;
 
-import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
-
-import pal.eval.MolecularClockLikelihoodModel.Instance;
 
 /**
  * The Annotator gui frame in which the annotator panel is embedded.
@@ -26,7 +23,7 @@ public class AnnotatorFrame extends JFrame implements WindowListener {
 	private static AnnotatorFrame instance = null;
 	
     public AnnotatorFrame() {
-		super("DoMosaicS InterProScan");	
+		super("DoMosaics InterProScan");	
 		
 		addWindowListener(this);
 		annotatorPanel = new AnnotatorPanel(this);

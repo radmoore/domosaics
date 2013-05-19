@@ -151,7 +151,7 @@ public class Tree implements TreeI {
 				}
 			} 
 			catch( NumberFormatException nfe) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(nfe);
 				else			
 					Configuration.getLogger().debug(nfe.toString());
@@ -369,7 +369,7 @@ public class Tree implements TreeI {
 						da = (DomainArrangement) da.clone();
 					} 
 					catch(CloneNotSupportedException cnse) {
-						if (Configuration.getReportExceptionsMode())
+						if (Configuration.getReportExceptionsMode(true))
 							Configuration.getInstance().getExceptionComunicator().reportBug(cnse);
 						else			
 							Configuration.getLogger().debug(cnse.toString());

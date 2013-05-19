@@ -43,7 +43,7 @@ public class Workspace extends WorkspaceElement {
 	 * Constructor for a new workspace
 	 */
 	public Workspace() {
-		super(WorkspaceElement.WORKSPACE, "DoMosaicS Workspace");
+		super(WorkspaceElement.WORKSPACE, "DoMosaics Workspace");
 	}
 	
 	/**

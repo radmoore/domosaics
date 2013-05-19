@@ -407,7 +407,7 @@ public abstract class AbstractView extends JComponent implements View {
 			//sortie.output(document, System.out);
 	        sortie.output(document, new FileOutputStream(file));
 		} catch (IOException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -426,7 +426,7 @@ public abstract class AbstractView extends JComponent implements View {
 			this.xmlRead(viewType);
 			
         } catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -463,7 +463,7 @@ public abstract class AbstractView extends JComponent implements View {
 
 		}
 		catch(Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

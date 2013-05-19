@@ -61,7 +61,7 @@ public class DoMosaicsSlider extends JSlider{
 	    try {
 			UIManager.setLookAndFeel(laf);
 		} catch (UnsupportedLookAndFeelException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -70,7 +70,7 @@ public class DoMosaicsSlider extends JSlider{
 	    try {
 			UIManager.setLookAndFeel(save);
 		} catch (UnsupportedLookAndFeelException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

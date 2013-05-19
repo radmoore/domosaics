@@ -122,7 +122,7 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 			UIManager.setLookAndFeel(laf);
 		} 
 	    catch (UnsupportedLookAndFeelException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -142,7 +142,7 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 			UIManager.setLookAndFeel(save);
 		} 
 		catch (UnsupportedLookAndFeelException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

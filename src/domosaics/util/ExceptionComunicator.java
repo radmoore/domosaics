@@ -33,10 +33,11 @@ public class ExceptionComunicator{
 	private final String reportUrl = "http://iebservices.uni-muenster.de/bugzilla";
 	private final String reportUser = "domosaics@uni-muenster.de";
 	private final String reportPass = "pass4domosaics;";
-	private final int queueLength = 1;
+	private final int queueLength = 0;
 	
 	
 	private static ExceptionComunicator instance = null;
+	private static boolean reportToConsole = false;
 	
 	private BugzillaConnector bugCon = null;
 	private Exception exception;
@@ -53,6 +54,11 @@ public class ExceptionComunicator{
 		if (instance == null)
 			instance = new ExceptionComunicator();
 		return instance;
+	}
+	
+	
+	public static void setReportToConsole(boolean report) {
+		reportToConsole = report;
 	}
 	
 	
@@ -75,20 +81,23 @@ public class ExceptionComunicator{
 	 * @param e - the exception
 	 */
 	public void reportBug(Exception e) {
-		
 		exception = e;
 		Bug bug = createBug();
 		if (reportedBugs.size() >= queueLength) {
-	
 			while (isSending)
 				delaySending(500);
 				
 			sendBugs();
 			System.out.println("Sending exception message");
-//			e.printStackTrace();
-		
 		}
 		reportedBugs.add(bug);
+		
+		// report to console, if requested
+		if ( reportToConsole )
+			e.printStackTrace();
+		
+		// report to log file no matter what
+		Configuration.getLogger().debug(e.toString());
 	}
 	
 	
@@ -97,7 +106,7 @@ public class ExceptionComunicator{
 	 */
 	public void sendBugs(){
 		
-		isSending = true;
+		isSending = false;
 		connect();
 		
 		SwingWorker<Integer, Void> worker = new SwingWorker<Integer, Void>() {
@@ -168,7 +177,7 @@ public class ExceptionComunicator{
 		    .setVersion("RC")
 		    .setDescription(systemParams)
 		    .createBug();
-		
+
 		return bug;
 	}
 	
@@ -184,13 +193,14 @@ public class ExceptionComunicator{
         systemParams.append("\nEXCEPTION DETAILS: \n");
 		systemParams.append("=================================\n");
 		systemParams.append(ExceptionUtils.getStackTrace(exception));
-
+		systemParams.append("\n");
 		systemParams.append("SYSTEM PARAMETERS: \n");
 		systemParams.append("=================================\n");
         for ( Map.Entry<Object, Object> entry : System.getProperties().entrySet() )
             systemParams.append(entry+"\n\n");
 		
-		
+        if ( reportToConsole )
+        	Configuration.getLogger().debug(systemParams.toString());
 		return systemParams.toString();
 	}
 	

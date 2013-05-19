@@ -1,7 +1,6 @@
 package domosaics.model.configuration;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 
 import domosaics.ApplicationHandler;
@@ -10,7 +9,7 @@ public class ConfigurationReader {
 
 	public static void read() {
 		 try {
-		    BufferedReader in = new BufferedReader(new FileReader(ApplicationHandler.getInstance().configFile));
+		    BufferedReader in = new BufferedReader(new FileReader(Configuration.getInstance().getConfigFile()));
 	
 		    String line;
 			while((line = in.readLine()) != null) {
@@ -76,6 +75,12 @@ public class ConfigurationReader {
 																Configuration.getInstance().setHelpImprove(
 																		Boolean.parseBoolean(line.replace(ConfigurationWriter.HELPIMPROVE, "").trim())
 																);
+															} else {
+																if (line.contains(ConfigurationWriter.DOCUMENTATION_LOCATION)) {
+																	Configuration.getInstance().setDocuPath(
+																			line.replace(ConfigurationWriter.DOCUMENTATION_LOCATION, "").trim()
+																	);
+																}
 															}
 														}
 													}
@@ -96,7 +101,7 @@ public class ConfigurationReader {
 		    in.close();
 		 } 
 		 catch (Exception e) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(e);
 				else			
 					Configuration.getLogger().debug(e.toString());

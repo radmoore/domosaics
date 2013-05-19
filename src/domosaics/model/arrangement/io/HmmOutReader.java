@@ -77,7 +77,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 			
 		}
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -116,7 +116,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 			return false;
 		}
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -226,14 +226,14 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 		} 
 		catch (NumberFormatException e) {
 			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Error while parsing pfam_scan output file. Please check file format.");
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
 		} 
 		catch (IOException e) {
 			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Error while reading/parsing pfam_scan output.");
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -337,14 +337,14 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 		}
 		catch (NumberFormatException e) {
 			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Error while parsing hmmscan output file. Please check file format.");
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
 		} 
 		catch (IOException e) {
 			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Error while reading/parsing hmmscan output.");
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

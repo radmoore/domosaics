@@ -12,12 +12,8 @@ import org.netbeans.spi.wizard.WizardPage;
 
 import domosaics.model.workspace.CategoryElement;
 import domosaics.model.workspace.ProjectElement;
-import domosaics.model.workspace.ViewElement;
-import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.views.ViewType;
-import domosaics.ui.views.view.View;
-import domosaics.ui.views.view.ViewInfo;
 
 
 
@@ -37,6 +33,9 @@ public class SelectNamePage extends WizardPage {
 	protected JTextField name;
 	private JComboBox selectProject;
 	private String objectName;
+	
+    /* alphanum chars, at least one (TODO: unicode?) */
+	private String alphaNumPattern = "^[a-zA-Z0-9_-]*$";
 	
 	
 	/**
@@ -94,6 +93,9 @@ public class SelectNamePage extends WizardPage {
 		// in any case, a name is required
 		if (newName.isEmpty())
 			return "Select a name";
+		
+		if ( !newName.matches(alphaNumPattern) )
+			return "Invalid name (numbers, - or _ allowed)";
 		
 		if (newName.length()>50)
 			return "Name should not exceed 50 characters";

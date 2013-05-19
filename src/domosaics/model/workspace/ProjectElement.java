@@ -3,7 +3,6 @@ package domosaics.model.workspace;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -64,7 +63,7 @@ public class ProjectElement extends WorkspaceElement{
 	
 	/**
 	 * Create a list containing all deleted views, which can then be 
-	 * further processed by the DoMosaicS internal view management.
+	 * further processed by the DoMosaics internal view management.
 	 * While generating this list, the workspace elements representing
 	 * the category and views are deleted.
 	 * 
@@ -159,7 +158,7 @@ public class ProjectElement extends WorkspaceElement{
 			icon = new ImageIcon(ImageIO.read(is));
 		} 
 		catch (IOException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

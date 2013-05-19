@@ -63,7 +63,7 @@ public class DomainViewImporter extends ViewImporter<DomainViewI> {
 			return view;
 		} 
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -129,7 +129,7 @@ public class DomainViewImporter extends ViewImporter<DomainViewI> {
 			}
 		} 
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else {			
 				Configuration.getLogger().debug(e.toString());

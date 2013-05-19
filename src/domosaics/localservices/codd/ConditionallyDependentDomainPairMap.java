@@ -92,7 +92,7 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
   }catch(FileNotFoundException e1)
   {
    MessageUtil.showWarning(parent, "No corresponding CDP file: "+file);
-	if (Configuration.getReportExceptionsMode())
+	if (Configuration.getReportExceptionsMode(true))
 		Configuration.getInstance().getExceptionComunicator().reportBug(e1);
 	else			
 		Configuration.getLogger().debug(e1.toString());
@@ -100,7 +100,7 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
   catch(NumberFormatException e2)
   {
    MessageUtil.showWarning(parent, "Error while parsing CDP file.");
-	if (Configuration.getReportExceptionsMode())
+	if (Configuration.getReportExceptionsMode(true))
 		Configuration.getInstance().getExceptionComunicator().reportBug(e2);
 	else			
 		Configuration.getLogger().debug(e2.toString());
@@ -108,7 +108,7 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
   catch (IOException e3)
   {
    MessageUtil.showWarning(parent, "Error while reading/parsing CDP file.");
-	if (Configuration.getReportExceptionsMode())
+	if (Configuration.getReportExceptionsMode(true))
 		Configuration.getInstance().getExceptionComunicator().reportBug(e3);
 	else			
 		Configuration.getLogger().debug(e3.toString());

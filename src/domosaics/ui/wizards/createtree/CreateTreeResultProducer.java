@@ -1,9 +1,6 @@
 package domosaics.ui.wizards.createtree;
 
 import java.awt.EventQueue;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Map;
 
 import org.netbeans.spi.wizard.DeferredWizardResult;
@@ -19,12 +16,10 @@ import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.tree.TreeI;
-import domosaics.model.workspace.CategoryElement;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.ViewElement;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
-import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 import domosaics.ui.views.domainview.DomainViewI;
@@ -38,12 +33,8 @@ import domosaics.webservices.clustalw.ClustalW2ResultParser;
 
 import pal.alignment.Alignment;
 import pal.alignment.AlignmentUtils;
-import pal.datatype.DataType;
-import pal.datatype.DataTypeTool;
 import pal.distance.DistanceMatrix;
-import pal.distance.DistanceParseException;
 import pal.distance.DistanceTool;
-import pal.distance.ReadDistanceMatrix;
 import pal.substmodel.BLOSUM62;
 import pal.substmodel.CPREV;
 import pal.substmodel.Dayhoff;
@@ -51,7 +42,6 @@ import pal.substmodel.JTT;
 import pal.substmodel.MTREV24;
 import pal.substmodel.RateMatrix;
 import pal.substmodel.SubstitutionModel;
-import pal.substmodel.SubstitutionTool;
 import pal.substmodel.VT;
 import pal.substmodel.WAG;
 
@@ -97,7 +87,7 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 
 		}
 		catch(Exception e){
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -126,7 +116,7 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		DomainViewI domView =  ViewHandler.getInstance().getView(viewElt.getViewInfo());
 		DomainArrangement[] daSet = domView.getDaSet();
 
-		// create PAL distance matrix with DoMosaicS and adapt it to the PAL library
+		// create PAL distance matrix with DoMosaics and adapt it to the PAL library
 		p.setProgress ("Calculate distances", 1, 3);
 		DistanceMatrix dm = PALAdapter.createMatrix(daSet, measure);
 

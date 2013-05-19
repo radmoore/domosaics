@@ -23,7 +23,7 @@ public class ClustalW2ToolOutputParser {
 			return parse(new StringReader(tooloutput));
 		} 
 		catch (IOException ioe) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(ioe);
 			else			
 				Configuration.getLogger().debug(ioe.toString());

@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,20 +22,15 @@ import org.jdom2.Element;
 
 import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
-import domosaics.model.domainevent.DomainEvent;
 import domosaics.model.domainevent.DomainEventI;
-import domosaics.model.sequence.Sequence;
-import domosaics.model.sequence.SequenceI;
 import domosaics.model.tree.Tree;
 import domosaics.model.tree.TreeEdge;
 import domosaics.model.tree.TreeEdgeI;
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.TreeNode;
 import domosaics.model.tree.TreeNodeI;
-import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.treeview.components.TreeMouseController;
-import domosaics.ui.views.treeview.io.TreeViewExporter;
 import domosaics.ui.views.treeview.layout.DendogramLayout;
 import domosaics.ui.views.treeview.layout.TreeLayout;
 import domosaics.ui.views.treeview.manager.TreeColorManager;
@@ -92,7 +86,7 @@ import domosaics.ui.views.view.renderer.Renderer;
  * To reach the panel which embeds the view the method {@link #getParentPane()}
  * has to be used.
  * <p>
- * DoMosaicS handles bootstrap values which can be coded in newick format 
+ * DoMosaics handles bootstrap values which can be coded in newick format 
  * as node labels. Therefore the TreeComponentManager provides a method to
  * switch between the display of bootstrap values and edge weights.
  * If the user wants to show the bootstrap values the useLabelAsBootstrap()

@@ -72,19 +72,19 @@ public class DoMosaics {
 	 * The main method of DoMosaics and the anchor point to start the program. 
 	 * 
 	 * @param args
-	 * 		arguments you wish to run with DoMosaicS
+	 * 		arguments you wish to run with DoMosaics
 	 */
 	public static void main(String[] args) {
 		
-		Configuration.setDebug(true);
-//		Configuration.setReportExceptionsMode(true); 
+		Configuration.setDebug(false);
+		Configuration.setReportExceptionsMode(false);
 		 
 		if (args.length > 0) {
 			for(String a : args) {
 				if (a.equals("--debug")) {
 					Configuration.setDebug(true);
 				}
-				if (a.equals("--report")) {
+				else if (a.equals("--report")) {
 					Configuration.setReportExceptionsMode(true);
 				}
 				else {
@@ -120,7 +120,7 @@ public class DoMosaics {
 			ApplicationHandler.getInstance().start();
 		}
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

@@ -46,6 +46,9 @@ public class ImportViewPage extends WizardPage {
 	private JTextField name, path, typeField;
 	private JComboBox selectProject;
 	private JButton browse;
+
+    /* alphanum chars, at least one (TODO: unicode?) */
+	private String alphaNumPattern = "^[a-zA-Z0-9_-]*$";
 	
 	private ViewType type;
 
@@ -78,7 +81,7 @@ public class ImportViewPage extends WizardPage {
 						// Nic import
 						type = DomainView.detectViewType(viewFile);
 						if(type==null) {
-							MessageUtil.showWarning(DoMosaicsUI.getInstance(),file.getName()+ " does not appearto be a DoMosaicS file.");
+							MessageUtil.showWarning(DoMosaicsUI.getInstance(), file.getName()+ " does not appearto be a DoMosaics file.");
 							path.setText("");
 							name.setName("");
 						}
@@ -145,6 +148,9 @@ public class ImportViewPage extends WizardPage {
 		
 		if (newName.equals(""))
 			return "Please choose a name for view";
+		
+		if ( !newName.matches(alphaNumPattern) )
+			return "Invalid name (numbers, - or _ allowed)";
 		
 		if (newName.length() > 50)
 			return "View name should not exceed 50 characters";

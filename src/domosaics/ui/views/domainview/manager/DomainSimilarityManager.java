@@ -140,7 +140,7 @@ public class DomainSimilarityManager extends DefaultViewManager {
 	public void start(DomainViewI view) {
 		view.getDomainLayoutManager().toggleCollapseBySimilarity();
 		chooser = new SimilarityChooser(view);
-		chooser.showDialog(DoMosaicsUI.getInstance(), "DoMosaicS");
+		chooser.showDialog(DoMosaicsUI.getInstance(), "DoMosaics");
 	}
 	
 	/**

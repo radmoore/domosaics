@@ -147,7 +147,7 @@ public class ZoomController extends MouseAdapter {
 				p2 = zoom.inverseTransform(p1, null);
 			} 
 			catch (NoninvertibleTransformException ex) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(ex);
 				else {			
 					Configuration.getLogger().debug(ex.toString());

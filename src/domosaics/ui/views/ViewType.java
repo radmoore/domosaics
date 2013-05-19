@@ -45,7 +45,7 @@ public enum ViewType {
 			clazz = Class.forName(classURL);
 		} 
 		catch (ClassNotFoundException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else {			
 				Configuration.getLogger().debug(e.toString());

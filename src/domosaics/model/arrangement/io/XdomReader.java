@@ -97,14 +97,14 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 						okay=true;
 					} 
 					catch (NumberFormatException nfe) {
-						if (Configuration.getReportExceptionsMode())
+						if (Configuration.getReportExceptionsMode(true))
 							Configuration.getInstance().getExceptionComunicator().reportBug(nfe);
 						else			
 							Configuration.getLogger().debug(nfe.toString());
 						return false;
 					}
 					catch (WrongFormatException wfe) {
-						if (Configuration.getReportExceptionsMode())
+						if (Configuration.getReportExceptionsMode(true))
 							Configuration.getInstance().getExceptionComunicator().reportBug(wfe);
 						else			
 							Configuration.getLogger().debug(wfe.toString());
@@ -115,7 +115,7 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 			return okay;
 		} 
 		catch (IOException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -236,7 +236,6 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 	}
 	
 	/**
-	 *TODO: bug in here, seems to always create the same domain!
 	 * read domains: "From, To, DomainID, [e-value]"
 	 * @param domainStr
 	 * @return

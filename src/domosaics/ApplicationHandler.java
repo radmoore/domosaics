@@ -2,6 +2,7 @@ package domosaics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Frame;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -300,19 +301,29 @@ public class ApplicationHandler {
 	}
 	
 	/**
-	 * Helper method checking if the DoMosaicS workspace already exists.
+	 * Helper method checking if the DoMosaics workspace already exists.
 	 */
 	protected void initWorkspaceDir() {
 
-		File workspace=null;
-		//File configFile = new File(workspace.getAbsolutePath()+"/"+Configuration.CONFIGFILE);
+		File workspace = null;		
+		File configFile = Configuration.getInstance().getConfigFile();
+
 		if ( !configFile.exists() ) {
+			
 			// if default directory does not exist choose and create a workspace dir
-			while(workspace == null) // user aborted wizard
-				workspace = WizardManager.getInstance().showWorkingDirectoyWizard(startUpProgress, Configuration.DEF_HOMEFOLDER_LOCATION);
-			if(!workspace.exists())
+			workspace = WizardManager.getInstance().showWorkingDirectoyWizard(
+					startUpProgress, Configuration.DEF_HOMEFOLDER_LOCATION);
+			// user did not select anything - abort.
+			if ( workspace == null )
+				System.exit(0);
+				
+			if( !workspace.exists() )
 				workspace.mkdir();
+			
 			Configuration.getInstance().setWorkspaceDir(workspace.getPath());
+
+			// create a new config file
+			ConfigurationWriter.write();
 		} 
 		else {
 			ConfigurationReader.read();
@@ -344,8 +355,15 @@ public class ApplicationHandler {
 			Configuration.getInstance().setLockFile();
 		}
 		else {
-			MessageUtil.showWarning(startUpProgress,"The default workspace is in use. Please close all DoMosaicS instances and try again. ");
-			System.exit(0);
+			boolean removeLock = MessageUtil.showDialog(startUpProgress, "Your workspace is in use. Try to remove lock?\n" +
+					"(only recommended if DoMosaics is not running!)");
+			
+			if ( removeLock )
+				Configuration.getInstance().removeLockFile();
+			else
+				System.exit(0);
+			
+			Configuration.getInstance().setLockFile();
 		}
 	}
 	
@@ -383,7 +401,7 @@ public class ApplicationHandler {
 				startupPanel.add(new JLabel(logo), BorderLayout.CENTER);
 			} 
 			catch (IOException e) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(e);
 				else			
 					Configuration.getLogger().debug(e.toString());
@@ -423,7 +441,7 @@ public class ApplicationHandler {
 				Thread.sleep(ms);
 			} 
 			catch (Exception e) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(e);
 				else			
 					Configuration.getLogger().debug(e.toString());

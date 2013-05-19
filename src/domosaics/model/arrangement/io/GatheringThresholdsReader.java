@@ -61,7 +61,7 @@ public class GatheringThresholdsReader {
 		}
   
 		catch(Exception e1) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e1);
 			else			
 				Configuration.getLogger().debug(e1.toString());

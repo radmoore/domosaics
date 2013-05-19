@@ -12,9 +12,11 @@ import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -46,9 +48,11 @@ public class ConfigurationPanel extends JPanel{
 	protected JPanel configPanel;
 	
 	/** textfields for lookup addresses */
-	protected JTextField googleField, ncbiField, pfamField, uniprotField, emailField, hmmerScanTF, hmmerPressTF, hmmer3dbTF, workspace;
+	protected JTextField googleField, ncbiField, pfamField, uniprotField, 
+	emailField, hmmerScanTF, hmmerPressTF, hmmer3dbTF, workspace, documentationTF;
 	
-	protected JButton loadHmmScanBin, loadHmmPressBin, loadHmmDB, loadWorkspace;
+	protected JButton loadHmmScanBin, loadHmmPressBin, loadHmmDB, loadWorkspace,
+	loadDocumentation;
 	
 	/** buttons for apply and cancel */
 	protected JButton apply, cancel, restore;
@@ -102,7 +106,7 @@ public class ConfigurationPanel extends JPanel{
 		config.setSaveOnExit(saveOnExit.isSelected());
 		config.setOverwriteProjects(overwriteProject.isSelected());
 		config.setHelpImprove(helpImprove.isSelected());
-		parentFrame.setAlwaysOnTop(false);
+		config.setDocuPath(documentationTF.getText());
 		ConfigurationWriter.write();
 		
 		dispose();
@@ -181,6 +185,7 @@ public class ConfigurationPanel extends JPanel{
 		//emailField = new JTextField(config.getEmailAddr(), 50);
 
 		emailField = UiUtil.createEmailField(config.getEmailAddr());
+		documentationTF = new JTextField(config.getDocuPath(false), 50);
 		
 		loadHmmScanBin = new JButton("hmmscan");
 		loadHmmScanBin.addActionListener(new ActionListener() {
@@ -223,10 +228,27 @@ public class ConfigurationPanel extends JPanel{
 			}
 		});
 		
+		loadDocumentation = new JButton("Help");
+		loadDocumentation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("HTML file", "html", "htm");
+				JFileChooser chooser = new JFileChooser();
+				chooser.setFileFilter(filter);
+				int returnVal = chooser.showOpenDialog(parentFrame);
+				File documentationIndex = null;
+				if (returnVal == JFileChooser.APPROVE_OPTION)
+					documentationIndex = chooser.getSelectedFile();
+				if (documentationIndex == null)
+					return;
+				documentationTF.setText(documentationIndex.getAbsolutePath());
+			}
+		});
+		
+		
 //		showAdvices = new JCheckBox("Show Advices", config.isShowAdvices());
 		saveOnExit = new JCheckBox(" Save Workspace on Exit", config.saveOnExit());
 		overwriteProject = new JCheckBox(" Overwrite existing projects", config.getOverwriteProjects());
-		helpImprove = new JCheckBox(" Help improve DoMosaics", config.getReportExceptionsMode());
+		helpImprove = new JCheckBox(" Help improve DoMosaics", Configuration.getReportExceptionsMode(false));
 		
 		
 		apply = new JButton ("Apply");
@@ -298,6 +320,8 @@ public class ConfigurationPanel extends JPanel{
 		add(new JXTitledSeparator("General Settings"),"growx, span, wrap, gaptop 10");
 		add(new JLabel("Email: "), "h 25!, gap 10");
 		add(emailField, "h 25!, gap 10, span, growx, gapright 10, wrap");
+		add(loadDocumentation, "h 25!, w 135!, gap 10");
+		add(documentationTF, "h 25!, gap 10, span, growx, gapright 10, wrap");
 		
 		add(new JXTitledSeparator("Local HMMER3 setup"),"growx, span, wrap, gaptop 10");
 		add(loadHmmScanBin, "h 25!, w 135!, gap 10");

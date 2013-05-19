@@ -56,7 +56,7 @@ public class MatrixParser extends AbstractDataReader<Matrix> {
 		} 
 		catch (Exception e) {
 			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Reading Matrix file aborted");
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

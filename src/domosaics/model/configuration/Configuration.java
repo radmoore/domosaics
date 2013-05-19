@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.apache.log4j.Logger;
 
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.MessageUtil;
 import domosaics.util.ExceptionComunicator;
@@ -20,8 +21,11 @@ import domosaics.util.ExceptionComunicator;
  */
 public class Configuration {
 	
-	public static final String CONFIGFILE = ".domosaics_config";
+	public static final String sep = System.getProperty("file.separator");
+	
 	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
+	public static final String DEF_WORKSPACE = DEF_HOMEFOLDER_LOCATION+sep+"domosaics_workspace";
+	public static final String DEF_CONFIGFILE = "domosaics_config.txt";
 	public static final String DEF_GOOGLE_SEARCH = "http://www.google.com/search?q=XXX";
 	public static final String DEF_PFAM_SEARCH = "http://pfam.sanger.ac.uk/family?acc=XXX";
 	public static final String DEF_UNIPROT_SEARCH = "http://www.uniprot.org/uniprot/?query=XXX";
@@ -31,19 +35,24 @@ public class Configuration {
 	public static final String DEF_HMMERDB = "";
 	
 	public static final String LOCKFILE = ".lock";
+	public static final String DEF_INSTALLATION_PATH = DEF_HOMEFOLDER_LOCATION + sep +"DoMosaics";
+	public static final String DEF_DOCUMENTATION_PATH = "docs";
+	
 	
 	public static final boolean DEF_SHOW_ADVICES = false;
 	public static final boolean DEF_SAVE_ON_EXIT = false;
 	public static final boolean OVERWRITEPROJECTS = false;
 	public static final boolean HELPIMPROVE = false;
+
+	
 	
 	private boolean service_running = false;
 	private static boolean debugState = false;
 	private static boolean reportExceptions = false;
 	private static boolean haveAsked = false;
+	private String configFile = "domosaics_config.txt";
 	
 	private ExceptionComunicator exceptionComunicator = null;
-	
 
 	protected String googleUrl;
 	protected String pfamUrl; 
@@ -51,6 +60,7 @@ public class Configuration {
 	protected String emailAddr;
 	protected String hmmScanBin, hmmPressBin;
 	protected String hmmDB;
+	protected String documentationPath;
 
 	protected boolean showAdvices, saveWSOnExit, overwriteProjects, helpImprove, hasThrowException;
 	
@@ -77,17 +87,14 @@ public class Configuration {
 	}
 	
 	public static Logger getLogger() {
-		if ( !haveAsked ) {	
-			boolean sendMes = MessageUtil.showDialog(frame, "A problem was detected - enable bug reporting?");
-			if ( sendMes )
-				Configuration.setReportExceptionsMode(true);
-			haveAsked = true;
-		}
     	return Logger.getLogger("domosaicslog");
 	}
 	
 	public static void setDebug(Boolean debug) {
 		debugState = debug;
+		if (debug)
+			System.out.println("DoMosaics run mode: DEBUG");
+		ExceptionComunicator.setReportToConsole(debug);
 	}
 	
 	public static void setReportExceptionsMode(Boolean report) {
@@ -95,10 +102,24 @@ public class Configuration {
 	}
 
 	public static String getDefaultConfig() {
-		return System.getProperty("user.home")+System.getProperty("file.separator")+CONFIGFILE;
+		return DEF_CONFIGFILE;
 	}
 	
-	public static Boolean getReportExceptionsMode() {
+	/**
+	 * Before returning the current exception mode,
+	 * make sure the user agrees. Ask this only once.
+	 * @return
+	 */
+	public static Boolean getReportExceptionsMode(boolean ask) {
+		
+		if (ask)
+		{
+			boolean sendMes = false;
+			if ( !haveAsked )
+				sendMes = MessageUtil.showDialog(DoMosaicsUI.getInstance(), "A problem was detected - enable bug reporting?");
+			Configuration.setReportExceptionsMode(sendMes);
+			haveAsked = true;
+		}
 		return reportExceptions;
 	}
 	
@@ -115,7 +136,7 @@ public class Configuration {
 	}
 	*/
 	public void restoreDefaults() {
-		workspace_dir = DEF_HOMEFOLDER_LOCATION;
+		workspace_dir = DEF_WORKSPACE;
 		googleUrl = DEF_GOOGLE_SEARCH;
 		//ncbiUrl = DEF_NCBI_SEARCH; 
 		pfamUrl = DEF_PFAM_SEARCH; 
@@ -128,9 +149,11 @@ public class Configuration {
 		saveWSOnExit = DEF_SAVE_ON_EXIT;
 		overwriteProjects = OVERWRITEPROJECTS;
 		helpImprove = HELPIMPROVE;
+		documentationPath = DEF_DOCUMENTATION_PATH;
 	}
 	
 	public static Configuration getInstance() {
+		getJarPath();
 		if (instance == null)
 			instance = new Configuration();
 		return instance;
@@ -141,19 +164,17 @@ public class Configuration {
 	}
 	
 	public void setFrame(ConfigurationFrame frame) {
-		this.frame = frame;
+		Configuration.frame = frame;
 	}
 	
 	public ConfigurationFrame getFrame() {
 		return frame;
 	}
-	
-	/* Now attribute of ApplicationHandler
-	 * 
-	  public File getConfigFile() {
-		return new File(workspace_dir+"/"+CONFIGFILE);
+	 
+	public File getConfigFile() {
+		return new File(DEF_CONFIGFILE);
 	}
-	*/
+	
 	public void setWorkspaceDir(String workspace_dir) {
 		this.workspace_dir = workspace_dir;
 	}
@@ -226,12 +247,12 @@ public class Configuration {
 	}
 	
 	public boolean hasLockfile() {
-		File f = new File(workspace_dir+"/"+LOCKFILE);
+		File f = new File(workspace_dir+sep+LOCKFILE);
 		return f.exists();
 	}
 	
 	public File getLockFile() {
-		return new File(workspace_dir+"/"+LOCKFILE);
+		return new File(workspace_dir+sep+LOCKFILE);
 	}
 	
 	public void removeLockFile() {
@@ -330,6 +351,24 @@ public class Configuration {
 	public void setServiceRunning(boolean running) {
 		this.service_running = running;
 	}
+	
+	public String getDocuPath(boolean includeProtocol) {
+		return (includeProtocol) 
+				? "file://"+this.documentationPath 
+						: this.documentationPath;
+	}
+	
+	public void setDocuPath(String path) {
+		this.documentationPath = path;
+	}
+	
+	private static void getJarPath() {
+		File file = new File(Configuration.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+//		System.out.println("This is the path: "+file.getAbsolutePath());
+	
+	}
+	
+
 	
 }
 

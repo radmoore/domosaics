@@ -1,10 +1,8 @@
 package domosaics.localservices.hmmer3;
 
-import java.awt.Cursor;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -119,7 +117,7 @@ public class Hmmer3Service implements ProcessListener{
 		try {		
 			executor = new Executor(cmd, this);
 			logFileWriter.write("##################################\n");
-			logFileWriter.write("## Run triggered by DoMosaicS\n");
+			logFileWriter.write("## Run triggered by DoMosaics\n");
 			logFileWriter.write("## Command: "+hmmerProgram.getCommandCall()+"\n");
 			logFileWriter.write("##################################\n");
 			logFileWriter.write("\n");
@@ -128,7 +126,7 @@ public class Hmmer3Service implements ProcessListener{
 			hmmPanel.writeToConsole("*** I: Started "+hmmerProgram.getName()+" run\n");
 		} 
 		catch(Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -156,7 +154,7 @@ public class Hmmer3Service implements ProcessListener{
 		
 		try {
 			logFileWriter.write("##################################\n");
-			logFileWriter.write("## Run triggered by DoMosaicS\n");
+			logFileWriter.write("## Run triggered by DoMosaics\n");
 			logFileWriter.write("## Command: "+hmmerProgram.getCommandCall()+"\n");
 			logFileWriter.write("##################################\n");
 			logFileWriter.write("\n");
@@ -165,7 +163,7 @@ public class Hmmer3Service implements ProcessListener{
 			executor.execute();
 		} 
 		catch(Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -204,7 +202,7 @@ public class Hmmer3Service implements ProcessListener{
 		    System.out.println(out);
 		}
 		catch(Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -228,7 +226,7 @@ public class Hmmer3Service implements ProcessListener{
 			logFileWriter.close();
 		} 
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -271,7 +269,7 @@ public class Hmmer3Service implements ProcessListener{
 			
 		} 
 		catch(Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

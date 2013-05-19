@@ -79,7 +79,7 @@ public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionLi
 			UIManager.setLookAndFeel(laf);
 		} 
 	    catch (UnsupportedLookAndFeelException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -89,7 +89,7 @@ public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionLi
 			UIManager.setLookAndFeel(save);
 		} 
 	    catch (UnsupportedLookAndFeelException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

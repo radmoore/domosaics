@@ -57,7 +57,7 @@ public class NewickTreeReader extends AbstractTreeReader {
 			return tree;
 		} 
 		catch (IOException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
