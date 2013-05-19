@@ -220,6 +220,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 
 		ImageIcon newProjectIcon = null, 
 				loadFastaIcon = null, 
+				loadTreeIcon=null,
 				openProjectIcon = null, 
 				saveProjectIcon = null, 
 				importViewIcon = null, 
@@ -236,14 +237,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 
 		// create icons
 		try {
-			is = this.getClass().getResourceAsStream(
-					"resources/icons/newproject.png");
-			newProjectIcon = new ImageIcon(ImageIO.read(is));
-
-			is = this.getClass().getResourceAsStream(
-					"resources/icons/testLoadFasta.png");
-			loadFastaIcon = new ImageIcon(ImageIO.read(is));
-
+			
 			is = this.getClass().getResourceAsStream(
 					"resources/icons/openproject.png");
 			openProjectIcon = new ImageIcon(ImageIO.read(is));
@@ -260,6 +254,18 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 					"resources/icons/exportview.png");
 			exportViewIcon = new ImageIcon(ImageIO.read(is));
 
+			is = this.getClass().getResourceAsStream(
+					"resources/icons/testLoadFasta.png");
+			loadFastaIcon = new ImageIcon(ImageIO.read(is));
+
+			is = this.getClass().getResourceAsStream(
+					"resources/icons/testLoadTree.png");
+			loadTreeIcon = new ImageIcon(ImageIO.read(is));
+
+			is = this.getClass().getResourceAsStream(
+					"resources/icons/newproject.png");
+			newProjectIcon = new ImageIcon(ImageIO.read(is));
+			
 			is = this.getClass().getResourceAsStream(
 					"resources/icons/hmmscan.png");
 			hmmscanIcon = new ImageIcon(ImageIO.read(is));
@@ -295,28 +301,6 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 			else
 				Configuration.getLogger().debug(e.toString());
 		}
-
-		// new project
-		JButton newProject = new JButton();
-		newProject.setIcon(newProjectIcon);
-		newProject.setToolTipText("Create a new project");
-		newProject.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				WizardManager.getInstance().startImportDataWizard();
-			}
-		});
-		toolBar.add(newProject);
-
-		// new project
-		JButton loadFasta = new JButton();
-		loadFasta.setIcon(loadFastaIcon);
-		loadFasta.setToolTipText("Load a fasta file");
-		loadFasta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				WizardManager.getInstance().startLoadFastaWizard();
-			}
-		});
-		toolBar.add(loadFasta);
 
 		// open project
 		JButton openProject = new JButton();
@@ -367,6 +351,42 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		});
 		toolBar.add(exportView);
 
+
+		toolBar.addSeparator();
+		
+		// load fasta
+		JButton loadFasta = new JButton();
+		loadFasta.setIcon(loadFastaIcon);
+		loadFasta.setToolTipText("Load a fasta file");
+		loadFasta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WizardManager.getInstance().startLoadFastaWizard();
+			}
+		});
+		toolBar.add(loadFasta);
+
+		// load tree
+		JButton loadTree = new JButton();
+		loadTree.setIcon(loadTreeIcon);
+		loadTree.setToolTipText("Load a tree file");
+		loadTree.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WizardManager.getInstance().startLoadTreeWizard();
+			}
+		});
+		toolBar.add(loadTree);
+
+		// new project
+		JButton newProject = new JButton();
+		newProject.setIcon(newProjectIcon);
+		newProject.setToolTipText("Create a new project");
+		newProject.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WizardManager.getInstance().startImportDataWizard();
+			}
+		});
+		toolBar.add(newProject);
+		
 		toolBar.addSeparator();
 		// hmmscan
 		JButton hmmscan = new JButton();

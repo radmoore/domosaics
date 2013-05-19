@@ -82,6 +82,8 @@ public class LoadFastaPage extends WizardPage {
 							path.setText(file.getAbsolutePath());
 							name.setText(file.getName().split("\\.")[0]);
 
+						} else {
+							MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Cannot read sequences in "+file.getName());
 						}
 					}
 					else {
