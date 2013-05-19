@@ -33,7 +33,7 @@ public class Configuration {
 	
 	public static final String LOCKFILE = ".lock";
 	public static final String DEF_INSTALLATION_PATH = DEF_HOMEFOLDER_LOCATION + sep +"DoMosaics";
-	public static final String DEF_DOCUMENTATION_PATH = DEF_INSTALLATION_PATH + sep + "docs";
+	public static final String DEF_DOCUMENTATION_PATH = "docs";
 	
 	
 	public static final boolean DEF_SHOW_ADVICES = false;

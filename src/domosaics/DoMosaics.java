@@ -77,7 +77,7 @@ public class DoMosaics {
 				if (a.equals("--debug")) {
 					Configuration.setDebug(true);
 				}
-				if (a.equals("--report")) {
+				else if (a.equals("--report")) {
 					Configuration.setReportExceptionsMode(true);
 				}
 				else {
