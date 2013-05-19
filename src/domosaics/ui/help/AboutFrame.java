@@ -34,7 +34,7 @@ public class AboutFrame extends JFrame{
 			panel.add(new JLabel(about), BorderLayout.CENTER);
 		} 
 		catch (IOException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

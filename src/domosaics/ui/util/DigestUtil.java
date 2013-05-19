@@ -25,7 +25,7 @@ public class DigestUtil {
 			hash = digest.digest();
 		} 
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -48,7 +48,7 @@ public class DigestUtil {
 			return true;
 		} 
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

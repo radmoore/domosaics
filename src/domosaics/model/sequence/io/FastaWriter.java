@@ -39,7 +39,7 @@ public class FastaWriter extends AbstractDataWriter<SequenceI> {
     		out.flush();  
         } 
         catch (IOException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -70,7 +70,7 @@ public class FastaWriter extends AbstractDataWriter<SequenceI> {
 			
 		}
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

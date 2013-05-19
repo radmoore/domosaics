@@ -74,7 +74,7 @@ public class ViewPropertyReader {
 						} 
 						catch(Exception e) {
 							System.out.println(getValue(line));
-							if (Configuration.getReportExceptionsMode())
+							if (Configuration.getReportExceptionsMode(true))
 								Configuration.getInstance().getExceptionComunicator().reportBug(e);
 							else			
 								Configuration.getLogger().debug(e.toString());
@@ -92,7 +92,7 @@ public class ViewPropertyReader {
 							is.close();
 						} 
 						catch(Exception e) {
-							if (Configuration.getReportExceptionsMode())
+							if (Configuration.getReportExceptionsMode(true))
 								Configuration.getInstance().getExceptionComunicator().reportBug(e);
 							else			
 								Configuration.getLogger().debug(e.toString());
@@ -109,7 +109,7 @@ public class ViewPropertyReader {
 							is.close();
 						} 
 						catch(Exception e) {
-							if (Configuration.getReportExceptionsMode())
+							if (Configuration.getReportExceptionsMode(true))
 								Configuration.getInstance().getExceptionComunicator().reportBug(e);
 							else			
 								Configuration.getLogger().debug(e.toString());
@@ -126,7 +126,7 @@ public class ViewPropertyReader {
 							is.close();
 						} 
 						catch(Exception e) {
-							if (Configuration.getReportExceptionsMode())
+							if (Configuration.getReportExceptionsMode(true))
 								Configuration.getInstance().getExceptionComunicator().reportBug(e);
 							else			
 								Configuration.getLogger().debug(e.toString());	
@@ -172,7 +172,7 @@ public class ViewPropertyReader {
 							viewInfo.setFrameClazz(frameClazz);
 						} 
 						catch (ClassNotFoundException e) {
-							if (Configuration.getReportExceptionsMode())
+							if (Configuration.getReportExceptionsMode(true))
 								Configuration.getInstance().getExceptionComunicator().reportBug(e);
 							else {
 								Configuration.getLogger().debug(e.toString());
@@ -189,14 +189,14 @@ public class ViewPropertyReader {
 			return viewInfo;	
 		} 
 		catch (FileNotFoundException fnfe) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(fnfe);
 			else			
 				Configuration.getLogger().debug(fnfe.toString());
 			MessageUtil.showWarning("Property file not found");
 		}
 		catch (IOException ioe) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(ioe);
 			else			
 				Configuration.getLogger().debug(ioe.toString());

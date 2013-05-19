@@ -192,7 +192,7 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 			UIManager.setLookAndFeel(laf);
 		} 
 	    catch (UnsupportedLookAndFeelException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -202,7 +202,7 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 			UIManager.setLookAndFeel(save);
 		} 
 	    catch (UnsupportedLookAndFeelException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -247,7 +247,7 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 			UIManager.setLookAndFeel(laf);
 		} 
 	    catch (UnsupportedLookAndFeelException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -257,7 +257,7 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 			UIManager.setLookAndFeel(save);
 		} 
 	    catch (UnsupportedLookAndFeelException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -350,7 +350,7 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 				daSet.add((DomainArrangement)da.clone());
 			} 
 			catch (CloneNotSupportedException e) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(e);
 				else			
 					Configuration.getLogger().debug(e.toString());

@@ -112,7 +112,7 @@ class AssociateWithSeqsProgress extends DeferredWizardResult implements WizardRe
 			p.finished(null);		
 		}
 		catch(Exception e){
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

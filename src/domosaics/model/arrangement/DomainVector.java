@@ -35,7 +35,7 @@ public class DomainVector extends Vector<Domain>{
 			return res;
 		} 
 		catch (CloneNotSupportedException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

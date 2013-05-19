@@ -110,7 +110,7 @@ public class ClustalW2ServiceII extends AbstractEBIWebservice {
 			srvProxyConnect();
 		}
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

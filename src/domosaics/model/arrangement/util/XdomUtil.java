@@ -43,7 +43,7 @@ public class XdomUtil {
 				Integer.valueOf(fields[1]);
 			}
 			catch(NumberFormatException nfe) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(nfe);
 				else			
 					Configuration.getLogger().debug(nfe.toString());
@@ -92,7 +92,7 @@ public class XdomUtil {
 				entries.add(xdom.toString());
 		}
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

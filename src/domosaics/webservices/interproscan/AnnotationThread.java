@@ -152,7 +152,7 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 		}
 		// axis fault caught, but not handled 
 		catch (AxisFault af) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(af);
 			else			
 				Configuration.getLogger().debug(af.toString());
@@ -161,7 +161,7 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 		// ergo, we need not report
 		catch (InterruptedException ie){ }
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -183,13 +183,13 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 				spawner.processResults(this, get());
 			}
 			catch (InterruptedException e) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(e);
 				else			
 					Configuration.getLogger().debug(e.toString());
 			}
 			catch (ExecutionException e) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(e);
 				else			
 					Configuration.getLogger().debug(e.toString());

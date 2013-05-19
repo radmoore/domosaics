@@ -94,7 +94,7 @@ public class AddSelectionToViewAction extends AbstractMenuAction{
 				daSet[i] = (DomainArrangement)da.clone();
 			} 
 			catch (Exception ex) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(ex);
 				else			
 					Configuration.getLogger().debug(ex.toString());
@@ -117,7 +117,7 @@ public class AddSelectionToViewAction extends AbstractMenuAction{
 			}
 			}
 			catch (Exception ex) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(ex);
 				else			
 					Configuration.getLogger().debug(ex.toString());

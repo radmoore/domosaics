@@ -196,7 +196,7 @@ public class DomainArrangement implements Cloneable, DoMosaicsData{
 				dom.setSequence(start, new Sequence(dom.getID(), seq.getSeq(start, start+lenWithGaps, true)));
 			} 
 			catch(Exception e) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(e);
 				else			
 					Configuration.getLogger().debug(e.toString());

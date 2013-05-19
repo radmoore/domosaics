@@ -87,7 +87,7 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 
 		}
 		catch(Exception e){
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

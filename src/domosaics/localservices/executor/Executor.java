@@ -48,7 +48,7 @@ public class Executor extends SwingWorker<Integer, Void> {
     		result = p.waitFor();
 		} 
 		catch(Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -68,7 +68,7 @@ public class Executor extends SwingWorker<Integer, Void> {
 			listener.setResult(result);
 		} 
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -88,7 +88,7 @@ public class Executor extends SwingWorker<Integer, Void> {
 			this.cancel(true);
 		}
 		catch (Exception  e){ 
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

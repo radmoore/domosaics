@@ -124,7 +124,7 @@ public class TreeViewImporter extends ViewImporter<TreeViewI> {
 		
 		} 
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -165,7 +165,7 @@ public class TreeViewImporter extends ViewImporter<TreeViewI> {
 			
 		} 
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

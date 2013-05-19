@@ -40,7 +40,7 @@ public class SweepWorkspaceAction {
 					FileUtils.cleanDirectory(bckDir);
 				} 
 				catch (IOException e) {
-					if (Configuration.getReportExceptionsMode())
+					if (Configuration.getReportExceptionsMode(true))
 						Configuration.getInstance().getExceptionComunicator().reportBug(e);
 					else			
 						Configuration.getLogger().debug(e.toString());
@@ -58,7 +58,7 @@ public class SweepWorkspaceAction {
 					FileUtils.deleteDirectory(projectDir);
 				} 
 				catch (IOException e) {
-					if (Configuration.getReportExceptionsMode())
+					if (Configuration.getReportExceptionsMode(true))
 						Configuration.getInstance().getExceptionComunicator().reportBug(e);
 					else			
 						Configuration.getLogger().debug(e.toString());

@@ -84,12 +84,6 @@ public class Configuration {
 	}
 	
 	public static Logger getLogger() {
-		if ( !haveAsked ) {	
-			boolean sendMes = MessageUtil.showDialog("A problem was detected - enable bug reporting?");
-			if ( sendMes )
-				Configuration.setReportExceptionsMode(true);
-			haveAsked = true;
-		}
     	return Logger.getLogger("domosaicslog");
 	}
 	
@@ -108,7 +102,21 @@ public class Configuration {
 		return DEF_CONFIGFILE;
 	}
 	
-	public static Boolean getReportExceptionsMode() {
+	/**
+	 * Before returning the current exception mode,
+	 * make sure the user agrees. Ask this only once.
+	 * @return
+	 */
+	public static Boolean getReportExceptionsMode(boolean ask) {
+		
+		if (ask)
+		{
+			boolean sendMes = false;
+			if ( !haveAsked )
+				sendMes = MessageUtil.showDialog("A problem was detected - enable bug reporting?");
+			Configuration.setReportExceptionsMode(sendMes);
+			haveAsked = true;
+		}
 		return reportExceptions;
 	}
 	

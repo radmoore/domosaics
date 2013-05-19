@@ -99,7 +99,7 @@ class CreateSpeciesTreeProgress extends DeferredWizardResult implements WizardRe
 					clonedSet[i] = (DomainArrangement) daSet[i].clone();
 			} 
 			catch (Exception e) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(e);
 				else			
 					Configuration.getLogger().debug(e.toString());
@@ -123,7 +123,7 @@ class CreateSpeciesTreeProgress extends DeferredWizardResult implements WizardRe
 			p.finished(domTreeView);
 		}
 		catch(Exception e){
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

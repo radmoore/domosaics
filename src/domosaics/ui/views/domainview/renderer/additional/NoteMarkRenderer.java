@@ -53,7 +53,7 @@ public class NoteMarkRenderer implements Renderer {
 			logo = new ImageIcon(ImageIO.read(is));
 		} 
 		catch (IOException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

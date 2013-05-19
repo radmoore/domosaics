@@ -36,7 +36,7 @@ public class ProjectExporter {
         			FileUtils.cleanDirectory(projectDir);
         		}
         		catch (Exception e) {
-        			if (Configuration.getReportExceptionsMode())
+        			if (Configuration.getReportExceptionsMode(true))
         				Configuration.getInstance().getExceptionComunicator().reportBug(e);
         			else			
         				Configuration.getLogger().debug(e.toString());
@@ -83,7 +83,7 @@ public class ProjectExporter {
         catch (Exception e) {
         	Configuration.getLogger().debug("Fail to export view: "+viewFail);
         	Configuration.getLogger().debug(e.toString());
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -136,7 +136,7 @@ public class ProjectExporter {
  
         } 
         catch (Exception e) {
-   			if (Configuration.getReportExceptionsMode())
+   			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

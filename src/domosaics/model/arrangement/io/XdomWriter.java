@@ -104,7 +104,7 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
     		}
         } 
         catch (IOException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -178,13 +178,13 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
     		}
         } 
         catch (IOException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
         }
         catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else
 				Configuration.getLogger().debug(e.toString());

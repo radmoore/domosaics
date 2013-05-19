@@ -145,7 +145,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 			URL menuURL = this.getClass().getResource(MENUFILE);
 			setJMenuBar(JMenuBarFactory.createMenuBar(menuURL, actionManager));
 		} catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator()
 						.reportBug(e);
 			else
@@ -289,7 +289,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 			helpIcon = new ImageIcon(ImageIO.read(is));
 		} 
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator()
 						.reportBug(e);
 			else

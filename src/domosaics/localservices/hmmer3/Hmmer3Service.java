@@ -126,7 +126,7 @@ public class Hmmer3Service implements ProcessListener{
 			hmmPanel.writeToConsole("*** I: Started "+hmmerProgram.getName()+" run\n");
 		} 
 		catch(Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -163,7 +163,7 @@ public class Hmmer3Service implements ProcessListener{
 			executor.execute();
 		} 
 		catch(Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -202,7 +202,7 @@ public class Hmmer3Service implements ProcessListener{
 		    System.out.println(out);
 		}
 		catch(Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -226,7 +226,7 @@ public class Hmmer3Service implements ProcessListener{
 			logFileWriter.close();
 		} 
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -269,7 +269,7 @@ public class Hmmer3Service implements ProcessListener{
 			
 		} 
 		catch(Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

@@ -245,7 +245,7 @@ public class ConfigurationPanel extends JPanel{
 //		showAdvices = new JCheckBox("Show Advices", config.isShowAdvices());
 		saveOnExit = new JCheckBox(" Save Workspace on Exit", config.saveOnExit());
 		overwriteProject = new JCheckBox(" Overwrite existing projects", config.getOverwriteProjects());
-		helpImprove = new JCheckBox(" Help improve DoMosaics", Configuration.getReportExceptionsMode());
+		helpImprove = new JCheckBox(" Help improve DoMosaics", Configuration.getReportExceptionsMode(false));
 		
 		
 		apply = new JButton ("Apply");

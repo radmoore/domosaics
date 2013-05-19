@@ -40,7 +40,7 @@ public class EvalueSlider extends JSlider{
 			UIManager.setLookAndFeel(laf);
 		} 
 	    catch (UnsupportedLookAndFeelException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -50,7 +50,7 @@ public class EvalueSlider extends JSlider{
 			UIManager.setLookAndFeel(save);
 		} 
 	    catch (UnsupportedLookAndFeelException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

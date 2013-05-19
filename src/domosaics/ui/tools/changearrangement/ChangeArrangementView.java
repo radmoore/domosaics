@@ -106,7 +106,7 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 			this.backupDA = (DomainArrangement) da.getDomainArrangement().clone();
 		} 
 		catch (CloneNotSupportedException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
@@ -184,7 +184,7 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 				da.setSequence((SequenceI)backupDA.getSequence().clone());
 		} 
 		catch(Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

@@ -52,7 +52,7 @@ public class StreamHandler extends Thread implements ProcessListener{
 
         } 
         catch (IOException ioe) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(ioe);
 			else			
 				Configuration.getLogger().debug(ioe.toString());

@@ -148,7 +148,7 @@ public class DotplotView extends AbstractView implements Tool, PropertyChangeLis
 					: new ArrangementComponent((DomainArrangement) (dac.getDomainArrangement().clone()), null);
 		
 		} catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

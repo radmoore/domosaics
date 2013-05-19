@@ -101,7 +101,7 @@ public class ConfigurationReader {
 		    in.close();
 		 } 
 		 catch (Exception e) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(e);
 				else			
 					Configuration.getLogger().debug(e.toString());

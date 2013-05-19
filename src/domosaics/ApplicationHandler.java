@@ -375,7 +375,7 @@ public class ApplicationHandler {
 				startupPanel.add(new JLabel(logo), BorderLayout.CENTER);
 			} 
 			catch (IOException e) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(e);
 				else			
 					Configuration.getLogger().debug(e.toString());
@@ -415,7 +415,7 @@ public class ApplicationHandler {
 				Thread.sleep(ms);
 			} 
 			catch (Exception e) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(e);
 				else			
 					Configuration.getLogger().debug(e.toString());

@@ -841,7 +841,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		}
 		catch (NumberFormatException nfe) {
 			
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(nfe);
 			else			
 				Configuration.getLogger().debug(nfe.toString());
@@ -931,13 +931,13 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 			resultModel = worker.get();
 		} 
 		catch (InterruptedException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
 		} 
 		catch (ExecutionException e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

@@ -69,7 +69,7 @@ public class RADSService extends SwingWorker<TreeSet<RADSProtein>, Void> {
 			proteins = get();
 		}
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode())
+			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());

@@ -242,7 +242,7 @@ public class AnnotationThreadSpawner {
 					}
 				}
 				catch(Exception e){
-					if (Configuration.getReportExceptionsMode())
+					if (Configuration.getReportExceptionsMode(true))
 						Configuration.getInstance().getExceptionComunicator().reportBug(e);
 					else			
 						Configuration.getLogger().debug(e.toString());
