@@ -38,6 +38,9 @@ public class SelectNamePage extends WizardPage {
 	private JComboBox selectProject;
 	private String objectName;
 	
+    /* alphanum chars, at least one (TODO: unicode?) */
+	private String alphaNumPattern = "^[a-zA-Z0-9_-.]*$";
+	
 	
 	/**
 	 * Constructor for a new SelectViewNamePage
@@ -94,6 +97,9 @@ public class SelectNamePage extends WizardPage {
 		// in any case, a name is required
 		if (newName.isEmpty())
 			return "Select a name";
+		
+		if ( !newName.matches(alphaNumPattern) )
+			return "Invalid name (numbers, - or _ allowed)";
 		
 		if (newName.length()>50)
 			return "Name should not exceed 50 characters";

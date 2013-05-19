@@ -52,6 +52,9 @@ public class LoadFastaPage extends WizardPage {
 	
 	private ViewType type=ViewType.SEQUENCE;
 
+    /* alphanum chars, at least one (TODO: unicode?) */
+	private String alphaNumPattern = "^[a-zA-Z0-9_-]*$";
+	
 	/** the check for correct fasta format */
 	protected SequenceI[] seqs = null;
 	
@@ -136,6 +139,9 @@ public class LoadFastaPage extends WizardPage {
 		
 		if (newName.length() > 50)
 			return "View name should not exceed 50 characters";
+		
+		if ( !newName.matches(alphaNumPattern) )
+			return "Invalid name (numbers, - or _ allowed)";
 		
 		// ensure that project is selected
 		if (selectProject.getSelectedItem() == null)

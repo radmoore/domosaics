@@ -37,6 +37,9 @@ public class CreateProjectPage extends WizardPage {
 	/** input field for the name */
 	protected JTextField input;
 	
+    /* alphanum chars, at least one (TODO: unicode?) */
+	private String alphaNumPattern = "^[a-zA-Z0-9_-]*$";
+	
 	
 	/**
 	 * Constructor for a new CreateProjectPage
@@ -70,6 +73,9 @@ public class CreateProjectPage extends WizardPage {
 		if (projectName.length() > 50)
 			return "Name should not exceed 50 characters";
 		
+		if ( !projectName.matches(alphaNumPattern) )
+			return "Invalid name (numbers, - or _ allowed)";
+			
 		if (projectName.equals("Default Project"))
 			return "Default Project name disallowed";
 		
