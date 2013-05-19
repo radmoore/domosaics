@@ -69,7 +69,7 @@ public class DoMosaics {
 	public static void main(String[] args) {
 		
 		Configuration.setDebug(true);
-		Configuration.setReportExceptionsMode(false); 
+		Configuration.setReportExceptionsMode(true); 
 		 
 		if (args.length > 0) {
 			for(String a : args) {

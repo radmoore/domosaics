@@ -39,7 +39,7 @@ public class SelectNamePage extends WizardPage {
 	private String objectName;
 	
     /* alphanum chars, at least one (TODO: unicode?) */
-	private String alphaNumPattern = "^[a-zA-Z0-9_-.]*$";
+	private String alphaNumPattern = "^[a-zA-Z0-9_-]*$";
 	
 	
 	/**
