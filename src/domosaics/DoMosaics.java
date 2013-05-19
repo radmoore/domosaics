@@ -6,6 +6,7 @@ import java.io.StringWriter;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.configuration.ConfigurationWriter;
 import domosaics.ui.util.MessageUtil;
+import domosaics.util.ExceptionComunicator;
 
 
 /**
@@ -68,8 +69,8 @@ public class DoMosaics {
 	 */
 	public static void main(String[] args) {
 		
-		Configuration.setDebug(true);
-		Configuration.setReportExceptionsMode(true); 
+		Configuration.setDebug(false);
+		Configuration.setReportExceptionsMode(false);
 		 
 		if (args.length > 0) {
 			for(String a : args) {

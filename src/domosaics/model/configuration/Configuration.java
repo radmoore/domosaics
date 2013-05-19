@@ -95,6 +95,9 @@ public class Configuration {
 	
 	public static void setDebug(Boolean debug) {
 		debugState = debug;
+		if (debug)
+			System.out.println("DoMosaics run mode: DEBUG");
+		ExceptionComunicator.setReportToConsole(debug);
 	}
 	
 	public static void setReportExceptionsMode(Boolean report) {
