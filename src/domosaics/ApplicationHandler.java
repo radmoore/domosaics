@@ -296,10 +296,9 @@ public class ApplicationHandler {
 	 */
 	protected void initWorkspaceDir() {
 
-		File workspace = null;
-		
+		File workspace = null;		
 		File configFile = Configuration.getInstance().getConfigFile();
-		// CONTINUE_HERE
+
 		if ( !configFile.exists() ) {
 			
 			// if default directory does not exist choose and create a workspace dir
@@ -313,7 +312,8 @@ public class ApplicationHandler {
 				workspace.mkdir();
 			
 			Configuration.getInstance().setWorkspaceDir(workspace.getPath());
-			// create a new config file in the workspace
+
+			// create a new config file
 			ConfigurationWriter.write();
 		} 
 		else {
@@ -323,7 +323,6 @@ public class ApplicationHandler {
 				workspace.mkdir();
 		}
 		
- 
 		startUpProgress.setProgress("", 35);
 		
 		if (!Configuration.getInstance().workspaceInUse()) { 

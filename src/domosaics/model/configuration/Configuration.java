@@ -22,7 +22,7 @@ public class Configuration {
 	
 	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
 	public static final String DEF_WORKSPACE = DEF_HOMEFOLDER_LOCATION+sep+"domosaics_workspace";
-	public static final String DEF_CONFIGFILE = DEF_WORKSPACE + sep +"domosaics_config.txt";
+	public static final String DEF_CONFIGFILE = "domosaics_config.txt";
 	public static final String DEF_GOOGLE_SEARCH = "http://www.google.com/search?q=XXX";
 	public static final String DEF_PFAM_SEARCH = "http://pfam.sanger.ac.uk/family?acc=XXX";
 	public static final String DEF_UNIPROT_SEARCH = "http://www.uniprot.org/uniprot/?query=XXX";
@@ -157,7 +157,7 @@ public class Configuration {
 	}
 	 
 	public File getConfigFile() {
-		return new File(workspace_dir+sep+configFile);
+		return new File(DEF_CONFIGFILE);
 	}
 	
 	public void setWorkspaceDir(String workspace_dir) {
