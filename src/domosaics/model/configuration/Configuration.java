@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.apache.log4j.Logger;
 
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.MessageUtil;
 import domosaics.util.ExceptionComunicator;
@@ -115,7 +116,7 @@ public class Configuration {
 		{
 			boolean sendMes = false;
 			if ( !haveAsked )
-				sendMes = MessageUtil.showDialog("A problem was detected - enable bug reporting?");
+				sendMes = MessageUtil.showDialog(DoMosaicsUI.getInstance(), "A problem was detected - enable bug reporting?");
 			Configuration.setReportExceptionsMode(sendMes);
 			haveAsked = true;
 		}

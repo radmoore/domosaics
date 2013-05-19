@@ -766,7 +766,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				catch (Exception e) {
 					writeToConsole("*** E: Something went wrong while creating the tmp file.\n");
 					writeToConsole("*** I: Please ensure sufficient space and permissions on the system temp dir\n");
-					if (Configuration.getReportExceptionsMode())
+					if (Configuration.getReportExceptionsMode(true))
 						Configuration.getInstance().getExceptionComunicator().reportBug(e);
 					else			
 						Configuration.getLogger().debug(e.toString());

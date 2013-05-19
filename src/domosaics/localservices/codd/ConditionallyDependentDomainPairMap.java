@@ -57,7 +57,7 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
 	 * @param pvalueThreshold
 	 * 		The threshold for CDP significance 
 	 */
- public ConditionallyDependentDomainPairMap(String file, double pvalueThreshold)
+ public ConditionallyDependentDomainPairMap(String file, double pvalueThreshold, JFrame curFrame)
  {
   parent = curFrame;
   CDP = new HashMap<String , HashSet<String> >();

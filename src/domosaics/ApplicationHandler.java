@@ -381,7 +381,7 @@ public class ApplicationHandler {
 		 });
 	}
 
-	private class StartupPage extends Frame {
+	private class StartupPage extends JFrame {
 		private static final long serialVersionUID = 1L;
 		
 		private static final String LOGOPATH = "ui/resources/DoMosaics_splash_1_small.png";
@@ -401,7 +401,7 @@ public class ApplicationHandler {
 				startupPanel.add(new JLabel(logo), BorderLayout.CENTER);
 			} 
 			catch (IOException e) {
-				if (Configuration.getReportExceptionsMode())
+				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(e);
 				else			
 					Configuration.getLogger().debug(e.toString());
