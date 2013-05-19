@@ -12,12 +12,8 @@ import org.netbeans.spi.wizard.WizardPage;
 
 import domosaics.model.workspace.CategoryElement;
 import domosaics.model.workspace.ProjectElement;
-import domosaics.model.workspace.ViewElement;
-import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.views.ViewType;
-import domosaics.ui.views.view.View;
-import domosaics.ui.views.view.ViewInfo;
 
 
 
@@ -39,7 +35,7 @@ public class SelectNamePage extends WizardPage {
 	private String objectName;
 	
     /* alphanum chars, at least one (TODO: unicode?) */
-	private String alphaNumPattern = "^[a-zA-Z0-9_-.]*$";
+	private String alphaNumPattern = "^[a-zA-Z0-9_-]*$";
 	
 	
 	/**
