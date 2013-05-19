@@ -246,7 +246,7 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 		DomainFamily domFamily = null;
 		Domain dom = null;
 		int actToken = 0;
-		
+		System.out.println(domainStr);
 		// split domain string into token
 		String[] token = domainStr.split("\\s+");
 		

@@ -214,7 +214,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				dom.setEvalue(evalue);
 				dom.setScore(score);   // log odds score
 				
-				if(domFamily.getGathThreshByFam()!=Double.POSITIVE_INFINITY && Hmmer3Frame.getFrame().getHmmScanPanel().usingCODD()) {
+				if(domFamily.getGathThreshByFam()!=Double.POSITIVE_INFINITY) {
 					if(score < domFamily.getGathThreshByDom())
 						dom.setPutative(true);
 				}
@@ -319,7 +319,8 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 				dom.setEvalue(evalue);
 				//System.out.println(dom.toString());
 				dom.setScore(score);   // log odds score
-				if (domFamily.getGathThreshByFam()!=Double.POSITIVE_INFINITY && Hmmer3Frame.getFrame().getHmmScanPanel().usingCODD()) {
+				if (domFamily.getGathThreshByFam()!=Double.POSITIVE_INFINITY)
+				{
 					if (Double.parseDouble(entryFields[13]) < domFamily.getGathThreshByFam() || score < domFamily.getGathThreshByDom()) {
 						dom.setPutative(true);
 						//System.out.println("Putative");

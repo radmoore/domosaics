@@ -37,7 +37,7 @@ public class Hmmer3Frame extends JFrame{
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setVisible(true);
-        //setAlwaysOnTop(true);
+        setAlwaysOnTop(true);
         
 	}
 	
@@ -46,6 +46,10 @@ public class Hmmer3Frame extends JFrame{
 		if (instance == null) 
 			instance = new Hmmer3Frame();
 		return instance;
+	}
+	
+	public static boolean isIntanciated() {
+		return instance != null;
 	}
 	
 	// weak singleton
