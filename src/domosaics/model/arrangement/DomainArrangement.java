@@ -1,7 +1,6 @@
 package domosaics.model.arrangement;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 
 import domosaics.model.DoMosaicsData;
@@ -154,7 +153,6 @@ public class DomainArrangement implements Cloneable, DoMosaicsData{
 	 */
 	public void setSequence (SequenceI seq) {
 		this.seq = seq;
-		
 		DomainVector allDoms = new DomainVector();
 		allDoms.add(doms);
 		allDoms.add(hiddenDoms);

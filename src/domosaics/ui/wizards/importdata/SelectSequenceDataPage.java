@@ -111,20 +111,7 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 	/**
 	 * Action performed when the browse button was clicked
 	 */
-//	public void actionPerformed(ActionEvent e) {
-//		File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
-//		if(file != null) {
-//			File test = new File(file.getAbsolutePath());
-//			seqs = new FastaReader().getDataFromFile(test);			
-//		}
-//		if(seqs != null) {
-//			path.setText(file.getAbsolutePath());
-//			viewName.setText(file.getName().split("\\.")[0]);
-//		}
-//	}	
-
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("In here!");
 		File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 		if(file != null) {
 			if (file.canRead()) {

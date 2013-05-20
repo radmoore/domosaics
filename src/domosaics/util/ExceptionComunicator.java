@@ -11,6 +11,7 @@ import com.j2bugzilla.base.Bug;
 import com.j2bugzilla.base.BugFactory;
 import com.j2bugzilla.base.BugzillaConnector;
 import com.j2bugzilla.base.BugzillaException;
+import com.j2bugzilla.base.ConnectionException;
 import com.j2bugzilla.rpc.LogIn;
 import com.j2bugzilla.rpc.ReportBug;
 
@@ -147,12 +148,21 @@ public class ExceptionComunicator{
 	 * Connects to the remote BUGZILLA instance (via RPC/XML)
 	 */
 	private void connect() {
+		
 		try {
+			System.out.println("Trying to connect!");
 			bugCon.connectTo(reportUrl, reportUser, reportPass);
+			System.out.println("Ran connectTo. Trying to login");
 			LogIn logIn = new LogIn(reportUser, reportPass);
+			System.out.println("Created new login!");
 			bugCon.executeMethod(logIn);			
+			System.out.println("Excuted login");
+		}
+		catch (ConnectionException ce) {
+			System.out.println("Connection exception FAILED!");
 		}
 		catch (Exception e) {
+			System.out.println("FAILED!");
 			Configuration.getLogger().debug(e.toString());
 			e.printStackTrace();
 		}
