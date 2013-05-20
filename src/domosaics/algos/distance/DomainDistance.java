@@ -38,7 +38,7 @@ public class DomainDistance implements DistanceAlgorithm {
 				res++;
 		}
 		if (res == len)	// no domain family in common
-			return Double.POSITIVE_INFINITY;
+			return da1.getDomains().size()+da2.getDomains().size();
 		return res;
 	}
 	
@@ -67,7 +67,7 @@ public class DomainDistance implements DistanceAlgorithm {
 		for (int r = 0; r < N; r++) 
 			for (int c = r; c < N; c++) 
 				if (diagonalMatrix)
-					res[r][c] = Double.NEGATIVE_INFINITY;
+					res[r][c] = 0;
 				else
 					res[r][c] = res[c][r];
 		

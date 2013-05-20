@@ -91,16 +91,22 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 					firstRead = true;
 				}
 					prot = parseHeader(line);
-				} else {							// parse domain line
-					try {
-						prot = parseDomain(line, prot);
-						okay=true;
-					} 
-					// this is not the correct format
-					catch (NumberFormatException nfe) {
-						return false;
-					}
-					catch (WrongFormatException wfe) {
+				} else {
+					// parse domain line
+					if(firstRead)
+					{
+						try {
+							prot = parseDomain(line, prot);
+							okay=true;
+						} 
+						// this is not the correct format
+						catch (NumberFormatException nfe) {
+							return false;
+						}
+						catch (WrongFormatException wfe) {
+							return false;
+						}
+					} else {
 						return false;
 					}
 				}
@@ -238,7 +244,7 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 		DomainFamily domFamily = null;
 		Domain dom = null;
 		int actToken = 0;
-		System.out.println(domainStr);
+		
 		// split domain string into token
 		String[] token = domainStr.split("\\s+");
 		

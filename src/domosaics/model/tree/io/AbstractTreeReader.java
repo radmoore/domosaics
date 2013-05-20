@@ -86,7 +86,6 @@ public abstract class AbstractTreeReader implements TreeReader{
 			return getTreeFromString(strBuffer.toString());
 		} 
 		catch (Exception e) {
-			System.out.println("HERE!");
 			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			

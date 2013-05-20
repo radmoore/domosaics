@@ -258,10 +258,13 @@ public class ApplicationHandler {
 		startUpProgress.setAlwaysOnTop(false);
 		GatheringThresholdsReader.read();
 		Pfam2GOreader.readGOFile();
+		startUpProgress.setAlwaysOnTop(true);
 		
 		// END of workaround
 		startUpProgress.setProgress("Restoring projects", 85);
+		startUpProgress.setAlwaysOnTop(false);
 		initLastWorkspace();
+		startUpProgress.setAlwaysOnTop(true);
 
 		startUpProgress.setProgress("Enjoy... ", 100);
 		startUpProgress.dispose();

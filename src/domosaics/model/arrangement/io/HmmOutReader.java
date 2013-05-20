@@ -146,7 +146,6 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 					arrList = parsePfamScan(in);
 				}
 				else {
-					System.out.println("Parsing hmmscan output.");
 					arrList = parseHmmerScan(in);
 				}
 			}
