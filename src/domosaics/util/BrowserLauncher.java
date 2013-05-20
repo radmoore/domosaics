@@ -4,7 +4,6 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import javax.swing.JOptionPane;
 
@@ -21,7 +20,7 @@ import domosaics.model.configuration.Configuration;
  */
 public class BrowserLauncher {
 
-	private static final String errMsg = "Error attempting to launch web browser";
+	private static final String errMsg = "Error launching the web browser";
 
 	public static void openURL(String url) {
 		
@@ -54,13 +53,17 @@ public class BrowserLauncher {
 				}
 			}
 		}
+		// we did not find the file
+		catch (IOException ioe) {
+			JOptionPane.showMessageDialog(null, errMsg + ":\n" + ioe.getLocalizedMessage());
+		}
+		// any other exception
 		catch (Exception e) {
-			
+			e.printStackTrace();
 			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else {
 				Configuration.getLogger().debug(e.toString());
-				JOptionPane.showMessageDialog(null, errMsg + ":\n" + e.getLocalizedMessage());
 			}
 		}
 	}	

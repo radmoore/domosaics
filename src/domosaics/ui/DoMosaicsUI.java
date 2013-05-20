@@ -26,6 +26,7 @@ import domosaics.ApplicationHandler;
 import domosaics.localservices.hmmer3.ui.Hmmer3Frame;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.workspace.io.ProjectImporter;
+import domosaics.ui.actions.ShowManualAction;
 import domosaics.ui.docking.DoMosaicsDesktop;
 import domosaics.ui.io.menureader.DefaultMenuActionManager;
 import domosaics.ui.io.menureader.JMenuBarFactory;
@@ -492,11 +493,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		JButton help = new JButton();
 		help.setIcon(helpIcon);
 		help.setToolTipText("Open Documentation");
-		help.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				BrowserLauncher.openURL(Configuration.getInstance().getDocuPath(true));				
-			}
-		});
+		help.addActionListener(new ShowManualAction());
 		toolBar.add(help);
 		
 		

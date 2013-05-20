@@ -165,7 +165,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		
 		int importedProts = daSet.length;
 		if (importedProts < 1) {
-			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"0 proteins imported");
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No proteins found in file");
 			return false;	
 		}
 			

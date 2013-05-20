@@ -96,18 +96,11 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 						prot = parseDomain(line, prot);
 						okay=true;
 					} 
+					// this is not the correct format
 					catch (NumberFormatException nfe) {
-						if (Configuration.getReportExceptionsMode(true))
-							Configuration.getInstance().getExceptionComunicator().reportBug(nfe);
-						else			
-							Configuration.getLogger().debug(nfe.toString());
 						return false;
 					}
 					catch (WrongFormatException wfe) {
-						if (Configuration.getReportExceptionsMode(true))
-							Configuration.getInstance().getExceptionComunicator().reportBug(wfe);
-						else			
-							Configuration.getLogger().debug(wfe.toString());
 						return false;
 					}
 				}

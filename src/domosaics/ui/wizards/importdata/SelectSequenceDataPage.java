@@ -22,6 +22,7 @@ import domosaics.model.sequence.io.FastaReader;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.FileDialogs;
+import domosaics.ui.util.MessageUtil;
 import domosaics.ui.wizards.GUIComponentFactory;
 
 
@@ -110,18 +111,44 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 	/**
 	 * Action performed when the browse button was clicked
 	 */
+//	public void actionPerformed(ActionEvent e) {
+//		File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
+//		if(file != null) {
+//			File test = new File(file.getAbsolutePath());
+//			seqs = new FastaReader().getDataFromFile(test);			
+//		}
+//		if(seqs != null) {
+//			path.setText(file.getAbsolutePath());
+//			viewName.setText(file.getName().split("\\.")[0]);
+//		}
+//	}	
+
 	public void actionPerformed(ActionEvent e) {
+		System.out.println("In here!");
 		File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 		if(file != null) {
-			File test = new File(file.getAbsolutePath());
-			seqs = new FastaReader().getDataFromFile(test);			
+			if (file.canRead()) {
+				if ( FastaReader.isValidFasta(file) ) {
+					seqs = new FastaReader().getDataFromFile(file);
+					if(seqs != null) {
+						path.setText(file.getAbsolutePath());
+						viewName.setText(file.getName().split("\\.")[0]);
+					}
+					else {
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No sequence in file or invalid fasta format");
+					}
+				}
+				else {
+					MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Failed to read file - unknown file format");
+				}
+			}
+			else {
+				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Cannot read "+file.getName());
+				path.setText("");
+			}
 		}
-		if(seqs != null) {
-			path.setText(file.getAbsolutePath());
-			viewName.setText(file.getName().split("\\.")[0]);
-		}
-	}	
-
+	}
+	
 	/**
 	 * Returns the text on the right side within the wizard
 	 * 

@@ -112,8 +112,7 @@ public class Configuration {
 	 */
 	public static Boolean getReportExceptionsMode(boolean ask) {
 		
-		if (ask)
-		{
+		if (ask) {
 			boolean sendMes = false;
 			if ( !haveAsked )
 				sendMes = MessageUtil.showDialog(DoMosaicsUI.getInstance(), "A problem was detected - enable bug reporting?");
