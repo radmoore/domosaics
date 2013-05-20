@@ -73,18 +73,28 @@ public class LoadFastaPage extends WizardPage {
 		browse = new JButton("Browse");
 		browse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("In here!");
 				File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 				if(file != null) {
 					if (file.canRead()) {
-						File test = new File(file.getAbsolutePath());
-						seqs = new FastaReader().getDataFromFile(test);
-						if(seqs != null) {
-							path.setText(file.getAbsolutePath());
-							name.setText(file.getName().split("\\.")[0]);
-
+						if ( FastaReader.isValidFasta(file) ) {
+							seqs = new FastaReader().getDataFromFile(file);
+							if(seqs != null) {
+								path.setText(file.getAbsolutePath());
+								name.setText(file.getName().split("\\.")[0]);
+							}
+							else {
+								System.out.println("1: Invalid file format");
+								MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No sequence in file or invalid fasta format");
+							}
+						}
+						else {
+							System.out.println("2: Invalid file format");
+							MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Failed to read file - unknown file format");
 						}
 					}
 					else {
+						System.out.println("3: Invalid file format");
 						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Cannot read "+file.getName());
 						path.setText("");
 					}

@@ -1,6 +1,5 @@
 package domosaics.model.tree.io;
 
-import java.io.IOException;
 import java.io.Reader;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
@@ -54,14 +53,24 @@ public class NewickTreeReader extends AbstractTreeReader {
 		
 			// return only the first tree as tree object
 			tree = parse(treeStrs[0]);
+			
+			if ( tree.countLeaves() < 2) {
+				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Tree contains less than two leaves!");
+				return null;
+			}
+
 			return tree;
-		} 
-		catch (IOException e) {
+		}
+		catch (NumberFormatException nfe){
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Failed to read file - unknown file format");
+			return null;
+		}
+		catch (Exception e) {
 			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Failed to parse newick tree from string");
+			
 		}
 		return null;				
     }
@@ -74,7 +83,7 @@ public class NewickTreeReader extends AbstractTreeReader {
 	 * @return 
 	 * 		the parsed tree
 	 */
-	private TreeI parse(String treeStr) throws IOException  {	
+	private TreeI parse(String treeStr) throws Exception  {	
 		this.nodeFactory = new TreeNodeFactory();
 		
 		// create NewickStreamTokenizer (inner class) which is used to parse the format
