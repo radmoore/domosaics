@@ -141,7 +141,7 @@ public class DomainTooltipRenderer implements Renderer {
         
         if (dc.getDomain().isPutative()) {
         	elements++;
-            String codd = "Certified by CODD";
+            String codd = "STATUS: Putative";
             g2d.setPaint(Color.RED);
             g2d.drawString(codd,b.x+2,2+b.y+vertical_row_height*elements-4);
             g2d.setPaint(Color.BLACK);
@@ -252,7 +252,7 @@ public class DomainTooltipRenderer implements Renderer {
         elements++;
         
         if (dc.getDomain().isPutative()) {
-            String codd = "Certified by CODD";
+            String codd = "STATUS: Putative";
             labelWidth = SwingUtilities.computeStringWidth(g2d.getFontMetrics(), codd);
             width = labelWidth > width ? labelWidth : width;
             elements++;
