@@ -65,16 +65,19 @@ public class ViewPropertyReader {
 					
 					// icon property
 					if (getID(line).toUpperCase().equals("ICON")) {
-						InputStream is = this.getClass().getClassLoader().getResourceAsStream(getValue(line));
+						String iconString = getValue(line);
+						if (iconString.isEmpty())
+							continue;
+						InputStream is = this.getClass().getClassLoader().getResourceAsStream(iconString);
 						try {
-							//System.out.println("test "+line+".");
+//							System.out.println("test "+line+".");
 							ImageIcon icon = new ImageIcon(ImageIO.read(is));
 							viewInfo.setDefaultIcon(icon);
 							viewInfo.setUsedIcon(icon);
 							is.close();
 						} 
 						catch(Exception e) {
-							System.out.println(getValue(line));
+//							System.out.println(getValue(line));
 							if (Configuration.getReportExceptionsMode(true))
 								Configuration.getInstance().getExceptionComunicator().reportBug(e);
 							else			
