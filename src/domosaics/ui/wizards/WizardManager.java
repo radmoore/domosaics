@@ -28,6 +28,7 @@ import domosaics.ui.wizards.dialogs.CreateSpeciesTreeDialog;
 import domosaics.ui.wizards.dialogs.EditDatasetWizard;
 import domosaics.ui.wizards.dialogs.ImportViewDialog;
 import domosaics.ui.wizards.dialogs.LoadFastaDialog;
+import domosaics.ui.wizards.dialogs.LoadTreeDialog;
 import domosaics.ui.wizards.dialogs.SaveProjectDialog;
 import domosaics.ui.wizards.dialogs.SaveViewDialog;
 import domosaics.ui.wizards.dialogs.SelectNameDialog;
@@ -186,6 +187,16 @@ public class WizardManager {
 		//return (Map) new ImportViewDialog(project).show();
 	}
 	
+	/**
+	 * Opens a load tree file wizard allowing the user to choose
+	 * the tree he wants to load. The wizard also creates the new
+	 * view
+	 * @return 
+	 */
+	public void startLoadTreeWizard() {
+		new LoadTreeDialog().show();
+		//return (Map) new ImportViewDialog(project).show();
+	}
 	
 	/**
 	 * Opens a new create tree wizard allowing the user to choose

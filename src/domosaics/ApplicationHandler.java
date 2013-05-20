@@ -244,7 +244,9 @@ public class ApplicationHandler {
 		}	
 		
 		startUpProgress.setProgress("Initiating workspace", 25);
+		startUpProgress.setAlwaysOnTop(false);
 		initWorkspaceDir();
+		startUpProgress.setAlwaysOnTop(true);
 		
 		startUpProgress.setProgress("Checking Java version", 50);
 		initGUI();
@@ -253,6 +255,7 @@ public class ApplicationHandler {
 		
 		//Reading the gathering thresholds
 		startUpProgress.setProgress("Reading data files", 70);
+		startUpProgress.setAlwaysOnTop(false);
 		GatheringThresholdsReader.read();
 		Pfam2GOreader.readGOFile();
 		
@@ -270,16 +273,15 @@ public class ApplicationHandler {
 	protected void initLastWorkspace() {
     	// check for the project within the workspace directory, create it if necessary
     	String workspaceDir = Configuration.getInstance().getWorkspaceDir();
+        System.out.println(workspaceDir);
     	
     	// get the workspace file 
     	File workspaceFile = new File (workspaceDir+"/lastusedworkspace.file");
     	if (!workspaceFile.exists()) { 
     		//return;
-    		System.out.println(workspaceDir);
     		File projectDir = new File(workspaceDir);
     		String[] projectFiles = projectDir.list();
     		for (String elem : projectFiles) {
-        		System.out.println(elem);
         		File elemDir = new File(workspaceDir+"/"+elem);
     			if(elemDir.isDirectory() && !elem.equals("logs"))
     				ProjectImporter.read(elemDir);
@@ -307,7 +309,6 @@ public class ApplicationHandler {
 
 		File workspace = null;		
 		File configFile = Configuration.getInstance().getConfigFile();
-
 		if ( !configFile.exists() ) {
 			
 			// if default directory does not exist choose and create a workspace dir

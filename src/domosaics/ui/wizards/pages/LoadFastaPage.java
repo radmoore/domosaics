@@ -73,7 +73,6 @@ public class LoadFastaPage extends WizardPage {
 		browse = new JButton("Browse");
 		browse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("In here!");
 				File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 				if(file != null) {
 					if (file.canRead()) {
@@ -94,7 +93,6 @@ public class LoadFastaPage extends WizardPage {
 						}
 					}
 					else {
-						System.out.println("3: Invalid file format");
 						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Cannot read "+file.getName());
 						path.setText("");
 					}
