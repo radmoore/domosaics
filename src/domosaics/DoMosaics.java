@@ -87,6 +87,10 @@ public class DoMosaics {
 				else if (a.equals("--report")) {
 					Configuration.setReportExceptionsMode(true);
 				}
+				else if (a.equals("--version")) {
+					System.out.println("rv 2.84");
+					System.exit(1);
+				}
 				else {
 					System.out.println("DoMosaics: dunno what >"+args[0]+"< means. Exiting.");
 					System.exit(1);
