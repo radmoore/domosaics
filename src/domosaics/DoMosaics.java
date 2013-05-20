@@ -1,27 +1,20 @@
 package domosaics;
 
-import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Enumeration;
-
-import org.apache.log4j.Appender;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Logger;
 
 import domosaics.model.configuration.Configuration;
 import domosaics.model.configuration.ConfigurationWriter;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
-import domosaics.util.ExceptionComunicator;
 
 
 /**
- * Copyright 2012 Evolutionary Bioinformatics Group, IEB, WWU Muenster, Germany
+ * Copyright 2013 Evolutionary Bioinformatics Group, IEB, WWU Muenster, Germany
  * 
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
- * @author Andreas Held <a.held@uni-muenster.de>
  * @author Nicolas Terrapon <n.terrapon@uni-muenster.de>
+ * @author Andreas Held <a.held@uni-muenster.de>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +31,7 @@ import domosaics.util.ExceptionComunicator;
  * NOTICE: 
  * =======================================================================
  * DoMosaics
- * Copyright 2012, Evolutionary Bioinformatics Group, IEB
+ * Copyright 2013, Evolutionary Bioinformatics Group, IEB
  *
  * This product includes software developed at
  * The Apache Software Foundation (http://www.apache.org/),
