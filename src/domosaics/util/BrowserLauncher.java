@@ -1,6 +1,7 @@
 package domosaics.util;
 
 import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URI;
@@ -26,8 +27,8 @@ public class BrowserLauncher {
 		
 		try {
 			if ( Desktop.isDesktopSupported() )	
-				Desktop.getDesktop().browse(new URI(url));
-			  
+				Desktop.getDesktop().browse(new File(url).toURI());
+		 
 			else {
 				
 				String osName = System.getProperty("os.name");
