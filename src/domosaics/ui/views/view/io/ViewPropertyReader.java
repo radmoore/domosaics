@@ -66,8 +66,10 @@ public class ViewPropertyReader {
 					// icon property
 					if (getID(line).toUpperCase().equals("ICON")) {
 						InputStream is = this.getClass().getClassLoader().getResourceAsStream(getValue(line));
+						if ( getValue(line).isEmpty() )
+							continue;
 						try {
-							//System.out.println("test "+line+".");
+//							System.out.println("test >"+getValue(line)+"<");
 							ImageIcon icon = new ImageIcon(ImageIO.read(is));
 							viewInfo.setDefaultIcon(icon);
 							viewInfo.setUsedIcon(icon);

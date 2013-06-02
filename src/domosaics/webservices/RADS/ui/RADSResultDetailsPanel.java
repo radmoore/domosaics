@@ -3,6 +3,7 @@ package domosaics.webservices.RADS.ui;
 import info.radm.radscan.RADSResults;
 import info.radm.radscan.model.RADSProtein;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -124,6 +125,7 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 		seeOnline.addActionListener(this);
 
 		JTextArea textArea = new JTextArea(crampageLog.toString());
+		textArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		JScrollPane jScrollPane = new JScrollPane(textArea);
 		
 		add(new JXTitledSeparator("RadScan Summary"), "growx, span, wrap,");
