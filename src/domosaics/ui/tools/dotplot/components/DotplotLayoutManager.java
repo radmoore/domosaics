@@ -60,6 +60,23 @@ public class DotplotLayoutManager extends DefaultLayoutManager {
 	}
 	
 	/**
+	 * Sets the sorting of domains to alphabetical order
+	 */
+ 	public void setIdentityFalse(){
+ 		setState(DotplotAction.IDENTITY, false);
+		//structuralChange();
+	}
+ 	
+ 	/**
+ 	 * Sets the sorting of domains to ordered by number of occurrences 
+ 	 * within the dataset
+ 	 */
+	public void setBlosumFalse(){
+		setState(DotplotAction.BLOSUM65, false);
+		//structuralChange();
+	}
+ 		
+	/**
 	 * Returns whether or not the dotplot should be shown.
 	 * 
 	 * @return

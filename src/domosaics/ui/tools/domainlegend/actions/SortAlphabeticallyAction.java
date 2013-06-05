@@ -19,14 +19,13 @@ import domosaics.ui.views.ViewType;
 public class SortAlphabeticallyAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
-	public void actionPerformed(ActionEvent e) {
-		DomainLegendView view = ViewHandler.getInstance().getTool(ViewType.DOMAINLEGEND);
-		
-		if (!getState() && !view.getLegendLayoutManager().isSortByFrequency()) {
+	public void actionPerformed(ActionEvent e) {		
+		if (!getState()) {
+			System.out.println("ici "+!getState());
 			setState(!getState());
-			return;
+		} else {
+			DomainLegendView view = ViewHandler.getInstance().getTool(ViewType.DOMAINLEGEND);
+			view.getLegendLayoutManager().setToSortAlphabetically();
 		}
-		
-		view.getLegendLayoutManager().setToSortAlphabetically();
 	}
 }

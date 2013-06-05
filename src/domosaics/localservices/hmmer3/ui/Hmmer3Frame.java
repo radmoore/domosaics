@@ -30,7 +30,7 @@ public class Hmmer3Frame extends JFrame{
 		content = new JPanel(new BorderLayout());
 		hmmScanPanel = new HmmScanPanel(this); 
 		content.add(hmmScanPanel, BorderLayout.CENTER);
-		getContentPane().add(content);
+		getContentPane().add(hmmScanPanel);
 		setSize(500, 500);
 		pack();
 		setLocationRelativeTo(null);
@@ -52,9 +52,6 @@ public class Hmmer3Frame extends JFrame{
 		return instance != null;
 	}
 	
-	// weak singleton
-	public HmmScanPanel getHmmScanPanel() {
-		return hmmScanPanel;
-	}
+
 	
 }

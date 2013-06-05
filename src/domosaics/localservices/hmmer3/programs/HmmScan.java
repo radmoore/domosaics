@@ -416,7 +416,7 @@ public class HmmScan implements Hmmer3Program {
 			
 			// If the CODD procedure was requested, launch
 			if(coddFilter) {
-				arrangementSet = ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet, parent.getParent());
+				arrangementSet = ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet, parent.getParentFrame());
 			}
 			else {
 				// test for another post-processing filter
@@ -475,22 +475,22 @@ public class HmmScan implements Hmmer3Program {
 			String viewName = null;
 			String projectName = null;
 			while (viewName == null) {
-				parent.getParent().setAlwaysOnTop(false);
+				parent.getParentFrame().setAlwaysOnTop(false);
 				Map m = WizardManager.getInstance().selectNameWizard(defaultName, "annotation", project, true);
 				if(m!=null) {
 					viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
 					projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
 
 					if (viewName == null) 
-						if (MessageUtil.showDialog(parent.getParent(),"You will loose the hmmscan results. Are you sure?"))
+						if (MessageUtil.showDialog(parent.getParentFrame(),"You will loose the hmmscan results. Are you sure?"))
 							// will not delete tmp files, just in case
 							return;
 				} else {
-					if (MessageUtil.showDialog(parent.getParent(),"You will loose the hmmscan results. Are you sure?"))
+					if (MessageUtil.showDialog(parent.getParentFrame(),"You will loose the hmmscan results. Are you sure?"))
 					// will not delete tmp files, just in case
 						return;
 				}
-				parent.getParent().setAlwaysOnTop(true);
+				parent.getParentFrame().setAlwaysOnTop(true);
 			}
 
 			// get chosen project

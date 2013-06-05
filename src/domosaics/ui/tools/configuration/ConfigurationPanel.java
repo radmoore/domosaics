@@ -178,14 +178,14 @@ public class ConfigurationPanel extends JPanel{
 			public void focusGained(FocusEvent e) {
 			}
 		});*/
-		googleField = new JTextField(config.getGoogleUrl(), 50);
-		//ncbiField = new JTextField(config.getNcbiUrl(), 50);
-		pfamField = new JTextField(config.getPfamUrl(), 50);
-		uniprotField = new JTextField(config.getUniprotUrl(), 50);
-		//emailField = new JTextField(config.getEmailAddr(), 50);
+		googleField = new JTextField(config.getGoogleUrl(), 25);
+		//ncbiField = new JTextField(config.getNcbiUrl(), 25);
+		pfamField = new JTextField(config.getPfamUrl(), 25);
+		uniprotField = new JTextField(config.getUniprotUrl(), 25);
+		//emailField = new JTextField(config.getEmailAddr(), 25);
 
 		emailField = UiUtil.createEmailField(config.getEmailAddr());
-		documentationTF = new JTextField(config.getDocuPath(false), 50);
+		documentationTF = new JTextField(config.getDocuPath(false), 25);
 		
 		loadHmmScanBin = new JButton("hmmscan");
 		loadHmmScanBin.addActionListener(new ActionListener() {
@@ -357,7 +357,7 @@ public class ConfigurationPanel extends JPanel{
 		add(new JXTitledSeparator("Apply"),"growx, span, wrap, gaptop 10");
 		add(apply, "h 25!, w 80!, split 2, gap 10");
 		add(cancel, "h 25!, gap 15");
-		add(restore, "h 25!, w 80!, gap 10");
+		add(restore, "h 25!, w 80!, gap 10, gapbottom 5, wrap");
 		
 	}
 	/**

@@ -83,16 +83,25 @@ public class AddSelectionToViewAction extends AbstractMenuAction{
 		
 		
 		// clone selected arrangements and sequences of selection
-		DomainArrangement[] daSet = new DomainArrangement[numDAs];
+		boolean alreadyInTarget;
+		List<DomainArrangement> daSetTmp = new ArrayList<DomainArrangement>();
 		List<SequenceI> selectedDAseqs = new ArrayList<SequenceI>();
-		int i = 0;
 		Iterator<ArrangementComponent> iter = activeDomView.getArrangementSelectionManager().getSelectionIterator();
 		while (iter.hasNext()) {
 			try {
 				DomainArrangement da =  iter.next().getDomainArrangement();
-				if (da.getSequence() != null)
-					selectedDAseqs.add((Sequence) da.getSequence().clone());
-				daSet[i] = (DomainArrangement)da.clone();
+				alreadyInTarget=false;
+				for (DomainArrangement daTarget : targetView.getDaSet()) {
+					if(daTarget.getName().equals(da.getName())) {
+						alreadyInTarget=true;
+						break;
+					}
+				}
+				if(!alreadyInTarget) {
+					if (da.getSequence() != null)
+						selectedDAseqs.add((Sequence) da.getSequence().clone());
+					daSetTmp.add((DomainArrangement)da.clone());
+				}
 			} 
 			catch (Exception ex) {
 				if (Configuration.getReportExceptionsMode(true))
@@ -100,8 +109,8 @@ public class AddSelectionToViewAction extends AbstractMenuAction{
 				else			
 					Configuration.getLogger().debug(ex.toString());
 			}
-			i++;
 		}
+		DomainArrangement[] daSet = daSetTmp.toArray(new DomainArrangement[daSetTmp.size()]);
 		
 		// create new set of sequences with all sequences (selection and target view)
 		List<SequenceI> allSeqs = new ArrayList<SequenceI>();
@@ -109,7 +118,7 @@ public class AddSelectionToViewAction extends AbstractMenuAction{
 			// from selection
 			try {
 			for (SequenceI s : selectedDAseqs) {
-				allSeqs.add(s);
+					allSeqs.add(s);
 			}
 			// from the targetView
 			for (DomainArrangement da : targetView.getDaSet()) {
@@ -131,12 +140,6 @@ public class AddSelectionToViewAction extends AbstractMenuAction{
 		// add arrangements to targetView
 		targetView.addDaSet(daSet);
 		
-		// FIXME this is ineffcient, as we should only add
-		// new sequences to targetView (as opposed to re-adding the existing ones as well)
-		// This was done due to the relatively complex loadSequencesIntoDas method, which also
-		// triggers the match sequence dialog if ambiguoity should occur - to avoid code duplication
-		// all sequences are readded.
-		
 		// add all sequences to targetView (existing + selection)
 		if (allSeqs != null || allSeqs.size() > 0 )
 			targetView.loadSequencesIntoDas(allSeqs.toArray(new SequenceI[allSeqs.size()]), targetView.getDaSet());
@@ -144,7 +147,20 @@ public class AddSelectionToViewAction extends AbstractMenuAction{
 		WorkspaceManager.getInstance().showViewInMainFrame(WorkspaceManager.getInstance().getViewElement(targetView.getViewInfo()));
 		// Set selection in target to selected arrangements (doesnt work)
 		//viewToAddTo.getArrangementSelectionManager().setSelection(activeDomView.getArrangementSelectionManager().getSelection());
-		MessageUtil.showInformation(null, "Added "+selectedItems+" arrangements from "+activeDomView.getViewInfo().getName());
+		String msg="Added "+daSet.length+" arrangement";
+		if(daSet.length>1)
+			msg+="s";
+		msg+=" from "+activeDomView.getViewInfo().getName();
+		if(selectedItems!=daSet.length)
+		{
+			msg+="\n("+(selectedItems-daSet.length);
+			if(selectedItems-daSet.length>1)
+				msg+=" were";
+			else
+				msg+=" was";
+			msg+=" already existing in this view)";
+		}
+		MessageUtil.showInformation(null, msg);
 		
 	}
 	

@@ -68,7 +68,7 @@ public abstract class HmmerServicePanel extends JPanel {
 	public abstract void resetPanel();
 	
 	
-	public abstract JFrame getParent();
+	public abstract JFrame getParentFrame();
 	
 	
 }

@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -69,7 +70,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	private static String DEFAULT_EMAIL = "enter your email here";
 	
 	/** The AnnotatorFrame, where the panel is embedded in */
-	private AnnotatorFrame parent;
+	private JFrame parent;
 	
 	/** Spawner for annotation threads */
 	private AnnotationThreadSpawner annotationSpawner;
@@ -106,7 +107,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * @param parent 
 	 * 		the frame where the panel is embedded in
 	 */
-	public AnnotatorPanel(AnnotatorFrame parent) {
+	public AnnotatorPanel(JFrame parent) {
 		super(new MigLayout("", "[left]"));
 		
 		this.parent = parent;

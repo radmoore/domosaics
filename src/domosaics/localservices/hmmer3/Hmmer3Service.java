@@ -236,7 +236,7 @@ public class Hmmer3Service implements ProcessListener{
 			hmmerProgram.parseResults();
 		}
 		else {
-			MessageUtil.showWarning(hmmPanel.getParent(), hmmerProgram.getName()+" was canceled or died unexpectedly.");
+			MessageUtil.showWarning(hmmPanel.getParentFrame(), hmmerProgram.getName()+" was canceled or died unexpectedly.");
 			hmmPanel.resetPanel();
 			System.out.println(hmmerProgram.getName() + " was closed or died unexpectedly.");
 		}

@@ -42,7 +42,7 @@ public class ChangeArrangementHelpPanel extends JPanel{
 		
 		JTextArea txt = new JTextArea (helpTxt);
 		txt.setFont(new Font ("Arial", 0, 14));		// style plain, size 14
-		txt.setColumns(33);
+		txt.setColumns(35);
 		txt.setLineWrap(true);
 		txt.setRows(13);
 		txt.setWrapStyleWord(false);				// wrap on chars

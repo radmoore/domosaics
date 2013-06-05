@@ -31,7 +31,7 @@ public class LegendLayoutManager extends DefaultLayoutManager{
 	enum LegendAction implements ActionEnumeration {
 		
 		SORTALPHABETICALLY 		(SortAlphabeticallyAction.class),
-		SORTBYFREQUUENCY 		(SortByFrequenceAction.class),
+		SORTBYFREQUENCY 		(SortByFrequenceAction.class),
 		;
 		
 		private Class<?> clazz;
@@ -61,7 +61,7 @@ public class LegendLayoutManager extends DefaultLayoutManager{
 	 * Sets the sorting of domains to alphabetical order
 	 */
  	public void setToSortAlphabetically(){
- 		setState(LegendAction.SORTBYFREQUUENCY, false);
+ 		setState(LegendAction.SORTBYFREQUENCY, false);
 		structuralChange();
 	}
  	
@@ -91,7 +91,7 @@ public class LegendLayoutManager extends DefaultLayoutManager{
 	 * 		whether or not the domains are sorted by frequency
 	 */
 	public boolean isSortByFrequency(){
-		return getState(LegendAction.SORTBYFREQUUENCY);
+		return getState(LegendAction.SORTBYFREQUENCY);
 	}
 
 

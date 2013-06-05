@@ -38,7 +38,7 @@ public class ConfigurationFrame extends JFrame implements WindowListener {
 		
 		// set up the main window
 		pack();
-		setSize(500, 575);
+		//setSize(500, 650);
 		setLocationRelativeTo(null);
 		setAlwaysOnTop(true);
 		setResizable(true);

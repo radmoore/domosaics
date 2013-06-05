@@ -3,6 +3,7 @@ package domosaics;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import domosaics.localservices.hmmer3.ui.Hmmer3Frame;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.configuration.ConfigurationWriter;
 import domosaics.ui.DoMosaicsUI;
