@@ -32,7 +32,7 @@ public class ShowManualAction extends AbstractMenuAction{
 			if ( (!helpFile.exists()) )
 				MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Specified help file does not exist - please check the settings.");
 			else
-				BrowserLauncher.openURL(Configuration.getInstance().getDocuPath(true));
+				BrowserLauncher.openURL(helpFile.getAbsolutePath());
 		}
 	}
 }

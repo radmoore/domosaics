@@ -1,6 +1,7 @@
 package domosaics.model.configuration;
 
 import java.io.File;
+import java.net.URL;
 
 import org.apache.log4j.Logger;
 
@@ -353,11 +354,11 @@ public class Configuration {
 	
 	public String getDocuPath(boolean includeProtocol) {
 		return (includeProtocol) 
-				? "file://"+this.documentationPath 
+				? "file:///"+this.documentationPath
 						: this.documentationPath;
 	}
 	
-	public void setDocuPath(String path) {
+	public void setDocuPath(String path) {	
 		this.documentationPath = path;
 	}
 	
