@@ -25,8 +25,14 @@ public class ChangeArrangementAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
 	public void actionPerformed(ActionEvent e) {
-		DomainViewI domView = (DomainViewI) ViewHandler.getInstance().getActiveView();		
+		DomainViewI domView = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		if (domView.getArrangementSelectionManager().getSelection().isEmpty() || domView.getArrangementSelectionManager().getSelection().size()>1) {
+			if(domView.getDomainLayoutManager().isSelectSequences())
+			{
+				domView.getDomainLayoutManager().toggleSelectArrangements();
+				domView.getSequenceSelectionMouseController().clearSelection();
+				domView.registerMouseListeners();
+			}
 			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please select exactly 1 protein.");
 			return;
 		}

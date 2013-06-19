@@ -310,19 +310,18 @@ public class ApplicationHandler {
 	 */
 	protected void initWorkspaceDir() {
 
+		boolean workspaceCreated=false;
 		File workspace = null;		
 		File configFile = Configuration.getInstance().getConfigFile();
 		if ( !configFile.exists() ) {
 			
 			// if default directory does not exist choose and create a workspace dir
-			workspace = WizardManager.getInstance().showWorkingDirectoyWizard(
+			while (!workspaceCreated) {
+				workspace = WizardManager.getInstance().showWorkingDirectoyWizard(
 					startUpProgress, Configuration.DEF_HOMEFOLDER_LOCATION);
-			// user did not select anything - abort.
-			if ( workspace == null )
-				System.exit(0);
-				
-			if( !workspace.exists() )
-				workspace.mkdir();
+				if( !workspace.exists() )
+					workspaceCreated=workspace.mkdir();							
+			}
 			
 			Configuration.getInstance().setWorkspaceDir(workspace.getPath());
 
@@ -332,8 +331,18 @@ public class ApplicationHandler {
 		else {
 			ConfigurationReader.read();
 			workspace = new File(Configuration.getInstance().getWorkspaceDir());
-			if(!workspace.exists())
-				workspace.mkdir();
+			if( !workspace.exists() )
+				workspaceCreated=workspace.mkdir();
+			else
+				workspaceCreated=true;
+			while (!workspaceCreated) {
+				workspace = WizardManager.getInstance().showWorkingDirectoyWizard(
+						startUpProgress, Configuration.DEF_HOMEFOLDER_LOCATION);
+				if( !workspace.exists() )
+					workspaceCreated=workspace.mkdir();	
+				Configuration.getInstance().setWorkspaceDir(workspace.getPath());
+				ConfigurationWriter.write();						
+			}
 		}
 		
 		// TODO In next version 

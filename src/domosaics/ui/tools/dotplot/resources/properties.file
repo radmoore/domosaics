@@ -1,6 +1,5 @@
 <propertys>
 	<property id="name" value="Dotplot">
-	<property id="icon" value="">
 	<property id="isTool" value="true">
 	<property id="class" value="domosaics.ui.tools.dotplot.DotplotView">
 	<property id="frameclass" value="domosaics.ui.tools.dotplot.DotplotFrame">
