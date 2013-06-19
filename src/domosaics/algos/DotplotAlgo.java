@@ -32,6 +32,14 @@ public class DotplotAlgo {
 	/** resulting dotmatrix */
 	private static int[][] dotMatrix;
 	
+	
+	/**
+	 * accessor to the size of half the sliding window
+	 * 
+	 */
+	public static int getWinHalf() {
+		return winHalf;
+	}
 
 	/**
 	 * initializes the class variables based on the dotplot
@@ -108,7 +116,6 @@ public class DotplotAlgo {
 	 * 		computed plot
 	 */
 	public static int[][] computeMatchNoMatchWithWindowAndMatrix(Dotplot plot) {
-		System.out.println("la");
 		init(plot);
 		Integer[][] scoreMatrix = new Integer[rows][cols];
 
@@ -135,7 +142,7 @@ public class DotplotAlgo {
 				
 				dotMatrix[r][c] = sum;
 			}
-		
+				
 		return dotMatrix;
 	}
 }

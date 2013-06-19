@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import domosaics.algos.DotplotAlgo;
 import domosaics.model.dotplot.Dotplot;
 
 
@@ -50,11 +51,12 @@ public class GreyScaleImg {
 		imgG2D.setColor(Color.white);
 		imgG2D.fillRect(0, 0, dim.width, dim.height);
 
+		int limits=DotplotAlgo.getWinHalf();
 		// fill the image
 		imgG2D.setColor(Color.black);
-		for (int r = 0; r < dim.height; r++)
-			for (int c = 0; c < dim.width; c++) 
-				if (dotMatrix[r][c] >= dotplot.getCutoffThres())
+		for (int r = 1; r <= dim.height; r++)
+			for (int c = 1; c <= dim.width; c++) 
+				if (dotMatrix[r-1][c-1] >= dotplot.getCutoffThres() && r>limits && r<dim.height-limits && c>limits && c<dim.width-limits)
 					imgG2D.drawLine(c, r, c, r);
 
 		imgG2D.dispose();
