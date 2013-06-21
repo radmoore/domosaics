@@ -252,8 +252,8 @@ public class Hmmer3Service implements ProcessListener{
 		StringBuilder dateString = new StringBuilder( dateformatYYYYMMDD.format( startTime ) );
 
 		String workspace = config.getWorkspaceDir();
-		String logDir = workspace+"/logs";
-		String projectDir = logDir+"/"+currentProject.getTitle();
+		String logDir = workspace+File.separator+"logs";
+		String projectDir = logDir+File.separator+currentProject.getTitle();
 		
 		try {
 			if (!new File(logDir).exists())
@@ -262,7 +262,7 @@ public class Hmmer3Service implements ProcessListener{
 			if (!new File(projectDir).exists())
 				new File(projectDir).mkdir();
 		
-			logFile = new File(projectDir+"/"+hmmerProgram.getName()+"_"+dateString+".log");
+			logFile = new File(projectDir+File.separator+hmmerProgram.getName()+"_"+dateString+".log");
 			
 			FileWriter fstream = new FileWriter(logFile.getAbsolutePath());
 			writer = new BufferedWriter(fstream);

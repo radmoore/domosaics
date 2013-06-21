@@ -1,5 +1,7 @@
 package domosaics.model.matrix;
 
+import java.io.File;
+
 
 /**
  * Enumeration for different supported substitution matrices, which
@@ -12,9 +14,9 @@ package domosaics.model.matrix;
  */
 public enum MatrixType {
 	
-	BLOSUM62("resources/BLOSUM62"),
-	BLOSUM65("resources/BLOSUM65"),
-	IDENTITY("resources/IDENTITY")
+	BLOSUM62("resources"+File.separator+"BLOSUM62"),
+	BLOSUM65("resources"+File.separator+"BLOSUM65"),
+	IDENTITY("resources"+File.separator+"IDENTITY")
 	;
 	
 	private String file;

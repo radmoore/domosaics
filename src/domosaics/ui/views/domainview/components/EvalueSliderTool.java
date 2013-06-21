@@ -9,6 +9,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -38,6 +39,9 @@ import domosaics.localservices.codd.ConditionallyDependentDomainPairMap;
 import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.ui.DoMosaicsUI;
+import domosaics.ui.ViewHandler;
+import domosaics.ui.util.MessageUtil;
+import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.DomainViewI;
 
 
@@ -52,7 +56,9 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 	private JRadioButton overlapRadioCoverage;
 	//overlapRadioQuality;
 	
-	private JCheckBox coddCkb; 
+	private JCheckBox coddCkb26, coddCkb27; 
+	
+	private JLabel threshold;
 	
 	protected JButton jbtApply;
 	
@@ -89,15 +95,39 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 //       groupRadio.add(overlapRadioQuality);
 //       overlapRadioQuality.setActionCommand("overlapRadioQuality");
 		
-		coddCkb = new JCheckBox("", false);
-	    coddCkb.addItemListener(new ItemListener(){	
+		coddCkb26 = new JCheckBox("Pfam v26", false);
+		coddCkb26.setToolTipText("Context dependent annotation, see [Terrapon et al., Bioinformatics, 2009]");
+	    coddCkb26.addItemListener(new ItemListener(){	
 			public void itemStateChanged(ItemEvent e) {
-				overlapRadioEvalue.setSelected(coddCkb.isSelected());
-				overlapRadioNone.setEnabled(!coddCkb.isSelected());
-				overlapRadioCoverage.setEnabled(!coddCkb.isSelected());
-	            if(coddCkb.isSelected())
+				if(coddCkb27.isSelected() && coddCkb26.isSelected())
+					coddCkb27.setSelected(false);
+				checkView();
+				overlapRadioEvalue.setSelected(coddCkb26.isSelected());
+				overlapRadioNone.setEnabled(!coddCkb26.isSelected());
+				overlapRadioCoverage.setEnabled(!coddCkb26.isSelected());
+	            if(coddCkb26.isSelected())
 	            {
-	             actionCODD();
+	             actionCODD("v26.0", false);
+	            }else
+	            {
+	          	 processSlider(slider.getEvalue());
+	             resolveOverlaps("Evalue");
+	            }
+			}
+		});
+	    coddCkb27 = new JCheckBox("Pfam v27", false);
+	    coddCkb27.setToolTipText("Context dependent annotation, see [Terrapon et al., Bioinformatics, 2009]");
+	    coddCkb27.addItemListener(new ItemListener(){	
+			public void itemStateChanged(ItemEvent e) {
+				if(coddCkb27.isSelected() && coddCkb26.isSelected())
+					coddCkb26.setSelected(false);
+				checkView();
+				overlapRadioEvalue.setSelected(coddCkb27.isSelected());
+				overlapRadioNone.setEnabled(!coddCkb27.isSelected());
+				overlapRadioCoverage.setEnabled(!coddCkb27.isSelected());
+	            if(coddCkb27.isSelected())
+	            {
+	             actionCODD("v27", false);
 	            }else
 	            {
 	          	 processSlider(slider.getEvalue());
@@ -125,20 +155,24 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 	    componentHolder.add(overlapRadioCoverage,"gap 10, wrap");
 //	      componentHolder.add(new JLabel(" "), "gap 10");
 //	      componentHolder.add(jbtQuality, "gap 10, wrap");
-	    componentHolder.add(new JLabel(" "), "gap 10, wrap");
-		
+	    componentHolder.add(new JLabel(" "), "gap 5, wrap");
 
-	    componentHolder.add(new JXTitledSeparator("CODD procedure "),"growx, span, wrap, gaptop 10");
-		componentHolder.add(new JLabel("Co-Occurring Domain Filter:"), "gap 10");
-	    componentHolder.add(coddCkb, "gap 10, span 2, growX, wrap");
-	    componentHolder.add(new JLabel(" "), "gap 10, wrap");
+	    JXTitledSeparator codd = new JXTitledSeparator("Co-Occurring Domain Detection");
+	    codd.setToolTipText("Context dependent annotation, see [Terrapon et al., Bioinformatics, 2009]");
+	    componentHolder.add(codd,"growx, span, wrap, gaptop 10");
+	    componentHolder.add(coddCkb26, "gap 10, split 2");
+	    componentHolder.add(coddCkb27, "gap 10, wrap");
+	    componentHolder.add(new JLabel(" "), "gap 5, wrap");
 		
 	    componentHolder.add(new JXTitledSeparator("Adjust evalue "),"growx, span, wrap, gaptop 10");
-		componentHolder.add(sliderBox, "gap 10, growx, span, wrap");
+	    threshold = new JLabel("Threshold: "+slider.getEvalueThreshold());
+		componentHolder.add(threshold, "gap 10, gaptop 5, growx, span, wrap");
+		componentHolder.add(sliderBox, "growx, span, wrap");
+	    componentHolder.add(new JLabel(" "), "gap 255, wrap");
 		
 		componentHolder.add(new JXTitledSeparator("Apply settings"),"growx, span, wrap, gaptop 10");
 //		componentHolder.add(new JLabel(" "), "gap 10");
-		componentHolder.add(jbtApply, "gap 73, wrap");
+		componentHolder.add(jbtApply, "gap 90, gaptop 10, wrap");
 //		componentHolder.add(new JLabel(" "), "gap 10, wrap");
 //		componentHolder.add(jbtCancel, "gap 10, growx, wrap");
 
@@ -173,15 +207,24 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 	
 	
 	public void stateChanged(ChangeEvent e) {
-		EvalueSlider slider = (EvalueSlider) e.getSource();
-		processSlider(slider.getEvalue());
-		if(coddCkb.isSelected())
-		{
-	     actionCODD();
-		}else
-		{
-		 resolveOverlaps(groupRadio.getSelection().getActionCommand());
-		}		
+		checkView();
+		if( slider == (EvalueSlider) e.getSource()) {
+			threshold.setText("Threshold: "+slider.getEvalue());
+			processSlider(slider.getEvalue());
+			if(coddCkb26.isSelected())
+			{
+				actionCODD("v26.0", slider.getValueIsAdjusting());
+			}else
+			{
+				if(coddCkb27.isSelected())
+				{
+					actionCODD("v27", slider.getValueIsAdjusting());
+				} else
+				{
+					resolveOverlaps(groupRadio.getSelection().getActionCommand());
+				}
+			}
+		}
 	}
 	
 	protected void processSlider(double threshold) {
@@ -214,35 +257,42 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 	 */
 	public void actionPerformed(ActionEvent e)
 	{
-	 if(e.getSource() == overlapRadioCoverage)
-     {
-	  processSlider(slider.getEvalue());
-      resolveOverlaps("Coverage");
-     }else
-     {
-      if(e.getSource() == overlapRadioEvalue)
-      {  
- 	   processSlider(slider.getEvalue());
-       resolveOverlaps("Evalue");
-      }else
-      {
-       if(e.getSource() == overlapRadioNone)
-       {
-        processSlider(slider.getEvalue());
-       }else
-       {
-        if(e.getSource() == jbtApply)
-        {
-	     slider.setThreshold(slider.getEvalue());
-         dispose();
-        }
-       } 
-      } 
-     }	
-     if(coddCkb.isSelected())
-	 {
-	  actionCODD();
-	 }
+		checkView();	
+		if(e.getSource() == overlapRadioCoverage)
+		{
+			processSlider(slider.getEvalue());
+			resolveOverlaps("Coverage");
+		}else
+		{
+			if(e.getSource() == overlapRadioEvalue)
+			{  
+				processSlider(slider.getEvalue());
+				resolveOverlaps("Evalue");
+			}else
+			{
+				if(e.getSource() == overlapRadioNone)
+				{
+					processSlider(slider.getEvalue());
+				}else
+				{
+					if(e.getSource() == jbtApply)
+					{
+						slider.setThreshold(slider.getValue());
+						dispose();
+					}
+				} 
+			} 
+		}	
+		if(coddCkb26.isSelected())
+		{
+			actionCODD("v26.0", false);
+		} else
+		{
+			if(coddCkb27.isSelected())
+			{
+				actionCODD("v27", false);
+			}
+		}
 	}
 
 	private void resolveOverlaps(String method)
@@ -272,23 +322,33 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 	 }
     }
     
-    private void actionCODD()
+    private void actionCODD(String version, boolean valueInAdjustment)
     {
-     //view.setDaSet(ConditionallyDependentDomainPairMap.coddProcedure(view.getDaSet()));
-     setAlwaysOnTop(false);
- 	 DomainArrangement[] daSet = ConditionallyDependentDomainPairMap.coddProcedure(view.getDaSet(), DoMosaicsUI.getInstance());
-     setAlwaysOnTop(true);
-     for (DomainArrangement da : daSet)
-     {
-      //System.out.println(da.countDoms()+" "+da.getHiddenDoms().size());
-      for (Domain dom : da.getDomains())
-      {
-       DomainComponent dc = view.getDomainComponentManager().getComponent(dom);
-       dc.setVisible(true);
-      }
-     }
-     // in proportional view it has to be a structural change
-     view.getDomainLayoutManager().structuralChange();
+    	//view.setDaSet(ConditionallyDependentDomainPairMap.coddProcedure(view.getDaSet()));
+    	setAlwaysOnTop(false);
+    	List<DomainArrangement> arrList = new ArrayList<DomainArrangement>();
+    	if(!ConditionallyDependentDomainPairMap.coddProcedure(view.getDaSet(), DoMosaicsUI.getInstance(), version, arrList))
+    		if(!valueInAdjustment)
+    			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "No putative domains in this data set. Try with higher E-values.");
+    	DomainArrangement[] daSet = arrList.toArray(new DomainArrangement[arrList.size()]);
+    	setAlwaysOnTop(true);
+    	for (DomainArrangement da : daSet)
+    	{
+    		//System.out.println(da.countDoms()+" "+da.getHiddenDoms().size());
+    		for (Domain dom : da.getDomains())
+    		{
+    			DomainComponent dc = view.getDomainComponentManager().getComponent(dom);
+    			dc.setVisible(true);
+    		}
+    	}
+    	// in proportional view it has to be a structural change
+    	view.getDomainLayoutManager().structuralChange();
+    }
+    
+    private void checkView() {
+		view = ViewHandler.getInstance().getActiveView();
+		if(view.getViewInfo().getType()!=ViewType.DOMAINS && view.getViewInfo().getType()!=ViewType.DOMAINTREE)
+			dispose();
     }
     
 }

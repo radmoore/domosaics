@@ -41,7 +41,7 @@ public class DigestUtil {
 			digest = MessageDigest.getInstance(ALGO);
 			digest.update(projectName.getBytes());
 			hash = digest.digest();
-			FileWriter fw = new FileWriter(dir+"/"+fileKey);
+			FileWriter fw = new FileWriter(dir+File.separator+fileKey);
 			fw.write(hash.toString());
 			fw.flush();
 			fw.close();

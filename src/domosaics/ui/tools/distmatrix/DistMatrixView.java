@@ -94,6 +94,7 @@ public class DistMatrixView extends AbstractView implements Tool {
 
 		matrixPanel  = new DistMatrixPanel(data, colNames);
 		parentFrame.showMatrix(matrixPanel);
+		parentFrame.setSize(parentFrame.getWidth()-1, parentFrame.getHeight());
 	}
 	
 	/**

@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.MessageUtil;
+import domosaics.util.CheckConnectivity;
 import domosaics.util.ExceptionComunicator;
 
 
@@ -114,10 +115,15 @@ public class Configuration {
 		
 		if (ask) {
 			boolean sendMes = false;
-			if ( !haveAsked )
-				sendMes = MessageUtil.showDialog(DoMosaicsUI.getInstance(), "A problem was detected - enable bug reporting?");
-			Configuration.setReportExceptionsMode(sendMes);
-			haveAsked = true;
+			if (!CheckConnectivity.checkInternetConnectivity()) {
+				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please check your intenet connection (connection failed).");
+				return false;
+			} else {
+				if ( !haveAsked )
+					sendMes = MessageUtil.showDialog(DoMosaicsUI.getInstance(), "A problem was detected - enable bug reporting?");
+				Configuration.setReportExceptionsMode(sendMes);
+				haveAsked = true;
+			}
 		}
 		return reportExceptions;
 	}

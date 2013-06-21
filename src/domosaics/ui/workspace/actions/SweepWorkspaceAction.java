@@ -24,7 +24,7 @@ public class SweepWorkspaceAction {
 		if (sweep) {
 			// get workspace dir
 			String workspaceDirPath = Configuration.getInstance().getWorkspaceDir();
-			String bckDirPath = workspaceDirPath+"/"+BCKDIR;
+			String bckDirPath = workspaceDirPath+File.separator+BCKDIR;
 			File bckDir = new File(bckDirPath);
 
 			// check if bckdir exists.
@@ -50,7 +50,7 @@ public class SweepWorkspaceAction {
 			// copy all non-active projects into bckdir
 			// and delete if successfull
 			for (ProjectElement project: WorkspaceManager.getInstance().getProjects()) {
-				File projectDir = new File(workspaceDirPath+"/"+project.getTitle()); 
+				File projectDir = new File(workspaceDirPath+File.separator+project.getTitle()); 
 				if (projectDir.exists())
 					continue;
 				

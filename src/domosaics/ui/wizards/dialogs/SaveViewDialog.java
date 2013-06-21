@@ -64,7 +64,7 @@ class SaveViewProgress extends DeferredWizardResult implements WizardResultProdu
 				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No permission to write in "+fileLocation.getName());
 			
 			// use exportName and location to create file
-			File exportFile = new File(fileLocation.getAbsolutePath()+"/"+exportName);
+			File exportFile = new File(fileLocation.getAbsolutePath()+File.separator+exportName);
 			
 			if (exportFile.exists())
 				if (!MessageUtil.showDialog(DoMosaicsUI.getInstance(),exportFile.getName()+" exists. Overwrite?"))

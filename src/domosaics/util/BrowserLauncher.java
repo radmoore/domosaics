@@ -8,6 +8,8 @@ import java.net.URI;
 import javax.swing.JOptionPane;
 
 import domosaics.model.configuration.Configuration;
+import domosaics.ui.DoMosaicsUI;
+import domosaics.ui.util.MessageUtil;
 
 
 
@@ -24,7 +26,10 @@ public class BrowserLauncher {
 
 	public static void openURL(String url) {
 		
-		try {
+		if (!CheckConnectivity.checkInternetConnectivity())
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please check your intenet connection (connection failed).");
+		else
+			try {
 			if ( Desktop.isDesktopSupported() )	
 				Desktop.getDesktop().browse(new URI(url));
 			  

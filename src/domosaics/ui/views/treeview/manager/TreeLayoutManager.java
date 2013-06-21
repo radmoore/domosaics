@@ -100,9 +100,10 @@ public class TreeLayoutManager extends DefaultLayoutManager {
 	/**
 	 * Toggles the flag if edge labels should be drawn
 	 */
-  	public void toggleDrawEdgeWeights(){
-  		if (isDrawEdgeWeights() && isShowBootstrap()) 
+  	public void toggleDrawEdgeWeights() {
+  		if (isDrawEdgeWeights()) {
   			setState(TreeAction.SHOWBOOTSTRAP, false);
+  		}
   		visualChange();
 	}
 	
@@ -110,9 +111,11 @@ public class TreeLayoutManager extends DefaultLayoutManager {
   	 * Toggles the flag if bootstrap values should be shown instead of
   	 * edge weights
   	 */
-  	public void toggleShowBootstrap(){
-		if(isShowBootstrap() && isDrawEdgeWeights()) 
+  	public void toggleShowBootstrap() {
+		if(isShowBootstrap()) {
 			setState(TreeAction.SHOWEDGELABELS, false);
+			setState(TreeAction.USELABELASBOOTSTRAP, false);
+		}
 		visualChange();
 	}
 

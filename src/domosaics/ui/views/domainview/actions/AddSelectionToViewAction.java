@@ -44,10 +44,10 @@ public class AddSelectionToViewAction extends AbstractMenuAction{
 		ViewType activeViewType = ViewHandler.getInstance().getActiveView().getViewInfo().getType();
 		
 		// this operation currently only works for pure domain views (not for trees / sequences)
-		if (! activeViewType.equals(ViewType.DOMAINS)) {
+		/*if (! activeViewType.equals(ViewType.DOMAINS)) {
 			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Only domain views can be merged");
 			return;
-		}
+		}*/
 		
 		DomainViewI activeDomView = (DomainViewI) ViewHandler.getInstance().getActiveView();
 

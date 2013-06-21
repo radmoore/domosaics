@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.views.treeview.TreeViewI;
+import domosaics.ui.views.treeview.manager.TreeLayoutManager.TreeAction;
 
 
 
@@ -25,6 +26,9 @@ public class UseLabelAsBootstrapAction extends AbstractMenuAction{
 
 		// delete the numeric labels from the nodes
 		view.getTreeComponentManager().useLabelAsBootstrap(getState());
+		
+		view.getTreeLayoutManager().setState(TreeAction.SHOWBOOTSTRAP, false);
+		view.getTreeLayoutManager().toggleShowBootstrap();
 		
 		// show the result
 		view.getTreeLayoutManager().visualChange();

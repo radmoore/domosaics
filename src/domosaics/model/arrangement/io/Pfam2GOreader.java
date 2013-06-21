@@ -2,6 +2,7 @@ package domosaics.model.arrangement.io;
 
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -58,7 +59,7 @@ public class Pfam2GOreader {
 		
 			//URL remoteFile = new URL("http://www.geneontology.org/external2go/pfam2go");
 			//BufferedReader in = new BufferedReader(new InputStreamReader(remoteFile.openStream()));
-			InputStream is = Pfam2GOreader.class.getResourceAsStream("resources/pfam2go");
+			InputStream is = Pfam2GOreader.class.getResourceAsStream("resources"+File.separator+"pfam2go");
 			BufferedReader in = new BufferedReader(new InputStreamReader(is));
 			
 			String line;

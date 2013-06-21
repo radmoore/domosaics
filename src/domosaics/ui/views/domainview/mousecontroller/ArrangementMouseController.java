@@ -119,10 +119,12 @@ public class ArrangementMouseController extends MouseAdapter{
 		}
 
 		// add arrangement to the selection if its not already in there
-		if (!arrangementSelectionManager.getSelection().contains(dac))
+		if (!arrangementSelectionManager.getSelection().contains(dac)) {
 			arrangementSelectionManager.addToSelection(dac);	// triggers repaint
-		else // else remove it from selection
+		} else { // else remove it from selection
 			arrangementSelectionManager.removeFromSelection(dac); // triggers repaint
+			view.getDomainLayoutManager().deselectAll();
+		}
 		
 		// Nico: if selected is the last then update "SelectAll status"
 		Collection<ArrangementComponent> toSelection = new ArrayList<ArrangementComponent>();

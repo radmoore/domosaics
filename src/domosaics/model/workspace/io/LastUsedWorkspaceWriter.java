@@ -24,7 +24,7 @@ public class LastUsedWorkspaceWriter {
         	String workspaceDir = Configuration.getInstance().getWorkspaceDir();
         	
         	// get the workspace file and parse existing projects
-        	File workspaceFile = new File (workspaceDir+"/lastusedworkspace.file");
+        	File workspaceFile = new File (workspaceDir+File.separator+"lastusedworkspace.file");
         	BufferedWriter out = new BufferedWriter(new FileWriter(workspaceFile));
         	writeTag(out, 0, "WORKSPACE", true);
     		
