@@ -100,6 +100,15 @@ public class DotplotAlgo {
 	}
 	
 	/**
+	* accessor to the size of half the sliding window
+	* 
+	*/
+	public static int getWinHalf() {
+		return winHalf;
+	}
+	 
+	
+	/**
 	 * Computes the dotplot with window and substitutionmatrix
 	 * 
 	 * @param plot

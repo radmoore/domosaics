@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
+import javax.tools.Diagnostic;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.css.CSSPrimitiveValue;
@@ -35,6 +36,7 @@ import domosaics.model.workspace.io.ProjectExporter;
 import domosaics.model.workspace.io.ProjectImporter;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.WorkspaceManager;
+import domosaics.ui.util.DocumentationHandler;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.wizards.WizardManager;
 
@@ -237,7 +239,7 @@ public class ApplicationHandler {
 			startUpProgress.dispose();
 			String msg = "DoMosaics' functionalities will not work correctly\n";
 			msg += "with your current version of Java. Please update your\n";
-	    	msg += "Java Runtime Environment to 1.7";
+	    	msg += "Java Runtime Environment to 1.7+";
 			msg += "\nJava version: "+ jversion + " \nVendor: "+ jvendor;
 			JOptionPane.showMessageDialog(startUpProgress, msg);
 			//System.exit(-1);
@@ -276,7 +278,7 @@ public class ApplicationHandler {
 	protected void initLastWorkspace() {
     	// check for the project within the workspace directory, create it if necessary
     	String workspaceDir = Configuration.getInstance().getWorkspaceDir();
-        System.out.println(workspaceDir);
+//        System.out.println(workspaceDir);
     	
     	// get the workspace file 
     	File workspaceFile = new File (workspaceDir+File.separator+"lastusedworkspace.file");
@@ -309,21 +311,34 @@ public class ApplicationHandler {
 	 */
 	protected void initWorkspaceDir() {
 
-		boolean workspaceCreated=false;
+		boolean workspaceCreated = false;
 		File workspace = null;		
 		File configFile = Configuration.getInstance().getConfigFile();
+		
+		// we do not have a configuration file
 		if ( !configFile.exists() ) {
 				
 			// if default directory does not exist choose and create a workspace dir
 			while (!workspaceCreated) {
 				workspace = WizardManager.getInstance().showWorkingDirectoyWizard(
 					startUpProgress, Configuration.DEF_HOMEFOLDER_LOCATION);
+
+				// user cancelled
+				if ( workspace == null )
+					System.exit(0);
+				
 				if( !workspace.exists() )
 					workspaceCreated=workspace.mkdir();							
 			}
 			
+			
+			
+			
 			Configuration.getInstance().setWorkspaceDir(workspace.getPath());
 
+			// create the program dir
+			initProgramDir();
+			
 			// create a new config file
 			ConfigurationWriter.write();
 		} 
@@ -375,11 +390,33 @@ public class ApplicationHandler {
 			if ( removeLock )
 				Configuration.getInstance().removeLockFile();
 			else
-				System.exit(0);
+				System.exit(1);
 			
 			Configuration.getInstance().setLockFile();
 		}
 	}
+	
+	/**
+	 * Creates a program dir if it does not exsit, and copies
+	 * the help files to this location. Finally, creates the config
+	 * file in this folder	
+	 */
+	protected void initProgramDir() { 
+		File programDir = new File(Configuration.DEF_PROGRAM_FOLDER);
+		
+		if ( !programDir.exists() ) {
+			// could not create the program dir, inform and close
+			if (!programDir.mkdir()) {
+				MessageUtil.showWarning(startUpProgress, "Unable to create Program directory in "+Configuration.DEF_PROGRAM_FOLDER+". Exiting.");
+				System.exit(1);
+			}
+		}	
+		
+		boolean worked = DocumentationHandler.extractDocumentation();
+		if (!worked)
+			MessageUtil.showWarning(startUpProgress, "Unable to extract documentation!");
+	}
+	
 	
 	/**
 	 * Helper method initializing the main window
