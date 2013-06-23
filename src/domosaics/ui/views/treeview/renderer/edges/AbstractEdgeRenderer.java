@@ -69,13 +69,13 @@ public abstract class AbstractEdgeRenderer implements EdgeRenderer {
 			else
 				label = "";
 			g.setFont(Font.decode("Arial-12"));
-			drawLabel(p.getX(),p.getY(), c.getX(), c.getY(), view, g);
+			drawLabel(p.getX(),p.getY(), c.getX(), c.getY()+13, view, g);
 		}
 		
 		if(view.getTreeLayoutManager().isDrawEdgeWeights()){
 			label = formatter.format(c.getNode().getDistanceToParent());
 			g.setFont(Font.decode("Arial-12"));
-			drawLabel(p.getX(),p.getY(), c.getX(), c.getY(), view, g);
+			drawLabel(p.getX(),p.getY(), c.getX(), c.getY()+13, view, g);
 		}
 
 		// restore old color / stroke

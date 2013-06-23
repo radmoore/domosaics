@@ -224,7 +224,7 @@ public class ConfigurationPanel extends JPanel{
 				File workspaceFile = FileDialogs.openChooseDirectoryDialog(parentFrame);
 				if (workspaceFile == null)
 					return;
-				workspace.setText(workspaceFile.getAbsolutePath()+"/domosaics-workspace");
+				workspace.setText(workspaceFile.getAbsolutePath()+File.separator+"domosaics-workspace");
 			}
 		});
 		

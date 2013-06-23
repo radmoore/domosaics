@@ -1,6 +1,7 @@
 package domosaics.localservices.codd;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -45,6 +46,7 @@ import domosaics.ui.util.MessageUtil;
 public class ConditionallyDependentDomainPairMap implements DoMosaicsData
 {
  private static JFrame parent;
+ private static String currentVersion;
  private HashMap<String , HashSet<String> > CDP;
  protected static ConditionallyDependentDomainPairMap instance;
   
@@ -57,9 +59,10 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
 	 * @param pvalueThreshold
 	 * 		The threshold for CDP significance 
 	 */
- public ConditionallyDependentDomainPairMap(String file, double pvalueThreshold, JFrame curFrame)
+ public ConditionallyDependentDomainPairMap(String file, double pvalueThreshold, JFrame curFrame, String version)
  {
   parent = curFrame;
+  currentVersion = version;
   CDP = new HashMap<String , HashSet<String> >();
    
   BufferedReader in;
@@ -121,11 +124,11 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
   * Currently limited to the Pfam CDP with an arbitrary p-value threshold
   * 
   */
- public static ConditionallyDependentDomainPairMap getInstance(JFrame curFrame)
+ public static ConditionallyDependentDomainPairMap getInstance(JFrame curFrame, String version)
  {
-  if (instance == null)
+  if (instance == null || currentVersion!=version)
   {
-   instance = new ConditionallyDependentDomainPairMap("resources/CDP_Pfam-v26.0",0.001, curFrame);
+   instance = new ConditionallyDependentDomainPairMap("resources"+File.separator+"CDP_Pfam-"+version,0.001, curFrame, version);
   }
   return instance;
  }
@@ -141,14 +144,13 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
  /**
   * Returns the filtered set of arrangement according to the CDP identified
   */
- public static DomainArrangement[] coddProcedure(DomainArrangement[] arrangeSets, JFrame curFrame)
+ public static boolean coddProcedure(DomainArrangement[] arrangeSets, JFrame curFrame, String version, List<DomainArrangement> arrList)
  {
   boolean certified, hasCertified=false;
   String cooccur;
-  List<DomainArrangement> arrList = new ArrayList<DomainArrangement>();
   
   //Instantiation of the CDP if not yet done 
-  ConditionallyDependentDomainPairMap cdp=ConditionallyDependentDomainPairMap.getInstance(curFrame);
+  ConditionallyDependentDomainPairMap cdp=ConditionallyDependentDomainPairMap.getInstance(curFrame, version);
   
   //Filtering overlaps based on E-value
   arrangeSets=OverlapResolver.resolveOverlaps(arrangeSets,"Evalue");
@@ -232,11 +234,7 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
     arrList.add(arrangeSets[i]);
    }
   }
-  if(!hasCertified)
-  {
-   MessageUtil.showWarning(parent, "No putative domains in this data set. Try to Hmmscan with higher E-values.");	
-  }
-  return arrList.toArray(new DomainArrangement[arrList.size()]);
+  return hasCertified;
  }
  
  

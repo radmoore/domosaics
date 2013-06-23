@@ -57,10 +57,10 @@ public class HmmScan implements Hmmer3Program {
 
 	
 	private File hmmScanBin, fasta, hmmDB, outfile;
-	private boolean ga, biasFilter, maxFilter, coddFilter;
+	private boolean ga, biasFilter, maxFilter;
 	
 	private int totalFastaEntries, completedScans;
-	private String name, evalue, cpu, overlapResolvMethod;
+	private String name, evalue, cpu, overlapResolvMethod, coddFilter;
 	private String[] args;
 	private HmmScanPanel parent;
 	
@@ -309,8 +309,8 @@ public class HmmScan implements Hmmer3Program {
 	 * Toggle CODD procedure filter
 	 * @param coddFilter
 	 */
-	public void setCoddFilter(boolean coddFilter) {
-		this.coddFilter = coddFilter;
+	public void setCoddFilter(String version) {
+		this.coddFilter = version;
 	}
 	
 	/**
@@ -390,7 +390,7 @@ public class HmmScan implements Hmmer3Program {
 		StringBuffer commandString = new StringBuffer();
 		for (String arg: args)
 			commandString.append(arg+" ");
-		
+		System.out.println("\n"+commandString.toString()+"\n");
 		return commandString.toString();
 	}
 	
@@ -415,8 +415,11 @@ public class HmmScan implements Hmmer3Program {
 			arrangementSet = ArrangementImporterUtil.importData(outfile);
 			
 			// If the CODD procedure was requested, launch
-			if(coddFilter) {
-				arrangementSet = ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet, parent.getParentFrame());
+			if(coddFilter!="") {
+				List<DomainArrangement> arrList = new ArrayList<DomainArrangement>();
+				if(!ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet, parent.getParentFrame(), coddFilter,arrList))
+					MessageUtil.showWarning(parent.getParentFrame(), "No putative domains in this data set. Try with higher E-values.");
+				arrangementSet = arrList.toArray(new DomainArrangement[arrList.size()]);
 			}
 			else {
 				// test for another post-processing filter

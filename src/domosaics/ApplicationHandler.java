@@ -99,7 +99,7 @@ public class ApplicationHandler {
 			// delete previous stored workspace and exit
 			// (that is, do not save state)
 			else if (choice == 1) {
-				File workspaceFile = new File (Configuration.getInstance().getWorkspaceDir()+"/lastusedworkspace.file");
+				File workspaceFile = new File (Configuration.getInstance().getWorkspaceDir()+File.separator+"lastusedworkspace.file");
 				if (workspaceFile.exists()) {
 					if (!workspaceFile.delete()) {
 						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Could not delete workspace file");
@@ -139,7 +139,7 @@ public class ApplicationHandler {
 			if (project.getChildCount() < 1)
 				continue;
 			
-			String projectDirPath = workspaceDir+"/"+project.getTitle();
+			String projectDirPath = workspaceDir+File.separator+project.getTitle();
         	File projectDir = new File(projectDirPath);
 			
         	
@@ -242,9 +242,9 @@ public class ApplicationHandler {
 			JOptionPane.showMessageDialog(startUpProgress, msg);
 			//System.exit(-1);
 		}	
-		
-		startUpProgress.setProgress("Initiating workspace", 25);
+
 		startUpProgress.setAlwaysOnTop(false);
+		startUpProgress.setProgress("Initiating workspace", 25);
 		initWorkspaceDir();
 		startUpProgress.setAlwaysOnTop(true);
 		
@@ -279,13 +279,12 @@ public class ApplicationHandler {
         System.out.println(workspaceDir);
     	
     	// get the workspace file 
-    	File workspaceFile = new File (workspaceDir+"/lastusedworkspace.file");
+    	File workspaceFile = new File (workspaceDir+File.separator+"lastusedworkspace.file");
     	if (!workspaceFile.exists()) { 
-    		//return;
     		File projectDir = new File(workspaceDir);
     		String[] projectFiles = projectDir.list();
     		for (String elem : projectFiles) {
-        		File elemDir = new File(workspaceDir+"/"+elem);
+        		File elemDir = new File(workspaceDir+File.separator+elem);
     			if(elemDir.isDirectory() && !elem.equals("logs"))
     				ProjectImporter.read(elemDir);
     		}
@@ -310,19 +309,18 @@ public class ApplicationHandler {
 	 */
 	protected void initWorkspaceDir() {
 
+		boolean workspaceCreated=false;
 		File workspace = null;		
 		File configFile = Configuration.getInstance().getConfigFile();
 		if ( !configFile.exists() ) {
-			
-			// if default directory does not exist choose and create a workspace dir
-			workspace = WizardManager.getInstance().showWorkingDirectoyWizard(
-					startUpProgress, Configuration.DEF_HOMEFOLDER_LOCATION);
-			// user did not select anything - abort.
-			if ( workspace == null )
-				System.exit(0);
 				
-			if( !workspace.exists() )
-				workspace.mkdir();
+			// if default directory does not exist choose and create a workspace dir
+			while (!workspaceCreated) {
+				workspace = WizardManager.getInstance().showWorkingDirectoyWizard(
+					startUpProgress, Configuration.DEF_HOMEFOLDER_LOCATION);
+				if( !workspace.exists() )
+					workspaceCreated=workspace.mkdir();							
+			}
 			
 			Configuration.getInstance().setWorkspaceDir(workspace.getPath());
 
@@ -332,8 +330,20 @@ public class ApplicationHandler {
 		else {
 			ConfigurationReader.read();
 			workspace = new File(Configuration.getInstance().getWorkspaceDir());
-			if(!workspace.exists())
-				workspace.mkdir();
+			if( !workspace.exists() )
+				workspaceCreated=workspace.mkdir();
+			else
+				workspaceCreated=true;
+			while (!workspaceCreated) {
+				workspace = WizardManager.getInstance().showWorkingDirectoyWizard(
+						startUpProgress, Configuration.DEF_HOMEFOLDER_LOCATION);
+				if( !workspace.exists() )
+					workspaceCreated=workspace.mkdir();
+				else
+					workspaceCreated=true;
+				Configuration.getInstance().setWorkspaceDir(workspace.getPath());
+				ConfigurationWriter.write();						
+			}
 		}
 		
 		// TODO In next version 

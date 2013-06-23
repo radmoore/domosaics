@@ -24,6 +24,12 @@ public class SimilarityColorizationAction extends AbstractMenuAction{
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		if(view.getDomainLayoutManager().isCollapseBySimilarity()) {
 			if (view.getArrangementSelectionManager().getSelection().size() != 1) {
+				if(view.getDomainLayoutManager().isSelectSequences())
+				{
+					view.getDomainLayoutManager().toggleSelectArrangements();
+					view.getSequenceSelectionMouseController().clearSelection();
+					view.registerMouseListeners();
+				}
 				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please select one arrangement as reference for the similarity calculation");
 				setState(!getState());
 				view.getDomainLayoutManager().visualChange();

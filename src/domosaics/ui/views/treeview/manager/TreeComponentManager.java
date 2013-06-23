@@ -1,6 +1,9 @@
 package domosaics.ui.views.treeview.manager;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Iterator;
+import java.util.Locale;
 
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.TreeNodeI;
@@ -73,6 +76,14 @@ public class TreeComponentManager extends AbstractComponentManager<TreeNodeI, No
    	}
    	
    	/**
+	 * formatter which formats the edge label in decimal font with three digits
+	 */
+	protected NumberFormat formatter = DecimalFormat.getNumberInstance(Locale.ENGLISH); 
+	{		
+		formatter.setMaximumFractionDigits(3);
+	}
+   	
+   	/**
    	 * Method which must be invoked when the user switches to the
    	 * visualization of bootstrap values and back. If no bootstrap
    	 * values are displayed the edge weights are rendered (default).
@@ -84,20 +95,20 @@ public class TreeComponentManager extends AbstractComponentManager<TreeNodeI, No
 		Iterator<NodeComponent> iter = getComponentsIterator();
 		
 		// generate labels out of bootstrap vals
-		if (!useLabelAsBootStrap) {
+		if (useLabelAsBootStrap) {
 			while(iter.hasNext()) {
 				NodeComponent nc = iter.next();
 				if (nc.getNode().getBootstrap() != -1)
-					nc.getNode().setLabel(""+nc.getNode().getBootstrap());
+					nc.getNode().setLabel(formatter.format(nc.getNode().getBootstrap()));
 			}
 		} else { // kill labels if bootstrap is present
 			while(iter.hasNext()) {
 				NodeComponent nc = iter.next();
-				if (nc.getNode().getBootstrap() != -1)
+				if (nc.getNode().getBootstrap() != -1 && nc.getNode().getLabel().equals(formatter.format(nc.getNode().getBootstrap())))
 					nc.getNode().setLabel("");
 			}
 		}
-		structuralChange();	
+		//structuralChange();	
 	}
    	
     /**

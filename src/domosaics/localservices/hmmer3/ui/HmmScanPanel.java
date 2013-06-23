@@ -72,7 +72,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private HashMap<String, File> hmmer3bins;
 	private HmmScan hmmScan;
 	private JTextField hmmScanTF, hmmPressTF, hmmTF, fastaTF, evalueTF;
-	private JCheckBox gaCkb, biasCkb, maxCkb, coddCkb; 
+	private JCheckBox gaCkb, biasCkb, maxCkb, coddCkb26, coddCkb27; 
 	private ButtonGroup groupRadio;
 	private JRadioButton overlapRadioNone, overlapRadioEvalue, overlapRadioCoverage;
 	private JButton loadScanBin, loadPressBin, loadHmmDB, loadFastaFile, run, cancel;
@@ -216,20 +216,42 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	    
 	    // gathering threshold checkbox. If disabled,
 		// the panel for the evalue is set to visible
-	    coddCkb = new JCheckBox("", false);
-	    coddCkb.setToolTipText("Context dependant annotation, see Terrapon et al., Bioinformatics, 2009");
-	    coddCkb.addItemListener(new ItemListener() {	
+	    coddCkb26 = new JCheckBox("Pfam v26", false);
+	    coddCkb26.setToolTipText("Context dependent annotation, see [Terrapon et al., Bioinformatics, 2009]");
+	    coddCkb26.addItemListener(new ItemListener() {	
 			public void itemStateChanged(ItemEvent e) {
-				gaCkb.setSelected(!coddCkb.isSelected());
-				gaCkb.setEnabled(!coddCkb.isSelected());
-				overlapRadioEvalue.setSelected(coddCkb.isSelected());
-				overlapRadioNone.setEnabled(!coddCkb.isSelected());
-				overlapRadioCoverage.setEnabled(!coddCkb.isSelected());
-				if (coddCkb.isSelected())
+				if(coddCkb26.isSelected() && coddCkb27.isSelected())
+					coddCkb27.setSelected(false);
+				gaCkb.setSelected(!coddCkb26.isSelected());
+				gaCkb.setEnabled(!coddCkb26.isSelected());
+				overlapRadioEvalue.setSelected(coddCkb26.isSelected());
+				overlapRadioNone.setEnabled(!coddCkb26.isSelected());
+				overlapRadioCoverage.setEnabled(!coddCkb26.isSelected());
+				if (coddCkb26.isSelected()) {
 					evalueTF.setText("10");
-				else 
+				} else { 
 					evalueTF.setText("0.1");
-				//ePane.setVisible(coddCkb.isSelected());
+					//ePane.setVisible(coddCkb26.isSelected());
+				}
+			}
+		});
+	    coddCkb27 = new JCheckBox("Pfam v27", false);
+	    coddCkb27.setToolTipText("Context dependent annotation, see [Terrapon et al., Bioinformatics, 2009]");
+	    coddCkb27.addItemListener(new ItemListener() {	
+			public void itemStateChanged(ItemEvent e) {
+				if(coddCkb27.isSelected() && coddCkb26.isSelected())
+					coddCkb26.setSelected(false);
+				gaCkb.setSelected(!coddCkb27.isSelected());
+				gaCkb.setEnabled(!coddCkb27.isSelected());
+				overlapRadioEvalue.setSelected(coddCkb27.isSelected());
+				overlapRadioNone.setEnabled(!coddCkb27.isSelected());
+				overlapRadioCoverage.setEnabled(!coddCkb27.isSelected());
+				if (coddCkb27.isSelected()) {
+					evalueTF.setText("10");
+				} else { 
+					evalueTF.setText("0.1");
+					//ePane.setVisible(coddCkb26.isSelected());
+				}
 			}
 		});
 	    
@@ -321,8 +343,11 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		add(new JLabel("Resolve overlaps by:"), "gap 5");
 		add(radioPane, "gap 2, growX, wrap");
 
-		add(new JLabel("Co-Occurring Domain Filter:"), "gap 5");
-		add(coddCkb, "gap 5, span 2, growX, wrap");
+		JLabel codd = new JLabel("Co-Occurring Domain Dectection:");
+		codd.setToolTipText("Context dependent annotation, see [Terrapon et al., Bioinformatics, 2009]");
+		add(codd, "gap 5");
+		add(coddCkb26, "gap 5, split 2");
+		add(coddCkb27, "gap 5, wrap");
 
 		add(new JXTitledSeparator("Progress"), "growX, span, wrap, gaptop 10");
 		add(progressBar, "h 25!, gap 5, gapright 5, span 3, growX, wrap");
@@ -492,7 +517,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				Configuration.getInstance().setHmmPressBin(hmmPressTF.getText());
 			} else {
 				if(!hmmPressTF.getText().equals(Configuration.getInstance().getHmmPressBin()))
-					if(MessageUtil.showDialog(this.getParentFrame(),"A distinct HmmScan binary is recorded in settings. Overwrite?"))
+					if(MessageUtil.showDialog(this.getParentFrame(),"A distinct HmmPress binary is recorded in settings. Overwrite?"))
 					{
 						Configuration.getInstance().setHmmPressBin(hmmPressTF.getText());
 						if(Configuration.getInstance().getFrame()!=null && Configuration.getInstance().getFrame().isVisible()) {
@@ -531,7 +556,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		hmmScan.setBiasFilter(biasCkb.isSelected());
 		hmmScan.setMaxFilter(maxCkb.isSelected());
 		hmmScan.setOverlapMethod(groupRadio.getSelection().getActionCommand());
-		hmmScan.setCoddFilter(coddCkb.isSelected());
+		hmmScan.setCoddFilter(usingCODD());
 		hmmScan.setSeqView(seqView);
 		
 		// Launches the hmmscan job
@@ -779,8 +804,14 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		});
 	}
 	
-	public boolean usingCODD() {
-		return coddCkb.isSelected();
+	public String usingCODD() {
+		if (coddCkb26.isSelected())
+			return "v26.0";
+		else
+			if(coddCkb27.isSelected())
+				return "v27";
+			else
+				return "";
 	}
 
 	public JFrame getParentFrame() {

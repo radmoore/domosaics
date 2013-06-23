@@ -18,6 +18,7 @@ import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.ViewElement;
 import domosaics.model.workspace.WorkspaceElement;
 import domosaics.ui.ViewHandler;
+import domosaics.ui.views.ViewType;
 import domosaics.ui.views.view.View;
 import domosaics.ui.wizards.GUIComponentFactory;
 import domosaics.ui.wizards.WizardListCellRenderer;
@@ -55,7 +56,7 @@ public class SelectViewPage extends WizardPage {
 		setLayout(new MigLayout());
 		
 		currentView = ViewHandler.getInstance().getActiveView();
-		elems = project.getCategory(currentView.getViewInfo().getType()).getChildren();
+		elems = project.getCategory(ViewType.DOMAINS).getChildren();
 		
 		projectSelection = GUIComponentFactory.createSelectProjectBox(project);
 		projectSelection.setName(PROJECT_KEY);

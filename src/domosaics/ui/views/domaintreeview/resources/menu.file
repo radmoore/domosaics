@@ -59,6 +59,8 @@
 			<parameter id="isSelected" value="false"/>
 		</menuItem>
 		
+		<menuitem id="JSeparator"/>
+		
 		<menuitem id="JCheckBox">
 			<parameter id="name" value="Accession IDs"/> 
 			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.ShowNameAction"/> 
@@ -72,6 +74,8 @@
 			<parameter id="tooltip" value="Label the domains by their native database name"/> 
 			<parameter id="isSelected" value="false"/> 
 		</menuItem>
+		
+		<menuitem id="JSeparator"/>
 		
 		<menuitem id="JCheckBox">
 			<parameter id="name" value="Show Tree"/> 
@@ -93,6 +97,8 @@
 			<parameter id="tooltip" value="Shows probable insertion and deletion events for domains within the tree"/> 
 			<parameter id="isSelected" value="false"/>
 		</menuItem>
+		
+		<menuitem id="JSeparator"/>
 		
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Change Tree Space"/> 
@@ -117,6 +123,8 @@
 			<parameter id="isSelected" value="false"/> 
 		</menuItem>
 	
+		<menuitem id="JSeparator"/>
+		
 		<menuitem id="JCheckBox">
 			<parameter id="name" value="Show Edge Weights"/> 
 			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ShowEdgeLabelsAction"/> 
@@ -132,10 +140,10 @@
 		</menuItem> 
 		
 		<menuitem id="JCheckBox">
-			<parameter id="name" value="Use Label As Bootstrap Value"/> 
+			<parameter id="name" value="Show Bootstrap values as Label"/> 
 			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.UseLabelAsBootstrapAction"/> 
-			<parameter id="tooltip" value="Uses numeric node labels as bootstrap values"/> 
-			<parameter id="isSelected" value="true"/>
+			<parameter id="tooltip" value="Fill bootstrap values in node labels"/> 
+			<parameter id="isSelected" value="false"/>
 		</menuItem>
 	
 		<menuitem id="JCheckBox">
@@ -145,12 +153,13 @@
 			<parameter id="isSelected" value="false"/>
 		</menuItem>
 		
-		<menuitem id="JCheckBox">
-			<parameter id="name" value="Show Ruler"/> 
-			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ShowTreeRulerAction"/> 
-			<parameter id="tooltip" value="Shows a distance based ruler for the tree"/> 
-			<parameter id="isSelected" value="false"/>
-		</menuItem>
+<!--		<menuitem id="JCheckBox">
+<!--			<parameter id="name" value="Show Ruler"/> 
+<!--			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ShowTreeRulerAction"/> 
+<!--			<parameter id="tooltip" value="Shows a distance based ruler for the tree"/> 
+<!--			<parameter id="isSelected" value="false"/>
+<!--		</menuItem>
+
 	</menu>
 	
 	<menu id="Arrangements">
@@ -293,21 +302,21 @@
 			<parameter id="tooltip" value="Removes the selected arrangements from the view"/> 
 		</menuItem>
 		
-		<menuitem id="JSeparator"/>
+<!--		<menuitem id="JSeparator"/>
 		
-		<menuitem id="JCheckBox">
-			<parameter id="name" value="Collapse Same Arrangements"/> 
-			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.CollapseSameArrangementsAction"/> 
-			<parameter id="tooltip" value="Shows only non redundant domain compositions"/> 
-			<parameter id="isSelected" value="false"/> 
-		</menuItem>
+<!--		<menuitem id="JCheckBox">
+<!--			<parameter id="name" value="Collapse Same Arrangements"/> 
+<!--			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.CollapseSameArrangementsAction"/> 
+<!--			<parameter id="tooltip" value="Shows only non redundant domain compositions"/> 
+<!--			<parameter id="isSelected" value="false"/> 
+<!--		</menuItem>
 		
-		<menuitem id="JCheckBox">
-			<parameter id="name" value="Collapse By Similarity"/> 
-			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SimilarityColorizationAction"/> 
-			<parameter id="tooltip" value="Colorizes arrangements based on a similarity measure"/> 
-			<parameter id="isSelected" value="false"/> 
-		</menuItem>
+<!--		<menuitem id="JCheckBox">
+<!--			<parameter id="name" value="Collapse By Similarity"/> 
+<!--			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SimilarityColorizationAction"/> 
+<!--			<parameter id="tooltip" value="Colorizes arrangements based on a similarity measure"/> 
+<!--			<parameter id="isSelected" value="false"/> 
+<!--		</menuItem>
 		
 <!--		<menuitem id="JCheckBox">
 <!--			<parameter id="name" value="Domain Sequence Comparison"/> 
@@ -368,6 +377,13 @@
 			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.CreateViewUsingSelectionAction"/> 
 			<parameter id="tooltip" value="Opens a new domain view containing the selected arrangements"/> 
 		</menuItem>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Export selection to existing view"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.AddSelectionToViewAction"/> 
+			<parameter id="tooltip" value="Opens a new domain view containing the selected arrangements"/> 
+		</menuItem>
+		
 	</menu>
 		
 	</menu>

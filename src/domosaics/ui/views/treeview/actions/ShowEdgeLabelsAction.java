@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
+import domosaics.ui.views.ViewType;
+import domosaics.ui.views.domaintreeview.DomainTreeView;
 import domosaics.ui.views.treeview.TreeViewI;
 
 

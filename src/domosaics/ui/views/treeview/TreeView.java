@@ -451,7 +451,8 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	
 	@Override
 	public void xmlWrite(Element viewType) {
-		
+
+		getTreeComponentManager().useLabelAsBootstrap(false);
 		Iterator<TreeNodeI> iterNode = this.getTree().getNodeIterator();
 		while(iterNode.hasNext()) {
 			TreeNodeI parent = iterNode.next();
@@ -469,6 +470,10 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 				node.setAttribute(parentId);
 				Attribute parentWeight = new Attribute("weightToParent",""+parent.getEdgeToParent().getWeight());
 				node.setAttribute(parentWeight);
+				if(parent.getEdgeToParent().getBootstrap()!=-1) {
+					Attribute parentBootstrap = new Attribute("bootstrap",""+parent.getEdgeToParent().getBootstrap());
+					node.setAttribute(parentBootstrap);
+				}
 				Attribute edgeColor = new Attribute("edgeColor",""+this.getTreeColorManager().getEdgeColor(parent.getEdgeToParent()).getRGB());
 				node.setAttribute(edgeColor);
 				Attribute stroke = new Attribute("stroke",this.stroke2str((BasicStroke)this.getTreeStrokeManager().getEdgeStroke(parent.getEdgeToParent())));
@@ -696,6 +701,9 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 					//System.out.println("Deja-vu parent: "+parentOfChild.getID());
 				}
 				TreeEdgeI edge = new TreeEdge(parentOfChild, child, new Double(node.getAttributeValue("weightToParent")));
+				String bootstrap = node.getAttributeValue("bootstrap");
+				if(bootstrap!=null)
+					edge.setBootstrap(Double.parseDouble(bootstrap));
 				tree.addEdge(edge);
 				String edgeColor = node.getAttributeValue("edgeColor");
 				if(edgeColor != null)

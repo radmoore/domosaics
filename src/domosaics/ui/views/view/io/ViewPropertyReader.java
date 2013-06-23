@@ -69,7 +69,6 @@ public class ViewPropertyReader {
 						if ( getValue(line).isEmpty() )
 							continue;
 						try {
-//							System.out.println("test >"+getValue(line)+"<");
 							ImageIcon icon = new ImageIcon(ImageIO.read(is));
 							viewInfo.setDefaultIcon(icon);
 							viewInfo.setUsedIcon(icon);

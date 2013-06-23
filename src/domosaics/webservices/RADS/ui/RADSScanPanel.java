@@ -54,6 +54,7 @@ import domosaics.ui.wizards.WizardListCellRenderer;
 import domosaics.ui.wizards.WizardManager;
 import domosaics.ui.wizards.pages.SelectNamePage;
 import domosaics.util.BrowserLauncher;
+import domosaics.util.CheckConnectivity;
 import domosaics.webservices.RADS.RADSPanelI;
 import domosaics.webservices.RADS.RADSParms;
 import domosaics.webservices.RADS.RADSResultsProcessor;
@@ -86,8 +87,8 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	radsTerGapOpen, radsTerGapExt, rampageIntGapOpen, rampageIntGapExt, rampageTerGapOpen,
 	rampageTerGapExt;
 	private JProgressBar progressBar;
-	private JComboBox<WorkspaceElement> selectSeqView, selectArrView;
-	private JComboBox<String> selectAlgo;
+	private JComboBox selectSeqView, selectArrView;
+	private JComboBox selectAlgo;
 //	private JScrollPane pasteBoxSP;
 //	private JTextArea pasteBox;
 	
@@ -234,26 +235,47 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	 * Methods called on RADSScanPanel ActionEvents 
 	 */
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("loadSeqFromFile"))
+		if (e.getActionCommand().equals("loadSeqFromFile")) {
 			loadSeqFromFile();
-		if (e.getActionCommand().equals("loadArrFromFile"))
-			loadArrFromFile();
-		if (e.getActionCommand().equals("setDefaultValues"))
-			setDefaultValues();
-		if (e.getActionCommand().equals("close"))
-			close(true);
-		if (e.getActionCommand().equals("submitScan"))
-			submitScan();
-		if (e.getActionCommand().equals("createView"))
-			createResultView();
-		if (e.getActionCommand().equals("openLogWindow")) {
-			openLogWindow();
+		} else {
+			if (e.getActionCommand().equals("loadArrFromFile")) {
+				loadArrFromFile();
+			} else {
+				if (e.getActionCommand().equals("setDefaultValues")) {
+					setDefaultValues();
+				} else {
+					if (e.getActionCommand().equals("close")) {
+						close(true);
+					} else {
+						if (e.getActionCommand().equals("submitScan")) {
+							if (!CheckConnectivity.checkInternetConnectivity())
+								MessageUtil.showWarning(parent,"Please check your intenet connection (connection failed).");
+							else
+								submitScan();
+						} else {
+							if (e.getActionCommand().equals("createView")){
+								createResultView();
+							} else {
+								if (e.getActionCommand().equals("openLogWindow")) {
+									openLogWindow();
+								} else {
+									if (e.getActionCommand().equals("openResultsTable")) {
+										openResultTable();
+									} else {
+										if (e.getActionCommand().equals("openBrowseWindow")) {
+											if (!CheckConnectivity.checkInternetConnectivity())
+												MessageUtil.showWarning(parent,"Please check your intenet connection (connection failed).\nSave "+results.getJobUrl());
+											else
+												BrowserLauncher.openURL(results.getJobUrl());
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-		if (e.getActionCommand().equals("openResultsTable")) {
-			openResultTable();
-		}
-		if (e.getActionCommand().equals("openBrowseWindow"))
-			BrowserLauncher.openURL(results.getJobUrl());	
 	}
 
 	/**
@@ -306,7 +328,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 //		initPasteBox();
 		progressBar = new JProgressBar();
 		String[] algos = {"RADS", "RADS/RAMPAGE"};
-		selectAlgo = new JComboBox<String>(algos);
+		selectAlgo = new JComboBox(algos);
 		selectAlgo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (selectAlgo.getSelectedItem().equals("RADS")) {
@@ -452,13 +474,13 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		WorkspaceElement[] seqViews = viewList.toArray(new ViewElement[viewList.size()]);
 		
 		if (seqViews.length == 0) {
-			selectSeqView = new JComboBox<WorkspaceElement>(seqViews);
+			selectSeqView = new JComboBox(seqViews);
 			selectSeqView.setSelectedItem(null);
 			selectSeqView.setEnabled(false);
 			return;
 		}
 		
-		selectSeqView = new JComboBox<WorkspaceElement>(seqViews);
+		selectSeqView = new JComboBox(seqViews);
 		selectSeqView.setSelectedItem(null);
 		selectSeqView.setRenderer(new WizardListCellRenderer());
 		selectSeqView.addActionListener(new ActionListener(){
@@ -466,7 +488,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 				loadSeqTF.setText("");
 //				clearPasteBox();
 				@SuppressWarnings({ "unchecked" })
-				JComboBox<WorkspaceElement> cb = (JComboBox<WorkspaceElement>)evt.getSource();
+				JComboBox cb = (JComboBox)evt.getSource();
 				ViewElement selected = (ViewElement)cb.getSelectedItem();
 				if (selected == null)
 					return;
@@ -490,13 +512,13 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		WorkspaceElement[] arrViews = viewList.toArray(new ViewElement[viewList.size()]);
 		
 		if (arrViews.length == 0) {
-			selectArrView = new JComboBox<WorkspaceElement>(arrViews);
+			selectArrView = new JComboBox(arrViews);
 			selectArrView.setSelectedItem(null);
 			selectArrView.setEnabled(false);
 			return;
 		}
 		
-		selectArrView = new JComboBox<WorkspaceElement>(arrViews);
+		selectArrView = new JComboBox(arrViews);
 		selectArrView.setSelectedItem(null);
 		selectArrView.setRenderer(new WizardListCellRenderer());
 		selectArrView.addActionListener(new ActionListener(){
@@ -504,7 +526,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 				loadArrTF.setText("");
 //				clearPasteBox();
 				@SuppressWarnings({ "unchecked" })
-				JComboBox<WorkspaceElement> cb = (JComboBox<WorkspaceElement>)evt.getSource();
+				JComboBox cb = (JComboBox)evt.getSource();
 				ViewElement selected = (ViewElement)cb.getSelectedItem();
 				if (selected == null)
 					return;
@@ -865,19 +887,14 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		if ( radsService != null && radsService.isDone() && radsService.hasResults() ) {
 			boolean choice = true;
 			choice = MessageUtil.showDialog(parent, "Submitting this job will delete your current results. Are you sure?");
-			
 			if (!choice)
 				return;
-			
 			showReport.setEnabled(false);
 			apply.setEnabled(false);
-			
-			
 		}
 		
 		if (buildQuery()) {
 			if (validateParams()) {
-
 				submit.setText("Running scan");
 				submit.setEnabled(false);
 				reset.setEnabled(false);
