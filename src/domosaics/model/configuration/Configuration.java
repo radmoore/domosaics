@@ -360,7 +360,7 @@ public class Configuration {
 	}
 	
 	public String getDocuPath(boolean includeProtocol) {
-		String docuPath = this.documentationPath + File.separator + "index.html";		
+		String docuPath = this.documentationPath;		
 		return (includeProtocol) 
 				? "file:///"+docuPath
 						: docuPath;

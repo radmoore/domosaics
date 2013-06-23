@@ -28,7 +28,7 @@ public class ShowManualAction extends AbstractMenuAction{
 			MessageUtil.showWarning(DoMosaicsUI.getInstance(), "No help file sepecified - please check the settings.");
 		}
 		else {
-			File helpFile = new File(Configuration.getInstance().getDocuPath(false));
+			File helpFile = new File(Configuration.getInstance().getDocuPath(false)+File.separator+"index.html");
 			if ( (!helpFile.exists()) )
 				MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Specified help file does not exist - please check the settings.");
 			else
