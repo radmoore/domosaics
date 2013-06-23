@@ -117,10 +117,11 @@ public class Configuration {
 		
 		if (ask) {
 			boolean sendMes = false;
-			if (!CheckConnectivity.checkInternetConnectivity()) {
-				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please check your intenet connection (connection failed).");
+			if ( !CheckConnectivity.checkInternetConnectivity() ) {
+				MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Please check your internet connection (connection failed).");
 				return false;
-			} else {
+			} 
+			else {
 				if ( !haveAsked )
 					sendMes = MessageUtil.showDialog(DoMosaicsUI.getInstance(), "A problem was detected - enable bug reporting?");
 				Configuration.setReportExceptionsMode(sendMes);
