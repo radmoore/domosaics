@@ -1,6 +1,5 @@
 <propertys>
 	<property id="name" value="Domain Legend">
-	<property id="icon" value="">
 	<property id="isTool" value="true">
 	<property id="class" value="domosaics.ui.tools.domainlegend.DomainLegendView">
 	<property id="frameclass" value="domosaics.ui.tools.ToolFrame">

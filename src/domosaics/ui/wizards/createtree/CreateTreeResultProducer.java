@@ -128,7 +128,7 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		p.setProgress ("Creating resulting views", 3, 3);
 		String treeViewName = null;
 		String defaultTreeViewName = domView.getViewInfo().getName()+"_"+algo.name();
-		String domTreeViewName = domView.getViewInfo().getName()+"_tree";
+		//String domTreeViewName = domView.getViewInfo().getName()+"_tree";
 		
 		ViewElement elem = WorkspaceManager.getInstance().getViewElement(domView.getViewInfo());
 		ProjectElement activeProject = elem.getProject();
@@ -292,7 +292,7 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		p.setProgress ("Creating resulting views", 5, 5);
 		String treeViewName = null;
 		String defaultTreeViewName = view.getViewInfo().getName()+"_"+algo.name();
-		String domTreeViewName = view.getViewInfo().getName()+"_tree"; /////// ACHTUNG /////
+		//String domTreeViewName = view.getViewInfo().getName()+"_tree"; /////// ACHTUNG /////
 		
 		/* // Verify that the view does not exist already
 		if (activeProject.viewExists(treeViewName, activeProject.getCategory(ViewType.TREE)))
@@ -315,11 +315,11 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		ViewHandler.getInstance().addView(treeView, activeProject);
 		
 		// and eventually the domain tree view
-		if (view instanceof DomainViewI) {
+		/*if (view instanceof DomainViewI) {
 			DomainTreeViewI domTreeView =  ViewHandler.getInstance().createView(ViewType.DOMAINTREE, domTreeViewName);
 			domTreeView.setBackendViews(treeView, (DomainViewI)view);
 			ViewHandler.getInstance().addView(domTreeView, activeProject);
-		}
+		}*/
 		
 		return true;
 	}

@@ -15,6 +15,7 @@ import org.jdom2.Element;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.DomainSet;
 import domosaics.ui.tools.Tool;
+import domosaics.ui.tools.ToolFrame;
 import domosaics.ui.tools.ToolFrameI;
 import domosaics.ui.tools.domainmatrix.components.DefaultDomainMatrixLayout;
 import domosaics.ui.tools.domainmatrix.components.DefaultDomainMatrixRenderer;
@@ -56,7 +57,7 @@ public class DomainMatrixView extends AbstractView implements PropertyChangeList
 	protected JScrollPane scrollPane;
 	
 	/** the frame embedding the view */
-	protected ToolFrameI parentFrame;
+	protected ToolFrame parentFrame;
 	
 	/** the backend domain view */
 	protected DomainViewI domView;
@@ -98,13 +99,13 @@ public class DomainMatrixView extends AbstractView implements PropertyChangeList
 	 * @see Tool
 	 */
 	public void setToolFrame(ToolFrameI frame) {
-		this.parentFrame = frame;
+		this.parentFrame = (ToolFrame) frame;
 	}
 	
 	/**
 	 * @see Tool
 	 */
-	public ToolFrameI getToolFrame() {
+	public ToolFrame getToolFrame() {
 		return parentFrame;
 	}
 	
@@ -176,6 +177,8 @@ public class DomainMatrixView extends AbstractView implements PropertyChangeList
 		
 		setViewLayout(new DefaultDomainMatrixLayout());
 		viewRenderer = new DefaultDomainMatrixRenderer(this);
+
+		parentFrame.setSize(parentFrame.getWidth(), parentFrame.getHeight()+1);
 	}
 	
 	/**

@@ -31,8 +31,8 @@ public class WorkspaceDirectoryPage extends WizardPage implements ActionListener
 	protected Component parent;
 	
 	protected static String text = "<html>" +
-			"The Workspace directory is used to <br>" +
-			"store all project-related data and settings<br>" +
+			"A workspace directory is used to store <br>" +
+			"all project-related data and settings <br>" +
 			"</html>";
 	
 	public WorkspaceDirectoryPage(Component parent, String defaultDir) {
@@ -41,10 +41,10 @@ public class WorkspaceDirectoryPage extends WizardPage implements ActionListener
 		this.parent = parent;
 		
 		setLayout(new MigLayout());
-		setPreferredSize(new Dimension(300,200));
+		setPreferredSize(new Dimension(340,200));
 		
 		//init components
-		fileField = new JTextField(defaultDir+"/domosaics-workspace");
+		fileField = new JTextField(defaultDir+File.separator+"domosaics-workspace");
 		fileField.setEditable(false);
 		fileField.setName(FILE_KEY);
 		
@@ -52,7 +52,7 @@ public class WorkspaceDirectoryPage extends WizardPage implements ActionListener
 		browse.addActionListener(this);	
 
 		add(new JLabel(text),  	"span 2, wrap");
-		add(fileField, 			"gap 10, gaptop 10, h 25!, growx");
+		add(fileField, 			"gap 10, gaptop 10, h 25!, growx, wrap");
 		add(browse, 			"gap 5, gapright 10, wrap");
 	}
 	
@@ -74,7 +74,7 @@ public class WorkspaceDirectoryPage extends WizardPage implements ActionListener
 		if(file == null)
 			return;
 		
-		fileField.setText(file.getAbsolutePath()+"/domosaics-workspace");
+		fileField.setText(file.getAbsolutePath()+File.separator+"domosaics-workspace");
 		fileField.setEditable(false);
 	}
 }

@@ -210,7 +210,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 			} else {
 				enable(DomainAction.COLLAPSE_IDENTICAL);
 				enable(DomainAction.COLLAPSE_BY_SIMILARITY);
-				setState(DomainAction.SELECT_ARRANGEMENTS, true);
 				toggleSelectArrangements();
 			}
 		}
@@ -250,7 +249,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 			} else {
 				enable(DomainAction.COLLAPSE_IDENTICAL);
 				enable(DomainAction.COLLAPSE_BY_SIMILARITY);
-				setState(DomainAction.SELECT_ARRANGEMENTS, true);
 				toggleSelectArrangements();
 				disable(DomainAction.SELECT_SEQUENCES);
 			}			
@@ -279,7 +277,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		disable(DomainAction.COLLAPSE_BY_SIMILARITY);
 		disable(DomainAction.COLLAPSE_IDENTICAL);
 
-		setState(DomainAction.SELECT_SEQUENCES, true);
 		toggleSelectSequences();
 		disable(DomainAction.SELECT_ARRANGEMENTS);
 		
@@ -352,7 +349,7 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	 * sequences mode
 	 */
 	public void toggleSelectSequences() {
-		if (getState(DomainAction.SELECT_SEQUENCES)) {
+			setState(DomainAction.SELECT_SEQUENCES, true);
 			disable(DomainAction.COLLAPSE_IDENTICAL);
 			disable(DomainAction.COLLAPSE_BY_SIMILARITY);
 			disable(DomainAction.SELECT_SEQUENCES);
@@ -364,7 +361,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 			disable(DomainAction.MERGE_SELECTION);
 			disable(DomainAction.SHOW_RULER);
 			enable(DomainAction.SELECT_ARRANGEMENTS);
-		}
 	}
 	
 	/**
@@ -372,7 +368,7 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 	 * sequences mode
 	 */
 	public void toggleSelectArrangements() {
-		if (getState(DomainAction.SELECT_ARRANGEMENTS)) {
+			setState(DomainAction.SELECT_ARRANGEMENTS, true);
 			disable(DomainAction.SELECT_ARRANGEMENTS);
 			setState(DomainAction.SELECT_SEQUENCES, false);
 			enable(DomainAction.SELECT_SEQUENCES);
@@ -384,7 +380,6 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 			enable(DomainAction.EXPORT_SELECTION);
 			enable(DomainAction.MERGE_SELECTION);
 			enable(DomainAction.SELECT_SEQUENCES);
-		}
 	}
 	
 	/**

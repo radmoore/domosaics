@@ -21,13 +21,11 @@ public class SortByFrequenceAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
 	public void actionPerformed(ActionEvent e) {
-		DomainLegendView view = ViewHandler.getInstance().getTool(ViewType.DOMAINLEGEND);
-		
-		if (!getState() && !view.getLegendLayoutManager().isSortAlphabetically()) {
+		if (!getState()) {
 			setState(!getState());
-			return;
+		} else {
+			DomainLegendView view = ViewHandler.getInstance().getTool(ViewType.DOMAINLEGEND);
+			view.getLegendLayoutManager().setToSortByFrequence();
 		}
-		
-		view.getLegendLayoutManager().setToSortByFrequence();
 	}
 }

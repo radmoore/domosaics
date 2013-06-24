@@ -42,7 +42,7 @@ public class LastUsedWorkspaceImporter {
 				if(line.contains("<PROJECT>")) {
 					line = in.readLine(); // fetch name line manually
 					
-					projectDir = workspaceDir.getAbsolutePath()+"/"+getValue(line);
+					projectDir = workspaceDir.getAbsolutePath()+File.separator+getValue(line);
 		    		
 					// check if project directory exists else skip this entry
 //					if (!new File(projectDir).exists() || !new File(projectDir).isDirectory()) {
@@ -61,7 +61,7 @@ public class LastUsedWorkspaceImporter {
 				// set the actual category
 				if(line.contains("<CATEGORY>")) {
 					line = in.readLine(); // fetch name line manually
-					catDir = projectDir+"/"+getValue(line);
+					catDir = projectDir+File.separator+getValue(line);
 		    		
 					// check if project directory exists else skip this entry
 					if (!new File(catDir).exists() || !new File(catDir).isDirectory()) {
@@ -85,7 +85,7 @@ public class LastUsedWorkspaceImporter {
 				// set the actual view
 				if(line.contains("<VIEW>")) {
 					line = in.readLine(); // fetch name line manually
-					viewFile = new File(catDir+"/"+getValue(line));
+					viewFile = new File(catDir+File.separator+getValue(line));
 		    		
 					// check if project directory exists else skip this entry
 					if (!viewFile.exists()) {

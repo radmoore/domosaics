@@ -114,7 +114,7 @@ public class ProjectImporter {
 		// create categorys and load views
 		String[] categories = new File(projectDirPath).list();
 		for (String c : categories) {
-			String catDir = projectDirPath+"/"+c;
+			String catDir = projectDirPath+File.separator+c;
 			if (!new File(catDir).isDirectory())
     			continue;
 			
@@ -130,7 +130,7 @@ public class ProjectImporter {
 			
 			String[] views = new File(catDir).list();
 			for (String v : views) {
-    			File viewFile = new File(catDir+"/"+v);
+    			File viewFile = new File(catDir+File.separator+v);
     			switch(flag) {
 				// Nic import
     			case 1:

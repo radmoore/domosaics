@@ -8,7 +8,9 @@ import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.util.MessageUtil;
+import domosaics.ui.views.ViewType;
 import domosaics.ui.views.treeview.TreeViewI;
+import domosaics.ui.views.domaintreeview.DomainTreeView;
 
 
 
@@ -23,13 +25,15 @@ public class ShowBootStrapValuesAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	    
 	public void actionPerformed(ActionEvent e) {
-		TreeViewI view = ViewHandler.getInstance().getActiveView();
 		
-		if (!view.getTreeLayoutManager().isTreatLabelAsBootstrap()) {
+		TreeViewI view = ViewHandler.getInstance().getActiveView();
+		view.getTreeComponentManager().useLabelAsBootstrap(false);
+		
+		/*if (!view.getTreeLayoutManager().isTreatLabelAsBootstrap()) {
 			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please mark use \"label as bootstrap value\" first");
 			setState(!getState());
 			return;
-		}
+		}*/
 		
 		// check if there are bootstrapvalues assigned
 		boolean bootstrapOK = false;

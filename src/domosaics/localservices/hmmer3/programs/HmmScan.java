@@ -57,10 +57,10 @@ public class HmmScan implements Hmmer3Program {
 
 	
 	private File hmmScanBin, fasta, hmmDB, outfile;
-	private boolean ga, biasFilter, maxFilter, coddFilter;
+	private boolean ga, biasFilter, maxFilter;
 	
 	private int totalFastaEntries, completedScans;
-	private String name, evalue, cpu, overlapResolvMethod;
+	private String name, evalue, cpu, overlapResolvMethod, coddFilter;
 	private String[] args;
 	private HmmScanPanel parent;
 	
@@ -309,8 +309,8 @@ public class HmmScan implements Hmmer3Program {
 	 * Toggle CODD procedure filter
 	 * @param coddFilter
 	 */
-	public void setCoddFilter(boolean coddFilter) {
-		this.coddFilter = coddFilter;
+	public void setCoddFilter(String version) {
+		this.coddFilter = version;
 	}
 	
 	/**
@@ -390,7 +390,7 @@ public class HmmScan implements Hmmer3Program {
 		StringBuffer commandString = new StringBuffer();
 		for (String arg: args)
 			commandString.append(arg+" ");
-		
+		System.out.println("\n"+commandString.toString()+"\n");
 		return commandString.toString();
 	}
 	
@@ -415,8 +415,11 @@ public class HmmScan implements Hmmer3Program {
 			arrangementSet = ArrangementImporterUtil.importData(outfile);
 			
 			// If the CODD procedure was requested, launch
-			if(coddFilter) {
-				arrangementSet = ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet, parent.getParent());
+			if(coddFilter!="") {
+				List<DomainArrangement> arrList = new ArrayList<DomainArrangement>();
+				if(!ConditionallyDependentDomainPairMap.coddProcedure(arrangementSet, parent.getParentFrame(), coddFilter,arrList))
+					MessageUtil.showWarning(parent.getParentFrame(), "No putative domains in this data set. Try with higher E-values.");
+				arrangementSet = arrList.toArray(new DomainArrangement[arrList.size()]);
 			}
 			else {
 				// test for another post-processing filter
@@ -475,22 +478,22 @@ public class HmmScan implements Hmmer3Program {
 			String viewName = null;
 			String projectName = null;
 			while (viewName == null) {
-				parent.getParent().setAlwaysOnTop(false);
+				parent.getParentFrame().setAlwaysOnTop(false);
 				Map m = WizardManager.getInstance().selectNameWizard(defaultName, "annotation", project, true);
 				if(m!=null) {
 					viewName = (String) m.get(SelectNamePage.VIEWNAME_KEY);
 					projectName = (String) m.get(SelectNamePage.PROJECTNAME_KEY);
 
 					if (viewName == null) 
-						if (MessageUtil.showDialog(parent.getParent(),"You will loose the hmmscan results. Are you sure?"))
+						if (MessageUtil.showDialog(parent.getParentFrame(),"You will loose the hmmscan results. Are you sure?"))
 							// will not delete tmp files, just in case
 							return;
 				} else {
-					if (MessageUtil.showDialog(parent.getParent(),"You will loose the hmmscan results. Are you sure?"))
+					if (MessageUtil.showDialog(parent.getParentFrame(),"You will loose the hmmscan results. Are you sure?"))
 					// will not delete tmp files, just in case
 						return;
 				}
-				parent.getParent().setAlwaysOnTop(true);
+				parent.getParentFrame().setAlwaysOnTop(true);
 			}
 
 			// get chosen project

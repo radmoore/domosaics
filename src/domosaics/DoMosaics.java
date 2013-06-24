@@ -3,6 +3,7 @@ package domosaics;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import domosaics.localservices.hmmer3.ui.Hmmer3Frame;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.configuration.ConfigurationWriter;
 import domosaics.ui.DoMosaicsUI;
@@ -69,8 +70,8 @@ public class DoMosaics {
 	 */
 	public static void main(String[] args) {
 		
-		Configuration.setDebug(false);
-//		Configuration.setReportExceptionsMode(false);
+		Configuration.setDebug(true);
+		Configuration.setReportExceptionsMode(false);
 		 
 		if (args.length > 0) {
 			for(String a : args) {

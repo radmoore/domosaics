@@ -22,10 +22,14 @@ public class Blosum65MatrixAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
 	public void actionPerformed(ActionEvent e) {
-		DotplotView view = ViewHandler.getInstance().getTool(ViewType.DOTPLOT);
-		view.getDotplotComponent().getDotplot().setSubstitutionMatrix(MatrixType.BLOSUM65);
-		view.repaint();
+		if (!getState()) {
+			setState(!getState());
+		} else {
+			DotplotView view = ViewHandler.getInstance().getTool(ViewType.DOTPLOT);
+			view.getDotplotLayoutManager().setIdentityFalse();
+			view.getDotplotComponent().getDotplot().setSubstitutionMatrix(MatrixType.BLOSUM65);
+			view.repaint();
+		}
 	}
-
 
 }

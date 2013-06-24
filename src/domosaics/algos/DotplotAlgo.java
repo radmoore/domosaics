@@ -100,6 +100,15 @@ public class DotplotAlgo {
 	}
 	
 	/**
+	* accessor to the size of half the sliding window
+	* 
+	*/
+	public static int getWinHalf() {
+		return winHalf;
+	}
+	 
+	
+	/**
 	 * Computes the dotplot with window and substitutionmatrix
 	 * 
 	 * @param plot
@@ -108,6 +117,7 @@ public class DotplotAlgo {
 	 * 		computed plot
 	 */
 	public static int[][] computeMatchNoMatchWithWindowAndMatrix(Dotplot plot) {
+		System.out.println("la");
 		init(plot);
 		Integer[][] scoreMatrix = new Integer[rows][cols];
 

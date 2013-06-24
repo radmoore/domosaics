@@ -1,5 +1,8 @@
 package domosaics.ui.views.domainview.components;
 
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.util.Hashtable;
 
 import javax.swing.JLabel;
@@ -21,20 +24,22 @@ public class EvalueSlider extends JSlider{
 	
 	protected Hashtable<Integer, Double> threshold2value;
 	protected Hashtable<Integer, JLabel> threshold2label;
-	
+	protected String[] tooltips;
+
 	
 	public EvalueSlider () {
-		super(0, 37, 14);
+		super(0, 37, 37);
 		
 		initThresholdValues();
 		initSliderLabels();
 		
 		
 		setLabelTable(threshold2label);
-		setPaintLabels(true);  
+		setPaintLabels(true); 
+	    
 
 		//Correction for MAC OS
-	    LookAndFeel save = UIManager.getLookAndFeel();
+	    /*LookAndFeel save = UIManager.getLookAndFeel();
 	    LookAndFeel laf = new MetalLookAndFeel();
 	    try {
 			UIManager.setLookAndFeel(laf);
@@ -54,7 +59,7 @@ public class EvalueSlider extends JSlider{
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
-		}
+		}*/
 	    
 	}
 
@@ -83,63 +88,59 @@ public class EvalueSlider extends JSlider{
 	 * Set the index for the memorized evalue threshold.
 	 * 
 	 */
-	public void setThreshold(double evalue)
+	public void setThreshold(int t)
 	{
-	 for(int i=0; i<threshold2value.size(); i++)
-	 {
-	  if(threshold2value.get(i)==evalue)
-	  {
-	   threshold=i;
-	   break;
-	  }
-	 }
+	   threshold=t;
 	}
 	
 	private void initThresholdValues() {
+		tooltips = new String[38];
+		tooltips[0]="0";
+		tooltips[1]="1E-100";
+		tooltips[2]="1E-90";
+		tooltips[3]="1E-80";
+		tooltips[4]="1E-70";
+		tooltips[5]="1E-60";
+		tooltips[6]="1E-50";
+		tooltips[7]="1E-40";
+		tooltips[8]="1E-30";
+		tooltips[9]="1E-20";
+		tooltips[10]="1E-10";
+		tooltips[11]="1E-9";
+		tooltips[12]="1E-8";
+		tooltips[13]="1E-7";
+		tooltips[14]="1E-6";
+		tooltips[15]="1E-5";
+		tooltips[16]="1E-4";
+		tooltips[17]="1E-3";
+		tooltips[18]="1E-2";
+		tooltips[19]="1E-1";
+		tooltips[20]="2E-1";
+		tooltips[21]="3E-1";
+		tooltips[22]="4E-1";
+		tooltips[23]="5E-1";
+		tooltips[24]="6E-1";
+		tooltips[25]="7E-1";
+		tooltips[26]="8E-1";
+		tooltips[27]="9E-1";
+		tooltips[28]="1";
+		tooltips[29]="2";
+		tooltips[30]="3";
+		tooltips[31]="4";
+		tooltips[32]="5";
+		tooltips[33]="6";
+		tooltips[34]="7";
+		tooltips[35]="8";
+		tooltips[36]="9";
+		tooltips[37]="10";
+		
+		
 		threshold2value = new Hashtable<Integer, Double>();
 	
-		threshold2value.put(new Integer(0), new Double("0"));
-		
-		threshold2value.put(new Integer(1), new Double("1E-100"));
-		threshold2value.put(new Integer(2), new Double("1E-90"));
-		threshold2value.put(new Integer(3), new Double("1E-80"));
-		threshold2value.put(new Integer(4), new Double("1E-70"));
-		threshold2value.put(new Integer(5), new Double("1E-60"));
-		threshold2value.put(new Integer(6), new Double("1E-50"));
-		threshold2value.put(new Integer(7), new Double("1E-40"));
-		threshold2value.put(new Integer(8), new Double("1E-30"));
-		threshold2value.put(new Integer(9), new Double("1E-20"));
-		threshold2value.put(new Integer(10), new Double("1E-10"));
-		
-		threshold2value.put(new Integer(11), new Double("1E-9"));
-		threshold2value.put(new Integer(12), new Double("1E-8"));
-		threshold2value.put(new Integer(13), new Double("1E-7"));
-		threshold2value.put(new Integer(14), new Double("1E-6"));
-		threshold2value.put(new Integer(15), new Double("1E-5"));
-		threshold2value.put(new Integer(16), new Double("1E-4"));
-		threshold2value.put(new Integer(17), new Double("1E-3"));
-		threshold2value.put(new Integer(18), new Double("1E-2"));
-		
-		threshold2value.put(new Integer(19), new Double("0.1"));
-		threshold2value.put(new Integer(20), new Double("0.2"));
-		threshold2value.put(new Integer(21), new Double("0.3"));
-		threshold2value.put(new Integer(22), new Double("0.4"));
-		threshold2value.put(new Integer(23), new Double("0.5"));
-		threshold2value.put(new Integer(24), new Double("0.6"));
-		threshold2value.put(new Integer(25), new Double("0.7"));
-		threshold2value.put(new Integer(26), new Double("0.8"));
-		threshold2value.put(new Integer(27), new Double("0.9"));
-		
-		threshold2value.put(new Integer(28), new Double("1"));
-		threshold2value.put(new Integer(29), new Double("2"));
-		threshold2value.put(new Integer(30), new Double("3"));
-		threshold2value.put(new Integer(31), new Double("4"));
-		threshold2value.put(new Integer(32), new Double("5"));
-		threshold2value.put(new Integer(33), new Double("6"));
-		threshold2value.put(new Integer(34), new Double("7"));
-		threshold2value.put(new Integer(35), new Double("8"));
-		threshold2value.put(new Integer(36), new Double("9"));
-		threshold2value.put(new Integer(37), new Double("10"));
+		for(int i=0; i<38; i++)
+		{
+			threshold2value.put(new Integer(i), new Double(tooltips[i]));
+		}
 	}
 
 	private void initSliderLabels() {

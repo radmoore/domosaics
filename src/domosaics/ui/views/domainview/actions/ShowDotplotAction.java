@@ -29,6 +29,12 @@ public class ShowDotplotAction extends AbstractMenuAction{
 		DomainViewI domView = ViewHandler.getInstance().getActiveView();
 		
 		if (domView.getArrangementSelectionManager().getSelection().isEmpty()) {
+			if(domView.getDomainLayoutManager().isSelectSequences())
+			{
+				domView.getDomainLayoutManager().toggleSelectArrangements();
+				domView.getSequenceSelectionMouseController().clearSelection();
+				domView.registerMouseListeners();
+			}
 			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please select 2 proteins first.");
 			return;
 		}

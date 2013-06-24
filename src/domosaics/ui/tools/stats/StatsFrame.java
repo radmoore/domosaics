@@ -43,8 +43,8 @@ public class StatsFrame extends JFrame{
 		tabbedPane.add("Domain Occurrencies", new JScrollPane(new DomOccurrenciesPanel(manager)));
 		getContentPane().add(tabbedPane);
 		
-		this.setSize(335, 260);
-//		pack();
+		//this.setSize(335, 260);
+		pack();
 //		System.out.println(this.getSize().toString());
 		
 		setLocationRelativeTo(null);

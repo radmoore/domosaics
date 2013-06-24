@@ -28,7 +28,7 @@ public class OverviewPanel extends JPanel{
 		int row = 0;
 		for (Stats stat : Stats.values()) {
 			JLabel field = new JLabel(stat.getLabel());
-			JTextArea val = new JTextArea(0, 11);
+			JTextArea val = new JTextArea(0, 4);
 			val.setText(stat.getVal(manager));
 			val.setEditable(false);
 		  	val.setLineWrap(true);

@@ -1,12 +1,14 @@
 package domosaics.model.configuration;
 
 import java.io.File;
+import java.net.URL;
 
 import org.apache.log4j.Logger;
 
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.MessageUtil;
+import domosaics.util.CheckConnectivity;
 import domosaics.util.ExceptionComunicator;
 
 
@@ -21,11 +23,12 @@ import domosaics.util.ExceptionComunicator;
  */
 public class Configuration {
 	
-	public static final String sep = System.getProperty("file.separator");
+//	public static final String sep = System.getProperty("file.separator");
 	
 	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
-	public static final String DEF_WORKSPACE = DEF_HOMEFOLDER_LOCATION+sep+"domosaics_workspace";
-	public static final String DEF_CONFIGFILE = "domosaics_config.txt";
+	public static final String DEF_WORKSPACE = DEF_HOMEFOLDER_LOCATION + File.separator + "domosaics_workspace";
+	public static final String DEF_PROGRAM_FOLDER = DEF_HOMEFOLDER_LOCATION + File.separator + "DoMosaics";
+	public static final String DEF_CONFIGFILE = DEF_PROGRAM_FOLDER + File.separator + "domosaics_config.txt";
 	public static final String DEF_GOOGLE_SEARCH = "http://www.google.com/search?q=XXX";
 	public static final String DEF_PFAM_SEARCH = "http://pfam.sanger.ac.uk/family?acc=XXX";
 	public static final String DEF_UNIPROT_SEARCH = "http://www.uniprot.org/uniprot/?query=XXX";
@@ -35,8 +38,7 @@ public class Configuration {
 	public static final String DEF_HMMERDB = "";
 	
 	public static final String LOCKFILE = ".lock";
-	public static final String DEF_INSTALLATION_PATH = DEF_HOMEFOLDER_LOCATION + sep +"DoMosaics";
-	public static final String DEF_DOCUMENTATION_PATH = "docs";
+	public static final String DEF_DOCUMENTATION_PATH = DEF_PROGRAM_FOLDER + File.separator + "docs";
 	
 	
 	public static final boolean DEF_SHOW_ADVICES = false;
@@ -62,7 +64,8 @@ public class Configuration {
 	protected String hmmDB;
 	protected String documentationPath;
 
-	protected boolean showAdvices, saveWSOnExit, overwriteProjects, helpImprove, hasThrowException;
+	protected boolean showAdvices, saveWSOnExit, 
+	overwriteProjects, helpImprove, hasThrowException;
 	
 	protected static Configuration instance;
 	protected static ConfigurationFrame frame;
@@ -114,10 +117,16 @@ public class Configuration {
 		
 		if (ask) {
 			boolean sendMes = false;
-			if ( !haveAsked )
-				sendMes = MessageUtil.showDialog(DoMosaicsUI.getInstance(), "A problem was detected - enable bug reporting?");
-			Configuration.setReportExceptionsMode(sendMes);
-			haveAsked = true;
+			if ( !CheckConnectivity.checkInternetConnectivity() ) {
+				MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Please check your internet connection (connection failed).");
+				return false;
+			} 
+			else {
+				if ( !haveAsked )
+					sendMes = MessageUtil.showDialog(DoMosaicsUI.getInstance(), "A problem was detected - enable bug reporting?");
+				Configuration.setReportExceptionsMode(sendMes);
+				haveAsked = true;
+			}
 		}
 		return reportExceptions;
 	}
@@ -246,12 +255,12 @@ public class Configuration {
 	}
 	
 	public boolean hasLockfile() {
-		File f = new File(workspace_dir+sep+LOCKFILE);
+		File f = new File(workspace_dir + File.separator + LOCKFILE);
 		return f.exists();
 	}
 	
 	public File getLockFile() {
-		return new File(workspace_dir+sep+LOCKFILE);
+		return new File(workspace_dir + File.separator + LOCKFILE);
 	}
 	
 	public void removeLockFile() {
@@ -352,14 +361,16 @@ public class Configuration {
 	}
 	
 	public String getDocuPath(boolean includeProtocol) {
+		String docuPath = this.documentationPath;		
 		return (includeProtocol) 
-				? "file://"+this.documentationPath 
-						: this.documentationPath;
+				? "file:///"+docuPath
+						: docuPath;
 	}
 	
-	public void setDocuPath(String path) {
+	public void setDocuPath(String path) {	
 		this.documentationPath = path;
 	}
+	
 	
 	private static void getJarPath() {
 		File file = new File(Configuration.class.getProtectionDomain().getCodeSource().getLocation().getPath());

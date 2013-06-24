@@ -28,7 +28,7 @@ public class ProjectExporter {
         	// check for the project within the workspace directory, create it if necessary
         	String workspaceDir = Configuration.getInstance().getWorkspaceDir();
         	
-        	String projectDirPath = workspaceDir+"/"+project.getTitle();
+        	String projectDirPath = workspaceDir+File.separator+project.getTitle();
         	File projectDir = new File(projectDirPath);
         	
         	// if the project dir already exists
@@ -56,7 +56,7 @@ public class ProjectExporter {
         	// export all categories and the views within
         	for (WorkspaceElement child : project.getChildren()) {
         		CategoryElement cat = (CategoryElement) child;
-        		String catDir = projectDirPath+"/"+cat.getTitle();
+        		String catDir = projectDirPath+File.separator+cat.getTitle();
         		
         		// check if category folder exists else create it
         		if (!new File(catDir).exists()) {
@@ -69,7 +69,7 @@ public class ProjectExporter {
         			ViewElement viewElt = (ViewElement) cat.getChildAt(i);
         			
         			// if view exists ask if it should be overwritten
-        			File viewFile = new File(catDir+"/"+viewElt.getTitle());
+        			File viewFile = new File(catDir+File.separator+viewElt.getTitle());
         			viewFail=viewElt.getTitle();
 //            		if (viewFile.exists()) 
 //                    	if (!MessageUtil.showDialog("View "+viewElt.getTitle()+" already exists. Overwrite it?"))
@@ -99,8 +99,8 @@ public class ProjectExporter {
         	// check for the project within the workspace directory, create it if necessary
         	String fileDir = file.getPath();
         	
-        	//String projectDir = fileDir+"/"+project.getTitle();
-        	String projectDirName = fileDir+"/"+exportName;
+        	//String projectDir = fileDir+File.separator+project.getTitle();
+        	String projectDirName = fileDir+File.separator+exportName;
         	File projectDir = new File(projectDirName);
         	if (!projectDir.exists()) {
         		projectDir.mkdir();
@@ -112,7 +112,7 @@ public class ProjectExporter {
         	// export all categories and the views within
         	for (WorkspaceElement child : project.getChildren()) {
         		CategoryElement cat = (CategoryElement) child;
-        		String catDir = projectDir+"/"+cat.getTitle();
+        		String catDir = projectDir+File.separator+cat.getTitle();
         		
         		// check if category folder exists else create it
         		if (!new File(catDir).exists()) {
@@ -125,7 +125,7 @@ public class ProjectExporter {
         			
         			// if view exists ask if it should be overwritten
         			//System.out.println(catDir+"/"+viewElt.getTitle());
-        			File viewFile = new File(catDir+"/"+viewElt.getTitle());
+        			File viewFile = new File(catDir+File.separator+viewElt.getTitle());
             		if (viewFile.exists()) 
                     	if (!MessageUtil.showDialog(DoMosaicsUI.getInstance(),"View "+viewElt.getTitle()+" already exists. Overwrite it?"))
                     		continue;

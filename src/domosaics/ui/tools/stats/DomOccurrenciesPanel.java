@@ -42,7 +42,7 @@ public class DomOccurrenciesPanel extends JPanel{
 		int row = 0;
 		for (Map.Entry<DomainFamily, Integer> d : data) {
 			JLabel field = new JLabel(d.getKey().getId());
-			JTextArea val = new JTextArea(0, 11);
+			JTextArea val = new JTextArea(0, 4);
 			val.setText(""+d.getValue());
 			val.setEditable(false);
 		  	val.setLineWrap(true);

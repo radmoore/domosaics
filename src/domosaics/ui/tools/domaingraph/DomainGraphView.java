@@ -2,6 +2,8 @@ package domosaics.ui.tools.domaingraph;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 import java.io.File;
 
 import javax.swing.BorderFactory;

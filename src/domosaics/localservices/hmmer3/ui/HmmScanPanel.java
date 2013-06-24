@@ -72,7 +72,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private HashMap<String, File> hmmer3bins;
 	private HmmScan hmmScan;
 	private JTextField hmmScanTF, hmmPressTF, hmmTF, fastaTF, evalueTF;
-	private JCheckBox gaCkb, biasCkb, maxCkb, coddCkb; 
+	private JCheckBox gaCkb, biasCkb, maxCkb, coddCkb26, coddCkb27; 
 	private ButtonGroup groupRadio;
 	private JRadioButton overlapRadioNone, overlapRadioEvalue, overlapRadioCoverage;
 	private JButton loadScanBin, loadPressBin, loadHmmDB, loadFastaFile, run, cancel;
@@ -216,20 +216,42 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	    
 	    // gathering threshold checkbox. If disabled,
 		// the panel for the evalue is set to visible
-	    coddCkb = new JCheckBox("", false);
-	    coddCkb.setToolTipText("Context dependant annotation, see Terrapon et al., Bioinformatics, 2009");
-	    coddCkb.addItemListener(new ItemListener() {	
+	    coddCkb26 = new JCheckBox("Pfam v26", false);
+	    coddCkb26.setToolTipText("Context dependent annotation, see [Terrapon et al., Bioinformatics, 2009]");
+	    coddCkb26.addItemListener(new ItemListener() {	
 			public void itemStateChanged(ItemEvent e) {
-				gaCkb.setSelected(!coddCkb.isSelected());
-				gaCkb.setEnabled(!coddCkb.isSelected());
-				overlapRadioEvalue.setSelected(coddCkb.isSelected());
-				overlapRadioNone.setEnabled(!coddCkb.isSelected());
-				overlapRadioCoverage.setEnabled(!coddCkb.isSelected());
-				if (coddCkb.isSelected())
+				if(coddCkb26.isSelected() && coddCkb27.isSelected())
+					coddCkb27.setSelected(false);
+				gaCkb.setSelected(!coddCkb26.isSelected());
+				gaCkb.setEnabled(!coddCkb26.isSelected());
+				overlapRadioEvalue.setSelected(coddCkb26.isSelected());
+				overlapRadioNone.setEnabled(!coddCkb26.isSelected());
+				overlapRadioCoverage.setEnabled(!coddCkb26.isSelected());
+				if (coddCkb26.isSelected()) {
 					evalueTF.setText("10");
-				else 
+				} else { 
 					evalueTF.setText("0.1");
-				//ePane.setVisible(coddCkb.isSelected());
+					//ePane.setVisible(coddCkb26.isSelected());
+				}
+			}
+		});
+	    coddCkb27 = new JCheckBox("Pfam v27", false);
+	    coddCkb27.setToolTipText("Context dependent annotation, see [Terrapon et al., Bioinformatics, 2009]");
+	    coddCkb27.addItemListener(new ItemListener() {	
+			public void itemStateChanged(ItemEvent e) {
+				if(coddCkb27.isSelected() && coddCkb26.isSelected())
+					coddCkb26.setSelected(false);
+				gaCkb.setSelected(!coddCkb27.isSelected());
+				gaCkb.setEnabled(!coddCkb27.isSelected());
+				overlapRadioEvalue.setSelected(coddCkb27.isSelected());
+				overlapRadioNone.setEnabled(!coddCkb27.isSelected());
+				overlapRadioCoverage.setEnabled(!coddCkb27.isSelected());
+				if (coddCkb27.isSelected()) {
+					evalueTF.setText("10");
+				} else { 
+					evalueTF.setText("0.1");
+					//ePane.setVisible(coddCkb26.isSelected());
+				}
 			}
 		});
 	    
@@ -321,8 +343,11 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		add(new JLabel("Resolve overlaps by:"), "gap 5");
 		add(radioPane, "gap 2, growX, wrap");
 
-		add(new JLabel("Co-Occurring Domain Filter:"), "gap 5");
-		add(coddCkb, "gap 5, span 2, growX, wrap");
+		JLabel codd = new JLabel("Co-Occurring Domain Dectection:");
+		codd.setToolTipText("Context dependent annotation, see [Terrapon et al., Bioinformatics, 2009]");
+		add(codd, "gap 5");
+		add(coddCkb26, "gap 5, split 2");
+		add(coddCkb27, "gap 5, wrap");
 
 		add(new JXTitledSeparator("Progress"), "growX, span, wrap, gaptop 10");
 		add(progressBar, "h 25!, gap 5, gapright 5, span 3, growX, wrap");
@@ -360,7 +385,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	private void loadBinAction(ActionEvent e) {
 		JButton src = (JButton)e.getSource();
 		
-		File bin = FileDialogs.showOpenDialog(this.getParent());
+		File bin = FileDialogs.showOpenDialog(this.getParentFrame());
 		if (bin == null || !bin.canRead())
 			return;
 		
@@ -379,7 +404,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * Triggered when the load DB button is pressed.
 	 */
 	private void loadDBAction() {
-		hmmDBFile = FileDialogs.showOpenDialog(this.getParent());
+		hmmDBFile = FileDialogs.showOpenDialog(this.getParentFrame());
 		if (hmmDBFile == null || !hmmDBFile.canRead())
 			return;
 		hmmTF.setText(hmmDBFile.getAbsolutePath());
@@ -393,7 +418,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		if (selectView.getSelectedItem() != null)
 			selectView.setSelectedItem(null);
 		
-		File file = FileDialogs.showOpenDialog(this.getParent());
+		File file = FileDialogs.showOpenDialog(this.getParentFrame());
 		if(file == null || !file.canRead())
 			return;
 		
@@ -412,13 +437,13 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 */
 	private void runHmmScanAction() {
 		if (!StringUtils.isNumber(evalueTF.getText())){
-			MessageUtil.showWarning(this.getParent(), "The E-value field does not contain a valid number.");
+			MessageUtil.showWarning(this.getParentFrame(), "The E-value field does not contain a valid number.");
 			evalueTF.setBackground(highlightColor);
 			return;
 		}
 		
 		if(hmmScanTF.getText().equals("")) {
-			MessageUtil.showWarning(this.getParent(), "Please choose a hmmscan binary.");
+			MessageUtil.showWarning(this.getParentFrame(), "Please choose a hmmscan binary.");
 			hmmScanTF.setBackground(highlightColor);
 			return;	
 		}
@@ -430,12 +455,12 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		}*/
 
 		else if (hmmTF.getText().equals("")) {
-			MessageUtil.showWarning(this.getParent(), "Please choose HMMER3 profiles");
+			MessageUtil.showWarning(this.getParentFrame(), "Please choose HMMER3 profiles");
 			hmmTF.setBackground(highlightColor);
 			return;
 		}
 		else if (fastaTF.getText().equals("")) {
-			MessageUtil.showWarning(this.getParent(), "Please choose a sequence file or view");
+			MessageUtil.showWarning(this.getParentFrame(), "Please choose a sequence file or view");
 			fastaTF.setBackground(highlightColor);
 			return;
 		}
@@ -451,7 +476,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				Configuration.getInstance().setHmmScanBin(hmmScanTF.getText());
 			} else {
 				if(!hmmScanTF.getText().equals(Configuration.getInstance().getHmmScanBin()))
-					if(MessageUtil.showDialog(this.getParent(),"A distinct HmmScan binary is recorded in settings. Overwrite?"))
+					if(MessageUtil.showDialog(this.getParentFrame(),"A distinct HmmScan binary is recorded in settings. Overwrite?"))
 					{
 						Configuration.getInstance().setHmmScanBin(hmmScanTF.getText());
 						if(Configuration.getInstance().getFrame()!=null && Configuration.getInstance().getFrame().isVisible()) {
@@ -474,7 +499,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				Configuration.getInstance().setHmmerDB(hmmTF.getText());
 			} else {
 				if(!hmmTF.getText().equals(Configuration.getInstance().getHmmerDB()))
-					if(MessageUtil.showDialog(this.getParent(),"A distinct HMM library is recorded in settings. Overwrite?"))
+					if(MessageUtil.showDialog(this.getParentFrame(),"A distinct HMM library is recorded in settings. Overwrite?"))
 					{
 						Configuration.getInstance().setHmmerDB(hmmTF.getText());
 						if(Configuration.getInstance().getFrame()!=null && Configuration.getInstance().getFrame().isVisible()) {
@@ -492,7 +517,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				Configuration.getInstance().setHmmPressBin(hmmPressTF.getText());
 			} else {
 				if(!hmmPressTF.getText().equals(Configuration.getInstance().getHmmPressBin()))
-					if(MessageUtil.showDialog(this.getParent(),"A distinct HmmScan binary is recorded in settings. Overwrite?"))
+					if(MessageUtil.showDialog(this.getParentFrame(),"A distinct HmmPress binary is recorded in settings. Overwrite?"))
 					{
 						Configuration.getInstance().setHmmPressBin(hmmPressTF.getText());
 						if(Configuration.getInstance().getFrame()!=null && Configuration.getInstance().getFrame().isVisible()) {
@@ -503,7 +528,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			}
 		}
 		if ( !FastaReader.isValidFasta(new File(fastaTF.getText())) ) {
-			MessageUtil.showWarning(this.getParent(), "Malformated fasta file or unknown sequence format");
+			MessageUtil.showWarning(this.getParentFrame(), "Malformated fasta file or unknown sequence format");
 			fastaTF.setBackground(highlightColor);
 			return;
 		}
@@ -520,7 +545,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		else {
 			hmmScan.setGA(false);
 			if (evalueTF.getText().equals("")) {
-				MessageUtil.showWarning(this.getParent(), "Please choose an evalue threshold (or use the gathering threshold).");
+				MessageUtil.showWarning(this.getParentFrame(), "Please choose an evalue threshold (or use the gathering threshold).");
 				evalueTF.setBackground(highlightColor);
 				return;
 			}
@@ -531,7 +556,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		hmmScan.setBiasFilter(biasCkb.isSelected());
 		hmmScan.setMaxFilter(maxCkb.isSelected());
 		hmmScan.setOverlapMethod(groupRadio.getSelection().getActionCommand());
-		hmmScan.setCoddFilter(coddCkb.isSelected());
+		hmmScan.setCoddFilter(usingCODD());
 		hmmScan.setSeqView(seqView);
 		
 		// Launches the hmmscan job
@@ -612,12 +637,12 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		
 		if ( Hmmer3Engine.isSupportedService(bin.getName()) ) {
 			if (!(bin.canExecute())) {
-				MessageUtil.showWarning(this.getParent(), bin.getAbsoluteFile()+" is not executable. Exiting.");
+				MessageUtil.showWarning(this.getParentFrame(), bin.getAbsoluteFile()+" is not executable. Exiting.");
 				return false;
 			}
 		}
 		else {
-			MessageUtil.showWarning(this.getParent(), bin.getAbsoluteFile()+" is not supported");
+			MessageUtil.showWarning(this.getParentFrame(), bin.getAbsoluteFile()+" is not supported");
 			return false;
 		}
 
@@ -643,13 +668,13 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 
 		// check if file is still there
 		if (!dbFile.exists()) {
-			MessageUtil.showWarning(this.getParent(), "Warning: could not find specified HMMER db file "+dbFile.getName());
+			MessageUtil.showWarning(this.getParentFrame(), "Warning: could not find specified HMMER db file "+dbFile.getName());
 			return false;
 		}
 		
 		// format check hmme3 profiles
 		if (!HmmPress.isValidProfileFile(dbFile)) {
-			MessageUtil.showWarning(this.getParent(), dbFile.getName()+ " does not appear to be a valid hmmer3 profile");
+			MessageUtil.showWarning(this.getParentFrame(), dbFile.getName()+ " does not appear to be a valid hmmer3 profile");
 			return false;
 		} else {
 			return true;
@@ -667,7 +692,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				pressAvail = checkBins(new File(hmmPressTF.getText()));
 			
 			// Check if want to/can press
-			if (MessageUtil.showDialog(this.getParent(), "The HMMERDBFILE is not pressed. Do you want DoMosaicS to press it now?")) {					
+			if (MessageUtil.showDialog(this.getParentFrame(), "The HMMERDBFILE is not pressed. Do you want DoMosaicS to press it now?")) {					
 				if (pressAvail) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 					run.setEnabled(false);
@@ -684,9 +709,9 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				}
 				else {
 					if (hmmPressTF.getText().equals("")) {
-						MessageUtil.showInformation(this.getParent(), "Please first provide hmmpress binary");
+						MessageUtil.showInformation(this.getParentFrame(), "Please first provide hmmpress binary");
 					} else {
-						MessageUtil.showInformation(this.getParent(), "Please first provide correct hmmpress binary");
+						MessageUtil.showInformation(this.getParentFrame(), "Please first provide correct hmmpress binary");
 					}
 					hmmPressTF.setBackground(highlightColor);
 					return false; 
@@ -779,11 +804,18 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		});
 	}
 	
-	public boolean usingCODD() {
-		return coddCkb.isSelected();
+	public String usingCODD() {
+		if (coddCkb26.isSelected())
+			return "v26.0";
+		else
+			if(coddCkb27.isSelected())
+				return "v27";
+			else
+				return "";
 	}
 
-	public JFrame getParent() {
+	public JFrame getParentFrame() {
 		return parent;
 	}
+
 }

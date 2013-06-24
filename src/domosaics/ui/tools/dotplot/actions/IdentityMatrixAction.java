@@ -22,9 +22,14 @@ public class IdentityMatrixAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
 	public void actionPerformed(ActionEvent e) {
-		DotplotView view = ViewHandler.getInstance().getTool(ViewType.DOTPLOT);
-		view.getDotplotComponent().getDotplot().setSubstitutionMatrix(MatrixType.IDENTITY);
-		view.repaint();
+		if (!getState()) {
+			setState(!getState());
+		} else {
+			DotplotView view = ViewHandler.getInstance().getTool(ViewType.DOTPLOT);
+			view.getDotplotComponent().getDotplot().setSubstitutionMatrix(MatrixType.IDENTITY);
+			view.getDotplotLayoutManager().setBlosumFalse();
+			view.repaint();
+		}
 	}
 
 
