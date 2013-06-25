@@ -216,7 +216,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		
 		DomainViewI domResultView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
 		domResultView.setDaSet(domArrs);
-		domResultView.loadSequencesIntoDas(annotationSpawner.getSeqs(), domArrs);
+		domResultView.loadSequencesIntoDas(annotationSpawner.getSeqs(), domArrs, false);
 
 		// create sequence view if it comes from a file
 		if (seqPath.getText().length() > 0) {

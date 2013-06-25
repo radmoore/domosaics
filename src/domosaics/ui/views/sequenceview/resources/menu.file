@@ -10,9 +10,9 @@
 <!--		</menuItem>
 		
 		<menuitem id="JMenuItem">
-			<parameter id="name" value="Save Sequences To File"/> 
+			<parameter id="name" value="Export Sequences (FASTA)"/> 
 			<parameter id="actionClass" value="domosaics.ui.views.sequenceview.actions.SaveFastaFileAction"/> 
-			<parameter id="tooltip" value="Saves the sequences to a file"/> 
+			<parameter id="tooltip" value="Save the sequences to a fasta file"/> 
 		</menuItem>
 
 <!--		<menu id="Export">

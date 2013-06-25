@@ -168,7 +168,7 @@ public class SequenceSelectionMouseController extends MouseAdapter {
 			
 		} else if (choice == 1) {// Save sequences as fasta file
 			
-			File file =FileDialogs.showSaveDialog(DoMosaicsUI.getInstance(), "fasta");
+			File file =FileDialogs.showSaveDialog(DoMosaicsUI.getInstance(), "FASTA");
 			if (file == null){
 				view.getViewComponent().repaint();
 				return;

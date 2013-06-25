@@ -34,5 +34,5 @@ public interface DistanceAlgorithm {
 	 * @return
 	 * 		distancem atrix holding pairwise distances for the specified arrangements
 	 */
-	public double[][] calc(DomainArrangement[] daSet, boolean diagonalMatrix);
+	public double[][] calc(DomainArrangement[] daSet, boolean diagonalMatrix) throws OutOfMemoryError;
 }

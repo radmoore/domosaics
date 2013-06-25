@@ -3,6 +3,8 @@ package domosaics.algos.treecreation;
 import domosaics.algos.distance.DistanceMeasureType;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.sequence.SequenceI;
+import domosaics.ui.DoMosaicsUI;
+import domosaics.ui.util.MessageUtil;
 import pal.alignment.Alignment;
 import pal.alignment.AlignmentUtils;
 import pal.alignment.SimpleAlignment;
@@ -44,10 +46,16 @@ public class PALAdapter {
 			identifers[i] = new Identifier(daSet[i].getName());
 		IdGroup idGroup = new SimpleIdGroup(identifers);
 		
-		// calculate the matrix using an DoMosaics similarity measure
-		double[][] matrix = measure.getAlgo().calc(daSet, false);
+		DistanceMatrix dM = new DistanceMatrix();
+		try {
+			// calculate the matrix using an DoMosaics similarity measure
+			double[][] matrix = measure.getAlgo().calc(daSet, false);
+			new DistanceMatrix(matrix, idGroup);
+		} catch(OutOfMemoryError e) {
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"DoMosaics encountered an OutOfMemoryError.\nPlease proceed to tree computation with a more dedicated software.");
+		}
 		
-		return new DistanceMatrix(matrix, idGroup);
+		return dM;
 	}
 	
 	/**

@@ -180,7 +180,7 @@ public class ExampleDatasetLoader {
 		
 		DomainViewI domView = ViewHandler.getInstance().createView(ViewType.DOMAINS, domViewName);
 		domView.setDaSet(daSet);
-		domView.loadSequencesIntoDas(seqs, daSet);
+		domView.loadSequencesIntoDas(seqs, daSet, false);
 		ViewHandler.getInstance().addView(domView, project);
 
 //		DomainTreeViewI domTreeView =  ViewHandler.getInstance().createView(ViewType.DOMAINTREE, domTreeViewName);

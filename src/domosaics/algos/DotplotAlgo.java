@@ -117,7 +117,7 @@ public class DotplotAlgo {
 	 * 		computed plot
 	 */
 	public static int[][] computeMatchNoMatchWithWindowAndMatrix(Dotplot plot) {
-		System.out.println("la");
+		
 		init(plot);
 		Integer[][] scoreMatrix = new Integer[rows][cols];
 

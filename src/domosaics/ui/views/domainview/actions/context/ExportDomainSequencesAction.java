@@ -31,7 +31,7 @@ public class ExportDomainSequencesAction extends AbstractAction{
 	public ExportDomainSequencesAction () {
 		super();
 		putValue(Action.NAME, "Export all sequences");
-		putValue(Action.SHORT_DESCRIPTION, "Selects all domains of this family and exports the sequences");
+		putValue(Action.SHORT_DESCRIPTION, "Select all domains of this family and export the sequences");
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -40,7 +40,7 @@ public class ExportDomainSequencesAction extends AbstractAction{
 		// from what domain shall be the sequences exported?
 		DomainComponent toSearchDomain = view.getDomainSelectionManager().getClickedComp();
 
-		File file = FileDialogs.showSaveDialog(DoMosaicsUI.getInstance(), "fasta");
+		File file = FileDialogs.showSaveDialog(DoMosaicsUI.getInstance(), "FASTA");
 		if (file == null)
 			return;
 	

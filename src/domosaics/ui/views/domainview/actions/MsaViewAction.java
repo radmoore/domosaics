@@ -35,11 +35,12 @@ public class MsaViewAction extends AbstractMenuAction{
 		
 		// else change the renderer and set the layout flags
 		view.setViewLayout(new MSALayout());
-		view.getDomainViewRenderer().setArrangementRenderer(new MsaArrangementRenderer());		
+		view.getDomainViewRenderer().setArrangementRenderer(new MsaArrangementRenderer());
 		view.getDomainLayoutManager().setToMsaView();
 		view.getDomainLayoutManager().deselectAll();
 		view.getArrangementSelectionManager().clearSelection();
-		view.getDomainSelectionManager().clearSelection();
+		view.getDomainSelectionManager().clearSelection();	
+		view.getSequenceSelectionMouseController().clearSelection();
 		view.registerMouseListeners();
 	}
 }

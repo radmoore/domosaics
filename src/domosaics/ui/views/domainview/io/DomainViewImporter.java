@@ -57,7 +57,7 @@ public class DomainViewImporter extends ViewImporter<DomainViewI> {
 					view.setDaSet(proteins);
 					
 					if (seqs != null) 
-						view.loadSequencesIntoDas(seqs, proteins);
+						view.loadSequencesIntoDas(seqs, proteins, false);
 				}
 			}
 			return view;

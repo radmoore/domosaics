@@ -109,6 +109,7 @@ public class ConfigurationPanel extends JPanel{
 		config.setDocuPath(documentationTF.getText());
 		ConfigurationWriter.write();
 		
+		parentFrame.tryStop();
 		dispose();
 	}
 	
@@ -443,20 +444,13 @@ public class ConfigurationPanel extends JPanel{
 				HmmPress hmmPress = new HmmPress(hmmer3Engine.getAvailableServicePath("hmmpress"), file, configPanel);
 				//TODO  we should get some type of return here.
 				hmmer3Engine.launch(hmmPress);
-				/* TODO NICO 
-				 * while(hmmer3Engine.isRunning()) {
-					try {
-						wait(5000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}*/
 			}
 		}
 		return true;
 	}
 	
-
+	public boolean isRunningPress() {
+		return hmmer3Engine.isRunning();
+	}
 
 }

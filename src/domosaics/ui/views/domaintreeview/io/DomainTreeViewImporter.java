@@ -210,7 +210,7 @@ public class DomainTreeViewImporter extends ViewImporter<DomainTreeViewI>  {
 					domView.setDaSet(proteins);
 					
 					if (seqs != null) 
-						domView.loadSequencesIntoDas(seqs, proteins);
+						domView.loadSequencesIntoDas(seqs, proteins, false);
 				}
 			}
 			

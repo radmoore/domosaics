@@ -142,7 +142,7 @@ public class AddSelectionToViewAction extends AbstractMenuAction{
 		
 		// add all sequences to targetView (existing + selection)
 		if (allSeqs != null || allSeqs.size() > 0 )
-			targetView.loadSequencesIntoDas(allSeqs.toArray(new SequenceI[allSeqs.size()]), targetView.getDaSet());
+			targetView.loadSequencesIntoDas(allSeqs.toArray(new SequenceI[allSeqs.size()]), targetView.getDaSet(), false);
 		// Switch to new view containing imported arrangements
 		WorkspaceManager.getInstance().showViewInMainFrame(WorkspaceManager.getInstance().getViewElement(targetView.getViewInfo()));
 		// Set selection in target to selected arrangements (doesnt work)

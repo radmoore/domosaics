@@ -268,7 +268,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
-	public void loadSequencesIntoDas(SequenceI[] seqs, DomainArrangement[] daSet) {
+	public void loadSequencesIntoDas(SequenceI[] seqs, DomainArrangement[] daSet, boolean checkBeforeAssociation) {
 		List<DomainArrangement> noMatchDAs = new ArrayList<DomainArrangement>();
 		List<SequenceI> noMatchSeqs = new ArrayList<SequenceI>();
 		
@@ -283,8 +283,21 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		int noMatchCount = 0;
 		for (int i = 0; i < daSet.length; i++) 
 			if (label2Seq.get(daSet[i].getName().toUpperCase()) != null) {
-				daSet[i].setSequence(label2Seq.get(daSet[i].getName().toUpperCase()));
 				sequencesLoaded = true;
+				if(checkBeforeAssociation)
+					if(daSet[i].getDomain(daSet[i].countDoms()-1).getTo() < label2Seq.get(daSet[i].getName().toUpperCase()).getLen(false))
+						if(!daSet[i].hasSeq() && !label2Seq.get(daSet[i].getName().toUpperCase()).equals(daSet[i].getSequence()))
+							if(!daSet[i].hasSeqBeenModifiedManually())
+								daSet[i].setSequence(label2Seq.get(daSet[i].getName().toUpperCase()));
+							else
+								MessageUtil.showInformation(DoMosaicsUI.getInstance(),daSet[i].getName().toUpperCase()+" sequence has been manually modified.\nDoMosaics prevents automatical load of the sequence for consistency reasons.\nThis must be done manually with caution regarding the existing domain annotation. ");
+						else
+							MessageUtil.showInformation(DoMosaicsUI.getInstance(),daSet[i].getName().toUpperCase()+" already have a different recorded sequence.\nDoMosaics prevents automatical load of the sequence for consistency reasons.\nThis must be done manually with caution regarding the existing domain annotation. ");
+					else
+						MessageUtil.showInformation(DoMosaicsUI.getInstance(),daSet[i].getName().toUpperCase()+" has domain annotation exceeding the sequence length.\nDoMosaics prevents automatical load of the sequence for consistency reasons.\nThis must be done manually with caution regarding the existing domain annotation. ");
+				
+				else
+					daSet[i].setSequence(label2Seq.get(daSet[i].getName().toUpperCase()));
 				if (noMatchSeqs.contains(label2Seq.get(daSet[i].getName().toUpperCase())))
 					noMatchSeqs.remove(label2Seq.get(daSet[i].getName().toUpperCase()));
 			} else {
@@ -775,10 +788,16 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 			prot.setAttribute(protId);
 
 			// AA sequence
-			if (this.isSequenceLoaded()) {
+			if (arrangements[i].hasSeq()) {
 				Element seq = new Element("SEQUENCE");
 				prot.addContent(seq);
 				seq.setText(arrangements[i].getSequence().getSeq(true));
+			}
+			
+			// Manual modification flag
+			if (arrangements[i].hasSeqBeenModifiedManually()) {
+				Element manualModif = new Element("MANUALMODIF");
+				prot.addContent(manualModif);
 			}
 
 			// Comment
@@ -959,6 +978,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 
 	@Override
 	public void xmlRead(Element viewType) {		
+		int cptSeq=0;
 		this.setName(viewType.getAttributeValue("name"));
 		initDomainController();
 		
@@ -1049,12 +1069,17 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 				da.setDesc(note.getText());
 			Element seq = protein.getChild("SEQUENCE");
 			if(seq != null) {
+				cptSeq++;
 				da.setSequence(new Sequence(protein.getAttributeValue("id"),seq.getText()));
-				setSequencesLoaded(true);
 			}
+			Element manualModif = protein.getChild("MANUALMODIF");
+			if(manualModif != null)
+				da.seqModifiedManually();
 			list.add(da);
 		}
 		this.daSet = list.toArray(new DomainArrangement[list.size()]);
+		if(cptSeq==list.size())
+			setSequencesLoaded(true);
 		
 		viewRenderer = new DefaultDomainViewRenderer(this);
 		// Read Layout settings

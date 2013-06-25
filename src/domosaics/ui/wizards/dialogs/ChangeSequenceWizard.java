@@ -180,9 +180,14 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
         	// if all is well, set the new sequence... 
 		    SequenceI seq = new FastaReader().getDataFromString(fastaSeq)[0];
 		    if (seq.getName() == null)
-		    	seq.setName(selectedDA.getDomainArrangement().getName());
-			
-		    selectedDA.getDomainArrangement().setSequence(seq);
+		    	seq.setName(selectedArr.getName());
+		    
+		    // ... and flag that manual modification occured
+		    if(!selectedArr.getSequence().getSeq(false).equals(seq.getSeq(false))) {
+		    	selectedArr.seqModifiedManually();
+		    }
+		    
+		    selectedArr.setSequence(seq);
 		    if(!view.isSequenceLoaded())
 		    	view.setSequencesLoaded(true);
 		    

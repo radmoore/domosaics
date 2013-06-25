@@ -123,7 +123,7 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 		domView.setDaSet(daSet);
 		
 		if (seq[0] != null)
-			domView.loadSequencesIntoDas(seq, daSet);
+			domView.loadSequencesIntoDas(seq, daSet, false);
 		
 		// customize the domain view so it fits to the needs of this view
 		
