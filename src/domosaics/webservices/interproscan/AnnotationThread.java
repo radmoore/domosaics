@@ -1,7 +1,5 @@
 package domosaics.webservices.interproscan;
 
-import java.util.concurrent.ExecutionException;
-
 import javax.swing.SwingWorker;
 import javax.xml.rpc.ServiceException;
 
@@ -160,6 +158,7 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 		// this exception is *always* triggered when the thread is interrupted (by canceling)
 		// ergo, we need not report
 		catch (InterruptedException ie){ }
+		
 		catch (Exception e) {
 			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
@@ -180,15 +179,10 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 		
 		 if(!isCancelled()) {
 			try {
+				
 				spawner.processResults(this, get());
 			}
-			catch (InterruptedException e) {
-				if (Configuration.getReportExceptionsMode(true))
-					Configuration.getInstance().getExceptionComunicator().reportBug(e);
-				else			
-					Configuration.getLogger().debug(e.toString());
-			}
-			catch (ExecutionException e) {
+			catch (Exception e) {
 				if (Configuration.getReportExceptionsMode(true))
 					Configuration.getInstance().getExceptionComunicator().reportBug(e);
 				else			

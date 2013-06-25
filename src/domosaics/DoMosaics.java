@@ -100,6 +100,7 @@ public class DoMosaics {
 					e.printStackTrace(new PrintWriter(w));
 					Configuration.getLogger().debug(w.toString());
 					Configuration.getLogger().debug(e.toString());
+					e.printStackTrace();
 					MessageUtil.showWarning(DoMosaicsUI.getInstance(),"There was a problem running DoMosaics; consult log file.");
 					// remove lock file if possible
 					if (Configuration.getInstance().hasLockfile()) {

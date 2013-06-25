@@ -20,14 +20,12 @@ import domosaics.model.arrangement.DomainType;
 import domosaics.model.arrangement.io.GatheringThresholdsReader;
 import domosaics.model.configuration.Configuration;
 
-//import org.apache.log4j.Logger;
 
 
 /**
  * Parses the result produces by WSInterproScan package into
  * {@link DomainArrangement} objects.
  * 
- * @author Andreas Held
  * @author Andrew D. Moore <radmoore@uni-muenster.de>
  * 
  * 
@@ -47,7 +45,7 @@ public class InterProScanResultParser {
 		
 		try {
 			if (Configuration.isDebug())
-//				System.out.println("*** Returned from iprscan: "+arrangementsStr);
+				System.out.println("*** Returned from iprscan: "+arrangementsStr);
 			
 			return getArrangement(new StringReader(arrangementsStr));
 		} 
