@@ -357,8 +357,8 @@ public class Configuration {
 	}
 	
 	public boolean isServiceRunning() {
-		return ( (AnnotatorFrame.getFrame().isShowing() || 
-					Hmmer3Frame.getFrame().isShowing()) && service_running );
+		return ( (AnnotatorFrame.isOpen() || 
+					Hmmer3Frame.isOpen()) && service_running );
 	}
 
 	public void setServiceRunning(boolean running) {
