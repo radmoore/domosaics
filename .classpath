@@ -43,8 +43,6 @@
 	<classpathentry kind="lib" path="lib/ebiwebservices/ClustalW2_Axis1.jar"/>
 	<classpathentry kind="lib" path="lib/algo/pal-1.5.1.jar"/>
 	<classpathentry kind="lib" path="lib/misc/commons-io-2.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/commons-discovery.jar"/>
-	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/commons-logging.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/wsdl4j.jar"/>
 	<classpathentry kind="lib" path="lib/misc/jdom-2.0.4.jar" sourcepath="lib/misc/jdom-2.0.4-sources.jar">
 		<attributes>

@@ -502,25 +502,25 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		toolBar.add(help);
 		
 		
-//		JButton test = new JButton();
-//		test.setIcon(tmpTestIcon);
-//		test.setToolTipText("Create an exception");
-//		test.addActionListener(new ActionListener() {
-//			
-//			Object nothing = null;
-//			public void actionPerformed(ActionEvent arg0) {
-//				try {
-//					nothing.toString();
-//				} catch (Exception e) {
-//					if (Configuration.getReportExceptionsMode(true))
-//						Configuration.getInstance().getExceptionComunicator().reportBug(e);
-//					else			
-//						Configuration.getLogger().debug(e.toString());
-//				}
-//			}
-//		});
-//		
-//		toolBar.add(test);
+		JButton test = new JButton();
+		test.setIcon(tmpTestIcon);
+		test.setToolTipText("Create an exception");
+		test.addActionListener(new ActionListener() {
+			
+			Object nothing = null;
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					nothing.toString();
+				} catch (Exception e) {
+					if (Configuration.getReportExceptionsMode(true))
+						Configuration.getInstance().getExceptionComunicator().reportBug(e);
+					else			
+						Configuration.getLogger().debug(e.toString());
+				}
+			}
+		});
+		
+		toolBar.add(test);
 		
 		toolBar.setFloatable(false);
 		toolBar.setRollover(true);

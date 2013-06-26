@@ -11,7 +11,7 @@ import com.j2bugzilla.base.Bug;
 import com.j2bugzilla.base.BugFactory;
 import com.j2bugzilla.base.BugzillaConnector;
 import com.j2bugzilla.base.BugzillaException;
-import com.j2bugzilla.base.ConnectionException;
+import com.j2bugzilla.base.BugzillaConnectionException;
 import com.j2bugzilla.rpc.LogIn;
 import com.j2bugzilla.rpc.ReportBug;
 
@@ -158,7 +158,7 @@ public class ExceptionComunicator{
 			bugCon.executeMethod(logIn);			
 			System.out.println("Excuted login");
 		}
-		catch (ConnectionException ce) {
+		catch (BugzillaConnectionException ce) {
 			System.out.println("Connection exception FAILED!");
 		}
 		catch (Exception e) {
