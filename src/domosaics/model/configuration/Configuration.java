@@ -13,6 +13,7 @@ import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.MessageUtil;
 import domosaics.util.CheckConnectivity;
 import domosaics.util.ExceptionComunicator;
+import domosaics.webservices.RADS.ui.RADSFrame;
 import domosaics.webservices.interproscan.ui.AnnotatorFrame;
 
 
@@ -358,7 +359,8 @@ public class Configuration {
 	
 	public boolean isServiceRunning() {
 		return ( (AnnotatorFrame.isOpen() || 
-					Hmmer3Frame.isOpen()) && service_running );
+					Hmmer3Frame.isOpen() ||
+						RADSFrame.isOpen() ) && service_running );
 	}
 
 	public void setServiceRunning(boolean running) {
