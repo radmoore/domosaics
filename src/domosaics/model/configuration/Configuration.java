@@ -5,11 +5,15 @@ import java.net.URL;
 
 import org.apache.log4j.Logger;
 
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Annotated;
+
+import domosaics.localservices.hmmer3.ui.Hmmer3Frame;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.MessageUtil;
 import domosaics.util.CheckConnectivity;
 import domosaics.util.ExceptionComunicator;
+import domosaics.webservices.interproscan.ui.AnnotatorFrame;
 
 
 /**
@@ -353,7 +357,8 @@ public class Configuration {
 	}
 	
 	public boolean isServiceRunning() {
-		return service_running;
+		return ( (AnnotatorFrame.getFrame().isShowing() || 
+					Hmmer3Frame.getFrame().isShowing()) && service_running );
 	}
 
 	public void setServiceRunning(boolean running) {
