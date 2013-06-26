@@ -52,19 +52,24 @@ public class FileDialogs {
 			stackingIssue=true;
 			parent.setAlwaysOnTop(false);
 		}
+		System.out.println("a");
  		// start the file chooser depending on the last used location
 		if (!lastLocation.isEmpty())
 			f = new JFileChooser(lastLocation);
 		else
 			f = new JFileChooser(Configuration.getInstance().getWorkspaceDir());
+		System.out.println("b");
 		// wait for the chooser to be approved and set the file as well as the last location.
 		if (f.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
+			System.out.println("c");
 			File file = f.getSelectedFile();
 			lastLocation = file.getAbsolutePath();
 			if(stackingIssue)
 				parent.setAlwaysOnTop(true);
+			System.out.println("d");
 			return file;
 		}
+		System.out.println("e");
 		if(stackingIssue)
 			parent.setAlwaysOnTop(true);
 	

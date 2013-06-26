@@ -95,7 +95,7 @@ public class RADSScanToolFrame extends ToolFrame{
 		domView.setDaSet(daSet);
 		
 		if (seq[0] != null)
-			domView.loadSequencesIntoDas(seq, daSet);
+			domView.loadSequencesIntoDas(seq, daSet, false);
 		
 		domView.getParentPane().removeToolbar();
 		domView.removeMouseListeners();

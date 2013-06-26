@@ -28,7 +28,7 @@ public class ShowDotplotAction extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI domView = ViewHandler.getInstance().getActiveView();
 		
-		if (domView.getArrangementSelectionManager().getSelection().isEmpty()) {
+		if (domView.getArrangementSelectionManager().getSelection().size()!=2) {
 			if(domView.getDomainLayoutManager().isSelectSequences())
 			{
 				domView.getDomainLayoutManager().toggleSelectArrangements();

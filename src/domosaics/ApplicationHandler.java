@@ -328,11 +328,10 @@ public class ApplicationHandler {
 					System.exit(0);
 				
 				if( !workspace.exists() )
-					workspaceCreated=workspace.mkdir();							
+					workspaceCreated=workspace.mkdir();
+				else
+					workspaceCreated=true;
 			}
-			
-			
-			
 			
 			Configuration.getInstance().setWorkspaceDir(workspace.getPath());
 

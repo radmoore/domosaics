@@ -289,7 +289,7 @@ public class Domain implements Comparable<Domain>, Cloneable, DoMosaicsData {
 	 * 		domain length in amino acid sequences
 	 */
 	public int getLen() {
-		return to - from;
+		return to - from + 1;
 	}
 	
 	/* Additional method for overlap searches */

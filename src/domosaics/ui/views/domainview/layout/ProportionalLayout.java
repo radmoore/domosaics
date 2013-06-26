@@ -24,7 +24,8 @@ public class ProportionalLayout extends AbstractDomainLayout {
 	 * @see AbstractDomainLayout
 	 */
 	public int getDomainWidth(Domain dom){
-		return dom.getLen();
+		// Nico : the -2 is a trick to correctly select sequences
+		return dom.getLen()-2;
 	}
 	
 	/**

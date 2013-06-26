@@ -248,13 +248,13 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 					"resources/icons/saveproject.png");
 			saveProjectIcon = new ImageIcon(ImageIO.read(is));
 
-			is = this.getClass().getResourceAsStream(
+			/*is = this.getClass().getResourceAsStream(
 					"resources/icons/importview.png");
 			importViewIcon = new ImageIcon(ImageIO.read(is));
 
 			is = this.getClass().getResourceAsStream(
 					"resources/icons/exportview.png");
-			exportViewIcon = new ImageIcon(ImageIO.read(is));
+			exportViewIcon = new ImageIcon(ImageIO.read(is));*/
 
 			is = this.getClass().getResourceAsStream(
 					"resources/icons/testLoadFasta.png");
@@ -311,7 +311,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		// open project
 		JButton openProject = new JButton();
 		openProject.setIcon(openProjectIcon);
-		openProject.setToolTipText("Open a saved project");
+		openProject.setToolTipText("Open a stored project");
 		openProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File file = FileDialogs.openChooseDirectoryDialog(DoMosaicsUI
@@ -327,7 +327,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		// save project
 		JButton saveProject = new JButton();
 		saveProject.setIcon(saveProjectIcon);
-		saveProject.setToolTipText("Save a project");
+		saveProject.setToolTipText("Store a project");
 		saveProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startSaveProjectWizard(null);
@@ -335,10 +335,11 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		});
 		toolBar.add(saveProject);
 
+		/*
 		// import view
 		JButton importView = new JButton();
 		importView.setIcon(importViewIcon);
-		importView.setToolTipText("Import a view into a project");
+		importView.setToolTipText("Load a stored view into a project");
 		importView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startImportViewWizard(null);
@@ -349,14 +350,14 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		// export view
 		JButton exportView = new JButton();
 		exportView.setIcon(exportViewIcon);
-		exportView.setToolTipText("Export a view from a project");
+		exportView.setToolTipText("Store a view from a project");
 		exportView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startSaveViewWizard(null);
 			}
 		});
 		toolBar.add(exportView);
-
+		 */
 
 		toolBar.addSeparator();
 		
@@ -385,7 +386,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		// new project
 		JButton newProject = new JButton();
 		newProject.setIcon(newProjectIcon);
-		newProject.setToolTipText("Create a new project");
+		newProject.setToolTipText("Load data in a new or existing or project");
 		newProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startImportDataWizard();
@@ -397,7 +398,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		// hmmscan
 		JButton hmmscan = new JButton();
 		hmmscan.setIcon(hmmscanIcon);
-		hmmscan.setToolTipText("Search for domains in sequences using local HMMSCAN installation");
+		hmmscan.setToolTipText("Domain annotation using local HMMER3 installation");
 		hmmscan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hmmer3 = Hmmer3Frame.getFrame();
@@ -412,7 +413,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		// iprscan
 		JButton iprscan = new JButton();
 		iprscan.setIcon(iprscanIcon);
-		iprscan.setToolTipText("Search for domains in sequences using iprscan (requires internet) ");
+		iprscan.setToolTipText("Domain annotation using InterProScan (via internet)");
 		iprscan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -430,7 +431,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		// rads
 		JButton radsBtn = new JButton();
 		radsBtn.setIcon(radsIcon);
-		radsBtn.setToolTipText("Find arrangements similar to a query arrangement or sequence (requires internet) ");
+		radsBtn.setToolTipText("Find similar domain arrangements to a query using RADS (via internet)");
 		radsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				radsFrame = RADSScanPanel.getCurrentRADSFrame();
@@ -448,7 +449,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		// domainTree
 		JButton domainTreeBtn = new JButton();
 		domainTreeBtn.setIcon(domainTreeIcon);
-		domainTreeBtn.setToolTipText("Merge a domain and sequence view");
+		domainTreeBtn.setToolTipText("Combine a domain and tree view");
 		domainTreeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startCreateDomTreeWizard();
@@ -459,7 +460,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		// Tree
 		JButton treeBtn = new JButton();
 		treeBtn.setIcon(treeIcon);
-		treeBtn.setToolTipText("Build a tree based on domains or sequences");
+		treeBtn.setToolTipText("Build a tree based on a domain or a sequence view");
 		treeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startCreateTreeWizard();
@@ -497,7 +498,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		
 		JButton help = new JButton();
 		help.setIcon(helpIcon);
-		help.setToolTipText("Open Documentation");
+		help.setToolTipText("Open DoMosaics help website");
 		help.addActionListener(new ShowManualAction());
 		toolBar.add(help);
 		

@@ -94,7 +94,7 @@ class AssociateWithSeqsProgress extends DeferredWizardResult implements WizardRe
 					return;
 				}
 				
-				view.loadSequencesIntoDas(seqs, view.getDaSet());
+				view.loadSequencesIntoDas(seqs, view.getDaSet(), true);
 				
 				p.finished(null);
 				return;
@@ -103,7 +103,7 @@ class AssociateWithSeqsProgress extends DeferredWizardResult implements WizardRe
 			// OR merge views
 			SequenceView assocView =  ViewHandler.getInstance().getView(viewElt.getViewInfo());
 			SequenceI[] seqs = assocView.getSequences();
-			view.loadSequencesIntoDas(seqs, view.getDaSet());
+			view.loadSequencesIntoDas(seqs, view.getDaSet(), true);
 			
 				
 			if((Boolean) m.get(EditDatasetPage.DELETE_KEY))

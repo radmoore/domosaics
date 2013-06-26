@@ -103,7 +103,7 @@ public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 		
 		//if there are sequences loaded clone them as well
 		if (view.isSequenceLoaded()) 
-			newView.loadSequencesIntoDas(seqs.toArray(new SequenceI[seqs.size()]), newView.getDaSet());
+			newView.loadSequencesIntoDas(seqs.toArray(new SequenceI[seqs.size()]), newView.getDaSet(), false);
 		
 		ViewHandler.getInstance().addView(newView, project);
 	}

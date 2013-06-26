@@ -27,7 +27,7 @@ public class SaveNewickFileAction extends AbstractMenuAction implements ZoomComp
 	public void actionPerformed(ActionEvent e) {
 		TreeViewI view = (TreeViewI) ViewHandler.getInstance().getActiveView();
 
-		File file = FileDialogs.showSaveDialog(DoMosaicsUI.getInstance(), "TREE");
+		File file = FileDialogs.showSaveDialog(DoMosaicsUI.getInstance(), "NWK");
 		if (file == null)
 			return;
 

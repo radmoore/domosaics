@@ -74,11 +74,16 @@ public class LoadFastaPage extends WizardPage {
 		browse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
+				System.out.println(0);
 				if(file != null) {
+					System.out.println(1);
 					if (file.canRead()) {
+						System.out.println(2);
 						if ( FastaReader.isValidFasta(file) ) {
+							System.out.println(3);
 							seqs = new FastaReader().getDataFromFile(file);
 							if(seqs != null) {
+								System.out.println(4);
 								path.setText(file.getAbsolutePath());
 								name.setText(file.getName().split("\\.")[0]);
 							}
@@ -131,7 +136,6 @@ public class LoadFastaPage extends WizardPage {
 	
 	
     /**
-     * 
      * Checks if all necessary inputs are made.
      */
     protected String validateContents (Component component, Object o) {

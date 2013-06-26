@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import domosaics.model.sequence.Sequence;
 import domosaics.model.sequence.SequenceI;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
+import domosaics.ui.views.domainview.layout.MSALayout;
 import domosaics.ui.views.domainview.mousecontroller.SequenceSelectionMouseController;
 
 
@@ -57,7 +60,8 @@ public class SequenceDetector {
 	 */
 	public SequenceI[] searchSequenceComponents(Area selArea) {
 		List<SequenceI> res = new ArrayList<SequenceI>();
-
+		System.out.println("MaxLen "+view.getDomainLayout().getMaxLen());
+		System.out.println("DomBounds "+view.getDomainLayout().getDomainBounds().width);
 		Iterator<ArrangementComponent> iter = view.getArrangementComponentManager().getComponentsIterator();
 		while(iter.hasNext()) {
 			ArrangementComponent dac = iter.next();
@@ -94,11 +98,7 @@ public class SequenceDetector {
 					Rectangle sub = new Rectangle(x, y, subwidth, height);
 
 					// retrieve the sequence from this rectangle
-					SequenceI seq;
-					if (!view.getDomainLayoutManager().isFitDomainsToScreen())
-						seq = selectWithoutFitToScreen(dac, sub);
-					else
-						seq = selectWithFitToScreen(dac, sub);
+					SequenceI seq = selectSequence(dac, intersection.getBounds());
 					res.add(seq);
 					
 					// subtract it from the intersection area now and do it again
@@ -106,11 +106,7 @@ public class SequenceDetector {
 				}
 
 				// retrieve the sequence for the last sub rectangle
-				SequenceI seq;
-				if (!view.getDomainLayoutManager().isFitDomainsToScreen())
-					seq = selectWithoutFitToScreen(dac, intersection.getBounds());
-				else
-					seq = selectWithFitToScreen(dac, intersection.getBounds());
+				SequenceI seq = selectSequence(dac, intersection.getBounds());
 				
 				res.add(seq);
 			}
@@ -129,50 +125,45 @@ public class SequenceDetector {
 	 * @return
 	 * 		the sequence within the specified area
 	 */
-	private SequenceI selectWithoutFitToScreen(ArrangementComponent dac, Rectangle intersection) {
+	private SequenceI selectSequence(ArrangementComponent dac, Rectangle intersection) {
 		SequenceI seq = new Sequence();
 		
 		int seqStart = intersection.x-dac.getX();
 		int seqEnd= seqStart+intersection.width;
-		
-		seq.setName(dac.getDomainArrangement().getName()+"_"+(seqStart+1)+"-"+(seqEnd+1));
-		seq.setSeq(dac.getDomainArrangement().getSequence().getSeq(seqStart, seqEnd, false));
+
+		if(view.getDomainLayoutManager().isMsaView()) {
+			int charwidth = SwingUtilities.computeStringWidth(view.getViewComponent().getFontMetrics(MSALayout.FONT), "-");
+			seqStart = seqStart/charwidth;
+			seqEnd= seqEnd/charwidth;
+			
+			seq.setSeq(dac.getDomainArrangement().getSequence().getSeq(seqStart, seqEnd, true));			
+		} else
+		{
+			if (view.getDomainLayoutManager().isFitDomainsToScreen())
+			{
+				int maxLen = view.getDomainLayout().getMaxLen();
+				int width = view.getDomainLayout().getDomainBounds().width;
+				double ratio = maxLen / (double) width;				
+				if(maxLen>width) {
+					seqStart = (int) (seqStart * ratio);
+					seqEnd = (int) (seqEnd * ratio);
+				}
+				
+			}
+			
+			seq.setSeq(dac.getDomainArrangement().getSequence().getSeq(seqStart, seqEnd, false));
+		}
+			
+		seq.setName(dac.getDomainArrangement().getName()+"_"+(seqStart+1)+"-"+seqEnd);
+
+		/*System.out.println(intersection.toString());
+		System.out.println(intersection.x+" - "+dac.getX()+" = "+seqStart);
+		System.out.println(seqStart+" + "+intersection.width+" = "+seqEnd);
+		System.out.println(dac.getDomainArrangement().getName());
+		System.out.println(dac.getDomainArrangement().getSequence().getSeq(true));
+		System.out.println(seq.getSeq(true));/**/
 		
 		return seq;
 	}
 	
-	/**
-	 * Helper method to retrieve the sequences in normal proportional mode.
-	 * 
-	 * @param dac
-	 * 		the actual domain arrangement view component
-	 * @param intersection
-	 * 		the rectangle within the view component in which the sequence has to be retrieved
-	 * @return
-	 * 		the sequence within the specified area
-	 */
-	private SequenceI selectWithFitToScreen(ArrangementComponent dac, Rectangle intersection) {
-		SequenceI seq = new Sequence();
-		
-		int maxLen = view.getDomainLayout().getMaxLen();
-		int width = view.getDomainLayout().getDomainBounds().width;
-		double ratio = maxLen / (double) width;
-		
-		double startX = (Math.abs(dac.getX() - intersection.x));
-		double endX = startX + (intersection.width);
-		
-		int seqStart = (int) Math.round(startX * ratio);
-		int seqEnd= (int) Math.round(endX*ratio); 
-		
-		// rounding error balancing
-		if (seqEnd == dac.getDomainArrangement().getSequence().getLen(false)-1)
-			seqEnd++;
-		if (seqEnd > dac.getDomainArrangement().getSequence().getLen(false))
-			seqEnd = dac.getDomainArrangement().getSequence().getLen(false);
-		
-		seq.setName(dac.getDomainArrangement().getName()+"_"+(seqStart+1)+"-"+(seqEnd+1));
-		seq.setSeq(dac.getDomainArrangement().getSequence().getSeq(seqStart, seqEnd, false));
-		
-		return seq;
-	}
 }

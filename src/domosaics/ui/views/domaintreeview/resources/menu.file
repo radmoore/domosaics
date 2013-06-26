@@ -2,43 +2,46 @@
 
 	<menu id="File">
 
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="Save Arrangements To File"/> 
-			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SaveXdomFileAction"/> 
-			<parameter id="tooltip" value="Saves the arrangements to a file"/> 
-		</menuItem>
-		
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="Save Tree To File"/> 
-			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.SaveNewickFileAction"/> 
-			<parameter id="tooltip" value="Saves the tree to a file"/> 
-		</menuItem>
-
-		<menu id="Image Export">
+		<menu id="Export ">
+	
 			<menuitem id="JMenuItem">
-				<parameter id="name" value="As PNG"/> 
-				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+				<parameter id="name" value="Domain Arrangements (XDOM)"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SaveXdomFileAction"/> 
+				<parameter id="tooltip" value="Saves the arrangements to an xdom file"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Tree (NEWICK)"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.SaveNewickFileAction"/> 
+				<parameter id="tooltip" value="Save the tree to a newick file"/> 
 			</menuItem>
 
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="As JPG"/> 
-				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/>
-			</menuItem>
+			<menu id="Image">
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="As PNG"/> 
+					<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+				</menuItem>
+
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="As JPG"/> 
+					<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/>
+				</menuItem>
 		
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="As BMP"/>
-				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
-			</menuItem>
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="As BMP"/>
+					<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+				</menuItem>
 		
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="As PDF"/> 
-				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
-			</menuItem>
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="As PDF"/> 
+					<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+				</menuItem>
 		
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="As SVG"/> 
-				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
-			</menuItem>
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="As SVG"/> 
+					<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+				</menuItem>
+			</menu>
 		</menu>
 		
 		<menuitem id="JSeparator"/>
@@ -216,13 +219,13 @@
 		
 		<menuitem id="JSeparator"/>
 		
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="Align Domains"/> 
-			<parameter id="actionClass" value="domosaics.ui.views.domaintreeview.actions.AlignDomainsAction"/> 
-			<parameter id="tooltip" value="Aligns the domain within the proportional view."/> 
-		</menuItem>
+<!--		<menuitem id="JMenuItem">
+<!--			<parameter id="name" value="Align Domains"/> 
+<!--			<parameter id="actionClass" value="domosaics.ui.views.domaintreeview.actions.AlignDomainsAction"/> 
+<!--			<parameter id="tooltip" value="Aligns the domain within the proportional view."/> 
+<!--		</menuItem>
 		
-		<menuitem id="JSeparator"/>
+<!--		<menuitem id="JSeparator"/>
 		
 		<menuitem id="JMenuItem">
 			<parameter id="name" value="Show Legend"/> 

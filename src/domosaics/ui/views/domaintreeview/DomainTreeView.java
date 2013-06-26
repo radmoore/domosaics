@@ -377,8 +377,8 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
-	public void loadSequencesIntoDas(SequenceI[] seqs, DomainArrangement[] daSet) {
-		domView.loadSequencesIntoDas(seqs, daSet);
+	public void loadSequencesIntoDas(SequenceI[] seqs, DomainArrangement[] daSet, boolean checkBeforeAssociation) {
+		domView.loadSequencesIntoDas(seqs, daSet, checkBeforeAssociation);
 		
 		// set the new icon within the workspace (associated icon)
 		viewInfo.setUsedIcon(viewInfo.getAssociatedIcon());

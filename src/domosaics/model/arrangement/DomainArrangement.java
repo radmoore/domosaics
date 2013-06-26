@@ -58,6 +58,18 @@ public class DomainArrangement implements Cloneable, DoMosaicsData{
 	
 	/** When arrangements are associated with a TreeNode a cross reference can be made */
 	protected TreeNodeI treeNode = null;
+
+	/** When arrangements are associated with a TreeNode a cross reference can be made */
+	protected boolean seqModifManual = false;
+	
+	
+	public void seqModifiedManually() {
+		seqModifManual=true;
+	}
+
+	public boolean hasSeqBeenModifiedManually() {
+		return seqModifManual;
+	}
 	
 	public void hideDomain(Domain dom) {
 		if (!contains(dom))

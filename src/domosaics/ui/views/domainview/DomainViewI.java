@@ -103,8 +103,10 @@ public interface DomainViewI extends View {
 	 * 		the sequences to be associated with the view
 	 * @param daSet
 	 * 		the data set in which the sequences are loaded
+	 * @param checkBeforeAssociation
+	 * 		does the association only if no existing sequence, no modification occurred and no domain ends after the sequence end
 	 */
-	public void loadSequencesIntoDas(SequenceI[] seqs, DomainArrangement[] daSet);
+	public void loadSequencesIntoDas(SequenceI[] seqs, DomainArrangement[] daSet, boolean checkBeforeAssociation);
 	
 	/**
 	 * Returns all sequence objects which were associated to

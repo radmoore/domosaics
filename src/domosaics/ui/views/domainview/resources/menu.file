@@ -2,43 +2,49 @@
 
 	<menu id="File">
 		
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="Save Arrangements (xdom)"/> 
-			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SaveXdomFileAction"/> 
-			<parameter id="tooltip" value="Saves the arrangements to a file"/> 
-		</menuItem>
-		
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="Save Sequences (fasta)"/> 
-			<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SaveArrFastaFileAction"/> 
-			<parameter id="tooltip" value="Saves the sequences of the arrangements to a file"/> 
-		</menuItem>
-
-		<menu id="Image Export">
+		<menu id="Export ">
+	
 			<menuitem id="JMenuItem">
-				<parameter id="name" value="As PNG"/> 
-				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+				<parameter id="name" value="Domain Arrangements (XDOM)"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SaveXdomFileAction"/> 
+				<parameter id="tooltip" value="Saves the arrangements to an xdom file"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="Sequences (FASTA)"/> 
+				<parameter id="actionClass" value="domosaics.ui.views.domainview.actions.SaveArrFastaFileAction"/> 
+				<parameter id="tooltip" value="Saves the sequences to a fasta file"/> 
 			</menuItem>
 
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="As JPG"/> 
-				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/>
-			</menuItem>
+			<menu id="Image">
+			
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="PNG"/> 
+					<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+				</menuItem>
+
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="JPG"/> 
+					<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/>
+				</menuItem>
 		
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="As BMP"/>
-				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
-			</menuItem>
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="BMP"/>
+					<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+				</menuItem>
 		
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="As PDF"/> 
-				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
-			</menuItem>
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="PDF"/> 
+					<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+				</menuItem>
 		
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="As SVG"/> 
-				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
-			</menuItem>
+				<menuitem id="JMenuItem">
+					<parameter id="name" value="SVG"/> 
+					<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
+				</menuItem>
+				
+			</menu>
+		
 		</menu>
 		
 		<menuitem id="JSeparator"/>

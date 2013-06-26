@@ -6,45 +6,47 @@
 	<menu id="File">
 
 			<menuitem id="JMenuItem">
-				<parameter id="name" value="Manage Projects"/> 
+				<parameter id="name" value="Projects/Views"/> 
 				<parameter id="actionClass" value="domosaics.ui.actions.ImportDataAction"/> 
-				<parameter id="tooltip" value="Create a new project or load data into existing project"/> 
+				<parameter id="tooltip" value="Create new projects and views: load data files such as fasta, newick, xdom"/> 
 			</menuItem>
 
 			<menuitem id="JSeparator"/>
 			
-			<menu id="Import">
+			<menu id="Loading">
 
 				<menuitem id="JMenuItem">
-					<parameter id="name" value="Import Project Folder"/> 
+					<parameter id="name" value="Load Project"/> 
 					<parameter id="actionClass" value="domosaics.ui.actions.LoadProjectAction"/> 
-					<parameter id="tooltip" value="Load existing project into the workspace"/> 
+					<parameter id="tooltip" value="Import a stored project into the workspace"/> 
 				</menuItem>
 				
 				<menuitem id="JMenuItem">
-					<parameter id="name" value="Import View Folder"/> 
+					<parameter id="name" value="Load View"/> 
 					<parameter id="actionClass" value="domosaics.ui.actions.ImportViewAction"/> 
-					<parameter id="tooltip" value="Load a view into the workspace"/> 
+					<parameter id="tooltip" value="Load a stored view into the workspace"/> 
 				</menuItem>
 			
 			</menu>
 			
-			<menu id="Export">
+			<menu id="Storage">
 			
 				<menuitem id="JMenuItem">
-					<parameter id="name" value="Export Project Folder"/> 
+					<parameter id="name" value="Store Project"/> 
 					<parameter id="actionClass" value="domosaics.ui.actions.SaveProjectAction"/> 
-					<parameter id="tooltip" value="Opens a wizard which makes it possible to save a project"/> 
+					<parameter id="tooltip" value="Save a project into the file system"/> 
 				</menuItem>
 				
 				<menuitem id="JMenuItem">
-					<parameter id="name" value="Export View Folder"/> 
+					<parameter id="name" value="Store View"/> 
 					<parameter id="actionClass" value="domosaics.ui.actions.ExportViewAction"/> 
-					<parameter id="tooltip" value="Open save view wizard"/> 
+					<parameter id="tooltip" value="Save a view into the file system"/> 
 				</menuItem>
 					
 			</menu>
-
+			
+			<menuitem id="JSeparator"/>
+			
 			<menuitem id="JMenuItem">
 				<parameter id="name" value="Settings"/> 
 				<parameter id="actionClass" value="domosaics.ui.actions.ShowConfigurationAction"/> 
@@ -69,39 +71,41 @@
 							
 	<menu id="Actions">
 
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="InterPro"/> 
-			<parameter id="actionClass" value="domosaics.ui.actions.ShowAnnotatorAction"/> 
-			<parameter id="tooltip" value="Run InterProScan to annotate sequences. Requires internet connection."/> 
-		</menuItem>
-
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="HmmScan"/> 
-			<parameter id="actionClass" value="domosaics.ui.actions.Hmmer3Action"/> 
-			<parameter id="tooltip" value="Run a local installation of HMMER3 to annotate sequences."/> 
-		</menuItem>
+		<menu id="Domain view">
 		
-		<menuitem id="JMenuItem">
-			<parameter id="name" value="RADS/RAMPAGE"/> 
-			<parameter id="actionClass" value="domosaics.ui.actions.RADSAction"/> 
-			<parameter id="tooltip" value="Find similar domain arrangement in UniProt"/> 
-		</menuItem>
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="HmmScan"/> 
+				<parameter id="actionClass" value="domosaics.ui.actions.Hmmer3Action"/> 
+				<parameter id="tooltip" value="Domain annotation using local HMMER3 installation"/> 
+			</menuItem>
+
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="InterProScan"/> 
+				<parameter id="actionClass" value="domosaics.ui.actions.ShowAnnotatorAction"/> 
+				<parameter id="tooltip" value="Domain annotation using InterProScan (via internet)"/> 
+			</menuItem>
+		
+			<menuitem id="JMenuItem">
+				<parameter id="name" value="RADS/RAMPAGE"/> 
+				<parameter id="actionClass" value="domosaics.ui.actions.RADSAction"/> 
+				<parameter id="tooltip" value="Find similar domain arrangements to a query using RADS (via internet)"/> 
+			</menuItem>
+		
+		</menu>
 		
 		<menuitem id="JSeparator"/>		
 		
-		<menu id="Trees">
-
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="Create Domain Tree"/> 
-				<parameter id="actionClass" value="domosaics.ui.actions.CreateDomainTreeAction"/> 
-				<parameter id="tooltip" value="Merges domain and tree view to create a domain tree view"/> 
-			</menuItem>		
-
-			<menuitem id="JMenuItem">
-				<parameter id="name" value="Create Tree"/> 
-				<parameter id="actionClass" value="domosaics.ui.actions.CreateTreeAction"/> 
-				<parameter id="tooltip" value="Create a tree based on an existing view"/> 
-			</menuItem>		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Tree view"/> 
+			<parameter id="actionClass" value="domosaics.ui.actions.CreateTreeAction"/> 
+			<parameter id="tooltip" value="Build a tree based on a domain or a sequence view"/> 
+		</menuItem>	
+			
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Domain Tree view"/> 
+			<parameter id="actionClass" value="domosaics.ui.actions.CreateDomainTreeAction"/> 
+			<parameter id="tooltip" value="Combine a domain and a tree view"/> 
+		</menuItem>			
 
 <!--		<menuitem id="JMenuItem">
 <!--			<parameter id="name" value="Species Tree"/> 
@@ -109,7 +113,6 @@
 <!--			<parameter id="tooltip" value=""/>
 <!--		</menuItem>
 
-		</menu>
 	
 	</menu>
 
@@ -118,9 +121,9 @@
 <!--		<menu id="Load Example Set">
 			<menuitem id="JMenuItem">
 <!--			<parameter id="name" value="Small Example Dataset"/>
-				<parameter id="name" value="Load Example Dataset"/> 
+				<parameter id="name" value="Project example"/> 
 				<parameter id="actionClass" value="domosaics.ui.actions.LoadSmallExampleDataActon"/> 
-				<parameter id="tooltip" value="Loads a small example data set"/> 
+				<parameter id="tooltip" value="Load an illustrative example of a project"/> 
 			</menuItem>
 		
 <!--			<menuitem id="JMenuItem">

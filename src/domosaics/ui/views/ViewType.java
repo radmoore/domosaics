@@ -13,7 +13,7 @@ import domosaics.model.configuration.Configuration;
  *
  */
 public enum ViewType {
-	TREE(				"domosaics.ui.views.treeview.TreeView", "TREE"),
+	TREE(				"domosaics.ui.views.treeview.TreeView", "NWK"),
 	DOMAINS(			"domosaics.ui.views.domainview.DomainView", "XDOM"),
 	DOMAINTREE(			"domosaics.ui.views.domaintreeview.DomainTreeView", "DOMTREE"),
 	SEQUENCE(			"domosaics.ui.views.sequenceview.SequenceView", "FASTA"),

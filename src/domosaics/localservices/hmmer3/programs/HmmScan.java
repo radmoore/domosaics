@@ -501,7 +501,7 @@ public class HmmScan implements Hmmer3Program {
 
 			DomainViewI resultDAView = ViewHandler.getInstance().createView(ViewType.DOMAINS, viewName);
 			resultDAView.setDaSet(arrangementSet);
-			resultDAView.loadSequencesIntoDas(seqs, resultDAView.getDaSet());
+			resultDAView.loadSequencesIntoDas(seqs, resultDAView.getDaSet(), false);
 
 
 			// only create a sequence view if the sequences came from a file
