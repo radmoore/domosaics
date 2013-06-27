@@ -1,10 +1,7 @@
 package domosaics.util;
 
-import java.awt.Desktop;
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.net.URI;
 
 import javax.swing.JOptionPane;
 
@@ -23,19 +20,14 @@ import domosaics.ui.util.MessageUtil;
  */
 public class BrowserLauncher {
 
-	private static final String errMsg = "Error launching the web browser";
+	private static final String errMsg = "Error launching web browser";
 
 	public static void openURL(String url) {
-		
 		if (!CheckConnectivity.checkInternetConnectivity())
-			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please check your intenet connection (connection failed).");
-		else
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please check your internet connection (connection failed).");
+		else  {
+			
 			try {
-			if ( Desktop.isDesktopSupported() )	
-				Desktop.getDesktop().browse(new File(url).toURI());
-		 
-			else {
-				
 				String osName = System.getProperty("os.name");
 				
 				if (osName.startsWith("Mac OS")) {
@@ -45,7 +37,7 @@ public class BrowserLauncher {
 				}
 				else if (osName.startsWith("Windows"))
 					Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
-				
+			
 				else { //assume Unix or Linux
 					String[] browsers = {"chrome", "firefox", "opera", "konqueror", "epiphany", "mozilla", "netscape" };
 					String browser = null;
@@ -58,18 +50,18 @@ public class BrowserLauncher {
 						Runtime.getRuntime().exec(new String[] {browser, url});
 				}
 			}
-		}
-		// we did not find the file
-		catch (IOException ioe) {
-			JOptionPane.showMessageDialog(null, errMsg + ":\n" + ioe.getLocalizedMessage());
-		}
-		// any other exception
-		catch (Exception e) {
-			e.printStackTrace();
-			if (Configuration.getReportExceptionsMode(true))
-				Configuration.getInstance().getExceptionComunicator().reportBug(e);
-			else {
-				Configuration.getLogger().debug(e.toString());
+			// we did not find the file
+			catch (IOException ioe) {
+				JOptionPane.showMessageDialog(null, errMsg + ":\n" + ioe.getLocalizedMessage());
+			}
+			// any other exception
+			catch (Exception e) {
+				e.printStackTrace();
+				if (Configuration.getReportExceptionsMode(true))
+					Configuration.getInstance().getExceptionComunicator().reportBug(e);
+				else {
+					Configuration.getLogger().debug(e.toString());
+				}
 			}
 		}
 	}	
