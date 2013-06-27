@@ -360,7 +360,7 @@ public class Configuration {
 	public boolean isServiceRunning() {
 		return ( (AnnotatorFrame.isOpen() || 
 					Hmmer3Frame.isOpen() ||
-						RADSFrame.isOpen() ) && service_running );
+						RADSFrame.isOpen()) && service_running );
 	}
 
 	public void setServiceRunning(boolean running) {

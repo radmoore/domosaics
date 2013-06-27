@@ -913,7 +913,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 								submit.setEnabled(true);
 								results = radsService.getScanResults();
 								resultProcessor = new RADSResultsProcessor(instance);
-								//TODO should retrun a table model
+								//TODO should return a table model
 								//arrSet = resultProcessor.process();
 								resultsTableModel = createResultTable();
 								if (resultsTableModel == null) {
