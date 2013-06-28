@@ -383,8 +383,10 @@ public class ApplicationHandler {
 			Configuration.getInstance().setLockFile();
 		}
 		else {
-			boolean removeLock = MessageUtil.showDialog(startUpProgress, "Your workspace is in use. Try to remove lock?\n" +
-					"(only recommended if DoMosaics is not running!)");
+			boolean removeLock = MessageUtil.showDialog(startUpProgress, "Your workspace seems to be in use. " +
+					"We can try to remove the lock file.\n" +
+					"Please note that this is only recommended if DoMosaics is not running - \n" +
+					"running two instances can corrupt your project folders. Remove lock?");
 			
 			if ( removeLock )
 				Configuration.getInstance().removeLockFile();
