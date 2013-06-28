@@ -9,16 +9,16 @@ import domosaics.ui.io.menureader.AbstractMenuAction;
 
 
 /**
- * Loads the big small example dataset
+ * Loads example dataset into the current workspace
  * 
- * @author Andreas Held
+ * @author <a href="http://radm.info">Andrew Moore</a>
  *
  */
-public class LoadSmallExampleDataActon extends AbstractMenuAction{
+public class LoadExampleDataActon extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	    
 	public void actionPerformed(ActionEvent e) {
-		new ExampleDatasetLoader().loadSmallSet();
+		new ExampleDatasetLoader().loadExample();
 	}
 
 }

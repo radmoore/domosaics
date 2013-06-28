@@ -247,13 +247,14 @@ public class Configuration {
 	 * The workdir folder ends up being >null< and cant be found,
 	 * which leads to an IO exception when the ConfigurationWriter
 	 * is called. (ADM)
-	*
-	*public void setDefaultLocation(String location) {
+	 *
+	 * public void setDefaultLocation(String location) {
 		//if (!defaultFileLocation.equals(location))
 		//	ConfigurationWriter.write(getConfigFile());
 		this.defaultFileLocation = location;
 		
-	}*/
+	}
+	*/
 
 	public void setLockFile() {
 		ConfigurationWriter.setLockFile();

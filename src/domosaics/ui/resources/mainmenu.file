@@ -96,13 +96,13 @@
 		<menuitem id="JSeparator"/>		
 		
 		<menuitem id="JMenuItem">
-			<parameter id="name" value="Tree view"/> 
+			<parameter id="name" value="Create tree view"/> 
 			<parameter id="actionClass" value="domosaics.ui.actions.CreateTreeAction"/> 
 			<parameter id="tooltip" value="Build a tree based on a domain or a sequence view"/> 
 		</menuItem>	
 			
 		<menuitem id="JMenuItem">
-			<parameter id="name" value="Domain Tree view"/> 
+			<parameter id="name" value="Create domain-tree view"/> 
 			<parameter id="actionClass" value="domosaics.ui.actions.CreateDomainTreeAction"/> 
 			<parameter id="tooltip" value="Combine a domain and a tree view"/> 
 		</menuItem>			
@@ -122,7 +122,7 @@
 			<menuitem id="JMenuItem">
 <!--			<parameter id="name" value="Small Example Dataset"/>
 				<parameter id="name" value="Load example project"/> 
-				<parameter id="actionClass" value="domosaics.ui.actions.LoadSmallExampleDataActon"/> 
+				<parameter id="actionClass" value="domosaics.ui.actions.LoadExampleDataActon"/> 
 				<parameter id="tooltip" value="Load an example project into the workspace"/> 
 			</menuItem>
 		
