@@ -1,5 +1,7 @@
 package domosaics.util;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -9,9 +11,9 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.j2bugzilla.base.Bug;
 import com.j2bugzilla.base.BugFactory;
+import com.j2bugzilla.base.BugzillaConnectionException;
 import com.j2bugzilla.base.BugzillaConnector;
 import com.j2bugzilla.base.BugzillaException;
-import com.j2bugzilla.base.BugzillaConnectionException;
 import com.j2bugzilla.rpc.LogIn;
 import com.j2bugzilla.rpc.ReportBug;
 
@@ -97,8 +99,10 @@ public class ExceptionComunicator{
 		if ( reportToConsole )
 			e.printStackTrace();
 		
-		// report to log file no matter what
-		Configuration.getLogger().debug(e.getStackTrace());
+		// report full stack to log file no matter what
+		StringWriter errors = new StringWriter();
+		e.printStackTrace(new PrintWriter(errors));
+		Configuration.getLogger().debug(errors.toString());
 	}
 	
 	
