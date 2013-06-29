@@ -82,7 +82,7 @@ public class DoMosaics {
 					Configuration.setReportExceptionsMode(true);
 				}
 				else if (a.equals("--version")) {
-					System.out.println("rv 2.84");
+					System.out.println("rv 0.87");
 					System.exit(1);
 				}
 				else {
@@ -122,7 +122,7 @@ public class DoMosaics {
 			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
-				Configuration.getLogger().debug(e.toString());
+				Configuration.getLogger().debug(e.getStackTrace());
 			
 			MessageUtil.showWarning(ApplicationHandler.getInstance().startUpProgress,"There was a problem starting DoMosaics. Please consult log file.");
 		}
