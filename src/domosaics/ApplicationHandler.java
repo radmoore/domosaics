@@ -6,6 +6,8 @@ import java.awt.Frame;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -125,8 +127,8 @@ public class ApplicationHandler {
 		if (DoMosaicsUI.getInstance().isShowing())
 			DoMosaicsUI.getInstance().dispose();
 		
-//		Configuration.getLogger().info("INFO: closing DoMosaics");
 		LastUsedWorkspaceWriter.write();
+		logProgramEnd();
 		System.exit(0);		
 	}
 
@@ -432,6 +434,29 @@ public class ApplicationHandler {
 			 }
 		 });
 	}
+	
+	
+	private void logProgramEnd() {
+		Date cDate = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String cDateStr = sdf.format(cDate);
+		
+		
+		if ( Configuration.isDebug() ) {
+			Configuration.getLogger().debug("=============================================================");
+			Configuration.getLogger().debug("*** CLOSING DOMOSAICS ***");
+			Configuration.getLogger().debug("[ "+ cDateStr+" ]");
+			Configuration.getLogger().debug("=============================================================");
+		}
+		else {
+			Configuration.getLogger().info("=============================================================");
+			Configuration.getLogger().info("*** CLOSING DOMOSAICS ***");
+			Configuration.getLogger().info("[ "+ cDateStr+" ]");
+			Configuration.getLogger().info("=============================================================");
+		}
+	}
+	
+	
 
 	private class StartupPage extends JFrame {
 		private static final long serialVersionUID = 1L;
@@ -500,6 +525,9 @@ public class ApplicationHandler {
 			}
 		}
 	}
+	
+	
+	
 }
 
 

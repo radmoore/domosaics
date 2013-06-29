@@ -2,8 +2,9 @@ package domosaics;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import domosaics.localservices.hmmer3.ui.Hmmer3Frame;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.configuration.ConfigurationWriter;
 import domosaics.ui.DoMosaicsUI;
@@ -72,7 +73,7 @@ public class DoMosaics {
 		
 		Configuration.setDebug(false);
 		Configuration.setReportExceptionsMode(false);
-		 
+
 		if (args.length > 0) {
 			for(String a : args) {
 				if (a.equals("--debug")) {
@@ -90,6 +91,7 @@ public class DoMosaics {
 					System.exit(1);
 				}
 			}
+			
 		}
 
 		if (!Configuration.isDebug()) {
@@ -115,7 +117,7 @@ public class DoMosaics {
 			});
 		}
 		try {
-//			Configuration.getLogger().info("*** INFO: Starting DoMosaics.");
+			logProgramStart();
 			ApplicationHandler.getInstance().start();
 		}
 		catch (Exception e) {
@@ -127,6 +129,27 @@ public class DoMosaics {
 			MessageUtil.showWarning(ApplicationHandler.getInstance().startUpProgress,"There was a problem starting DoMosaics. Please consult log file.");
 		}
 
+	}
+	
+	private static void logProgramStart() {
+
+		Date cDate = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String cDateStr = sdf.format(cDate);
+				
+		if ( Configuration.isDebug() ) {
+			Configuration.getLogger().debug("=============================================================");
+			Configuration.getLogger().debug("*** STARTING DOMOSAICS ***");
+			Configuration.getLogger().debug("[ "+ cDateStr+" ]");
+			Configuration.getLogger().debug("=============================================================");
+		}
+		else {
+			Configuration.getLogger().info("=============================================================");
+			Configuration.getLogger().info("*** STARTING DOMOSAICS ***");
+			Configuration.getLogger().info("[ "+ cDateStr+" ]");
+			Configuration.getLogger().info("=============================================================");
+		}
+			
 	}
 	
 	
