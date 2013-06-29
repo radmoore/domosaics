@@ -89,7 +89,7 @@ public class ExceptionComunicator{
 				delaySending(500);
 				
 			sendBugs();
-			System.out.println("Sending exception message");
+			Configuration.getLogger().debug("Sending exception message");
 		}
 		reportedBugs.add(bug);
 		
