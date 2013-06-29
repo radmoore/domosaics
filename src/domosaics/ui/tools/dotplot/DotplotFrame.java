@@ -2,6 +2,7 @@ package domosaics.ui.tools.dotplot;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Frame;
 
 import javax.swing.JPanel;
 import javax.swing.event.ChangeListener;
@@ -13,7 +14,7 @@ import domosaics.ui.views.view.View;
 
 
 /**
- * DotplotFrame containing the domain dotplot view and the slider panel.
+ * DotplotFrame contains the domain dotplot view and the slider panel.
  * Using the method addSliderListener() ChangeListener
  * such as a dotplot can be registered with the sliders and therefore 
  * react on changes.
@@ -47,7 +48,8 @@ public class DotplotFrame extends ToolFrame {
     public void addView(View view) {
     	setTitle(view.getViewInfo().getName());
     	componentHolder.add(view.getParentPane(), BorderLayout.CENTER);
-    	this.setSize(610, 640);
+    	this.setExtendedState( this.getExtendedState()|Frame.MAXIMIZED_BOTH );
+//    	this.setSize(610, 640);
     }
     
 	/**

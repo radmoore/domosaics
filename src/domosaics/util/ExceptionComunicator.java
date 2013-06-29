@@ -98,7 +98,7 @@ public class ExceptionComunicator{
 			e.printStackTrace();
 		
 		// report to log file no matter what
-		Configuration.getLogger().debug(e.toString());
+		Configuration.getLogger().debug(e.getStackTrace());
 	}
 	
 	
@@ -150,19 +150,19 @@ public class ExceptionComunicator{
 	private void connect() {
 		
 		try {
-			System.out.println("Trying to connect!");
+//			System.out.println("Trying to connect!");
 			bugCon.connectTo(reportUrl, reportUser, reportPass);
-			System.out.println("Ran connectTo. Trying to login");
+//			System.out.println("Ran connectTo. Trying to login");
 			LogIn logIn = new LogIn(reportUser, reportPass);
-			System.out.println("Created new login!");
+//			System.out.println("Created new login!");
 			bugCon.executeMethod(logIn);			
-			System.out.println("Excuted login");
+//			System.out.println("Excuted login");
 		}
 		catch (BugzillaConnectionException ce) {
 			System.out.println("Connection exception FAILED!");
 		}
 		catch (Exception e) {
-			System.out.println("FAILED!");
+//			System.out.println("FAILED!");
 			Configuration.getLogger().debug(e.toString());
 			e.printStackTrace();
 		}
