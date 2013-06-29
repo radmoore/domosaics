@@ -292,15 +292,15 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		} else {
 			if(Configuration.getInstance().getEmailAddr().equals("")) {
 				Configuration.getInstance().setEmailAddr(email.getText());
+				if(Configuration.getInstance().getFrame()!=null)
+					Configuration.getInstance().getFrame().getConfigPanel().getEmailTF().setText(email.getText());
 			} else {
 				if(!email.getText().equals(Configuration.getInstance().getEmailAddr()))
 					if(MessageUtil.showDialog(parent,"A distinct email is saved in settings. Overwrite?"))
 					{
 						Configuration.getInstance().setEmailAddr(email.getText());
-						if(Configuration.getInstance().getFrame()!=null && Configuration.getInstance().getFrame().isVisible()) {
-							Configuration.getInstance().getFrame().dispose();
-							Configuration.getInstance().setFrame(new ConfigurationFrame());
-						}				
+						if(Configuration.getInstance().getFrame()!=null)
+							Configuration.getInstance().getFrame().getConfigPanel().getEmailTF().setText(email.getText());
 					}
 			}
 		}

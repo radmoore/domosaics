@@ -176,12 +176,16 @@ public class Configuration {
 		return (instance != null);
 	}
 	
-	public void setFrame(ConfigurationFrame frame) {
-		Configuration.frame = frame;
+	public void setFrame(ConfigurationFrame f) {
+		frame = f;
 	}
 	
 	public ConfigurationFrame getFrame() {
 		return frame;
+	}
+	
+	public void closeFrame() {
+		frame=null;
 	}
 	 
 	public File getConfigFile() {

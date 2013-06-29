@@ -135,6 +135,7 @@ public class DomainLegendView extends AbstractView implements PropertyChangeList
 		// init manager
 		layoutManager = new LegendLayoutManager(viewInfo.getActionManager());
 		layoutManager.addPropertyChangeListener(this);
+		parentFrame.setSize(parentFrame.getWidth(), parentFrame.getHeight()+1);
 	}
 
 	/**

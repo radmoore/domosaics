@@ -1,6 +1,10 @@
 package domosaics.localservices.hmmer3.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Frame;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -38,13 +42,34 @@ public class Hmmer3Frame extends JFrame{
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setVisible(true);
         setAlwaysOnTop(true);
-        
+        this.addWindowListener(new WindowAdapter(){
+        	public void windowClosing(WindowEvent e) {
+        		hmmScanPanel.cancelAction();
+        		instance=null;
+        	}
+        	
+        	public void windowActivated(WindowEvent e) { }
+        	
+        	public void windowClosed(WindowEvent e) { 
+        		instance=null;
+        	}
+
+        	public void windowDeactivated(WindowEvent e) { }
+
+        	public void windowDeiconified(WindowEvent e) { }
+
+        	public void windowIconified(WindowEvent e) { }
+        	
+        	public void windowOpened(WindowEvent e) { }
+		});
 	}
 	
 	// weak singleton
 	public static Hmmer3Frame getFrame() {
 		if (instance == null) 
 			instance = new Hmmer3Frame();
+		instance.setState(Frame.NORMAL);
+		instance.setVisible(true);
 		return instance;
 	}
 	

@@ -17,10 +17,13 @@ public class ShowEvalueSliderAction extends AbstractMenuAction{
 	protected EvalueSliderTool evalueTool = null;
 	
 	public void actionPerformed(ActionEvent e) {
-		if (evalueTool == null || !evalueTool.isVisible()) {
+		if (evalueTool == null) {
 			DomainViewI view = ViewHandler.getInstance().getActiveView();
 			evalueTool = new EvalueSliderTool(view);
 			evalueTool.showDialog(DoMosaicsUI.getInstance(), "Evalue Resolver");
+		} else
+		{
+			evalueTool.setVisible(true);
 		}
 	}
 

@@ -1,5 +1,6 @@
 package domosaics.webservices.interproscan.ui;
 
+import java.awt.Frame;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -42,6 +43,8 @@ public class AnnotatorFrame extends JFrame implements WindowListener {
     public static AnnotatorFrame getFrame() {
     	if (instance == null)
     		instance = new AnnotatorFrame();
+		instance.setState(Frame.NORMAL);
+		instance.setVisible(true);
     	return instance;
     }
     
@@ -58,11 +61,14 @@ public class AnnotatorFrame extends JFrame implements WindowListener {
      */
 	public void windowClosing(WindowEvent e) {
 		annotatorPanel.cancel();
+		instance=null;
 	}
 	
 	public void windowActivated(WindowEvent e) { }
 	
-	public void windowClosed(WindowEvent e) { }
+	public void windowClosed(WindowEvent e) { 
+		instance=null;
+	}
 
 	public void windowDeactivated(WindowEvent e) { }
 

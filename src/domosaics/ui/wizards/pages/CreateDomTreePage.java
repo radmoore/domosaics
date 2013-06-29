@@ -1,6 +1,7 @@
 package domosaics.ui.wizards.pages;
 
 import java.awt.Component;
+import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -11,6 +12,13 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
+import domosaics.model.workspace.ViewElement;
+import domosaics.model.tree.Tree;
+import domosaics.ui.DoMosaicsUI;
+import domosaics.ui.ViewHandler;
+import domosaics.ui.util.MessageUtil;
+import domosaics.ui.views.treeview.TreeViewI;
+import domosaics.ui.views.domainview.DomainView;
 import domosaics.ui.wizards.GUIComponentFactory;
 
 
@@ -69,7 +77,19 @@ public class CreateDomTreePage extends WizardPage {
 			return "Please select a tree view";
     	else if (selectDomViewList.getSelectedItem() == null)
 			return "Please select an arrangement view";
-
+    	else {
+    		ArrayList<String> treeLabels = ((Tree)((TreeViewI)ViewHandler.getInstance().getView(((ViewElement)selectTreeViewList.getSelectedItem()).getViewInfo())).getTree()).getLeavesName();
+    		ArrayList<String> arrLabels = ((DomainView)ViewHandler.getInstance().getView(((ViewElement)selectDomViewList.getSelectedItem()).getViewInfo())).getLabels();
+    		int mem = treeLabels.size();
+    		treeLabels.retainAll(arrLabels);
+    		if(treeLabels.size()==0) {
+				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Domain and tree views do not have any common sequence!");
+				return "Please select corresponding views";  
+    		} else {
+    			if(treeLabels.size()!=arrLabels.size() || treeLabels.size()!=mem)
+    				MessageUtil.showInformation(DoMosaicsUI.getInstance(),"Protein sets in domain and tree views do not perfectly overlap!");    			
+    		}
+    	}
         return null;
     }
 	
