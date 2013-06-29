@@ -27,8 +27,8 @@ public class ChangeArrangementAction extends AbstractAction{
 	
 	public ChangeArrangementAction (){
 		super();
-		putValue(Action.NAME, "Change Domain Composition");
-		putValue(Action.SHORT_DESCRIPTION, "Changes the domain arrangement attributes");
+		putValue(Action.NAME, "Edit Domain Composition");
+		putValue(Action.SHORT_DESCRIPTION, "Change the domain arrangement of a given protein");
 	}
 	
 	public void actionPerformed(ActionEvent e) {

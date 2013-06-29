@@ -13,6 +13,8 @@ import domosaics.ui.views.domainview.actions.context.LookupProteinInGoogle;
 import domosaics.ui.views.domainview.actions.context.LookupProteinInUniprotAction;
 import domosaics.ui.views.domainview.actions.context.RADSScanAction;
 import domosaics.ui.views.domainview.actions.context.ShowAllDomainsAction;
+import domosaics.ui.views.domainview.actions.context.ShowFastaAction;
+import domosaics.ui.views.domainview.actions.context.ShowXdomAction;
 import domosaics.ui.views.view.manager.SelectionManager;
 
 
@@ -51,7 +53,9 @@ public class ArrangementPopupMenu extends JPopupMenu {
 		// add menu entries
 		add(new AddNoteAction());
 		add(new DeleteArrangementContextAction());
+		add(new ShowXdomAction());
 		add(new ChangeArrangementAction());
+		add(new ShowFastaAction());
 		add(new EditSequenceAction());
 		add(new JSeparator());
 		add(new ShowAllDomainsAction());
