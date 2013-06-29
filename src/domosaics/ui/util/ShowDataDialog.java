@@ -91,7 +91,6 @@ public class ShowDataDialog extends JDialog implements ActionListener {
 	}
 
 	private void setContent() {
-		System.out.println("TYPE: "+type);
 		String content = "";
 		if ( type == ShowDataDialog.FASTA) {
 			SequenceI seq = selectedDA.getSequence();
@@ -99,7 +98,6 @@ public class ShowDataDialog extends JDialog implements ActionListener {
 				content = seq.toFasta(false);
 		}
 		else if ( type == ShowDataDialog.XDOM ) {
-			System.out.println("XDOM!");
 			content = selectedDA.toXdom();
 		}
 		textArea.setText(content);		
