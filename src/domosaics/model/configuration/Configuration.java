@@ -180,7 +180,7 @@ public class Configuration {
 	}
 	
 	public void closeFrame() {
-		frame.dispose();
+		frame=null;
 	}
 	 
 	public File getConfigFile() {

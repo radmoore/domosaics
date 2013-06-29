@@ -154,7 +154,7 @@ public class ConfigurationPanel extends JPanel{
 	 * disposes the frame 
 	 */
 	private void dispose() {
-		Configuration.getInstance().closeFrame();
+		parentFrame.dispose();
 	}
 	
 	/**

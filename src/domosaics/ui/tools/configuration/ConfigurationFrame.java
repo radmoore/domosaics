@@ -29,8 +29,8 @@ public class ConfigurationFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private ConfigurationPanel configPanel;
-	private JOptionPane waitingOptionPane;
-	private JDialog waitingDialog;
+	/*private JOptionPane waitingOptionPane;
+	private JDialog waitingDialog;*/
 	/**
 	 * Constructor for a new ConfigurationFrame
 	 */
@@ -40,15 +40,24 @@ public class ConfigurationFrame extends JFrame {
 		configPanel = new ConfigurationPanel(this);
 		getContentPane().add(configPanel);
 		
+		// set up the main window
+		pack();
+		//setSize(500, 650);
+		setLocationRelativeTo(null);
+		setAlwaysOnTop(true);
+		setResizable(true);
 		setVisible(true);
-		/*this.addWindowListener(new WindowAdapter(){
+		this.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent e) {
+				Configuration.getInstance().closeFrame();
+				//tryStop();
 			}
 			
 			public void windowActivated(WindowEvent e) { }
 			
 			public void windowClosed(WindowEvent e) { 
-		    	tryStop();
+				Configuration.getInstance().closeFrame();
+		    	//tryStop();
 		    }
 			
 			public void windowDeactivated(WindowEvent e) {    }
@@ -62,7 +71,7 @@ public class ConfigurationFrame extends JFrame {
 		    }
 			
 			public void windowOpened(WindowEvent e) { }
-		});*/
+		});
 	}
     
     public ConfigurationPanel getConfigPanel() {
