@@ -24,7 +24,7 @@ import domosaics.webservices.RADS.util.RADSResultsTableModel;
  * This class describes a RADSResultsProcessor, which performs
  * the parsing of RADSScan Results. It has access to the RADSPanel
  * (via {@link RADSPanelI}) to indicate the progression of the parsing,
- * and to comunicate with the ScanPanel (i.e. show Popups etc).
+ * and to communicate with the ScanPanel (i.e. show Popups etc).
  * 
  * @author <a href='http://radm.info'>Andrew D. Moore</a>
  *
@@ -85,14 +85,14 @@ public class RADSResultsProcessor {
 			for (RADSDomain resDom: p.getDomains()) {
 				DomainFamily domFamily = null;
 				Vector<String> df = GatheringThresholdsReader.getIDFromName(resDom.getID());
-				if(df!=null) {
-					if(df.size()==1)
+				if (df != null) {
+					if (df.size() == 1)
 						domFamily = GatheringThresholdsReader.getInstance().get(df.firstElement());
 					else {
-						Iterator<String> iS=df.iterator();
-						while(iS.hasNext()) {
+						Iterator<String> iS = df.iterator();
+						while (iS.hasNext()) {
 							domFamily = GatheringThresholdsReader.getInstance().get(iS.next());
-							if(DomainType.getType(domFamily.getId()).getName().equals("Pfam"))
+							if (DomainType.getType(domFamily.getId()).getName().equals("Pfam"))
 								break;
 						}
 					}	

@@ -38,7 +38,7 @@ public class SeqUtil {
 	/** the genetic code which can be used to convert codons into amino acids */
 	public static GeneticCodeMap geneticCode = new GeneticCodeMap();
 	
-	public static final String NONVALIDRESEXP =  "[^ABCDEFGHIKLMNOPQRSTUVWXYZ*-]";
+	public static final String NONVALIDRESEXP =  "[^ABCDEFGHIKLMNOPQRSTUVWXYZ*]";
 	
 	public static Pattern fastaHead = Pattern.compile(">\\s*(\\S+).*");
 	
@@ -72,7 +72,7 @@ public class SeqUtil {
 			
 		    // find *non-valid* characters
 		    if (m.find()) {
-		    	System.out.println(m.toString());
+//		    	System.out.println(m.toString());
 		    	return UNKNOWN;
 		    }
 			else

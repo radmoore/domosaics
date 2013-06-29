@@ -33,6 +33,10 @@ public class SaveXdomFileAction extends AbstractMenuAction { //implements ZoomCo
 		DomainViewI view = ViewHandler.getInstance().getActiveView();
 		ViewType type = view.getViewInfo().getType();
 		
+		String extension = type.getFileExtension();
+		if ( extension == "DOMTREE")
+			extension = "XDOM";
+		
 		File file = FileDialogs.showSaveDialog(DoMosaicsUI.getInstance(), type.getFileExtension());
 		if (file == null)
 			return;

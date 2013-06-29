@@ -78,5 +78,11 @@ public class Hmmer3Frame extends JFrame{
 	}
 	
 
+	public static boolean isOpen() {
+		if ( instance == null )
+			return false;
+		return instance.isShowing();
+	}
+	
 	
 }

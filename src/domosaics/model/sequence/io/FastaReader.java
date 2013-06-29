@@ -134,7 +134,7 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 					// guess the format
 					type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
 					if (type == SeqUtil.UNKNOWN) {
-						System.out.println(seqBuf.toString());
+//						System.out.println(seqBuf.toString());
 						return null;
 					}
 					seq.setSeq(convertToAminoAcidSeq(seqBuf.toString(), type));

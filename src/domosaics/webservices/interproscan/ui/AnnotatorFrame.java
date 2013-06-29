@@ -48,6 +48,13 @@ public class AnnotatorFrame extends JFrame implements WindowListener {
     	return instance;
     }
     
+    
+    public static boolean isOpen() {
+    	if (instance == null)
+    		return false;
+    	return (instance.isShowing()); 
+    }
+    
     /**
      * When the main frame is closed, the panel has to be disposed and therefore 
      * the thread spawner cancelled.

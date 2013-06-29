@@ -36,6 +36,13 @@ public class RADSFrame extends JFrame implements WindowListener, ToolFrameI {
 		return instance;
 	}
 	
+	public static boolean isOpen() {
+		if ( instance == null )
+			return false;
+		return instance.isShowing();
+	}
+	
+	
 	/**
 	 * Constructs a new instance of a RADSFrame. This should only be called
 	 * if {@link RADSFrame#getFrame()} returns null, or if the frame is not visible

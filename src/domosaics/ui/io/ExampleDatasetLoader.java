@@ -24,34 +24,20 @@ import domosaics.ui.views.treeview.TreeViewI;
 
 
 /**
- * Class which gives access to example files within the JAR package.
- * <p>
- * A small as well as a big data set can be loaded, so the user is
- * able to explore the program features without the need to have
- * an own data set.
+ * Class for loading the example dataset into DoMosaics.
  * 
- * @author Andreas Held
+ * @author <a href="http://radm.info">Andrew Moore</a>
  *
  */
 public class ExampleDatasetLoader {
-	
-	/** file location for the small example tree file */
-	private static String TREE_SMALL = "/domosaics/ui/resources/examples/small/data.tree";
+
+	private static String TREE = "/domosaics/ui/resources/examples/example_data/example.tree";
 	
 	/** file location for the small example domains file */
-	private static String DOMS_SMALL = "/domosaics/ui/resources/examples/small/data.xdom";
+	private static String DOMS = "/domosaics/ui/resources/examples/example_data/example.xdom";
 	
 	/** file location for the small example sequence file */
-	private static String SEQS_SMALL = "/domosaics/ui/resources/examples/small/data.fasta";
-	
-	/** file location for the big example tree file */
-	private static String TREE_BIG = "/domosaics/ui/resources/examples/big/lectins.tree";
-	
-	/** file location for the big example domains file */
-	private static String DOMS_BIG = "/domosaics/ui/resources/examples/big/lectins.xdom";
-	
-	/** file location for the big example sequence file */
-	private static String SEQS_BIG = "/domosaics/ui/resources/examples/big/lectins.fasta";
+	private static String SEQS = "/domosaics/ui/resources/examples/example_data/example.fasta";
 	
 	/** the input stream for the tree file */
 	private static InputStream treeFile = null;
@@ -62,28 +48,23 @@ public class ExampleDatasetLoader {
 	/** the input stream for the sequence file */
 	private static InputStream seqFile = null;
 	
-	/** flag indicating whether or not the small example set is to be loaded */
-	private static boolean small;
-	
 	
 	/**
 	 * Loads the small example data set from within the Jar file, 
 	 * creates all views and displays them.
 	 */
-	public void loadSmallSet() {
+	public void loadExample() {
 		
-		if (WorkspaceManager.getInstance().projectExists("small.x.dataset")) {
-			MessageUtil.showInformation(null, "Small example dataset already loaded");
+		if (WorkspaceManager.getInstance().projectExists("example_project")) {
+			MessageUtil.showInformation(null, "The example project is already loaded");
 			return;
 		}
 		
 		try {
 
-			treeFile = this.getClass().getResourceAsStream(TREE_SMALL);
-			xdomFile = this.getClass().getResourceAsStream(DOMS_SMALL);
-			seqFile  = this.getClass().getResourceAsStream(SEQS_SMALL);
-
-			small = true;
+			treeFile = this.getClass().getResourceAsStream(TREE);
+			xdomFile = this.getClass().getResourceAsStream(DOMS);
+			seqFile  = this.getClass().getResourceAsStream(SEQS);
 
 			loadViews();
 			
@@ -92,39 +73,6 @@ public class ExampleDatasetLoader {
 			seqFile.close();
 			
 		} 
-		catch (IOException e) {
-			if (Configuration.getReportExceptionsMode(true))
-				Configuration.getInstance().getExceptionComunicator().reportBug(e);
-			else			
-				Configuration.getLogger().debug(e.toString());
-			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Failed to load example dataset");
-		}
-	}
-	
-	/**
-	 * Loads the big example data set from within the Jar file, 
-	 * creates all views and displays them.
-	 */
-	public void loadBigSet() {
-		
-		if (WorkspaceManager.getInstance().projectExists("large.x.dataset")) {
-			MessageUtil.showInformation(null, "Large example dataset already loaded");
-			return;
-		}
-		
-		try {
-			treeFile = getClass().getResourceAsStream(TREE_BIG);
-			xdomFile = getClass().getResourceAsStream(DOMS_BIG);
-			seqFile  = getClass().getResourceAsStream(SEQS_BIG);
-		
-			small = false;
-		
-			loadViews();
-			
-			treeFile.close();
-			xdomFile.close();
-			seqFile.close();
-		}
 		catch (IOException e) {
 			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
@@ -149,24 +97,32 @@ public class ExampleDatasetLoader {
 		String seqViewName = null;
 		String treeViewName = null;
 		String domViewName = null;
-		String domTreeViewName = null;
+//		String domTreeViewName = null;
 		
-		if (small) {
-			seqViewName = "small.x.seq";
-			treeViewName = "small.x.tree";
-			domViewName = "small.x.doms";
-			domTreeViewName = "small.x.domtree";
-			project = new ProjectElement("small.x.dataset");
-			WorkspaceManager.getInstance().addProject(project, true);
-		} 
-		else {
-			seqViewName = "large.x.seq";
-			treeViewName = "large.x.tree";
-			domViewName = "large.x.doms";
-			domTreeViewName = "large.x.domtree";
-			project = new ProjectElement("large.x.dataset");
-			WorkspaceManager.getInstance().addProject(project, true);
-		}
+		seqViewName = "example_sequences";
+		treeViewName = "example_tree";
+		domViewName = "example_domains";
+//		domTreeViewName = "small.x.domtree";
+		project = new ProjectElement("example_project");
+		WorkspaceManager.getInstance().addProject(project, true);
+		
+		
+//		if (small) {
+//			seqViewName = "small.x.seq";
+//			treeViewName = "small.x.tree";
+//			domViewName = "small.x.doms";
+//			domTreeViewName = "small.x.domtree";
+//			project = new ProjectElement("small.x.dataset");
+//			WorkspaceManager.getInstance().addProject(project, true);
+//		} 
+//		else {
+//			seqViewName = "large.x.seq";
+//			treeViewName = "large.x.tree";
+//			domViewName = "large.x.doms";
+//			domTreeViewName = "large.x.domtree";
+//			project = new ProjectElement("large.x.dataset");
+//			WorkspaceManager.getInstance().addProject(project, true);
+//		}
 		
 		
 		

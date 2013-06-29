@@ -13,34 +13,34 @@
 
 			<menuitem id="JSeparator"/>
 			
-			<menu id="Loading">
+			<menu id="Open">
 
 				<menuitem id="JMenuItem">
-					<parameter id="name" value="Load Project"/> 
+					<parameter id="name" value="Open Project"/> 
 					<parameter id="actionClass" value="domosaics.ui.actions.LoadProjectAction"/> 
-					<parameter id="tooltip" value="Import a stored project into the workspace"/> 
+					<parameter id="tooltip" value="Load a stored project into the workspace"/> 
 				</menuItem>
 				
 				<menuitem id="JMenuItem">
-					<parameter id="name" value="Load View"/> 
+					<parameter id="name" value="Open View"/> 
 					<parameter id="actionClass" value="domosaics.ui.actions.ImportViewAction"/> 
 					<parameter id="tooltip" value="Load a stored view into the workspace"/> 
 				</menuItem>
 			
 			</menu>
 			
-			<menu id="Storage">
+			<menu id="Save">
 			
 				<menuitem id="JMenuItem">
-					<parameter id="name" value="Store Project"/> 
+					<parameter id="name" value="Save Project"/> 
 					<parameter id="actionClass" value="domosaics.ui.actions.SaveProjectAction"/> 
-					<parameter id="tooltip" value="Save a project into the file system"/> 
+					<parameter id="tooltip" value="Store/backup a project to the file system"/> 
 				</menuItem>
 				
 				<menuitem id="JMenuItem">
-					<parameter id="name" value="Store View"/> 
+					<parameter id="name" value="Save View"/> 
 					<parameter id="actionClass" value="domosaics.ui.actions.ExportViewAction"/> 
-					<parameter id="tooltip" value="Save a view into the file system"/> 
+					<parameter id="tooltip" value="Store/backup a view to the file system"/> 
 				</menuItem>
 					
 			</menu>
@@ -96,13 +96,13 @@
 		<menuitem id="JSeparator"/>		
 		
 		<menuitem id="JMenuItem">
-			<parameter id="name" value="Tree view"/> 
+			<parameter id="name" value="Create tree view"/> 
 			<parameter id="actionClass" value="domosaics.ui.actions.CreateTreeAction"/> 
 			<parameter id="tooltip" value="Build a tree based on a domain or a sequence view"/> 
 		</menuItem>	
 			
 		<menuitem id="JMenuItem">
-			<parameter id="name" value="Domain Tree view"/> 
+			<parameter id="name" value="Create domain-tree view"/> 
 			<parameter id="actionClass" value="domosaics.ui.actions.CreateDomainTreeAction"/> 
 			<parameter id="tooltip" value="Combine a domain and a tree view"/> 
 		</menuItem>			
@@ -121,9 +121,9 @@
 <!--		<menu id="Load Example Set">
 			<menuitem id="JMenuItem">
 <!--			<parameter id="name" value="Small Example Dataset"/>
-				<parameter id="name" value="Project example"/> 
-				<parameter id="actionClass" value="domosaics.ui.actions.LoadSmallExampleDataActon"/> 
-				<parameter id="tooltip" value="Load an illustrative example of a project"/> 
+				<parameter id="name" value="Load example project"/> 
+				<parameter id="actionClass" value="domosaics.ui.actions.LoadExampleDataActon"/> 
+				<parameter id="tooltip" value="Load an example project into the workspace"/> 
 			</menuItem>
 		
 <!--			<menuitem id="JMenuItem">
@@ -134,9 +134,9 @@
 <!--		</menu>
 
 		<menuitem id="JMenuItem">
-			<parameter id="name" value="DoMosaics help"/> 
+			<parameter id="name" value="Documentation"/> 
 			<parameter id="actionClass" value="domosaics.ui.actions.ShowManualAction"/> 
-			<parameter id="tooltip" value="Open DoMosaics help website"/> 
+			<parameter id="tooltip" value="Open DoMosaics documentation"/> 
 		</menuItem>
 			
 		<menuitem id="JMenuItem">

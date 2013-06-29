@@ -3,8 +3,11 @@ package domosaics.webservices.RADS.ui;
 import info.radm.radscan.RADSResults;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +31,6 @@ import domosaics.model.arrangement.DomainFamily;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
-import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.actions.FitDomainsToScreenAction;
@@ -144,6 +146,19 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		this.selectedHitsLabel = new JLabel(selectedHits+"");
 		this.results = results;
 		this.resultTableModel = resultTableModel;
+
+		// construct frame
+		frame = new JFrame("RADS/RAMPAGE Results");
+		frame.setPreferredSize(new Dimension(617, 712));
+		frame.setResizable(false);
+//		frame.addComponentListener(new ComponentListener() {
+//			public void componentResized(ComponentEvent e) {
+//				System.out.println("Height: "+e.getComponent().getHeight());
+//				System.out.println("Width: "+e.getComponent().getWidth());
+//			}
+//		});
+		
+		// construct panel, results table and query
 		if ( results.getQuery().getQuerySequence() == null )
 			initQueryPanel();
 		initTable();
@@ -201,8 +216,6 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	 * Constructs the panel
 	 */
 	private void initPanel() {
-		
-		frame = new JFrame("RADS/RAMPAGE Results");
 		
 		applySelection = new JButton("Import selection");
 		applySelection.setToolTipText("Create view from selection");

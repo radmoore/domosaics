@@ -296,9 +296,9 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 					"resources/icons/help.png");
 			helpIcon = new ImageIcon(ImageIO.read(is));
 			
-			is = this.getClass().getResourceAsStream(
-					"resources/icons/help.png");
-			tmpTestIcon = new ImageIcon(ImageIO.read(is));
+//			is = this.getClass().getResourceAsStream(
+//					"resources/icons/help.png");
+//			tmpTestIcon = new ImageIcon(ImageIO.read(is));
 		} 
 		catch (Exception e) {
 			if (Configuration.getReportExceptionsMode(true))
