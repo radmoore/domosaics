@@ -109,14 +109,14 @@ public class ConfigurationPanel extends JPanel{
 		config.setDocuPath(documentationTF.getText());
 		ConfigurationWriter.write();
 		
-		parentFrame.tryStop();
+		//parentFrame.tryStop();
 		dispose();
 	}
 	
 	/**
 	 * Restores the default settings of the configuration file.
 	 */
-	private void restore() {
+	public void restore() {
 		Configuration config = Configuration.getInstance();
 		config.restoreDefaults();
 		hmmerScanTF.setText(config.getHmmScanBin());
@@ -134,12 +134,27 @@ public class ConfigurationPanel extends JPanel{
 		helpImprove.setSelected(config.getHelpImprove());
 	}
 	
+	public JTextField getHmmScanTF() {
+		return hmmerScanTF;
+	}
+	
+	public JTextField getHmmDBTF() {
+		return hmmer3dbTF;
+	}
+	
+	public JTextField getHmmPressTF() {
+		return hmmerPressTF;
+	}
+	
+	public JTextField getEmailTF() {
+		return emailField;
+	}
+	
 	/**
 	 * disposes the frame 
 	 */
 	private void dispose() {
-		parentFrame.dispose();
-		Configuration.getInstance().setFrame(null);
+		Configuration.getInstance().closeFrame();
 	}
 	
 	/**
@@ -434,7 +449,7 @@ public class ConfigurationPanel extends JPanel{
 			pressAvail = checkHmmBin(new File(hmmerPressTF.getText()));
 		
 		// check if pressed files are available
-		if (!HmmPress.hmmFilePressed(file)) {
+		/*if (!HmmPress.hmmFilePressed(file)) {
 			if (MessageUtil.showDialog(parentFrame, file.getName()+" is not pressed. Do you want AnGSTD to press it now?")) {
 				if (!pressAvail) {
 					MessageUtil.showInformation(parentFrame, "Please first provide hmmpress binary");
@@ -445,12 +460,12 @@ public class ConfigurationPanel extends JPanel{
 				//TODO  we should get some type of return here.
 				hmmer3Engine.launch(hmmPress);
 			}
-		}
+		}*/
 		return true;
 	}
 	
-	public boolean isRunningPress() {
+	/*public boolean isRunningPress() {
 		return hmmer3Engine.isRunning();
-	}
+	}*/
 
 }

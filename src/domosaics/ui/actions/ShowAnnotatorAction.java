@@ -22,9 +22,5 @@ public class ShowAnnotatorAction extends AbstractMenuAction{
 
 	public void actionPerformed(ActionEvent e) {
 		annotatorFrame = AnnotatorFrame.getFrame();
-		if (annotatorFrame == null || !annotatorFrame.isVisible())
-			annotatorFrame = new AnnotatorFrame();
-		else 
-			annotatorFrame.setState(Frame.NORMAL);
 	}
 }

@@ -65,13 +65,13 @@ public class RADSFrame extends JFrame implements WindowListener, ToolFrameI {
 	@Override
 	public void windowClosing(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+		instance = null;
 	}
 
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+		instance = null;
 	}
 
 	@Override

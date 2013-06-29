@@ -16,6 +16,7 @@ import domosaics.model.sequence.SequenceI;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.wizards.pages.ClustalW2Page;
+import domosaics.util.CheckConnectivity;
 import domosaics.webservices.clustalw.ClustalW2ResultParser;
 
 
@@ -63,6 +64,11 @@ class ClustalW2Progress extends DeferredWizardResult implements WizardResultProd
 	public void start(Map m, ResultProgressHandle p) {
 		assert !EventQueue.isDispatchThread();
 		try {
+			if (!CheckConnectivity.checkInternetConnectivity()) {
+				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please check your intenet connection (connection failed).");
+				return;
+			}
+		
 			String alignmentStr = (String) m.get(ClustalW2Page.ALIGNMENT_KEY);
 			
 			if (alignmentStr == null || alignmentStr.isEmpty()) {

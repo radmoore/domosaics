@@ -160,15 +160,15 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 		} else {
 			if(Configuration.getInstance().getEmailAddr().equals("")) {
 				Configuration.getInstance().setEmailAddr(email.getText());
+				if(Configuration.getInstance().getFrame()!=null)
+					Configuration.getInstance().getFrame().getConfigPanel().getEmailTF().setText(email.getText());
 			} else {
 				if(!email.getText().equals(Configuration.getInstance().getEmailAddr()))
 					if(MessageUtil.showDialog(DoMosaicsUI.getInstance(),"A distinct email is saved in settings. Overwrite?"))
 					{
 						Configuration.getInstance().setEmailAddr(email.getText());
-						if(Configuration.getInstance().getFrame()!=null) {
-							Configuration.getInstance().getFrame().dispose();
-							Configuration.getInstance().setFrame(new ConfigurationFrame());
-						}				
+						if(Configuration.getInstance().getFrame()!=null)
+							Configuration.getInstance().getFrame().getConfigPanel().getEmailTF().setText(email.getText());
 					}
 			}
 		}

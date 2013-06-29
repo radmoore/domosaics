@@ -25,10 +25,10 @@ public class RADSAction extends AbstractMenuAction {
 	public void actionPerformed(ActionEvent e) {
 
 		JFrame radsFrame = RADSScanPanel.getCurrentRADSFrame();
-		if (radsFrame == null || !radsFrame.isVisible())
+		if (radsFrame == null)
 			radsFrame = new RADSFrame();
-		else
-			radsFrame.setState(Frame.NORMAL);
+		radsFrame.setState(Frame.NORMAL); 
+		radsFrame.setVisible(true);
 
 	}
 	

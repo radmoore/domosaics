@@ -245,7 +245,7 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		SubstitutionModel model = SubstitutionModel.Utils.createSubstitutionModel(subMatrix);
 		
 		// create the distance matrix
-		p.setProgress ("Create distance matrix (this may take some time)", 3, 5);
+		p.setProgress ("Create distance matrix (take some time)", 3, 5);
 
 		// ADM: HERE: dm looks pretty wierd
 		DistanceMatrix dm = DistanceTool.constructEvolutionaryDistances(alignment, model);

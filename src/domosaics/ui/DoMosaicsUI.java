@@ -402,10 +402,6 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		hmmscan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hmmer3 = Hmmer3Frame.getFrame();
-				if (hmmer3 == null || !hmmer3.isVisible())
-					hmmer3 = new Hmmer3Frame();
-				else
-					hmmer3.setState(Frame.NORMAL);
 			}
 		});
 		toolBar.add(hmmscan);
@@ -416,13 +412,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		iprscan.setToolTipText("Domain annotation using InterProScan (via internet)");
 		iprscan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				annotatorFrame = AnnotatorFrame.getFrame();
-
-				if (annotatorFrame == null || !annotatorFrame.isVisible())
-					annotatorFrame = new AnnotatorFrame();
-				else
-					annotatorFrame.setState(Frame.NORMAL);
 
 			}
 		});
@@ -435,10 +425,12 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		radsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				radsFrame = RADSScanPanel.getCurrentRADSFrame();
-				if (radsFrame == null || !radsFrame.isVisible())
+				if (radsFrame == null)
 					radsFrame = new RADSFrame();
-				else
+				else {
+					radsFrame.setVisible(true);
 					radsFrame.setState(Frame.NORMAL);
+				}
 
 			}
 		});
@@ -477,21 +469,11 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		// settings.setAction(new ShowConfigurationAction());
 		settings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (Configuration.getInstance().getFrame() != null)
-					Configuration.getInstance().getFrame().dispose();
-				Configuration.getInstance().setFrame(new ConfigurationFrame());
-				/*
-				 * configFrame = Configuration.getInstance().getFrame();
-				 * 
-				 * if (configFrame == null) configFrame = new
-				 * ConfigurationFrame();
-				 * 
-				 * else if (configFrame.getExtendedState() == Frame.ICONIFIED)
-				 * configFrame.setExtendedState(Frame.NORMAL);
-				 * 
-				 * else configFrame.setVisible(true);
-				 */
-
+				if (Configuration.getInstance().getFrame() != null) {
+					Configuration.getInstance().getFrame().setState(Frame.NORMAL);
+					Configuration.getInstance().getFrame().setVisible(true);
+				} else
+					Configuration.getInstance().setFrame(new ConfigurationFrame());
 			}
 		});
 		toolBar.add(settings);

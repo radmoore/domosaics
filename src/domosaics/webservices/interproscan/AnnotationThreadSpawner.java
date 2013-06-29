@@ -49,7 +49,7 @@ public class AnnotationThreadSpawner {
 	/** manager holding the resulting annotated arrangements */
 	protected ArrangementManager daSet = new ArrangementManager();
 	
-	
+	protected boolean toStop=false;
 	/**
 	 * Constructor for a new AnnotationThreadSpawner
 	 * 
@@ -130,6 +130,7 @@ public class AnnotationThreadSpawner {
 	 */
 	public void cancel() {
 //		jobLauncher.cancel(true);
+		toStop=true;
 		for (int i = 0; i < activeQuerys.size(); i++) {
 			activeQuerys.get(i).cancel(true);
 			out.print(activeQuerys.get(i).getQuerySequence().getName()+" aborted! \n");
@@ -147,7 +148,7 @@ public class AnnotationThreadSpawner {
 	 * 		the query sequence to be annotated
 	 */
 	protected void spawnAnnotation(SequenceI seq) {
-		if ( (!Thread.currentThread().isInterrupted()) || (!jobLauncher.isCancelled()) ){
+		if ( (!Thread.currentThread().isInterrupted() || !jobLauncher.isCancelled()) && !toStop ){
 			AnnotationThread annotator = new AnnotationThread(this);
 			annotator.setParams(email, method);
 			annotator.setQuerySequence(seq);
@@ -231,9 +232,9 @@ public class AnnotationThreadSpawner {
 					seqsWaitingForAnnotation = 0;
 					out.updateProgress(5);
 			
-					while (seqsWaitingForAnnotation < getSeqs().length && !isCancelled()) {
+					while (seqsWaitingForAnnotation < getSeqs().length && !isCancelled() && !toStop) {
 						
-						for ( int s = activeQuerys.size(); (s < 25 && s < getSeqs().length); s++ ) {
+						for ( int s = activeQuerys.size(); (s < 25 && s < getSeqs().length) && !toStop; s++ ) {
 							out.print("Preparing annotation for "+getSeqs()[seqsWaitingForAnnotation].getName()+" ("+(seqsWaitingForAnnotation+1)+"/"+getSeqs().length+")\n");
 							spawnAnnotation(getSeqs()[seqsWaitingForAnnotation]);
 							seqsWaitingForAnnotation++;

@@ -474,15 +474,15 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		} else {
 			if(Configuration.getInstance().getHmmScanBin().equals("")) {
 				Configuration.getInstance().setHmmScanBin(hmmScanTF.getText());
+				if(Configuration.getInstance().getFrame()!=null)
+					Configuration.getInstance().getFrame().getConfigPanel().getHmmScanTF().setText(hmmScanTF.getText());
 			} else {
 				if(!hmmScanTF.getText().equals(Configuration.getInstance().getHmmScanBin()))
 					if(MessageUtil.showDialog(this.getParentFrame(),"A distinct HmmScan binary is recorded in settings. Overwrite?"))
 					{
 						Configuration.getInstance().setHmmScanBin(hmmScanTF.getText());
-						if(Configuration.getInstance().getFrame()!=null && Configuration.getInstance().getFrame().isVisible()) {
-							Configuration.getInstance().getFrame().dispose();
-							Configuration.getInstance().setFrame(new ConfigurationFrame());
-						}				
+						if(Configuration.getInstance().getFrame()!=null)
+							Configuration.getInstance().getFrame().getConfigPanel().getHmmScanTF().setText(hmmScanTF.getText());
 					}
 			}
 		}
@@ -497,15 +497,15 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 			hmmDBFile = new File(hmmTF.getText());
 			if(Configuration.getInstance().getHmmerDB().equals("")) {
 				Configuration.getInstance().setHmmerDB(hmmTF.getText());
+				if(Configuration.getInstance().getFrame()!=null)
+					Configuration.getInstance().getFrame().getConfigPanel().getHmmDBTF().setText(hmmTF.getText());
 			} else {
 				if(!hmmTF.getText().equals(Configuration.getInstance().getHmmerDB()))
 					if(MessageUtil.showDialog(this.getParentFrame(),"A distinct HMM library is recorded in settings. Overwrite?"))
 					{
 						Configuration.getInstance().setHmmerDB(hmmTF.getText());
-						if(Configuration.getInstance().getFrame()!=null && Configuration.getInstance().getFrame().isVisible()) {
-							Configuration.getInstance().getFrame().dispose();
-							Configuration.getInstance().setFrame(new ConfigurationFrame());
-						}				
+						if(Configuration.getInstance().getFrame()!=null)
+							Configuration.getInstance().getFrame().getConfigPanel().getHmmDBTF().setText(hmmTF.getText());
 					}
 			}
 		}
@@ -515,15 +515,15 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		} else {
 			if(Configuration.getInstance().getHmmPressBin().equals("")) {
 				Configuration.getInstance().setHmmPressBin(hmmPressTF.getText());
+				if(Configuration.getInstance().getFrame()!=null)
+					Configuration.getInstance().getFrame().getConfigPanel().getHmmPressTF().setText(hmmPressTF.getText());
 			} else {
 				if(!hmmPressTF.getText().equals(Configuration.getInstance().getHmmPressBin()))
 					if(MessageUtil.showDialog(this.getParentFrame(),"A distinct HmmPress binary is recorded in settings. Overwrite?"))
 					{
 						Configuration.getInstance().setHmmPressBin(hmmPressTF.getText());
-						if(Configuration.getInstance().getFrame()!=null && Configuration.getInstance().getFrame().isVisible()) {
-							Configuration.getInstance().getFrame().dispose();
-							Configuration.getInstance().setFrame(new ConfigurationFrame());
-						}				
+						if(Configuration.getInstance().getFrame()!=null)
+							Configuration.getInstance().getFrame().getConfigPanel().getHmmPressTF().setText(hmmPressTF.getText());
 					}
 			}
 		}
@@ -572,7 +572,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	/**
 	 * Triggered when the cancel button is pressed.
 	 */
-	private void cancelAction() {
+	public void cancelAction() {
 		if (Hmmer3Engine.getInstance().isRunning()) { 
 			Hmmer3Engine.getInstance().stop();
 			run.setText("  Run  ");

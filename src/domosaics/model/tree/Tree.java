@@ -101,6 +101,17 @@ public class Tree implements TreeI {
 		return leaves;
 	}
 	
+	public ArrayList<String> getLeavesName() {
+		ArrayList<String> ret=new ArrayList<String>();
+		Iterator<TreeNodeI> iter = getNodeIterator();
+		while (iter.hasNext()) {
+			TreeNodeI tn=iter.next();
+			if (tn.isLeaf())
+				ret.add(tn.getLabel());
+		}
+		return ret;
+	}
+	
 	public int getMaxDepth() {
 		if (root == null) 
 			return -1;

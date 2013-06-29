@@ -336,6 +336,15 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 				seqs.add(daSet[i].getSequence());
 		return seqs.toArray(new SequenceI[seqs.size()]);
 	}
+	
+	/**
+	 */
+	public ArrayList<String> getLabels() {
+		ArrayList<String> lab = new ArrayList<String>();
+		for (int i = 0; i < daSet.length; i++)
+			lab.add(daSet[i].getName());
+		return lab;
+	}
 
 	
 	/* *********************************************************** *
