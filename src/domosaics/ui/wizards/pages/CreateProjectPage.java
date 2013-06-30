@@ -57,7 +57,7 @@ public class CreateProjectPage extends WizardPage {
 
 		add(new JLabel("Enter a name for the new project"), "gap 10, wrap");
 		add(new JLabel("Name:"), "gap 10, split");
-		add(input, "h 25!, gap 10, growx");
+		add(input, "w 165!, h 25!, gap 10, growx");
 	}
 	
 	/**
