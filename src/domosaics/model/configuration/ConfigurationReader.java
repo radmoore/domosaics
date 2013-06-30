@@ -9,6 +9,9 @@ import domosaics.ui.util.DocumentationHandler;
 public class ConfigurationReader {
 
 	public static void read() {
+		
+		boolean documentationHandled = false;
+		
 		 try {
 		    BufferedReader in = new BufferedReader(new FileReader(Configuration.getInstance().getConfigFile()));
 	
@@ -19,14 +22,16 @@ public class ConfigurationReader {
 
 				// if version differs, update documentation
 				if (line.contains(ConfigurationWriter.VERSION)) {
+					
 					Double localVersion = 0.0;
+					documentationHandled = true;
+					
 					try {
 						localVersion = Double.parseDouble(
 							line.replace(ConfigurationWriter.VERSION, "").trim());
 					}
 					catch ( Exception e ) {
 						Configuration.getLogger().debug("Unable to parse versioning!");
-						continue;
 					}
 					
 					if (Configuration.CURRENT_PROGRAM_VERSION > localVersion) {
@@ -129,5 +134,11 @@ public class ConfigurationReader {
 				else			
 					Configuration.getLogger().debug(e.toString());
 		 }
+		 
+		 if ( !documentationHandled ) {
+			Configuration.getLogger().debug("Versioning unclear - updating documentation");
+			DocumentationHandler.extractDocumentation();
+		 }
+		 
 	}
 }
