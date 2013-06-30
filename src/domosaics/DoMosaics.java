@@ -125,8 +125,12 @@ public class DoMosaics {
 		catch (Exception e) {
 			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
-			else			
-				Configuration.getLogger().debug(e.getStackTrace());
+			else {
+				// report full stack to log file no matter what
+				StringWriter errors = new StringWriter();
+				e.printStackTrace(new PrintWriter(errors));
+				Configuration.getLogger().debug("*** FATAL ERROR DURING STARTUP: "+errors.toString());
+			}
 			
 			MessageUtil.showWarning(ApplicationHandler.getInstance().startUpProgress,"There was a problem starting DoMosaics. Please consult log file.");
 		}
