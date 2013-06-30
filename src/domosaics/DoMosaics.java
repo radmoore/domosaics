@@ -100,21 +100,19 @@ public class DoMosaics {
 			Thread.setDefaultUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler(){
 
 				public void uncaughtException(Thread t, Throwable e) {
-					Configuration.getLogger().debug("Uncaught exception");
+					Configuration.getLogger().debug("*** UNCAUGHT EXCEPTION: "+e.toString());
 					StringWriter w = new StringWriter();
 					e.printStackTrace(new PrintWriter(w));
 					Configuration.getLogger().debug(w.toString());
-					Configuration.getLogger().debug(e.toString());
-					e.printStackTrace();
-					MessageUtil.showWarning(DoMosaicsUI.getInstance(),"There was a problem running DoMosaics; consult log file.");
+//					MessageUtil.showWarning(DoMosaicsUI.getInstance(),"There was a problem running DoMosaics; consult log file.");
 					// remove lock file if possible
-					if (Configuration.getInstance().hasLockfile()) {
-						// TODO Save the the views: i) all and the user will remove the busted one ii) only the working ones
-						// Save the configuration
-						ConfigurationWriter.write();						
-						Configuration.getInstance().getLockFile().delete();
-					}
-					System.exit(1);
+//					if (Configuration.getInstance().hasLockfile()) {
+//						// TODO Save the the views: i) all and the user will remove the busted one ii) only the working ones
+//						// Save the configuration
+//						ConfigurationWriter.write();						
+//						Configuration.getInstance().getLockFile().delete();
+//					}
+//					System.exit(1);
 				}
 			});
 		}
