@@ -27,8 +27,8 @@ public class LookupProteinInUniprotAction extends AbstractAction {
 
 	public LookupProteinInUniprotAction (String protein) {
 		super();
-		putValue(Action.NAME, "Lookup for protein "+protein+" in Uniprot");
-		putValue(Action.SHORT_DESCRIPTION, "Opens a browserwindow showing the Uniprot homepage");
+		putValue(Action.NAME, "Look for protein "+protein+" in Uniprot");
+		putValue(Action.SHORT_DESCRIPTION, "Opens a browser to search for the current protein");
 	}
 	
 	public void actionPerformed(ActionEvent e) {

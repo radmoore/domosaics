@@ -15,6 +15,7 @@ import domosaics.ui.util.MessageUtil;
 
 public class ConfigurationWriter {
 
+	public static final String VERSION = "VERSION:";
 	public static final String WORKSPACE_LOCATION = "Workspace location:";
 	public static final String GOOGLE_URL = "google search:";
 	//public static final String NCBI_URL = "ncbi search:";
@@ -39,6 +40,7 @@ public class ConfigurationWriter {
 		    Configuration config = Configuration.getInstance();
 		    
 		    out.write("DoMosaics Configuration File \n\n");
+		    out.write(VERSION+Configuration.CURRENT_PROGRAM_VERSION+"\n");
 		    out.write(WORKSPACE_LOCATION+config.getWorkspaceDir()+"\n");	
 		    out.write(GOOGLE_URL+config.getGoogleUrl()+"\n");
 		    //out.write(NCBI_URL+config.getNcbiUrl()+"\n");

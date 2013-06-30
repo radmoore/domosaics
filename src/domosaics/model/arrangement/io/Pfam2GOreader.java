@@ -2,11 +2,8 @@ package domosaics.model.arrangement.io;
 
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 //import java.text.DateFormat;
 //import java.text.SimpleDateFormat;
 //import java.util.Date;
@@ -18,7 +15,6 @@ import java.util.regex.Pattern;
 import domosaics.model.GO.*;
 import domosaics.model.arrangement.DomainFamily;
 import domosaics.model.configuration.Configuration;
-import domosaics.util.CheckConnectivity;
 
 
 
@@ -59,7 +55,7 @@ public class Pfam2GOreader {
 		
 			//URL remoteFile = new URL("http://www.geneontology.org/external2go/pfam2go");
 			//BufferedReader in = new BufferedReader(new InputStreamReader(remoteFile.openStream()));
-			InputStream is = Pfam2GOreader.class.getResourceAsStream("resources"+File.separator+"pfam2go");
+			InputStream is = Pfam2GOreader.class.getResourceAsStream("resources/pfam2go");
 			BufferedReader in = new BufferedReader(new InputStreamReader(is));
 			
 			String line;

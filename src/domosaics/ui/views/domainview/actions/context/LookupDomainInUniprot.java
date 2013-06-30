@@ -26,8 +26,8 @@ public class LookupDomainInUniprot extends AbstractAction {
 
 	public LookupDomainInUniprot (String domain) {
 		super();
-		putValue(Action.NAME, "Lookup for "+domain+" in Uniprot");
-		putValue(Action.SHORT_DESCRIPTION, "Opens a browserwindow showing the Uniprot search results");
+		putValue(Action.NAME, "Look for "+domain+" in Uniprot");
+		putValue(Action.SHORT_DESCRIPTION, "Opens a browser to search for the current domain");
 	}
 	
 	public void actionPerformed(ActionEvent e) {

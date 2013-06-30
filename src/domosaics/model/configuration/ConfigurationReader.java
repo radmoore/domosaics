@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 import domosaics.ApplicationHandler;
+import domosaics.ui.util.DocumentationHandler;
 
 public class ConfigurationReader {
 
@@ -15,7 +16,29 @@ public class ConfigurationReader {
 			while((line = in.readLine()) != null) {
 				if (line.isEmpty())					// ignore empty lines
 					continue;
+
+				// if version differs, update documentation
+				if (line.contains(ConfigurationWriter.VERSION)) {
+					Double localVersion = 0.0;
+					try {
+						localVersion = Double.parseDouble(
+							line.replace(ConfigurationWriter.VERSION, "").trim());
+					}
+					catch ( Exception e ) {
+						Configuration.getLogger().debug("Unable to parse versioning!");
+						continue;
+					}
+					
+					if (Configuration.CURRENT_PROGRAM_VERSION > localVersion) {
+						// update documentation
+						Configuration.getLogger().debug("Updating documentation");
+						DocumentationHandler.extractDocumentation();
+					}
+					continue;
+				}
 				
+				
+
 				if (line.contains(ConfigurationWriter.WORKSPACE_LOCATION)) {
 					Configuration.getInstance().setWorkspaceDir(
 							line.replace(ConfigurationWriter.WORKSPACE_LOCATION, "").trim()

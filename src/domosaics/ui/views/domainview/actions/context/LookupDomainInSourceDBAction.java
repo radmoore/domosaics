@@ -27,8 +27,8 @@ public class LookupDomainInSourceDBAction extends AbstractAction {
 
 	public LookupDomainInSourceDBAction (String domain, String sourceDB) {
 		super();
-		putValue(Action.NAME, "Lookup for "+domain+" in "+sourceDB);
-		putValue(Action.SHORT_DESCRIPTION, "Opens a browserwindow showing the NCBI homepage");
+		putValue(Action.NAME, "Look for "+domain+" in "+sourceDB);
+		putValue(Action.SHORT_DESCRIPTION, "Opens a browser window");
 	}
 	
 	public void actionPerformed(ActionEvent e) {

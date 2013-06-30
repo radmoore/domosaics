@@ -5,6 +5,8 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import sun.security.krb5.Config;
+
 import domosaics.model.configuration.Configuration;
 import domosaics.model.configuration.ConfigurationWriter;
 import domosaics.ui.DoMosaicsUI;
@@ -83,7 +85,7 @@ public class DoMosaics {
 					Configuration.setReportExceptionsMode(true);
 				}
 				else if (a.equals("--version")) {
-					System.out.println("rv 0.87");
+					System.out.println(Configuration.CURRENT_PROGRAM_VERSION);
 					System.exit(1);
 				}
 				else {
