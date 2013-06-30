@@ -2,29 +2,29 @@
 
 	<menu id="File">
 	
-		<menu id="Image Export">
+		<menu id="Export Image">
 			<menuitem id="JMenuItem">
-				<parameter id="name" value="As PNG"/> 
+				<parameter id="name" value="PNG"/> 
 				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
 			</menuItem>
 
 			<menuitem id="JMenuItem">
-				<parameter id="name" value="As JPG"/> 
+				<parameter id="name" value="JPG"/> 
 				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/>
 			</menuItem>
 		
 			<menuitem id="JMenuItem">
-				<parameter id="name" value="As BMP"/>
+				<parameter id="name" value="BMP"/>
 				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
 			</menuItem>
 		
 			<menuitem id="JMenuItem">
-				<parameter id="name" value="As PDF"/> 
+				<parameter id="name" value="PDF"/> 
 				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
 			</menuItem>
 		
 			<menuitem id="JMenuItem">
-				<parameter id="name" value="As SVG"/> 
+				<parameter id="name" value="SVG"/> 
 				<parameter id="actionClass" value="domosaics.ui.views.view.actions.ExportViewAsImageAction"/> 
 			</menuItem>
 		</menu>

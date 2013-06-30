@@ -60,19 +60,17 @@ public class ImportDataBranchController extends WizardBranchController {
     /** the previously chosen project **/
     private ProjectElement project;
     
+    private static WizardPage projectPage;
+    
+    private static ChooseDataTypePage dataTypePage;
+    
     /**
      * Constructor for a new Import data wizard defining the base pages.
      */
     public ImportDataBranchController() {
     	//create the base pages
-    	super(new WizardPage[]{new ChooseProjectPage(null), new ChooseDataTypePage()});
-
-    	
-        // optional pages
-//        treeWiz = WizardPage.createWizard( new Class[]{SelectTreeDataPage.class}, new ImportDataResultProducer() );
-//        domWiz = WizardPage.createWizard ( new Class[]{SelectArrangementDataPage.class}, new ImportDataResultProducer());
-//        seqWiz = WizardPage.createWizard ( new Class[]{SelectSequenceDataPage.class}, new ImportDataResultProducer());
-    }
+    	super(new WizardPage[]{ new ChooseProjectPage(), new ChooseDataTypePage()});
+    }    
     
     /**
      * This method chooses the correct wizard after the choose data type step.
@@ -82,24 +80,25 @@ public class ImportDataBranchController extends WizardBranchController {
 		
 		if (data.containsKey(PROJECT_KEY)) 
 			project = (ProjectElement)data.get(PROJECT_KEY);
-		
-		
-    	if ("domosaics.ui.wizards.importdata.ChooseDataTypePage".equals(step)) {
-    	   if (data.get(DATATYPE_KEY) == DataType.TREE) { 
-    	   	   choosedWiz = WizardPage.createWizard (new WizardPage[]{new SelectTreeDataPage(project)}, new ImportDataResultProducer());
-//		   	   choosedWiz = treeWiz;
-    	   }
-    	   if (data.get(DATATYPE_KEY) == DataType.DOMAINS) {
-    		   choosedWiz = WizardPage.createWizard (new WizardPage[]{new SelectArrangementDataPage(project)}, new ImportDataResultProducer());
-//    		   choosedWiz = domWiz;
-    	   }
-    	   if (data.get(DATATYPE_KEY) == DataType.SEQUENCE) {
-    		   choosedWiz = WizardPage.createWizard (new WizardPage[]{new SelectSequenceDataPage(project)}, new ImportDataResultProducer());
-//    		   choosedWiz = seqWiz;
-    	   }
-        }
-       return choosedWiz;
+		System.out.println(project+"*"+data.get(PROJECT_KEY));
+    	
+		if ("domosaics.ui.wizards.importdata.ChooseDataTypePage".equals(step)) {
+			if(data.get(DATATYPE_KEY)!=null)
+				choosedWiz = WizardPage.createWizard(new WizardPage[]{ new SelectDataPage(project,(DataType)(data.get(DATATYPE_KEY)))}, new ImportDataResultProducer());
+		} else {
+			if ("domosaics.ui.wizards.importdata.SelectDataPage".equals(step)) {
+				choosedWiz = WizardPage.createWizard(new WizardPage[]{ new ChooseDataTypePage(), new SelectDataPage(project,(DataType)(data.get(DATATYPE_KEY)))}, new ImportDataResultProducer());			  
+			} else {
+				if ("domosaics.ui.wizards.importdata.ChooseProjectPage".equals(step)) {
+					if(data.get(PROJECT_KEY)!=null)
+						choosedWiz = WizardPage.createWizard(new WizardPage[]{ new ChooseDataTypePage(), new SelectDataPage(project,(DataType)(data.get(DATATYPE_KEY)))}, new ImportDataResultProducer());
+				}
+					
+			}
+		}
+		return choosedWiz;
     }
+
 }
 
 

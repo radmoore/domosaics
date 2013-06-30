@@ -130,14 +130,10 @@ public abstract class AbstractTreeLayout implements TreeLayout{
 		// get width and height without insets
 		int width = viewSize.width - viewInsets.left - viewInsets.right;
 		int height = viewSize.height - viewInsets.top - viewInsets.bottom;
-
+		
 		// calculate space to the right and upper edge for drawing labels 
 		Insets extraSpace = getInsets();
-		leaveLabaleSpace = extraSpace.right;
-
-		// calculate new relative label space 
-		relativeleaveLabaleSpace = (double)leaveLabaleSpace / (double)width;
-		
+				
 		// finally calculate the layout area
 		Rectangle layoutBounds = new Rectangle(viewInsets.left, viewInsets.top, width, height);
 		layoutBounds.x += extraSpace.left;
@@ -145,9 +141,11 @@ public abstract class AbstractTreeLayout implements TreeLayout{
 		layoutBounds.width -= (extraSpace.left + extraSpace.right);
 		layoutBounds.height -= (extraSpace.bottom);
 		
-		setTreeBounds(layoutBounds);
+		Rectangle treeBounds = new Rectangle(layoutBounds.x, layoutBounds.y, layoutBounds.width, layoutBounds.height);
+		treeBounds.width = param.treeSpaceWidth;
+		setTreeBounds(treeBounds);
 
-		layoutTree(getTreeBounds().x, getTreeBounds().y, getTreeBounds().width, getTreeBounds().height, leaveLabaleSpace);
+		layoutTree(getTreeBounds().x, getTreeBounds().y, getTreeBounds().width, getTreeBounds().height, param.maxLabelWidth);
 	}
 	
 	/**
@@ -175,7 +173,7 @@ public abstract class AbstractTreeLayout implements TreeLayout{
 		double node_height = (treeView.getViewComponent().getHeight() - pInsets.top - pInsets.bottom)/ (double) param.visible;
 		
 		Insets insets = new Insets(0,0,0,0);
-		insets.right = (param.largestNode.getLabel() != null) ? param.maxLabelWidth : 0;
+		insets.right = (param.largestNode.getLabel() != null) ? param.maxLabelWidth : 100;
 		insets.top = (int) (node_height/2.0);
 		insets.bottom = (treeView.getTreeLayoutManager().isShowLegend()) ? 10 : 0;
 
@@ -245,6 +243,8 @@ public abstract class AbstractTreeLayout implements TreeLayout{
 		/** the maximal needed label width */
 		public int maxLabelWidth = 0;
 		
+		public int treeSpaceWidth = 0;
+		
 		/** number of visible leafs (can be collapsed nodes as well) */
 		public int visible = 0;
 		
@@ -255,6 +255,7 @@ public abstract class AbstractTreeLayout implements TreeLayout{
 		public void init () {
 			compute_Leaves();
 			compute_maxLabelWidth();
+			treeSpaceWidth = (int) Math.round(treeView.getViewComponent().getVisibleRect().width/treeView.getTreeLayoutManager().getTreeSpace()*0.92)-maxLabelWidth;
 		}
 		
 		private void compute_Leaves() {

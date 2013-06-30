@@ -97,9 +97,10 @@ public class ProjectElement extends WorkspaceElement{
 	 * 		the workspace element for this category.
 	 */
 	public CategoryElement getCategory(ViewType category) {
-		for (int i = 0; i < getChildCount(); i++)
-			if (((CategoryElement) getChildAt(i)).getType() == category)
+		for (int i = 0; i < getChildCount(); i++) {
+		    if (((CategoryElement) getChildAt(i)).getType() == category)
 				return (CategoryElement) getChildAt(i);
+		}
 		return null;
 	}
 	

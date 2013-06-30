@@ -245,8 +245,7 @@ public class GUIComponentFactory {
 		// get loaded domain views (for the current project)
 		WorkspaceManager wsm = WorkspaceManager.getInstance();
 		CategoryElement cat = wsm.getProject(project.getTitle()).getCategory(ViewType.DOMAINS);
-		
-		if (cat != null) {
+		if(cat!=null) {
 			List<WorkspaceElement> views = cat.getViews();
 			ViewElement[] domViews = views.toArray(new ViewElement[views.size()]);
 			// create the box
@@ -254,15 +253,13 @@ public class GUIComponentFactory {
 			selectViewList.setSelectedItem(null);
 			selectViewList.setRenderer(new WizardListCellRenderer());
 			selectViewList.setPreferredSize(new Dimension(100, 25));
-		}
-		else {
+		} else {
 			selectViewList = new JComboBox();
 			selectViewList.setEnabled(false);
 		}
 		
 		return selectViewList;
 	}
-	
 	
 	/**
 	 * Creates a JComboBox containing all sequence views from all projects

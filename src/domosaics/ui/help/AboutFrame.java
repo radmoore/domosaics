@@ -2,6 +2,8 @@ package domosaics.ui.help;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -20,11 +22,12 @@ public class AboutFrame extends JFrame{
 	JPanel panel;
 	
 	private static final String ABOUTPNG = "/domosaics/ui/resources/about_domosaics.png";
+	public static AboutFrame instance;
 	
 	public AboutFrame() {
 		
 		panel = new JPanel();
-		
+		instance=this;
 		//topPanel.setBackground(new Color(255,255,255));
 		
 		InputStream is = this.getClass().getResourceAsStream(ABOUTPNG);
@@ -52,6 +55,27 @@ public class AboutFrame extends JFrame{
 	    this.setLocation(x/2-450,y/2-450);
 		this.setResizable(true);
 		this.setVisible(true);
+		
+        this.addWindowListener(new WindowAdapter(){
+        	public void windowClosing(WindowEvent e) {
+        		instance=null;
+        	}
+        	
+        	public void windowActivated(WindowEvent e) { }
+        	
+        	public void windowClosed(WindowEvent e) { 
+        		instance=null;
+        	}
+
+        	public void windowDeactivated(WindowEvent e) { }
+
+        	public void windowDeiconified(WindowEvent e) { }
+
+        	public void windowIconified(WindowEvent e) { }
+        	
+        	public void windowOpened(WindowEvent e) { }
+		});
+		
 	}
 	
 }

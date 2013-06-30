@@ -45,6 +45,18 @@ import domosaics.ui.views.view.manager.DefaultLayoutManager;
  */
 public class TreeLayoutManager extends DefaultLayoutManager {
 
+	protected double treeSpace = 1;
+	
+	public double getTreeSpace() {
+		return treeSpace;
+	}
+	
+	public void setTreeSpace(int percent) {
+		treeSpace = 100 / (double) percent;
+		structuralChange();
+	}
+	
+	
 	/**
 	 * Enumeration of all actions specified for the tree view menu
 	 * (except general view actions). <br>

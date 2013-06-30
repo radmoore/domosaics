@@ -2,6 +2,8 @@ package domosaics.ui.wizards.importdata;
 
 import java.awt.EventQueue;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +20,7 @@ import domosaics.model.arrangement.io.XdomReader;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.sequence.io.FastaReader;
+import domosaics.model.tree.Tree;
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.io.NewickTreeReader;
 import domosaics.model.workspace.CategoryElement;
@@ -31,6 +34,7 @@ import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
+import domosaics.ui.views.domainview.DomainView;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.sequenceview.SequenceView;
 import domosaics.ui.views.treeview.TreeViewI;
@@ -197,7 +201,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		if (seqAssocView != null) {
 			SequenceView seqView = ViewHandler.getInstance().getView(seqAssocView.getViewInfo());
 			SequenceI[] seqs = seqView.getSequences();
-			domView.loadSequencesIntoDas(seqs, daSet, false);
+			domView.loadSequencesIntoDas(seqs, daSet, true);
 		}
 		
 		// create domain tree
@@ -258,8 +262,9 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		
 		// associate sequences with selected domain view
 		if (assocView != null) {
+			
 			DomainViewI domView = ViewHandler.getInstance().getView(assocView.getViewInfo());
-			domView.loadSequencesIntoDas(seqs, domView.getDaSet(), false);
+			domView.loadSequencesIntoDas(seqs, domView.getDaSet(), true);
 		}
 		return true;
 	}

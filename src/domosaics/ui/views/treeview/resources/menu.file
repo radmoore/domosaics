@@ -105,6 +105,15 @@
 			<parameter id="isSelected" value="false"/>
 		</menuItem>
 		
+		<menuitem id="JSeparator"/>
+		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Change Tree Space"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.domaintreeview.actions.ChangeTreeSpaceAction"/> 
+			<parameter id="tooltip" value="Changes the space used to draw the tree"/> 
+		</menuItem>
+		
+		
 <!--		<menuitem id="JCheckBox">
 <!--			<parameter id="name" value="Show Ruler"/> 
 <!--			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ShowTreeRulerAction"/> 

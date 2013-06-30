@@ -1,5 +1,8 @@
 package domosaics.ui.tools.stats;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -11,6 +14,7 @@ import javax.swing.JTabbedPane;
 import domosaics.model.arrangement.ArrangementManager;
 import domosaics.ui.tools.stats.actions.CloseStatsAction;
 import domosaics.ui.tools.stats.actions.SaveStatsToCSVAction;
+import domosaics.ui.views.domainview.DomainViewI;
 
 /**
  * Frame for the stats module in DoMosaics
@@ -22,13 +26,16 @@ public class StatsFrame extends JFrame{
 	
 	/** the menu file describing the view specific menu structure */
 	protected static String MENUFILE = "resources/menu.file";
-	
+	public static StatsFrame instance;
 	protected StatsTabbedPane tabbedPane;
-	protected ArrangementManager manager;
+	protected DomainViewI view;
 	
-	public StatsFrame(ArrangementManager manager) {
+	public StatsFrame(DomainViewI v) {
 		super("View stats");
-
+		instance=this;
+		view=v;
+		ArrangementManager manager = new ArrangementManager();
+		manager.add(view.getDaSet());
 		// create MenuBar
 		JMenu fileMenu = new JMenu("File");
 		fileMenu.add(new JMenuItem(new SaveStatsToCSVAction(manager)));
@@ -50,6 +57,33 @@ public class StatsFrame extends JFrame{
 		setLocationRelativeTo(null);
 		setResizable(true);
 		setVisible(true);
+
+        this.addWindowListener(new WindowAdapter(){
+        	public void windowClosing(WindowEvent e) {
+        		instance=null;
+        	}
+        	
+        	public void windowActivated(WindowEvent e) { }
+        	
+        	public void windowClosed(WindowEvent e) { 
+        		instance=null;
+        	}
+
+        	public void windowDeactivated(WindowEvent e) { }
+
+        	public void windowDeiconified(WindowEvent e) { }
+
+        	public void windowIconified(WindowEvent e) { }
+        	
+        	public void windowOpened(WindowEvent e) { }
+		});
+		
+
 	}
+	
+	 public DomainViewI getView()
+	 {
+		 return view;
+	 }
     
 }

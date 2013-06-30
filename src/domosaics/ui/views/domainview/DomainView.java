@@ -283,7 +283,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		int noMatchCount = 0;
 		for (int i = 0; i < daSet.length; i++) 
 			if (label2Seq.get(daSet[i].getName().toUpperCase()) != null) {
-				sequencesLoaded = true;
+			//	sequencesLoaded = true;
 				if(checkBeforeAssociation)
 					if(daSet[i].getDomain(daSet[i].countDoms()-1).getTo() < label2Seq.get(daSet[i].getName().toUpperCase()).getLen(false))
 						if(!daSet[i].hasSeq() && !label2Seq.get(daSet[i].getName().toUpperCase()).equals(daSet[i].getSequence()))
@@ -307,10 +307,10 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 			}
 				
 		
-		if (!sequencesLoaded) {
+		/*if (!sequencesLoaded) {
 			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No match between sequence and protein ids");
 			return;
-		}
+		}*/
 		
 		if (noMatchSeqs.size() > 0 && noMatchDAs.size() > 0) 
 			new SequenceMatchErrorFrame(this, noMatchDAs, noMatchSeqs).showDialog(DoMosaicsUI.getInstance(), "SequenceMatcher");

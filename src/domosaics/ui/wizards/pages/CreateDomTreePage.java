@@ -83,11 +83,11 @@ public class CreateDomTreePage extends WizardPage {
     		int mem = treeLabels.size();
     		treeLabels.retainAll(arrLabels);
     		if(treeLabels.size()==0) {
-				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Domain and tree views do not have any common sequence!");
-				return "Please select corresponding views";  
+				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Arrangement and tree views do not have any common sequence!");
+				return "Please provide corresponding views";  
     		} else {
     			if(treeLabels.size()!=arrLabels.size() || treeLabels.size()!=mem)
-    				MessageUtil.showInformation(DoMosaicsUI.getInstance(),"Protein sets in domain and tree views do not perfectly overlap!");    			
+    				MessageUtil.showInformation(DoMosaicsUI.getInstance(),"Protein sets in arrangement and tree views do not perfectly overlap!");    			
     		}
     	}
         return null;

@@ -1,5 +1,6 @@
 package domosaics.ui.actions;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 
 import domosaics.ui.help.AboutFrame;
@@ -13,6 +14,15 @@ public class ShowAboutAction extends AbstractMenuAction {
 	private static final long serialVersionUID = 1L;
 
 	public void actionPerformed(ActionEvent e) {
-		new AboutFrame().setVisible(true);
+		if(AboutFrame.instance==null)
+		 new AboutFrame();
+		else
+			if(AboutFrame.instance.getState()==Frame.ICONIFIED){
+				AboutFrame.instance.dispose();
+				new AboutFrame();		
+			} else
+			{
+				AboutFrame.instance.setVisible(true);
+			}
 	}
 }

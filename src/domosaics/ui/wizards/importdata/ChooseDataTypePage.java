@@ -36,7 +36,7 @@ public class ChooseDataTypePage extends WizardPage {
 	 * Constructor for a new ChooseDataTypePage
 	 */
 	public ChooseDataTypePage() {
-		super("Data Selection");
+		super("Data type");
 		
 		setLayout(new MigLayout());
 		

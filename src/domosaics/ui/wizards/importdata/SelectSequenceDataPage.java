@@ -20,6 +20,7 @@ import org.netbeans.spi.wizard.WizardPage;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.sequence.io.FastaReader;
 import domosaics.model.workspace.ProjectElement;
+import domosaics.model.workspace.ViewElement;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
@@ -83,11 +84,11 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 		JButton browse = new JButton("Browse...");
 		browse.addActionListener(this);	
 		
-		if (project == null)
+		if (project == null) {
 			selectViewList = GUIComponentFactory.createSelectDomViewBox(false);
-		else
+		} else {
 			selectViewList = GUIComponentFactory.createSelectDomViewBox(project);
-		
+		}
 		// associate names
 		path.setName(ImportDataBranchController.FILEPATH_KEY);
 		viewName.setName(ImportDataBranchController.VIEWNAME_KEY);

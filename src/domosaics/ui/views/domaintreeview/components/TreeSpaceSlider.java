@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Hashtable;
 
@@ -32,6 +34,7 @@ import org.jdesktop.swingx.JXTitledSeparator;
 import domosaics.model.configuration.Configuration;
 import domosaics.ui.util.MyMetalSliderUI;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
+import domosaics.ui.views.treeview.TreeViewI;
 
 public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -41,19 +44,24 @@ public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionLi
 	protected JSlider spaceSlider;
 	
 	/** the view providing this feature */
-	protected DomainTreeViewI view;
+	protected TreeViewI view;
 	
 	protected int actThres;
 	protected int oldSpace;
 	
 	protected JPanel componentHolder;
 	
+	public static TreeSpaceSlider instance;
 	
-	public TreeSpaceSlider(DomainTreeViewI view) {
+	
+	public TreeSpaceSlider(TreeViewI view) {
 		this.view = view;
-		oldSpace = (int) Math.round(100 / view.getDomainTreeLayoutManager().getTreeSpace());
+		if(view instanceof DomainTreeViewI)
+			oldSpace = (int) Math.round(100 / ( (DomainTreeViewI) view).getDomainTreeLayoutManager().getTreeSpace());
+		else
+			oldSpace = (int) Math.round(100 / view.getTreeLayoutManager().getTreeSpace());
 		actThres = oldSpace;
-
+		instance = this;
 		// create components
 		jbtCancel = new JButton("Cancel");
 		jbtCancel.addActionListener(this);
@@ -116,6 +124,29 @@ public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionLi
 		setAlwaysOnTop(true);
 		setModal(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter(){
+        	public void windowClosing(WindowEvent e) {
+        		instance=null;
+        	}
+        	
+        	public void windowActivated(WindowEvent e) { }
+        	
+        	public void windowClosed(WindowEvent e) { 
+        		instance=null;
+        	}
+
+        	public void windowDeactivated(WindowEvent e) { }
+
+        	public void windowDeiconified(WindowEvent e) { }
+
+        	public void windowIconified(WindowEvent e) { }
+        	
+        	public void windowOpened(WindowEvent e) { }
+		});
+	}
+	
+	public TreeViewI getView() {
+		return view;
 	}
 	
 	/**
@@ -142,8 +173,10 @@ public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionLi
 		if (actThres == slider.getValue())
 			return;
 		actThres = slider.getValue();
-		
-		view.getDomainTreeLayoutManager().setTreeSpace(actThres);
+		if(view instanceof DomainTreeViewI)
+			((DomainTreeViewI)view).getDomainTreeLayoutManager().setTreeSpace(actThres);
+		else
+			view.getTreeLayoutManager().setTreeSpace(actThres);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -153,7 +186,10 @@ public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionLi
 		}
 		
 		if(e.getSource() == jbtCancel) {
-			view.getDomainTreeLayoutManager().setTreeSpace(oldSpace);
+			if(view instanceof DomainTreeViewI)
+				((DomainTreeViewI)view).getDomainTreeLayoutManager().setTreeSpace(oldSpace);
+			else
+				view.getTreeLayoutManager().setTreeSpace(oldSpace);
 			this.dispose();
 			return;
 		}

@@ -40,10 +40,10 @@ public class ChooseProjectPage extends WizardPage implements ActionListener{
 	/**
 	 * Constructor for a new ChooseProjectPage
 	 */
-	public ChooseProjectPage(String projectName) {
+	public ChooseProjectPage() {
 		super("Project Selection");
 		
-		this.projectName = projectName; // can be null 
+		this.projectName = null; // can be null 
 		
 		setLayout(new MigLayout());
 		

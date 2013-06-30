@@ -1,9 +1,11 @@
 package domosaics.ui.views.domainview.actions;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 
 import domosaics.model.arrangement.ArrangementManager;
 import domosaics.ui.ViewHandler;
+import domosaics.ui.help.AboutFrame;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.tools.stats.StatsFrame;
 import domosaics.ui.views.domainview.DomainViewI;
@@ -17,10 +19,20 @@ public class ShowStatisticsAction extends AbstractMenuAction{
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = ViewHandler.getInstance().getActiveView();
 		
-		ArrangementManager manager = new ArrangementManager();
-		manager.add(view.getDaSet());
-		
-		new StatsFrame(manager);
+		if(StatsFrame.instance==null)
+		 new StatsFrame(view);
+		else
+			if(StatsFrame.instance.getState()==Frame.ICONIFIED){
+				StatsFrame.instance.dispose();
+				new StatsFrame(view);		
+			} else
+			{
+				if(StatsFrame.instance.getView() !=  view){
+					StatsFrame.instance.dispose();
+					new StatsFrame(view);
+				}	else
+					StatsFrame.instance.setVisible(true);
+			}
 	}
 
 }

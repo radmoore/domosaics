@@ -26,7 +26,7 @@ public class SaveStatsToCSVAction extends AbstractAction {
 	public SaveStatsToCSVAction (ArrangementManager manager) {
 		super();
 		this.manager = manager;
-		putValue(Action.NAME, "Save in CSV format");
+		putValue(Action.NAME, "Export (CSV)");
 		putValue(Action.SHORT_DESCRIPTION, "Saves the stats to a CSV formatted file");
 	}
 	
