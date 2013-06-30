@@ -4,10 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 import domosaics.ApplicationHandler;
+import domosaics.ui.util.DocumentationHandler;
 
 public class ConfigurationReader {
 
 	public static void read() {
+		
+		boolean documentationHandled = false;
+		
 		 try {
 		    BufferedReader in = new BufferedReader(new FileReader(Configuration.getInstance().getConfigFile()));
 	
@@ -15,7 +19,31 @@ public class ConfigurationReader {
 			while((line = in.readLine()) != null) {
 				if (line.isEmpty())					// ignore empty lines
 					continue;
+
+				// if version differs, update documentation
+				if (line.contains(ConfigurationWriter.VERSION)) {
+					
+					Double localVersion = 0.0;
+					documentationHandled = true;
+					
+					try {
+						localVersion = Double.parseDouble(
+							line.replace(ConfigurationWriter.VERSION, "").trim());
+					}
+					catch ( Exception e ) {
+						Configuration.getLogger().debug("Unable to parse versioning!");
+					}
+					
+					if (Configuration.CURRENT_PROGRAM_VERSION > localVersion) {
+						// update documentation
+						Configuration.getLogger().debug("Updating documentation");
+						DocumentationHandler.extractDocumentation();
+					}
+					continue;
+				}
 				
+				
+
 				if (line.contains(ConfigurationWriter.WORKSPACE_LOCATION)) {
 					Configuration.getInstance().setWorkspaceDir(
 							line.replace(ConfigurationWriter.WORKSPACE_LOCATION, "").trim()
@@ -106,5 +134,11 @@ public class ConfigurationReader {
 				else			
 					Configuration.getLogger().debug(e.toString());
 		 }
+		 
+		 if ( !documentationHandled ) {
+			Configuration.getLogger().debug("Versioning unclear - updating documentation");
+			DocumentationHandler.extractDocumentation();
+		 }
+		 
 	}
 }

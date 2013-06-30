@@ -30,6 +30,8 @@ public class Configuration {
 	
 //	public static final String sep = System.getProperty("file.separator");
 	
+	public static final double CURRENT_PROGRAM_VERSION = 0.89;
+	
 	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
 	public static final String DEF_WORKSPACE = DEF_HOMEFOLDER_LOCATION + File.separator + "domosaics_workspace";
 	public static final String DEF_PROGRAM_FOLDER = DEF_HOMEFOLDER_LOCATION + File.separator + "DoMosaics";
@@ -41,6 +43,7 @@ public class Configuration {
 	public static final String DEF_HMMPRESS_BIN = "";
 	public static final String DEF_HMMSCAN_BIN = "";
 	public static final String DEF_HMMERDB = "";
+	
 	
 	public static final String LOCKFILE = ".lock";
 	public static final String DEF_DOCUMENTATION_PATH = DEF_PROGRAM_FOLDER + File.separator + "docs";
@@ -68,6 +71,7 @@ public class Configuration {
 	protected String hmmScanBin, hmmPressBin;
 	protected String hmmDB;
 	protected String documentationPath;
+	protected String programVersion;
 
 	protected boolean showAdvices, saveWSOnExit, 
 	overwriteProjects, helpImprove, hasThrowException;
@@ -163,6 +167,7 @@ public class Configuration {
 		overwriteProjects = OVERWRITEPROJECTS;
 		helpImprove = HELPIMPROVE;
 		documentationPath = DEF_DOCUMENTATION_PATH;
+		programVersion = ""+CURRENT_PROGRAM_VERSION;
 	}
 	
 	public static Configuration getInstance() {

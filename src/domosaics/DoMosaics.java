@@ -5,6 +5,8 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import sun.security.krb5.Config;
+
 import domosaics.model.configuration.Configuration;
 import domosaics.model.configuration.ConfigurationWriter;
 import domosaics.ui.DoMosaicsUI;
@@ -83,7 +85,7 @@ public class DoMosaics {
 					Configuration.setReportExceptionsMode(true);
 				}
 				else if (a.equals("--version")) {
-					System.out.println("rv 0.87");
+					System.out.println(Configuration.CURRENT_PROGRAM_VERSION);
 					System.exit(1);
 				}
 				else {
@@ -98,21 +100,19 @@ public class DoMosaics {
 			Thread.setDefaultUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler(){
 
 				public void uncaughtException(Thread t, Throwable e) {
-					Configuration.getLogger().debug("Uncaught exception");
+					Configuration.getLogger().debug("*** UNCAUGHT EXCEPTION: "+e.toString());
 					StringWriter w = new StringWriter();
 					e.printStackTrace(new PrintWriter(w));
 					Configuration.getLogger().debug(w.toString());
-					Configuration.getLogger().debug(e.toString());
-					e.printStackTrace();
-					MessageUtil.showWarning(DoMosaicsUI.getInstance(),"There was a problem running DoMosaics; consult log file.");
+//					MessageUtil.showWarning(DoMosaicsUI.getInstance(),"There was a problem running DoMosaics; consult log file.");
 					// remove lock file if possible
-					if (Configuration.getInstance().hasLockfile()) {
-						// TODO Save the the views: i) all and the user will remove the busted one ii) only the working ones
-						// Save the configuration
-						ConfigurationWriter.write();						
-						Configuration.getInstance().getLockFile().delete();
-					}
-					System.exit(1);
+//					if (Configuration.getInstance().hasLockfile()) {
+//						// TODO Save the the views: i) all and the user will remove the busted one ii) only the working ones
+//						// Save the configuration
+//						ConfigurationWriter.write();						
+//						Configuration.getInstance().getLockFile().delete();
+//					}
+//					System.exit(1);
 				}
 			});
 		}
@@ -123,8 +123,12 @@ public class DoMosaics {
 		catch (Exception e) {
 			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
-			else			
-				Configuration.getLogger().debug(e.getStackTrace());
+			else {
+				// report full stack to log file no matter what
+				StringWriter errors = new StringWriter();
+				e.printStackTrace(new PrintWriter(errors));
+				Configuration.getLogger().debug("*** FATAL ERROR DURING STARTUP: "+errors.toString());
+			}
 			
 			MessageUtil.showWarning(ApplicationHandler.getInstance().startUpProgress,"There was a problem starting DoMosaics. Please consult log file.");
 		}

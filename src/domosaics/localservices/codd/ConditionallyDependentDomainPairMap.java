@@ -128,7 +128,7 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
  {
   if (instance == null || currentVersion!=version)
   {
-   instance = new ConditionallyDependentDomainPairMap("resources"+File.separator+"CDP_Pfam-"+version,0.001, curFrame, version);
+   instance = new ConditionallyDependentDomainPairMap("resources/CDP_Pfam-"+version, 0.001, curFrame, version);
   }
   return instance;
  }

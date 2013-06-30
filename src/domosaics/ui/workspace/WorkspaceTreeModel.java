@@ -106,15 +106,16 @@ public class WorkspaceTreeModel implements TreeModel, WorkspaceChangeListener {
 	 * but not dealt with
 	 */
 	public void refresh(){	
-		fireTreeStructureChanged(this, new TreePath(new Object[]{workspace}));
+		
 		try {
+			fireTreeStructureChanged(this, new TreePath(new Object[]{workspace}));
 			view.expandAll();
 		}
 		catch (Exception e) {
-			if (Configuration.getReportExceptionsMode(true))
-				Configuration.getInstance().getExceptionComunicator().reportBug(e);
-			else			
-				Configuration.getLogger().debug(e.toString());
+//			if (Configuration.getReportExceptionsMode(true))
+//				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+//			else			
+//				Configuration.getLogger().debug(e.toString());
 		}
 	}
 	

@@ -26,8 +26,8 @@ public class LookupDomainInGoogle extends AbstractAction {
 
 	public LookupDomainInGoogle (String domain) {
 		super();
-		putValue(Action.NAME, "Lookup for "+domain+" in Google");
-		putValue(Action.SHORT_DESCRIPTION, "Opens a browserwindow showing the Google homepage");
+		putValue(Action.NAME, "Look for "+domain+" in Google");
+		putValue(Action.SHORT_DESCRIPTION, "Opens a browser to search for the current domain");
 	}
 	
 	public void actionPerformed(ActionEvent e) {

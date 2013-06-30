@@ -111,6 +111,10 @@ public class ProjectImporter {
 		project = WizardManager.getInstance().showCreateProjectWizard(projectName);
 		//project = WorkspaceManager.getInstance().addProject(projectName, false);
 		
+		// import was cancelled
+		if ( project == null )
+			return;
+		
 		// create categorys and load views
 		String[] categories = new File(projectDirPath).list();
 		for (String c : categories) {

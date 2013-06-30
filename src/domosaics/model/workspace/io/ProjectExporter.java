@@ -82,7 +82,7 @@ public class ProjectExporter {
  
         } 
         catch (Exception e) {
-        	Configuration.getLogger().debug("Fail to export view: "+viewFail);
+        	Configuration.getLogger().debug("Failed to export view: "+viewFail);
         	Configuration.getLogger().debug(e.toString());
 			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);

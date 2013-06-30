@@ -311,7 +311,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		// open project
 		JButton openProject = new JButton();
 		openProject.setIcon(openProjectIcon);
-		openProject.setToolTipText("Open a stored project");
+		openProject.setToolTipText("Open a saved project");
 		openProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File file = FileDialogs.openChooseDirectoryDialog(DoMosaicsUI
@@ -327,7 +327,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		// save project
 		JButton saveProject = new JButton();
 		saveProject.setIcon(saveProjectIcon);
-		saveProject.setToolTipText("Store a project");
+		saveProject.setToolTipText("Save a project");
 		saveProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startSaveProjectWizard(null);
@@ -386,7 +386,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		// new project
 		JButton newProject = new JButton();
 		newProject.setIcon(newProjectIcon);
-		newProject.setToolTipText("Load data in a new or existing or project");
+		newProject.setToolTipText("Load data into a new or existing or project");
 		newProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startImportDataWizard();
@@ -480,7 +480,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		
 		JButton help = new JButton();
 		help.setIcon(helpIcon);
-		help.setToolTipText("Open DoMosaics help website");
+		help.setToolTipText("Open DoMosaics documentation");
 		help.addActionListener(new ShowManualAction());
 		toolBar.add(help);
 		

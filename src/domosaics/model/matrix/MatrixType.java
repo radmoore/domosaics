@@ -14,9 +14,9 @@ import java.io.File;
  */
 public enum MatrixType {
 	
-	BLOSUM62("resources"+File.separator+"BLOSUM62"),
-	BLOSUM65("resources"+File.separator+"BLOSUM65"),
-	IDENTITY("resources"+File.separator+"IDENTITY")
+	BLOSUM62("resources/BLOSUM62"),
+	BLOSUM65("resources/BLOSUM65"),
+	IDENTITY("resources/IDENTITY")
 	;
 	
 	private String file;
