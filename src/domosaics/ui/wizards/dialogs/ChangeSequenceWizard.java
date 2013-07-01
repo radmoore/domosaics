@@ -116,11 +116,8 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
 			
 	    	// check if the sequence is real
     		if ( SeqUtil.checkFormat(fastaSeq) == SeqUtil.UNKNOWN ) {
-    			if (! MessageUtil.showDialog(DoMosaicsUI.getInstance(), "Cannot determine sequence type. Continue?")) {
-    				cancel(m);
-    				p.finished(null);
+    				MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Cannot determine sequence format");
     				return;
-    			}
     		}
 	    	
     		// get arrangement of component
@@ -128,7 +125,6 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
 
 
         	DomainVector doms = selectedArr.getDomains();
-        	Collections.sort(doms);
         	Domain dom;
         	DomainComponent dc;
         	boolean remove = false;
@@ -172,6 +168,27 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
         		}
         		
     		}
+    		DomainVector hiddendoms = selectedArr.getHiddenDoms();
+    		for (int i = hiddendoms.size()-1; i >= 0; i--) {
+    			dom = hiddendoms.get(i);
+   				// figure out whether it extends beyond 
+   				// sequence length
+    			if (dom.getTo() > fastaSeq.length()) {
+    				if(!remove)
+    					if (MessageUtil.showDialog(DoMosaicsUI.getInstance(),"Some hidden domains go beyond new sequence length. Remove effected domains?") )
+    						remove = true;
+    					else {	
+    						cancel(m);
+    						//p.failed("Sequence too short", false);
+    						p.finished(null);
+    						return;
+    					}
+        			hiddendoms.remove(dom);
+        		}        		
+    		}
+    		Collections.sort(hiddendoms);
+        	
+    		
     		// resort after meddling (likely not needed - but see bug
     		// related to domain position)
     		Collections.sort(doms);

@@ -35,6 +35,7 @@ import domosaics.ui.ViewHandler;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domainview.DomainView;
+import domosaics.ui.views.sequenceview.SequenceView;
 import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.wizards.GUIComponentFactory;
 
@@ -51,13 +52,13 @@ import domosaics.ui.wizards.GUIComponentFactory;
  */
 public class SelectDataPage extends WizardPage implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	
+
 	/** the text field displaying the chosen file path */
 	protected JTextField path;
-	
+
 	/** the text field for choosing a view name */
 	protected JTextField viewName;
-	
+
 	/** the check for correct fasta format */
 	protected SequenceI[] seqs = null;
 
@@ -66,17 +67,17 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 
 	/** the check for correct file format */
 	protected TreeI tree = null;
-	
+
 	private ProjectElement project;
-	
+
 	private DataType datatype;
 
 	private DomainArrangement[] daSet = null;
-	
+
 	/** size of the page */
 	private final static Dimension p_size = new Dimension(400,300);
-	
-	
+
+	protected boolean warningDone=false;
 	/**
 	 * Constructor for a new SelectArrangementDataPage
 	 */
@@ -87,8 +88,8 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 		datatype=dt;
 		init();	
 	}
-	
-	
+
+
 	private void init() {
 		setLayout(new MigLayout());
 		//setPreferredSize(p_size);
@@ -103,13 +104,28 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 		JButton browse = new JButton("Browse...");
 		browse.addActionListener(this);	
 
-		if (project == null) {
-			selectViewList = GUIComponentFactory.createSelectDomViewBox(false);
-		} else {
-			selectViewList = GUIComponentFactory.createSelectDomViewBox(project);
-		}
-
 		if(datatype==DataType.TREE) {
+
+			if (project == null) {
+				selectViewList = GUIComponentFactory.createSelectDomViewBox(false);
+			} else {
+				selectViewList = GUIComponentFactory.createSelectDomViewBox(project);
+			}
+
+			// associate names
+			path.setName(ImportDataBranchController.FILEPATH_KEY);
+			viewName.setName(ImportDataBranchController.VIEWNAME_KEY);
+			selectViewList.setName(ImportDataBranchController.DOMVIEW_KEY);
+
+			selectViewList.addActionListener(new ActionListener() {
+				String mem="";
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					if(!selectViewList.getSelectedItem().equals(mem))
+						warningDone=false;
+					mem=(String) selectViewList.getSelectedItem().toString();
+				}});
+
 			// layout panel
 			add(new JXTitledSeparator("Select tree file"),"growx, span, wrap");
 			add(new JLabel("Select file:"), "gap 10");
@@ -127,11 +143,26 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 		} else {
 			if(datatype==DataType.SEQUENCE) {
 
+				if (project == null) {
+					selectViewList = GUIComponentFactory.createSelectDomViewBox(false);
+				} else {
+					selectViewList = GUIComponentFactory.createSelectDomViewBox(project);
+				}
+
 				// associate names
 				path.setName(ImportDataBranchController.FILEPATH_KEY);
 				viewName.setName(ImportDataBranchController.VIEWNAME_KEY);
 				selectViewList.setName(ImportDataBranchController.DOMVIEW_KEY);
 
+				selectViewList.addActionListener(new ActionListener() {
+					String mem="";
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						if(!selectViewList.getSelectedItem().equals(mem))
+							warningDone=false;
+						mem=(String) selectViewList.getSelectedItem().toString();
+					}});
+	
 				// layout panel
 				add(new JXTitledSeparator("Select sequence file"),"growx, span, wrap");
 				add(new JLabel("Select file:"), "gap 10");
@@ -161,7 +192,23 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 					viewName.setName(ImportDataBranchController.VIEWNAME_KEY);
 					selectTreeViewList.setName(ImportDataBranchController.TREEVIEW_KEY);
 					selectSeqViewList.setName(ImportDataBranchController.SEQVIEW_KEY);
-
+					selectTreeViewList.addActionListener(new ActionListener() {
+						String mem="";
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							if(!selectTreeViewList.getSelectedItem().equals(mem))
+								warningDone=false;
+							mem=(String) selectTreeViewList.getSelectedItem().toString();
+						}});
+					selectSeqViewList.addActionListener(new ActionListener() {
+						String mem="";
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							if(!selectSeqViewList.getSelectedItem().equals(mem))
+								warningDone=false;
+							mem=(String) selectSeqViewList.getSelectedItem().toString();
+						}});
+					
 					// layout panel
 					add(new JXTitledSeparator("Select arrangement file"),"growx, span, wrap");
 					add(new JLabel("Select file:"), "gap 10");
@@ -183,11 +230,12 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 			}
 		}
 	}
-	
+
 	/**
 	 * Action performed when the browse button was clicked
 	 */
 	public void actionPerformed(ActionEvent e) {
+		warningDone=false;
 		File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 		if(datatype==DataType.SEQUENCE) {
 			if(file != null) {
@@ -235,76 +283,110 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 			}
 		}
 	}
-    
-    /**
-     * Checks if all necessary inputs are made.
-     */
-    protected String validateContents (Component component, Object o) {
-    	if(datatype==DataType.DOMAINS) {
-    		if (daSet == null)
-        		return "Please select a correctly formatted xdom file";
-        	if (path.getText().isEmpty())
-    			return "Please select a file";
-        	ArrayList<String> treeLabels = ((Tree)((TreeViewI)ViewHandler.getInstance().getView(((ViewElement)selectTreeViewList.getSelectedItem()).getViewInfo())).getTree()).getLeavesName();
-    		ArrayList<String> arrLabels = new ArrayList<String>();
-    		for(int i=0; i<daSet.length; i++)
-    			arrLabels.add(daSet[i].getName());
-    		int mem = treeLabels.size();
-    		treeLabels.retainAll(arrLabels);
-    		if(treeLabels.size()==0) {
-				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Arrangement and tree views do not have any common sequence!");
+
+	/**
+	 * Checks if all necessary inputs are made.
+	 */
+	protected String validateContents (Component component, Object o) {
+		if(datatype==DataType.DOMAINS) {
+			int mem; 
+			if (daSet == null)
+				return "Please select a correctly formatted xdom file";
+			if (path.getText().isEmpty())
+				return "Please select a file";
+			ArrayList<String> arrLabels = new ArrayList<String>();
+			for(int i=0; i<daSet.length; i++)
+				arrLabels.add(daSet[i].getName());
+			if(selectTreeViewList.getSelectedItem()!=null) {
+				ArrayList<String> treeLabels = ((Tree)((TreeViewI)ViewHandler.getInstance().getView(((ViewElement)selectTreeViewList.getSelectedItem()).getViewInfo())).getTree()).getLeavesName();
+				mem = treeLabels.size();
+				treeLabels.retainAll(arrLabels);
+				if(treeLabels.size()==0) {
+					if(!warningDone) {
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Arrangement and tree views do not have any common sequence!");
+						warningDone=true;
+					}
+				} else {
+					if(treeLabels.size()!=arrLabels.size() || treeLabels.size()!=mem)
+						if(!warningDone) {
+							MessageUtil.showInformation(DoMosaicsUI.getInstance(),"Protein sets in arrangement and tree views do not perfectly overlap!");    			
+							warningDone=true;
+						}
+				}
+			}
+			if(selectSeqViewList.getSelectedItem()!=null) {
+				SequenceI[] listSeq = ((SequenceView)ViewHandler.getInstance().getView(((ViewElement)selectSeqViewList.getSelectedItem()).getViewInfo())).getSequences();
+				ArrayList<String> seqLabels  = new ArrayList<String>();
+				for(int i=0; i<listSeq.length; i++)
+					seqLabels.add(listSeq[i].getName());
+				mem = seqLabels.size();
+				seqLabels.retainAll(arrLabels);
+				if(seqLabels.size()==0) {
+					if(!warningDone) {
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Arrangement and sequence views do not have any common sequence!");
+						warningDone=true;
+					}
+				} else {
+					if(seqLabels.size()!=arrLabels.size() || seqLabels.size()!=mem)
+						if(!warningDone) {
+							MessageUtil.showInformation(DoMosaicsUI.getInstance(),"Protein sets in arrangement and sequence views do not perfectly overlap!");    			
+							warningDone=true;
+						}
+				}
+			}
+		} else {
+			if(datatype==DataType.SEQUENCE) {
+				if (seqs == null)
+					return "Please select a correctly formatted fasta file";
+				if(path.getText().isEmpty())
+					return "Please select a file";
+				if(selectViewList.getSelectedItem()!=null) {
+					ArrayList<String> seqLabels  = new ArrayList<String>();
+					for(int i=0; i<seqs.length; i++)
+						seqLabels.add(seqs[i].getName());
+					ArrayList<String> arrLabels = ((DomainView)ViewHandler.getInstance().getView(((ViewElement)selectViewList.getSelectedItem()).getViewInfo())).getLabels();
+					int mem = seqLabels.size();
+					seqLabels.retainAll(arrLabels);
+					if(seqLabels.size()==0) {
+						if(!warningDone) {
+							MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Arrangement and sequence views do not have any common sequence!");
+							warningDone=true;
+						}
+						return "Please select corresponding views";  
+					} else {
+						if(seqLabels.size()!=arrLabels.size() || seqLabels.size()!=mem)
+							if(!warningDone) {
+								MessageUtil.showInformation(DoMosaicsUI.getInstance(),"Protein sets in arrangement and sequence views do not perfectly overlap!");    			
+								warningDone=true;
+							}
+					}
+				}
 			} else {
-    			if(treeLabels.size()!=arrLabels.size() || treeLabels.size()!=mem)
-    				MessageUtil.showInformation(DoMosaicsUI.getInstance(),"Protein sets in arrangement and tree views do not perfectly overlap!");    			
-    		}
-    		ArrayList<String> seqLabels = ((Tree)((TreeViewI)ViewHandler.getInstance().getView(((ViewElement)selectSeqViewList.getSelectedItem()).getViewInfo())).getTree()).getLeavesName();
-    		mem = seqLabels.size();
-    		seqLabels.retainAll(arrLabels);
-    		if(seqLabels.size()==0) {
-				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Arrangement and sequence views do not have any common sequence!");
-			} else {
-    			if(seqLabels.size()!=arrLabels.size() || seqLabels.size()!=mem)
-    				MessageUtil.showInformation(DoMosaicsUI.getInstance(),"Protein sets in arrangement and sequence views do not perfectly overlap!");    			
-    		}
-    	} else {
-    		if(datatype==DataType.SEQUENCE) {
-    			if (seqs == null)
-        			return "Please select a correctly formatted fasta file";
-        	    if(path.getText().isEmpty())
-        	    	return "Please select a file";
-        	    if(selectViewList.getSelectedItem()!=null) {
-        	    	ArrayList<String> seqLabels = new ArrayList(Arrays.asList(seqs));
-        	    	ArrayList<String> arrLabels = ((DomainView)selectViewList.getSelectedItem()).getLabels();
-        	    	int mem = seqLabels.size();
-        	    	seqLabels.retainAll(arrLabels);
-        	    	if(seqLabels.size()==0) {
-        	    		MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Arrangement and sequence views do not have any common sequence!");
-        	    		return "Please select corresponding views";  
-        	    	} else {
-        	    		if(seqLabels.size()!=arrLabels.size() || seqLabels.size()!=mem)
-        	    			MessageUtil.showInformation(DoMosaicsUI.getInstance(),"Protein sets in arrangement and sequence views do not perfectly overlap!");    			
-        	    	}
-        	    }
-    		} else {
-    			if(datatype==DataType.TREE) {
-    				if (tree == null)
-    					return "Please select a correctly formatted newick file";
-    				if (path.getText().isEmpty())
-    					return "Please select a file";
+				if(datatype==DataType.TREE) {
+					if (tree == null)
+						return "Please select a correctly formatted newick file";
+					if (path.getText().isEmpty())
+						return "Please select a file";
 					ArrayList<String> treeLabels = ((Tree)tree).getLeavesName();
 					ArrayList<String> arrLabels = ((DomainView)selectViewList.getSelectedItem()).getLabels();
-        	    	int mem = treeLabels.size();
-		    		treeLabels.retainAll(arrLabels);
-		    		if(treeLabels.size()==0) {
-						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Arrangement and tree views do not have any common sequence!");
+					int mem = treeLabels.size();
+					treeLabels.retainAll(arrLabels);
+					if(treeLabels.size()==0) {
+						if(!warningDone) {
+							MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Arrangement and tree views do not have any common sequence!");
+							warningDone=true;
+						}
 						return "Please provide corresponding views";
 					} else {
-		    			if(treeLabels.size()!=arrLabels.size() || treeLabels.size()!=mem)
-		    				MessageUtil.showInformation(DoMosaicsUI.getInstance(),"Protein sets in arrangement and tree views do not perfectly overlap!");    			
-		    		}
-    			}
-    		}
-    	}
-    	return null;
-    }   
+						if(treeLabels.size()!=arrLabels.size() || treeLabels.size()!=mem)
+							if(!warningDone) {
+								MessageUtil.showInformation(DoMosaicsUI.getInstance(),"Protein sets in arrangement and tree views do not perfectly overlap!");    			
+								warningDone=true;
+							}
+					}
+				}
+			}
+		}
+		return null;
+	}   
 }

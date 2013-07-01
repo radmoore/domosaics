@@ -21,6 +21,7 @@ import domosaics.ui.ViewHandler;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.wizards.GUIComponentFactory;
+import domosaics.util.CheckConnectivity;
 
 
 
@@ -53,7 +54,30 @@ public class ChooseViewDataPage extends WizardPage implements ItemListener{
 		setLayout(new MigLayout());
 		
 		useUnderlayingSeqs = new JCheckBox();
-		useUnderlayingSeqs.addItemListener(this);
+		useUnderlayingSeqs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (useUnderlayingSeqs.isSelected()) {
+					ViewElement view = (ViewElement) selectDomViewList.getSelectedItem();
+					DomainViewI domView = ViewHandler.getInstance().getView(view.getViewInfo());
+					if ( !domView.isSequenceLoaded() ) {
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No underlying sequences in this domain arrangement view.");
+						useUnderlayingSeqs.setSelected(false);
+					} else
+					{
+						// If less than 2 sequences has sequences no treecould be computed based on sequences
+						if(domView.getSequences().length<3) {
+							MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Less than three arrangments have undermying sequences.");
+							useUnderlayingSeqs.setSelected(false);
+						} else
+						{
+							if(domView.getSequences().length!=domView.getDaSet().length)
+								MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Not all arrangement have underlying sequences.");
+						}
+					}
+				}
+			}
+		});
 		useUnderlayingSeqs.setName(CreateTreeBranchController.USEUNDERLYINGSEQS_KEY);
 		
 		
@@ -69,13 +93,7 @@ public class ChooseViewDataPage extends WizardPage implements ItemListener{
 					
 					ViewElement view = (ViewElement) selectDomViewList.getSelectedItem();
 					DomainViewI domView = ViewHandler.getInstance().getView(view.getViewInfo());
-					if ( !domView.isSequenceLoaded() ) {
-						useUnderlayingSeqs.setSelected(false);
-						useUnderlayingSeqs.setEnabled(false);
-					}
-					else {
-						useUnderlayingSeqs.setEnabled(true);
-					}
+					useUnderlayingSeqs.setEnabled(true);
 				}
 				else {
 					useUnderlayingSeqs.setSelected(false);
@@ -93,7 +111,7 @@ public class ChooseViewDataPage extends WizardPage implements ItemListener{
 				useUnderlayingSeqs.setSelected(false);
 				useUnderlayingSeqs.setEnabled(false);
 				if (selectSeqViewList.getSelectedItem() != null && selectDomViewList.getSelectedItem() != null)
-					selectDomViewList.setSelectedItem(null);	
+					selectDomViewList.setSelectedItem(null);
 			}
 		});
 		
@@ -134,6 +152,11 @@ public class ChooseViewDataPage extends WizardPage implements ItemListener{
     protected String validateContents (Component component, Object o) {
     	if (selectSeqViewList.getSelectedItem() == null && selectDomViewList.getSelectedItem() == null)
 			return "Please select a sequence or domain view";
+		if ((useUnderlayingSeqs.isSelected()  || (selectSeqViewList.getSelectedItem() != null && selectDomViewList.getSelectedItem() == null)) && !CheckConnectivity.checkInternetConnectivity()) {
+			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please check your intenet connection (connection failed).");
+			if(selectDomViewList.getSelectedItem() == null)
+				return "Internet required for tree based on sequences";
+		}
         return null;
     }
     

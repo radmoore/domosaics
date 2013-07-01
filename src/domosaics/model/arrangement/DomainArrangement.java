@@ -98,6 +98,7 @@ public class DomainArrangement implements Cloneable, DoMosaicsData{
 	
 	
 	public DomainVector getHiddenDoms() {
+		Collections.sort(hiddenDoms);
 		return hiddenDoms;
 	}
 	
@@ -267,9 +268,31 @@ public class DomainArrangement implements Cloneable, DoMosaicsData{
 	 * 		the index of the specified domain within the arrangement
 	 */
 	public int getIndexOf(Domain dom) {
+		Collections.sort(doms);
 		return doms.indexOf(dom);
 	}
 	
+	/**
+	 * Returns the index of the last ending hidden domains
+	 * */
+	public int getLastHiddenPos() {
+		int ending=0;
+		for (int i = 0; i < hiddenDoms.size(); i++)
+			if (hiddenDoms.get(i).getTo()>ending)
+				ending=hiddenDoms.get(i).getTo();
+		return ending;
+	}
+
+	/**
+	 * Returns the index of the last ending hidden domains
+	 * */
+	public int getLastDomPos() {
+		int ending=0;
+		for (int i = 0; i < doms.size(); i++)
+			if (doms.get(i).getTo()>ending)
+				ending=doms.get(i).getTo();
+		return ending;
+	}
 	/**
 	 * Returns the domain vector of the arrangement. If the arrangement was 
 	 * aligned, the domain vector of the aligned domain composition is taken.

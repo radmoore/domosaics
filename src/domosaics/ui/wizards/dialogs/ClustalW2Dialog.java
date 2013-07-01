@@ -64,10 +64,6 @@ class ClustalW2Progress extends DeferredWizardResult implements WizardResultProd
 	public void start(Map m, ResultProgressHandle p) {
 		assert !EventQueue.isDispatchThread();
 		try {
-			if (!CheckConnectivity.checkInternetConnectivity()) {
-				MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please check your intenet connection (connection failed).");
-				return;
-			}
 		
 			String alignmentStr = (String) m.get(ClustalW2Page.ALIGNMENT_KEY);
 			
