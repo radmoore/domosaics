@@ -156,36 +156,6 @@ public class SequenceMatchErrorFrame extends JDialog implements ActionListener{
 		setAlwaysOnTop(false);
 		
 		SequenceI newSeq = new FastaReader().getDataFromString(fastaSeq)[0];
-    	
-		DomainVector doms = da.getDomains();
-    	Collections.sort(doms);
-    	Domain dom;
-    	DomainComponent dc;
-    	boolean remove = false;
-		for (int i = doms.size()-1; i >= 0; i--) {
-
-			dom = doms.get(i);
-			
-				// figure out whether it extends beyond 
-				// sequence length
-			if (dom.getTo() > fastaSeq.length()) {
-				
-				// if so, comunicate (and dont ask again)
-				if (!remove) {
-					if (MessageUtil.showDialog(DoMosaicsUI.getInstance(),"The sequence is too short. Remove effected domains?") )
-						remove = true;
-					else
-						return;
-				}
-    			dc = da.getD.getDomain(dom);
-    			dc.setVisible(false);
-    			doms.remove(dom);
-    		}
-    		
-
-		setAlwaysOnTop(true);
-		if (newSeq.getName() == null)
-			newSeq.setName(da.getName());
 		
 		da.setSequence(newSeq);
 		
