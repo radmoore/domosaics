@@ -283,18 +283,19 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		int noMatchCount = 0;
 		for (int i = 0; i < daSet.length; i++) 
 			if (label2Seq.get(daSet[i].getName().toUpperCase()) != null) {
-			//	sequencesLoaded = true;
+				if(!isSequenceLoaded())
+					setSequencesLoaded(true);
 				if(checkBeforeAssociation)
-					if(daSet[i].getDomain(daSet[i].countDoms()-1).getTo() < label2Seq.get(daSet[i].getName().toUpperCase()).getLen(false))
-						if(!daSet[i].hasSeq() && !label2Seq.get(daSet[i].getName().toUpperCase()).equals(daSet[i].getSequence()))
+					if(!daSet[i].hasSeq() || daSet[i].getSequence().getSeq(false).equals("") || ((daSet[i].countDoms()==0 || (daSet[i].countDoms()>0 && daSet[i].getLastDomPos() < label2Seq.get(daSet[i].getName().toUpperCase()).getSeq(false).length())) && (daSet[i].getHiddenDoms().size()==0 || (daSet[i].getHiddenDoms().size()>0 && daSet[i].getLastHiddenPos() < label2Seq.get(daSet[i].getName().toUpperCase()).getSeq(false).length()))))
+						if(!daSet[i].hasSeq() || (daSet[i].hasSeq() && !label2Seq.get(daSet[i].getName().toUpperCase()).equals(daSet[i].getSequence().getSeq(false))))
 							if(!daSet[i].hasSeqBeenModifiedManually())
 								daSet[i].setSequence(label2Seq.get(daSet[i].getName().toUpperCase()));
 							else
-								MessageUtil.showInformation(DoMosaicsUI.getInstance(),daSet[i].getName().toUpperCase()+" sequence has been manually modified.\nDoMosaics prevents automatical load of the sequence for consistency reasons.\nThis must be done manually with caution regarding the existing domain annotation. ");
+								MessageUtil.showInformation(DoMosaicsUI.getInstance(),daSet[i].getName().toUpperCase()+" sequence has been manually modified.\nDoMosaics prevents automatically load of sequences in such case \nfor consistency reasons. This must be done manually via protein \ncontext menu, with high caution regarding the domain annotation. ");
 						else
-							MessageUtil.showInformation(DoMosaicsUI.getInstance(),daSet[i].getName().toUpperCase()+" already have a different recorded sequence.\nDoMosaics prevents automatical load of the sequence for consistency reasons.\nThis must be done manually with caution regarding the existing domain annotation. ");
+							MessageUtil.showInformation(DoMosaicsUI.getInstance(),daSet[i].getName().toUpperCase()+" have a different sequence recorded in memory.\nDoMosaics prevents automatically load of sequences in such case \nfor consistency reasons. This must be done manually via protein \ncontext menu, with high caution regarding the domain annotation. ");
 					else
-						MessageUtil.showInformation(DoMosaicsUI.getInstance(),daSet[i].getName().toUpperCase()+" has domain annotation exceeding the sequence length.\nDoMosaics prevents automatical load of the sequence for consistency reasons.\nThis must be done manually with caution regarding the existing domain annotation. ");
+						MessageUtil.showInformation(DoMosaicsUI.getInstance(),daSet[i].getName().toUpperCase()+" has domain annotation exceeding the sequence length.\nDoMosaics prevents automatically load of sequences in such case \nfor consistency reasons. This must be done manually via protein \ncontext menu, with high caution regarding the domain annotation. ");
 				
 				else
 					daSet[i].setSequence(label2Seq.get(daSet[i].getName().toUpperCase()));
@@ -306,18 +307,14 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 				
 			}
 				
-		
-		/*if (!sequencesLoaded) {
-			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No match between sequence and protein ids");
-			return;
-		}*/
-		
-		if (noMatchSeqs.size() > 0 && noMatchDAs.size() > 0) 
-			new SequenceMatchErrorFrame(this, noMatchDAs, noMatchSeqs).showDialog(DoMosaicsUI.getInstance(), "SequenceMatcher");
-		
+		/**/
+		if (checkBeforeAssociation && noMatchSeqs .size()> 0 && noMatchDAs.size() > 0) {
+			if(MessageUtil.showDialog(DoMosaicsUI.getInstance(),"No match for some of the arrangement IDs. \nDo you want to manually map to sequence IDs?"))
+				new SequenceMatchErrorFrame(this, noMatchDAs, noMatchSeqs).showDialog(DoMosaicsUI.getInstance(), "SequenceMatcher");
+		}/**/
 
-		if (this.getSequences().length == 0)
-			return;
+		/*if (this.getSequences().length == 0)
+			return;*/
 		
 		// set the new icon within the workspace (associated icon)
 		viewInfo.setUsedIcon(viewInfo.getAssociatedIcon());
@@ -1087,7 +1084,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 			list.add(da);
 		}
 		this.daSet = list.toArray(new DomainArrangement[list.size()]);
-		if(cptSeq==list.size())
+		if(cptSeq>0)
 			setSequencesLoaded(true);
 		
 		viewRenderer = new DefaultDomainViewRenderer(this);

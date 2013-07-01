@@ -191,9 +191,10 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		if (clustalOutput != null) {
 			seqs = new ClustalW2ResultParser().parseResult(clustalOutput);
 			
-			if (view instanceof DomainViewI) {
+			/*
+			 * if (view instanceof DomainViewI) {
 				((DomainViewI)view).loadSequencesIntoDas(seqs, ((DomainViewI)view).getDaSet(), false);
-			}
+			}*/
 		}
 		
 		

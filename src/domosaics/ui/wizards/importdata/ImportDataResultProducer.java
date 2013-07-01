@@ -201,7 +201,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		if (seqAssocView != null) {
 			SequenceView seqView = ViewHandler.getInstance().getView(seqAssocView.getViewInfo());
 			SequenceI[] seqs = seqView.getSequences();
-			domView.loadSequencesIntoDas(seqs, daSet, false);
+			domView.loadSequencesIntoDas(seqs, daSet, true);
 		}
 		
 		// create domain tree
@@ -264,7 +264,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		if (assocView != null) {
 			
 			DomainViewI domView = ViewHandler.getInstance().getView(assocView.getViewInfo());
-			domView.loadSequencesIntoDas(seqs, domView.getDaSet(), false);
+			domView.loadSequencesIntoDas(seqs, domView.getDaSet(), true);
 		}
 		return true;
 	}

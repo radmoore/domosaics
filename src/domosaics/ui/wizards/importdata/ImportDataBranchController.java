@@ -82,8 +82,7 @@ public class ImportDataBranchController extends WizardBranchController {
 		
 		if (data.containsKey(PROJECT_KEY)) 
 			project = (ProjectElement)data.get(PROJECT_KEY);
-		System.out.println(project+"*"+data.get(PROJECT_KEY));
-    	
+		
 		if ("domosaics.ui.wizards.importdata.ChooseDataTypePage".equals(step)) {
 			if(data.get(DATATYPE_KEY)!=null)
 				choosedWiz = WizardPage.createWizard(new WizardPage[]{ new SelectDataPage(project,(DataType)(data.get(DATATYPE_KEY)))}, new ImportDataResultProducer());
