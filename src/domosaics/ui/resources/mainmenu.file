@@ -6,7 +6,7 @@
 	<menu id="File">
 
 			<menuitem id="JMenuItem">
-				<parameter id="name" value="Projects/Views"/> 
+				<parameter id="name" value="New Projects/Views"/> 
 				<parameter id="actionClass" value="domosaics.ui.actions.ImportDataAction"/> 
 				<parameter id="tooltip" value="Create new projects and views: load data files such as fasta, newick, xdom"/> 
 			</menuItem>

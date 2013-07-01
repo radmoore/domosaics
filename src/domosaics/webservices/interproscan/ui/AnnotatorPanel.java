@@ -411,7 +411,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			}
 		});
 		
-		apply = new JButton ("Apply");
+		apply = new JButton ("Keep");
 		apply.setEnabled(false);
 		apply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -419,7 +419,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			}
 		});
 
-		cancel = new JButton ("Cancel");
+		cancel = new JButton ("Dismiss");
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				cancel();
