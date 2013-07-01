@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -15,11 +16,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
+import domosaics.model.arrangement.DomainVector;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.sequence.io.FastaReader;
+import domosaics.ui.DoMosaicsUI;
+import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domainview.DomainViewI;
-
 import net.miginfocom.swing.MigLayout;
 
 
@@ -150,7 +154,35 @@ public class SequenceMatchErrorFrame extends JDialog implements ActionListener{
 		if (fastaSeq.isEmpty()) 
 			return;
 		setAlwaysOnTop(false);
+		
 		SequenceI newSeq = new FastaReader().getDataFromString(fastaSeq)[0];
+    	
+		DomainVector doms = da.getDomains();
+    	Collections.sort(doms);
+    	Domain dom;
+    	DomainComponent dc;
+    	boolean remove = false;
+		for (int i = doms.size()-1; i >= 0; i--) {
+
+			dom = doms.get(i);
+			
+				// figure out whether it extends beyond 
+				// sequence length
+			if (dom.getTo() > fastaSeq.length()) {
+				
+				// if so, comunicate (and dont ask again)
+				if (!remove) {
+					if (MessageUtil.showDialog(DoMosaicsUI.getInstance(),"The sequence is too short. Remove effected domains?") )
+						remove = true;
+					else
+						return;
+				}
+    			dc = da.getD.getDomain(dom);
+    			dc.setVisible(false);
+    			doms.remove(dom);
+    		}
+    		
+
 		setAlwaysOnTop(true);
 		if (newSeq.getName() == null)
 			newSeq.setName(da.getName());
