@@ -23,6 +23,7 @@ import pal.misc.SimpleIdGroup;
  * Those PAL objects are used during the tree creation process.
  * 
  * @author Andreas Held
+ * @author <a href="http://radm.info>Andrew Moore</a>
  *
  */
 public class PALAdapter {
@@ -46,11 +47,11 @@ public class PALAdapter {
 			identifers[i] = new Identifier(daSet[i].getName());
 		IdGroup idGroup = new SimpleIdGroup(identifers);
 		
-		DistanceMatrix dM = new DistanceMatrix();
+		DistanceMatrix dM = null;
 		try {
 			// calculate the matrix using an DoMosaics similarity measure
 			double[][] matrix = measure.getAlgo().calc(daSet, false);
-			new DistanceMatrix(matrix, idGroup);
+			dM = new DistanceMatrix(matrix, idGroup);
 		} catch(OutOfMemoryError e) {
 			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"DoMosaics encountered an OutOfMemoryError.\nPlease proceed to tree computation with a more dedicated software.");
 		}
