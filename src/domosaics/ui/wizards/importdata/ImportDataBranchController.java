@@ -9,6 +9,8 @@ import org.netbeans.spi.wizard.WizardPage;
 import domosaics.model.DataType;
 import domosaics.model.workspace.ProjectElement;
 
+import domosaics.ui.wizards.importdata.SelectDataPage;
+
 
 
 
