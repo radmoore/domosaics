@@ -692,7 +692,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				pressAvail = checkBins(new File(hmmPressTF.getText()));
 			
 			// Check if want to/can press
-			if (MessageUtil.showDialog(this.getParentFrame(), "The HMMERDBFILE is not pressed. Do you want DoMosaicS to press it now?")) {					
+			if (MessageUtil.showDialog(this.getParentFrame(), "The HMMERDBFILE is not pressed. Do you want DoMosaics to press it now?")) {					
 				if (pressAvail) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 					run.setEnabled(false);
