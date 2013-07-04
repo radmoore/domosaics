@@ -3,6 +3,7 @@ package domosaics.localservices.hmmer3;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -201,11 +202,13 @@ public class Hmmer3Service implements ProcessListener{
 			logFileWriter.write(out+"\n");
 		    System.out.println(out);
 		}
+		// can occur if cancel is pressed while output is being written
+		catch ( IOException ioe ) {
+			Configuration.getLogger().debug(ioe.toString());
+		}
 		catch(Exception e) {
 			if (Configuration.getReportExceptionsMode(true))
-				Configuration.getInstance().getExceptionComunicator().reportBug(e);
-			else			
-				Configuration.getLogger().debug(e.toString());
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);	
 		}
 		
 		if (error)
@@ -236,7 +239,7 @@ public class Hmmer3Service implements ProcessListener{
 			hmmerProgram.parseResults();
 		}
 		else {
-			MessageUtil.showWarning(hmmPanel.getParentFrame(), hmmerProgram.getName()+" was canceled or died unexpectedly.");
+			MessageUtil.showInformation(hmmPanel.getParentFrame(), hmmerProgram.getName()+" was closed before finishing.");
 			hmmPanel.resetPanel();
 			System.out.println(hmmerProgram.getName() + " was closed or died unexpectedly.");
 		}
