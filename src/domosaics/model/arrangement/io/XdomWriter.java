@@ -176,13 +176,7 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
     			
     			out.flush(); 
     		}
-        } 
-        catch (IOException e) {
-			if (Configuration.getReportExceptionsMode(true))
-				Configuration.getInstance().getExceptionComunicator().reportBug(e);
-			else			
-				Configuration.getLogger().debug(e.toString());
-        }
+    		}
         catch (Exception e) {
 			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);

@@ -3,6 +3,8 @@ package domosaics.ui.views.domainview.components;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -37,6 +39,7 @@ public class SearchProteinTool extends JDialog implements ActionListener {
 	
 	public SearchProteinTool(DomainViewI view) {
 		this.view = view;
+		
 		lastSearchMemory="";
 		JPanel componentHolder = new JPanel();
 		setLayout(new MigLayout("", "[left]"));

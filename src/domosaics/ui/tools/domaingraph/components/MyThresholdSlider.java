@@ -78,8 +78,8 @@ public class MyThresholdSlider extends JComponent{
 		slider.setPaintLabels(true); 
 		slider.setBackground(Color.WHITE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		slider.setPreferredSize(new Dimension((int) screenSize.getWidth(),30));
-		slider.setMaximumSize(new Dimension(640,30));
+		slider.setPreferredSize(new Dimension((int) screenSize.getWidth(),40));
+		slider.setMaximumSize(new Dimension(640,40));
 
         valueLabel = new JFastLabel("  1");
         valueLabel.setPreferredSize(new Dimension(80, 24));

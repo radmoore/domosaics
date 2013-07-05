@@ -240,7 +240,6 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 	 * @return
 	 */
 	private DomainArrangement parseDomain(String domainStr, DomainArrangement prot) throws NumberFormatException, WrongFormatException {
-		
 		DomainFamily domFamily = null;
 		Domain dom = null;
 		int actToken = 0;

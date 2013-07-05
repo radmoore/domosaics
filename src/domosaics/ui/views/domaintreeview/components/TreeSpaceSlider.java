@@ -56,6 +56,7 @@ public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionLi
 	
 	public TreeSpaceSlider(TreeViewI view) {
 		this.view = view;
+		
 		if(view instanceof DomainTreeViewI)
 			oldSpace = (int) Math.round(100 / ( (DomainTreeViewI) view).getDomainTreeLayoutManager().getTreeSpace());
 		else

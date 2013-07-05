@@ -11,6 +11,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -527,7 +528,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 					}
 			}
 		}
-		if ( !FastaReader.isValidFasta(new File(fastaTF.getText())) ) {
+		if ( !FastaReader.isValidFasta(new File(fastaTF.getText()), new ArrayList<String>()) ) {
 			MessageUtil.showWarning(this.getParentFrame(), "Malformated fasta file or unknown sequence format");
 			fastaTF.setBackground(highlightColor);
 			return;

@@ -12,6 +12,7 @@ import uk.ac.ebi.webservices.axis1.stubs.iprscan.InputParameters;
 import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_PortType;
 import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_Service;
 import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_ServiceLocator;
+import uk.ac.ebi.webservices.axis1.stubs.iprscan.WsResultType;
 
 
 /**
@@ -140,11 +141,18 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	        	if (Configuration.isDebug())
 	        		System.out.println("*** job not found [jobid: "+ jobId +"]");
 	        	return null;
-	        }  
-	        
+	        }
+	        System.out.println(status);
+	        WsResultType[] test = srvProxy.getResultTypes(jobId);
 	        // AXIS exception can be thrown here
-	        byte[] resultBytes = srvProxy.getResult(jobId, "out", null);
-	        return (resultBytes == null) ? null : new String(resultBytes);
+	        byte[] resultBytes;
+	        for(int i=0; i<test.length ;i++) {
+	        	System.out.println(test[i].getLabel());
+	        	if(test[i].getIdentifier().equals("out")) {
+	        		resultBytes = srvProxy.getResult(jobId, "out", null);
+	    	        return (resultBytes == null) ? null : new String(resultBytes);
+	        	}
+	        }
 	        
 	       
 		}

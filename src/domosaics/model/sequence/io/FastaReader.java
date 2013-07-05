@@ -15,6 +15,7 @@ import domosaics.model.io.AbstractDataReader;
 import domosaics.model.sequence.Sequence;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.sequence.util.SeqUtil;
+import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 
 
@@ -30,12 +31,12 @@ import domosaics.ui.util.MessageUtil;
  */
 public class FastaReader extends AbstractDataReader<SequenceI>{
 	
-	public static boolean isValidFasta(File fastaFile) {
+	public static boolean isValidFasta(File fastaFile, ArrayList<String> seqLabels) {
 		
         BufferedReader inputStream = null;
-        Pattern p = Pattern.compile("^$");
-        Matcher emptyLine; 
-        	
+        
+        int cptProt=0, cptTenPower=4;
+        
 		// string buffer holding the actual sequence which can be over more than one line
 		StringBuffer seqBuf = new StringBuffer();
 		// actual line
@@ -50,11 +51,12 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
             inputStream = new BufferedReader(new FileReader(fastaFile));
             
             while ((line = inputStream.readLine()) != null) {
-            	 emptyLine = p.matcher(line);
 
             	// ignore comments (and empty lines)
-            	if ( line.startsWith(";") || emptyLine.matches())
-            		continue;
+     			if (line.isEmpty())				// skip empty lines
+    				continue;
+    			if (line.startsWith(";"))		// skip comment lines
+    				continue;
             	
             	if (line.startsWith(">")) {		// parse header line
     				if (firstRead) {
@@ -70,11 +72,21 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
     					firstRead = true;
     				}
     				seqBuf = new StringBuffer();
+    				String label = getNameFromHeader(line);
     				if(getNameFromHeader(line)==null) {
     					inputStream.close();
     					return false;
     				}
-    			} 
+    				seqLabels.add(label);
+    				cptProt++;
+					if(cptProt % Math.pow(10,cptTenPower) == 0)
+					{
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please wait: File containing more than "+(int)Math.pow(10,cptTenPower)+" proteins");
+						cptTenPower++;
+					}
+					if(cptProt % (5*Math.pow(10,cptTenPower)) == 0 && cptTenPower >5)
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please wait: File containing more than "+(int)(cptProt)+" proteins");
+				} 
             	else {
     				line = line.replaceAll("\\s+", "");
     				seqBuf.append(line.toUpperCase());
@@ -100,7 +112,10 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 	
 	
 	public SequenceI[] getData (Reader reader) throws IOException {
-		
+		BufferedReader in = null;
+
+        int cptProt=0, cptTenPower=4;
+        
 		// list of all parsed sequences
 		List<SequenceI> seqs = new ArrayList<SequenceI>();
 		
@@ -109,9 +124,6 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 		
 		// string buffer holding the actual sequence which can be over more than one line
 		StringBuffer seqBuf = new StringBuffer();
-		
-		// reader stream
-		BufferedReader in = new BufferedReader(reader); 
 		
 		// actual line
 		String line;
@@ -122,51 +134,70 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 		// the initial sequence type before guessing the format
 		int type = SeqUtil.UNKNOWN;
 		
-		// do the parsing now
-		while((line = in.readLine()) != null) {
-			if (line.isEmpty())				// skip empty lines
-				continue;
-			if (line.startsWith(";"))		// skip comment lines
-				continue;
-			if (line.startsWith(">")) {		// parse header line
-				if (firstRead) {
-					
-					// guess the format
-					type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
-					if (type == SeqUtil.UNKNOWN) {
-//						System.out.println(seqBuf.toString());
+		try {
+			in = new BufferedReader(reader);
+
+			// do the parsing now
+			while((line = in.readLine()) != null) {
+				if (line.isEmpty())				// skip empty lines
+					continue;
+				if (line.startsWith(";"))		// skip comment lines
+					continue;
+				if (line.startsWith(">")) {		// parse header line
+					if (firstRead) {
+						
+						// guess the format
+						type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
+						if (type == SeqUtil.UNKNOWN) {
+							//						System.out.println(seqBuf.toString());
+							return null;
+						}
+						seq.setSeq(convertToAminoAcidSeq(seqBuf.toString(), type));
+						seqs.add(seq);
+					}else {
+						firstRead = true;
+					}
+					cptProt++;
+					if(cptProt % Math.pow(10,cptTenPower) == 0)
+					{
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please wait: File containing more than "+(int)Math.pow(10,cptTenPower)+" proteins");
+						cptTenPower++;
+					}
+					if(cptProt % (5*Math.pow(10,cptTenPower)) == 0 && cptTenPower>5)
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please wait: File containing more than "+(int)(cptProt)+" proteins");
+					seq = new Sequence();
+					seqBuf = new StringBuffer();
+					seq.setName(getNameFromHeader(line));
+					if(seq.getName()==null) {
 						return null;
 					}
-					seq.setSeq(convertToAminoAcidSeq(seqBuf.toString(), type));
-					seqs.add(seq);
-				}else {
-					firstRead = true;
+				} else {							// add seq line
+					// TODO make sure not to read line numbers if present
+					//				String[] token = line.split("\\s+");
+					//				seqBuf.append(token[token.length-1].toUpperCase());
+					line = line.replaceAll("\\s+", "");
+					seqBuf.append(line.toUpperCase());
 				}
-				seq = new Sequence();
-				seqBuf = new StringBuffer();
-				seq.setName(getNameFromHeader(line));
-				if(seq.getName()==null) {
-					return null;
-				}
-					
-			} else {							// add seq line
-				// TODO make sure not to read line numbers if present
-//				String[] token = line.split("\\s+");
-//				seqBuf.append(token[token.length-1].toUpperCase());
-				line = line.replaceAll("\\s+", "");
-				seqBuf.append(line.toUpperCase());
 			}
-		}
-		
-		// add also the last protein
-		type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
-		if (type == SeqUtil.UNKNOWN) {
+
+			// add also the last protein
+			type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
+			if (type == SeqUtil.UNKNOWN) {
+				return null;
+			}
+			seq.setSeq(convertToAminoAcidSeq(seqBuf.toString(), type));
+			seqs.add(seq);
+
+		} 
+		catch(Exception e) {
+			if (Configuration.getReportExceptionsMode(true))
+				Configuration.getInstance().getExceptionComunicator().reportBug(e);
+			else			
+				Configuration.getLogger().debug(e.toString());
 			return null;
 		}
-		seq.setSeq(convertToAminoAcidSeq(seqBuf.toString(), type));
-		seqs.add(seq);
-		
 		return seqs.toArray(new Sequence[seqs.size()]);
+
 	}
 	
 	private String convertToAminoAcidSeq(String seq, int type) {

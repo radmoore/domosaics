@@ -21,7 +21,6 @@ public class SortAlphabeticallyAction extends AbstractMenuAction{
 	
 	public void actionPerformed(ActionEvent e) {		
 		if (!getState()) {
-			System.out.println("ici "+!getState());
 			setState(!getState());
 		} else {
 			DomainLegendView view = ViewHandler.getInstance().getTool(ViewType.DOMAINLEGEND);

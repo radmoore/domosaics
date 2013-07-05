@@ -102,8 +102,6 @@ public class RADSFrame extends JFrame implements WindowListener, ToolFrameI {
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
