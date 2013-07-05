@@ -60,7 +60,7 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 	protected JTextField viewName;
 
 	/** the check for correct fasta format */
-	protected SequenceI[] seqs = null;
+	protected ArrayList<String> seqs = null;
 
 	/**  list displaying all domain views of all projects */
 	protected JComboBox selectViewList, selectTreeViewList, selectSeqViewList;
@@ -240,15 +240,10 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 		if(datatype==DataType.SEQUENCE) {
 			if(file != null) {
 				if (file.canRead()) {
-					if ( FastaReader.isValidFasta(file) ) {
-						seqs = new FastaReader().getDataFromFile(file);
-						if(seqs != null) {
-							path.setText(file.getAbsolutePath());
-							viewName.setText(file.getName().split("\\.")[0]);
-						}
-						else {
-							MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No sequence in file or invalid fasta format");
-						}
+					FastaReader.isValidFasta(file, seqs);
+					if(seqs.size()>0) {
+						path.setText(file.getAbsolutePath());
+						viewName.setText(file.getName().split("\\.")[0]);
 					}
 					else {
 						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Failed to read file - unknown file format");
@@ -336,14 +331,12 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 			}
 		} else {
 			if(datatype==DataType.SEQUENCE) {
-				if (seqs == null)
+				if(!viewName.getText().equals(""))
 					return "Please select a correctly formatted fasta file";
 				if(path.getText().isEmpty())
 					return "Please select a file";
 				if(selectViewList.getSelectedItem()!=null) {
-					ArrayList<String> seqLabels  = new ArrayList<String>();
-					for(int i=0; i<seqs.length; i++)
-						seqLabels.add(seqs[i].getName());
+					ArrayList<String> seqLabels  = seqs;
 					ArrayList<String> arrLabels = ((DomainView)ViewHandler.getInstance().getView(((ViewElement)selectViewList.getSelectedItem()).getViewInfo())).getLabels();
 					int mem = seqLabels.size();
 					seqLabels.retainAll(arrLabels);

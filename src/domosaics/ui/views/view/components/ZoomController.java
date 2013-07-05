@@ -12,6 +12,7 @@ import java.awt.geom.Point2D;
 import javax.swing.SwingUtilities;
 
 import domosaics.model.configuration.Configuration;
+import domosaics.ui.views.domaintreeview.DomainTreeView;
 import domosaics.ui.views.view.AbstractView;
 import domosaics.ui.views.view.View;
 
@@ -89,6 +90,8 @@ public class ZoomController extends MouseAdapter {
 			 */
 			view.setNewViewWidth(0);
 			view.setNewViewHeight(0);
+			if(view instanceof DomainTreeView)
+				((DomainTreeView)view).getTreeLayoutManager().setShowLegend(false);
 			
 			zoom = new AffineTransform();
 		} else {

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -54,9 +55,9 @@ public class LoadFastaPage extends WizardPage {
 
     /* alphanum chars, at least one (TODO: unicode?) */
 	private String alphaNumPattern = "^[a-zA-Z0-9_-]*$";
-	
+
 	/** the check for correct fasta format */
-	protected SequenceI[] seqs = null;
+	protected boolean seqs = false;
 	
 	/**
 	 * Constructor for a new SelectViewNamePage
@@ -73,27 +74,16 @@ public class LoadFastaPage extends WizardPage {
 		browse = new JButton("Browse");
 		browse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				seqs = false;
 				File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
-				System.out.println(0);
 				if(file != null) {
-					System.out.println(1);
 					if (file.canRead()) {
-						System.out.println(2);
-						if ( FastaReader.isValidFasta(file) ) {
-							System.out.println(3);
-							seqs = new FastaReader().getDataFromFile(file);
-							if(seqs != null) {
-								System.out.println(4);
+						if ( FastaReader.isValidFasta(file,new ArrayList<String>()) ) {
+								seqs = true;
 								path.setText(file.getAbsolutePath());
 								name.setText(file.getName().split("\\.")[0]);
-							}
-							else {
-								System.out.println("1: Invalid file format");
-								MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No sequence in file or invalid fasta format");
-							}
 						}
 						else {
-							System.out.println("2: Invalid file format");
 							MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Failed to read file - unknown file format");
 						}
 					}

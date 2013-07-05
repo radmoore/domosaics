@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -47,7 +48,7 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 	protected JTextField viewName;
 	
 	/** the check for correct fasta format */
-	protected SequenceI[] seqs = null;
+	protected boolean seqs = false;
 
 	/**  list displaying all domain views of all projects */
 	protected JComboBox selectViewList;
@@ -116,15 +117,9 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 		File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 		if(file != null) {
 			if (file.canRead()) {
-				if ( FastaReader.isValidFasta(file) ) {
-					seqs = new FastaReader().getDataFromFile(file);
-					if(seqs != null) {
-						path.setText(file.getAbsolutePath());
-						viewName.setText(file.getName().split("\\.")[0]);
-					}
-					else {
-						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"No sequence in file or invalid fasta format");
-					}
+				if ( FastaReader.isValidFasta(file, new ArrayList<String>()) ) {
+					path.setText(file.getAbsolutePath());
+					viewName.setText(file.getName().split("\\.")[0]);
 				}
 				else {
 					MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Failed to read file - unknown file format");
@@ -151,7 +146,7 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
      * Checks if all necessary inputs are made.
      */
     protected String validateContents (Component component, Object o) {
-    	if (seqs == null)
+    	if (seqs)
     		return "Please select a correctly formatted fasta file";
     	if (path.getText().isEmpty())
 			return "Please select a file";
