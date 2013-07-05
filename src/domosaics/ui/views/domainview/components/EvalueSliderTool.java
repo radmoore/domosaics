@@ -9,6 +9,8 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,7 +77,6 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 		this.view = view;
 		JPanel componentHolder = new JPanel();
 		componentHolder.setLayout(new MigLayout());
-
 
 		// create components
 		groupRadio = new ButtonGroup();

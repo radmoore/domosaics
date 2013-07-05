@@ -1,6 +1,7 @@
 package domosaics.webservices.interproscan.ui;
 
 import java.awt.Frame;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -14,7 +15,7 @@ import javax.swing.JFrame;
  */
 public class AnnotatorFrame extends JFrame implements WindowListener {
 	private static final long serialVersionUID = 1L;
-	
+	private boolean onTop=true;
 	/**
 	 * The annotator panel which spawns threads is hold here, 
 	 * because if the frame disposes, the panel has to be notified as well, so
@@ -26,7 +27,8 @@ public class AnnotatorFrame extends JFrame implements WindowListener {
     public AnnotatorFrame() {
 		super("DoMosaics InterProScan");	
 		
-		addWindowListener(this);
+		addWindowListener(this);	
+		
 		annotatorPanel = new AnnotatorPanel(this);
 		instance = this;
 		
@@ -63,20 +65,21 @@ public class AnnotatorFrame extends JFrame implements WindowListener {
 		annotatorPanel.cancel();
 		instance=null;
 	}
-	
-	public void windowActivated(WindowEvent e) { }
+		
+	public void windowActivated(WindowEvent e) {}
 	
 	public void windowClosed(WindowEvent e) { 
 		instance=null;
 	}
 
-	public void windowDeactivated(WindowEvent e) { }
+	public void windowDeactivated(WindowEvent e) {}
 
-	public void windowDeiconified(WindowEvent e) { }
+	public void windowDeiconified(WindowEvent e) { 
+		setState(Frame.NORMAL);
+	}
 
 	public void windowIconified(WindowEvent e) { }
 	
 	public void windowOpened(WindowEvent e) { }
     
-
 }

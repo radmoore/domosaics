@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
@@ -105,6 +106,7 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 	 */
 	public SimilarityChooser(DomainViewI view) {
 		this.view = view;
+		
 		Container container = getContentPane();
 		
 		// create components

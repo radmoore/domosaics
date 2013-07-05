@@ -35,7 +35,7 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 		
         BufferedReader inputStream = null;
         
-        int cptProt=0, cptTenPower=3;
+        int cptProt=0, cptTenPower=4;
         
 		// string buffer holding the actual sequence which can be over more than one line
 		StringBuffer seqBuf = new StringBuffer();
@@ -81,10 +81,12 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
     				cptProt++;
 					if(cptProt % Math.pow(10,cptTenPower) == 0)
 					{
-						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please wait: File containing more than "+Math.pow(10,cptTenPower)+" proteins");
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please wait: File containing more than "+(int)Math.pow(10,cptTenPower)+" proteins");
 						cptTenPower++;
 					}
-    			} 
+					if(cptProt % (5*Math.pow(10,cptTenPower)) == 0 && cptTenPower >5)
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please wait: File containing more than "+(int)(cptProt)+" proteins");
+				} 
             	else {
     				line = line.replaceAll("\\s+", "");
     				seqBuf.append(line.toUpperCase());
@@ -112,7 +114,7 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 	public SequenceI[] getData (Reader reader) throws IOException {
 		BufferedReader in = null;
 
-        int cptProt=0, cptTenPower=3;
+        int cptProt=0, cptTenPower=4;
         
 		// list of all parsed sequences
 		List<SequenceI> seqs = new ArrayList<SequenceI>();
@@ -143,8 +145,7 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 					continue;
 				if (line.startsWith(">")) {		// parse header line
 					if (firstRead) {
-						System.out.println(getNameFromHeader(line));
-
+						
 						// guess the format
 						type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
 						if (type == SeqUtil.UNKNOWN) {
@@ -159,9 +160,11 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 					cptProt++;
 					if(cptProt % Math.pow(10,cptTenPower) == 0)
 					{
-						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please wait: File containing more than "+Math.pow(10,cptTenPower)+" proteins");
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please wait: File containing more than "+(int)Math.pow(10,cptTenPower)+" proteins");
 						cptTenPower++;
 					}
+					if(cptProt % (5*Math.pow(10,cptTenPower)) == 0 && cptTenPower>5)
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please wait: File containing more than "+(int)(cptProt)+" proteins");
 					seq = new Sequence();
 					seqBuf = new StringBuffer();
 					seq.setName(getNameFromHeader(line));

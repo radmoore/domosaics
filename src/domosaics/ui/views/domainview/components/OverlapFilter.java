@@ -3,6 +3,8 @@ package domosaics.ui.views.domainview.components;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -36,6 +38,7 @@ import domosaics.ui.views.domainview.DomainViewI;
 	public OverlapFilter(DomainViewI view)
 	{
 	 this.view = view;
+	 
 	 JPanel componentHolder = new JPanel();
 	 componentHolder.setLayout(new MigLayout());
 		

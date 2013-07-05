@@ -2,6 +2,8 @@ package domosaics.ui.tools.RADSTool;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JPanel;
 
@@ -43,6 +45,7 @@ public class RADSScanToolFrame extends ToolFrame{
 	 */
 	public RADSScanToolFrame() {
 		super();
+
 		componentHolder = new JPanel(new BorderLayout());
 		componentHolder.setSize(533, 775);
 	}

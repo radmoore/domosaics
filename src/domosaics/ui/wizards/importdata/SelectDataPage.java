@@ -240,6 +240,7 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 		if(datatype==DataType.SEQUENCE) {
 			if(file != null) {
 				if (file.canRead()) {
+					seqs=new ArrayList<String>();
 					FastaReader.isValidFasta(file, seqs);
 					if(seqs.size()>0) {
 						path.setText(file.getAbsolutePath());
@@ -331,7 +332,7 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 			}
 		} else {
 			if(datatype==DataType.SEQUENCE) {
-				if(!viewName.getText().equals(""))
+				if(viewName.getText().isEmpty())
 					return "Please select a correctly formatted fasta file";
 				if(path.getText().isEmpty())
 					return "Please select a file";

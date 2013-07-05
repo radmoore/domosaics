@@ -39,7 +39,7 @@ public class ConfigurationFrame extends JFrame {
 		
 		configPanel = new ConfigurationPanel(this);
 		getContentPane().add(configPanel);
-		
+				
 		// set up the main window
 		pack();
 		//setSize(500, 650);
