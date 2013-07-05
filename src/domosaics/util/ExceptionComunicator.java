@@ -121,6 +121,7 @@ public class ExceptionComunicator{
 				for (Bug b : reportedBugs) {
 					ReportBug report = new ReportBug(b);
 					try {
+//						System.out.println("Sending bug report: "+b);
 						bugCon.executeMethod(report);
 						sent ++;
 					} 
@@ -163,10 +164,10 @@ public class ExceptionComunicator{
 //			System.out.println("Excuted login");
 		}
 		catch (BugzillaConnectionException ce) {
-			System.out.println("Connection exception FAILED!");
+//			System.out.println("Connection exception FAILED!");
 		}
 		catch (Exception e) {
-//			System.out.println("FAILED!");
+//			System.out.println("FAILED - could not send!");
 			Configuration.getLogger().debug(e.toString());
 			e.printStackTrace();
 		}

@@ -1,11 +1,10 @@
 package domosaics.localservices.codd;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,7 +17,6 @@ import domosaics.algos.overlaps.OverlapResolver;
 import domosaics.model.DoMosaicsData;
 import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
-import domosaics.model.arrangement.io.GatheringThresholdsReader;
 import domosaics.model.configuration.Configuration;
 import domosaics.ui.util.MessageUtil;
 
@@ -68,8 +66,10 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
   BufferedReader in;
   try
   {
-   URL path = this.getClass().getResource(file);
-   in = new BufferedReader(new FileReader(path.getFile()));
+   InputStream is = this.getClass().getResourceAsStream(file);
+//   URL path = this.getClass().getResource(file);
+//   in = new BufferedReader(new FileReader(path.getFile()));
+   in = new BufferedReader(new InputStreamReader(is));
    String line;
    while((line = in.readLine()) != null)
    {
@@ -128,7 +128,7 @@ public class ConditionallyDependentDomainPairMap implements DoMosaicsData
  {
   if (instance == null || currentVersion!=version)
   {
-   instance = new ConditionallyDependentDomainPairMap("resources/CDP_Pfam-"+version, 0.001, curFrame, version);
+   instance = new ConditionallyDependentDomainPairMap("/domosaics/localservices/codd/resources/CDP_Pfam-"+version, 0.001, curFrame, version);
   }
   return instance;
  }

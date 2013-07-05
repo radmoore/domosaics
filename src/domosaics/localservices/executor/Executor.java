@@ -47,6 +47,7 @@ public class Executor extends SwingWorker<Integer, Void> {
     		Configuration.getInstance().setServiceRunning(true);
     		result = p.waitFor();
 		} 
+		catch (InterruptedException ie) {}
 		catch(Exception e) {
 			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
@@ -60,11 +61,11 @@ public class Executor extends SwingWorker<Integer, Void> {
 	// called when the worker is complete
 	protected void done() {
 		Configuration.getInstance().setServiceRunning(false);
-		if (isCancelled()) {
-     		listener.setResult(-1);
-     		return;
-     	}	
 		try {
+			if (isCancelled()) {
+	     		listener.setResult(-1);
+	     		return;
+	     	}	
 			listener.setResult(result);
 		} 
 		catch (Exception e) {
@@ -87,6 +88,7 @@ public class Executor extends SwingWorker<Integer, Void> {
 			p.destroy();
 			this.cancel(true);
 		}
+		
 		catch (Exception  e){ 
 			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);

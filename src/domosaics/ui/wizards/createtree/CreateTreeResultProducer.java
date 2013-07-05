@@ -119,11 +119,13 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 		// create PAL distance matrix with DoMosaics and adapt it to the PAL library
 		p.setProgress ("Calculate distances", 1, 3);
 		DistanceMatrix dm = PALAdapter.createMatrix(daSet, measure);
-
+		if ( dm == null )
+			return false;
+		
 		// create unrooted tree
 		p.setProgress ("Create tree (this may take some time)", 2, 3);
 		TreeI tree = TreeCreationUtil.createTree(dm, algo);
-
+		
 		// name the views which are going to be created
 		p.setProgress ("Creating resulting views", 3, 3);
 		String treeViewName = null;
@@ -160,8 +162,7 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 
 	
 	/**
-	 * TODO this is still questionable
-	 * 
+     * 
 	 * Helper method creating the tree based on sequences
 	 * 
 	 * @param viewElt
