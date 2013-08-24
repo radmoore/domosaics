@@ -39,6 +39,7 @@ import domosaics.ui.views.view.ViewInfo;
  * 
  * @author Andreas Held
  * 
+ * 
  */
 public class ViewHandler {
 	

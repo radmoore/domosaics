@@ -113,6 +113,7 @@ public class DefaultDomainLegendRenderer implements Renderer {
 		g2.draw(shape);
 		
 		g2.setFont(new Font("Arial", 1, 14));
+	
 		g2.drawString(lc.getLabel(), lc.getX()+DefaultDomainLegendLayout.PROPSIZEWIDTH+4, lc.getY()+lc.getHeight()-4);
 
 		g2.setColor(oldC);

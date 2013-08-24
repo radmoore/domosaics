@@ -147,14 +147,22 @@ public class DomainLegendView extends AbstractView implements PropertyChangeList
 		Map<DomainFamily, Integer> famFrequency = new HashMap<DomainFamily, Integer>();
 		doms = new ArrayList<DomainComponent>();
 		Iterator<DomainComponent> iter = domView.getArrangementComponentManager().getDomainComponentsIterator();
-		while (iter.hasNext()) {
+		while ( iter.hasNext() ) {
+			
 			DomainComponent dc = iter.next();
-			if (!dc.isVisible())
+//			DomainFamily domFamily = dc.getDomain().getFamily();
+			if ( domView.getDomainLayoutManager().isNameDisplayed() )
+				
+			
+			if ( !dc.isVisible() )
 				continue;
-			if (famFrequency.get(dc.getDomain().getFamily()) == null) {
-				famFrequency.put(dc.getDomain().getFamily(), 1);
-				doms.add(dc);
-			} else {
+			
+			if ( famFrequency.get( dc.getDomain().getFamily() ) == null ) {
+				
+				famFrequency.put( dc.getDomain().getFamily(), 1 );
+				doms.add(dc);	
+			} 
+			else {
 				int newVal = famFrequency.get(dc.getDomain().getFamily())+1;
 				famFrequency.put(dc.getDomain().getFamily(), newVal);
 			}

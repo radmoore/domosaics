@@ -41,7 +41,7 @@
 	<classpathentry kind="lib" path="lib/export/csv/javacsv.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/IPRScan_Axis1.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/ClustalW2_Axis1.jar"/>
-	<classpathentry kind="lib" path="lib/algo/pal-1.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/algo/pal-1.5.1.jar" sourcepath="C:/Users/Andrew.STARLIMS/Downloads/pal-1.5.1-src.zip"/>
 	<classpathentry kind="lib" path="lib/misc/commons-io-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/ebiwebservices/dependencies/wsdl4j.jar"/>
 	<classpathentry kind="lib" path="lib/misc/jdom-2.0.4.jar" sourcepath="lib/misc/jdom-2.0.4-sources.jar">

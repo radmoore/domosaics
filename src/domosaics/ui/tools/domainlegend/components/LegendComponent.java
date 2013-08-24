@@ -3,6 +3,8 @@ package domosaics.ui.tools.domainlegend.components;
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
 
+import domosaics.ui.ViewHandler;
+import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.DomainComponent;
 import domosaics.ui.views.view.components.AbstractViewComponent;
 
@@ -100,7 +102,14 @@ public class LegendComponent extends AbstractViewComponent {
      * 		label for the domain
      */
 	public String getLabel(){
+		
+		DomainViewI domView = ViewHandler.getInstance().getActiveView(); 
 		String label = dc.getDomain().getID();
+		
+		// note: if the name is empty, this will be the ID
+		if ( domView.getDomainLayoutManager().isNameDisplayed() )
+			label = dc.getDomain().getName();
+
 		if(label != null && !label.trim().isEmpty()) 
 			return label;
 		return null;

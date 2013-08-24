@@ -1,11 +1,8 @@
 package domosaics.model.configuration;
 
 import java.io.File;
-import java.net.URL;
 
 import org.apache.log4j.Logger;
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Annotated;
 
 import domosaics.localservices.hmmer3.ui.Hmmer3Frame;
 import domosaics.ui.DoMosaicsUI;
@@ -30,7 +27,7 @@ public class Configuration {
 	
 //	public static final String sep = System.getProperty("file.separator");
 	
-	public static final double CURRENT_PROGRAM_VERSION = 0.89;
+	public static final double CURRENT_PROGRAM_VERSION = 0.90;
 	
 	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
 	public static final String DEF_WORKSPACE = DEF_HOMEFOLDER_LOCATION + File.separator + "domosaics_workspace";
