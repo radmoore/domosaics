@@ -116,14 +116,25 @@ public class SearchProteinTool extends JDialog implements ActionListener {
 				} else {				
 					if(daSet[i].getName().contains(query)) {
 						stop=true;
+						view.getSequenceSelectionMouseController().clearSelection();
+						Collection<ArrangementComponent> select = new ArrayList<ArrangementComponent>();
+						select.add(view.getArrangementComponentManager().getComponent(view.getDaSet()[i]));
+						view.getArrangementSelectionManager().setSelection(select);
+						view.getParentPane().repaint();	
 					}
 				}
 			}
 			if(!stop) {
 				for(i=0; i!= daSet.length && !stop; i++)
 				{
-					if(daSet[i].getName().contains(query)) 
-						stop=true;	
+					if(daSet[i].getName().contains(query))  {
+						stop=true;
+						view.getSequenceSelectionMouseController().clearSelection();
+						Collection<ArrangementComponent> select = new ArrayList<ArrangementComponent>();
+						select.add(view.getArrangementComponentManager().getComponent(view.getDaSet()[i]));
+						view.getArrangementSelectionManager().setSelection(select);
+						view.getParentPane().repaint();	
+					}
 				}
 				if(!stop) {
 					setAlwaysOnTop(false);
