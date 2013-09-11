@@ -1,7 +1,9 @@
 package domosaics.ui;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.SwingUtilities;
@@ -38,6 +40,7 @@ import domosaics.ui.views.view.ViewInfo;
  * 
  * 
  * @author Andreas Held
+ * @author <a href='http://radm.info'>Andrew D. Moore</a>
  * 
  * 
  */
@@ -357,6 +360,16 @@ public class ViewHandler {
 			}
 		});
 	}
+	
+	
+	public void removeAllTools() {
+		List<ViewType> views = new ArrayList<ViewType>( tools.keySet() );
+		for ( ViewType view : views )
+			tools.remove(view);
+	}
+	
+	
+	
 	
 	/**
 	 * Return the tool object based on its ViewType.

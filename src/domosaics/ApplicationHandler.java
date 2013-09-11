@@ -39,6 +39,7 @@ import domosaics.model.workspace.io.LastUsedWorkspaceWriter;
 import domosaics.model.workspace.io.ProjectExporter;
 import domosaics.model.workspace.io.ProjectImporter;
 import domosaics.ui.DoMosaicsUI;
+import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.DocumentationHandler;
 import domosaics.ui.util.MessageUtil;
@@ -71,13 +72,23 @@ public class ApplicationHandler {
 	}
 	
 	public void end () {
+
+		// dispose the configuration frame  
+		// (to be sure that dialogs do not appear behind the tool frame, effectively freezing DoMosaics)
+		// try catch as there is no frame if the configuration window has never been opened
+		try {
+			if ( Configuration.getInstance().getFrame().isShowing() )
+				Configuration.getInstance().getFrame().dispose();
+			
+		} 
+		catch ( Exception e) { }
 		
 		if (Configuration.getInstance().isServiceRunning()) {
 			boolean close = MessageUtil.showDialog(DoMosaicsUI.getInstance(),"You are running a service and will loose the results if you close. Are you sure?");
 			if (!close)
 				return;
 		}
-		
+			
 		// only attempt to export if at least one project has a view
 		boolean export = false;
 		for (ProjectElement project : WorkspaceManager.getInstance().getProjects())

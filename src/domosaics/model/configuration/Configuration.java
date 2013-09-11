@@ -385,6 +385,8 @@ public class Configuration {
 	}
 	
 	
+	
+	
 //	private static void getJarPath() {
 ////		File file = new File(Configuration.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 ////		System.out.println("This is the path: "+file.getAbsolutePath());
