@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -35,7 +37,7 @@ public class SearchProteinTool extends JDialog implements ActionListener {
 	protected String lastSearchMemory;
 	
 	/** the view providing this feature */
-	protected View view;
+	protected DomainViewI view;
 	
 	public SearchProteinTool(DomainViewI view) {
 		this.view = view;

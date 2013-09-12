@@ -23,21 +23,21 @@ public class GatheringThresholdsReader {
 
 	protected static Map<String, DomainFamily> domFamilyMap;
 	protected static Map<String, Vector<String> > name2id/*, acc2id*/;
-
+	protected static String refVersion="v27.0";
 	
 	 /**
 	  * REturns the only allowed instance of the domFamilyMap.
 	  * 
 	  */
-	 public static Map<String, DomainFamily> getInstance() {
-		 if (domFamilyMap == null)
-			 read();
-		 
-		 return domFamilyMap;
+	public static Map<String, DomainFamily> getInstance() {
+		if (domFamilyMap == null)
+			read(refVersion);
+		return domFamilyMap;
 	}
 	
 	 
-	public static void read() {
+	public static void read(String version) {
+		refVersion=version;
 		domFamilyMap = new HashMap<String , DomainFamily >();
 		name2id = new HashMap<String , Vector<String> >();
 		domFamilyMap.put(GapDomain.getGapID(), new DomainFamily(GapDomain.getGapID(), GapDomain.getGapID(), DomainType.GAPDOM));
@@ -48,7 +48,7 @@ public class GatheringThresholdsReader {
 		
 		try {
 			// TODO Update to the most recent Pfam + Create automatic script
-			InputStream is = GatheringThresholdsReader.class.getResourceAsStream("resources/gath-Thresholds_Pfam-v26.0");
+			InputStream is = GatheringThresholdsReader.class.getResourceAsStream("resources/gath-Thresholds_Pfam-"+refVersion);
 			in = new BufferedReader(new InputStreamReader(is));
 			String line;
 			while((line = in.readLine()) != null) {
@@ -67,6 +67,13 @@ public class GatheringThresholdsReader {
 				Configuration.getLogger().debug(e1.toString());
 		}
 	}
+
+
+	public static void changeVersion(String version) {
+		if(!refVersion.equals(version))
+			read(version);
+	}
+
 
 	public static void add(DomainFamily d) {
 		domFamilyMap.put(d.getId(), d);

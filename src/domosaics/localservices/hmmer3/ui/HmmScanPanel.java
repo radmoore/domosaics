@@ -40,6 +40,7 @@ import domosaics.localservices.hmmer3.Hmmer3Engine;
 import domosaics.localservices.hmmer3.programs.HmmPress;
 import domosaics.localservices.hmmer3.programs.HmmScan;
 import domosaics.localservices.hmmer3.programs.Hmmer3Program;
+import domosaics.model.arrangement.io.GatheringThresholdsReader;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.sequence.io.FastaReader;
@@ -229,6 +230,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				overlapRadioNone.setEnabled(!coddCkb26.isSelected());
 				overlapRadioCoverage.setEnabled(!coddCkb26.isSelected());
 				if (coddCkb26.isSelected()) {
+					GatheringThresholdsReader.changeVersion("v26.0");
 					evalueTF.setText("10");
 				} else { 
 					evalueTF.setText("0.1");
@@ -248,6 +250,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				overlapRadioNone.setEnabled(!coddCkb27.isSelected());
 				overlapRadioCoverage.setEnabled(!coddCkb27.isSelected());
 				if (coddCkb27.isSelected()) {
+					GatheringThresholdsReader.changeVersion("v27.0");
 					evalueTF.setText("10");
 				} else { 
 					evalueTF.setText("0.1");

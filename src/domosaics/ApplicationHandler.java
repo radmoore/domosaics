@@ -262,7 +262,7 @@ public class ApplicationHandler {
 		//Reading the gathering thresholds
 		startUpProgress.setProgress("Reading data files", 70);
 		startUpProgress.setAlwaysOnTop(false);
-		GatheringThresholdsReader.read();
+		GatheringThresholdsReader.read("v27.0");
 		Pfam2GOreader.readGOFile();
 		startUpProgress.setAlwaysOnTop(true);
 		
