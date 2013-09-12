@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,7 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
-
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
