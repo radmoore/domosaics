@@ -478,6 +478,11 @@ public class DomainLayoutManager extends DefaultLayoutManager {
 		return getState(DomainAction.SELECT_SEQUENCES);
 	}
 	
+	
+	public boolean isNameDisplayed() {
+		return getState(DomainAction.NAME_RATHER_THAN_ACC);
+	}
+	
 	/** 
 	 * toggles the fit domains to screen flag and triggers a relayout 
 	 */

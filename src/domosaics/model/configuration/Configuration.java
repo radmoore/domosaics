@@ -1,11 +1,8 @@
 package domosaics.model.configuration;
 
 import java.io.File;
-import java.net.URL;
 
 import org.apache.log4j.Logger;
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Annotated;
 
 import domosaics.localservices.hmmer3.ui.Hmmer3Frame;
 import domosaics.ui.DoMosaicsUI;
@@ -30,7 +27,7 @@ public class Configuration {
 	
 //	public static final String sep = System.getProperty("file.separator");
 	
-	public static final double CURRENT_PROGRAM_VERSION = 0.89;
+	public static final double CURRENT_PROGRAM_VERSION = 0.92;
 	
 	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
 	public static final String DEF_WORKSPACE = DEF_HOMEFOLDER_LOCATION + File.separator + "domosaics_workspace";
@@ -60,7 +57,6 @@ public class Configuration {
 	private static boolean debugState = false;
 	private static boolean reportExceptions = false;
 	private static boolean haveAsked = false;
-	private String configFile = "domosaics_config.txt";
 	
 	private ExceptionComunicator exceptionComunicator = null;
 
@@ -171,7 +167,7 @@ public class Configuration {
 	}
 	
 	public static Configuration getInstance() {
-		getJarPath();
+//		getJarPath();
 		if (instance == null)
 			instance = new Configuration();
 		return instance;
@@ -389,11 +385,13 @@ public class Configuration {
 	}
 	
 	
-	private static void getJarPath() {
-		File file = new File(Configuration.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-//		System.out.println("This is the path: "+file.getAbsolutePath());
 	
-	}
+	
+//	private static void getJarPath() {
+////		File file = new File(Configuration.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+////		System.out.println("This is the path: "+file.getAbsolutePath());
+//	
+//	}
 	
 
 	

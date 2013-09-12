@@ -5,8 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,18 +12,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.event.ChangeListener;
 
 import net.miginfocom.swing.MigLayout;
 
-import domosaics.localservices.codd.ConditionallyDependentDomainPairMap;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.DomainViewI;
-import domosaics.ui.views.view.View;
 
 
 

@@ -257,11 +257,11 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 			exportViewIcon = new ImageIcon(ImageIO.read(is));*/
 
 			is = this.getClass().getResourceAsStream(
-					"resources/icons/testLoadFasta.png");
+					"resources/icons/import_fasta.png");
 			loadFastaIcon = new ImageIcon(ImageIO.read(is));
 
 			is = this.getClass().getResourceAsStream(
-					"resources/icons/testLoadTree.png");
+					"resources/icons/import_tree.png");
 			loadTreeIcon = new ImageIcon(ImageIO.read(is));
 
 			is = this.getClass().getResourceAsStream(
