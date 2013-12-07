@@ -114,7 +114,7 @@
 		</menuItem>
 		
 		<menuitem id="JMenuItem">
-			<parameter id="name" value="Change label truncation"/> 
+			<parameter id="name" value="Change Label Truncation"/> 
 			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ChangeDefaultLabelTruncationLength"/> 
 			<parameter id="tooltip" value="Changes the max. label length"/> 
 		</menuItem>	
