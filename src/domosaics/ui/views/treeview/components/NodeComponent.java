@@ -7,6 +7,7 @@ import java.awt.geom.Arc2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Iterator;
 
+import domosaics.model.configuration.Configuration;
 import domosaics.model.tree.TreeNodeI;
 import domosaics.ui.views.treeview.manager.TreeComponentManager;
 import domosaics.ui.views.view.components.AbstractViewComponent;
@@ -103,9 +104,10 @@ public class NodeComponent extends AbstractViewComponent {
 //		if (!getNode().isLeaf())
 //			return ""+getNode().getID();
 		String label = getNode().getLabel();
+		int labelLength = Configuration.getInstance().getLabelTruncationLength();
 		if(label != null && !label.trim().isEmpty()) 
-			if (label.length() > 20)
-				return label.substring(0, 16)+"...";
+			if (label.length() > labelLength)
+				return label.substring(0, labelLength)+"...";
 			else
 				return label;
 		if(isCollapsed())
@@ -132,7 +134,7 @@ public class NodeComponent extends AbstractViewComponent {
 	public NodeComponent getParent() {
 		return manager.getComponent((TreeNodeI) treeNode.getParent());
 	}
-	
+
 	
 	/* ******************************************************************* *
 	 *   							Flag methods						   *

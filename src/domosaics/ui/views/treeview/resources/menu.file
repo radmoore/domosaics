@@ -113,6 +113,11 @@
 			<parameter id="tooltip" value="Changes the space used to draw the tree"/> 
 		</menuItem>
 		
+		<menuitem id="JMenuItem">
+			<parameter id="name" value="Change label truncation"/> 
+			<parameter id="actionClass" value="domosaics.ui.views.treeview.actions.ChangeDefaultLabelTruncationLength"/> 
+			<parameter id="tooltip" value="Changes the max. label length"/> 
+		</menuItem>	
 		
 		<menuitem id="JCheckBox">
 			<parameter id="name" value="Show Ruler"/> 
@@ -120,6 +125,10 @@
 			<parameter id="tooltip" value="Shows a distance based ruler for the tree"/> 
 			<parameter id="isSelected" value="false"/>
 		</menuItem>		
+
+
+
+
 		
 	</menu>
 	

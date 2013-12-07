@@ -81,8 +81,8 @@ public class DefaultNodeRenderer implements NodeRenderer{
 		int maxLen = (int) node.getBounds().getWidth();
 		int actLen = SwingUtilities.computeStringWidth(g2.getFontMetrics(), label);
 		if (actLen > maxLen)
-			label = StringUIUtils.clipStringIfNecessary(view.getViewComponent(), g2.getFontMetrics(), label, maxLen);
-		if(label.equals("...")) {
+			label = StringUIUtils.clipStringIfNecessary(view.getViewComponent(), g2.getFontMetrics(), label, maxLen+50);
+		if (label.equals("...")) {
 			g2.setColor(oldColor);
 			return;
 		}

@@ -125,7 +125,8 @@ public class NewickTreeReader extends AbstractTreeReader {
 				if (distanceFlag) {	// check if a distance have to be set next
 					distance = Double.parseDouble(nst.sval);
 					distanceFlag = false;
-				}					// else its a label
+				}					
+				// else its a label
 				else 
 					label = nst.sval;
 				continue;

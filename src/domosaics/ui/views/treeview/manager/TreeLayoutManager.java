@@ -234,5 +234,4 @@ public class TreeLayoutManager extends DefaultLayoutManager {
 	public void setShowLegend(boolean flag) {
 		manager.getAction(ShowTreeRulerAction.class).setState(flag);
 	}
-
 }
