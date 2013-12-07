@@ -75,6 +75,11 @@ public class Configuration {
 	protected static Configuration instance;
 	protected static ConfigurationFrame frame;
 	protected String workspace_dir;
+
+	/**
+	 * Number of characters after which a node label is truncated
+	 */
+	private int labelTrunctationLength = 16;
 	
 	//protected boolean visible = false;
 	protected static boolean nameRatherThanAcc = false;
@@ -385,6 +390,21 @@ public class Configuration {
 	}
 	
 	
+	/**
+	 * Sets the number of characters after which a label is truncated
+	 * @param length
+	 */
+	public void setLabelTruncationLength(int length) {
+		this.labelTrunctationLength = length;
+	}
+	
+	/**
+	 * Gets the label truncation length 
+	 * @return the character truncation length
+	 */
+	public int getLabelTruncationLength() {
+		return this.labelTrunctationLength;
+	}
 	
 	
 //	private static void getJarPath() {

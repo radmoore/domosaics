@@ -129,7 +129,11 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/** the parsimony method (Dollo 0 vs SANKOF 1) with Arrangements 2 or Sets 3 */
 	protected int parsimonyMeth = Integer.MAX_VALUE;
 	
+
 	protected Vector<TreeNodeI> toCollapseCSA=new Vector<TreeNodeI>();
+	
+	
+	
 	/**
 	 * Basic DomainView constructor initializing the manager mapping and
 	 * creating the view embedding scroll pane.
@@ -382,6 +386,10 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	public TreeMouseController getTreeMouseController() {
 		return treeMouseController;
 	}
+	
+	
+
+	
 	
 	/* ******************************************************************* *
 	 *   						     MANAGER METHODS					   *
@@ -741,6 +749,8 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 		doLayout();
 		repaint();
 	}
+
+	
 
 
 }
