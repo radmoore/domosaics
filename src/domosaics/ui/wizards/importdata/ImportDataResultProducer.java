@@ -234,8 +234,8 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 		// parse the sequence file
 		SequenceI[] seqs = new FastaReader().getDataFromFile(file);
 		//Nico: now checked just after the browsing
-		//if (seqs == null)
-		//	return false;
+		if (seqs == null)
+			return false;
 		
 		// ensure that view to be added is not already present, rename if it is
 		/*if (project.viewExists(viewName, project.getCategory(ViewType.SEQUENCE)))

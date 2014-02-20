@@ -197,25 +197,27 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
     		
         	// if all is well, set the new sequence... 
 		    SequenceI seq = new FastaReader().getDataFromString(fastaSeq)[0];
-		    if (seq.getName() == null)
-		    	seq.setName(selectedArr.getName());
-		    
-		    // ... and flag that manual modification occured
-		    if(!selectedArr.getSequence().getSeq(false).equals(seq.getSeq(false))) {
-		    	selectedArr.seqModifiedManually();
+		    if(seq!=null) {
+
+		    	if (seq.getName() == null)
+		    		seq.setName(selectedArr.getName());
+
+		    	// ... and flag that manual modification occured
+		    	if(!selectedArr.getSequence().getSeq(false).equals(seq.getSeq(false))) {
+		    		selectedArr.seqModifiedManually();
+		    	}
+
+		    	selectedArr.setSequence(seq);
+		    	if(!view.isSequenceLoaded())
+		    		view.setSequencesLoaded(true);
+
+		    	// ... and update the graphical backbone
+		    	selectedDA.setBounds(selectedDA.getX(), selectedDA.getY(), fastaSeq.length(), selectedDA.getHeight());
+
+		    	// finally, trigger update to view
+		    	DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
+		    	view.getDomainLayoutManager().firevisualChange();
 		    }
-		    
-		    selectedArr.setSequence(seq);
-		    if(!view.isSequenceLoaded())
-		    	view.setSequencesLoaded(true);
-		    
-		    // ... and update the graphical backbone
-			selectedDA.setBounds(selectedDA.getX(), selectedDA.getY(), fastaSeq.length(), selectedDA.getHeight());
-		    		
-			// finally, trigger update to view
-	   		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
-	   		view.getDomainLayoutManager().firevisualChange();
-			
 		    p.finished(null);
 		    return;
     		

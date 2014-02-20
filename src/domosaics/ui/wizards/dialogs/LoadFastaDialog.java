@@ -100,11 +100,13 @@ class LoadFastaProgress implements WizardResultProducer{
 			SequenceView seqView = ViewHandler.getInstance().createView(ViewType.SEQUENCE, viewName);
 			
 			// Adapted by Nico
-			SequenceI[] seqs = new FastaReader().getDataFromFile(viewFile);;
-			seqView.setSeqs(seqs);
-			
-			ViewHandler.getInstance().addView(seqView, project, false);
-			//ViewImporter.readSequenceView(viewFile, project, viewName);
+			SequenceI[] seqs = new FastaReader().getDataFromFile(viewFile);
+			if(seqs!=null)
+			{
+				seqView.setSeqs(seqs);
+				ViewHandler.getInstance().addView(seqView, project, false);
+				//ViewImporter.readSequenceView(viewFile, project, viewName);
+			}
 		} 
 		catch (Exception e) {
 			Configuration.getLogger().debug(e.toString());
