@@ -89,6 +89,7 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 				} 
             	else {
     				line = line.replaceAll("\\s+", "");
+    				line = line.replace("-", "");
     				seqBuf.append(line.toUpperCase());
     			}
     		}
@@ -147,7 +148,7 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 					if (firstRead) {
 						
 						// guess the format
-						type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
+						type = SeqUtil.checkFormat(seqBuf.toString().replace("-", ""));
 						if (type == SeqUtil.UNKNOWN) {
 							//						System.out.println(seqBuf.toString());
 							return null;
@@ -176,12 +177,13 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 					//				String[] token = line.split("\\s+");
 					//				seqBuf.append(token[token.length-1].toUpperCase());
 					line = line.replaceAll("\\s+", "");
+    				line = line.replace("-", "");
 					seqBuf.append(line.toUpperCase());
 				}
 			}
 
 			// add also the last protein
-			type = SeqUtil.checkFormat(seqBuf.toString().replace("*", ""));
+			type = SeqUtil.checkFormat(seqBuf.toString().replace("-", ""));
 			if (type == SeqUtil.UNKNOWN) {
 				return null;
 			}

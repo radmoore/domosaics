@@ -173,7 +173,7 @@ public class SeqUtil {
 					}
 					fasta = new StringBuilder();
 				}
-				fasta.append(line+"\n");
+				fasta.append(line.replace("-", "")+"\n");
 			}
 			if (fasta.length() > 0) {
 				if (SeqUtil.validFastaString(fasta.toString()) != SeqUtil.UNKNOWN)
