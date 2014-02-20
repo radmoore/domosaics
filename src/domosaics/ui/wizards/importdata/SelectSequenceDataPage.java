@@ -117,7 +117,7 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 		File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 		if(file != null) {
 			if (file.canRead()) {
-				if ( FastaReader.isValidFasta(file, new ArrayList<String>()) ) {
+				if ( FastaReader.isValidFasta(file) ) {
 					path.setText(file.getAbsolutePath());
 					viewName.setText(file.getName().split("\\.")[0]);
 				}

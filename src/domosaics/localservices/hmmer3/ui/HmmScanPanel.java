@@ -531,7 +531,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 					}
 			}
 		}
-		if ( !FastaReader.isValidFasta(new File(fastaTF.getText()), new ArrayList<String>()) ) {
+		if ( !FastaReader.isValidFasta(new File(fastaTF.getText())) ) {
 			MessageUtil.showWarning(this.getParentFrame(), "Malformated fasta file or unknown sequence format");
 			fastaTF.setBackground(highlightColor);
 			return;

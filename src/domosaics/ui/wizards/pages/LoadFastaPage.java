@@ -78,7 +78,7 @@ public class LoadFastaPage extends WizardPage {
 				File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 				if(file != null) {
 					if (file.canRead()) {
-						if ( FastaReader.isValidFasta(file,new ArrayList<String>()) ) {
+						if ( FastaReader.isValidFasta(file) ) {
 								seqs = true;
 								path.setText(file.getAbsolutePath());
 								name.setText(file.getName().split("\\.")[0]);

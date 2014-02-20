@@ -240,9 +240,8 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 		if(datatype==DataType.SEQUENCE) {
 			if(file != null) {
 				if (file.canRead()) {
-					seqs=new ArrayList<String>();
-					FastaReader.isValidFasta(file, seqs);
-					if(seqs.size()>0) {
+					if(FastaReader.isValidFasta(file))
+					{
 						path.setText(file.getAbsolutePath());
 						viewName.setText(file.getName().split("\\.")[0]);
 					}

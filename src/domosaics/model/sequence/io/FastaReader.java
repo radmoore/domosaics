@@ -31,7 +31,7 @@ import domosaics.ui.util.MessageUtil;
  */
 public class FastaReader extends AbstractDataReader<SequenceI>{
 	
-	public static boolean isValidFasta(File fastaFile, ArrayList<String> seqLabels) {
+	public static boolean isValidFasta(File fastaFile) {
 		
         BufferedReader inputStream = null;
         
@@ -77,7 +77,6 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
     					inputStream.close();
     					return false;
     				}
-    				seqLabels.add(label);
     				cptProt++;
 					if(cptProt % Math.pow(10,cptTenPower) == 0)
 					{
