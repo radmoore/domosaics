@@ -19,6 +19,7 @@ import org.netbeans.spi.wizard.WizardPage;
 
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.io.NewickTreeReader;
+import domosaics.model.tree.io.NexusTreeReader;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
@@ -77,13 +78,24 @@ public class LoadTreePage extends WizardPage {
 				if(file != null) {
 					if (file.canRead()) {
 						File test = new File(file.getAbsolutePath());
-						tree = new NewickTreeReader().getTreeFromFile(test);
+						BufferedReader in = null;
+						String firstLine = "";
+						try {
+							in = new BufferedReader(new FileReader(test));
+							firstLine=in.readLine();
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+						if(firstLine.toUpperCase().equals("#NEXUS"))
+							tree = new NexusTreeReader().getTreeFromFile(test);
+						else
+							tree = new NewickTreeReader().getTreeFromFile(test);
 					}
 					if(tree != null) {
 						path.setText(file.getAbsolutePath());
 						name.setText(file.getName().split("\\.")[0]);
 					} else {
-					MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Cannot read tree in "+file.getName());
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Cannot read tree in "+file.getName());
 					}
 				}
 				else {

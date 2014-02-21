@@ -1,7 +1,9 @@
 package domosaics.ui.wizards.importdata;
 
 import java.awt.EventQueue;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +25,7 @@ import domosaics.model.sequence.io.FastaReader;
 import domosaics.model.tree.Tree;
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.io.NewickTreeReader;
+import domosaics.model.tree.io.NexusTreeReader;
 import domosaics.model.workspace.CategoryElement;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.ViewElement;
@@ -104,11 +107,23 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 	private boolean importTree(ProjectElement project, File file, String viewName, ViewElement assocView) {
 		
 		// parse the tree file
-		TreeI tree = new NewickTreeReader().getTreeFromFile(file);
+		TreeI tree;
+		BufferedReader in = null;
+		String firstLine = "";
+		try {
+			in = new BufferedReader(new FileReader(file));
+			firstLine=in.readLine();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		if(firstLine.toUpperCase().equals("#NEXUS"))
+			tree = new NexusTreeReader().getTreeFromFile(file);
+		else
+			tree = new NewickTreeReader().getTreeFromFile(file);
 		
 		//Nico: now checked just after the browsing
-		//if (tree == null)
-		//	return false;
+		if (tree == null)
+			return false;
 		
 		// create view
 		

@@ -3,7 +3,11 @@ package domosaics.ui.wizards.importdata;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,6 +21,7 @@ import org.netbeans.spi.wizard.WizardPage;
 
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.io.NewickTreeReader;
+import domosaics.model.tree.io.NexusTreeReader;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.FileDialogs;
@@ -109,7 +114,18 @@ public class SelectTreeDataPage extends WizardPage implements ActionListener {
 		File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 		if(file != null) {
 			File test = new File(file.getAbsolutePath());
-			tree = new NewickTreeReader().getTreeFromFile(test);
+			BufferedReader in = null;
+			String firstLine = "";
+			try {
+				in = new BufferedReader(new FileReader(test));
+				firstLine=in.readLine();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			if(firstLine.toUpperCase().equals("#NEXUS"))
+				tree = new NexusTreeReader().getTreeFromFile(test);
+			else
+				tree = new NewickTreeReader().getTreeFromFile(test);
 		}
 		if(tree != null) {
 			path.setText(file.getAbsolutePath());

@@ -1,7 +1,9 @@
 package domosaics.ui.wizards.dialogs;
 
 import java.awt.EventQueue;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.Map;
 
 import org.netbeans.api.wizard.WizardDisplayer;
@@ -14,6 +16,7 @@ import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.io.NewickTreeReader;
+import domosaics.model.tree.io.NexusTreeReader;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
@@ -98,11 +101,25 @@ class LoadTreeProgress implements WizardResultProducer{
 			TreeView treeView = ViewHandler.getInstance().createView(ViewType.TREE, viewName);
 			
 			// Adapted by Nico
-			TreeI tree = new NewickTreeReader().getTreeFromFile(viewFile);
-			treeView.setTree(tree);
+			TreeI tree;
+			BufferedReader in = null;
+			String firstLine = "";
+			try {
+				in = new BufferedReader(new FileReader(viewFile));
+				firstLine=in.readLine();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			if(firstLine.toUpperCase().equals("#NEXUS"))
+				tree = new NexusTreeReader().getTreeFromFile(viewFile);
+			else
+				tree = new NewickTreeReader().getTreeFromFile(viewFile);
+			if(tree!=null) {
+				treeView.setTree(tree);
 			
-			ViewHandler.getInstance().addView(treeView	, project, false);
-			//ViewImporter.readSequenceView(viewFile, project, viewName);
+				ViewHandler.getInstance().addView(treeView	, project, false);
+				//	ViewImporter.readSequenceView(viewFile, project, viewName);
+			}
 		} 
 		catch (Exception e) {
 			Configuration.getLogger().debug(e.toString());

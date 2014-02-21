@@ -113,9 +113,9 @@ public class NewickTreeReader extends AbstractTreeReader {
 			// escapeChars are appended to the label
 			if(escapedFlag){
             	if(nst.sval != null)
-            		label.concat(nst.sval);
+            		label += nst.sval;
             	else
-            		label.concat(Character.toString((char)token));
+            		label += Character.toString((char)token);
             	escapedFlag = false;
             	continue;
             }
@@ -165,21 +165,23 @@ public class NewickTreeReader extends AbstractTreeReader {
 				distanceFlag = true;
 				break;
 			case ';':
-                node.setLabel(label); label="";
-				if (distance != -1.0) 
+                node.setLabel(label);
+                label="";
+				if (distance != -1.0) {
 					if (node.getParent() != null) {
 						node.getEdgeToParent().setWeight(distance);
 						distance = -1.0;
-					} 
+					}
+				}
                 break;
              case '"':                    	
-                 label.concat(nst.sval);
+                 label += nst.sval;
                  break;
              case '\\':                    	
                  escapedFlag = true;
                  break;
 			 case '\'':                   	
-                 label.concat(nst.sval);
+                 label += nst.sval;
                  break;
 			}	
 			

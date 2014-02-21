@@ -5,7 +5,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -28,6 +30,7 @@ import domosaics.model.sequence.io.FastaReader;
 import domosaics.model.tree.Tree;
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.io.NewickTreeReader;
+import domosaics.model.tree.io.NexusTreeReader;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.ViewElement;
 import domosaics.ui.DoMosaicsUI;
@@ -268,7 +271,18 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 				if(datatype==DataType.TREE) {
 					if(file != null) {
 						File test = new File(file.getAbsolutePath());
-						tree = new NewickTreeReader().getTreeFromFile(test);
+						BufferedReader in = null;
+						String firstLine = "";
+						try {
+							in = new BufferedReader(new FileReader(test));
+							firstLine=in.readLine();
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+						if(firstLine.toUpperCase().equals("#NEXUS"))
+							tree = new NexusTreeReader().getTreeFromFile(test);
+						else
+							tree = new NewickTreeReader().getTreeFromFile(test);
 					}
 					if(tree != null) {
 						path.setText(file.getAbsolutePath());

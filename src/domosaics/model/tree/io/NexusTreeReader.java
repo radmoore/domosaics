@@ -119,7 +119,7 @@ public class NexusTreeReader extends AbstractTreeReader {
 		TreeI tree = new NewickTreeReader().getTreeFromString(newickTreeStr);
 		
 		// if there are no mapping definitions within the nexus file return the tree as it is
-		if (translateMap == null && taxaMap == null)
+		if (translateMap == null || taxaMap == null)
 			return tree;
 		
 		// else map the labels using taxamap and translate Map
@@ -134,8 +134,7 @@ public class NexusTreeReader extends AbstractTreeReader {
 			if(translateMap != null && translateMap.get(actNode.getLabel()) != null)
 				actNode.setLabel(translateMap.get(actNode.getLabel()));
 			else if(taxaMap != null && taxaMap.get(actNode.getLabel()) != null)
-				actNode.setLabel(taxaMap.get(actNode.getLabel()));           
-		
+				actNode.setLabel(taxaMap.get(actNode.getLabel()));
 		}
 		return tree;
 	}
@@ -149,8 +148,8 @@ public class NexusTreeReader extends AbstractTreeReader {
 	 * 		the Newick tree string
 	 */
     private String readNewickTree(String treeStr) {
-    	int startPos = treeStr.indexOf("TREE", 12);			// look behind the "BEGIN TREES;"-tag
-    	int endPos = treeStr.indexOf(';', startPos);
+    	int startPos = treeStr.indexOf(";");			// look behind the "BEGIN TREES;"-tag
+    	int endPos = treeStr.indexOf(';', startPos + 1);
     	
     	 if (startPos == -1 || endPos == -1)
     		 return "";
@@ -174,6 +173,7 @@ public class NexusTreeReader extends AbstractTreeReader {
      * 		the mapping between taxlabel shortcuts and their real names
      */
 	private Map<String, String> readTaxLabels(String taxaStr) {
+		String firstChar, lastChar; 
 		// if a taxa block is not specified within the Nexus file
 		if (taxaStr.isEmpty())
 			return null;
@@ -193,8 +193,14 @@ public class NexusTreeReader extends AbstractTreeReader {
 		// split the taxlabel string into an array
 		String[] taxa = taxaStr.split("\\s+");
 		
-		for (int i = 1; i < taxa.length; i++) 
-			taxaMap.put(Integer.valueOf(i).toString(), taxa[i]);
+		for (int i = 1; i < taxa.length; i++) {
+			firstChar=taxa[i].substring(0, 1);
+			lastChar=taxa[i].substring(taxa[i].length()-1, taxa[i].length());
+			if( (firstChar.equals("\"") && lastChar.equals("\"")) || (firstChar.equals("'") && lastChar.equals("'")) )
+				taxaMap.put(Integer.valueOf(i).toString(), taxa[i].substring(1, taxa[i].length()-1));
+			else
+				taxaMap.put(Integer.valueOf(i).toString(), taxa[i]);
+		}
 		
 		return taxaMap;
 	}
@@ -208,7 +214,8 @@ public class NexusTreeReader extends AbstractTreeReader {
 	 * @return 
 	 * 		the mapping between taxlabel shortcuts and their real names
 	 */
-	private Map<String, String> readTranslation (String treeStr) {		
+	private Map<String, String> readTranslation (String treeStr) {	
+		String firstChar, lastChar; 	
 		Map<String, String> taxaMap = new HashMap<String, String>();
 		
 		// get the translation part within the tree block if it occurs
@@ -240,7 +247,12 @@ public class NexusTreeReader extends AbstractTreeReader {
 			while (keyAndValue[j].isEmpty())
 				j++;
 			
-			taxaMap.put(keyAndValue[j], keyAndValue[j+1]);
+			firstChar=keyAndValue[j+1].substring(0, 1);
+			lastChar=keyAndValue[j+1].substring(keyAndValue[j+1].length()-1, keyAndValue[j+1].length());
+			if( (firstChar.equals("\"") && lastChar.equals("\"")) || (firstChar.equals("'") && lastChar.equals("'")) )
+				taxaMap.put(keyAndValue[j], keyAndValue[j+1].substring(1,keyAndValue[j+1].length()-1));				
+			else
+				taxaMap.put(keyAndValue[j], keyAndValue[j+1]);
 		}
 		return taxaMap;
 	}
