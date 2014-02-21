@@ -1002,7 +1002,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 				GatheringThresholdsReader.add(domFamily);
 			} else {
 				if(!DomainType.getType(family.getAttributeValue("id")).getName().equals(family.getAttributeValue("source")) || !domFamily.getDomainType().getName().equals(family.getAttributeValue("source")) || !domFamily.getName().equals(family.getAttributeValue("name")))
-					MessageUtil.showDialog(DoMosaicsUI.getInstance(),"Error: import of a domain family inconsistent with DoMosaics data");
+					MessageUtil.showDialog(DoMosaicsUI.getInstance(),"WARNING! Import of a domain family with a different name in DoMosaics:\n"+family.getAttributeValue("name")+" has been renamed into "+domFamily.getName()+" by Pfam.\nDo you want to keep your version (Yes) or update to Pfam (No)?");
 			}
 			String interproEntry=family.getAttributeValue("interpro");
 			if(interproEntry!=null)
