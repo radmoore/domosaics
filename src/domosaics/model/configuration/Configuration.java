@@ -27,7 +27,7 @@ public class Configuration {
 	
 //	public static final String sep = System.getProperty("file.separator");
 	
-	public static final double CURRENT_PROGRAM_VERSION = 0.94;
+	public static final double CURRENT_PROGRAM_VERSION = 0.95;
 	
 	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
 	public static final String DEF_WORKSPACE = DEF_HOMEFOLDER_LOCATION + File.separator + "domosaics_workspace";
@@ -125,18 +125,21 @@ public class Configuration {
 	 */
 	public static Boolean getReportExceptionsMode(boolean ask) {
 		
-		if (ask) {
+		if ( ask ) {
+			
 			boolean sendMes = false;
+			
 			if ( !haveAsked ) {
 				sendMes = MessageUtil.showDialog(DoMosaicsUI.getInstance(), "A problem was detected - enable bug reporting?");
-			Configuration.setReportExceptionsMode(sendMes);
-			haveAsked = true;
+				Configuration.setReportExceptionsMode(sendMes);
+				haveAsked = true;
 			}
+			
 			if(reportExceptions)
 				if ( !CheckConnectivity.checkInternetConnectivity() ) {
 					MessageUtil.showWarning(DoMosaicsUI.getInstance(), "Please check your internet connection (connection failed).");
 						return false;
-			}				
+				}				
 		}
 		return reportExceptions;
 	}
