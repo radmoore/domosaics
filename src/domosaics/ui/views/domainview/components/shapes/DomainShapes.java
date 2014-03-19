@@ -1,6 +1,7 @@
 package domosaics.ui.views.domainview.components.shapes;
 
 import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 
 
@@ -28,7 +29,8 @@ public enum DomainShapes {
 	TETRIS (new DoMosaicsPolygon(DoMosaicsPolygon.TETRIS),		11),
 	DIAMOND (new DoMosaicsPolygon(DoMosaicsPolygon.DIAMOND),		12),
 	ARROW2 (new DoMosaicsPolygon(DoMosaicsPolygon.ARROW2),		13),
-	PLUS (new DoMosaicsPolygon(DoMosaicsPolygon.PLUS),			14)
+	PLUS (new DoMosaicsPolygon(DoMosaicsPolygon.PLUS),			14),
+	RECTANGLE (new Rectangle2D.Double(),			15)
 	;
 		
 	private Shape shape;

@@ -194,7 +194,7 @@ public class ChangeArrangementPanel extends JPanel {
 		int toVal = Integer.parseInt(to.getText());
 		
 		double evalueVal = (evalue.getText().trim().isEmpty()) ? Double.POSITIVE_INFINITY : Double.parseDouble(evalue.getText());
-		 
+		
 		Domain dom = new Domain(fromVal, toVal, fam, evalueVal);
 		
 		// perform the change / adding

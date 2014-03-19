@@ -35,6 +35,7 @@ import domosaics.ui.views.domainview.DomainView;
 import domosaics.ui.views.domainview.renderer.additional.DomainTooltipRenderer;
 import domosaics.ui.views.view.components.ZoomController;
 import domosaics.ui.views.view.renderer.Renderer;
+import domosaics.ui.wizards.pages.ImportViewPage;
 
 /**
  * AbstractView is the basic implementation for the {@link View} 
@@ -433,7 +434,7 @@ public abstract class AbstractView extends JComponent implements View {
 		}
 	}
 
-	public static ViewType detectViewType(File viewFile) {
+	public static String detectViewType(File viewFile) {
 		
 		try {
 			SAXBuilder sxb = new SAXBuilder();
@@ -448,7 +449,7 @@ public abstract class AbstractView extends JComponent implements View {
 				if (!MessageUtil.showDialog(DoMosaicsUI.getInstance(), viewFile.getName()+" does not appear to be a DoMosaics file. Continue?"))
 					return null;
 
-			String viewType = r.getChildren("VIEW").get(0).getAttributeValue("type");
+			/*String viewType = r.getChildren("VIEW").get(0).getAttributeValue("type");
 			if (viewType.equals("SEQUENCES"))
 				return  ViewType.SEQUENCE;
 
@@ -459,18 +460,18 @@ public abstract class AbstractView extends JComponent implements View {
 				return  ViewType.TREE;
 
 			if (viewType.equals("ARRANGEMENTS"))
-				return  ViewType.DOMAINS;
-
+				return  ViewType.DOMAINS;*/
+			return r.getChildren("VIEW").get(0).getAttributeValue("name")+"###"+r.getChildren("VIEW").get(0).getAttributeValue("type");
+			
 		}
 		catch(Exception e) {
+			System.out.println(e.toString());
 			if (Configuration.getReportExceptionsMode(true))
 				Configuration.getInstance().getExceptionComunicator().reportBug(e);
 			else			
 				Configuration.getLogger().debug(e.toString());
 		}
-		
 		return null;
-		
 	}
 	
 }

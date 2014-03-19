@@ -85,7 +85,8 @@ public class Domain implements Comparable<Domain>, Cloneable, DoMosaicsData {
 		this.to = to;
 		this.from = from;
 		this.fromWithGaps = from;
-		this.evalue = Double.parseDouble(df.format(evalue));
+		if(evalue!=Double.POSITIVE_INFINITY)
+			this.evalue = Double.parseDouble(df.format(evalue));
 	}
 	
 	/**
@@ -199,7 +200,8 @@ public class Domain implements Comparable<Domain>, Cloneable, DoMosaicsData {
 	 * 		evalue for this domain
 	 */
 	public void setEvalue (double evalue) {
-		this.evalue = Double.parseDouble(df.format(evalue));;
+		if(evalue!=Double.POSITIVE_INFINITY)
+			this.evalue = Double.parseDouble(df.format(evalue));;
 	}
 	
 	/**

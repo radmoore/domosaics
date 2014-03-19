@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Shape;
 import java.awt.Stroke;
+import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.Iterator;
 import java.util.List;
@@ -92,8 +93,10 @@ public class InDelRenderer implements Renderer{
 		
 			if (shape instanceof RoundRectangle2D.Double) 
 				((RoundRectangle2D.Double) shape).setRoundRect(dec.getX(), dec.getY(), dec.getWidth(), dec.getHeight(), 20, 20); 
-			else if (shape instanceof DoMosaicsPolygon)
-				((DoMosaicsPolygon) shape).setPolygon(dec.getX(), dec.getY(), dec.getWidth(), dec.getHeight()); 
+			else if (shape instanceof Rectangle2D.Double) 
+				((Rectangle2D.Double) shape).setRect(dec.getX(), dec.getY(), dec.getWidth(), dec.getHeight()); 
+				else if (shape instanceof DoMosaicsPolygon)
+					((DoMosaicsPolygon) shape).setPolygon(dec.getX(), dec.getY(), dec.getWidth(), dec.getHeight()); 
 		
 			g.setColor(color);
 			float fac = 0.5f;

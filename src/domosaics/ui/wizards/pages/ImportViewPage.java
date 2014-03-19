@@ -24,6 +24,7 @@ import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.DomainView;
+import domosaics.ui.views.view.AbstractView;
 import domosaics.ui.views.view.io.ViewImporter;
 
 
@@ -50,8 +51,7 @@ public class ImportViewPage extends WizardPage {
     /* alphanum chars, at least one (TODO: unicode?) */
 	private String alphaNumPattern = "^[a-zA-Z0-9_-]*$";
 	
-	private ViewType type;
-
+	private ViewType type=null;
 	
 	
 	/**
@@ -69,23 +69,43 @@ public class ImportViewPage extends WizardPage {
 		browse = new JButton("Browse");
 		browse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				type=null;
-				typeField.setText("");
+				/*type=null;
+				typeField.setText("");*/
 				File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 				if(file != null) {
 					if (file.canRead()) {
 						path.setText(file.getAbsolutePath());
-						name.setText(file.getName());
 						File viewFile = new File(path.getText());
 						//type = ViewImporter.detectViewType(viewFile);
 						// Nic import
-						type = DomainView.detectViewType(viewFile);
-						if(type==null) {
-							MessageUtil.showWarning(DoMosaicsUI.getInstance(), file.getName()+ " does not appearto be a DoMosaics file.");
+						String nameAndType = AbstractView.detectViewType(viewFile);
+						if(nameAndType==null) {
+							MessageUtil.showWarning(DoMosaicsUI.getInstance(), file.getName()+ " does not appear to be a DoMosaics file.");
 							path.setText("");
 							name.setName("");
+						} else
+						{
+							if (nameAndType.substring(nameAndType.indexOf("###")+3).equals("SEQUENCES"))
+								type=ViewType.SEQUENCE;
+
+							if (nameAndType.substring(nameAndType.indexOf("###")+3).equals("DOMAIN_TREE"))
+								type=ViewType.DOMAINTREE;
+
+							if (nameAndType.substring(nameAndType.indexOf("###")+3).equals("TREE"))
+								type=ViewType.TREE;
+
+							if (nameAndType.substring(nameAndType.indexOf("###")+3).equals("ARRANGEMENTS"))
+								type=ViewType.DOMAINS;
+							if(type==null) {
+								MessageUtil.showWarning(DoMosaicsUI.getInstance(), file.getName()+ " does not appear to be a DoMosaics file.");
+								path.setText("");
+								name.setName("");
+							} else
+							{
+								name.setText(nameAndType.substring(0, nameAndType.indexOf("###")));
+								typeField.setText(type.toString());
+							}
 						}
-						typeField.setText(type.toString());
 					}
 					else {
 						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Cannot read "+file.getName());
@@ -132,7 +152,6 @@ public class ImportViewPage extends WizardPage {
 		add(selectProject, "h 25!, w 265!, gapright 10, span, wrap");
 		
 	}
-	
 	
     /**
      * 

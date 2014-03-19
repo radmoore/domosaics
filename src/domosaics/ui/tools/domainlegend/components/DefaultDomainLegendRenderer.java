@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.Iterator;
 
@@ -100,8 +101,10 @@ public class DefaultDomainLegendRenderer implements Renderer {
 		
 		if (shape instanceof RoundRectangle2D.Double) 
 			((RoundRectangle2D.Double) shape).setRoundRect(x, y, width, height, 20, 20); 
-		else if (shape instanceof DoMosaicsPolygon)
-			((DoMosaicsPolygon) shape).setPolygon(x, y, width, height); 
+		else if (shape instanceof Rectangle2D.Double) 
+			((Rectangle2D.Double) shape).setRect(x, y, width, height); 
+			else if (shape instanceof DoMosaicsPolygon)
+				((DoMosaicsPolygon) shape).setPolygon(x, y, width, height); 
 		
 		g2.setColor(color);
 		float fac = 0.5f;

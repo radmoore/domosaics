@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.Icon;
@@ -70,8 +71,10 @@ public class DoMosaicsShapeIcon implements Icon {
 		
 		if (shape instanceof RoundRectangle2D.Double) 
 			((RoundRectangle2D.Double) shape).setRoundRect(x, y, SHAPE_WIDTH, SHAPE_HEIGHT, 20, 20);
-		else if (shape instanceof DoMosaicsPolygon)
-			((DoMosaicsPolygon) shape).setPolygon(x, y, SHAPE_WIDTH, SHAPE_HEIGHT);
+		else if (shape instanceof Rectangle2D.Double) 
+			((Rectangle2D.Double) shape).setRect(x, y, SHAPE_WIDTH, SHAPE_HEIGHT);
+			else if (shape instanceof DoMosaicsPolygon)
+				((DoMosaicsPolygon) shape).setPolygon(x, y, SHAPE_WIDTH, SHAPE_HEIGHT);
 	}
 
 	/**

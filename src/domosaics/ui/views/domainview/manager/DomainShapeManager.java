@@ -1,6 +1,7 @@
 package domosaics.ui.views.domainview.manager;
 
 import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,8 +90,10 @@ public class DomainShapeManager extends DefaultViewManager {
   		// create shape with the specified dimension
   		if (shape instanceof RoundRectangle2D.Double) 
 			((RoundRectangle2D.Double) shape).setRoundRect(x, y, width, height, 20, 20);
-		else if (shape instanceof DoMosaicsPolygon)
-			((DoMosaicsPolygon) shape).setPolygon(x, y, width, height); 
+		else if (shape instanceof Rectangle2D.Double) 
+			((Rectangle2D.Double) shape).setRect(x, y, width, height);
+			else if (shape instanceof DoMosaicsPolygon)
+				((DoMosaicsPolygon) shape).setPolygon(x, y, width, height); 
   		
   		return shape;
 	}

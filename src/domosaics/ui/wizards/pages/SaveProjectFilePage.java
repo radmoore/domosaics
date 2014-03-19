@@ -57,7 +57,7 @@ public class SaveProjectFilePage extends WizardPage implements ActionListener {
 
 		// set up the page
 		add(new JXTitledSeparator("Select destination folder"), "growx, span, wrap, gap 10");
-		add(path, "w 365!, h 25!, gap 10");
+		add(path, "w 165!, h 25!, gap 10");
 		add(browse, "gap 10");
 	}
 	

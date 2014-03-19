@@ -792,7 +792,12 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 			viewType.addContent(prot);
 			Attribute protId = new Attribute("id",arrangements[i].getName());
 			prot.setAttribute(protId);
-
+			// proteinlength
+			if (arrangements[i].getLen(false)!=-1) {
+				Attribute protLen = new Attribute("length",""+arrangements[i].getLen(false));
+				prot.setAttribute(protLen);
+			}
+						
 			// AA sequence
 			if (arrangements[i].hasSeq()) {
 				Element seq = new Element("SEQUENCE");
@@ -1001,8 +1006,8 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 				domFamily = new DomainFamily(family.getAttributeValue("id"), family.getAttributeValue("name"), DomainType.getType(family.getAttributeValue("id")));
 				GatheringThresholdsReader.add(domFamily);
 			} else {
-				if(!DomainType.getType(family.getAttributeValue("id")).getName().equals(family.getAttributeValue("source")) || !domFamily.getDomainType().getName().equals(family.getAttributeValue("source")) || !domFamily.getName().equals(family.getAttributeValue("name")))
-					MessageUtil.showDialog(DoMosaicsUI.getInstance(),"WARNING! Import of a domain family with a different name in DoMosaics:\n"+family.getAttributeValue("name")+" has been renamed into "+domFamily.getName()+" by Pfam.\nDo you want to keep your version (Yes) or update to Pfam (No)?");
+				if(!DomainType.getType(family.getAttributeValue("id")).getName().equals(family.getAttributeValue("source")) && !domFamily.getDomainType().getName().equals(family.getAttributeValue("source")) && !domFamily.getName().equals(family.getAttributeValue("name")))
+					MessageUtil.showDialog(DoMosaicsUI.getInstance(),"WARNING! Import of a domain family with a different name in DoMosaics:\n"+family.getAttributeValue("name")+" is known as "+domFamily.getName()+".\nDo you want to keep your version (Yes) or update to Pfam (No)?");
 			}
 			String interproEntry=family.getAttributeValue("interpro");
 			if(interproEntry!=null)
@@ -1042,6 +1047,9 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 			Element protein = p.next();
 			DomainArrangement da = new DomainArrangement();
 			da.setName(protein.getAttributeValue("id"));
+			String protLen=protein.getAttributeValue("length");
+			if(protLen!=null)
+				da.setSeqLen(Integer.parseInt(protLen));
 			// Iterate over domains
 			List<Element> doms = protein.getChildren("DOMAIN");
 			Iterator<Element> d = doms.iterator();
