@@ -1,7 +1,6 @@
 package domosaics.ui.wizards.dialogs;
 
 import java.awt.EventQueue;
-import java.awt.Rectangle;
 import java.io.File;
 import java.util.Map;
 
@@ -15,7 +14,6 @@ import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.io.ArrangementImporterUtil;
-import domosaics.model.arrangement.io.XdomReader;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.workspace.ViewElement;
 import domosaics.ui.ViewHandler;
@@ -136,10 +134,12 @@ class EditDatasetProgress extends DeferredWizardResult implements WizardResultPr
 		}	
 	}
 	
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
 	
+	@Override
 	public Object finish(Map m) throws WizardException {
 		return this;
 	}	

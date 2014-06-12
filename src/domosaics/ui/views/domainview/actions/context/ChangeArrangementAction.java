@@ -7,7 +7,6 @@ import javax.swing.Action;
 
 import domosaics.ui.ViewHandler;
 import domosaics.ui.tools.changearrangement.ChangeArrangementView;
-import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
@@ -31,6 +30,7 @@ public class ChangeArrangementAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Change the domain arrangement of a given protein");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI domView = (DomainViewI) ViewHandler.getInstance().getActiveView();
 

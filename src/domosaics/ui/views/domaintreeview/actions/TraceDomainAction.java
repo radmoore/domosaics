@@ -35,6 +35,7 @@ public class TraceDomainAction extends AbstractAction{
 	}
 	
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainTreeViewI view = (DomainTreeViewI) ViewHandler.getInstance().getActiveView();
 

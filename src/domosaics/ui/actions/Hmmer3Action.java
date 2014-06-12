@@ -1,13 +1,8 @@
 package domosaics.ui.actions;
 
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 
-import javax.swing.Action;
-
 import domosaics.localservices.hmmer3.ui.Hmmer3Frame;
-import domosaics.model.configuration.Configuration;
-import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 
 
@@ -24,6 +19,7 @@ public class Hmmer3Action extends AbstractMenuAction {
 	
 	protected Hmmer3Frame hmmer3 = null;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		hmmer3 = Hmmer3Frame.getFrame();
 	}

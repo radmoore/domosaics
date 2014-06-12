@@ -73,7 +73,8 @@ public class DefaultFontManager<C extends ViewComponent>
 	/**
 	 * @see FontManager
 	 */
-  	public Font getFont(C comp){
+  	@Override
+	public Font getFont(C comp){
 		if(comp == null) 
 			return getFont();
    		if (comp2fonts.get(comp) == null)
@@ -85,6 +86,7 @@ public class DefaultFontManager<C extends ViewComponent>
 	/**
 	 * @see FontManager
 	 */
+	@Override
 	public Font getFont() {
 		return labelFont;
 	}
@@ -92,6 +94,7 @@ public class DefaultFontManager<C extends ViewComponent>
 	/**
 	 * @see FontManager
 	 */
+	@Override
 	public float getMaximumFontSize(){
 		return maximumFontSize;
 	}
@@ -99,7 +102,8 @@ public class DefaultFontManager<C extends ViewComponent>
 	/**
 	 * @see FontManager
 	 */
-  	public float getMinimumFontSize(){
+  	@Override
+	public float getMinimumFontSize(){
 		return minimumFontSize;
 	}
 	
@@ -111,7 +115,8 @@ public class DefaultFontManager<C extends ViewComponent>
 	/**
 	 * @see FontManager
 	 */
-  	public void setFont(C nc, Font font) {
+  	@Override
+	public void setFont(C nc, Font font) {
   		if (font == null) 
 			return;
 		
@@ -127,7 +132,8 @@ public class DefaultFontManager<C extends ViewComponent>
 	/**
 	 * @see FontManager
 	 */
-  	public void setFont(Font font) {
+  	@Override
+	public void setFont(Font font) {
 		if (font == null) 
 			return;
 		
@@ -143,7 +149,8 @@ public class DefaultFontManager<C extends ViewComponent>
 	/**
 	 * @see FontManager
 	 */
-  	public void setMinimumFontSize(float size){
+  	@Override
+	public void setMinimumFontSize(float size){
 		if (size > 0 && size < maximumFontSize)
 		this.minimumFontSize = size;
 	}
@@ -151,7 +158,8 @@ public class DefaultFontManager<C extends ViewComponent>
 	/**
 	 * @see FontManager
 	 */
-  	public void setMaximumFontSize(float size){
+  	@Override
+	public void setMaximumFontSize(float size){
 		if (size > minimumFontSize)
 			this.maximumFontSize = size;
 	}

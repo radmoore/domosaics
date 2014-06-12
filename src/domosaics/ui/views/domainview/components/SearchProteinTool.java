@@ -3,8 +3,6 @@ package domosaics.ui.views.domainview.components;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -14,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import net.miginfocom.swing.MigLayout;
 import domosaics.model.arrangement.DomainArrangement;
@@ -56,7 +55,7 @@ public class SearchProteinTool extends JDialog implements ActionListener {
 		pack();
 		setResizable(false);
 		setAlwaysOnTop(true);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	    		
 	}
 
@@ -104,7 +103,7 @@ public class SearchProteinTool extends JDialog implements ActionListener {
 		ViewType type = view.getViewInfo().getType();
 		if(type==ViewType.DOMAINS || type==ViewType.DOMAINTREE)
 		{
-			DomainArrangement[] daSet=((DomainViewI) view).getDaSet();
+			DomainArrangement[] daSet=view.getDaSet();
 			boolean stop=false, goUntilPrevQuery=lastSearchMemory.contains(query);
 			for(i=0; i!= daSet.length && !stop; i++)
 			{
@@ -141,12 +140,12 @@ public class SearchProteinTool extends JDialog implements ActionListener {
 				} else {
 					lastSearchMemory=daSet[i-1].getName();
 					JScrollPane scrollPane = (JScrollPane)view.getComponent();
-					scrollPane.getVerticalScrollBar().setValue((int)((i-1)*28));
+					scrollPane.getVerticalScrollBar().setValue((i-1)*28);
 				}
 			} else {
 				lastSearchMemory=daSet[i-1].getName();
 				JScrollPane scrollPane = (JScrollPane)view.getComponent();
-				scrollPane.getVerticalScrollBar().setValue((int)((i-1)*28));
+				scrollPane.getVerticalScrollBar().setValue((i-1)*28);
 				//System.out.println(i+" "+(int)(i*scrollPane.getVerticalScrollBar().getMaximum()/(double)(daSet.length))+" "+scrollPane.getVerticalScrollBar().getMaximum()+" "+scrollPane.getVerticalScrollBar().getSize()+" "+view.getDomainLayout().getDomainParams().da_height+" "+view.getDomainLayout().getDomainParams().offsetY);
 
 			}

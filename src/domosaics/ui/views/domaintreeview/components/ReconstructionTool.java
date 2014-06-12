@@ -2,14 +2,8 @@ package domosaics.ui.views.domaintreeview.components;
 
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Hashtable;
@@ -18,11 +12,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JProgressBar;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -30,12 +21,10 @@ import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.EmptyBorder;
+import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.metal.MetalLookAndFeel;
-import javax.swing.plaf.metal.MetalSliderUI;
-
 import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.swingx.JXTitledSeparator;
@@ -172,7 +161,7 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setModal(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 	
 	/**
@@ -240,6 +229,7 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 	 * Method reacting on slider changes, e.g. when using
 	 * Sankoff parsimony to adjust costs for insertions and deletions.
 	 */
+	@Override
 	public void stateChanged(ChangeEvent e) {
 		JSlider slider = (JSlider) e.getSource();
 		if (slider.equals(inSlider)) {
@@ -268,7 +258,8 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 			final int percent = (Integer) evt.getNewValue();
 
 			SwingUtilities.invokeLater(new Runnable() {
-	            public void run() {
+	            @Override
+				public void run() {
 	            	progress.setValue(percent);
 	    			progress.setString(percent+"%");
 	    			
@@ -292,6 +283,7 @@ public class ReconstructionTool extends JDialog implements ChangeListener, Actio
 	/**
 	 * Handles the button events
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		// layout tool for dollo parsimony and start the algorithm
 		if(e.getSource() == jbtDollo) {

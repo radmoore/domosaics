@@ -49,6 +49,7 @@ public class DendogramLayout extends AbstractTreeLayout {
 	 * Is triggered when the tree structure changed and therefore a 
 	 * recalculation of the node positions is necessary
 	 */
+	@Override
 	public void treeStructureChanged() {
 		super.treeStructureChanged();
 		if(params != null) 
@@ -65,6 +66,7 @@ public class DendogramLayout extends AbstractTreeLayout {
 	 * by using a recursive bottom-up approach, see {@link #oneShotlayout()}.
 	 * Afterwards the real coordinates are computed.
 	 */
+	@Override
 	public void layoutTree(int x, int y, int width, int height, int leaveLabaleSpace) {
 		if (width < 0 || height < 0)
 			return;
@@ -87,7 +89,7 @@ public class DendogramLayout extends AbstractTreeLayout {
 			if(nc.getNode().isLeaf()) { // || nc.isCollapsed()) {
 				nc.setBounds((int) (x + Math.round((nc.getRelativeBounds().x * width))),
 						 	 (int) (y + Math.round((nc.getRelativeBounds().y * height))),					 						 
-						 	 (int) Math.round(leaveLabaleSpace),
+						 	 Math.round(leaveLabaleSpace),
 						 	 (int) Math.round(nc.getRelativeBounds().height * height));			
 			}else {
 				if (nc.isCollapsed()) 
@@ -228,7 +230,7 @@ public class DendogramLayout extends AbstractTreeLayout {
 					max_width = dim.getWidth();
 				}
 				double dist = 0;
-				for (TreeNodeI node = nc.getNode(); node.getParent() != null; node = (TreeNodeI) node.getParent()) {
+				for (TreeNodeI node = nc.getNode(); node.getParent() != null; node = node.getParent()) {
 					if (node.getDistanceToParent() != -1)
 						dist += node.getDistanceToParent();
 				}

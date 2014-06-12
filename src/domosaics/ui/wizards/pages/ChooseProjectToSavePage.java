@@ -1,8 +1,6 @@
 package domosaics.ui.wizards.pages;
 
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -62,6 +60,7 @@ public class ChooseProjectToSavePage extends WizardPage {
 		}
 		
 		list.addListSelectionListener(new ListSelectionListener() {
+			@Override
 			public void valueChanged(ListSelectionEvent evt) {
 				if (evt.getValueIsAdjusting()) {
 					elem = (ProjectElement)list.getSelectedValue();
@@ -90,7 +89,8 @@ public class ChooseProjectToSavePage extends WizardPage {
     /**
      * Checks if all necessary choices are made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
     	
     	elem = (ProjectElement)list.getSelectedValue();
 

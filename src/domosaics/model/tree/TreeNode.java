@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import domosaics.model.arrangement.DomainArrangement;
-import domosaics.model.arrangement.DomainSet;
 
 
 
@@ -67,14 +66,17 @@ public class TreeNode implements TreeNodeI {
 //		currentDoms = new DomainSet();
 	}
 	
+	@Override
 	public int getID() {
 		return id;
 	}
 
+	@Override
 	public int childCount() {
 		return outEdges.size();
 	}
 	
+	@Override
 	public List<TreeNodeI> getChildren() {
 		List<TreeNodeI> res = new ArrayList<TreeNodeI>();
 		for (TreeEdgeI edge2child : outEdges)
@@ -82,12 +84,14 @@ public class TreeNode implements TreeNodeI {
 		return res;
 	}
 	
+	@Override
 	public TreeNodeI getChildAt(int index) {
 		if (index >= outEdges.size())	
 			return null;
 		return outEdges.get(index).getTarget();
 	}
 	
+	@Override
 	public Iterator<TreeNodeI> getChildIter () {
 		ArrayList<TreeNodeI> childs = new ArrayList<TreeNodeI>();
 		for (int i = 0; i < childCount(); i++)
@@ -95,24 +99,29 @@ public class TreeNode implements TreeNodeI {
 		return childs.iterator();
 	}
 	
+	@Override
 	public TreeEdgeI getEdgeToParent() {
 		return inEdge;
 	}
 	
+	@Override
 	public TreeNodeI getParent() {
 		if (inEdge != null)
 			return inEdge.getSource();
 		return null;
 	}
 
+	@Override
 	public String getLabel() {
 		return label;
 	}
 	
+	@Override
 	public void setLabel(String label) {
 		this.label = (label != null) ? label.trim() : label;
 	}
 	
+	@Override
 	public void addEdge(TreeEdgeI edge) {
 		if(edge.getSource() == this) {		// if this node is parent in edge
 			outEdges.add(edge);
@@ -120,6 +129,7 @@ public class TreeNode implements TreeNodeI {
 			inEdge = edge;
 	}
 	
+	@Override
 	public void removeEdge(TreeEdgeI edge) {
 		if(inEdge != null && edge == inEdge) 			
 			inEdge = null;
@@ -127,6 +137,7 @@ public class TreeNode implements TreeNodeI {
 			outEdges.remove(edge);
 	}
 
+	@Override
 	public void clear() {
 		if(inEdge != null) {
 			inEdge.getSource().removeEdge(inEdge);
@@ -142,12 +153,14 @@ public class TreeNode implements TreeNodeI {
 		outEdges.clear();
 	}
 	
+	@Override
 	public TreeEdgeI getEdgeToChild(int i) {
 		if (i >= outEdges.size())
 			return null;
 		return outEdges.get(i);
 	}
 
+	@Override
 	public TreeEdgeI getEdgeToChild(TreeNodeI child) {
 		for (int i = 0; i < childCount(); i++)
 			if (getEdgeToChild(i).getTarget().equals(child))
@@ -158,26 +171,30 @@ public class TreeNode implements TreeNodeI {
 	
 	
 	
+	@Override
 	public double getDistanceToParent() {
 		if (getEdgeToParent() == null)
 			return -1;
 		return getEdgeToParent().getWeight();
 	}
 	
+	@Override
 	public boolean isLeaf() {
 		if (childCount() == 0)
 			return true;
 		return false;
 	}
 	
+	@Override
 	public void rotateChildren() {	
 		if (outEdges != null && outEdges.size() >= 2) {
-			TreeEdgeI first = (TreeEdgeI) outEdges.get(0);
+			TreeEdgeI first = outEdges.get(0);
 			removeEdge(first);
 			addEdge(first);
 		}
 	}
 
+	@Override
 	public int countLeaves() {
 		if (isLeaf()) 
 			return 1;
@@ -189,6 +206,7 @@ public class TreeNode implements TreeNodeI {
 		return count;
 	}
 	
+	@Override
 	public int getLevel() {
 		if (level == -1) {
 			TreeNodeI parent = this;
@@ -199,10 +217,11 @@ public class TreeNode implements TreeNodeI {
 		return level;
 	}
 
+	@Override
 	public double getBootstrap() {
 		if (getEdgeToParent() == null)
 			return -1;
-		return ((TreeEdgeI) getEdgeToParent()).getBootstrap();
+		return getEdgeToParent().getBootstrap();
 	}
 	
 	/* *********************************************************** *
@@ -213,16 +232,19 @@ public class TreeNode implements TreeNodeI {
 //		return currentDoms;
 //	}
 	
+	@Override
 	public boolean hasArrangement() {
 		return da != null;
 	}
 	
+	@Override
 	public void setArrangement(DomainArrangement da) {
 		this.da = da;
 		if (da != null)
 			da.setTreeNode(this);
 	}
 	
+	@Override
 	public DomainArrangement getArrangement() {
 		return da;
 	}

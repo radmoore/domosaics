@@ -64,6 +64,7 @@ public class DomainEventMouseController extends MouseAdapter {
 	 * 
 	 * A repaint is forced by changing the temporary selection
 	 */
+	@Override
 	public void mouseMoved(MouseEvent e) {	
 		movePoint = e.getPoint();
 		if (!view.getTreeLayout().getTreeBounds().contains(movePoint)) {

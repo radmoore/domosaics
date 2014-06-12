@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
@@ -24,7 +23,6 @@ import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.sequenceview.SequenceView;
 import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.views.view.View;
-import domosaics.ui.views.view.ViewInfo;
 
 
 

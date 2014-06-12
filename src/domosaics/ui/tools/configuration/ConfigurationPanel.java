@@ -1,13 +1,9 @@
 package domosaics.ui.tools.configuration;
 
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -205,6 +201,7 @@ public class ConfigurationPanel extends JPanel{
 		
 		loadHmmScanBin = new JButton("hmmscan");
 		loadHmmScanBin.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				File scanBin = FileDialogs.showOpenDialog(parentFrame);
 				if (scanBin == null || !scanBin.canExecute())
@@ -215,6 +212,7 @@ public class ConfigurationPanel extends JPanel{
 		
 		loadHmmPressBin = new JButton("hmmpress");
 		loadHmmPressBin.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				File pressBin = FileDialogs.showOpenDialog(parentFrame);
 				if (pressBin == null || !pressBin.canExecute())
@@ -226,6 +224,7 @@ public class ConfigurationPanel extends JPanel{
 		
 		loadHmmDB = new JButton("load profiles");
 		loadHmmDB.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				File file = FileDialogs.showOpenDialog(parentFrame);
 				if (file == null || !file.canRead())
@@ -236,6 +235,7 @@ public class ConfigurationPanel extends JPanel{
 
 		loadWorkspace = new JButton("Browse");
 		loadWorkspace.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				File workspaceFile = FileDialogs.openChooseDirectoryDialog(parentFrame);
 				if (workspaceFile == null)
@@ -246,6 +246,7 @@ public class ConfigurationPanel extends JPanel{
 		
 		loadDocumentation = new JButton("Help");
 		loadDocumentation.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("HTML file", "html", "htm");
 				JFileChooser chooser = new JFileChooser();
@@ -269,6 +270,7 @@ public class ConfigurationPanel extends JPanel{
 		
 		apply = new JButton ("Apply");
 		apply.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				
 				// user can only save a valid config
@@ -315,6 +317,7 @@ public class ConfigurationPanel extends JPanel{
 		
 		cancel = new JButton ("Cancel");
 		cancel.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				dispose();
 			}
@@ -322,6 +325,7 @@ public class ConfigurationPanel extends JPanel{
 		
 		restore = new JButton ("Reset");
 		restore.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				restore();
 			}

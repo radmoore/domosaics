@@ -227,6 +227,7 @@ public class AnnotationThreadSpawner {
 	public void startMultipleThreadSpawn(){
 		
 		jobLauncher = new SwingWorker<String, Void>() {
+			@Override
 			public String doInBackground() {
 				try {
 					seqsWaitingForAnnotation = 0;
@@ -251,6 +252,7 @@ public class AnnotationThreadSpawner {
 				return null;
 			}
 		
+			@Override
 			public void done() {
 				if (isCancelled()) {
 					out.updateProgress(0);

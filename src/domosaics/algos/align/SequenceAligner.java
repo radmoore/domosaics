@@ -116,6 +116,7 @@ class Blosum50 extends Substitution {
 
 	private String residues = "ARNDCQEGHILKMFPSTWYV";
 
+	@Override
 	public String getResidues() { 
 		return residues; 
 	}
@@ -270,11 +271,13 @@ abstract class AlignSimple extends Align {
 		B = new Traceback2[n+1][m+1];
 	}
 
+	@Override
 	public Traceback next(Traceback tb) {
 		Traceback2 tb2 = (Traceback2)tb;
 		return B[tb2.i][tb2.j];
 	}
 
+	@Override
 	public int getScore() { 
 		return F[B0.i][B0.j]; 
 	}
@@ -400,6 +403,7 @@ class RM extends AlignSimple {
 		B0 = new Traceback2(n, maxj(n));
 	}
 
+	@Override
 	public String[] getMatch() {
 		StringBuffer res1 = new StringBuffer();
 		StringBuffer res2 = new StringBuffer();
@@ -512,11 +516,13 @@ abstract class AlignAffine extends Align {
 		B = new Traceback3[3][n+1][m+1];
 	}
 
+	@Override
 	public Traceback next(Traceback tb) {
 		Traceback3 tb3 = (Traceback3)tb;
 		return B[tb3.k][tb3.i][tb3.j];
 	}
 
+	@Override
 	public int getScore() {
 		return F[((Traceback3)B0).k][B0.i][B0.j]; 
 	}
@@ -648,6 +654,7 @@ class NWSmart extends AlignSmart {
 		return c[1][m]; 
 	}
 
+	@Override
 	public String[] getMatch() {
 		int v = getV();
 		if (n > 1 && m > 1) {
@@ -664,6 +671,7 @@ class NWSmart extends AlignSmart {
 		}
 	}
 
+	@Override
 	public int getScore() { 
 		return F[1][m]; 
 	}
@@ -718,10 +726,12 @@ class SWSmart extends AlignSmart {
 		}
 	}
 
+	@Override
 	public int getScore() { 
 		return maxval; 
 	}
 
+	@Override
 	public String[] getMatch() {
 		String subseq1 = seq1.substring(start1, end1);
 		String subseq2 = seq2.substring(start2, end2);
@@ -804,10 +814,12 @@ class SWSmartAffine extends AlignSmartAffine {
 		}
 	}
 
+	@Override
 	public int getScore() { 
 		return maxval; 
 	}
 
+	@Override
 	public String[] getMatch() {
 		String subseq1 = seq1.substring(start1, end1);
 		String subseq2 = seq2.substring(start2, end2);

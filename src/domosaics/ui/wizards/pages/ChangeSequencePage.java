@@ -69,19 +69,23 @@ public class ChangeSequencePage extends WizardPage {
 		
 		input.getDocument().addDocumentListener(new DocumentListener() {
 			
+			@Override
 			public void removeUpdate(DocumentEvent e) {
 				lengthField.setText(""+input.getText().length());
 			}
 			
+			@Override
 			public void insertUpdate(DocumentEvent e) {
 				lengthField.setText(""+input.getText().length());
 			}
 			
+			@Override
 			public void changedUpdate(DocumentEvent e) {}
 		});
 		
 		removeSequence = new JButton("Remove sequence");
 		removeSequence.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				input.setText("");
 			}
@@ -89,6 +93,7 @@ public class ChangeSequencePage extends WizardPage {
 		
 		restore = new JButton("Restore sequence");
 		restore.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				input.setText("");
 				input.setText(startingSeq);
@@ -124,7 +129,8 @@ public class ChangeSequencePage extends WizardPage {
 	/**
      * Checks if all necessary inputs are made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
 
     	String newSeq = input.getText(); 
     	//System.out.println("This is the new sequence length: "+newSeq.length());

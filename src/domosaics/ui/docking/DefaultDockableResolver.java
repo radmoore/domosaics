@@ -42,6 +42,7 @@ public class DefaultDockableResolver implements DockableResolver {
 	 * @return
 	 * 		the dockable with the queried key
 	 */
+	@Override
 	public Dockable resolveDockable(String key) {
 		Dockable dockable = dockables.get(key);
 		if(dockable == null)

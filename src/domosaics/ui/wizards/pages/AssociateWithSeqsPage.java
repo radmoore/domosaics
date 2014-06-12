@@ -82,6 +82,7 @@ public class AssociateWithSeqsPage extends WizardPage implements ActionListener 
 	/**
 	 * Action performed when the browse button was clicked
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {	
 		if (e.getSource() instanceof JButton) {
 			File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
@@ -108,7 +109,8 @@ public class AssociateWithSeqsPage extends WizardPage implements ActionListener 
 	/**
      * Checks if all necessary inputs are made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
     	if (path.getText().isEmpty() && selectViewList.getSelectedItem() == null)
 			return "Please select a file OR a sequence view";
         return null;

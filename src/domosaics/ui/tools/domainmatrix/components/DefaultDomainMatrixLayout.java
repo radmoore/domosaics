@@ -60,6 +60,7 @@ public class DefaultDomainMatrixLayout implements ViewLayout{
 	 * @param view
 	 * 		the view to be layouted
 	 */
+	@Override
 	public void setView(View view) {
 		this.view = (DomainMatrixView) view;
 		this.data = this.view.getData();
@@ -71,6 +72,7 @@ public class DefaultDomainMatrixLayout implements ViewLayout{
 	 * @param parent
 	 * 		the parent container
 	 */
+	@Override
 	public void layoutContainer(Container parent) {
 		if (largestLabel == null)
 			getLargestLabel();
@@ -129,8 +131,8 @@ public class DefaultDomainMatrixLayout implements ViewLayout{
 				data[r][c].setBounds(
 					(int) (x + Math.round(data[r][c].getRelativeBounds().x * width)),
 					(int) (y + Math.round(data[r][c].getRelativeBounds().y * height)),					 						 
-					(int) Math.round(colWidth),
-					(int) Math.round(rowHeight)	
+					Math.round(colWidth),
+					Math.round(rowHeight)	
 				);
 			}
 	}

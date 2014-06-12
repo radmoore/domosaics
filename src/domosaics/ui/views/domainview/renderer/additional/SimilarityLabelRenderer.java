@@ -46,6 +46,7 @@ public class SimilarityLabelRenderer implements Renderer {
 	 * The renderer tries to determine the best column to draw all
 	 * numbers.
 	 */
+	@Override
 	public void render(Graphics2D g) {
 		// don't draw if no arrangements were collapsed
 		if (!view.getDomainLayoutManager().isCollapseBySimilarity())

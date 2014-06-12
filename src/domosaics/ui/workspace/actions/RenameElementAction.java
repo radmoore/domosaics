@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.ViewElement;
 import domosaics.model.workspace.WorkspaceElement;
 import domosaics.ui.DoMosaicsUI;
@@ -33,6 +32,7 @@ public class RenameElementAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Renames the selected component");
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		// get selected Workspace element
 		WorkspaceElement selected = WorkspaceManager.getInstance().getSelectionManager().getSelectedElement();

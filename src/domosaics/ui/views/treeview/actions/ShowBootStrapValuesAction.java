@@ -8,9 +8,7 @@ import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.util.MessageUtil;
-import domosaics.ui.views.ViewType;
 import domosaics.ui.views.treeview.TreeViewI;
-import domosaics.ui.views.domaintreeview.DomainTreeView;
 
 
 
@@ -24,6 +22,7 @@ import domosaics.ui.views.domaintreeview.DomainTreeView;
 public class ShowBootStrapValuesAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	    
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		TreeViewI view = ViewHandler.getInstance().getActiveView();

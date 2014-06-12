@@ -107,7 +107,8 @@ public class DomainGraph extends prefuse.data.Graph {
 	/**
 	 * Returns a node with the specified index
 	 */
-    public Node getNode(int n) {
+    @Override
+	public Node getNode(int n) {
         return (Node)m_nodeTuples.getTuple(n);
     }
 		

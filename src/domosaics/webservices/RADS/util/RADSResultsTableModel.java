@@ -75,7 +75,8 @@ public class RADSResultsTableModel extends AbstractTableModel{
 	/**
 	 * see {@link AbstractTableModel#getColumnName(int)}
 	 */
-    public String getColumnName(int col) {
+    @Override
+	public String getColumnName(int col) {
     	return HEADERS.get(mode)[col].toString();
     }
 	
@@ -100,6 +101,7 @@ public class RADSResultsTableModel extends AbstractTableModel{
 	/**
 	 * see {@link AbstractTableModel#getRowCount()}
 	 */
+	@Override
 	public int getRowCount() {
 		return tableData.length;
 	}
@@ -107,6 +109,7 @@ public class RADSResultsTableModel extends AbstractTableModel{
 	/**
 	 * see {@link AbstractTableModel#getColumnCount()}
 	 */
+	@Override
 	public int getColumnCount() {
 		return HEADERS.get(mode).length;
 	}
@@ -114,6 +117,7 @@ public class RADSResultsTableModel extends AbstractTableModel{
 	/**
 	 * see {@link AbstractTableModel#getValueAt(int, int)}
 	 */
+	@Override
 	public Object getValueAt(int row, int col) {
 		return tableData[row][col];
 	}
@@ -121,14 +125,16 @@ public class RADSResultsTableModel extends AbstractTableModel{
 	/**
 	 * see {@link TableModel#getColumnClass(int)}
 	 */
-    public Class<?> getColumnClass(int c) {
+    @Override
+	public Class<?> getColumnClass(int c) {
         return getValueAt(0, c).getClass();
     }
     
     /**
      * see {@link TableModel#isCellEditable(int, int)}
      */
-    public boolean isCellEditable(int row, int col) {
+    @Override
+	public boolean isCellEditable(int row, int col) {
     	//return col == 1;
     	return false;
     }
@@ -136,7 +142,8 @@ public class RADSResultsTableModel extends AbstractTableModel{
     /**
      * see {@link TableModel#setValueAt(Object, int, int)}
      */
-    public void setValueAt(Object value, int row, int col) {
+    @Override
+	public void setValueAt(Object value, int row, int col) {
         tableData[row][col] = value;
         fireTableCellUpdated(row, col);
     }

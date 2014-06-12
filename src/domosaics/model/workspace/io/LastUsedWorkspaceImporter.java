@@ -15,7 +15,6 @@ import domosaics.ui.views.domaintreeview.DomainTreeView;
 import domosaics.ui.views.domainview.DomainView;
 import domosaics.ui.views.sequenceview.SequenceView;
 import domosaics.ui.views.treeview.TreeView;
-import domosaics.ui.views.view.io.ViewImporter;
 
 
 
@@ -131,6 +130,7 @@ public class LastUsedWorkspaceImporter {
 			
 			// refresh the workspace
 	    	SwingUtilities.invokeLater(new Runnable() {						
+				@Override
 				public void run() {	
 					WorkspaceManager.getInstance().getWorkspaceView().refresh();
 				}

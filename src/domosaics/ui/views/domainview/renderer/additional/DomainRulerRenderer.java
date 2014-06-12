@@ -47,6 +47,7 @@ public class DomainRulerRenderer implements Renderer {
 	/**
 	 * Renders the ruler on bottom of the view.
 	 */
+	@Override
 	public void render(Graphics2D g2) {
 		// check if the option to render the ruler is enabled
 		if (!view.getDomainLayoutManager().isShowLineal())
@@ -83,7 +84,7 @@ public class DomainRulerRenderer implements Renderer {
 		// create the tick labels
 		String[] tickLabels = new String[numTicks+1];
 		for (int i=0; i <= numTicks; i++) 
-			tickLabels[i] = ""+(int) (i*maxLen/numTicks);
+			tickLabels[i] = ""+i*maxLen/numTicks;
 		
 		
 		
@@ -106,7 +107,7 @@ public class DomainRulerRenderer implements Renderer {
 			// draw the label
 			if (i == numTicks) 
 				tx -= (getStringWidth(g2, tickLabels[i])+2);
-			g2.drawString(tickLabels[i],(int) (tx+2), (int)(ty+10+3));
+			g2.drawString(tickLabels[i],tx+2, ty+10+3);
 		}
 		
 		g2.setStroke(oldStroke);

@@ -26,6 +26,7 @@ public class EvalueColorizationAction extends AbstractMenuAction{
 			"expected value. If no domains are transparent either \n" +
 			"the annotation is very good or no evalues were assigned. \n";
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 

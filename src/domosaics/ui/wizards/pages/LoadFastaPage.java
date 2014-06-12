@@ -3,11 +3,7 @@ package domosaics.ui.wizards.pages;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -18,18 +14,13 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
-import domosaics.model.sequence.SequenceI;
 import domosaics.model.sequence.io.FastaReader;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.DoMosaicsUI;
-import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
-import domosaics.ui.views.domainview.DomainView;
-import domosaics.ui.views.sequenceview.SequenceView;
-import domosaics.ui.views.view.io.ViewImporter;
 
 
 
@@ -73,6 +64,7 @@ public class LoadFastaPage extends WizardPage {
 		
 		browse = new JButton("Browse");
 		browse.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				seqs = false;
 				File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
@@ -128,7 +120,8 @@ public class LoadFastaPage extends WizardPage {
     /**
      * Checks if all necessary inputs are made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
 		
 		String newName = name.getText().trim();
 		

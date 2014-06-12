@@ -82,6 +82,7 @@ public class ViewElement extends WorkspaceElement {
 	 * @return
 	 * 		icon for the view element 
 	 */
+	@Override
 	public ImageIcon getIcon() {
 		return viewInfo.getIcon();
 	}
@@ -92,6 +93,7 @@ public class ViewElement extends WorkspaceElement {
 	 * @return
 	 * 		the project associated with this view
 	 */
+	@Override
 	public ProjectElement getProject() {
 		return (ProjectElement) getParent().getParent();
 	}

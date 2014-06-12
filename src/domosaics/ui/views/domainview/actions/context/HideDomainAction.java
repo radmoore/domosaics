@@ -24,6 +24,7 @@ public class HideDomainAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Hides a domain");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		

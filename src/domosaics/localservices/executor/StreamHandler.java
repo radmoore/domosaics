@@ -42,7 +42,8 @@ public class StreamHandler extends Thread implements ProcessListener{
     }
     
     
-    public void run() {
+    @Override
+	public void run() {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line = null;
@@ -59,12 +60,14 @@ public class StreamHandler extends Thread implements ProcessListener{
         }
     }
 
+	@Override
 	public void outputRecieved(String out, String type) {
 		if (type.equals(ERROR))
 			System.out.print("ERROR>");
 		System.out.println(out);	
 	}
 
+	@Override
 	public void setResult(int res) {
 		System.out.println("OhNos.");
 	}

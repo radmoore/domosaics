@@ -1,7 +1,6 @@
 package domosaics.ui.wizards.dialogs;
 
 import java.awt.EventQueue;
-import java.awt.Rectangle;
 import java.io.File;
 import java.util.Map;
 
@@ -77,10 +76,12 @@ class SaveProjectProgress extends DeferredWizardResult implements WizardResultPr
 		p.finished(null);
 	}
 	
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
 
+	@Override
 	public Object finish(Map m) throws WizardException {
 		return this;
 	}	

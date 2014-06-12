@@ -23,6 +23,7 @@ import domosaics.ui.views.treeview.components.NodeComponentDetector;
 public class ShowInnerNodesAction extends AbstractMenuAction {
 	private static final long serialVersionUID = 1L;
 	    
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		TreeViewI view = ViewHandler.getInstance().getActiveView();
 		view.getTreeLayoutManager().visualChange();

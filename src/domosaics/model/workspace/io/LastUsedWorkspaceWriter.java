@@ -10,7 +10,6 @@ import domosaics.model.workspace.CategoryElement;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.ViewElement;
 import domosaics.model.workspace.WorkspaceElement;
-import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 
 

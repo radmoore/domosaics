@@ -4,9 +4,6 @@ import java.awt.EventQueue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 import org.netbeans.spi.wizard.DeferredWizardResult;
@@ -17,27 +14,20 @@ import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 import domosaics.model.DataType;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.io.ArrangementImporterUtil;
-import domosaics.model.arrangement.io.HmmOutReader;
-import domosaics.model.arrangement.io.XdomReader;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.sequence.io.FastaReader;
-import domosaics.model.tree.Tree;
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.io.NewickTreeReader;
 import domosaics.model.tree.io.NexusTreeReader;
-import domosaics.model.workspace.CategoryElement;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.ViewElement;
-import domosaics.model.workspace.WorkspaceElement;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
-import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
-import domosaics.ui.views.domainview.DomainView;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.sequenceview.SequenceView;
 import domosaics.ui.views.treeview.TreeViewI;
@@ -287,6 +277,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 	/**
 	 * @see WizardResultProducer
 	 */
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
@@ -294,6 +285,7 @@ public class ImportDataResultProducer extends DeferredWizardResult  implements W
 	/**
 	 * @see WizardResultProducer
 	 */
+	@Override
 	public Object finish(Map m) throws WizardException {
 		return this;
 	}	

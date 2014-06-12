@@ -15,10 +15,11 @@ public class SequenceViewImporter extends ViewImporter<SequenceView>{
 	private static final int DEFAULTSETTINGS = 0;
 	private static final int LAYOUTSETTINGS = 1;
 
+	@Override
 	public SequenceView readData(String data) {
 		SequenceView res = null;
 		
-		SequenceI[] seqs = (SequenceI[]) new FastaReader().getDataFromString(data);
+		SequenceI[] seqs = new FastaReader().getDataFromString(data);
 		if (seqs == null)
 			return null;
 		
@@ -27,6 +28,7 @@ public class SequenceViewImporter extends ViewImporter<SequenceView>{
 		return res;
 	}
 	
+	@Override
 	public void readAttributes(String attributes, SequenceView view)  {
 		try {
 			BufferedReader in = new BufferedReader(new StringReader(attributes)); 

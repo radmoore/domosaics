@@ -48,6 +48,7 @@ public class TreeComponentManager extends AbstractComponentManager<TreeNodeI, No
 	/**
 	 * @see ComponentManager
 	 */
+	@Override
 	public NodeComponent getComponent(TreeNodeI node){
 		if (node == null) 
 			return null;

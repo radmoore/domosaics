@@ -40,6 +40,7 @@ public class MatrixTableModel extends DefaultTableModel{
 	/**
 	 * ensures that the user cant edit a cell
 	 */
+	@Override
 	public boolean isCellEditable(int row, int column) {
 		return false;
 	}

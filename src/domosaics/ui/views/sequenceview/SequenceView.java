@@ -2,7 +2,6 @@ package domosaics.ui.views.sequenceview;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,10 +12,8 @@ import javax.swing.JScrollPane;
 import org.jdom2.Attribute;
 import org.jdom2.Element;
 
-import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.sequence.Sequence;
 import domosaics.model.sequence.SequenceI;
-import domosaics.ui.views.sequenceview.io.SequenceViewExporter;
 import domosaics.ui.views.view.AbstractView;
 import domosaics.ui.views.view.View;
 import domosaics.ui.views.view.layout.ViewLayout;
@@ -47,6 +44,7 @@ public class SequenceView extends AbstractView{
 		scrollPane.setFocusable(false);
 	}
 	
+	@Override
 	public void removeMouseListeners() {
 
 	}
@@ -101,6 +99,7 @@ public class SequenceView extends AbstractView{
 		return seqs;
 	}
 	
+	@Override
 	public JComponent getComponent() {
 		return scrollPane;
 	}
@@ -109,12 +108,14 @@ public class SequenceView extends AbstractView{
 		return scrollPane.getViewport().getViewSize();
 	}
 
+	@Override
 	public void registerMouseListeners() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	
+	@Override
 	public void setViewLayout(ViewLayout layout) {
 		// TODO Auto-generated method stub
 		
@@ -123,6 +124,7 @@ public class SequenceView extends AbstractView{
 	/**
 	 * @see View
 	 */
+	@Override
 	public void setViewRenderer(Renderer renderer) {
 		this.viewRenderer = renderer;
 	}

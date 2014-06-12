@@ -37,6 +37,7 @@ public class SelectionRectangleRenderer implements Renderer {
 	/**
 	 * @see renderer
 	 */
+	@Override
 	public void render(Graphics2D g) {
 		if (view.getTreeMouseController().getSelectionRectangle() == null)
 			return;

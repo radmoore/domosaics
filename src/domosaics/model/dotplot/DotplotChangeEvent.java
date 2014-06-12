@@ -29,8 +29,9 @@ public class DotplotChangeEvent extends EventObject {
 	 * @return
 	 * 		Dotplot which changed
 	 */
+	@Override
 	public Dotplot getSource() {
-		return (Dotplot) getSource();
+		return getSource();
 	}
 
 }

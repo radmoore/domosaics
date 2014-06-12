@@ -5,10 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -110,6 +107,7 @@ public class SelectTreeDataPage extends WizardPage implements ActionListener {
 	/**
 	 * Action performed when the browse button was clicked
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {	
 		File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 		if(file != null) {
@@ -146,7 +144,8 @@ public class SelectTreeDataPage extends WizardPage implements ActionListener {
     /**
      * Checks if all necessary inputs are made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
     	if (tree == null)
     		return "Please select a correctly formatted newick file";
     	if (path.getText().isEmpty())

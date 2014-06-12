@@ -39,10 +39,12 @@ public class WorkspaceDirectoryWizard {
 
 class WorkspaceDirectoryProgress implements WizardResultProducer{
 	
+	@Override
 	public boolean cancel(Map settings) {
 		return true;
 	}
 
+	@Override
 	public Object finish(Map wizardData) throws WizardException {
 		File res = new File((String) wizardData.get(WorkspaceDirectoryPage.FILE_KEY));
 		return res;

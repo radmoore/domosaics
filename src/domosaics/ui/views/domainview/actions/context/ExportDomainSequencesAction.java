@@ -34,6 +34,7 @@ public class ExportDomainSequencesAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Select all domains of this family and export the sequences");
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		

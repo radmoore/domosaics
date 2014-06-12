@@ -23,6 +23,7 @@ import domosaics.ui.wizards.WizardManager;
 public class CreateSpeciesTreeAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
+	@Override
 	public void actionPerformed(ActionEvent event) {
 		boolean created = WizardManager.getInstance().startCreateSpeciesTreeWizard();
 		

@@ -4,9 +4,6 @@ import java.awt.Cursor;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-
 import javax.swing.JPanel;
 
 import domosaics.localservices.executor.Executor;
@@ -163,6 +160,7 @@ public class HmmPress implements Hmmer3Program {
 	 * Prepares the arguments in a String[] for the {@link Executor}
 	 * Implementation required by {@link Hmmer3Program} interface.
 	 */
+	@Override
 	public void prepare() {
 		args = new String[3];
 		args[0] = hmmPressBin.getAbsolutePath();
@@ -175,6 +173,7 @@ public class HmmPress implements Hmmer3Program {
 	 * Returns the arguments required to run hmmpress
 	 * Implementation required by {@link Hmmer3Program} interface.
 	 */
+	@Override
 	public String[] getArgs() {
 		return args;
 	}
@@ -190,6 +189,7 @@ public class HmmPress implements Hmmer3Program {
 	 * - Clean up messages back to console 
 	 * 
 	 */
+	@Override
 	public void parseResults() {
 		System.out.println("*** I: hmmpress run successful.");
 		if (parentPanel != null) {
@@ -212,6 +212,7 @@ public class HmmPress implements Hmmer3Program {
 	 * getParentPanel();
 	 * Implementation required by {@link Hmmer3Program} interface.
 	 */
+	@Override
 	public HmmerServicePanel getParentServicePanel() {
 		return this.parentServicePanel;
 	}
@@ -223,6 +224,7 @@ public class HmmPress implements Hmmer3Program {
 		return this.parentPanel;
 	}
 
+	@Override
 	public String getCommandCall() {
 		StringBuffer commandString = new StringBuffer();
 		for (String arg: args)
@@ -235,6 +237,7 @@ public class HmmPress implements Hmmer3Program {
 	 * The name of this program
 	 * Implementation required by {@link Hmmer3Program} interface.
 	 */
+	@Override
 	public String getName() {
 		return this.name;
 	}

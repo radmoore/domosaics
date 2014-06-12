@@ -18,6 +18,7 @@ import domosaics.ui.views.view.components.ZoomCompatible;
 public class SaveFastaFileAction extends AbstractMenuAction implements ZoomCompatible {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		SequenceView view = (SequenceView) ViewHandler.getInstance().getActiveView();
 

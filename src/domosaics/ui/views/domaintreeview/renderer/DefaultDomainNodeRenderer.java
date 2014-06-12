@@ -71,6 +71,7 @@ public class DefaultDomainNodeRenderer extends DefaultNodeRenderer {
 	/**
 	 * @see NodeRenderer
 	 */
+	@Override
 	public void renderNode(NodeComponent nc, TreeViewI view, Graphics2D g2) {
 		// render the node normally
 		super.renderNode(nc, view, g2);

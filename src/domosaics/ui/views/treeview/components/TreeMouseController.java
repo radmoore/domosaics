@@ -113,6 +113,7 @@ public class TreeMouseController extends MouseAdapter {
 	 * On left click deselect all nodes, on right click
 	 * open a context menu if it was triggered on a node.
 	 */
+	@Override
 	public void mouseClicked(MouseEvent e) {
 		// if left button check for keystrokes and add to selection
 		if (e.getButton() == MouseEvent.BUTTON1) {
@@ -143,6 +144,7 @@ public class TreeMouseController extends MouseAdapter {
 	 * dragging process of the selection rectangle. The finished
 	 * rectangle is then used to select nodes.
 	 */
+	@Override
 	public void mouseReleased(MouseEvent e) {
 		// if leftbutton => check selection rectangle
 		if (e.getButton() == MouseEvent.BUTTON1) {
@@ -173,6 +175,7 @@ public class TreeMouseController extends MouseAdapter {
 	 * The mouse pressed method starts the selection process via
 	 * a selection rectangle
 	 */
+	@Override
 	public void mousePressed(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			view.getTreeSelectionManager().clearSelection();
@@ -192,6 +195,7 @@ public class TreeMouseController extends MouseAdapter {
 	/**
 	 * the mouse dragged method expands the selection rectangle
 	 */
+	@Override
 	public void mouseDragged(MouseEvent e) {
 		if (!dragging)
 			return;
@@ -218,6 +222,7 @@ public class TreeMouseController extends MouseAdapter {
 	 * 
 	 * A repaint is forced by changing the temporary selection
 	 */
+	@Override
 	public void mouseMoved(MouseEvent e) {	
 		int s = (searchSpace / 2);
 		List<NodeComponent> nearestNodes = nodeDetector.searchNodeComponents(new Rectangle(e.getX() - s, e.getY() - s, searchSpace, searchSpace));
@@ -238,7 +243,7 @@ public class TreeMouseController extends MouseAdapter {
 		NodeComponent nearest = nearestNodes.get(0);
 		for (int i = 1; i < nearestNodes.size(); i++) {
 			if (nearestNodes.get(i).getLocation().distance(e.getPoint()) < nearest.getLocation().distance(e.getPoint())) 
-				nearest = (NodeComponent) nearestNodes.get(i);
+				nearest = nearestNodes.get(i);
 		}
 		
 		if (!nearest.equals(view.getTreeSelectionManager().getMouseOverComp()))

@@ -49,6 +49,7 @@ public abstract class AbstractComponentManager <T extends DoMosaicsData, C exten
 	/**
 	 * @see ComponentManager
 	 */ 
+	@Override
 	public Iterator<C> getComponentsIterator() {
 		return backend2components.values().iterator();
 	}
@@ -56,6 +57,7 @@ public abstract class AbstractComponentManager <T extends DoMosaicsData, C exten
 	/**
 	 * @see ComponentManager
 	 */ 
+	@Override
 	public void clear(){
 		backend2components.clear();
 	}
@@ -63,6 +65,7 @@ public abstract class AbstractComponentManager <T extends DoMosaicsData, C exten
 	/**
 	 * @see ComponentManager
 	 */ 
+	@Override
 	public int countComponents() {
 		return backend2components.size();
 	}
@@ -78,6 +81,7 @@ public abstract class AbstractComponentManager <T extends DoMosaicsData, C exten
 	/**
 	 * @see ComponentManager
 	 */ 
+	@Override
 	public abstract C getComponent(T backend);
 	
 }

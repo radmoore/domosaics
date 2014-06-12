@@ -25,6 +25,7 @@ public class ShowAllDomainsAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Makes all hidden domains visible again");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		

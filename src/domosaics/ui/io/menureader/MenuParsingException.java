@@ -19,7 +19,8 @@ public class MenuParsingException extends Exception {
         super(str);
     }
     
-    public String toString() {
+    @Override
+	public String toString() {
         return "Failed to parse menu file: "+super.getMessage();
     }
 

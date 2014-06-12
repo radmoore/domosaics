@@ -30,6 +30,7 @@ public class PDFImageExporter implements ImageExporter{
 	/**
 	 * @see ImageExporter
 	 */
+	@Override
 	public void export(View view, File file, GraphicFormats format) {
          try {
         	 java.awt.Rectangle rectangle = view.getViewComponent().getBounds();

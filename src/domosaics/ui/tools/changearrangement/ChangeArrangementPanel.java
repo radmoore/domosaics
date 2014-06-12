@@ -23,7 +23,6 @@ import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.DomainFamily;
 import domosaics.model.arrangement.DomainType;
 import domosaics.model.arrangement.io.GatheringThresholdsReader;
-import domosaics.model.configuration.Configuration;
 import domosaics.ui.util.MessageUtil;
 import domosaics.util.StringUtils;
 
@@ -99,6 +98,7 @@ public class ChangeArrangementPanel extends JPanel {
 		
 		restore = new JButton("Restore");
 		restore.addActionListener(new ActionListener(){
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				restore();
 			}	
@@ -106,6 +106,7 @@ public class ChangeArrangementPanel extends JPanel {
 		
 		add = new JButton("Add/Change");
 		add.addActionListener(new ActionListener(){
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				apply();
 			}	
@@ -113,6 +114,7 @@ public class ChangeArrangementPanel extends JPanel {
 	
 		reset = new JButton ("Reset");
 		reset.addActionListener(new ActionListener(){
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				reset();
 			}
@@ -120,6 +122,7 @@ public class ChangeArrangementPanel extends JPanel {
 
 		close = new JButton ("Close");
 		close.addActionListener(new ActionListener(){
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				close();
 			}
@@ -209,7 +212,7 @@ public class ChangeArrangementPanel extends JPanel {
 				da.setSequence(da.getSequence());
 		
 		// sort the domains
-		Collections.sort((Vector<Domain>)da.getDomains());
+		Collections.sort(da.getDomains());
 		
 		reset();
 		view.refreshViews(dom);

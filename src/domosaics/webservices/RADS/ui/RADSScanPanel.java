@@ -195,6 +195,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	/**
 	 * see {@link RADSPanelI}
 	 */
+	@Override
 	public View getView() {
 		if (selectedView == null)
 			currentView = ViewHandler.getInstance().getActiveView();
@@ -206,6 +207,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	/**
 	 * see {@link RADSPanelI}
 	 */
+	@Override
 	public JProgressBar getProgressBar() {
 		return progressBar;
 	}
@@ -213,6 +215,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	/**
 	 * see {@link RADSPanelI}
 	 */
+	@Override
 	public JFrame getParentFrame() {
 		return parent;
 	}
@@ -220,6 +223,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	/**
 	 * see {@link RADSPanelI}
 	 */
+	@Override
 	public RADSResults getResults() {
 		return results;
 	}
@@ -227,6 +231,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	/**
 	 * see {@link RADSPanelI}
 	 */
+	@Override
 	public RADSService getRadsService() {
 		return radsService;
 	}
@@ -234,6 +239,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	/**
 	 * Methods called on RADSScanPanel ActionEvents 
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("loadSeqFromFile")) {
 			loadSeqFromFile();
@@ -285,6 +291,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 	 * 
 	 * @param checkScanState - indicate whether scan state should be checked before closing
 	 */
+	@Override
 	public void close(boolean checkScanState) {
 		if (radsService == null) {
 			parent.dispose();
@@ -330,6 +337,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		String[] algos = {"RADS", "RADS/RAMPAGE"};
 		selectAlgo = new JComboBox(algos);
 		selectAlgo.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (selectAlgo.getSelectedItem().equals("RADS")) {
 					toggleComponents(radsOptionPanel, true);
@@ -484,6 +492,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		selectSeqView.setSelectedItem(null);
 		selectSeqView.setRenderer(new WizardListCellRenderer());
 		selectSeqView.addActionListener(new ActionListener(){
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				loadSeqTF.setText("");
 //				clearPasteBox();
@@ -522,6 +531,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		selectArrView.setSelectedItem(null);
 		selectArrView.setRenderer(new WizardListCellRenderer());
 		selectArrView.addActionListener(new ActionListener(){
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				loadArrTF.setText("");
 //				clearPasteBox();
@@ -903,6 +913,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 				progressBar.setIndeterminate(true);
 				radsService.execute();
 				radsService.addPropertyChangeListener(new PropertyChangeListener() {
+					@Override
 					public void propertyChange(PropertyChangeEvent evt) {
 						if ("state".equals(evt.getPropertyName())) {
 							if ( "DONE".equals(evt.getNewValue().toString()) ) {
@@ -941,6 +952,7 @@ public class RADSScanPanel extends JPanel implements ActionListener, RADSPanelI 
 		RADSResultsTableModel resultModel = null;
 		SwingWorker<RADSResultsTableModel, Void> worker = 
 			new SwingWorker<RADSResultsTableModel, Void>() {
+			@Override
 			protected RADSResultsTableModel doInBackground() throws Exception {
 				return resultProcessor.createResultTable();
 			}

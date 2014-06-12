@@ -63,6 +63,7 @@ public class NexusTreeReader extends AbstractTreeReader {
 	 * @return 
 	 * 		the parsed tree
 	 */
+	@Override
 	public TreeI getTreeFromString(String nexusStr) {
 		String treeStr = ""; 
 		String taxaStr = "";

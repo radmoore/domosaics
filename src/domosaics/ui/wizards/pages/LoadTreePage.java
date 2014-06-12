@@ -22,14 +22,10 @@ import domosaics.model.tree.io.NewickTreeReader;
 import domosaics.model.tree.io.NexusTreeReader;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.DoMosaicsUI;
-import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
-import domosaics.ui.views.domainview.DomainView;
-import domosaics.ui.views.sequenceview.SequenceView;
-import domosaics.ui.views.view.io.ViewImporter;
 
 
 
@@ -73,6 +69,7 @@ public class LoadTreePage extends WizardPage {
 		
 		browse = new JButton("Browse");
 		browse.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 				if(file != null) {
@@ -139,7 +136,8 @@ public class LoadTreePage extends WizardPage {
      * 
      * Checks if all necessary inputs are made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
 		
 		String newName = name.getText().trim();
 		

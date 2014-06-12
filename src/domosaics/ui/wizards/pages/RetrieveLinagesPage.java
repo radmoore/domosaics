@@ -25,7 +25,8 @@ public class RetrieveLinagesPage extends WizardPage {
         return "Retrieve lineages from UniProt";
     }
     
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
     	/*
     	 * if necessary set the query ids here, even if this is not a good
     	 * place to do it, i cant find a better one

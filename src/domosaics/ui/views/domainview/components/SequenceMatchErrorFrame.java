@@ -4,9 +4,6 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -17,10 +14,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
 
-import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
-import domosaics.model.arrangement.DomainVector;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.sequence.io.FastaReader;
 import domosaics.model.sequence.util.SeqUtil;
@@ -105,7 +101,7 @@ public class SequenceMatchErrorFrame extends JDialog implements ActionListener{
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setModal(true);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE );
 	}
 
 	/**
@@ -126,6 +122,7 @@ public class SequenceMatchErrorFrame extends JDialog implements ActionListener{
 		return 0;
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent evt) {
 		if (evt.getActionCommand().equals("sequenceList")) {
 			SequenceI seq = (SequenceI) ((JComboBox) evt.getSource()).getSelectedItem();

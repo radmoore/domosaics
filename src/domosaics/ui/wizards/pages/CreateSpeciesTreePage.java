@@ -1,8 +1,6 @@
 package domosaics.ui.wizards.pages;
 
 import java.awt.Component;
-import java.awt.Dimension;
-
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
@@ -48,7 +46,8 @@ public class CreateSpeciesTreePage extends WizardPage {
         return "Select view for species tree creation";
     }
     
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
     	if (selectDomViewList.getSelectedItem() == null)
     		return "Please select domain view";
 

@@ -135,7 +135,8 @@ public class DistMatrixPanel extends JPanel{
 		    int c = -1;
 		    int r = -1;
             
-		    public void valueChanged(ListSelectionEvent e) {
+		    @Override
+			public void valueChanged(ListSelectionEvent e) {
                 boolean change = false;
                 if(table.getSelectedColumn() != c){
                     c = table.getSelectedColumn();

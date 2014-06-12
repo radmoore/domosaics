@@ -25,6 +25,7 @@ public class CreateProjectAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Creates a new project");
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		WizardManager.getInstance().showCreateProjectWizard(null);
 	}

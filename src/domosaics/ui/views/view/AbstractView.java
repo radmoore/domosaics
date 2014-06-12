@@ -8,10 +8,8 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +28,10 @@ import domosaics.model.configuration.Configuration;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.DigestUtil;
 import domosaics.ui.util.MessageUtil;
-import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.DomainView;
 import domosaics.ui.views.domainview.renderer.additional.DomainTooltipRenderer;
 import domosaics.ui.views.view.components.ZoomController;
 import domosaics.ui.views.view.renderer.Renderer;
-import domosaics.ui.wizards.pages.ImportViewPage;
 
 /**
  * AbstractView is the basic implementation for the {@link View} 
@@ -139,6 +135,7 @@ public abstract class AbstractView extends JComponent implements View {
 	 * @param info
 	 * 		the view information to store
 	 */
+	@Override
 	public void setViewInfo(ViewInfo info) {
 		this.viewInfo = info;
 	}
@@ -150,6 +147,7 @@ public abstract class AbstractView extends JComponent implements View {
 	 * @return
 	 * 		wieInfo object holding all relevant information about the view.
 	 */
+	@Override
 	public ViewInfo getViewInfo() {
 		return viewInfo;
 	}
@@ -164,6 +162,7 @@ public abstract class AbstractView extends JComponent implements View {
      * @param newWidth
      * 		the new width for the view
      */
+	@Override
 	public void setNewViewWidth(final int newWidth) {
 		if (getWidth() == newWidth) 
 			return;
@@ -183,7 +182,8 @@ public abstract class AbstractView extends JComponent implements View {
 	 * @param newHeight
 	 * 		the new height for the view
 	 */
-    public void setNewViewHeight(final int newHeight) {
+    @Override
+	public void setNewViewHeight(final int newHeight) {
     	if (getHeight() == newHeight) 
 			return;
 		if (getVisibleRect().height < newHeight) {
@@ -205,6 +205,7 @@ public abstract class AbstractView extends JComponent implements View {
 	 * @param r 
 	 * 		the renderer to add
 	 */
+	@Override
 	public void addRenderer(Renderer r) {
 		this.active_renderer.add(r);
 	}
@@ -215,6 +216,7 @@ public abstract class AbstractView extends JComponent implements View {
 	 * @param r 
 	 * 		the renderer to remove
 	 */
+	@Override
 	public void removeRenderer (Renderer r) {
 		this.active_renderer.remove(r);
 	}
@@ -222,6 +224,7 @@ public abstract class AbstractView extends JComponent implements View {
 	/**
 	 * Removes all additional renderer
 	 */
+	@Override
 	public void removeAllRenderer () {
 		this.active_renderer.clear();;
 	}
@@ -237,6 +240,7 @@ public abstract class AbstractView extends JComponent implements View {
 	 * @return 
 	 * 		the component embedding the view
 	 */
+	@Override
 	public JComponent getComponent() {
 		return this;
 	}
@@ -251,6 +255,7 @@ public abstract class AbstractView extends JComponent implements View {
 	 * @return 
 	 * 		the real view
 	 */
+	@Override
 	public JComponent getViewComponent(){
 		return this;
 	}
@@ -261,6 +266,7 @@ public abstract class AbstractView extends JComponent implements View {
 	 * @param parentPane 
 	 * 		the viewPanel containing the view
 	 */
+	@Override
 	public void setParentPane(ViewPanel parentPane) {
 		this.parentPane = parentPane;
 	}
@@ -271,6 +277,7 @@ public abstract class AbstractView extends JComponent implements View {
 	 * @return 
 	 * 		the view panel
 	 */
+	@Override
 	public ViewPanel getParentPane() {
 		return parentPane;
 	}
@@ -303,6 +310,7 @@ public abstract class AbstractView extends JComponent implements View {
 	 * Delegates to {@link #renderView(Graphics2D)} where the view 
 	 * itself is rendered.
 	 */
+	@Override
 	public void render(Graphics g) {
 		 // create a graphics2d 
 		Graphics2D g2 = (Graphics2D) g.create();
@@ -351,6 +359,7 @@ public abstract class AbstractView extends JComponent implements View {
 	 * @return
 	 * 		whether or not the view is within zoom mode
 	 */
+	@Override
 	public boolean isZoomMode() {
 		return zoomHandler.isZoomMode();
 	}
@@ -360,6 +369,7 @@ public abstract class AbstractView extends JComponent implements View {
 	 * Switches the zoom mode for a view between on and off and
 	 * makes the {@link ZoomController} manage the details.
 	 */
+	@Override
 	public void toggleZoomMode() {
 		zoomHandler.toggleZoomMode();
 	}
@@ -376,6 +386,7 @@ public abstract class AbstractView extends JComponent implements View {
 	/**
 	 * Removes all registered mouse listeners
 	 */
+	@Override
 	public void removeMouseListeners() {
 		MouseListener[] ml = getMouseListeners();
 		MouseMotionListener[] mml = getMouseMotionListeners();
@@ -391,6 +402,7 @@ public abstract class AbstractView extends JComponent implements View {
 			removeMouseWheelListener(mwl[i]);
 	}
 	
+	@Override
 	public void export(File file) { 
 		root = new Element("DOMOSAICS_VIEW");
 		document = new Document(root); 

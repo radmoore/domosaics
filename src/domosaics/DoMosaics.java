@@ -5,11 +5,7 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import sun.security.krb5.Config;
-
 import domosaics.model.configuration.Configuration;
-import domosaics.model.configuration.ConfigurationWriter;
-import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 
 
@@ -99,6 +95,7 @@ public class DoMosaics {
 		if (!Configuration.isDebug()) {
 			Thread.setDefaultUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler(){
 
+				@Override
 				public void uncaughtException(Thread t, Throwable e) {
 					Configuration.getLogger().debug("*** UNCAUGHT EXCEPTION: "+e.toString());
 					StringWriter w = new StringWriter();

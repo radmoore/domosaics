@@ -8,7 +8,6 @@ import java.awt.Rectangle;
 
 import javax.swing.SwingUtilities;
 
-import domosaics.model.tree.TreeI;
 import domosaics.ui.views.treeview.TreeView;
 import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.views.treeview.components.NodeComponent;
@@ -63,6 +62,7 @@ public abstract class AbstractTreeLayout implements TreeLayout{
 	 * @param treeView 
 	 * 		tree view on which the layout is done
 	 */
+	@Override
 	public void setView(View treeView) {
 		// store the underlying TreeView
 		this.treeView = (TreeViewI) treeView;
@@ -83,6 +83,7 @@ public abstract class AbstractTreeLayout implements TreeLayout{
 	 * Indicates that the tree structure changed and therefore
 	 * the new largest node has to be found.
 	 */
+	@Override
 	public void treeStructureChanged() {
 		param.largestNode = null;
 	}
@@ -90,6 +91,7 @@ public abstract class AbstractTreeLayout implements TreeLayout{
 	/**
 	 * Do a full tree layout in the given space
 	 */
+	@Override
 	public abstract void layoutTree(int x, int y, int width, int height, int leaveLabaleSpace);
 	
     /**
@@ -98,7 +100,8 @@ public abstract class AbstractTreeLayout implements TreeLayout{
      * @param size 
      * 		width and height of the layout area
      */
-    public void layoutTree(int x, int y, Dimension size, int leaveLabaleSpace){
+    @Override
+	public void layoutTree(int x, int y, Dimension size, int leaveLabaleSpace){
     	layoutTree(x, y, size.width, size.height, leaveLabaleSpace);
     }
     		
@@ -113,6 +116,7 @@ public abstract class AbstractTreeLayout implements TreeLayout{
 	 * @param parent 
 	 * 		container to be layouted
 	 */
+	@Override
 	public void layoutContainer(Container parent) {
 		param.init();
 
@@ -151,6 +155,7 @@ public abstract class AbstractTreeLayout implements TreeLayout{
 	/**
 	 * @see TreeLayout
 	 */
+	@Override
 	public Rectangle getTreeBounds() {
 		return layoutArea;
 	}
@@ -158,6 +163,7 @@ public abstract class AbstractTreeLayout implements TreeLayout{
 	/**
 	 * @see TreeLayout
 	 */
+	@Override
 	public void setTreeBounds(Rectangle bounds) {
 		layoutArea = bounds;
 	}
@@ -165,6 +171,7 @@ public abstract class AbstractTreeLayout implements TreeLayout{
 	/**
 	 * @see TreeLayout
 	 */
+	@Override
 	public Insets getInsets() {	
 		// insets of the parent
         Insets pInsets = treeView.getViewComponent().getInsets();	
@@ -211,6 +218,7 @@ public abstract class AbstractTreeLayout implements TreeLayout{
 	/**
 	 * @see TreeLayout
 	 */
+	@Override
 	public Dimension getPreferredSize(NodeComponent node){
 		return getBounds(node, treeView.getTreeFontManager().getFont(node).getSize());
 	}	
@@ -226,6 +234,7 @@ public abstract class AbstractTreeLayout implements TreeLayout{
 	 * @return
 	 * 		used parameter to layout the view
 	 */
+	@Override
 	public TreeParameter getTreeParams() {
 		return param;
 	}

@@ -29,6 +29,7 @@ public class TreeViewImporter extends ViewImporter<TreeViewI> {
 	private Map<TreeEdgeI, BasicStroke> edge2edgestroke = new HashMap<TreeEdgeI, BasicStroke>();
 	private Map<TreeNodeI, Font> node2font = new HashMap<TreeNodeI, Font>();
 	
+	@Override
 	public TreeViewI readData(String data) {
 		try {
 			TreeViewI res = null;
@@ -140,6 +141,7 @@ public class TreeViewImporter extends ViewImporter<TreeViewI> {
 			view.getTreeComponentManager().setNodeCollapsed(view.getNodesComponent(node), node2collapsed.get(node), null);
 	}
 	
+	@Override
 	public void readAttributes(String attributes, TreeViewI view)  {
 		try {
 			BufferedReader in = new BufferedReader(new StringReader(attributes)); 

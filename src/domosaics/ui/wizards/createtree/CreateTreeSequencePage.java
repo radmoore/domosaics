@@ -67,7 +67,8 @@ public class CreateTreeSequencePage extends WizardPage {
     /**
      * Checks if all necessary input is made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
     	if (selectSubstitution.getSelectedItem() == null)
 			return "Please select a substitution matrix";
     	if (selectAlgo.getSelectedItem() == null)

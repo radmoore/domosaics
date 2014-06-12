@@ -54,7 +54,7 @@ public class RectangleEdgeRenderer extends AbstractEdgeRenderer {
 		if(label.equals("...")) 
 			return;
 	
-		g.drawString(label, x1 + 3, (int) (y1 < y2 ? y2 -1 : y2-1));
+		g.drawString(label, x1 + 3, y1 < y2 ? y2 -1 : y2-1);
 	}
 
 }

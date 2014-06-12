@@ -29,6 +29,7 @@ public class SVGImageExporter implements ImageExporter{
 	/**
 	 * @see ImageExporter
 	 */
+	@Override
 	public void export(View view, File file, GraphicFormats format) {
 		// Get a DOMImplementation
 		DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();

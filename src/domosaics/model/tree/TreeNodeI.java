@@ -5,7 +5,6 @@ import java.util.List;
 
 import domosaics.model.DoMosaicsData;
 import domosaics.model.arrangement.DomainArrangement;
-import domosaics.model.arrangement.DomainSet;
 
 
 

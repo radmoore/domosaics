@@ -59,6 +59,7 @@ public class Executor extends SwingWorker<Integer, Void> {
 	}
 
 	// called when the worker is complete
+	@Override
 	protected void done() {
 		Configuration.getInstance().setServiceRunning(false);
 		try {

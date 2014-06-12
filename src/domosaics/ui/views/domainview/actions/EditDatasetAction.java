@@ -13,6 +13,7 @@ import domosaics.ui.wizards.WizardManager;
 public class EditDatasetAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		WizardManager.getInstance().startEditDatasetWizard(view);

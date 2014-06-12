@@ -26,6 +26,7 @@ public class MSALayout extends AbstractDomainLayout {
 	/**
 	 * @see AbstractDomainLayout
 	 */
+	@Override
 	public int getDomainX(Domain dom) {
 		if (dom.getSequence() == null)
 			return -1;
@@ -37,6 +38,7 @@ public class MSALayout extends AbstractDomainLayout {
 	/**
 	 * @see AbstractDomainLayout
 	 */
+	@Override
 	public int getDomainWidth(Domain dom){
 		if (dom.getSequence() == null)
 			return 0;
@@ -48,6 +50,7 @@ public class MSALayout extends AbstractDomainLayout {
 	/**
 	 * @see AbstractDomainLayout
 	 */
+	@Override
 	public int getArrangementWidth(DomainArrangement da) {
 		if (da.getSequence() == null) 
 			return 0;
@@ -59,6 +62,7 @@ public class MSALayout extends AbstractDomainLayout {
 	/**
 	 * @see AbstractDomainLayout
 	 */
+	@Override
 	public int getArrangementX(ArrangementComponent dac) {
 		return 0;
 	}

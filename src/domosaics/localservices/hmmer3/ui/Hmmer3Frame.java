@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 /**
  * Generic frame for Hmmer3Programs. This may be unecessary
@@ -39,28 +40,35 @@ public class Hmmer3Frame extends JFrame{
 		pack();
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		setVisible(true);
         setAlwaysOnTop(true);
         this.addWindowListener(new WindowAdapter(){
-        	public void windowClosing(WindowEvent e) {
+        	@Override
+			public void windowClosing(WindowEvent e) {
         		hmmScanPanel.cancelAction();
         		instance=null;
         	}
         	
-        	public void windowActivated(WindowEvent e) { }
+        	@Override
+			public void windowActivated(WindowEvent e) { }
         	
-        	public void windowClosed(WindowEvent e) { 
+        	@Override
+			public void windowClosed(WindowEvent e) { 
         		instance=null;
         	}
 
-        	public void windowDeactivated(WindowEvent e) { }
+        	@Override
+			public void windowDeactivated(WindowEvent e) { }
 
-        	public void windowDeiconified(WindowEvent e) { }
+        	@Override
+			public void windowDeiconified(WindowEvent e) { }
 
-        	public void windowIconified(WindowEvent e) { }
+        	@Override
+			public void windowIconified(WindowEvent e) { }
         	
-        	public void windowOpened(WindowEvent e) { }
+        	@Override
+			public void windowOpened(WindowEvent e) { }
 		});
 	}
 	

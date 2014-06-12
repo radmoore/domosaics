@@ -114,6 +114,7 @@ public class ShiftComponentsMouseController extends MouseAdapter {
 	 * Start of shift process: Depending on proportional
 	 * or unproportional view the arrangement or domain component is set.
 	 */
+	@Override
 	public void mousePressed(MouseEvent e) {	
 		if (view.getDomainLayoutManager().isMsaView())
 			return;
@@ -148,6 +149,7 @@ public class ShiftComponentsMouseController extends MouseAdapter {
 	/**
 	 * End of shift process: Reset all used variables and repaint
 	 */
+	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (e.getButton() != MouseEvent.BUTTON1) 
 			return;
@@ -167,6 +169,7 @@ public class ShiftComponentsMouseController extends MouseAdapter {
 	 * are set for arrangements and domains. Delegates to 
 	 * DomainShiftManager to actually store process the shifting.
 	 */
+	@Override
 	public void mouseDragged(MouseEvent e) {
 		if (!dragging)
 			return;

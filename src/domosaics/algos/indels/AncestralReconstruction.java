@@ -200,6 +200,7 @@ public class AncestralReconstruction extends SwingWorker<String, Void> {
 			return false;
 		}
 		
+		@Override
 		public String toString() {
 			if (val == 0)
 				return "NOTPRESENT";

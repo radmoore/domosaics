@@ -38,6 +38,7 @@ public class RADSResultsTable extends JTable {
 	/**
 	 * Overrides #{@link JTable#prepareRenderer(TableCellRenderer, int, int)}
 	 */
+	@Override
 	public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
         Component c = super.prepareRenderer(renderer, row, column);
         Object value = getValueAt(row, column);

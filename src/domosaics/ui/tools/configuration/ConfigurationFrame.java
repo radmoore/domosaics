@@ -1,19 +1,9 @@
 package domosaics.ui.tools.configuration;
 
-import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.WindowConstants;
-
 import domosaics.model.configuration.Configuration;
-import domosaics.ui.DoMosaicsUI;
-import domosaics.ui.util.MessageUtil;
 
 
 
@@ -48,28 +38,35 @@ public class ConfigurationFrame extends JFrame {
 		setResizable(true);
 		setVisible(true);
 		this.addWindowListener(new WindowAdapter(){
+			@Override
 			public void windowClosing(WindowEvent e) {
 				Configuration.getInstance().closeFrame();
 				//tryStop();
 			}
 			
+			@Override
 			public void windowActivated(WindowEvent e) { }
 			
+			@Override
 			public void windowClosed(WindowEvent e) { 
 				Configuration.getInstance().closeFrame();
 		    	//tryStop();
 		    }
 			
+			@Override
 			public void windowDeactivated(WindowEvent e) {    }
 
+			@Override
 			public void windowDeiconified(WindowEvent e) {
 				
 			}
 
+			@Override
 			public void windowIconified(WindowEvent e) { 
 		    	//tryStop();
 		    }
 			
+			@Override
 			public void windowOpened(WindowEvent e) { }
 		});
 	}

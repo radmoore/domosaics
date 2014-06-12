@@ -20,6 +20,7 @@ import domosaics.ui.views.ViewType;
 public class DrawCirclesAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainGraphView view = ViewHandler.getInstance().getTool(ViewType.DOMAINGRAPH);
 		

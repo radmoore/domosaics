@@ -46,6 +46,7 @@ public abstract class AbstractArrangementRenderer implements ArrangementRenderer
 	/**
 	 * @see ArrangementRenderer
 	 */
+	@Override
 	public void setDomainRenderer (DomainRenderer renderer) {
 		this.domRenderer = renderer;
 	}
@@ -53,6 +54,7 @@ public abstract class AbstractArrangementRenderer implements ArrangementRenderer
 	/**
 	 * @see ArrangementRenderer
 	 */
+	@Override
 	public DomainRenderer getDomainRenderer() {
 		return domRenderer;
 	}
@@ -65,6 +67,7 @@ public abstract class AbstractArrangementRenderer implements ArrangementRenderer
 	 * 
 	 * @see ArrangementRenderer
 	 */
+	@Override
 	public void renderArrangement(ArrangementComponent dac, DomainViewI view, Graphics2D g2) {
 		// if the arrangement doesn't intersect with the clipping area, don't render it
 		if (!dac.getBoundingShape().intersects(g2.getClipBounds()))

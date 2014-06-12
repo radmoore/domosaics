@@ -34,6 +34,7 @@ public class ColorizeDomainAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Changes the domain color");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		

@@ -30,6 +30,7 @@ public abstract class AbstractDataWriter<T extends DoMosaicsData> implements Dat
 	/**
 	 * See interface {@link DataWriter}.
 	 */
+	@Override
 	public void write(File file, T[] data) {
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
@@ -83,6 +84,7 @@ public abstract class AbstractDataWriter<T extends DoMosaicsData> implements Dat
 	/**
 	 * See interface {@link DataWriter}.
 	 */
+	@Override
 	public abstract void write(BufferedWriter out, T[] data);
 	
 	//public abstract void wrappedWrite(BufferedWriter out, T[] data, int wrapAfter);

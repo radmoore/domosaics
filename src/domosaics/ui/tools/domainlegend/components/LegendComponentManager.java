@@ -82,7 +82,8 @@ public class LegendComponentManager {
 			lcList.add(iter.next());
 		
 		Collections.sort(lcList, new Comparator<LegendComponent>() {
-	            public int compare(LegendComponent lc1, LegendComponent lc2) {
+	            @Override
+				public int compare(LegendComponent lc1, LegendComponent lc2) {
 	                String label1 = lc1.getLabel();
 	                String label2 = lc2.getLabel();
 	                return label1.compareTo(label2);
@@ -106,7 +107,8 @@ public class LegendComponentManager {
 			lcList.add(iter.next());
 		
 		Collections.sort(lcList, new Comparator<LegendComponent>() {
-	            public int compare(LegendComponent lc1, LegendComponent lc2) {
+	            @Override
+				public int compare(LegendComponent lc1, LegendComponent lc2) {
 	                int f1 = lc1.getFrequency();
 	                int f2 = lc2.getFrequency();
 	                return f2-f1;

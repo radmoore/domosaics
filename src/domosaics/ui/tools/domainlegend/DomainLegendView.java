@@ -100,11 +100,13 @@ public class DomainLegendView extends AbstractView implements PropertyChangeList
 	/**
 	 * @see View
 	 */
+	@Override
 	public void export(File file) {}
 	
 	/**
 	 * @see Tool
 	 */
+	@Override
 	public void setToolFrame(ToolFrameI frame) {
 		this.parentFrame = frame;
 	}
@@ -112,6 +114,7 @@ public class DomainLegendView extends AbstractView implements PropertyChangeList
 	/**
 	 * @see Tool
 	 */
+	@Override
 	public ToolFrameI getToolFrame() {
 		return parentFrame;
 	}
@@ -267,6 +270,7 @@ public class DomainLegendView extends AbstractView implements PropertyChangeList
 	/**
 	 * @see PropertyChangeListener
 	 */
+	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals(ViewManager.PROPERTY_STRUCTURAL_CHANGE)) {
 			layout.legendStructureChanged();
@@ -279,6 +283,7 @@ public class DomainLegendView extends AbstractView implements PropertyChangeList
 	/**
 	 * Renders the legend
 	 */
+	@Override
 	public void renderView(Graphics2D g) {
 		viewRenderer.render(g);
 	}
@@ -286,6 +291,7 @@ public class DomainLegendView extends AbstractView implements PropertyChangeList
 	/**
 	 * @see JComponent
 	 */
+	@Override
 	public void doLayout() {
 		if (parentFrame == null || isZoomMode())
 			return;
@@ -303,6 +309,7 @@ public class DomainLegendView extends AbstractView implements PropertyChangeList
 	 * @param layout
 	 * 		the layout used to layout the legend components
 	 */
+	@Override
 	public void setViewLayout(ViewLayout layout) {
 		super.setLayout(null);
 		layout.setView(this);
@@ -332,6 +339,7 @@ public class DomainLegendView extends AbstractView implements PropertyChangeList
 	/**
 	 * @see View
 	 */
+	@Override
 	public JComponent getComponent() {
 		return scrollPane;
 	}
@@ -339,6 +347,7 @@ public class DomainLegendView extends AbstractView implements PropertyChangeList
 	/**
 	 * @see AbstractView
 	 */
+	@Override
 	public void registerMouseListeners() {
 		// remove all listener before registering the new ones.
 		removeMouseListeners();
@@ -351,6 +360,7 @@ public class DomainLegendView extends AbstractView implements PropertyChangeList
 	}
 
 	
+	@Override
 	public void setViewRenderer(Renderer renderer) {
 		// TODO Auto-generated method stub
 		

@@ -25,6 +25,7 @@ public class ShowXdomAction extends AbstractAction {
 		putValue(Action.SHORT_DESCRIPTION, "Show the XDOM entry of the current protein");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		DomainViewI domView = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		// get the selected arrangement

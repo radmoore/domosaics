@@ -60,6 +60,7 @@ public class DomainArrangementComponentManager extends AbstractComponentManager<
 	 * 
 	 * @see ComponentManager
 	 */
+	@Override
 	public ArrangementComponent getComponent(DomainArrangement backend) {
 		if (backend == null) 
 			return null;
@@ -142,18 +143,22 @@ public class DomainArrangementComponentManager extends AbstractComponentManager<
 			it = da.getDomainIter();
 		}
 
+		@Override
 		public boolean hasNext() {
 			return it.hasNext();
 		}
 
+		@Override
 		public DomainComponent next() {
 			return dcm.getComponent(it.next());
 		}
 		
+		@Override
 		public void remove() {
 			throw new RuntimeException("Method not supported");
 		}
 
+		@Override
 		public Iterator<DomainComponent> iterator() {
 			return this;
 		}
@@ -175,6 +180,7 @@ public class DomainArrangementComponentManager extends AbstractComponentManager<
 		 * backend data object. If no DomainComponent exists
 		 * yet this method creates a new instance.
 		 */
+		@Override
 		public DomainComponent getComponent(Domain dom){
 			if (dom == null) 
 				return null;

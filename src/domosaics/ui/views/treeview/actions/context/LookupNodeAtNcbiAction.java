@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import domosaics.model.configuration.Configuration;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.views.treeview.components.NodeComponent;
@@ -30,6 +29,7 @@ public class LookupNodeAtNcbiAction extends AbstractAction {
 		putValue(Action.SHORT_DESCRIPTION, "Opens a browserwindow showing the NCBI homepage");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		TreeViewI view = ViewHandler.getInstance().getActiveView();
 		

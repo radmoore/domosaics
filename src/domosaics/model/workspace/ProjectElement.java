@@ -75,7 +75,7 @@ public class ProjectElement extends WorkspaceElement{
 	 */
 	public ViewElement[] removeCategory(CategoryElement cat) {
 		// create array with all view elements of the category
-		ViewElement[] viewElem = (ViewElement[]) cat.getChildren().toArray(new ViewElement[cat.countViews()]);
+		ViewElement[] viewElem = cat.getChildren().toArray(new ViewElement[cat.countViews()]);
 		
 		// check first if the category is empty, if not make it empty	
 		for (int i =0; i< viewElem.length; i++) 
@@ -137,6 +137,7 @@ public class ProjectElement extends WorkspaceElement{
 	/**
 	 * @see WorkspaceElement
 	 */
+	@Override
 	public ProjectElement getProject() {
 		return this;
 	}
@@ -147,6 +148,7 @@ public class ProjectElement extends WorkspaceElement{
 	 * @return
 	 * 		icon for the project depending on its state.
 	 */
+	@Override
 	public ImageIcon getIcon() {
 		InputStream is;
 		if (getChildCount() == 0)

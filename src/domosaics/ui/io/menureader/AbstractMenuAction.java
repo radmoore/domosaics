@@ -37,6 +37,7 @@ public abstract class AbstractMenuAction extends AbstractAction {
 	 * The user defined method which will be triggered after activating
 	 * the menu item.
 	 */
+	@Override
 	public abstract void actionPerformed(ActionEvent e);
 	
 	/**

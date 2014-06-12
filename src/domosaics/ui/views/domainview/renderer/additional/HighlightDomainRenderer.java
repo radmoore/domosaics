@@ -39,6 +39,7 @@ public class HighlightDomainRenderer implements Renderer {
 	 * Highlights clicked, mouse over and selected domains. Delegates to
 	 * hightlightDomain().
 	 */
+	@Override
 	public void render(Graphics2D g2) {
 		// no highlighting in msa view
 		if(view.getDomainLayoutManager().isMsaView())

@@ -94,6 +94,7 @@ public class Sankoff extends AbstractReconstructionAlgo {
 //			return false;
 //		}
 		
+		@Override
 		public String toString() {
 			if (val == 0)
 				return "NOTPRESENT";

@@ -58,13 +58,15 @@ public class Sequence implements SequenceI, Cloneable{
 	 * @return
 	 * 		a cloned copy of the sequence.
 	 */
-    public Object clone() throws CloneNotSupportedException {
-    	return (Sequence) super.clone();
+    @Override
+	public Object clone() throws CloneNotSupportedException {
+    	return super.clone();
     }
 	
     /**
      * @see SequenceI
      */
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -72,6 +74,7 @@ public class Sequence implements SequenceI, Cloneable{
 	/**
 	 * @see SequenceI
 	 */
+	@Override
 	public void setSeq (String seq) {
 		this.seq = seq;
 		this.gaps = countGaps();
@@ -80,6 +83,7 @@ public class Sequence implements SequenceI, Cloneable{
 	/**
 	 * @see SequenceI
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -87,6 +91,7 @@ public class Sequence implements SequenceI, Cloneable{
 	/**
 	 * @see SequenceI
 	 */
+	@Override
 	public String getSeq (boolean gaps) {
 		String res = new String(seq);
 		if (!gaps)
@@ -97,6 +102,7 @@ public class Sequence implements SequenceI, Cloneable{
 	/**
 	 * @see SequenceI
 	 */
+	@Override
 	public String getSeq (int from, int to, boolean gaps) {
 		if (!gaps) 
 			return seq.replace("-", "").substring(from, to);
@@ -106,6 +112,7 @@ public class Sequence implements SequenceI, Cloneable{
 	/**
 	 * @see SequenceI
 	 */
+	@Override
 	public int getLen(boolean gaps) {
 		if (!gaps)
 			return seq.length() - this.gaps;
@@ -115,14 +122,17 @@ public class Sequence implements SequenceI, Cloneable{
 	/**
 	 * @see SequenceI
 	 */
+	@Override
 	public String toOutputString() {
 		return ">"+name+"\n"+getSeq(true)+"\n";
 	}
 	
+	@Override
 	public String toFasta(boolean gaps) {
 		return ">"+name+"\n"+getSeq(gaps)+"\n";
 	}
 	
+	@Override
 	public String toString() {
 		return getName();
 	}

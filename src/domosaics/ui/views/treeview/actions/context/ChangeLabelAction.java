@@ -29,6 +29,7 @@ public class ChangeLabelAction  extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Changes label");
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		// the tree must be loaded otherwise the triggering node pup up menu wouldn't exist
 		TreeViewI view = (TreeViewI) ViewHandler.getInstance().getActiveView();

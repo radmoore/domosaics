@@ -18,6 +18,7 @@ import domosaics.util.BrowserLauncher;
 public class ShowAvailableMatricesAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		BrowserLauncher.openURL("ftp://ftp.ncbi.nih.gov/blast/matrices/");
 	}

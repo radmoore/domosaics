@@ -177,6 +177,7 @@ public class Hmmer3Service implements ProcessListener{
 	/**
 	 * Handels error and std output 
 	 */
+	@Override
 	public void outputRecieved(String out, String type) {
 		
 		if (type.equals(StreamHandler.ERROR)) {
@@ -222,6 +223,7 @@ public class Hmmer3Service implements ProcessListener{
 	 * program (called by executor.done() once the SwingWorker
 	 * thread has terminated) 
 	 */
+	@Override
 	public void setResult(int res) {
 		
 		try {		

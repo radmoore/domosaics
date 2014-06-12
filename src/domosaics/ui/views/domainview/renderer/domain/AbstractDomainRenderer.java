@@ -36,6 +36,7 @@ public abstract class AbstractDomainRenderer implements DomainRenderer {
 	/**
 	 * @see DomainRenderer
 	 */
+	@Override
 	public void renderDomain(DomainComponent dc, DomainViewI view, Graphics2D g2) {
 		// if the domain doesn't intersect with the clipping area, don't render it
 		if (!dc.getBoundingShape().intersects(g2.getClipBounds()))

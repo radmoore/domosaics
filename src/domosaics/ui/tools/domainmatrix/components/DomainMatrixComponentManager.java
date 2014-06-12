@@ -20,6 +20,7 @@ public class DomainMatrixComponentManager extends AbstractComponentManager<Pair,
 	 * @return
 	 * 		the corresponding domain entry component for the specified pair
 	 */
+	@Override
 	public DomainMatrixEntry getComponent(Pair pair){
 		if (pair == null) 
 			return null;

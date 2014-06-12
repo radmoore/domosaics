@@ -80,6 +80,7 @@ public class CategoryElement extends WorkspaceElement{
 	 * @return
 	 * 		icon for the category depending on its ViewType.
 	 */
+	@Override
 	public ImageIcon getIcon() {
 		return icon;
 	}
@@ -107,6 +108,7 @@ public class CategoryElement extends WorkspaceElement{
 	/**
 	 * @see WorkspaceElement
 	 */
+	@Override
 	public ProjectElement getProject() {
 		return (ProjectElement) getParent();
 	}

@@ -3,6 +3,7 @@ package domosaics.ui.workspace.components;
 import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.WorkspaceElement;
@@ -50,8 +51,8 @@ public class WorkspacePopupMenu extends JPopupMenu {
 			// setup top of context menu (always the same)
 			String str = "<html><b>"+elem.getTitle();
 			JLabel title = new JLabel(str);
-			title.setHorizontalAlignment(JLabel.CENTER);
-			title.setVerticalAlignment(JLabel.CENTER);
+			title.setHorizontalAlignment(SwingConstants.CENTER);
+			title.setVerticalAlignment(SwingConstants.CENTER);
 			add(title);
 			add(new JSeparator());
 			

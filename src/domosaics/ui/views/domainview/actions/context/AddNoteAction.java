@@ -23,6 +23,7 @@ public class AddNoteAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Allows the association of a note");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		

@@ -28,6 +28,7 @@ public class SelectPathToRootAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Selects the path to the root node");
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		TreeViewI view = ViewHandler.getInstance().getActiveView();
 		

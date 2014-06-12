@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
@@ -14,7 +13,6 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
-import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
@@ -64,6 +62,7 @@ public class SaveProjectFilePage extends WizardPage implements ActionListener {
 	/**
 	 * @see ActionListener
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {	
 		File file = FileDialogs.openChooseDirectoryDialog(DoMosaicsUI.getInstance());
 		if(file != null) {
@@ -91,7 +90,8 @@ public class SaveProjectFilePage extends WizardPage implements ActionListener {
     /**
      * Checks if all necessary inputs are made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
 		if(path.getText().trim().isEmpty())
 			return "Please select a location";
         return null;

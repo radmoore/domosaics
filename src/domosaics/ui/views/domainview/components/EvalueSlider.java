@@ -1,19 +1,9 @@
 package domosaics.ui.views.domainview.components;
 
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
 import java.util.Hashtable;
 
 import javax.swing.JLabel;
 import javax.swing.JSlider;
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-
-import domosaics.model.configuration.Configuration;
-import domosaics.ui.util.MyMetalSliderUI;
 
 public class EvalueSlider extends JSlider{
 	private static final long serialVersionUID = 1L;

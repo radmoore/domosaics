@@ -39,6 +39,7 @@ import domosaics.ui.wizards.pages.SelectViewPage;
 public class AddSelectionToViewAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		ViewType activeViewType = ViewHandler.getInstance().getActiveView().getViewInfo().getType();

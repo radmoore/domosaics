@@ -30,6 +30,7 @@ public class LookupDomainInUniprot extends AbstractAction {
 		putValue(Action.SHORT_DESCRIPTION, "Opens a browser to search for the current domain");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = ViewHandler.getInstance().getActiveView();
 		

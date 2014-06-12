@@ -6,14 +6,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.domainview.components.ArrangementPopupMenu;
-import domosaics.ui.views.domainview.components.DomainComponent;
 import domosaics.ui.views.domainview.components.detectors.ArrangementComponentDetector;
 import domosaics.ui.views.domainview.renderer.arrangement.BackBoneArrangementRenderer;
-import domosaics.ui.views.domainview.renderer.domain.OrthologousDomainRenderer;
 import domosaics.ui.views.view.manager.SelectionManager;
 
 
@@ -58,6 +55,7 @@ public class ArrangementMouseController extends MouseAdapter{
 	 * is active. <br>
 	 * if its clicked on empty space all selected arrangements are deselcted at once
 	 */
+	@Override
 	public void mouseClicked(MouseEvent e) {
 		// get a grap on the arrangement selection manager
 		SelectionManager<ArrangementComponent> arrangementSelectionManager = view.getArrangementSelectionManager();
@@ -153,6 +151,7 @@ public class ArrangementMouseController extends MouseAdapter{
 	 * A repaint is forced by changing the temporary selection within
 	 * the selection manager.
 	 */
+	@Override
 	public void mouseMoved(MouseEvent e) {	
 		SelectionManager<ArrangementComponent> arrangementSelectionManager = view.getArrangementSelectionManager();
 

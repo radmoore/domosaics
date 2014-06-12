@@ -37,6 +37,7 @@ public class CollapseSameArrangementsAction extends AbstractMenuAction {
 			"the number of collapsed arrangements with the same " +
 			"domain composition. \n";
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		

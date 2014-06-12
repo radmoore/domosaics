@@ -26,6 +26,7 @@ import domosaics.ui.views.treeview.TreeViewI;
 public class ColorizeSelectionAction extends AbstractMenuAction {
 	private static final long serialVersionUID = 1L;
     
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		TreeViewI view = (TreeViewI) ViewHandler.getInstance().getActiveView();
 		

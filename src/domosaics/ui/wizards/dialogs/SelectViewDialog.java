@@ -8,7 +8,6 @@ import org.netbeans.spi.wizard.WizardException;
 import org.netbeans.spi.wizard.WizardPage;
 import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
-import domosaics.model.workspace.CategoryElement;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.wizards.pages.SelectViewPage;
 
@@ -49,10 +48,12 @@ public class SelectViewDialog {
 
 class SelectViewProgress implements WizardResultProducer{
 	
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
 	
+	@Override
 	public Object finish(Map m) throws WizardException {
 		return m;
 	}	

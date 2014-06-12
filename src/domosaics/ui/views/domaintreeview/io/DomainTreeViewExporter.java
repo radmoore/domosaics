@@ -2,11 +2,8 @@ package domosaics.ui.views.domaintreeview.io;
 
 import java.awt.BasicStroke;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
-
-import org.jdom2.*;
 
 import domosaics.model.arrangement.ArrangementManager;
 import domosaics.model.arrangement.DomainFamily;
@@ -22,6 +19,7 @@ import domosaics.ui.views.view.io.ViewExporter;
 
 public class DomainTreeViewExporter extends ViewExporter<DomainTreeViewI>{
 
+	@Override
 	public void write(BufferedWriter out, DomainTreeViewI view) {
         try {
         	// write each view into the file

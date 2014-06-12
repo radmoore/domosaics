@@ -1,7 +1,6 @@
 package domosaics.ui.wizards.dialogs;
 
 import java.awt.EventQueue;
-import java.awt.Rectangle;
 import java.io.File;
 import java.util.Map;
 
@@ -121,10 +120,12 @@ class AssociateWithSeqsProgress extends DeferredWizardResult implements WizardRe
 		}	
 	}
 	
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
 	
+	@Override
 	public Object finish(Map m) throws WizardException {
 		return this;
 	}	

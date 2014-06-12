@@ -25,7 +25,6 @@ import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.actions.FitDomainsToScreenAction;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
-import domosaics.ui.views.domainview.manager.DomainColorManager;
 import domosaics.ui.views.domainview.renderer.additional.HighlightDomainRenderer;
 import domosaics.ui.views.view.AbstractView;
 import domosaics.ui.views.view.View;
@@ -87,6 +86,7 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 	/**
 	 * @see View
 	 */
+	@Override
 	public void export(File file) {}
 	
 	/**
@@ -257,16 +257,19 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 	/**
 	 * @see AbstractView
 	 */
+	@Override
 	public void registerMouseListeners() { }
 
 	/**
 	 * @see AbstractView
 	 */
+	@Override
 	public void renderView(Graphics2D g) { }
 
 	/**
 	 * @see Tool
 	 */
+	@Override
 	public ToolFrameI getToolFrame() {
 		return parentFrame;
 	}
@@ -274,6 +277,7 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 	/**
 	 * @see Tool
 	 */
+	@Override
 	public void setToolFrame(ToolFrameI frame) {
 		parentFrame = (ChangeArrangementFrame) frame;
 	}
@@ -281,9 +285,11 @@ public class ChangeArrangementView extends AbstractView implements Tool{
 	/**
 	 * @see ViewI
 	 */
+	@Override
 	public void setViewLayout(ViewLayout layout) { }
 
 	
+	@Override
 	public void setViewRenderer(Renderer renderer) {
 		// TODO Auto-generated method stub
 		

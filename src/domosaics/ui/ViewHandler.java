@@ -134,6 +134,7 @@ public class ViewHandler {
 	 */
 	public void addView(final View view, final ProjectElement project, final boolean show) {
 		SwingUtilities.invokeLater(new Runnable() {						
+			@Override
 			public void run() {			
 				// add view to viewHandler
 				int viewID = view.getViewInfo().getID();
@@ -182,6 +183,7 @@ public class ViewHandler {
 	 */
 	public void removeView(final ViewInfo info) {
 		SwingUtilities.invokeLater(new Runnable() {						
+			@Override
 			public void run() {			
 				int viewID = info.getID();	
 				View view = views.get(viewID);
@@ -213,6 +215,7 @@ public class ViewHandler {
 	 */
 	public void enableView(final int viewID) {
 		SwingUtilities.invokeLater(new Runnable() {						
+			@Override
 			public void run() {
 				
 				// if the view is already displayed do nothing
@@ -353,6 +356,7 @@ public class ViewHandler {
 	public void removeTool(final View tool) {
 		tools.remove(tool.getViewInfo().getType());
 		SwingUtilities.invokeLater(new Runnable() {						
+			@Override
 			public void run() {
 				tool.getParentPane().dispose();
 				((Tool) tool).getToolFrame().dispose();

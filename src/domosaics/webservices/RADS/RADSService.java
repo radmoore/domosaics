@@ -52,6 +52,7 @@ public class RADSService extends SwingWorker<TreeSet<RADSProtein>, Void> {
 	 * RADSRunner using the RADSQuery.
 	 *
 	 */
+	@Override
 	protected TreeSet<RADSProtein> doInBackground() throws Exception {
 		running = true;
 		this.radsRunner = new RADSRunner(radsQuery);
@@ -63,6 +64,7 @@ public class RADSService extends SwingWorker<TreeSet<RADSProtein>, Void> {
 	/**
 	 * This method is called when the scanning thread is complete 
 	 */
+	@Override
 	public void done() {
 		try {
 			running = false;

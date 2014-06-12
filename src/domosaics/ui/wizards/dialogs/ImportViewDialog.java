@@ -75,10 +75,12 @@ class ViewImportProgress implements WizardResultProducer{
 		assert !EventQueue.isDispatchThread();
 	}
 	
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
 	
+	@Override
 	public Object finish(Map m) throws WizardException {
 
 		// display view after import

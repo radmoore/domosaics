@@ -30,6 +30,7 @@ public class SaveStatsToCSVAction extends AbstractAction {
 		putValue(Action.SHORT_DESCRIPTION, "Saves the stats to a CSV formatted file");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		File file = FileDialogs.showSaveDialog(DoMosaicsUI.getInstance(), "CSV");
 		if (file == null)

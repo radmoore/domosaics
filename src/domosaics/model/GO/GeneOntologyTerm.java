@@ -47,6 +47,7 @@ public class GeneOntologyTerm {
 		parents.add(go);
 	}
 	
+	@Override
 	public String toString(){
 		return id+" "+name+" "+ontology+" has "+parents.size()+" parent terms.";
 	}

@@ -99,7 +99,7 @@ public class ProgressiveAlignment {
 	private static void traverseAlign(DomainTreeViewI view, TreeNodeI node) {
 		// evaluate the children first
 		for (int i = 0; i < node.childCount(); i++)
-			traverseAlign (view, (TreeNodeI) node.getChildAt(i));
+			traverseAlign (view, node.getChildAt(i));
 		
 		// don't align leafs with them self
 		if (node.isLeaf())
@@ -217,7 +217,7 @@ public class ProgressiveAlignment {
 		node.getArrangement().getDomains().add(position, new GapDomain(node.getArrangement()));
 		
 		for (int i = 0; i < node.childCount(); i++)
-			traverseAddGaps (position, (TreeNodeI) node.getChildAt(i));
+			traverseAddGaps (position, node.getChildAt(i));
 	}
 
 }

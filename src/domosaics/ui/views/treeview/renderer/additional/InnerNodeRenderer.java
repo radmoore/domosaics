@@ -38,6 +38,7 @@ public class InnerNodeRenderer implements Renderer {
 	/**
 	 * @see Renderer
 	 */
+	@Override
 	public void render(Graphics2D g2) {
 		if (!view.getTreeLayoutManager().isShowInnerNodes())
 			return;

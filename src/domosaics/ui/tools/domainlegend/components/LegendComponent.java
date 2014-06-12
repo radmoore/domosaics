@@ -86,6 +86,7 @@ public class LegendComponent extends AbstractViewComponent {
     /**
 	 * @see AbstractViewComponent
 	 */
+	@Override
 	public Shape getDisplayedShape() {
 		return new RoundRectangle2D.Double(
 				getX(), 

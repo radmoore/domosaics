@@ -1,12 +1,10 @@
 package domosaics.ui.views.domaintreeview.actions;
 
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
-import domosaics.ui.tools.stats.StatsFrame;
 import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.views.domaintreeview.components.TreeSpaceSlider;
 
@@ -16,6 +14,7 @@ import domosaics.ui.views.domaintreeview.components.TreeSpaceSlider;
 public class ChangeTreeSpaceAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		TreeViewI view = (TreeViewI) ViewHandler.getInstance().getActiveView();
 		

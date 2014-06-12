@@ -41,6 +41,7 @@ public class NewickTreeReader extends AbstractTreeReader {
 	 * @return 
 	 * 		the parsed tree
 	 */
+	@Override
 	public TreeI getTreeFromString(String newickStr) {
 		try {
 			TreeI tree;
@@ -147,7 +148,7 @@ public class NewickTreeReader extends AbstractTreeReader {
 					node.getEdgeToParent().setWeight(distance);
 					distance = -1.0;
 				}                      
-                node = (TreeNodeI) node.getParent();
+                node = node.getParent();
                 break;
 			case ',':
 				node.setLabel(label); label = "";
@@ -157,7 +158,7 @@ public class NewickTreeReader extends AbstractTreeReader {
 				}    
                 child = nodeFactory.createNode();
                 tree.addNode(child);
-                edge = new TreeEdge((TreeNodeI) node.getParent(), child);
+                edge = new TreeEdge(node.getParent(), child);
                 tree.addEdge(edge);
                 node = child;
                 break;
@@ -188,8 +189,8 @@ public class NewickTreeReader extends AbstractTreeReader {
 		}
 	
 		// kick the dummy root if necessary
-		if(((TreeNodeI)tree.getRoot()).childCount() == 1){
-			child = (TreeNodeI) (tree.getRoot()).getChildAt(0);
+		if(tree.getRoot().childCount() == 1){
+			child = (tree.getRoot()).getChildAt(0);
 			child.removeEdge(child.getEdgeToParent());
 	        tree.removeNode(tree.getRoot());
 	        tree.setRoot(child);

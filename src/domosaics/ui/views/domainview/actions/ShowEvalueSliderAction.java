@@ -16,6 +16,7 @@ public class ShowEvalueSliderAction extends AbstractMenuAction{
 
 	protected EvalueSliderTool evalueTool = null;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (evalueTool == null) {
 			DomainViewI view = ViewHandler.getInstance().getActiveView();

@@ -28,6 +28,7 @@ public class SelectSubtreeAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Selects the nodes of the subtree");
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		TreeViewI view = ViewHandler.getInstance().getActiveView();
 		

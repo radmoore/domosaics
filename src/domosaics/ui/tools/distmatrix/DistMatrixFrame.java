@@ -15,6 +15,7 @@ public class DistMatrixFrame extends ToolFrame {
 	/**
 	 * Adds the view to the frame by just setting the frames title
 	 */
+	@Override
 	public void addView(View view) {
 		setTitle(view.getViewInfo().getName());
 	}

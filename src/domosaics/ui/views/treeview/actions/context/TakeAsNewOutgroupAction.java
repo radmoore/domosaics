@@ -27,6 +27,7 @@ public class TakeAsNewOutgroupAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Takes the node as new outgroup");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		TreeViewI view = ViewHandler.getInstance().getActiveView();
 

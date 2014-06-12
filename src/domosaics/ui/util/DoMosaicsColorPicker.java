@@ -137,6 +137,7 @@ public class DoMosaicsColorPicker implements PropertyChangeListener{
 	/**
 	 * Triggers the colorize method for each new color selected.
 	 */
+	@Override
 	public void propertyChange(PropertyChangeEvent e) {
 		// get new color
 		Color newColor = ((Color) e.getNewValue());
@@ -252,6 +253,7 @@ public class DoMosaicsColorPicker implements PropertyChangeListener{
 		
 		private void initialize(final ColorPicker cp, Component owner, final Color color,boolean includeOpacity) {
 			buttonListener = new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					Object src = e.getSource();
 					if(src == ok) {
@@ -282,7 +284,7 @@ public class DoMosaicsColorPicker implements PropertyChangeListener{
 			c.gridx++; c.weightx = 0;
 			getContentPane().add(ok,c);
 			cp.setRGB(color.getRed(), color.getGreen(), color.getBlue());
-			cp.setOpacity( ((float)color.getAlpha())/255f );
+			cp.setOpacity( (color.getAlpha())/255f );
 			alpha = color.getAlpha();
 			pack();
 	        setLocationRelativeTo(owner);

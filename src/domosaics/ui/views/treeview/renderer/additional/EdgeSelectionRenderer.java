@@ -39,6 +39,7 @@ public class EdgeSelectionRenderer implements Renderer {
 		this.view = view;
 	}
 	
+	@Override
 	public void render(Graphics2D g2) {
 		Collection<TreeEdgeI> edges = view.getTreeSelectionManager().getSelectedEdges();
 		for (TreeEdgeI edge : edges) {

@@ -2,10 +2,8 @@ package domosaics.ui.views.domainview.actions.context;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import domosaics.model.arrangement.Domain;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.HelpManager;
 import domosaics.ui.ViewHandler;
@@ -13,7 +11,6 @@ import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.DomainComponent;
-import domosaics.ui.views.domainview.manager.DomainLayoutManager.DomainAction;
 import domosaics.ui.views.domainview.renderer.arrangement.BackBoneArrangementRenderer;
 import domosaics.ui.views.domainview.renderer.domain.OrthologousDomainRenderer;
 
@@ -57,6 +54,7 @@ public class SearchOrthologousAction extends AbstractMenuAction{
 		putValue(Action.SHORT_DESCRIPTION, "Compares all domain sequences for this family using Needleman Wunsch.");
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		if(queryDom!=null)

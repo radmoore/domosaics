@@ -4,7 +4,6 @@ import java.awt.Dimension;
 
 import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
-import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.domainview.components.DomainComponent;
 
@@ -29,6 +28,7 @@ public class UnproportionalLayout extends AbstractDomainLayout {
 	/**
 	 * @see AbstractDomainLayout
 	 */
+	@Override
 	public int getDomainX(Domain dom) {
 		DomainComponent dc = view.getArrangementComponentManager().getDomainComponent(dom);
 		int domX = dom.getArrangement().getIndexOf(dom) * (UNPROPSIZE + UNPROPDISTANCE);
@@ -39,6 +39,7 @@ public class UnproportionalLayout extends AbstractDomainLayout {
 	/**
 	 * @see AbstractDomainLayout
 	 */
+	@Override
 	public int getDomainWidth(Domain dom){
 		return UNPROPSIZE;
 	}	
@@ -46,6 +47,7 @@ public class UnproportionalLayout extends AbstractDomainLayout {
 	/**
 	 * @see AbstractDomainLayout
 	 */
+	@Override
 	public int getArrangementWidth(DomainArrangement da) {
 		int maxShiftCol = view.getDomainShiftManager().getMaxShiftCol(view.getArrangementComponentManager().getComponent(da));
 		return (da.countDoms()+maxShiftCol)*(UNPROPSIZE + UNPROPDISTANCE);
@@ -54,6 +56,7 @@ public class UnproportionalLayout extends AbstractDomainLayout {
 	/**
 	 * @see AbstractDomainLayout
 	 */
+	@Override
 	public int getArrangementX(ArrangementComponent dac) {
 		return 0;
 	}

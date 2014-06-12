@@ -2,7 +2,6 @@ package domosaics.ui.views.domainview.components;
 
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import domosaics.model.arrangement.Domain;
@@ -132,6 +131,7 @@ public class ArrangementComponent extends AbstractViewComponent{
 	/**
 	 * @see AbstractViewComponent
 	 */
+	@Override
 	public Shape getDisplayedShape() {
 		return new RoundRectangle2D.Double(
 				getX(), 

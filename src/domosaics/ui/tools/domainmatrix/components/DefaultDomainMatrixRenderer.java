@@ -58,6 +58,7 @@ public class DefaultDomainMatrixRenderer implements Renderer{
 	 * Draws the background and then iterates over all
 	 * domain components which are registered for the legend view
 	 */
+	@Override
 	public void render(Graphics2D g2) {		
 		Rectangle r = g2.getClipBounds();
 		if (r == null) 

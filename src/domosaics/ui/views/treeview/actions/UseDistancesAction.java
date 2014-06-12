@@ -20,6 +20,7 @@ import domosaics.ui.views.treeview.TreeViewI;
 public class UseDistancesAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		TreeViewI view = ViewHandler.getInstance().getActiveView();
 		view.getTreeLayoutManager().structuralChange();

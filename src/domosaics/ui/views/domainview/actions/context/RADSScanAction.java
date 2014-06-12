@@ -43,6 +43,7 @@ public class RADSScanAction extends AbstractAction {
 	 * Triggered when the RADS is chosen from the arrangement context menu
 	 * This will check whether RADS is currently running, and will warn if so
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (RADSService.isRunning()) {
 			MessageUtil.showWarning(DoMosaicsUI.getInstance(),"RADS/RAMPAGE is currently running. Terminate or wait to complete.");

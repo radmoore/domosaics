@@ -37,7 +37,8 @@ public class DomainEventTooltipRenderer implements Renderer {
 	    	this.tooltipDomEvt = dec;
 	    }
 	    
-	    public void render(Graphics2D g2d) {
+	    @Override
+		public void render(Graphics2D g2d) {
 //	    	int cursor_width = 8;
 	    	
 	    	// get mouse over component

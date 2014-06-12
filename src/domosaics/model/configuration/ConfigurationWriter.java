@@ -4,9 +4,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import javax.swing.JFrame;
-
-import domosaics.ApplicationHandler;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 

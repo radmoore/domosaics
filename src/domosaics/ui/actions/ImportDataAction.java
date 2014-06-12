@@ -22,6 +22,7 @@ import domosaics.ui.wizards.importdata.ImportDataResultProducer;
 public class ImportDataAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	    
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		WizardManager.getInstance().startImportDataWizard();
 	}

@@ -80,6 +80,7 @@ public class RADSResultDetailsPanel extends JPanel implements ActionListener{
 	/**
 	 * Defines actions to perform on events
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("openResultsInBrowser"))
 			BrowserLauncher.openURL(results.getJobUrl());

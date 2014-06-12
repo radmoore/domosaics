@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import javax.swing.WindowConstants;
 
 import domosaics.ApplicationHandler;
 import domosaics.localservices.hmmer3.ui.Hmmer3Frame;
@@ -36,7 +37,6 @@ import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.views.view.View;
 import domosaics.ui.wizards.WizardManager;
-import domosaics.util.BrowserLauncher;
 import domosaics.webservices.RADS.ui.RADSFrame;
 import domosaics.webservices.RADS.ui.RADSScanPanel;
 import domosaics.webservices.interproscan.ui.AnnotatorFrame;
@@ -113,7 +113,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		// Next line create a bug under MAC OS
 		// setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setResizable(true);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // .EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); // .EXIT_ON_CLOSE);
 		addWindowListener(this);
 		setVisible(true);
 
@@ -123,18 +123,23 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		glassPane.setLayout(null);
 		// catch all mouse actions
 		glassPane.addMouseListener(new MouseListener() {
+			@Override
 			public void mouseReleased(MouseEvent e) {
 			}
 
+			@Override
 			public void mousePressed(MouseEvent e) {
 			}
 
+			@Override
 			public void mouseExited(MouseEvent e) {
 			}
 
+			@Override
 			public void mouseEntered(MouseEvent e) {
 			}
 
+			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
@@ -313,6 +318,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		openProject.setIcon(openProjectIcon);
 		openProject.setToolTipText("Open a saved project");
 		openProject.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				File file = FileDialogs.openChooseDirectoryDialog(DoMosaicsUI
 						.getInstance());
@@ -329,6 +335,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		saveProject.setIcon(saveProjectIcon);
 		saveProject.setToolTipText("Save a project");
 		saveProject.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startSaveProjectWizard(null);
 			}
@@ -366,6 +373,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		loadFasta.setIcon(loadFastaIcon);
 		loadFasta.setToolTipText("Load a fasta file");
 		loadFasta.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startLoadFastaWizard();
 			}
@@ -377,6 +385,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		loadTree.setIcon(loadTreeIcon);
 		loadTree.setToolTipText("Load a tree file");
 		loadTree.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startLoadTreeWizard();
 			}
@@ -388,6 +397,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		newProject.setIcon(newProjectIcon);
 		newProject.setToolTipText("Load data into a new or existing or project");
 		newProject.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startImportDataWizard();
 			}
@@ -400,6 +410,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		hmmscan.setIcon(hmmscanIcon);
 		hmmscan.setToolTipText("Domain annotation using local HMMER3 installation");
 		hmmscan.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				hmmer3 = Hmmer3Frame.getFrame();
 			}
@@ -411,6 +422,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		iprscan.setIcon(iprscanIcon);
 		iprscan.setToolTipText("Domain annotation using InterProScan (via internet)");
 		iprscan.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				annotatorFrame = AnnotatorFrame.getFrame();
 
@@ -423,6 +435,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		radsBtn.setIcon(radsIcon);
 		radsBtn.setToolTipText("Find similar domain arrangements to a query using RADS (via internet)");
 		radsBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				radsFrame = RADSScanPanel.getCurrentRADSFrame();
 				if (radsFrame == null)
@@ -443,6 +456,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		domainTreeBtn.setIcon(domainTreeIcon);
 		domainTreeBtn.setToolTipText("Combine a domain and tree view");
 		domainTreeBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startCreateDomTreeWizard();
 			}
@@ -454,6 +468,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		treeBtn.setIcon(treeIcon);
 		treeBtn.setToolTipText("Build a tree based on a domain or a sequence view");
 		treeBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				WizardManager.getInstance().startCreateTreeWizard();
 			}
@@ -468,6 +483,7 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		settings.setToolTipText("Settings");
 		// settings.setAction(new ShowConfigurationAction());
 		settings.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (Configuration.getInstance().getFrame() != null) {
 					Configuration.getInstance().getFrame().setState(Frame.NORMAL);
@@ -521,26 +537,33 @@ public class DoMosaicsUI extends JFrame implements WindowListener {
 		desktop.changeViewName(newName);
 	}
 
+	@Override
 	public void windowClosed(WindowEvent arg0) {
 		ApplicationHandler.getInstance().end();
 	}
 
+	@Override
 	public void windowActivated(WindowEvent arg0) {
 	}
 
+	@Override
 	public void windowClosing(WindowEvent arg0) {
 		ApplicationHandler.getInstance().end();
 	}
 
+	@Override
 	public void windowDeactivated(WindowEvent arg0) {
 	}
 
+	@Override
 	public void windowDeiconified(WindowEvent arg0) {
 	}
 
+	@Override
 	public void windowIconified(WindowEvent arg0) {
 	}
 
+	@Override
 	public void windowOpened(WindowEvent arg0) {
 	}
 

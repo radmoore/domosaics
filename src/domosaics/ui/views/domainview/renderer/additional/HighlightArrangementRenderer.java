@@ -39,6 +39,7 @@ public class HighlightArrangementRenderer implements Renderer {
 	 * Highlights mouse over and selected arrangements. Delegates to 
 	 * hightlightArrangement().
 	 */
+	@Override
 	public void render(Graphics2D g2) {
 		// do not highlight in MSA view
 		if(view.getDomainLayoutManager().isMsaView())

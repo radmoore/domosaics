@@ -27,6 +27,7 @@ public class DefaultDomainRenderer extends AbstractDomainRenderer{
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public Color getColor(DomainComponent dc, DomainViewI view) {
 		
 		int alpha = 255; 
@@ -52,6 +53,7 @@ public class DefaultDomainRenderer extends AbstractDomainRenderer{
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public Paint getPaint(DomainComponent dc, DomainViewI view, Graphics2D g2) {
 		if (view.getDomainLayoutManager().isEvalueColorization())
 			return g2.getPaint();
@@ -69,6 +71,7 @@ public class DefaultDomainRenderer extends AbstractDomainRenderer{
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public Stroke getStroke(DomainComponent dc, DomainViewI view) {
 		/*if (dc.getDomain().isPutative()) {
 			float dash[] = { 5.0f, 10.0f };
@@ -81,6 +84,7 @@ public class DefaultDomainRenderer extends AbstractDomainRenderer{
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public String getLabel(DomainComponent dc, DomainViewI view) {
 		return dc.getLabel();
 	}
@@ -88,6 +92,7 @@ public class DefaultDomainRenderer extends AbstractDomainRenderer{
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public Color getLabelColor(DomainComponent dc, DomainViewI view) {
 		if (dc.getDomain().isPutative())
 			return Color.black;
@@ -98,6 +103,7 @@ public class DefaultDomainRenderer extends AbstractDomainRenderer{
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public Shape getShape(DomainComponent dc, DomainViewI view) {
 		if (view.getDomainLayoutManager().isShowShapes())
 			return view.getDomainShapeManager().getDomainShape(dc);

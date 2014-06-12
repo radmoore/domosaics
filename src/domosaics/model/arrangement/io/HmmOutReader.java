@@ -6,15 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import domosaics.localservices.hmmer3.ui.Hmmer3Frame;
 import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.DomainFamily;
 import domosaics.model.arrangement.DomainType;
-import domosaics.model.arrangement.DomainVector;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.io.AbstractDataReader;
 import domosaics.ui.DoMosaicsUI;
@@ -126,6 +123,7 @@ public class HmmOutReader extends AbstractDataReader<DomainArrangement> {
 
 	
 	
+	@Override
 	public DomainArrangement[] getData(Reader reader) throws IOException {
 	
 		List<DomainArrangement> arrList = new ArrayList<DomainArrangement>();

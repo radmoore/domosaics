@@ -120,6 +120,7 @@ public class SequenceSelectionMouseController extends MouseAdapter {
 	 * to save the selected sequences.
 	 * On left click: resets the selection
 	 */
+	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			if (movePoint.equals(e.getPoint())) {
@@ -185,6 +186,7 @@ public class SequenceSelectionMouseController extends MouseAdapter {
 	/**
 	 * starts the selection process via selection rectangle
 	 */
+	@Override
 	public void mousePressed(MouseEvent e) {	
 		if (!view.getDomainLayoutManager().isSelectSequences())
 			return;
@@ -211,6 +213,7 @@ public class SequenceSelectionMouseController extends MouseAdapter {
 	 * ends the expansion of the selection rectangle and adds the 
 	 * result to selection area
 	 */
+	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (!view.getDomainLayoutManager().isSelectSequences())
 			return;
@@ -238,6 +241,7 @@ public class SequenceSelectionMouseController extends MouseAdapter {
 	/**
 	 * expands the selection rectangle
 	 */
+	@Override
 	public void mouseDragged(MouseEvent e) {
 		if (!view.getDomainLayoutManager().isSelectSequences())
 			return;

@@ -17,6 +17,7 @@ import domosaics.ui.views.view.View;
 public class CloseAction extends AbstractMenuAction {
 	private static final long serialVersionUID = 1L;
 	    
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		View tool = ViewHandler.getInstance().getFocussedTool();
 		if (tool != null)

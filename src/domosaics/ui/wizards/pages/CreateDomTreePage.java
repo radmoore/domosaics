@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-
 import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.swingx.JXTitledSeparator;
@@ -72,7 +70,8 @@ public class CreateDomTreePage extends WizardPage {
         return "Select Tree And Arrangement View";
     }
     
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
     	if (selectTreeViewList.getSelectedItem() == null)
 			return "Please select a tree view";
     	else if (selectDomViewList.getSelectedItem() == null)

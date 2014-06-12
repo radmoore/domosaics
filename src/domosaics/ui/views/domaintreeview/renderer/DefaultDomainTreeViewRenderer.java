@@ -68,6 +68,7 @@ public class DefaultDomainTreeViewRenderer extends DefaultTreeViewRenderer imple
 	 * 
 	 * @see DefaultTreeViewRenderer
 	 */
+	@Override
 	public void render(Graphics2D g) {
 		super.render(g);
 
@@ -81,6 +82,7 @@ public class DefaultDomainTreeViewRenderer extends DefaultTreeViewRenderer imple
 	/**
 	 * @see DomainViewRenderer
 	 */
+	@Override
 	public ArrangementRenderer getArrangementRenderer() {
 		return ((DefaultDomainNodeRenderer) getNodeRenderer()).getArrangementRenderer();
 	}
@@ -88,6 +90,7 @@ public class DefaultDomainTreeViewRenderer extends DefaultTreeViewRenderer imple
 	/**
 	 * @see DomainViewRenderer
 	 */
+	@Override
 	public void setArrangementRenderer(ArrangementRenderer daRenderer) {
 		((DefaultDomainNodeRenderer) getNodeRenderer()).setArrangementRenderer(daRenderer);
 	}

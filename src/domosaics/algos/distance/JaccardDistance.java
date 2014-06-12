@@ -40,6 +40,7 @@ public class JaccardDistance implements DistanceAlgorithm {
 	/**
 	 * Calculates the Jaccard-Index for two arrangements.
 	 */
+	@Override
 	public double calc(DomainArrangement da1, DomainArrangement da2) {
 		// create the domainsets
 		DomainSet set1 = new DomainSet();
@@ -55,6 +56,7 @@ public class JaccardDistance implements DistanceAlgorithm {
 	/**
 	 * Calculates the pairwaise Jaccard-Index for a set of arrangements.
 	 */
+	@Override
 	public double[][] calc(DomainArrangement[] daSet, boolean diagonalMatrix) throws OutOfMemoryError {
 		int N = daSet.length;
 		double[][] res = new double[N][N];

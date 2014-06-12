@@ -1,12 +1,8 @@
 package domosaics.ui.views.domainview.renderer.additional;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 
-import domosaics.algos.distance.DistanceMeasureType;
-import domosaics.ui.util.ColorUtil;
 import domosaics.ui.views.domainview.DomainViewI;
-import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.domainview.manager.DomainSimilarityManager;
 import domosaics.ui.views.view.renderer.Renderer;
 
@@ -43,6 +39,7 @@ public class SimilarityRenderer  implements Renderer {
 	/**
 	 * draw a transparent white rectangle on top of each arrangement
 	 */
+	@Override
 	public void render(Graphics2D g2) {
 		return;
 //		if(!view.getDomainLayoutManager().isCollapseBySimilarity())

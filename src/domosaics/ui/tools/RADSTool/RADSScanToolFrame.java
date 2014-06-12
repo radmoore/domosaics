@@ -2,9 +2,6 @@ package domosaics.ui.tools.RADSTool;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.JPanel;
 
 import domosaics.model.arrangement.DomainArrangement;
@@ -56,7 +53,8 @@ public class RADSScanToolFrame extends ToolFrame{
 	 * 
 	 * @param view - an RADSScanView instance
 	 */
-    public void addView(View view) {
+    @Override
+	public void addView(View view) {
     	this.radsScanView = (RADSScanView) view;
     	this.arrComp = radsScanView.getArrangementComponent();
     	setTitle(view.getViewInfo().getName());

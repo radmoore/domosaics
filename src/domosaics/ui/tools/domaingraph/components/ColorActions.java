@@ -39,7 +39,8 @@ public class ColorActions {
 		nodeTextColor = new ColorAction("graph.nodes",	VisualItem.TEXTCOLOR, ColorLib.rgb(0,0,0));
 
         nodeStrokeColor = new ColorAction("graph.nodes", VisualItem.STROKECOLOR) {
-        	public int getColor(VisualItem item) {
+        	@Override
+			public int getColor(VisualItem item) {
             	if (item.isHover())
             		return ColorLib.rgb(255, 0, 0);
             	else if (item.isInGroup(Visualization.SELECTED_ITEMS))
@@ -54,7 +55,8 @@ public class ColorActions {
 
         
          nodeFillColor = new ColorAction("graph.nodes", VisualItem.FILLCOLOR) {
-         	public int getColor(VisualItem item) {
+         	@Override
+			public int getColor(VisualItem item) {
          		// colorMode 0 and 1
              	if (item.getInt("status") == 0) // gray
              		return ColorLib.rgb(234,234,234);

@@ -51,7 +51,8 @@ public class ClustalW2Page extends WizardPage {
     /**
      * Checks if all necessary input is made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
     	if (!UiUtil.isValidEmail(panel.getEmail()))
 			return "Please enter a valid email adress";
     	if (!panel.isJobDone())

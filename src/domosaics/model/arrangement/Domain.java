@@ -128,6 +128,7 @@ public class Domain implements Comparable<Domain>, Cloneable, DoMosaicsData {
 	 * Clones a domain, which is automatically called, when an arrangement
 	 * is called, for all of its contained domains.
 	 */
+	@Override
 	public Object clone() throws CloneNotSupportedException {
         Domain copy = (Domain) super.clone();
 		return copy;
@@ -309,10 +310,12 @@ public class Domain implements Comparable<Domain>, Cloneable, DoMosaicsData {
 	 * FIXME there is a problem here if from is identical
 	 * for both (as in place)
 	 */
+	@Override
 	public int compareTo (Domain dom) {
 		return this.from - dom.from;
 	}
 	
+	@Override
 	public String toString() {
 		return getFrom()+"\\t"+getTo()+"\\t"+getID()+"\\t"+getEvalue();
 	}

@@ -3,13 +3,8 @@ package domosaics.ui.views.domainview.components;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
@@ -24,10 +19,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 import javax.swing.JSlider;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
@@ -36,8 +28,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.metal.MetalLookAndFeel;
-import javax.swing.plaf.metal.MetalSliderUI;
-
 import domosaics.algos.distance.DistanceMeasureType;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.configuration.Configuration;
@@ -159,14 +149,21 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 		setAlwaysOnTop(true);
 		setModal(false);
 		this.addWindowListener(new WindowListener() {
+			@Override
 			public void windowActivated(WindowEvent arg0) {}
+			@Override
 			public void windowClosed(WindowEvent arg0) {}
+			@Override
 			public void windowClosing(WindowEvent arg0) {
 				close();
 			}
+			@Override
 			public void windowDeactivated(WindowEvent arg0) {}
+			@Override
 			public void windowDeiconified(WindowEvent arg0) {}
+			@Override
 			public void windowIconified(WindowEvent arg0) {}
+			@Override
 			public void windowOpened(WindowEvent arg0) {}
 		});
 		updateDistances();
@@ -301,6 +298,7 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 	 * Checks if the slider or the distance list were changed and triggers
 	 * the correct method afterwards.
 	 */
+	@Override
 	public void stateChanged(ChangeEvent e) {
 		if (e.getSource().equals(slider)) 
 			processSlider();
@@ -421,6 +419,7 @@ public class SimilarityChooser extends JDialog implements ChangeListener, Action
 	/**
 	 * Handles the button events
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == distanceList)
 			updateDistances();

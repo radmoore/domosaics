@@ -52,6 +52,7 @@ public class CreateProjectDialog {
 class ProjectProgress extends DeferredWizardResult implements
 		WizardResultProducer {
 
+	@Override
 	public void start(Map m, ResultProgressHandle p) {
 		assert !EventQueue.isDispatchThread();
 
@@ -74,10 +75,12 @@ class ProjectProgress extends DeferredWizardResult implements
 		}
 	}
 
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
 
+	@Override
 	public Object finish(Map m) throws WizardException {
 		return this;
 	}

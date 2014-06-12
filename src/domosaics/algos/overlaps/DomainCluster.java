@@ -55,6 +55,7 @@ public class DomainCluster  {
 		return true;
 	}
 	
+	@Override
 	public String toString() {
 		StringBuffer res = new StringBuffer();
 		res.append("Cluster with "+doms.size()+" domains: \n");

@@ -6,7 +6,6 @@ import domosaics.model.sequence.SequenceI;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 import pal.alignment.Alignment;
-import pal.alignment.AlignmentUtils;
 import pal.alignment.SimpleAlignment;
 import pal.datatype.DataType;
 import pal.datatype.DataTypeTool;

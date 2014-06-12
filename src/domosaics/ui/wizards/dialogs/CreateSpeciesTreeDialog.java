@@ -132,10 +132,12 @@ class CreateSpeciesTreeProgress extends DeferredWizardResult implements WizardRe
 		}
 	}
 	
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
 	
+	@Override
 	public Object finish(Map m) throws WizardException {
 		return this;
 	}	

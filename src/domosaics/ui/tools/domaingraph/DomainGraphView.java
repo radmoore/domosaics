@@ -2,8 +2,6 @@ package domosaics.ui.tools.domaingraph;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowFocusListener;
 import java.io.File;
 
 import javax.swing.BorderFactory;
@@ -70,6 +68,7 @@ public class DomainGraphView extends AbstractView implements Tool {
 	/**
 	 * @see View
 	 */
+	@Override
 	public void export(File file) {}
 	
 	/**
@@ -155,6 +154,7 @@ public class DomainGraphView extends AbstractView implements Tool {
 	/**
 	 * only used for image exporting of the graph
 	 */
+	@Override
 	public void renderView(Graphics2D g) {
 		prefuseGraph.getDisplay().update(g);
 	}
@@ -162,6 +162,7 @@ public class DomainGraphView extends AbstractView implements Tool {
 	/**
 	 * @see View
 	 */
+	@Override
 	public JComponent getComponent() {
 		return this;
 	}
@@ -169,6 +170,7 @@ public class DomainGraphView extends AbstractView implements Tool {
 	/**
 	 * @see Tool
 	 */
+	@Override
 	public void setToolFrame(ToolFrameI frame) {
 		parentFrame = (DomainGraphFrame) frame;
 	}
@@ -176,6 +178,7 @@ public class DomainGraphView extends AbstractView implements Tool {
 	/**
 	 * @see Tool
 	 */
+	@Override
 	public ToolFrameI getToolFrame() {
 		return parentFrame;
 	}
@@ -183,14 +186,17 @@ public class DomainGraphView extends AbstractView implements Tool {
 	/**
 	 * @see AbstractView
 	 */
+	@Override
 	public void registerMouseListeners() {}
 	
 	/**
 	 * @see ViewI
 	 */
+	@Override
 	public void setViewLayout(ViewLayout layout) { }
 
 	
+	@Override
 	public void setViewRenderer(Renderer renderer) {
 		// TODO Auto-generated method stub
 		

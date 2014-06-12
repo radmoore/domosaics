@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -30,14 +29,11 @@ import domosaics.model.arrangement.io.GatheringThresholdsReader;
 import domosaics.model.sequence.Sequence;
 import domosaics.model.sequence.SequenceI;
 import domosaics.ui.DoMosaicsUI;
-import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
-import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.domainview.components.DomainComponent;
 import domosaics.ui.views.domainview.components.SequenceMatchErrorFrame;
-import domosaics.ui.views.domainview.io.DomainViewExporter;
 import domosaics.ui.views.domainview.layout.DomainLayout;
 import domosaics.ui.views.domainview.layout.MSALayout;
 import domosaics.ui.views.domainview.layout.ProportionalLayout;
@@ -192,6 +188,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public void setDaSet(DomainArrangement[] daSet) {
 		// TODO handle the setting of a new dataset of a view
 		if (this.daSet != null) {
@@ -215,6 +212,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public void removeArrangement(DomainArrangement da) {
 		// convert daSet to a list structure
 		List<DomainArrangement> list = new ArrayList<DomainArrangement>(Arrays.asList(daSet));
@@ -236,6 +234,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public void addArrangement(DomainArrangement da) {
 		// convert daSet to a list structure
 		List<DomainArrangement> list = new ArrayList<DomainArrangement>(Arrays.asList(daSet));
@@ -252,6 +251,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public void addDaSet(DomainArrangement[] newDaSet) {
 		List<DomainArrangement> currentArrangements = new ArrayList<DomainArrangement>(Arrays.asList(daSet));
 		
@@ -268,6 +268,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public void loadSequencesIntoDas(SequenceI[] seqs, DomainArrangement[] daSet, boolean checkBeforeAssociation) {
 		List<DomainArrangement> noMatchDAs = new ArrayList<DomainArrangement>();
 		List<SequenceI> noMatchSeqs = new ArrayList<SequenceI>();
@@ -326,6 +327,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public SequenceI[] getSequences() {
 		List<SequenceI> seqs = new ArrayList<SequenceI>();
 		for (int i = 0; i < daSet.length; i++) 
@@ -374,6 +376,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public void registerAdditionalDomainRenderer(DomainViewI view) {
 		view.addRenderer(new SimilarityRenderer(view));
 		view.addRenderer(new HighlightArrangementRenderer(view));
@@ -398,6 +401,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	 *  
 	 * @see AbstractView
 	 */
+	@Override
 	public void registerMouseListeners() {
 		// remove all listener before registering the new ones.
 		removeMouseListeners();
@@ -468,6 +472,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public ArrangementMouseController getArrangementMouseController() {
 		return getMouseController(DomainMouseControllerType.ARRANGEMENTMC);
 	}
@@ -475,6 +480,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainMouseController getDomainMouseController() {
 		return getMouseController(DomainMouseControllerType.DOMAINMC);
 	}
@@ -482,6 +488,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public SequenceSelectionMouseController getSequenceSelectionMouseController() {
 		return getMouseController(DomainMouseControllerType.SEQUENCESELECTIONMC);
 	}
@@ -489,6 +496,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public ShiftComponentsMouseController getShiftComponentsMouseController() {
 		return getMouseController(DomainMouseControllerType.COMPONENTSHIFTMC);
 	}
@@ -500,6 +508,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public void registerViewAsManagerListener(PropertyChangeListener view) {
 		for (ViewManager manager : view_manager.values()) 
 			manager.addPropertyChangeListener(view);
@@ -508,6 +517,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public void unregisterViewAsManagerListener(PropertyChangeListener view) {
 		for (ViewManager manager : view_manager.values())
 			manager.removePropertyChangeListener(view);
@@ -519,6 +529,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	 * a relayout and a repaint is done. In the case of a visual
 	 * change only the repaint is done.
 	 */
+	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals(ViewManager.PROPERTY_STRUCTURAL_CHANGE)) 
 			doLayout();
@@ -555,6 +566,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	 * Triggered whenever a layout for the view components has to be
 	 * done.
 	 */
+	@Override
 	public void doLayout() {
 		if (isZoomMode())
 			return;
@@ -569,6 +581,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	 * @param layout
 	 * 		the new layout to be used
 	 */
+	@Override
 	public void setViewLayout(ViewLayout layout) {
 		super.setLayout(null);
 		layout.setView(this);
@@ -578,6 +591,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see View
 	 */
+	@Override
 	public void setViewRenderer(Renderer renderer) {
 		this.viewRenderer = renderer;
 	}
@@ -585,6 +599,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see AbstractView
 	 */
+	@Override
 	public void renderView(Graphics2D g) {
 		viewRenderer.render(g);
 	}
@@ -592,9 +607,10 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see AbstractView
 	 */
+	@Override
 	public void toggleZoomMode() {
 		super.toggleZoomMode();
-		domLayoutManager.toggleZoomMode((AbstractView) this);
+		domLayoutManager.toggleZoomMode(this);
 	}
 	
 	
@@ -605,6 +621,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see View
 	 */
+	@Override
 	public JComponent getComponent() {
 		return scrollPane;
 	}
@@ -612,6 +629,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainArrangement[] getDaSet() {
 		return daSet;
 	}
@@ -619,6 +637,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainViewRenderer getDomainViewRenderer() {
 		return (DomainViewRenderer) viewRenderer;
 	}
@@ -626,6 +645,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainLayout getDomainLayout() {
 		return viewLayout;
 	}
@@ -633,6 +653,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public boolean isSequenceLoaded() {
 		return sequencesLoaded;
 	}
@@ -640,6 +661,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public void setSequencesLoaded (boolean flag) {
 		sequencesLoaded = flag;
 		
@@ -678,6 +700,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainLayoutManager getDomainLayoutManager() {
 		return domLayoutManager;
 	}
@@ -685,6 +708,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainColorManager getDomainColorManager() {
 		return getViewManager(DomainViewManager.DOMAINCOLORMANAGER);
 	}
@@ -692,6 +716,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainArrangementComponentManager getArrangementComponentManager() {
 		return getViewManager(DomainViewManager.DOMAINCOMPONENTMANAGER);
 	}
@@ -699,6 +724,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainComponentManager getDomainComponentManager() {
 		return getArrangementComponentManager().getDomainComponentManager();
 	} 
@@ -706,6 +732,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public SelectionManager<DomainComponent> getDomainSelectionManager() {
 		return getViewManager(DomainViewManager.DOMAINSELECTIONMANAGER);
 	}
@@ -713,6 +740,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public FontManager<ArrangementComponent> getDomainArrangementFontManager() {
 		return getViewManager(DomainViewManager.DAFONTMANAGER);
 	}
@@ -720,6 +748,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public FontManager<DomainComponent> getDomainFontManager() {
 		return getViewManager(DomainViewManager.DOMAINFONTMANAGER);
 	}
@@ -727,6 +756,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainShapeManager getDomainShapeManager() {
 		return getViewManager(DomainViewManager.DOMAINSHAPEMANAGER);
 	}
@@ -734,6 +764,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public SelectionManager<ArrangementComponent> getArrangementSelectionManager() {
 		return getViewManager(DomainViewManager.ARRANGEMENTSELECTIONMANAGER);
 	}
@@ -741,6 +772,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainSearchOrthologsManager getDomainSearchOrthologsManager() {
 		return getViewManager(DomainViewManager.DOMAINSEARCHORTHOLOGSMANAGER);
 	}
@@ -748,6 +780,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainShiftManager getDomainShiftManager() {
 		return getViewManager(DomainViewManager.DOMAINSHIFTMANAGER);
 	}
@@ -755,6 +788,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public CollapseSameArrangementsManager getCollapseSameArrangementsManager() {
 		return getViewManager(DomainViewManager.COLLAPSESAMEARRANGEMENTSMANAGER);
 	}
@@ -762,6 +796,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainSimilarityManager getDomainSimilarityManager() {
 		return getViewManager(DomainViewManager.DOMAINSIMILARITYMANAGER);
 	}
@@ -769,6 +804,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public NoteManager getNoteManager() {
 		return getViewManager(DomainViewManager.NOTEMANAGER);
 	}
@@ -783,6 +819,7 @@ public class DomainView extends AbstractView implements DomainViewI, PropertyCha
 		isCompareDomainsMode=b;
 	}
 	
+	@Override
 	public void xmlWrite(Element viewType) {
 		//PROTEINS
 		DomainArrangement[] arrangements = this.getDaSet();

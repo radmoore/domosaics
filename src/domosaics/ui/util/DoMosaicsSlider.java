@@ -1,22 +1,14 @@
 package domosaics.ui.util;
 
 import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.Hashtable;
 
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 import javax.swing.JSlider;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
-import javax.swing.plaf.metal.MetalSliderUI;
-
 import domosaics.model.configuration.Configuration;
 
 //import domosaics.ui.views.domainview.components.SimilarityChooser.MySliderUI;
@@ -78,6 +70,7 @@ public class DoMosaicsSlider extends JSlider{
 		
 	}
 	
+	@Override
 	public String getName() {
 		return name;
 	}

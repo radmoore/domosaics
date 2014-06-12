@@ -20,6 +20,7 @@ import domosaics.ui.views.view.components.ZoomCompatible;
 public class ShowShapesAction extends AbstractMenuAction implements ZoomCompatible{
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		view.getDomainLayoutManager().fireStructuralChange();

@@ -39,6 +39,7 @@ public abstract class AbstractDataReader <T extends DoMosaicsData> implements Da
 	/**
 	 * @see DataReader
 	 */
+	@Override
 	public T[] getDataFromStream(InputStream is) {
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(is));
@@ -59,6 +60,7 @@ public abstract class AbstractDataReader <T extends DoMosaicsData> implements Da
 	/**
 	 * @see DataReader
 	 */
+	@Override
 	public T[] getDataFromFile(File file) {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(file));
@@ -78,6 +80,7 @@ public abstract class AbstractDataReader <T extends DoMosaicsData> implements Da
 	/**
 	 * @see DataReader
 	 */
+	@Override
 	public T[] getDataFromString(String dataStr) {
 		try {
 			BufferedReader in = new BufferedReader(new StringReader(dataStr));
@@ -98,5 +101,6 @@ public abstract class AbstractDataReader <T extends DoMosaicsData> implements Da
 	/**
 	 * @see DataReader
 	 */
+	@Override
 	public abstract T[] getData(Reader reader) throws IOException;
 }

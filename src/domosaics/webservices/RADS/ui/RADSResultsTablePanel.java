@@ -6,8 +6,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -99,6 +97,7 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 	/**
 	 * Defines actions to perform on events
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("createView"))
 			createView();
@@ -191,6 +190,7 @@ public class RADSResultsTablePanel extends JPanel implements ActionListener{
 		resultTable = new RADSResultsTable(resultTableModel);
 		resultTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		resultTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (e.getValueIsAdjusting())
 					return;

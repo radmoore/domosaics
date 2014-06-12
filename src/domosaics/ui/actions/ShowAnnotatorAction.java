@@ -1,6 +1,5 @@
 package domosaics.ui.actions;
 
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 
 import domosaics.ui.io.menureader.AbstractMenuAction;
@@ -20,6 +19,7 @@ public class ShowAnnotatorAction extends AbstractMenuAction{
 	
 	protected AnnotatorFrame annotatorFrame;
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		annotatorFrame = AnnotatorFrame.getFrame();
 	}

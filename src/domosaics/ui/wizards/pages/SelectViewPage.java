@@ -81,6 +81,7 @@ public class SelectViewPage extends WizardPage {
 		viewSelection.setRenderer(new WizardListCellRenderer());
 		
 		projectSelection.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				viewSelection.removeAllItems();
 				viewSelection.setEnabled(true);
@@ -123,7 +124,8 @@ public class SelectViewPage extends WizardPage {
      * 
      * Checks if all necessary inputs are made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
 		
     	ViewElement selectedView = (ViewElement) viewSelection.getSelectedItem();
     	

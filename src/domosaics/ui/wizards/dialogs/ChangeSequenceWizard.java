@@ -2,7 +2,6 @@ package domosaics.ui.wizards.dialogs;
 
 import java.awt.EventQueue;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.netbeans.api.wizard.WizardDisplayer;
@@ -26,7 +25,6 @@ import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.domainview.components.DomainComponent;
-import domosaics.ui.views.view.manager.SelectionManager;
 import domosaics.ui.wizards.pages.ChangeSequencePage;
 
 
@@ -96,6 +94,7 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
 	}
 	
 	
+	@Override
 	public void start(Map m, ResultProgressHandle p) {
 		assert !EventQueue.isDispatchThread();
 		
@@ -235,10 +234,12 @@ class ChangeSequenceProgress extends DeferredWizardResult implements WizardResul
 		return;
 	}
 	
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
 	
+	@Override
 	public Object finish(Map m) throws WizardException {
 		return this;
 	}	

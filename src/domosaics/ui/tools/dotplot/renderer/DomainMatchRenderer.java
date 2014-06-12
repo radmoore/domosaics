@@ -39,6 +39,7 @@ public class DomainMatchRenderer implements Renderer {
     /**
      * @see Renderer
      */
+	@Override
 	public void render(Graphics2D g) {
 		if (!view.getDotplotLayoutManager().isShowDomainMatches())
 			return;
@@ -64,7 +65,7 @@ public class DomainMatchRenderer implements Renderer {
 					
 					// calculate the alpha value depending on the percentage similarity
 					int alphaPercent = view.getMatchScores().getPercent(hDom, vDom);
-					int alpha = (int) Math.floor(((double) alphaPercent / (double) 100) * (double) 240);
+					int alpha = (int) Math.floor(((double) alphaPercent / (double) 100) * 240);
 					
 					domColor = new Color(domColor.getRed(), domColor.getGreen(), domColor.getBlue(), alpha); //100);
 					g.setColor(domColor);

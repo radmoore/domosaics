@@ -40,7 +40,8 @@ public class SDockableContainerFactory extends DefaultDockableContainerFactory{
 	   *@see MaximizedDockView
 	   *@see DetachedDockView
 	   */
-	  public SingleDockableContainer createDockableContainer(Dockable dockable, int parentType) {
+	  @Override
+	public SingleDockableContainer createDockableContainer(Dockable dockable, int parentType) {
 	    switch (parentType){
 	      case PARENT_TABBED_CONTAINER:
 	        return new TabbedDockView(dockable);
@@ -61,7 +62,8 @@ public class SDockableContainerFactory extends DefaultDockableContainerFactory{
 	   *
 	   * @see DockTabbedPane
 	   */
-	  public TabbedDockableContainer createTabbedDockableContainer() {
+	  @Override
+	public TabbedDockableContainer createTabbedDockableContainer() {
 		  return new DockTabbedPane();
 	  }
 

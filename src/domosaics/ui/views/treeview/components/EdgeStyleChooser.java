@@ -238,6 +238,7 @@ public class EdgeStyleChooser extends JDialog implements ChangeListener, ActionL
 	 * @param e
 	 * 		action event triggered by the stroke list
 	 */
+	@Override
 	public void stateChanged(ChangeEvent e) {
 		updateStrokes();
 	}
@@ -272,6 +273,7 @@ public class EdgeStyleChooser extends JDialog implements ChangeListener, ActionL
 	/**
 	 * React on buttons
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == strokeList)
 			updateStrokes();

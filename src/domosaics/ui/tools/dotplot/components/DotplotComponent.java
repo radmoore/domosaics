@@ -62,6 +62,7 @@ public class DotplotComponent extends AbstractViewComponent {
 	/**
 	 * @see AbstractViewComponent
 	 */
+	@Override
 	public Shape getDisplayedShape() {
 		return null;
 	}

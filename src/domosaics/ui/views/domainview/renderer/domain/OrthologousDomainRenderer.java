@@ -28,6 +28,7 @@ public class OrthologousDomainRenderer extends AbstractDomainRenderer {
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public Color getColor(DomainComponent dc, DomainViewI view) {
 		int alpha = 255; 
 		/*
@@ -53,6 +54,7 @@ public class OrthologousDomainRenderer extends AbstractDomainRenderer {
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public Paint getPaint(DomainComponent dc, DomainViewI view, Graphics2D g2) {
 		return g2.getPaint();
 	}
@@ -60,6 +62,7 @@ public class OrthologousDomainRenderer extends AbstractDomainRenderer {
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public Stroke getStroke(DomainComponent dc, DomainViewI view) {
 		/*if (dc.getDomain().isPutative()) {
 			float dash[] = { 5.0f, 10.0f };
@@ -71,6 +74,7 @@ public class OrthologousDomainRenderer extends AbstractDomainRenderer {
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public String getLabel(DomainComponent dc, DomainViewI view) {
 		String label = dc.getLabel();
 		
@@ -84,6 +88,7 @@ public class OrthologousDomainRenderer extends AbstractDomainRenderer {
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public Color getLabelColor(DomainComponent dc, DomainViewI view) {
 		if (view.getDomainSearchOrthologsManager().getDomainScore(dc) != -1) 
 			return Color.black;
@@ -93,6 +98,7 @@ public class OrthologousDomainRenderer extends AbstractDomainRenderer {
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public Shape getShape(DomainComponent dc, DomainViewI view) {
 		if (view.getDomainLayoutManager().isShowShapes())
 			return view.getDomainShapeManager().getDomainShape(dc);

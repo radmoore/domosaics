@@ -43,6 +43,7 @@ import domosaics.ui.views.view.export.SVGImageExporter;
 public class ExportViewAsImageAction extends AbstractMenuAction implements ZoomCompatible {
 	private static final long serialVersionUID = 1L;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		// determine if a tool or a view has to be exported

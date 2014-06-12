@@ -14,6 +14,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -84,9 +85,9 @@ public class JFontChooser extends JDialog implements ActionListener, ListSelecti
 		fList.setSelectionMode(0);
 		stList.setSelectionMode(0);
 		sizeList.setSelectionMode(0);
-		jspFont.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		jspStyle.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		jspSize.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		jspFont.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		jspStyle.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		jspSize.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		panel.setBorder(panelBorder);
 		
@@ -158,7 +159,7 @@ public class JFontChooser extends JDialog implements ActionListener, ListSelecti
 		{
 			fList.setSelectedIndex(i);
 			
-			if (font.getName().equals((String)fList.getSelectedValue()))
+			if (font.getName().equals(fList.getSelectedValue()))
 			{
 				found = true;
 				setScrollPos(jspFont, fList, i);
@@ -203,6 +204,7 @@ public class JFontChooser extends JDialog implements ActionListener, ListSelecti
 	/**
 	 * Sets the current font of the font chooser.
 	 */
+	@Override
 	public void setFont(Font aFont)
 	{
 		font = aFont;
@@ -211,6 +213,7 @@ public class JFontChooser extends JDialog implements ActionListener, ListSelecti
 	/**
 	 * Gets the current font of the font chooser.
 	 */
+	@Override
 	public Font getFont()
 	{
 		return font;
@@ -240,6 +243,7 @@ public class JFontChooser extends JDialog implements ActionListener, ListSelecti
 		return font.getSize();
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		boolean found = false;
@@ -290,6 +294,7 @@ public class JFontChooser extends JDialog implements ActionListener, ListSelecti
 		}
 	}
 	
+	@Override
 	public void valueChanged(ListSelectionEvent e)
 	{
 		if (e.getSource() == fList)

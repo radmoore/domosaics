@@ -16,6 +16,7 @@ import domosaics.ui.views.domainview.renderer.arrangement.BackBoneArrangementRen
 public class AlignDomainsAction extends AbstractMenuAction {
 	private static final long serialVersionUID = 1L;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainTreeViewI view = (DomainTreeViewI) ViewHandler.getInstance().getActiveView();
 		

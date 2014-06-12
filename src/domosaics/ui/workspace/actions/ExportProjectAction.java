@@ -29,6 +29,7 @@ public class ExportProjectAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Exports selected project");
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		WizardManager.getInstance().startSaveProjectWizard(project);
 	}

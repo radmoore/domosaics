@@ -28,6 +28,7 @@ public class MsaDomainRenderer extends AbstractDomainRenderer {
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public Color getColor(DomainComponent dc, DomainViewI view) {
 		int alpha = 120; 
 		Color color = view.getDomainColorManager().getDomainColor(dc);
@@ -38,6 +39,7 @@ public class MsaDomainRenderer extends AbstractDomainRenderer {
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public Paint getPaint(DomainComponent dc, DomainViewI view, Graphics2D g2) {
 		return g2.getPaint();
 	}
@@ -45,6 +47,7 @@ public class MsaDomainRenderer extends AbstractDomainRenderer {
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public Stroke getStroke(DomainComponent dc, DomainViewI view) {
 		/*if (dc.getDomain().isPutative()) {
 			float dash[] = { 5.0f, 10.0f };
@@ -56,6 +59,7 @@ public class MsaDomainRenderer extends AbstractDomainRenderer {
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public String getLabel(DomainComponent dc, DomainViewI view) {
 		return null;
 	}
@@ -63,6 +67,7 @@ public class MsaDomainRenderer extends AbstractDomainRenderer {
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public Color getLabelColor(DomainComponent dc, DomainViewI view) {
 		return null;
 	}
@@ -70,6 +75,7 @@ public class MsaDomainRenderer extends AbstractDomainRenderer {
 	/**
 	 * @see AbstractDomainRenderer
 	 */
+	@Override
 	public Shape getShape(DomainComponent dc, DomainViewI view) {
 		return new Rectangle(dc.getX(), dc.getTopLeft(), dc.getWidth(), dc.getHeight());
 	}

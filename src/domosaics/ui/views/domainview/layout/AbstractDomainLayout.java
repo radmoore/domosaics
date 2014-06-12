@@ -66,6 +66,7 @@ public abstract class AbstractDomainLayout implements DomainLayout{
 	 * @param view 
 	 * 		component on which the layout is done
 	 */
+	@Override
 	public void setView(View view) {
 		this.view = (DomainViewI) view;
 	}
@@ -73,6 +74,7 @@ public abstract class AbstractDomainLayout implements DomainLayout{
 	/**
 	 * @see DomainLayout
 	 */
+	@Override
 	public int getMaxLen() {
 		return param.maxLen;
 	}
@@ -136,6 +138,7 @@ public abstract class AbstractDomainLayout implements DomainLayout{
 	 * @param parent 
 	 * 		container to be layouted
 	 */
+	@Override
 	public void layoutContainer(Container parent) {	
 		param.init();				// preliminary init
 		
@@ -206,13 +209,15 @@ public abstract class AbstractDomainLayout implements DomainLayout{
 	/**
 	 * @see Domainlayout
 	 */
-    public void layoutArrangements(int x, int y, Dimension size){
+    @Override
+	public void layoutArrangements(int x, int y, Dimension size){
     	layoutArrangements(x, y, size.width, size.height);
     }
     
 	/**
 	 * @see Domainlayout
 	 */
+	@Override
 	public void layoutArrangements(int x, int y, int width, int height) {
 		if (width < 0 || height < 0)
 			return;
@@ -237,6 +242,7 @@ public abstract class AbstractDomainLayout implements DomainLayout{
 	/**
 	 * @see Domainlayout
 	 */
+	@Override
 	public void layoutArrangement(ArrangementComponent dac, int x, int y, int width, int height) {
 		if (!dac.isVisible())
 			return;
@@ -246,10 +252,10 @@ public abstract class AbstractDomainLayout implements DomainLayout{
 		dac.getRelativeBounds().width = param.offsetX * getArrangementWidth(dac.getDomainArrangement());
 		
 		// recalculate relative coordinates into screen coordinates
-		dac.setBounds((int) x,
-				  	  (int) y, 			 						 
+		dac.setBounds(x,
+				  	  y, 			 						 
 				  	  (int) Math.round(dac.getRelativeBounds().width * width),
-				  	  (int) param.da_height);		
+				  	  param.da_height);		
 
 		// layout domains	
 		for (DomainComponent dc : view.getArrangementComponentManager().getDomains(dac)) 	
@@ -284,7 +290,7 @@ public abstract class AbstractDomainLayout implements DomainLayout{
 
 		// recalculate relative coordinates into screen coordinates
 		dc.setBounds((int) (x + Math.round((dc.getRelativeBounds().x * width))),
-			  		 (int) y,					 						 
+			  		 y,					 						 
 			  		 (int) Math.round(dc.getRelativeBounds().width * width),
 			  		param.da_height);	
 		
@@ -295,6 +301,7 @@ public abstract class AbstractDomainLayout implements DomainLayout{
      * The bounds are calculated successively during the layout process
      * by adding a layouted arrangement to those bounds.
      */
+	@Override
 	public Rectangle getDomainBounds() {
 		if (layoutBounds == null) // e.g. all arrangements are invisible or no match with the tree
 			layoutBounds = new Rectangle();
@@ -304,6 +311,7 @@ public abstract class AbstractDomainLayout implements DomainLayout{
 	/**
 	 * @see DomainLayout
 	 */
+	@Override
 	public void setDomainBounds(Rectangle bounds) {
 		layoutBounds = bounds;
 	}
@@ -317,6 +325,7 @@ public abstract class AbstractDomainLayout implements DomainLayout{
 	 * @return
 	 * 		the preferred size to layout the specified domain arrangement
 	 */
+	@Override
 	public Dimension getPreferredArrangementSize(DomainArrangement da){
 		int width = getArrangementWidth(da);
 		int height =  DomainLayout.DOMAINFONT.getSize()+4;
@@ -349,6 +358,7 @@ public abstract class AbstractDomainLayout implements DomainLayout{
 	 * @return
 	 * 		used parameter to layout the view
 	 */
+	@Override
 	public ArrangementParameter getDomainParams() {
 		return param;
 	}

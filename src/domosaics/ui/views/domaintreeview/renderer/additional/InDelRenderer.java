@@ -32,6 +32,7 @@ public class InDelRenderer implements Renderer{
 		this.view = view;
 	}
 
+	@Override
 	public void render(Graphics2D g) {
 		if(!view.getDomainTreeLayoutManager().isShowInDels())
 			return;
@@ -47,7 +48,7 @@ public class InDelRenderer implements Renderer{
 			for (int i = 0; i < dtn.childCount(); i++) {
 				TreeEdgeI edge = dtn.getEdgeToChild(i);
 				if (edge.hasDomainEvent())
-					renderDomainEvent(edge, view.getTreeComponentManager().getComponent((TreeNodeI)edge.getSource()), view.getTreeComponentManager().getComponent((TreeNodeI)edge.getTarget()), g);
+					renderDomainEvent(edge, view.getTreeComponentManager().getComponent(edge.getSource()), view.getTreeComponentManager().getComponent(edge.getTarget()), g);
 			}
 		}	
 	}

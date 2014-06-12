@@ -157,6 +157,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public void setTree(TreeI tree) {
 		this.tree = tree;
 		initTreeController();
@@ -168,10 +169,12 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 		repaint();
 	}
 
+	@Override
 	public int getParsimonyMeth() {
 		return parsimonyMeth;
 	}
 	
+	@Override
 	public void setParsimonyMeth(int i) {
 		this.parsimonyMeth = i;
 	}
@@ -202,6 +205,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public void registerAdditionalTreeRenderer(TreeViewI view) {
     	view.addRenderer(new TreeLinealRenderer(view));
     	view.addRenderer(new EdgeSelectionRenderer(view));
@@ -219,6 +223,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	 *  
 	 * @see AbstractView
 	 */
+	@Override
 	public void registerMouseListeners() {
 		// remove all listener before registering the new ones.
 		removeMouseListeners();
@@ -262,6 +267,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public void registerViewAsManagerListener(PropertyChangeListener view) {
 		Iterator <ViewManager> iter = view_manager.values().iterator();
 		while (iter.hasNext()) 
@@ -271,6 +277,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public void unregisterViewAsManagerListener(PropertyChangeListener view) {
 		Iterator <ViewManager> iter = view_manager.values().iterator();
 		while (iter.hasNext()) 
@@ -283,6 +290,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	 * a relayout and a repaint is done. In the case of a visual
 	 * change only the repaint is done.
 	 */
+	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals(ViewManager.PROPERTY_STRUCTURAL_CHANGE)) {
 			viewLayout.treeStructureChanged();
@@ -299,6 +307,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	 * Triggered whenever a layout for the view components has to be
 	 * done.
 	 */
+	@Override
 	public void doLayout() {
 		if (isZoomMode())
 			return;
@@ -313,6 +322,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	 * @param layout
 	 * 		the new layout to be used
 	 */
+	@Override
 	public void setViewLayout(ViewLayout layout) {
 		super.setLayout(null);
 		layout.setView(this);
@@ -322,6 +332,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see View
 	 */
+	@Override
 	public void setViewRenderer(Renderer renderer) {
 		this.viewRenderer = renderer;
 	}
@@ -329,6 +340,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see AbstractView
 	 */
+	@Override
 	public void renderView(Graphics2D g) {
 		viewRenderer.render(g);
 	}
@@ -336,9 +348,10 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see AbstractView
 	 */
+	@Override
 	public void toggleZoomMode() {
 		super.toggleZoomMode();
-		treeLayoutManager.toggleZoomMode((AbstractView) this);
+		treeLayoutManager.toggleZoomMode(this);
 	}
 
 	/* ******************************************************************* *
@@ -348,6 +361,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see View
 	 */
+	@Override
 	public JComponent getComponent() {
 		return scrollPane;
 	}
@@ -355,6 +369,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeI getTree() {
 		return tree;
 	}
@@ -362,6 +377,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public NodeComponent getNodesComponent(TreeNodeI node) {
 		return getTreeComponentManager().getComponent(node);
 	}
@@ -369,6 +385,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeViewRenderer getTreeViewRenderer() {
 		return (TreeViewRenderer) viewRenderer;
 	}
@@ -376,13 +393,15 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeLayout getTreeLayout() {
-		return (TreeLayout) viewLayout;
+		return viewLayout;
 	}
 	
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeMouseController getTreeMouseController() {
 		return treeMouseController;
 	}
@@ -414,6 +433,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeLayoutManager getTreeLayoutManager() {
 		return treeLayoutManager; 
 	}
@@ -421,6 +441,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeColorManager getTreeColorManager() {
 		return getViewManager(TreeViewManager.TREECOLORMANAGER);
 	}
@@ -428,6 +449,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeComponentManager getTreeComponentManager() {
 		return getViewManager(TreeViewManager.TREECOMPONENTMANAGER);
 	}
@@ -435,6 +457,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeSelectionManager getTreeSelectionManager() {
 		return getViewManager(TreeViewManager.TREESELECTIONMANAGER);
 	}
@@ -442,6 +465,7 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public DefaultFontManager<NodeComponent> getTreeFontManager() {
 		return getViewManager(TreeViewManager.TREEFONTMANAGER);
 	}
@@ -449,10 +473,12 @@ public class TreeView extends AbstractView implements TreeViewI, PropertyChangeL
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeStrokeManager getTreeStrokeManager() {
 		return getViewManager(TreeViewManager.TREESTROKEMANAGER);
 	}
 
+	@Override
 	public Vector<TreeNodeI> getToCollapseCSA() {
 		return toCollapseCSA;
 	}

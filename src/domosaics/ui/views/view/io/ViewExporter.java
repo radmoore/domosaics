@@ -4,17 +4,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 
-import org.jdom2.*;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
-
-import domosaics.model.configuration.Configuration;
-import domosaics.ui.util.DigestUtil;
 import domosaics.ui.views.view.View;
 
 

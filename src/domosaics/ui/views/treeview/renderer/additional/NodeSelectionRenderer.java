@@ -37,6 +37,7 @@ public class NodeSelectionRenderer implements Renderer {
 	/**
 	 * @see Renderer
 	 */
+	@Override
 	public void render(Graphics2D g2) {
 		Color oldColor = g2.getColor();
 		

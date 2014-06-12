@@ -26,6 +26,7 @@ public class DomainViewImporter extends ViewImporter<DomainViewI> {
 	private static DomainFamily fam = null;
 	private static ViewLayout domLayout;
 	
+	@Override
 	public DomainViewI readData(String data) {
 		try {
 			BufferedReader in = new BufferedReader(new StringReader(data));
@@ -41,14 +42,14 @@ public class DomainViewImporter extends ViewImporter<DomainViewI> {
 				if(line.contains("<SEQUENCEDATA>")) {
 					while( (line = in.readLine()) != null && !line.toUpperCase().contains("</SEQUENCEDATA>")) 
 						seqData.append(line+"\r\n");
-					seqs = (SequenceI[]) new FastaReader().getDataFromString(seqData.toString());
+					seqs = new FastaReader().getDataFromString(seqData.toString());
 				}
 				
 				if(line.contains("<DOMAINDATA>")) {
 					while( (line = in.readLine()) != null && !line.toUpperCase().contains("</DOMAINDATA>")) 
 						domainData.append(line+"\r\n");
 					
-					DomainArrangement[] proteins = (DomainArrangement[]) new XdomReader().getDataFromString(domainData.toString());
+					DomainArrangement[] proteins = new XdomReader().getDataFromString(domainData.toString());
 					if (proteins == null)
 						return null;
 
@@ -71,6 +72,7 @@ public class DomainViewImporter extends ViewImporter<DomainViewI> {
 		}
 	}
 	
+	@Override
 	public void setLayoutSettings(DomainViewI view) {
 		if (domLayout == null)
 			return;
@@ -97,6 +99,7 @@ public class DomainViewImporter extends ViewImporter<DomainViewI> {
 		}
 	}
 	
+	@Override
 	public void readAttributes(String attributes, DomainViewI view)  {
 		try {
 			BufferedReader in = new BufferedReader(new StringReader(attributes));

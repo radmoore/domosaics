@@ -44,6 +44,7 @@ public class DefaultImageExporter implements ImageExporter{
 	/**
 	 * @see ImageExporter
 	 */
+	@Override
 	public void export(View view, File file, GraphicFormats format) {
 		// create image using the complete views size
 		BufferedImage img = createImage(

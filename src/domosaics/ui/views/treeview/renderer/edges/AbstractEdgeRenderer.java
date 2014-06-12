@@ -47,6 +47,7 @@ public abstract class AbstractEdgeRenderer implements EdgeRenderer {
 	 * is set for the graphics context before again the actual drawing process
 	 * is delegated to drawLabel.
 	 */
+	@Override
 	public void renderEdge(NodeComponent p, NodeComponent c, TreeViewI view, Graphics2D g, Color color) {	
 		// save last color and stroke settings
 		Color oldColor = g.getColor();         
@@ -87,11 +88,13 @@ public abstract class AbstractEdgeRenderer implements EdgeRenderer {
 	/**
 	 * @see EdgeRenderer
 	 */
+	@Override
 	public abstract void drawEdge(int x1, int y1, int x2, int y2, TreeViewI view, Graphics2D g);
 	
 	/**
 	 * @see EdgeRenderer
 	 */
+	@Override
 	public abstract void drawLabel(int x1, int y1, int x2, int y2, TreeViewI view, Graphics2D g);
 
 }

@@ -54,6 +54,7 @@ public class TreeSelectionManager extends DefaultSelectionManager<NodeComponent>
 	/**
 	 * @see DefaultSelectionManager
 	 */
+	@Override
 	public void clearSelection() {
 		super.clearSelection();
 		view.getTreeColorManager().setSelectionColor(view.getTreeColorManager().getDefaultSelectionColor());

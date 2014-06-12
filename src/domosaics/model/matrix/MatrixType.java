@@ -1,7 +1,5 @@
 package domosaics.model.matrix;
 
-import java.io.File;
-
 
 /**
  * Enumeration for different supported substitution matrices, which

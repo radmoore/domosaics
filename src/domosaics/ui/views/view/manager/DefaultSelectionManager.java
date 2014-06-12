@@ -51,6 +51,7 @@ public class DefaultSelectionManager<C extends ViewComponent>
 	/**
 	 * @see SelectionManager
 	 */
+	@Override
 	public C getMouseOverComp() {
 		return mouseOverComp;
 	}
@@ -58,6 +59,7 @@ public class DefaultSelectionManager<C extends ViewComponent>
 	/**
 	 * @see SelectionManager
 	 */
+	@Override
 	public C getClickedComp() {
 		return clickedComp;
 	}
@@ -65,6 +67,7 @@ public class DefaultSelectionManager<C extends ViewComponent>
 	/**
 	 * @see SelectionManager
 	 */
+	@Override
 	public void clearSelection() {
 		selection.clear();
 		mouseOverComp = null;
@@ -74,6 +77,7 @@ public class DefaultSelectionManager<C extends ViewComponent>
 	/**
 	 * @see SelectionManager
 	 */
+	@Override
 	public boolean isCompSelected(C comp) {
 		return selection.contains(comp);
 	}
@@ -81,6 +85,7 @@ public class DefaultSelectionManager<C extends ViewComponent>
 	/**
 	 * @see SelectionManager
 	 */
+	@Override
 	public Iterator<C> getSelectionIterator() {
 		return selection.iterator();
 	}
@@ -88,6 +93,7 @@ public class DefaultSelectionManager<C extends ViewComponent>
 	/**
 	 * @see SelectionManager
 	 */
+	@Override
 	public Collection<C> getSelection() {
 		return selection;
 	}
@@ -95,6 +101,7 @@ public class DefaultSelectionManager<C extends ViewComponent>
 	/**
 	 * @see SelectionManager
 	 */
+	@Override
 	public void setClickedComp(C clickedComp) {
 		this.clickedComp = clickedComp;
 		visualChange();
@@ -103,6 +110,7 @@ public class DefaultSelectionManager<C extends ViewComponent>
 	/**
 	 * @see SelectionManager
 	 */
+	@Override
 	public void setMouseOverComp(C mouseOverComp) {
 		this.mouseOverComp = mouseOverComp;
 		visualChange();
@@ -111,6 +119,7 @@ public class DefaultSelectionManager<C extends ViewComponent>
 	/**
 	 * @see SelectionManager
 	 */
+	@Override
 	public void addToSelection(C comp) {
 		if (!selection.contains(comp))
 			selection.add(comp);
@@ -120,6 +129,7 @@ public class DefaultSelectionManager<C extends ViewComponent>
 	/**
 	 * @see SelectionManager
 	 */
+	@Override
 	public void removeFromSelection(C comp) {
 		if (selection.contains(comp))
 			selection.remove(comp);
@@ -129,6 +139,7 @@ public class DefaultSelectionManager<C extends ViewComponent>
 	/**
 	 * @see SelectionManager
 	 */
+	@Override
 	public void setSelection(Collection<C> selectedComps) {
 		clearSelection();
 		if (selectedComps != null) 

@@ -1,16 +1,10 @@
 package domosaics.ui.views.domainview.components;
 
 import java.awt.Component;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,17 +15,12 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
-import javax.swing.JSlider;
+import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.metal.MetalSliderUI;
-
 import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.swingx.JXTitledSeparator;
@@ -99,6 +88,7 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 		coddCkb26 = new JCheckBox("Pfam v26", false);
 		coddCkb26.setToolTipText("Context dependent annotation, see [Terrapon et al., Bioinformatics, 2009]");
 	    coddCkb26.addItemListener(new ItemListener(){	
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if(coddCkb27.isSelected() && coddCkb26.isSelected())
 					coddCkb27.setSelected(false);
@@ -119,6 +109,7 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 	    coddCkb27 = new JCheckBox("Pfam v27", false);
 	    coddCkb27.setToolTipText("Context dependent annotation, see [Terrapon et al., Bioinformatics, 2009]");
 	    coddCkb27.addItemListener(new ItemListener(){	
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if(coddCkb27.isSelected() && coddCkb26.isSelected())
 					coddCkb26.setSelected(false);
@@ -183,7 +174,7 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setModal(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 
 	/**
@@ -207,6 +198,7 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 	}
 	
 	
+	@Override
 	public void stateChanged(ChangeEvent e) {
 		checkView();
 		if( slider == (EvalueSlider) e.getSource()) {
@@ -256,6 +248,7 @@ public class EvalueSliderTool extends JDialog implements ChangeListener, ActionL
 	/**
 	 * Handles the button events
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		checkView();	

@@ -22,6 +22,7 @@ public class DeleteArrangementContextAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Deletes the arrangement from the view");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		

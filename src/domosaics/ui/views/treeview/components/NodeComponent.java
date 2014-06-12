@@ -132,7 +132,7 @@ public class NodeComponent extends AbstractViewComponent {
 	 * 		the parent node as graphical node component.
 	 */
 	public NodeComponent getParent() {
-		return manager.getComponent((TreeNodeI) treeNode.getParent());
+		return manager.getComponent(treeNode.getParent());
 	}
 
 	
@@ -238,6 +238,7 @@ public class NodeComponent extends AbstractViewComponent {
 	 * For collapsed nodes this shape is the collapsed triangle. For inner 
 	 * nodes without a label the shape is a circle.
 	 */
+	@Override
 	public Shape getDisplayedShape () {
 		int height = getHeight();
 		int cr = height > 12 ? 12 : height;
@@ -309,19 +310,23 @@ public class NodeComponent extends AbstractViewComponent {
     	   it = treeNode.getChildIter();
        }
 
-       public boolean hasNext() {
+       @Override
+	public boolean hasNext() {
            return it.hasNext();
        }
 
-       public NodeComponent next() {
+       @Override
+	public NodeComponent next() {
            return manager.getComponent(it.next());
        }
 
-       public void remove() {
+       @Override
+	public void remove() {
            throw new RuntimeException("Method not supported");
        }
 
-       public Iterator<NodeComponent> iterator() {
+       @Override
+	public Iterator<NodeComponent> iterator() {
            return this;
        }
    }
@@ -330,15 +335,18 @@ public class NodeComponent extends AbstractViewComponent {
     * Iteration helper
     */
    private static final Iterator<NodeComponent> EMPTY_ITERABLE = new Iterator<NodeComponent>() {
-       public boolean hasNext() {
+       @Override
+	public boolean hasNext() {
            return false;
        }
 
-       public NodeComponent next() {
+       @Override
+	public NodeComponent next() {
            return null;
        }
 
-       public void remove() {
+       @Override
+	public void remove() {
        }
    };
   
@@ -360,15 +368,18 @@ public class NodeComponent extends AbstractViewComponent {
            subtree = EMPTY_ITERABLE;
        }
        
-       public Iterator<NodeComponent> iterator() {
+       @Override
+	public Iterator<NodeComponent> iterator() {
        		return this;
        }
 
-       public boolean hasNext() {
+       @Override
+	public boolean hasNext() {
     	   return root != null;
        }
 
-       public NodeComponent next() {
+       @Override
+	public NodeComponent next() {
     	   NodeComponent retval;
     	  
     	   if (subtree.hasNext()) {
@@ -383,7 +394,8 @@ public class NodeComponent extends AbstractViewComponent {
            return retval;
        }
 
-       public void remove() {
+       @Override
+	public void remove() {
        }
 	
    }

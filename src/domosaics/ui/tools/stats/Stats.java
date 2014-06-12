@@ -32,7 +32,7 @@ public enum Stats {
 	}
 	
 	public String getVal(ArrangementManager manager) {
-		NumberFormat formatter = DecimalFormat.getNumberInstance(Locale.ENGLISH);
+		NumberFormat formatter = NumberFormat.getNumberInstance(Locale.ENGLISH);
 		formatter.setMaximumFractionDigits(2);
 		
 		switch(this) {

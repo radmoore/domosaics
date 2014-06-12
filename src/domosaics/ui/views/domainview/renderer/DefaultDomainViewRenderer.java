@@ -69,6 +69,7 @@ public class DefaultDomainViewRenderer implements DomainViewRenderer{
 	 * @param daRenderer
 	 * 		ArrangementRenderer to render arrangements
 	 */
+	@Override
 	public void setArrangementRenderer(ArrangementRenderer daRenderer) {
 		this.daRenderer = daRenderer;
 	}
@@ -80,6 +81,7 @@ public class DefaultDomainViewRenderer implements DomainViewRenderer{
 	 * @return
 	 * 		ArrangementRenderer to render arrangements
 	 */
+	@Override
 	public ArrangementRenderer getArrangementRenderer() {
 		return daRenderer;
 	}
@@ -92,6 +94,7 @@ public class DefaultDomainViewRenderer implements DomainViewRenderer{
 	 * The rendering process is started here. The clipping area is set in here,
 	 * the background and arrangements rendered.
 	 */
+	@Override
 	public void render(Graphics2D g) {
 		// get clip bounds or visible rectangle
 		Rectangle clip = g.getClipBounds();

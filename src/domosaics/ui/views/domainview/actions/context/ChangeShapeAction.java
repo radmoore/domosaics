@@ -31,6 +31,7 @@ public class ChangeShapeAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Changes the domains shape");
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		// dataset must be loaded because its a domain pop up action
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();

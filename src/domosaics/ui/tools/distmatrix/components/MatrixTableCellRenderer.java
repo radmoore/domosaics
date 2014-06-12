@@ -59,6 +59,7 @@ public class MatrixTableCellRenderer extends DefaultTableCellRenderer{
 	/** 
 	 * Renders a cell within the table 
 	 */
+	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		    	     
 		if(column == 0){			

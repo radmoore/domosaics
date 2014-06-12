@@ -29,6 +29,7 @@ public class ShowViewAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Shows the view within the mainframe");
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		// get selected Workspace element
 		WorkspaceElement selected = WorkspaceManager.getInstance().getSelectionManager().getSelectedElement();

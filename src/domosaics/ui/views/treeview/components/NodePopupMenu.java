@@ -3,10 +3,9 @@ package domosaics.ui.views.treeview.components;
 import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
-import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.DoMosaicsColorPicker;
-import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 import domosaics.ui.views.domaintreeview.actions.CollapseSameArrangementsAtNodeAction;
 import domosaics.ui.views.treeview.TreeViewI;
@@ -45,8 +44,8 @@ public class NodePopupMenu extends JPopupMenu {
 		// add title
 		String str = "<html><b><i>Node";
 		JLabel title = new JLabel(str);
-		title.setHorizontalAlignment(JLabel.CENTER);
-		title.setVerticalAlignment(JLabel.CENTER);
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setVerticalAlignment(SwingConstants.CENTER);
 		add(title);
 		add(new JSeparator());
 		

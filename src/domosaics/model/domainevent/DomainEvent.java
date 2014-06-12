@@ -39,14 +39,17 @@ public class DomainEvent implements DomainEventI{
 		this.dom = dom;
 	}
 	
+	@Override
 	public Domain getDomain() {
 		return dom;
 	}
 	
+	@Override
 	public boolean isInsertion() {
 		return type == INSERTION;
 	}
 	
+	@Override
 	public boolean isDeletion() {
 		return type == DELETION;
 	}

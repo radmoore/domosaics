@@ -3,14 +3,12 @@ package domosaics.ui.workspace;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
 import javax.swing.event.EventListenerList;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
-import domosaics.model.configuration.Configuration;
 import domosaics.model.workspace.Workspace;
 import domosaics.model.workspace.WorkspaceElement;
 import domosaics.ui.workspace.components.WorkspaceChangeEvent;
@@ -69,6 +67,7 @@ public class WorkspaceTreeModel implements TreeModel, WorkspaceChangeListener {
 	 * Triggered when a node was added. Fires the expensive 
 	 * TreeStructureChangedEvent to all listeners and expands the tree.
 	 */
+	@Override
 	public void nodeAdded(WorkspaceChangeEvent o) {
 		if(o.getNode().getParent() != null)
 			fireTreeStructureChanged(o.getSource(), getPathTo(o.getNode().getParent()));
@@ -79,6 +78,7 @@ public class WorkspaceTreeModel implements TreeModel, WorkspaceChangeListener {
 	 * Triggered when a node was changed. Fires the expensive 
 	 * TreeStructureChangedEvent to all listeners and expands the tree.
 	 */
+	@Override
 	public void nodeChanged(WorkspaceChangeEvent o) {
 		fireTreeStructureChanged(o.getSource(), getPathTo(o.getNode()));
 		refresh();
@@ -88,6 +88,7 @@ public class WorkspaceTreeModel implements TreeModel, WorkspaceChangeListener {
 	 * Triggered when a node was removed. Fires the expensive 
 	 * TreeStructureChangedEvent to all listeners and expands the tree.
 	 */
+	@Override
 	public void nodeRemoved(WorkspaceChangeEvent o) {
 		if(o.getNode().getParent() != null)
 			fireTreeStructureChanged(o.getSource(), getPathTo(o.getNode().getParent()));
@@ -125,14 +126,16 @@ public class WorkspaceTreeModel implements TreeModel, WorkspaceChangeListener {
 	/**
 	 * Implementation of the TreeModel interface method to add listeners
 	 */
-    public void addTreeModelListener(TreeModelListener l) {
+    @Override
+	public void addTreeModelListener(TreeModelListener l) {
         listenerList.add(TreeModelListener.class, l);
     }
 
     /**
      * Implementation of the TreeModel interface method to remove listeners
      */
-    public void removeTreeModelListener(TreeModelListener l) {
+    @Override
+	public void removeTreeModelListener(TreeModelListener l) {
         listenerList.remove(TreeModelListener.class, l);
     }
   
@@ -147,6 +150,7 @@ public class WorkspaceTreeModel implements TreeModel, WorkspaceChangeListener {
      * @return 
      * 		the child of the specified parent at the specifiedindex
      */
+	@Override
 	public Object getChild(Object parent, int index) {
 		return ((WorkspaceElement)parent).getChildAt(index);		
 	}
@@ -155,6 +159,7 @@ public class WorkspaceTreeModel implements TreeModel, WorkspaceChangeListener {
 	 * Implementation of the TreeModel interface method to get the
 	 * number of children for a specified element.
 	 */
+	@Override
 	public int getChildCount(Object parent) {
 		return ((WorkspaceElement)parent).getChildCount();	
 	}
@@ -163,6 +168,7 @@ public class WorkspaceTreeModel implements TreeModel, WorkspaceChangeListener {
 	 * Implementation of the TreeModel interface method to get the
 	 * index of a specified child from a specified parent.
 	 */
+	@Override
 	public int getIndexOfChild(Object parent, Object child) {
 		return ((WorkspaceElement)parent).getIndex((WorkspaceElement) child);		
 	}
@@ -171,6 +177,7 @@ public class WorkspaceTreeModel implements TreeModel, WorkspaceChangeListener {
 	 * Implementation of the TreeModel interface method to get the
 	 * root of the workspace tree
 	 */
+	@Override
 	public Object getRoot() {
 		return workspace;
 	}
@@ -180,6 +187,7 @@ public class WorkspaceTreeModel implements TreeModel, WorkspaceChangeListener {
 	 *  whether or not the element is a possible leaf node.
 	 *  In this case only ViewElements are possible leaf nodes.
 	 */
+	@Override
 	public boolean isLeaf(Object node) {
 		return ((WorkspaceElement)node).isView();
 	}		
@@ -187,6 +195,7 @@ public class WorkspaceTreeModel implements TreeModel, WorkspaceChangeListener {
 	/**
 	 * This method should hopefully never be called. 
 	 */
+	@Override
 	public void valueForPathChanged(TreePath path, Object newValue) {
 		System.out.println("valueForPathChanged in TreeModel not supported");
 	}
@@ -209,10 +218,10 @@ public class WorkspaceTreeModel implements TreeModel, WorkspaceChangeListener {
 		
 		List<WorkspaceElement> nodes = new ArrayList<WorkspaceElement>();
 		nodes.add(node);
-		WorkspaceElement p = (WorkspaceElement) node.getParent();
+		WorkspaceElement p = node.getParent();
 		while(p.getParent() != null){
 			nodes.add(p);
-			p = (WorkspaceElement) p.getParent();
+			p = p.getParent();
 		}
 		
 		Object[] path = new Object[nodes.size() + 1];

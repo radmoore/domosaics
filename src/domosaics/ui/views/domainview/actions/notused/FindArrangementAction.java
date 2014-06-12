@@ -10,6 +10,7 @@ import domosaics.ui.io.menureader.AbstractMenuAction;
 public class FindArrangementAction extends AbstractMenuAction { //implements FindDialogListener{
 	private static final long serialVersionUID = 1L;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 //		new SearchDialog(DoMosaicsUI.getInstance(), false, this);
 	}

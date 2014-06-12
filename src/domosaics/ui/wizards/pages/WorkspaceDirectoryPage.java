@@ -56,6 +56,7 @@ public class WorkspaceDirectoryPage extends WizardPage implements ActionListener
 		add(browse, 			"gap 5, gapright 10, wrap");
 	}
 	
+	@Override
 	protected String validateContents(Component component, Object event) {
 		File f = new File(fileField.getText());
         if (f == null || (component == fileField || component == null) && fileField.getText().trim().length() == 0 ){
@@ -69,6 +70,7 @@ public class WorkspaceDirectoryPage extends WizardPage implements ActionListener
         return null;
     }
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		File file = FileDialogs.openChooseDirectoryDialog(DoMosaicsUI.getInstance());
 		if(file == null)

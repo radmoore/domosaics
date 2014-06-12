@@ -107,6 +107,7 @@ public class DefaultTreeViewRenderer implements TreeViewRenderer  {
 	 * @param nodeRenderer 
 	 * 		the new node renderer to set
 	 */
+	@Override
 	public void setNodeRenderer(NodeRenderer nodeRenderer) {
 		this.nodeRenderer = nodeRenderer;
 	}
@@ -117,6 +118,7 @@ public class DefaultTreeViewRenderer implements TreeViewRenderer  {
 	 * @return 
 	 * 		the actually used node render
 	 */
+	@Override
 	public NodeRenderer getNodeRenderer() {
 		return nodeRenderer;
 	}
@@ -127,6 +129,7 @@ public class DefaultTreeViewRenderer implements TreeViewRenderer  {
 	 * @param edgeRenderer 
 	 * 		the new edge renderer to set
 	 */
+	@Override
 	public void setEdgeRenderer(EdgeRenderer edgeRenderer) {
 		this.edgeRenderer = edgeRenderer;
 	}
@@ -137,6 +140,7 @@ public class DefaultTreeViewRenderer implements TreeViewRenderer  {
 	 * @return 
 	 * 		the actually used edge render
 	 */
+	@Override
 	public EdgeRenderer getEdgeRenderer() {
 		return edgeRenderer;
 	}
@@ -149,6 +153,7 @@ public class DefaultTreeViewRenderer implements TreeViewRenderer  {
 	 * Gets in a first step the clipping area. Then renders the background
 	 * of the view before rendering recursively the tree.
 	 */
+	@Override
 	public void render(Graphics2D g) {
 		// get clip bounds or visible rectangle
 		Rectangle r = g.getClipBounds();
@@ -178,7 +183,7 @@ public class DefaultTreeViewRenderer implements TreeViewRenderer  {
 		
 		// get the tree node as NodeComponent and start the recursive rendering process
 		if (view.getTree() != null) {
-			TreeNodeI root = (TreeNodeI) view.getTree().getRoot();
+			TreeNodeI root = view.getTree().getRoot();
 			NodeComponent rn = view.getTreeComponentManager().getComponent(root);
 			renderingtraversal(rn, clip, g);
 		}

@@ -1,8 +1,6 @@
 package domosaics.ui.wizards.importdata;
 
 import java.awt.Component;
-import java.awt.Dimension;
-
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -51,7 +49,8 @@ public class ChooseDataTypePage extends WizardPage {
 	/**
      * Checks if all necessary input is made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
     	if (list.getSelectedValue() == null)
 			return "Please select the data type to import";
         return null;

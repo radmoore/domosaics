@@ -1,6 +1,5 @@
 package domosaics.webservices.interproscan.ui;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,9 +16,6 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
 import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.swingx.JXTitledSeparator;
@@ -33,7 +29,6 @@ import domosaics.model.workspace.ViewElement;
 import domosaics.model.workspace.WorkspaceElement;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
-import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
@@ -140,6 +135,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * @param text
 	 * 		the message to be printed
 	 */
+	@Override
 	public void print(String text) {
 		if ( annotationSpawner.isRunning() ) {
 			console.append(text);
@@ -153,6 +149,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * @param val
 	 * 		the new value of the progress bar in percent
 	 */
+	@Override
 	public void updateProgress(int val) {
 		progressBar.setValue(val);
 	}
@@ -406,6 +403,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		submit = new JButton("Submit Job");
 		submit.setEnabled(false);
 		submit.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				submitJob();
 			}
@@ -414,6 +412,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		apply = new JButton ("Keep");
 		apply.setEnabled(false);
 		apply.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				apply();
 			}
@@ -421,6 +420,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 
 		cancel = new JButton ("Dismiss");
 		cancel.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				cancel();
 			}
@@ -450,6 +450,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		selectView.setSelectedItem(null);
 		selectView.setRenderer(new WizardListCellRenderer());
 		selectView.addActionListener(new ActionListener(){
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				seqPath.setText("");
 				JComboBox cb = (JComboBox)evt.getSource();
@@ -471,6 +472,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	private void initLoadSeqBtn() {
 		loadSeqs = new JButton("Load Sequences");
 		loadSeqs.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				if (!(selectView.getSelectedItem() == null)) {
 					//MessageUtil.showWarning("You have already loaded sequences, deselecting.");

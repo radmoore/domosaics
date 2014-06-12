@@ -4,11 +4,7 @@ import java.awt.BasicStroke;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-import org.jdom2.Attribute;
-import org.jdom2.Element;
-
 import domosaics.model.configuration.Configuration;
-import domosaics.model.sequence.SequenceI;
 import domosaics.model.tree.TreeNodeI;
 import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.views.treeview.components.NodeComponent;
@@ -16,6 +12,7 @@ import domosaics.ui.views.view.io.ViewExporter;
 
 public class TreeViewExporter extends ViewExporter<TreeViewI>{
 
+	@Override
 	public void write(BufferedWriter out, TreeViewI view) {
         try {
         	writeTag(out, 1, "TREEVIEW", true);

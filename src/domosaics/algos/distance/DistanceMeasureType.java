@@ -30,6 +30,7 @@ public enum DistanceMeasureType {
 		return algo;
 	}
 	
+	@Override
 	public String toString() {
 		return name;
 	}

@@ -80,6 +80,7 @@ public class DoMosaicsShapeIcon implements Icon {
 	/**
 	 * @see Icon
 	 */
+	@Override
 	public int getIconHeight() {
 		if (leaveSpace)
 			return DEFAULT_HEIGHT;
@@ -89,6 +90,7 @@ public class DoMosaicsShapeIcon implements Icon {
 	/**
 	 * @see Icon
 	 */
+	@Override
 	public int getIconWidth() {
 		if (leaveSpace)
 			return DEFAULT_WIDTH;
@@ -98,6 +100,7 @@ public class DoMosaicsShapeIcon implements Icon {
 	/**
 	 * Paints the stored icon at the specified position.
 	 */
+	@Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		Graphics2D g2d = (Graphics2D) g;
 		Color oldC = g2d.getColor();

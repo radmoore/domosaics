@@ -28,7 +28,8 @@ public class ChangeArrangementFrame extends ToolFrame {
     /**
      * @see ToolFrame
      */
-    public void addView(View view) {
+    @Override
+	public void addView(View view) {
     	setTitle(view.getViewInfo().getName());
     }
     

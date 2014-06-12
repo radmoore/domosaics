@@ -33,6 +33,7 @@ public class DomainGraphFrame extends ToolFrame implements WindowFocusListener {
     /**
      * @see ToolFrame
      */
+	@Override
 	public void addView(View view) {
 		setTitle(view.getViewInfo().getName());
 	}
@@ -53,6 +54,7 @@ public class DomainGraphFrame extends ToolFrame implements WindowFocusListener {
      * This method automatically enables forces if the window gains focus
      * again.
      */
+	@Override
 	public void windowGainedFocus(WindowEvent arg0) {
 		// enable forces 
 		DomainGraphView view = ViewHandler.getInstance().getTool(ViewType.DOMAINGRAPH);
@@ -64,6 +66,7 @@ public class DomainGraphFrame extends ToolFrame implements WindowFocusListener {
      * This method automatically disables forces if the window lost focus
      * to avoid memory lack.
      */
+	@Override
 	public void windowLostFocus(WindowEvent arg0) {
 		// disable forces  
 		DomainGraphView view = ViewHandler.getInstance().getTool(ViewType.DOMAINGRAPH);

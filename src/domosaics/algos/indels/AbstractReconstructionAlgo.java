@@ -13,7 +13,6 @@ import domosaics.model.arrangement.DomainSet;
 import domosaics.model.arrangement.DomainVector;
 import domosaics.model.arrangement.GapDomain;
 import domosaics.model.domainevent.DomainEvent;
-import domosaics.model.domainevent.DomainEventI;
 import domosaics.model.tree.TreeEdgeI;
 import domosaics.model.tree.TreeI;
 import domosaics.model.tree.TreeNodeI;
@@ -81,6 +80,7 @@ public abstract class AbstractReconstructionAlgo extends SwingWorker<String, Voi
 	/**
 	 * Should implement the actual computation of the algorithm.
 	 */
+	@Override
 	protected abstract String doInBackground();
 	
 	/**

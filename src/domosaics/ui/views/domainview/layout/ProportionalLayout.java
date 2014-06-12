@@ -16,6 +16,7 @@ public class ProportionalLayout extends AbstractDomainLayout {
 	/**
 	 * @see AbstractDomainLayout
 	 */
+	@Override
 	public int getDomainX(Domain dom) {
 		return dom.getFrom();
 	}
@@ -23,6 +24,7 @@ public class ProportionalLayout extends AbstractDomainLayout {
 	/**
 	 * @see AbstractDomainLayout
 	 */
+	@Override
 	public int getDomainWidth(Domain dom){
 		// Nico : the -2 is a trick to correctly select sequences
 		return dom.getLen()-2;
@@ -31,6 +33,7 @@ public class ProportionalLayout extends AbstractDomainLayout {
 	/**
 	 * @see AbstractDomainLayout
 	 */
+	@Override
 	public int getArrangementX(ArrangementComponent dac) {
 		return view.getDomainShiftManager().getShift(dac);
 	}
@@ -38,6 +41,7 @@ public class ProportionalLayout extends AbstractDomainLayout {
 	/**
 	 * @see AbstractDomainLayout
 	 */
+	@Override
 	public int getArrangementWidth(DomainArrangement da) {
 		return da.getLen(false);
 	}

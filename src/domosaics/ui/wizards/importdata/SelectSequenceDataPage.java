@@ -1,16 +1,12 @@
 package domosaics.ui.wizards.importdata;
 
 import java.awt.Component;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
@@ -18,10 +14,8 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTitledSeparator;
 import org.netbeans.spi.wizard.WizardPage;
 
-import domosaics.model.sequence.SequenceI;
 import domosaics.model.sequence.io.FastaReader;
 import domosaics.model.workspace.ProjectElement;
-import domosaics.model.workspace.ViewElement;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
@@ -113,6 +107,7 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
 	/**
 	 * Action performed when the browse button was clicked
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 		if(file != null) {
@@ -145,7 +140,8 @@ public class SelectSequenceDataPage extends WizardPage implements ActionListener
     /**
      * Checks if all necessary inputs are made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
     	if (seqs)
     		return "Please select a correctly formatted fasta file";
     	if (path.getText().isEmpty())

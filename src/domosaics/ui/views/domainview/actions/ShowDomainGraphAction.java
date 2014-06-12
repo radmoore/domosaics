@@ -20,6 +20,7 @@ import domosaics.ui.views.domainview.DomainViewI;
 public class ShowDomainGraphAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI domView = ViewHandler.getInstance().getActiveView();
 		DomainGraphView view = ViewHandler.getInstance().createTool(ViewType.DOMAINGRAPH);

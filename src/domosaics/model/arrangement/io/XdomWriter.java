@@ -28,6 +28,7 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
 	/**
 	 * See interface {@link DataWriter}.
 	 */
+	@Override
 	public void write(BufferedWriter out, DomainArrangement[] daSet) {
         try {
     		for (int i = 0; i < daSet.length; i++) {
@@ -120,6 +121,7 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
 	 * @param out
 	 * @param daSet
 	 */
+	@Override
 	public void writeSimple(BufferedWriter out, DomainArrangement[] daSet) {
         try {
         	
@@ -190,6 +192,7 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
 	 * Implemention required as defined by {@link DataWriter}. The wrapAfter int
 	 * has no effect (line wrapping is not required in xdoms)
 	 */
+	@Override
 	public void wrappedWrite(BufferedWriter out, DomainArrangement[] data, int wrapAfter) {
 		write(out, data);
 		

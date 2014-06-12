@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.Map;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -21,9 +19,7 @@ import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.io.ArrangementImporterUtil;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.DoMosaicsUI;
-import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.FileDialogs;
-import domosaics.ui.util.MessageUtil;
 import domosaics.ui.wizards.GUIComponentFactory;
 
 
@@ -126,6 +122,7 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	/**
 	 * Action performed when the browse button was clicked
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {	
 		File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
 		if(file != null) {
@@ -151,7 +148,8 @@ public class SelectArrangementDataPage extends WizardPage implements ActionListe
 	/**
      * Checks if all necessary inputs are made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
     	if (daSet == null)
     		return "Please select a correctly formatted xdom file";
     	if (path.getText().isEmpty())

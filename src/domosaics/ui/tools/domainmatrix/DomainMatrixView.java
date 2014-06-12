@@ -93,11 +93,13 @@ public class DomainMatrixView extends AbstractView implements PropertyChangeList
 	/**
 	 * @see View
 	 */
+	@Override
 	public void export(File file) {}
 
 	/**
 	 * @see Tool
 	 */
+	@Override
 	public void setToolFrame(ToolFrameI frame) {
 		this.parentFrame = (ToolFrame) frame;
 	}
@@ -105,6 +107,7 @@ public class DomainMatrixView extends AbstractView implements PropertyChangeList
 	/**
 	 * @see Tool
 	 */
+	@Override
 	public ToolFrame getToolFrame() {
 		return parentFrame;
 	}
@@ -194,6 +197,7 @@ public class DomainMatrixView extends AbstractView implements PropertyChangeList
 	/**
 	 * @see PropertyChangeListener
 	 */
+	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals(ViewManager.PROPERTY_STRUCTURAL_CHANGE)) {
 			doLayout();
@@ -205,6 +209,7 @@ public class DomainMatrixView extends AbstractView implements PropertyChangeList
 	/**
 	 * Renders the domain matrix
 	 */
+	@Override
 	public void renderView(Graphics2D g) {
 		viewRenderer.render(g);
 	}
@@ -227,6 +232,7 @@ public class DomainMatrixView extends AbstractView implements PropertyChangeList
 	 * @param layout
 	 * 		the layout used to layout the domains within the table
 	 */
+	@Override
 	public void setViewLayout(ViewLayout layout) {
 		super.setLayout(null);
 		layout.setView(this);
@@ -246,6 +252,7 @@ public class DomainMatrixView extends AbstractView implements PropertyChangeList
 	/**
 	 * @see View
 	 */
+	@Override
 	public JComponent getComponent() {
 		return scrollPane;
 	}
@@ -253,6 +260,7 @@ public class DomainMatrixView extends AbstractView implements PropertyChangeList
 	/**
 	 * @see AbstractView
 	 */
+	@Override
 	public void registerMouseListeners() {
 		// remove all listener before registering the new ones.
 		removeMouseListeners();
@@ -265,6 +273,7 @@ public class DomainMatrixView extends AbstractView implements PropertyChangeList
 	}
 
 	
+	@Override
 	public void setViewRenderer(Renderer renderer) {
 		// TODO Auto-generated method stub
 		

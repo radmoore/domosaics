@@ -1,11 +1,7 @@
 package domosaics.ui.actions;
 
 import java.awt.Frame;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-
-import javax.swing.Action;
-import javax.swing.JFrame;
 
 import domosaics.model.configuration.Configuration;
 import domosaics.ui.io.menureader.AbstractMenuAction;
@@ -23,6 +19,7 @@ import domosaics.ui.tools.configuration.ConfigurationFrame;
 public class ShowConfigurationAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 
 		if (Configuration.getInstance().getFrame() != null) {

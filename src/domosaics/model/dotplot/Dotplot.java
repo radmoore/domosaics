@@ -206,6 +206,7 @@ public class Dotplot implements ChangeListener {
 	 * therefore this method is triggered, if the state of the slider changes.
 	 * E.G. because the user changed a threshold. A recomputation is triggered.
 	 */
+	@Override
 	public void stateChanged(ChangeEvent e) {
 		DoMosaicsSlider slider = (DoMosaicsSlider)e.getSource();
 	    if (!slider.getValueIsAdjusting()) {

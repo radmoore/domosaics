@@ -72,6 +72,7 @@ public class TreeLinealRenderer implements Renderer {
 	}
 
 	/** @see Renderer */
+	@Override
 	public void render(Graphics2D g2) {
 		if (!view.getTreeLayoutManager().isShowLegend())
 			return;
@@ -96,7 +97,7 @@ public class TreeLinealRenderer implements Renderer {
 		g2.setFont(tickFont);
 		
 		double length = getPathLength();
-		NumberFormat format = DecimalFormat.getInstance();
+		NumberFormat format = NumberFormat.getInstance();
 		format.setMaximumFractionDigits(2);
 		for(double i=0; i<= ticks; i++){
 			double x = (rootPosition.x + (i*(dx/ticks))); 

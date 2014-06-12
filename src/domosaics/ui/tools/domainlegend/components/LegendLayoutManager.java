@@ -40,6 +40,7 @@ public class LegendLayoutManager extends DefaultLayoutManager{
 			this.clazz = clazz;
 		}
 		
+		@Override
 		@SuppressWarnings("unchecked")
 		public <T extends AbstractMenuAction> Class<T> getActionClass() {
 			return (Class<T>) clazz;

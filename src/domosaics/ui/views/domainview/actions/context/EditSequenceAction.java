@@ -22,6 +22,7 @@ public class EditSequenceAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Changes the associated sequence");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI domView = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		

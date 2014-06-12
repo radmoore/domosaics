@@ -43,6 +43,7 @@ public class SequenceSelectionRenderer implements Renderer {
 	/**
 	 * @see Renderer
 	 */
+	@Override
 	public void render(Graphics2D g) {
 		// not active in zoom mode
 		if (view.isZoomMode())

@@ -31,6 +31,7 @@ public class LookupProteinInUniprotAction extends AbstractAction {
 		putValue(Action.SHORT_DESCRIPTION, "Opens a browser to search for the current protein");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = ViewHandler.getInstance().getActiveView();
 		

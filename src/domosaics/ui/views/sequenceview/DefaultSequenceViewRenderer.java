@@ -28,6 +28,7 @@ public class DefaultSequenceViewRenderer implements Renderer {
 	 *   						 Renderering methods					   *
 	 * ******************************************************************* */
 	
+	@Override
 	public void render(Graphics2D g) {
 		// get clip bounds or visible rectangle
 		Rectangle r = g.getClipBounds();

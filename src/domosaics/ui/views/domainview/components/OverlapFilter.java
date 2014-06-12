@@ -3,8 +3,6 @@ package domosaics.ui.views.domainview.components;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -12,6 +10,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -78,13 +77,14 @@ import domosaics.ui.views.domainview.DomainViewI;
      setResizable(false);
      setAlwaysOnTop(true);
      setModal(false);
-     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 	
 	/**
 	 * Handles the button events
 	 */
-    public void actionPerformed(ActionEvent e)
+    @Override
+	public void actionPerformed(ActionEvent e)
     {
      if(e.getSource() == jbtCoverage)
      {

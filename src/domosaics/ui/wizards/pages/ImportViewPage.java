@@ -3,10 +3,7 @@ package domosaics.ui.wizards.pages;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -23,9 +20,7 @@ import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
-import domosaics.ui.views.domainview.DomainView;
 import domosaics.ui.views.view.AbstractView;
-import domosaics.ui.views.view.io.ViewImporter;
 
 
 
@@ -68,6 +63,7 @@ public class ImportViewPage extends WizardPage {
 		
 		browse = new JButton("Browse");
 		browse.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				/*type=null;
 				typeField.setText("");*/
@@ -157,7 +153,8 @@ public class ImportViewPage extends WizardPage {
      * 
      * Checks if all necessary inputs are made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
 		
 		String newName = name.getText().trim();
 		

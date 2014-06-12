@@ -7,10 +7,6 @@ import domosaics.localservices.hmmer3.programs.Hmmer3Program;
 import domosaics.model.configuration.Configuration;
 
 
-
-import sun.security.krb5.Config;
-
-
 /**
  * Singleton class to ensure that only one instance of a {@link Hmmer3Program}
  * can run at once. Can launch and stop programs that implement the interface

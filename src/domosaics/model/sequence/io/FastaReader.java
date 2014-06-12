@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import domosaics.model.configuration.Configuration;
 import domosaics.model.io.AbstractDataReader;
 import domosaics.model.sequence.Sequence;
@@ -84,7 +81,7 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 						cptTenPower++;
 					}
 					if(cptProt % (5*Math.pow(10,cptTenPower)) == 0 && cptTenPower >5)
-						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please wait: File containing more than "+(int)(cptProt)+" proteins");
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please wait: File containing more than "+(cptProt)+" proteins");
 				} 
             	else {
     				line = line.replaceAll("\\s+", "");
@@ -111,6 +108,7 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 	}
 	
 	
+	@Override
 	public SequenceI[] getData (Reader reader) throws IOException {
 		BufferedReader in = null;
 
@@ -164,7 +162,7 @@ public class FastaReader extends AbstractDataReader<SequenceI>{
 						cptTenPower++;
 					}
 					if(cptProt % (5*Math.pow(10,cptTenPower)) == 0 && cptTenPower>5)
-						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please wait: File containing more than "+(int)(cptProt)+" proteins");
+						MessageUtil.showWarning(DoMosaicsUI.getInstance(),"Please wait: File containing more than "+(cptProt)+" proteins");
 					seq = new Sequence();
 					seqBuf = new StringBuffer();
 					seq.setName(getNameFromHeader(line));

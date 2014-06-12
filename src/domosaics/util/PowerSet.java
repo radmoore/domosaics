@@ -67,7 +67,8 @@ public class PowerSet<T extends Object> implements Iterator<Vector<T>>
      * @return the next subset in the PowerSet.
      * @exception NoSuchElementException PowerSet has no more subsets.
      */
-  public Vector<T> next()
+  @Override
+public Vector<T> next()
   {
     boolean ok=false;
     for(int i=0;i<this.membership.length;i++)
@@ -109,7 +110,8 @@ public class PowerSet<T extends Object> implements Iterator<Vector<T>>
      * @exception UnsupportedOperationException because the <tt>remove</tt>
      *		  operation is not supported by this Iterator.
      */
-  public void remove()
+  @Override
+public void remove()
   {
     throw new UnsupportedOperationException("The PowerSet class does not support the remove method.");
   }
@@ -121,7 +123,8 @@ public class PowerSet<T extends Object> implements Iterator<Vector<T>>
      *
      * @return <tt>true</tt> if the PowerSet has more subsets.
      */
-  public boolean hasNext()
+  @Override
+public boolean hasNext()
   {
     for(int i=0;i<this.membership.length;i++)
       if(!this.membership[i])

@@ -38,6 +38,7 @@ public class HighlightNodeRenderer implements Renderer {
 	/**
 	 * @see renderer
 	 */
+	@Override
 	public void render(Graphics2D g2) {
 		if (view.getTreeSelectionManager().getMouseOverComp() != null)
 			hightlightNode(view.getTreeSelectionManager().getMouseOverComp(), g2);

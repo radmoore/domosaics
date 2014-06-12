@@ -29,6 +29,7 @@ import domosaics.ui.views.domainview.components.ArrangementComponent;
 public class SaveXdomFileAction extends AbstractMenuAction { //implements ZoomCompatible {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = ViewHandler.getInstance().getActiveView();
 		ViewType type = view.getViewInfo().getType();

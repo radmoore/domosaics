@@ -3,9 +3,6 @@ package domosaics.model.sequence.io;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-import org.jdom2.Attribute;
-import org.jdom2.Element;
-
 import domosaics.model.configuration.Configuration;
 import domosaics.model.io.AbstractDataWriter;
 import domosaics.model.sequence.SequenceI;
@@ -29,6 +26,7 @@ public class FastaWriter extends AbstractDataWriter<SequenceI> {
 	 * @param seqs
 	 * 		the sequences to be saved.
 	 */
+	@Override
 	public void write(BufferedWriter out, SequenceI[] seqs) {
         try {
     		for (int i = 0; i < seqs.length; i++) {
@@ -46,6 +44,7 @@ public class FastaWriter extends AbstractDataWriter<SequenceI> {
         }
     }
 	
+	@Override
 	public void wrappedWrite(BufferedWriter out, SequenceI[] seqs, int wrapChars) {
 		try {
     		for (int i = 0; i < seqs.length; i++) {
@@ -78,6 +77,7 @@ public class FastaWriter extends AbstractDataWriter<SequenceI> {
 	}
 
 	// currently not needed.
+	@Override
 	public void writeSimple(BufferedWriter out, SequenceI[] data) {	}
 	
 	

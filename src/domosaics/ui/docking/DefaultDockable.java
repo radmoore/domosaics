@@ -67,6 +67,7 @@ public class DefaultDockable implements Dockable{
 	 * @return
 	 * 		requested backend component
 	 */
+	@Override
 	public Component getComponent() {
 		if(component == null)
 			if(view != null)		
@@ -80,6 +81,7 @@ public class DefaultDockable implements Dockable{
 	 * @return
 	 * 		dockkey for this dockable.
 	 */
+	@Override
 	public DockKey getDockKey() {
 		return key;
 	}

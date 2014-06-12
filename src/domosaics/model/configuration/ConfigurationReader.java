@@ -3,7 +3,6 @@ package domosaics.model.configuration;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-import domosaics.ApplicationHandler;
 import domosaics.ui.util.DocumentationHandler;
 
 public class ConfigurationReader {

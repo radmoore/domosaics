@@ -46,6 +46,7 @@ public class ChangeArrangementMouseListener extends MouseAdapter {
 	/**
 	 * Processes left clicks by filling in the domain information.
 	 */
+	@Override
 	public void mouseClicked(MouseEvent e) {
 		SelectionManager<DomainComponent> domSelectionManager = domView.getDomainSelectionManager();
 		domSelectionManager.clearSelection();
@@ -68,6 +69,7 @@ public class ChangeArrangementMouseListener extends MouseAdapter {
 	 * A repaint is forced by changing the temporary selection within
 	 * the selection manager.
 	 */
+	@Override
 	public void mouseMoved(MouseEvent e) {	
 		// handle domain mouse overs
 		DomainComponent dc = domDetector.searchDomainComponent(e.getPoint());

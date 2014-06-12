@@ -17,6 +17,7 @@ import domosaics.ui.io.menureader.AbstractMenuAction;
 public class LoadExampleDataActon extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	    
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		new ExampleDatasetLoader().loadExample();
 	}

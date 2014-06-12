@@ -30,6 +30,7 @@ import domosaics.ui.views.treeview.renderer.DefaultTreeViewRenderer;
 public class ShowArrangementsAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainTreeViewI view = (DomainTreeViewI) ViewHandler.getInstance().getActiveView();
 		view.getDomainTreeLayoutManager().toggleShowArrangements();

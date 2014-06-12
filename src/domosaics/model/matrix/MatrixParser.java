@@ -26,6 +26,7 @@ public class MatrixParser extends AbstractDataReader<Matrix> {
 	/**
 	 * Parses the data and returns a 1D array containing the matrix
 	 */
+	@Override
 	public Matrix[] getData(Reader reader) {
 		matrix[0] = new Matrix();
 		

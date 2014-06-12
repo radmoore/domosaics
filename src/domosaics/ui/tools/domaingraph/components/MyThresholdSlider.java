@@ -103,6 +103,7 @@ public class MyThresholdSlider extends JComponent{
 	
 	protected void initUI() {
 		slider.addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSlider source = (JSlider) e.getSource();
 				oldThreshold = threshold;
@@ -115,8 +116,10 @@ public class MyThresholdSlider extends JComponent{
 		});
 		
 		slider.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {}
-            public void mouseReleased(MouseEvent e) {
+            @Override
+			public void mousePressed(MouseEvent e) {}
+            @Override
+			public void mouseReleased(MouseEvent e) {
 //             	graph.fireAutoZoom();
             }
         });

@@ -140,18 +140,22 @@ public abstract class AbstractEBIWebservice extends SwingWorker<String, Void> im
 	 * 							WebservicePrinter methods					 *
 	 * ********************************************************************* */
 
+	@Override
 	public void print(String msg) {
 		System.out.println(msg);
 	}
 	
+	@Override
 	public void setJobDone(boolean state) {
 		jobDone = state;
 	}
 	
+	@Override
 	public boolean isJobDone() {
 		return jobDone;
 	}
 	
+	@Override
 	public String getResult() {
 		return result;
 	}

@@ -36,6 +36,7 @@ public class DomainGraphControl extends ControlAdapter {
 	/**
 	 * Method triggered when the cursor enters a graph node
 	 */
+	@Override
 	public void itemEntered(VisualItem item, MouseEvent e) {
 		if (item.isInGroup("graph.nodes")) 
 			((Display)e.getSource()).setToolTipText(item.getString("name"));
@@ -44,6 +45,7 @@ public class DomainGraphControl extends ControlAdapter {
 	/**
 	 * Method triggered when the cursor exits a graph node
 	 */
+	@Override
 	public void itemExited(VisualItem item, MouseEvent e) {
 		Display d = (Display)e.getSource();
 		d.setToolTipText(null);
@@ -52,6 +54,7 @@ public class DomainGraphControl extends ControlAdapter {
 	/**
 	 * Method triggered when the cursor clicks on a graph node
 	 */
+	@Override
 	public void itemClicked(VisualItem item, MouseEvent e) {
 		if (!SwingUtilities.isLeftMouseButton(e))
 			return;

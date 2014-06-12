@@ -63,6 +63,7 @@ public class RADSScanView extends AbstractView implements Tool{
 	/**
 	 * See {@link Tool}
 	 */
+	@Override
 	public void setToolFrame(ToolFrameI frame) {
 		parentFrame = (RADSScanToolFrame) frame;
 	}
@@ -70,6 +71,7 @@ public class RADSScanView extends AbstractView implements Tool{
 	/**
 	 * See {@link Tool}
 	 */
+	@Override
 	public ToolFrameI getToolFrame() {
 		return parentFrame;
 	}
@@ -77,26 +79,31 @@ public class RADSScanView extends AbstractView implements Tool{
 	/**
 	 * see {@link AbstractView}
 	 */
+	@Override
 	public void setViewRenderer(Renderer renderer) {}
 	
 	/**
 	 * see {@link AbstractView}
 	 */
+	@Override
 	public void setViewLayout(ViewLayout layout) {}
 	
 	/**
 	 * see {@link AbstractView}
 	 */
+	@Override
 	public void export(File file) {}
 	
 	/**
 	 * see {@link AbstractView}
 	 */
+	@Override
 	public void registerMouseListeners() { }
 	
 	/**
 	 * see {@link AbstractView}
 	 */
+	@Override
 	public void renderView(Graphics2D g) { }
 
 	@Override

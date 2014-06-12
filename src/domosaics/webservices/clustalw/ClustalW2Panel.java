@@ -17,7 +17,6 @@ import org.jdesktop.swingx.JXTitledSeparator;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
 import domosaics.ui.DoMosaicsUI;
-import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.wizards.pages.ClustalW2Page;
 import domosaics.util.UiUtil;
@@ -98,6 +97,7 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 		
 		submit = new JButton("Submit Job");
 		submit.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 				submitJob();
 			}
@@ -108,21 +108,25 @@ public class ClustalW2Panel extends JPanel implements WebservicePrinter {
 	 * 						WebservicePrinter Methods				 *
 	 * ************************************************************* */
 	
+	@Override
 	public String getResult() {
 		return clustalW2.getResult();
 	}
 	
+	@Override
 	public void print(String text) {
 		console.append(text);
 		console.setCaretPosition(console.getText().length());
 	}
 	
+	@Override
 	public void setJobDone(boolean done) {
 		jobDone = done;
 		if (jobDone == true && wizardPage != null)
 			wizardPage.finish(getResult());
 	}
 	
+	@Override
 	public boolean isJobDone() {
 		return jobDone;
 	}

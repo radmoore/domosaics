@@ -86,7 +86,7 @@ public class SequenceDetector {
 				while (!intersection.isSingular()) {
 					// create the first sub rectangle
 					int x = intersection.getBounds().x;
-					int y = (int) intersection.getBounds().y;
+					int y = intersection.getBounds().y;
 					
 					Point p = new Point(x+1, y);
 					while(intersection.contains(p)) 

@@ -2,15 +2,11 @@ package domosaics.ui.views.domainview.actions;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.JScrollPane;
-
-import domosaics.model.arrangement.DomainArrangement;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.DomainViewI;
-import domosaics.ui.views.domainview.components.EvalueSliderTool;
 import domosaics.ui.views.domainview.components.SearchProteinTool;
 
 
@@ -27,6 +23,7 @@ public class SearchProteinAction extends AbstractMenuAction{
 
 	protected SearchProteinTool searchProtTool = null;
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 
 		DomainViewI view = ViewHandler.getInstance().getActiveView();

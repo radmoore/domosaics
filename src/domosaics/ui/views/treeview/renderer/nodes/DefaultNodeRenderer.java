@@ -31,6 +31,7 @@ public class DefaultNodeRenderer implements NodeRenderer{
 	 * triangle is drawn, else its label. If inner nodes should be
 	 * rendered, a circle is rendered.
 	 */
+	@Override
 	public void renderNode(NodeComponent node, TreeViewI view, Graphics2D g2) {
 		if (!node.isVisible())
 			return;

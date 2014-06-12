@@ -76,7 +76,8 @@ public class CreateTreeBranchController extends WizardBranchController {
      * This method chooses the correct wizard after the choose data type step.
      * The class name is the default ID for instantiated WizardPages
      */
-    public Wizard getWizardForStep (String step, Map data) {
+    @Override
+	public Wizard getWizardForStep (String step, Map data) {
     	if ("domosaics.ui.wizards.createtree.ChooseViewDataPage".equals(step)) {
     		if (data.get(DOMVIEW_KEY) == null) {
     			if (PALAdapter.isAligned(getSeqs(data)))

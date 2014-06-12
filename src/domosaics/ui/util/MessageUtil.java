@@ -1,11 +1,8 @@
 package domosaics.ui.util;
 
-import java.awt.Component;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import domosaics.DoMosaics;
 import domosaics.ui.DoMosaicsUI;
 
 

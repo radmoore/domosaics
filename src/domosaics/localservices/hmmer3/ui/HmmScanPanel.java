@@ -11,13 +11,11 @@ import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -45,12 +43,10 @@ import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
 import domosaics.model.sequence.io.FastaReader;
 import domosaics.model.sequence.io.FastaWriter;
-import domosaics.model.sequence.util.SeqUtil;
 import domosaics.model.workspace.ViewElement;
 import domosaics.model.workspace.WorkspaceElement;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
-import domosaics.ui.tools.configuration.ConfigurationFrame;
 import domosaics.ui.util.FileDialogs;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.sequenceview.SequenceView;
@@ -156,7 +152,9 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		});*/
 		evalueTF = new JTextField(5);
 		evalueTF.addFocusListener(new FocusListener() {
+			@Override
 			public void focusLost(FocusEvent e) {}
+			@Override
 			public void focusGained(FocusEvent e) {
 				evalueTF.setBackground(Color.WHITE);
 			}
@@ -184,6 +182,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		// the panel for the evalue is set to visible
 	    gaCkb = new JCheckBox("Confidence cutoff", true);
 	    gaCkb.addItemListener(new ItemListener() {	
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				ePane.setVisible(!(gaCkb.isSelected()));
 			}
@@ -192,6 +191,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	    biasCkb = new JCheckBox("Bias filter", true);
 	    maxCkb = new JCheckBox("Max filter", true);
 	    maxCkb.addItemListener(new ItemListener() {	
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if(!maxCkb.isSelected())
 					biasCkb.setSelected(false);
@@ -221,6 +221,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	    coddCkb26 = new JCheckBox("Pfam v26", false);
 	    coddCkb26.setToolTipText("Context dependent annotation, see [Terrapon et al., Bioinformatics, 2009]");
 	    coddCkb26.addItemListener(new ItemListener() {	
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if(coddCkb26.isSelected() && coddCkb27.isSelected())
 					coddCkb27.setSelected(false);
@@ -241,6 +242,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	    coddCkb27 = new JCheckBox("Pfam v27", false);
 	    coddCkb27.setToolTipText("Context dependent annotation, see [Terrapon et al., Bioinformatics, 2009]");
 	    coddCkb27.addItemListener(new ItemListener() {	
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if(coddCkb27.isSelected() && coddCkb26.isSelected())
 					coddCkb26.setSelected(false);
@@ -365,6 +367,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	/**
 	 * Actions triggered on specific ui components.
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("LoadBins"))
 			loadBinAction(e);
@@ -595,6 +598,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	/**
 	 * Closes the parent frame
 	 */
+	@Override
 	public void close() {
 		parent.dispose();
 	}
@@ -607,6 +611,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * @param msg
 	 * 		the message to be printed
 	 */
+	@Override
 	public void writeToConsole(String msg) {
 		console.append(msg);
 	}
@@ -618,6 +623,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 	 * (ie something that is not triggered at start
 	 * or end of a job - non zero exit code)
 	 */
+	@Override
 	public void resetPanel() {
 		Configuration.getInstance().setServiceRunning(false);
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -754,6 +760,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 		selectView.setSelectedItem(null);
 		selectView.setRenderer(new WizardListCellRenderer());
 		selectView.addActionListener(new ActionListener(){
+			@Override
 			public void actionPerformed(ActionEvent evt) {
 			
 				if (fastaTF.getText().length() > 0) {
@@ -818,6 +825,7 @@ public class HmmScanPanel extends HmmerServicePanel implements ActionListener{
 				return "";
 	}
 
+	@Override
 	public JFrame getParentFrame() {
 		return parent;
 	}

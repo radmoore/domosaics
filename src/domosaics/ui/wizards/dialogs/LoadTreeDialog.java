@@ -21,12 +21,9 @@ import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.views.ViewType;
-import domosaics.ui.views.domaintreeview.DomainTreeView;
-import domosaics.ui.views.domainview.DomainView;
 import domosaics.ui.views.treeview.TreeView;
 import domosaics.ui.views.view.io.ViewImporter;
 import domosaics.ui.wizards.pages.ImportViewPage;
-import domosaics.ui.wizards.pages.LoadFastaPage;
 import domosaics.ui.wizards.pages.LoadTreePage;
 
 
@@ -76,10 +73,12 @@ class LoadTreeProgress implements WizardResultProducer{
 		assert !EventQueue.isDispatchThread();
 	}
 	
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
 	
+	@Override
 	public Object finish(Map m) throws WizardException {
 
 		// display view after import

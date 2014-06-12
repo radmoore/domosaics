@@ -25,6 +25,7 @@ public abstract class DefaultViewManager implements ViewManager {
 	/**
 	 * @see ViewManager
 	 */
+	@Override
 	public void addPropertyChangeListener(PropertyChangeListener listener){
 		propertyChangeSupport.addPropertyChangeListener(listener);
 	}
@@ -32,6 +33,7 @@ public abstract class DefaultViewManager implements ViewManager {
 	/**
 	 * @see ViewManager
 	 */
+	@Override
 	public void removePropertyChangeListener(PropertyChangeListener listener){
 		propertyChangeSupport.removePropertyChangeListener(listener);
 	}
@@ -39,6 +41,7 @@ public abstract class DefaultViewManager implements ViewManager {
 	/**
 	 * @see ViewManager
 	 */
+	@Override
 	public void firePropertyChange(String propertyName, Object oldValue, Object newValue){
 		propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
 	}
@@ -46,6 +49,7 @@ public abstract class DefaultViewManager implements ViewManager {
 	/**
 	 * @see ViewManager
 	 */
+	@Override
 	public void structuralChange() {
 		firePropertyChange(PROPERTY_STRUCTURAL_CHANGE, -1, 1);        
 	}
@@ -53,6 +57,7 @@ public abstract class DefaultViewManager implements ViewManager {
 	/**
 	 * @see ViewManager
 	 */
+	@Override
 	public void visualChange(){
 		firePropertyChange(PROPERTY_VISUAL_CHANGE, -1, 1);
 	}

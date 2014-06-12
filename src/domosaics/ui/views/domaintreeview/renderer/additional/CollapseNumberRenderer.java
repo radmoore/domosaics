@@ -49,6 +49,7 @@ public class CollapseNumberRenderer implements Renderer {
 	 * If you want to change this, don't even try to understand this, 
 	 * just write it new. =)
 	 */
+	@Override
 	public void render(Graphics2D g) {
 		if (!view.getCSAInSubtreeManager().isActive())
 			return;

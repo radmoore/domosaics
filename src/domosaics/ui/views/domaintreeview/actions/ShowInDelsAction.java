@@ -22,6 +22,7 @@ public class ShowInDelsAction extends AbstractMenuAction{
 
 	protected ReconstructionTool tool = null;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		final DomainTreeViewI view = (DomainTreeViewI) ViewHandler.getInstance().getActiveView();
 		

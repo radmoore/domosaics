@@ -1,8 +1,6 @@
 package domosaics.ui.wizards.createtree;
 
 import java.awt.Component;
-import java.awt.Dimension;
-
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
@@ -75,7 +73,8 @@ public class CreateTreeDomainPage extends WizardPage {
     /**
      * Checks if all necessary input is made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
     	if (selectDistanceMeasure.getSelectedItem() == null)
 			return "Please select a similarity measure";
     	if (selectAlgo.getSelectedItem() == null)

@@ -24,13 +24,9 @@ import domosaics.model.tree.TreeNode;
 import domosaics.model.tree.TreeNodeI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.views.ViewType;
-import domosaics.ui.views.domaintreeview.DomainTreeView;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 import domosaics.ui.views.domaintreeview.actions.CollapseSameArrangementsAtNodeAction;
-import domosaics.ui.views.domaintreeview.layout.CSAModeDomainTreeLayout;
-import domosaics.ui.views.domaintreeview.layout.DefaultDomainTreeLayout;
 import domosaics.ui.views.domainview.DomainViewI;
-import domosaics.ui.views.domainview.components.ArrangementComponent;
 import domosaics.ui.views.domainview.layout.MSALayout;
 import domosaics.ui.views.domainview.layout.ProportionalLayout;
 import domosaics.ui.views.domainview.layout.UnproportionalLayout;
@@ -56,6 +52,7 @@ public class DomainTreeViewImporter extends ViewImporter<DomainTreeViewI>  {
 	private static ViewLayout domLayout = null;
 	
 
+	@Override
 	protected void setLayoutSettings(DomainTreeViewI view) {
 		if (domLayout == null)
 			return;
@@ -90,6 +87,7 @@ public class DomainTreeViewImporter extends ViewImporter<DomainTreeViewI>  {
 		
 	}
 	
+	@Override
 	public DomainTreeViewI readData(String data) {
 		try {
 			TreeViewI treeView = null;
@@ -115,7 +113,7 @@ public class DomainTreeViewImporter extends ViewImporter<DomainTreeViewI>  {
 				if (line.toUpperCase().contains("<SEQUENCEDATA>")) {
 					while( (line = in.readLine()) != null && !line.toUpperCase().contains("</SEQUENCEDATA>")) 
 						seqData.append(line+"\r\n");
-					seqs = (SequenceI[]) new FastaReader().getDataFromString(seqData.toString());
+					seqs = new FastaReader().getDataFromString(seqData.toString());
 				}
 			
 				// READ THE TREE
@@ -202,7 +200,7 @@ public class DomainTreeViewImporter extends ViewImporter<DomainTreeViewI>  {
 					while( (line = in.readLine()) != null && !line.toUpperCase().contains("</DOMAINDATA>")) 
 						domainData.append(line+"\r\n");
 					
-					DomainArrangement[] proteins = (DomainArrangement[]) new XdomReader().getDataFromString(domainData.toString());
+					DomainArrangement[] proteins = new XdomReader().getDataFromString(domainData.toString());
 					if (proteins == null)
 						return null;
 					
@@ -236,6 +234,7 @@ public class DomainTreeViewImporter extends ViewImporter<DomainTreeViewI>  {
 	}
 	
 	
+	@Override
 	public void readAttributes(String attributes, DomainTreeViewI view)  {
 		try {
 			BufferedReader in = new BufferedReader(new StringReader(attributes)); 

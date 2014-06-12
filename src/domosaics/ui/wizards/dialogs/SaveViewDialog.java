@@ -18,7 +18,6 @@ import domosaics.model.workspace.WorkspaceElement;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.util.MessageUtil;
-import domosaics.ui.views.view.View;
 import domosaics.ui.wizards.pages.ChooseViewToSavePage;
 import domosaics.ui.wizards.pages.SaveProjectFilePage;
 
@@ -49,6 +48,7 @@ public class SaveViewDialog {
  */
 class SaveViewProgress extends DeferredWizardResult implements WizardResultProducer {
 
+	@Override
 	public void start(Map m, ResultProgressHandle p) {
 		assert !EventQueue.isDispatchThread();
 
@@ -88,10 +88,12 @@ class SaveViewProgress extends DeferredWizardResult implements WizardResultProdu
 		p.finished(null);
 	}
 
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
 
+	@Override
 	public Object finish(Map m) throws WizardException {
 		return this;
 	}

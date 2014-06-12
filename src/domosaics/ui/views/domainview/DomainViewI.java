@@ -143,6 +143,7 @@ public interface DomainViewI extends View {
 	 * Registers the active mouse listeners depending on the 
 	 * applications state
 	 */
+	@Override
 	public void registerMouseListeners();
 
 	/**

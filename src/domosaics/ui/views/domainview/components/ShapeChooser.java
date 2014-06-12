@@ -186,6 +186,7 @@ public class ShapeChooser extends JDialog implements ChangeListener, ActionListe
 	/**
 	 * @see ChangeListener
 	 */
+	@Override
 	public void stateChanged(ChangeEvent e) {
 		updateShapes();
 	}
@@ -193,6 +194,7 @@ public class ShapeChooser extends JDialog implements ChangeListener, ActionListe
 	/**
 	 * @see ActionListener
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == shapeList)
 			updateShapes();
@@ -243,6 +245,7 @@ public class ShapeChooser extends JDialog implements ChangeListener, ActionListe
 		/**
 		 * @see DefaultListCellRenderer
 		 */
+		@Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 			DefaultListCellRenderer res = (DefaultListCellRenderer) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 			configureRenderer(res, value);

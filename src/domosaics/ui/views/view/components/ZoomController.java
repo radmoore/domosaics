@@ -103,6 +103,7 @@ public class ZoomController extends MouseAdapter {
 		
 		// repaint the view
 		SwingUtilities.invokeLater(new Runnable() {						
+			@Override
 			public void run() {	
 				view.getParentPane().repaint();
 			}
@@ -139,6 +140,7 @@ public class ZoomController extends MouseAdapter {
 	 * Calculates and applies a scale on the AffineTransform object 
 	 * representing the zoom when the mouse wheel is used.
 	 */
+	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if (!isZooming)
 			return;
@@ -175,6 +177,7 @@ public class ZoomController extends MouseAdapter {
 	 * Calculates the translation of AffineTransform object
 	 * representing the zoom when mouse is dragged. 
 	 */
+	@Override
 	public void mouseDragged(MouseEvent e) {
 		int xDist = oldDragPoint.x - e.getPoint().x;
 		int yDist = oldDragPoint.y - e.getPoint().y;
@@ -187,6 +190,7 @@ public class ZoomController extends MouseAdapter {
 	/**
 	 * Indicates that the dragging started
 	 */
+	@Override
 	public void mousePressed(MouseEvent e) {
 		dragging = true;
 		oldDragPoint = e.getPoint();
@@ -195,6 +199,7 @@ public class ZoomController extends MouseAdapter {
 	/** 
 	 * Indicates that the dragging was stopped
 	 */
+	@Override
 	public void mouseReleased(MouseEvent e) {
 		dragging = false;
 		oldDragPoint = null;

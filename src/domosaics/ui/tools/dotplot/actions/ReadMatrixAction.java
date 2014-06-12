@@ -24,6 +24,7 @@ import domosaics.ui.views.ViewType;
 public class ReadMatrixAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		//choose matrix file
 		File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());

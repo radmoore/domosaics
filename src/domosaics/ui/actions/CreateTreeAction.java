@@ -20,6 +20,7 @@ import domosaics.ui.wizards.createtree.CreateTreeResultProducer;
 public class CreateTreeAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	    
+	@Override
 	public void actionPerformed(ActionEvent event) {
 		WizardManager.getInstance().startCreateTreeWizard();
 	}

@@ -11,7 +11,6 @@ import org.netbeans.spi.wizard.WizardPage;
 
 import domosaics.model.workspace.CategoryElement;
 import domosaics.model.workspace.ProjectElement;
-import domosaics.model.workspace.ViewElement;
 import domosaics.model.workspace.WorkspaceElement;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.views.ViewType;
@@ -66,7 +65,8 @@ public class SelectRenamePage extends WizardPage {
      * 
      * Checks if all necessary inputs are made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
 		
 		String newName = name.getText().trim();
 		ProjectElement project = elem.getProject();

@@ -20,7 +20,6 @@ import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.ArrangementComponent;
-import domosaics.ui.views.view.View;
 import domosaics.ui.wizards.WizardManager;
 import domosaics.ui.wizards.pages.SelectNamePage;
 
@@ -37,6 +36,7 @@ import domosaics.ui.wizards.pages.SelectNamePage;
 public class CreateViewUsingSelectionAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		// get a grip on the active domain view
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();

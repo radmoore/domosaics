@@ -28,14 +28,17 @@ public class UiUtil {
 		email.setForeground(color);
 		
 		email.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
 			public void changedUpdate(DocumentEvent arg0) {
 				email.setForeground(getCorrectColor(email.getText()));
 			}
 
+			@Override
 			public void insertUpdate(DocumentEvent arg0) {
 				email.setForeground(getCorrectColor(email.getText()));
 			}
 
+			@Override
 			public void removeUpdate(DocumentEvent arg0) {
 				email.setForeground(getCorrectColor(email.getText()));
 			}

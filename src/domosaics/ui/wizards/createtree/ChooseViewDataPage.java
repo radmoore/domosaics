@@ -55,6 +55,7 @@ public class ChooseViewDataPage extends WizardPage implements ItemListener{
 		
 		useUnderlayingSeqs = new JCheckBox();
 		useUnderlayingSeqs.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				if (useUnderlayingSeqs.isSelected()) {
@@ -84,6 +85,7 @@ public class ChooseViewDataPage extends WizardPage implements ItemListener{
 		selectDomViewList = GUIComponentFactory.createSelectDomViewBox(true);
 		selectDomViewList.setName(CreateTreeBranchController.DOMVIEW_KEY);
 		selectDomViewList.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				if (selectDomViewList.getSelectedItem() != null) {
@@ -107,6 +109,7 @@ public class ChooseViewDataPage extends WizardPage implements ItemListener{
 		selectSeqViewList = GUIComponentFactory.createSelectSeqViewBox(true);
 		selectSeqViewList.setName(CreateTreeBranchController.SEQUENCEVIEW_KEY);
 		selectSeqViewList.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				useUnderlayingSeqs.setSelected(false);
 				useUnderlayingSeqs.setEnabled(false);
@@ -149,7 +152,8 @@ public class ChooseViewDataPage extends WizardPage implements ItemListener{
     /**
      * Checks if all necessary input is made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
     	if (selectSeqViewList.getSelectedItem() == null && selectDomViewList.getSelectedItem() == null)
 			return "Please select a sequence or domain view";
 		if ((useUnderlayingSeqs.isSelected()  || (selectSeqViewList.getSelectedItem() != null && selectDomViewList.getSelectedItem() == null)) && !CheckConnectivity.checkInternetConnectivity()) {
@@ -163,6 +167,7 @@ public class ChooseViewDataPage extends WizardPage implements ItemListener{
     /**
      * controlling method when the checkbox item is triggered.
      */
+	@Override
 	public void itemStateChanged(ItemEvent e) {
 	    JCheckBox source = (JCheckBox) e.getItemSelectable();
 

@@ -3,11 +3,7 @@ package domosaics.ui.views.sequenceview.io;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-import org.jdom2.Attribute;
-import org.jdom2.Element;
-
 import domosaics.model.configuration.Configuration;
-import domosaics.model.sequence.SequenceI;
 import domosaics.model.sequence.io.FastaWriter;
 import domosaics.ui.views.sequenceview.SequenceView;
 import domosaics.ui.views.view.io.ViewExporter;
@@ -21,6 +17,7 @@ import domosaics.ui.views.view.io.ViewExporter;
  */
 public class SequenceViewExporter extends ViewExporter<SequenceView> {
 
+	@Override
 	public void write(BufferedWriter out, SequenceView view) {
         try {
         	writeTag(out, 0, "SEQUENCEVIEW", true);

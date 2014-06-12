@@ -30,6 +30,7 @@ public class DomainEventComponentManager extends AbstractComponentManager<Domain
 	 * 
 	 * @see ComponentManager
 	 */
+	@Override
 	public DomainEventComponent getComponent(DomainEventI evt){
 		if (evt == null) 
 			return null;

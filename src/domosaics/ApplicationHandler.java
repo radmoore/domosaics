@@ -2,9 +2,6 @@ package domosaics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Frame;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +11,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,12 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
-import javax.tools.Diagnostic;
-
-import org.apache.log4j.Logger;
-import org.w3c.dom.css.CSSPrimitiveValue;
-import org.w3c.dom.css.RGBColor;
-
 import domosaics.model.arrangement.io.GatheringThresholdsReader;
 import domosaics.model.arrangement.io.Pfam2GOreader;
 import domosaics.model.configuration.Configuration;
@@ -39,7 +29,6 @@ import domosaics.model.workspace.io.LastUsedWorkspaceWriter;
 import domosaics.model.workspace.io.ProjectExporter;
 import domosaics.model.workspace.io.ProjectImporter;
 import domosaics.ui.DoMosaicsUI;
-import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.DocumentationHandler;
 import domosaics.ui.util.MessageUtil;
@@ -104,7 +93,7 @@ public class ApplicationHandler {
 			if (!(Configuration.getInstance().saveOnExit())) {
 				Object[] options = {"Yes", "No", "Cancel"};
 				choice = MessageUtil.show3ChoiceDialog(DoMosaicsUI.getInstance(),"Restore workspace in next session?", options);
-				Configuration.getInstance().setSaveOnExit((boolean)(choice==0));
+				Configuration.getInstance().setSaveOnExit(choice==0);
 			}
 			
 			// save workspace
@@ -192,7 +181,7 @@ public class ApplicationHandler {
 				
 				// ask if we are to overwrite...
 				choice = MessageUtil.show3ChoiceDialog(DoMosaicsUI.getInstance(),"Project "+project.getTitle()+" exists in workspace. Do you want to overwrite?", options);
-    			Configuration.getInstance().setOverwriteProjects((boolean)(choice==2));
+    			Configuration.getInstance().setOverwriteProjects(choice==2);
     			
         		//... if not, 
         		if (choice == 1) {
@@ -439,6 +428,7 @@ public class ApplicationHandler {
 	 */
 	protected void initGUI() {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				
 				DoMosaicsUI domosaics = DoMosaicsUI.getInstance();
@@ -517,7 +507,8 @@ public class ApplicationHandler {
 	
 		public void setProgress(final String msg, final int percent) {
 		  SwingUtilities.invokeLater(new Runnable() {
-	            public void run() {
+	            @Override
+				public void run() {
 	            	progressBar.setValue(percent);
 	    			progressBar.setString(msg);
 	            }

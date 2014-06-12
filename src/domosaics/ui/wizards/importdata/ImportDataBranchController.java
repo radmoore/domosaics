@@ -78,6 +78,7 @@ public class ImportDataBranchController extends WizardBranchController {
      * This method chooses the correct wizard after the choose data type step.
      * The class name is the default ID for instantiated WizardPages
      */
+	@Override
 	public Wizard getWizardForStep (String step, Map data) {
 		
 		if (data.containsKey(PROJECT_KEY)) 

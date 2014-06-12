@@ -9,7 +9,6 @@ import java.util.Vector;
 import domosaics.model.arrangement.Domain;
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.ui.util.MessageUtil;
-import domosaics.ui.views.domainview.components.DomainComponent;
 import domosaics.util.PowerSet;
 
 

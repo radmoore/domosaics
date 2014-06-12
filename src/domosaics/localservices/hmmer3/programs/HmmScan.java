@@ -108,6 +108,7 @@ public class HmmScan implements Hmmer3Program {
 	 * which is required for execution via {@link Executor}. Does
 	 * not validate arguments. 
 	 */
+	@Override
 	public void prepare() {
 
 		// crate the temporary output which is later parsed to
@@ -366,6 +367,7 @@ public class HmmScan implements Hmmer3Program {
 	 * Get the panel that hosts / triggers this
 	 * program
 	 */
+	@Override
 	public HmmerServicePanel getParentServicePanel() {
 		return this.parent;
 	}
@@ -374,6 +376,7 @@ public class HmmScan implements Hmmer3Program {
 	 * Method of {@link Hmmer3Program} interface.
 	 * Returns a list of arguments
 	 */
+	@Override
 	public String[] getArgs() {
 		return this.args;
 	}
@@ -382,10 +385,12 @@ public class HmmScan implements Hmmer3Program {
 	 * Method of {@link Hmmer3Program} interface.
 	 * Returns the name of this program
 	 */
+	@Override
 	public String getName() {
 		return this.name;
 	}
 	
+	@Override
 	public String getCommandCall() {
 		StringBuffer commandString = new StringBuffer();
 		for (String arg: args)
@@ -403,6 +408,7 @@ public class HmmScan implements Hmmer3Program {
 	 * a new view, and the sequences corresponding to the arrangements
 	 * with domains are attached to the DomainView.
 	 */
+	@Override
 	public void parseResults() {
 		
 		if (HmmOutReader.checkFileFormat(outfile)) {

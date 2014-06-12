@@ -129,7 +129,8 @@ public class DomainArrangement implements Cloneable, DoMosaicsData{
 	 * @return
 	 * 		a cloned copy of the domain arrangement.
 	 */
-    public Object clone() throws CloneNotSupportedException {
+    @Override
+	public Object clone() throws CloneNotSupportedException {
     	DomainArrangement copy = (DomainArrangement) super.clone();
     	SequenceI seq = copy.getSequence();
     	copy.clear();
@@ -473,6 +474,7 @@ public class DomainArrangement implements Cloneable, DoMosaicsData{
 		return false;
 	}
 	
+	@Override
 	public String toString() {
 		return getName();
 	}

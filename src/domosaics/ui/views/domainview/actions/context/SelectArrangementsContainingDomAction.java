@@ -31,6 +31,7 @@ public class SelectArrangementsContainingDomAction extends AbstractAction{
 	}
 	
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		// the arrangements must be loaded otherwise the triggering node pup up menu wouldn't exist
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();

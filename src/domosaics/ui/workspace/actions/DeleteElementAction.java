@@ -28,6 +28,7 @@ public class DeleteElementAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Deletes the selected component and all its childs");
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		// get selected Workspace element
 		WorkspaceElement selected = WorkspaceManager.getInstance().getSelectionManager().getSelectedElement();

@@ -37,6 +37,7 @@ public class ToolFrame extends JFrame implements ToolFrameI {
 	/**
 	 * @see ToolFrameI
 	 */
+	@Override
 	public void addView(View view) {
 		setTitle(view.getViewInfo().getName());
 		getContentPane().add(view.getParentPane());

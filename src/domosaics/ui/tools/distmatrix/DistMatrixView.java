@@ -53,6 +53,7 @@ public class DistMatrixView extends AbstractView implements Tool {
 	/**
 	 * @see View
 	 */
+	@Override
 	public void export(File file) {}
 	
 	/**
@@ -143,11 +144,13 @@ public class DistMatrixView extends AbstractView implements Tool {
 	 * 
 	 * @see AbstractView
 	 */
+	@Override
 	public void renderView(Graphics2D g) { }
 
 	/**
 	 * @see Tool
 	 */
+	@Override
 	public void setToolFrame(ToolFrameI frame) {
 		this.parentFrame = (DistMatrixFrame) frame;
 	}
@@ -155,6 +158,7 @@ public class DistMatrixView extends AbstractView implements Tool {
 	/**
 	 * @see Tool
 	 */
+	@Override
 	public ToolFrameI getToolFrame() {
 		return parentFrame;
 	}
@@ -163,20 +167,23 @@ public class DistMatrixView extends AbstractView implements Tool {
 	 * @see Tool
 	 */
 	public JFrame getParentFrame() {
-		return (JFrame) parentFrame;
+		return parentFrame;
 	}
 	
 	/**
 	 * @see AbstractView
 	 */
+	@Override
 	public void registerMouseListeners() {}
 	
 	/**
 	 * @see ViewI
 	 */
+	@Override
 	public void setViewLayout(ViewLayout layout) { }
 
 	
+	@Override
 	public void setViewRenderer(Renderer renderer) {
 		// TODO Auto-generated method stub
 		

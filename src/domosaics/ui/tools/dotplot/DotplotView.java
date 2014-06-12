@@ -119,6 +119,7 @@ public class DotplotView extends AbstractView implements Tool, PropertyChangeLis
 	/**
 	 * @see View
 	 */
+	@Override
 	public void export(File file) {	}
 	
 	/**
@@ -181,6 +182,7 @@ public class DotplotView extends AbstractView implements Tool, PropertyChangeLis
 	/**
 	 * @see AbstractView
 	 */
+	@Override
 	public void registerMouseListeners() {
 		// remove all listener before registering the new ones.
 		removeMouseListeners();
@@ -195,6 +197,7 @@ public class DotplotView extends AbstractView implements Tool, PropertyChangeLis
 	/**
 	 * @see Tool
 	 */
+	@Override
 	public void setToolFrame(ToolFrameI frame) {
 		parentFrame = (DotplotFrame) frame;
 	}
@@ -202,6 +205,7 @@ public class DotplotView extends AbstractView implements Tool, PropertyChangeLis
 	/**
 	 * @see Tool
 	 */
+	@Override
 	public ToolFrameI getToolFrame() {
 		return parentFrame;
 	}
@@ -209,6 +213,7 @@ public class DotplotView extends AbstractView implements Tool, PropertyChangeLis
 	/**
 	 * Listener method invoked when the dotplot changed and therefore a repaint is necessary
 	 */
+	@Override
 	public void dotplotChanged(DotplotChangeEvent evt) {
 		dotplot.refresh();
     	repaint(); 
@@ -313,6 +318,7 @@ public class DotplotView extends AbstractView implements Tool, PropertyChangeLis
 	/**
 	 * @see PropertyChangeListener
 	 */
+	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals(ViewManager.PROPERTY_STRUCTURAL_CHANGE)) {
 			layout.dotplotStructureChanged();
@@ -325,6 +331,7 @@ public class DotplotView extends AbstractView implements Tool, PropertyChangeLis
 	/**
 	 * Renders the dotplot view
 	 */
+	@Override
 	public void renderView(Graphics2D g) {
 		viewRenderer.render(g);
 	}
@@ -332,6 +339,7 @@ public class DotplotView extends AbstractView implements Tool, PropertyChangeLis
 	/**
 	 * @see JComponent
 	 */
+	@Override
 	public void doLayout() {
 		if (parentFrame == null || isZoomMode())
 			return;
@@ -359,6 +367,7 @@ public class DotplotView extends AbstractView implements Tool, PropertyChangeLis
 	 * @param layout
 	 * 		the layout used to layout the dotplot components
 	 */
+	@Override
 	public void setViewLayout(ViewLayout layout) {
 		super.setLayout(null);
 		layout.setView(this);
@@ -373,6 +382,7 @@ public class DotplotView extends AbstractView implements Tool, PropertyChangeLis
 	/**
 	 * @see View
 	 */
+	@Override
 	public JComponent getComponent() {
 		return scrollPane;
 	}
@@ -387,6 +397,7 @@ public class DotplotView extends AbstractView implements Tool, PropertyChangeLis
 		return viewRenderer;
 	}
 
+	@Override
 	public void setViewRenderer(Renderer renderer) {
 		// TODO Auto-generated method stub
 		

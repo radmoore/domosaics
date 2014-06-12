@@ -16,7 +16,6 @@ import domosaics.model.sequence.SequenceI;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.wizards.pages.ClustalW2Page;
-import domosaics.util.CheckConnectivity;
 import domosaics.webservices.clustalw.ClustalW2ResultParser;
 
 
@@ -84,10 +83,12 @@ class ClustalW2Progress extends DeferredWizardResult implements WizardResultProd
 		}
 	}
 	
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
 	
+	@Override
 	public Object finish(Map m) throws WizardException {
 		return this;
 	}	

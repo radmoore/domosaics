@@ -4,19 +4,16 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
 
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.ui.views.domainview.DomainViewI;
-
 import net.miginfocom.swing.MigLayout;
 
 public class NoteEditor extends JDialog implements ActionListener {
@@ -78,7 +75,7 @@ public class NoteEditor extends JDialog implements ActionListener {
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setModal(true);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 	
 	/**
@@ -102,6 +99,7 @@ public class NoteEditor extends JDialog implements ActionListener {
 	/**
 	 * Handles the button events
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == jbtCancel) 
 			dispose();

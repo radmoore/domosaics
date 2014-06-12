@@ -1,28 +1,22 @@
 package domosaics.ui.views.domaintreeview.components;
 
 import java.awt.Component;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.beans.PropertyChangeListener;
 import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JSlider;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.metal.MetalLookAndFeel;
@@ -124,25 +118,32 @@ public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionLi
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setModal(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter(){
-        	public void windowClosing(WindowEvent e) {
+        	@Override
+			public void windowClosing(WindowEvent e) {
         		instance=null;
         	}
         	
-        	public void windowActivated(WindowEvent e) { }
+        	@Override
+			public void windowActivated(WindowEvent e) { }
         	
-        	public void windowClosed(WindowEvent e) { 
+        	@Override
+			public void windowClosed(WindowEvent e) { 
         		instance=null;
         	}
 
-        	public void windowDeactivated(WindowEvent e) { }
+        	@Override
+			public void windowDeactivated(WindowEvent e) { }
 
-        	public void windowDeiconified(WindowEvent e) { }
+        	@Override
+			public void windowDeiconified(WindowEvent e) { }
 
-        	public void windowIconified(WindowEvent e) { }
+        	@Override
+			public void windowIconified(WindowEvent e) { }
         	
-        	public void windowOpened(WindowEvent e) { }
+        	@Override
+			public void windowOpened(WindowEvent e) { }
 		});
 	}
 	
@@ -168,6 +169,7 @@ public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionLi
 		return 0;
 	}
 	
+	@Override
 	public void stateChanged(ChangeEvent e) {
 		JSlider slider = (JSlider) e.getSource();
 
@@ -180,6 +182,7 @@ public class TreeSpaceSlider extends JDialog implements ChangeListener, ActionLi
 			view.getTreeLayoutManager().setTreeSpace(actThres);
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == jbtApply) {
 			this.dispose();

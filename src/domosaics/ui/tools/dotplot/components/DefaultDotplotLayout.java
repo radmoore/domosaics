@@ -56,6 +56,7 @@ public class DefaultDotplotLayout implements ViewLayout {
 	 * @param view
 	 * 		backend dotplot view
 	 */
+	@Override
 	public void setView(View view) {
 		this.view = (DotplotView) view;
 	}
@@ -73,6 +74,7 @@ public class DefaultDotplotLayout implements ViewLayout {
 	 * @param parent
 	 * 		the parent frame embedding the view
 	 */
+	@Override
 	public void layoutContainer(Container parent) {
 		if (neededDim == null)
 			neededDim = getNeededDim();

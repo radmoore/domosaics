@@ -8,12 +8,10 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.SwingUtilities;
 
-import domosaics.model.GO.GeneOntology;
 import domosaics.model.GO.GeneOntologyTerm;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.DomainComponent;
@@ -67,7 +65,8 @@ public class DomainTooltipRenderer implements Renderer {
     /**
      * @see Renderer
      */
-    public void render(Graphics2D g2d) {
+    @Override
+	public void render(Graphics2D g2d) {
 		// don't show tooltips in zoom mode
     	if (view.isZoomMode())
 			return;

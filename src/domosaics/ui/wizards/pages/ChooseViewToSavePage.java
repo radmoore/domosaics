@@ -3,7 +3,6 @@ package domosaics.ui.wizards.pages;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -83,6 +82,7 @@ public class ChooseViewToSavePage extends WizardPage {
 		
 		
 		projectSelection.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				viewSelection.removeAllItems();
 				allViews = getViews( (ProjectElement)projectSelection.getSelectedItem() );
@@ -100,6 +100,7 @@ public class ChooseViewToSavePage extends WizardPage {
 		});
 		
 		viewSelection.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (viewSelection.getSelectedItem() == null)
 					exportName.setText("");
@@ -139,7 +140,8 @@ public class ChooseViewToSavePage extends WizardPage {
     /**
      * Checks if all necessary choices are made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
     	
     	if (projectSelection.getSelectedItem() == null)
     		return "Please select a project";

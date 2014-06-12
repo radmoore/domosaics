@@ -22,6 +22,7 @@ public class RADSAction extends AbstractMenuAction {
 	
 	protected Hmmer3Frame hmmer3 = null;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 
 		JFrame radsFrame = RADSScanPanel.getCurrentRADSFrame();

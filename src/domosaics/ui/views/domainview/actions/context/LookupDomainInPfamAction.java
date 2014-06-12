@@ -31,6 +31,7 @@ public class LookupDomainInPfamAction extends AbstractAction {
 		putValue(Action.SHORT_DESCRIPTION, "Opens a browserwindow showing the NCBI homepage");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		// the tree must be loaded otherwise the triggering node pup up menu wouldn't exist
 		DomainViewI view = ViewHandler.getInstance().getActiveView();

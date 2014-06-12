@@ -1,9 +1,5 @@
 package domosaics.model.arrangement;
 
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import domosaics.model.configuration.Configuration;

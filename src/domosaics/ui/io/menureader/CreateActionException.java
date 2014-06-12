@@ -18,7 +18,8 @@ public class CreateActionException extends Exception {
         super(str);
     }
     
-    public String toString() {
+    @Override
+	public String toString() {
         return "failed to create MenuItem: "+super.getMessage();
     }
 

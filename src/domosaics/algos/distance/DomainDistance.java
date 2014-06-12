@@ -46,6 +46,7 @@ public class DomainDistance implements DistanceAlgorithm {
 	 * Calculates the domain-edit distance (Bjoerklund et al.) for 
 	 * two arrangements using Needleman-Wunsch for domains.
 	 */
+	@Override
 	public double calc(DomainArrangement da1, DomainArrangement da2) {
 		return calcDomainDistance(da1, da2);
 	}
@@ -54,6 +55,7 @@ public class DomainDistance implements DistanceAlgorithm {
 	 * Calculates the domain-edit distance (Bjoerklund et al.) for 
 	 * a set of arrangements using Needleman-Wunsch for domains.
 	 */
+	@Override
 	public double[][] calc(DomainArrangement[] daSet, boolean diagonalMatrix) throws OutOfMemoryError {
 		int N = daSet.length;
 		double[][] res = new double[N][N];

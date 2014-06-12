@@ -36,9 +36,9 @@ public class InDelLayouter {
 			TreeNodeI dtn = iter.next();
 			
 			for (int i = 0; i < dtn.childCount(); i++) {
-				TreeEdgeI edge = (TreeEdgeI) dtn.getEdgeToChild(i);
+				TreeEdgeI edge = dtn.getEdgeToChild(i);
 				if (edge.hasDomainEvent())
-					layoutDomainEvent(edge, view.getTreeComponentManager().getComponent((TreeNodeI)edge.getSource()), view.getTreeComponentManager().getComponent((TreeNodeI)edge.getTarget()));
+					layoutDomainEvent(edge, view.getTreeComponentManager().getComponent(edge.getSource()), view.getTreeComponentManager().getComponent(edge.getTarget()));
 			}
 		}	
 	}

@@ -31,6 +31,7 @@ public class MsaArrangementRenderer extends AbstractArrangementRenderer {
 	/**
 	 * @see AbstractArrangementRenderer
 	 */
+	@Override
 	public void render(ArrangementComponent dac, DomainViewI view, Graphics2D g2) {
 		// render the arrangement only if a sequence is assigned to it
 		if (dac.getDomainArrangement().getSequence() == null)

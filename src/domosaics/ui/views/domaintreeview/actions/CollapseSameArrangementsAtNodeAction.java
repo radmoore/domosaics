@@ -6,9 +6,7 @@ import java.util.Iterator;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
-import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 import domosaics.ui.views.domaintreeview.layout.CSAModeDomainTreeLayout;
 import domosaics.ui.views.domaintreeview.layout.DefaultDomainTreeLayout;
@@ -34,6 +32,7 @@ public class CollapseSameArrangementsAtNodeAction extends AbstractAction {
 		putValue(Action.SHORT_DESCRIPTION, "Collapses the subtree and only shows non redundant arrangements");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainTreeViewI view = ViewHandler.getInstance().getActiveView();
 	
@@ -53,8 +52,8 @@ public class CollapseSameArrangementsAtNodeAction extends AbstractAction {
 		Iterator<NodeComponent> subtreeIter = selectedNode.depthFirstIterator().iterator();
 		while(subtreeIter.hasNext()) {
 			NodeComponent nc = subtreeIter.next();
-			if (nc.isCollapsed() && !((DomainTreeViewI)view).getCSAInSubtreeManager().isInCSAMode(nc))
-				((DomainTreeViewI)view).getCSAInSubtreeManager().addNode(nc);
+			if (nc.isCollapsed() && !view.getCSAInSubtreeManager().isInCSAMode(nc))
+				view.getCSAInSubtreeManager().addNode(nc);
 		}
 
 		// do a normal collapse

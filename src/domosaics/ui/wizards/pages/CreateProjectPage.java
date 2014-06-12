@@ -2,9 +2,6 @@ package domosaics.ui.wizards.pages;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Toolkit;
-
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -12,7 +9,6 @@ import net.miginfocom.swing.MigLayout;
 
 import org.netbeans.spi.wizard.WizardPage;
 
-import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.WorkspaceManager;
 
 
@@ -63,6 +59,7 @@ public class CreateProjectPage extends WizardPage {
 	/**
      * Checks if all necessary input is made.
      */
+	@Override
 	protected String validateContents(Component component, Object o) {
 		
 		String projectName = input.getText().trim();

@@ -16,7 +16,6 @@ import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.arrangement.DomainFamily;
 import domosaics.model.arrangement.DomainType;
 import domosaics.model.arrangement.io.GatheringThresholdsReader;
-import domosaics.ui.util.MessageUtil;
 import domosaics.webservices.RADS.util.RADSResultsTableModel;
 
 

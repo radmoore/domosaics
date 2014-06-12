@@ -22,6 +22,7 @@ public class CloseStatsAction extends AbstractAction {
 		putValue(Action.SHORT_DESCRIPTION, "Closes the stats window");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		frame.dispose();
 	}

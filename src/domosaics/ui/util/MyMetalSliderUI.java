@@ -41,23 +41,30 @@ public class MyMetalSliderUI extends MetalSliderUI implements MouseMotionListene
     	item.setArmed( false );
 	}
 
+	@Override
 	public void mouseDragged ( MouseEvent me ) {
 		showToolTip( me );
 	}
 	
-  	public void mousePressed ( MouseEvent me ) {
+  	@Override
+	public void mousePressed ( MouseEvent me ) {
 		showToolTip( me );
 	}
 	
+	@Override
 	public void mouseReleased ( MouseEvent me ) {
 		pop.setVisible( false );
 	}
 
+	@Override
 	public void mouseMoved ( MouseEvent me ) {}
 
+	@Override
 	public void mouseClicked ( MouseEvent me ) {}
 
+	@Override
 	public void mouseEntered ( MouseEvent me ) {}
 
+	@Override
 	public void mouseExited ( MouseEvent me ) {}
 }

@@ -59,27 +59,33 @@ public class TreeEdge implements TreeEdgeI {
         domEvents = new ArrayList<DomainEventI>();
     }
 
+	@Override
 	public TreeNodeI getSource() {
         return source;
     }
 
-    public TreeNodeI getTarget() {
+    @Override
+	public TreeNodeI getTarget() {
         return target;
     }
 
-    public double getWeight() {
+    @Override
+	public double getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    @Override
+	public void setWeight(double weight) {
         this.weight = weight;
     }
     
-    public double getBootstrap() {
+    @Override
+	public double getBootstrap() {
         return bootstrap;
     }
 
-    public void setBootstrap(double bootstrap) {
+    @Override
+	public void setBootstrap(double bootstrap) {
         this.bootstrap = bootstrap;
     }
     
@@ -87,18 +93,22 @@ public class TreeEdge implements TreeEdgeI {
 	 *          			 DOMAIN TREE  METHODS				   *
 	 * *********************************************************** */
     
+	@Override
 	public void addDomainEvent(DomainEventI evt) {
 		domEvents.add(evt);
 	}
 	
+	@Override
 	public List<DomainEventI> getDomainEvents() {
 		return domEvents;
 	}
 	
+	@Override
 	public boolean hasDomainEvent() {
 		return domEvents.size() != 0;
 	}
 	
+	@Override
 	public void removeDomainEvenets() {
 		domEvents.clear();
 	}

@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,8 +15,6 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
-
 import org.jdom2.Attribute;
 import org.jdom2.Element;
 
@@ -31,11 +28,7 @@ import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.util.MessageUtil;
 import domosaics.ui.views.ViewType;
-import domosaics.ui.views.domaintreeview.actions.CollapseSameArrangementsAtNodeAction;
 import domosaics.ui.views.domaintreeview.components.DomainEventComponent;
-import domosaics.ui.views.domaintreeview.components.ReconstructionTool;
-import domosaics.ui.views.domaintreeview.io.DomainTreeViewExporter;
-import domosaics.ui.views.domaintreeview.layout.CSAModeDomainTreeLayout;
 import domosaics.ui.views.domaintreeview.layout.DefaultDomainTreeLayout;
 import domosaics.ui.views.domaintreeview.layout.DomainTreeLayout;
 import domosaics.ui.views.domaintreeview.manager.CSAInSubtreeManager;
@@ -73,11 +66,9 @@ import domosaics.ui.views.domainview.mousecontroller.DomainMouseController;
 import domosaics.ui.views.domainview.mousecontroller.SequenceSelectionMouseController;
 import domosaics.ui.views.domainview.mousecontroller.ShiftComponentsMouseController;
 import domosaics.ui.views.domainview.renderer.DomainViewRenderer;
-import domosaics.ui.views.domainview.renderer.additional.NoteMarkRenderer;
 import domosaics.ui.views.treeview.TreeView;
 import domosaics.ui.views.treeview.TreeViewI;
 import domosaics.ui.views.treeview.actions.context.CollapseTreeAction;
-import domosaics.ui.views.treeview.actions.context.RotateAction;
 import domosaics.ui.views.treeview.components.NodeComponent;
 import domosaics.ui.views.treeview.components.TreeMouseController;
 import domosaics.ui.views.treeview.layout.TreeLayout;
@@ -218,14 +209,17 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainTreeViewI
 	 */
+	@Override
 	public DomainViewI getDomainView() {
 		return domView;
 	}
 	
+	@Override
 	public int getParsimonyMeth() {
 		return treeView.getParsimonyMeth();
 	}
 	
+	@Override
 	public void setParsimonyMeth(int i) {
 		treeView.setParsimonyMeth(i);
 	}
@@ -233,6 +227,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainTreeViewI
 	 */
+	@Override
 	public TreeViewI getTreeView() {
 		return treeView;
 	}
@@ -244,6 +239,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public void setTree(TreeI tree) {
 		this.domTree = tree;
 	}
@@ -251,6 +247,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public void setDaSet(DomainArrangement[] daSet) {
 		this.daSet = daSet;
 	}
@@ -258,6 +255,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public void removeArrangement(DomainArrangement da) {
 		// convert daSet to a list structure
 		List<DomainArrangement> list = new ArrayList<DomainArrangement>(Arrays.asList(daSet));
@@ -292,6 +290,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public void addArrangement(DomainArrangement da) {
 		System.out.println("not supported yet");
 	}
@@ -299,6 +298,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainTreeViewI
 	 */
+	@Override
 	public void setBackendViews(TreeViewI treeView, DomainViewI domView) {
 		// keep a reference to the backend views
 		this.treeView = treeView;
@@ -366,6 +366,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public SequenceI[] getSequences() {
 		List<SequenceI> seqs = new ArrayList<SequenceI>();
 		for (int i = 0; i < daSet.length; i++) 
@@ -377,6 +378,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public void loadSequencesIntoDas(SequenceI[] seqs, DomainArrangement[] daSet, boolean checkBeforeAssociation) {
 		domView.loadSequencesIntoDas(seqs, daSet, checkBeforeAssociation);
 		
@@ -388,6 +390,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public void setSequencesLoaded (boolean flag) {
 		domView.setSequencesLoaded(flag);
 		
@@ -439,6 +442,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public void registerAdditionalTreeRenderer(TreeViewI view) {
 		treeView.registerAdditionalTreeRenderer(view);
 	}
@@ -446,6 +450,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public void registerAdditionalDomainRenderer(DomainViewI view) {
 		domView.registerAdditionalDomainRenderer(view);
 	}
@@ -453,6 +458,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainTreeViewI
 	 */
+	@Override
 	public void registerAdditionalDomainTreeRenderer(DomainTreeViewI view) {
 		removeAllRenderer();
 		
@@ -484,6 +490,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	 *  
 	 * @see AbstractView
 	 */
+	@Override
 	public void registerMouseListeners() {
 		// remove all listener before registering the new ones.
 		removeMouseListeners();
@@ -575,6 +582,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public ArrangementMouseController getArrangementMouseController() {
 		return getMouseController(DomainTreeMouseControllerType.ARRANGEMENTMC);
 	}
@@ -582,6 +590,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainMouseController getDomainMouseController() {
 		return getMouseController(DomainTreeMouseControllerType.DOMAINMC);
 	}
@@ -589,6 +598,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public SequenceSelectionMouseController getSequenceSelectionMouseController() {
 		return getMouseController(DomainTreeMouseControllerType.SEQUENCESELECTIONMC);
 	}
@@ -596,6 +606,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public ShiftComponentsMouseController getShiftComponentsMouseController() {
 		return getMouseController(DomainTreeMouseControllerType.COMPONENTSHIFTMC);
 	}
@@ -603,6 +614,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeMouseController getTreeMouseController() {
 		return getMouseController(DomainTreeMouseControllerType.TREEMC);
 	}
@@ -610,6 +622,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainTreeViewI
 	 */
+	@Override
 	public DomainEventMouseController getDomainEventMouseController() {
 		return getMouseController(DomainTreeMouseControllerType.DOMEVENTMC);
 	}
@@ -622,6 +635,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public void registerViewAsManagerListener(PropertyChangeListener view) {
 		Iterator <ViewManager> iter = view_manager.values().iterator();
 		while (iter.hasNext()) 
@@ -634,6 +648,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public void unregisterViewAsManagerListener(PropertyChangeListener view) {
 		Iterator <ViewManager> iter = view_manager.values().iterator();
 		while (iter.hasNext()) 
@@ -649,6 +664,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	 * a relayout and a repaint is done. In the case of a visual
 	 * change only the repaint is done.
 	 */
+	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals(ViewManager.PROPERTY_STRUCTURAL_CHANGE)) {
 			if (viewLayout instanceof TreeLayout)
@@ -689,6 +705,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	 * Triggered whenever a layout for the view components has to be
 	 * done.
 	 */
+	@Override
 	public void doLayout() {
 		if (isZoomMode())
 			return;
@@ -703,23 +720,24 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	 * @param layout
 	 * 		the new layout to be used
 	 */
+	@Override
 	public void setViewLayout(ViewLayout layout) {
 		super.setLayout(null);
 		layout.setView(this);
 		
 		if (layout instanceof DomainTreeLayout) {
-			this.viewLayout = (DomainTreeLayout) layout;
+			this.viewLayout = layout;
 			return;
 		}
 		
 		if (layout instanceof TreeLayout && !getDomainTreeLayoutManager().isShowArrangements()) {
-			this.viewLayout = (TreeLayout) layout;
+			this.viewLayout = layout;
 			return;
 		}
 		
 		if (layout instanceof DomainLayout) {
 			if (!getDomainTreeLayoutManager().isShowTree())
-				this.viewLayout = (DomainLayout) layout;
+				this.viewLayout = layout;
 			else {
 				((DomainTreeLayout) this.viewLayout).setDomainLayout((DomainLayout) layout);
 			}	
@@ -730,6 +748,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see View
 	 */
+	@Override
 	public void setViewRenderer(Renderer renderer) {
 		this.viewRenderer = renderer;
 	}
@@ -737,6 +756,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see AbstractView
 	 */
+	@Override
 	public void renderView(Graphics2D g) {
 		viewRenderer.render(g);
 	}
@@ -744,9 +764,10 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see AbstractView
 	 */
+	@Override
 	public void toggleZoomMode() {
 		super.toggleZoomMode();
-		domTreeLayoutManager.toggleZoomMode((AbstractView) this);
+		domTreeLayoutManager.toggleZoomMode(this);
 	}
 	
 	
@@ -757,6 +778,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see View
 	 */
+	@Override
 	public JComponent getComponent() {
 		return scrollPane;
 	}
@@ -764,6 +786,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeI getTree() {
 		return domTree;
 	}
@@ -771,6 +794,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainArrangement[] getDaSet() {
 		return daSet;
 	}
@@ -778,6 +802,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainTreeViewI
 	 */
+	@Override
 	public TreeI getDomTree() {
 		return domTree;
 	}
@@ -785,6 +810,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeViewRenderer getTreeViewRenderer() {
 		return (TreeViewRenderer) viewRenderer;
 	}
@@ -792,6 +818,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainViewRenderer getDomainViewRenderer() {
 		return (DomainViewRenderer) viewRenderer;
 	}
@@ -799,6 +826,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeLayout getTreeLayout() {
 		return (TreeLayout) viewLayout;
 	}
@@ -806,6 +834,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainLayout getDomainLayout() {
 		if (viewLayout instanceof DomainTreeLayout)
 			return ((DomainTreeLayout) viewLayout).getDomainLayout();
@@ -815,6 +844,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainTreeViewI
 	 */
+	@Override
 	public DomainTreeLayout getDomainTreeLayout() {
 		return (DomainTreeLayout) viewLayout;
 	}
@@ -822,6 +852,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public boolean isSequenceLoaded() {
 		return domView.isSequenceLoaded();
 	}
@@ -829,6 +860,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public NodeComponent getNodesComponent(TreeNodeI node) {
 		return treeView.getNodesComponent(node);
 	}
@@ -872,6 +904,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeLayoutManager getTreeLayoutManager() {
 		return treeLayoutManager;
 	}
@@ -879,6 +912,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainLayoutManager getDomainLayoutManager() {
 		return domLayoutManager;
 	}
@@ -886,6 +920,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainTreeViewI
 	 */
+	@Override
 	public DomainTreeLayoutManager getDomainTreeLayoutManager() {
 		return domTreeLayoutManager; 
 	}
@@ -895,6 +930,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeColorManager getTreeColorManager() {
 		return treeView.getTreeColorManager();
 	}
@@ -902,6 +938,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeComponentManager getTreeComponentManager() {
 		return treeView.getTreeComponentManager();
 	}
@@ -909,6 +946,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public FontManager<NodeComponent> getTreeFontManager() {
 		return treeView.getTreeFontManager();
 	}
@@ -916,6 +954,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeSelectionManager getTreeSelectionManager() {
 		return treeView.getTreeSelectionManager();
 	}
@@ -923,6 +962,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see TreeViewI
 	 */
+	@Override
 	public TreeStrokeManager getTreeStrokeManager() {
 		return treeView.getTreeStrokeManager();
 	}
@@ -932,6 +972,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainColorManager getDomainColorManager() {
 		return domView.getDomainColorManager();
 	}
@@ -939,6 +980,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainArrangementComponentManager getArrangementComponentManager() {
 		return domView.getArrangementComponentManager();
 	}
@@ -946,6 +988,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainComponentManager getDomainComponentManager() {
 		return domView.getDomainComponentManager();
 	} 
@@ -953,6 +996,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public SelectionManager<DomainComponent> getDomainSelectionManager() {
 		return domView.getDomainSelectionManager();
 	}
@@ -960,6 +1004,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public FontManager<ArrangementComponent> getDomainArrangementFontManager() {
 		return domView.getDomainArrangementFontManager();
 	}
@@ -967,6 +1012,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public FontManager<DomainComponent> getDomainFontManager() {
 		return domView.getDomainFontManager();
 	}
@@ -974,6 +1020,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainShapeManager getDomainShapeManager() {
 		return domView.getDomainShapeManager();
 	}
@@ -981,6 +1028,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public SelectionManager<ArrangementComponent> getArrangementSelectionManager() {
 		return domView.getArrangementSelectionManager();
 	}
@@ -988,6 +1036,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainSearchOrthologsManager getDomainSearchOrthologsManager() {
 		return domView.getDomainSearchOrthologsManager();
 	}
@@ -995,6 +1044,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainShiftManager getDomainShiftManager() {
 		return domView.getDomainShiftManager();
 	}
@@ -1002,6 +1052,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public CollapseSameArrangementsManager getCollapseSameArrangementsManager() {
 		return domView.getCollapseSameArrangementsManager();
 	}
@@ -1009,6 +1060,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public DomainSimilarityManager getDomainSimilarityManager() {
 		return domView.getDomainSimilarityManager();
 	}
@@ -1016,6 +1068,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainViewI
 	 */
+	@Override
 	public NoteManager getNoteManager() {
 		return domView.getNoteManager();
 	}
@@ -1025,6 +1078,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainTreeViewI
 	 */
+	@Override
 	public CSAInSubtreeManager getCSAInSubtreeManager() {
 		return getManager(DomainTreeViewManager.COLLAPSESAMEARRANGEMENTSINSUBTREEMANAGER);
 	}
@@ -1032,6 +1086,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainTreeViewI
 	 */
+	@Override
 	public DefaultSelectionManager<DomainEventComponent> getDomainEventSelectionManager() {
 		return getManager(DomainTreeViewManager.DOMAINEVENTSELECTIONMANAGER);
 	}
@@ -1039,6 +1094,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainTreeViewI
 	 */
+	@Override
 	public DomainEventComponentManager getDomainEventComponentManager() {
 		return getManager(DomainTreeViewManager.DOMAINEVENTCOMPONENTMANAGER);
 	}
@@ -1046,6 +1102,7 @@ public class DomainTreeView extends AbstractView implements PropertyChangeListen
 	/**
 	 * @see DomainTreeViewI
 	 */
+	@Override
 	public InnerNodeArrangementManager getInnerNodeArrangementManager() {
 		return getManager(DomainTreeViewManager.INNERNODEARRANGEMENTMANAGER);
 	}

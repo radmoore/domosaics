@@ -3,8 +3,6 @@ package domosaics.ui.views.domainview.mousecontroller;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JScrollPane;
-
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.DomainComponent;
 import domosaics.ui.views.domainview.components.DomainPopupMenu;
@@ -53,6 +51,7 @@ public class DomainMouseController extends MouseAdapter {
 	 * Processes right clicks by showing a context menu for domains.
 	 * On left click all domains are deselected at once. 
 	 */
+	@Override
 	public void mouseClicked(MouseEvent e) {
 		SelectionManager<DomainComponent> domSelectionManager = view.getDomainSelectionManager();
 		// reset domain selection, e.g. selected because of the find action
@@ -80,6 +79,7 @@ public class DomainMouseController extends MouseAdapter {
 	 * A repaint is forced by changing the temporary selection within
 	 * the selection manager.
 	 */
+	@Override
 	public void mouseMoved(MouseEvent e) {	
 		// handle domain mouse overs
 		DomainComponent dc = domDetector.searchDomainComponent(e.getPoint());

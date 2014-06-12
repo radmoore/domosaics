@@ -51,6 +51,7 @@ public class DefaultDotplotViewRenderer implements Renderer {
 	 * This method is used to render the hole view by 
 	 * delegating to helper methods.
 	 */
+	@Override
 	public void render(Graphics2D g) {
 		Color oldColor = g.getColor();
 		Font oldFont = g.getFont();

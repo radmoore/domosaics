@@ -20,6 +20,7 @@ import domosaics.ui.views.domainview.renderer.arrangement.BackBoneArrangementRen
 public class UnproportionalViewAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void actionPerformed(ActionEvent e) {		
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		

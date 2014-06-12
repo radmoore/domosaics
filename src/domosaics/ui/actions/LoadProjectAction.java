@@ -14,6 +14,7 @@ import domosaics.ui.util.FileDialogs;
 public class LoadProjectAction  extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
     
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		File file = FileDialogs.openChooseDirectoryDialog(DoMosaicsUI.getInstance());
 		if (file == null)

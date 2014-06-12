@@ -34,6 +34,7 @@ import domosaics.ui.views.view.renderer.Renderer;
 public class ShowTreeAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainTreeViewI view = (DomainTreeViewI) ViewHandler.getInstance().getActiveView();
 		view.getDomainTreeLayoutManager().toggleShowTree();

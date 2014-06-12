@@ -103,6 +103,7 @@ public class ConsensusAlignment {
 		// sort the dataset in ascending order by the number of conserved neighbourhoods
 		Arrays.sort(daSet, new Comparator<DomainArrangement>() {
 
+			@Override
 			public int compare(DomainArrangement da1, DomainArrangement da2) {
 				
 				// count the score for da1

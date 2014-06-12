@@ -1,7 +1,6 @@
 package domosaics.ui.tools.stats;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Map;
@@ -30,13 +29,14 @@ public class DomOccurrenciesPanel extends JPanel{
 		Map.Entry[] entries = domFamOccurrencies.entrySet().toArray(new Map.Entry[domFamOccurrencies.size()]);
 
 		Arrays.sort(entries, new Comparator<Object>() {
+			@Override
 			public int compare(Object lhs, Object rhs) {
 				Map.Entry le = (Map.Entry)lhs;
 		        Map.Entry re = (Map.Entry)rhs;
-		        return -((Comparable)le.getValue()).compareTo((Comparable)re.getValue());
+		        return -((Comparable)le.getValue()).compareTo(re.getValue());
 			}
 		});
-		Map.Entry<DomainFamily, Integer>[] data = (Map.Entry<DomainFamily, Integer>[]) entries;
+		Map.Entry<DomainFamily, Integer>[] data = entries;
 
 		// layouting
 		int row = 0;

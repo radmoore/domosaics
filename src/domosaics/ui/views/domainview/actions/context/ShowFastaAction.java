@@ -25,6 +25,7 @@ public class ShowFastaAction extends AbstractAction {
 		putValue(Action.SHORT_DESCRIPTION, "Show the fasta sequence of the current protein");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		DomainViewI domView = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		// get the selected arrangement

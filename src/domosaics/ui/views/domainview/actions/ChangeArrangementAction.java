@@ -24,6 +24,7 @@ import domosaics.ui.views.domainview.renderer.arrangement.BackBoneArrangementRen
 public class ChangeArrangementAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI domView = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		if (domView.getArrangementSelectionManager().getSelection().isEmpty() || domView.getArrangementSelectionManager().getSelection().size()>1) {

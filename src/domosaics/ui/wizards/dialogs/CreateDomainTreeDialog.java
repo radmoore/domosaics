@@ -37,6 +37,7 @@ public class CreateDomainTreeDialog {
 
 class CreateDomTreeProgress extends DeferredWizardResult implements WizardResultProducer{
 	
+	@Override
 	public void start(Map m, ResultProgressHandle p) {
 		assert !EventQueue.isDispatchThread();
 		
@@ -102,10 +103,12 @@ class CreateDomTreeProgress extends DeferredWizardResult implements WizardResult
 		p.finished(null);
 	}
 	
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
 	
+	@Override
 	public Object finish(Map m) throws WizardException {
 		return this;
 	}	

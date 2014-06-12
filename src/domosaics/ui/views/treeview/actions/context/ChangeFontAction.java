@@ -40,6 +40,7 @@ public class ChangeFontAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Changes the Font");
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		TreeViewI view = (TreeViewI) ViewHandler.getInstance().getActiveView();
 

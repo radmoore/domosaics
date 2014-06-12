@@ -128,7 +128,8 @@ public class PrefuseGraph extends JPanel{
         SizeAction sizes = new SizeAction("graph.nodes", 1);
         
         StrokeAction edgeStroke = new StrokeAction("graph.edges") {
-        	public BasicStroke getStroke(VisualItem item) {
+        	@Override
+			public BasicStroke getStroke(VisualItem item) {
         		//draw edge strokes as thick as their weight
 //        		int weight = item.getInt("weight");
 //        		if (weight >= 8)
@@ -370,7 +371,8 @@ public class PrefuseGraph extends JPanel{
         
         // initialize the node renderer for rendering domain shapes
 		LabelRenderer dsr = new LabelRenderer(null, "image") {
-        	protected Image getImage(VisualItem item) {
+        	@Override
+			protected Image getImage(VisualItem item) {
         		return (Image) item.get("image");
         	}
         };
@@ -422,7 +424,8 @@ public class PrefuseGraph extends JPanel{
 	private void createTupleListener (final Visualization vis) {
 	    TupleSet selectedGroup = vis.getGroup(Visualization.SELECTED_ITEMS); 
 	    selectedGroup.addTupleSetListener(new TupleSetListener() {
-	        public void tupleSetChanged(TupleSet ts, Tuple[] add, Tuple[] rem)
+	        @Override
+			public void tupleSetChanged(TupleSet ts, Tuple[] add, Tuple[] rem)
 	        {
 	            for ( int i=0; i<rem.length; ++i ) {
 	                ((VisualItem)rem[i]).setFixed(false);
@@ -476,7 +479,8 @@ class LabelLayout2 extends Layout {
         this.view = view;
     }
 	
-    @SuppressWarnings("unchecked")
+    @Override
+	@SuppressWarnings("unchecked")
 	public void run(double frac) {
         Iterator iter = m_vis.items(m_group);
         while ( iter.hasNext() ) {

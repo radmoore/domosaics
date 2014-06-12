@@ -2,19 +2,15 @@ package domosaics.ui.wizards.importdata;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
@@ -126,7 +122,7 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 				public void actionPerformed(ActionEvent arg0) {
 					if(!selectViewList.getSelectedItem().equals(mem))
 						warningDone=false;
-					mem=(String) selectViewList.getSelectedItem().toString();
+					mem=selectViewList.getSelectedItem().toString();
 				}});
 
 			// layout panel
@@ -163,7 +159,7 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 					public void actionPerformed(ActionEvent arg0) {
 						if(!selectViewList.getSelectedItem().equals(mem))
 							warningDone=false;
-						mem=(String) selectViewList.getSelectedItem().toString();
+						mem=selectViewList.getSelectedItem().toString();
 					}});
 	
 				// layout panel
@@ -201,7 +197,7 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 						public void actionPerformed(ActionEvent arg0) {
 							if(!selectTreeViewList.getSelectedItem().equals(mem))
 								warningDone=false;
-							mem=(String) selectTreeViewList.getSelectedItem().toString();
+							mem=selectTreeViewList.getSelectedItem().toString();
 						}});
 					selectSeqViewList.addActionListener(new ActionListener() {
 						String mem="";
@@ -209,7 +205,7 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 						public void actionPerformed(ActionEvent arg0) {
 							if(!selectSeqViewList.getSelectedItem().equals(mem))
 								warningDone=false;
-							mem=(String) selectSeqViewList.getSelectedItem().toString();
+							mem=selectSeqViewList.getSelectedItem().toString();
 						}});
 					
 					// layout panel
@@ -237,6 +233,7 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 	/**
 	 * Action performed when the browse button was clicked
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		warningDone=false;
 		File file = FileDialogs.showOpenDialog(DoMosaicsUI.getInstance());
@@ -296,6 +293,7 @@ public class SelectDataPage extends WizardPage implements ActionListener {
 	/**
 	 * Checks if all necessary inputs are made.
 	 */
+	@Override
 	protected String validateContents (Component component, Object o) {
 		if(datatype==DataType.DOMAINS) {
 			int mem; 

@@ -30,6 +30,7 @@ public class InnerNodeArrangementRenderer implements Renderer{
 		this.view = view;
 	}
 
+	@Override
 	public void render(Graphics2D g) {
 		// check if a node is in mouse over mode
 		NodeComponent nc = view.getTreeSelectionManager().getMouseOverComp();

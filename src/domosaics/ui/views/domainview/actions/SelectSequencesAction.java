@@ -31,6 +31,7 @@ public class SelectSequencesAction extends AbstractMenuAction{
 			"selection use a single left click. To export the \n" +
 			"selected sequences use right click.";
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 	

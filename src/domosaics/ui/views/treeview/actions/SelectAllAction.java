@@ -21,6 +21,7 @@ import domosaics.ui.views.treeview.manager.TreeSelectionManager.TreeSelectionTyp
 public class SelectAllAction  extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		TreeViewI view = ViewHandler.getInstance().getActiveView();
 		

@@ -65,6 +65,7 @@ public abstract class AbstractViewComponent implements ViewComponent{
     /**
      * @see ViewComponent
      */
+	@Override
 	public void setBounds(int x, int y, int width, int height) {
 		bounds.x = x;
 		bounds.y = y;
@@ -76,6 +77,7 @@ public abstract class AbstractViewComponent implements ViewComponent{
     /**
      * @see ViewComponent
      */
+	@Override
 	public int getX() {
 	    return bounds.x;
 	}
@@ -83,6 +85,7 @@ public abstract class AbstractViewComponent implements ViewComponent{
     /**
      * @see ViewComponent
      */
+	@Override
 	public int getY() {
 	    return bounds.y;
 	}
@@ -90,6 +93,7 @@ public abstract class AbstractViewComponent implements ViewComponent{
     /**
      * @see ViewComponent
      */
+	@Override
 	public int getWidth() {
 	    return bounds.width;
 	}
@@ -97,6 +101,7 @@ public abstract class AbstractViewComponent implements ViewComponent{
     /**
      * @see ViewComponent
      */
+	@Override
 	public int getHeight() {
 	    return bounds.height;
 	}
@@ -104,6 +109,7 @@ public abstract class AbstractViewComponent implements ViewComponent{
     /**
      * @see ViewComponent
      */
+	@Override
 	public Point getLocation() {
 	    return new Point(bounds.x, bounds.y);
 	}
@@ -111,6 +117,7 @@ public abstract class AbstractViewComponent implements ViewComponent{
     /**
      * @see ViewComponent
      */
+	@Override
 	public Rectangle getBounds() {
 		return bounds;
 	}    
@@ -118,6 +125,7 @@ public abstract class AbstractViewComponent implements ViewComponent{
     /**
      * @see ViewComponent
      */
+	@Override
 	public Rectangle2D.Double getRelativeBounds() {
 		return relativeBounds;
 	}
@@ -141,6 +149,7 @@ public abstract class AbstractViewComponent implements ViewComponent{
 	/**
      * @see ViewComponent
      */
+	@Override
 	public Shape getBoundingShape() {
 		return boundingShape;
 	}
@@ -148,5 +157,6 @@ public abstract class AbstractViewComponent implements ViewComponent{
 	/**
      * @see ViewComponent
      */
+	@Override
 	public abstract Shape getDisplayedShape();
 }

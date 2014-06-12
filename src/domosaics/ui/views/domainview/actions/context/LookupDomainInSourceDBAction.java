@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import domosaics.model.configuration.Configuration;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.components.DomainComponent;
@@ -31,6 +30,7 @@ public class LookupDomainInSourceDBAction extends AbstractAction {
 		putValue(Action.SHORT_DESCRIPTION, "Opens a browser window");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		// the tree must be loaded otherwise the triggering node pup up menu wouldn't exist
 		DomainViewI view = ViewHandler.getInstance().getActiveView();

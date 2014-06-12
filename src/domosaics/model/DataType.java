@@ -64,6 +64,7 @@ public enum DataType {
 		return icon;
 	}
 	
+	@Override
 	public String toString() {
 		return title;
 	}

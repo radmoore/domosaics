@@ -10,6 +10,7 @@ import domosaics.ui.io.menureader.AbstractMenuAction;
 public class ShowStatisticsAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 //		DomainViewI view = ViewHandler.getInstance().getActiveView();
 //		

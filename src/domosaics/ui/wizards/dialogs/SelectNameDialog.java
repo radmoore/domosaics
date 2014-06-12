@@ -62,10 +62,12 @@ public class SelectNameDialog {
 
 class SelectViewNameProgress implements WizardResultProducer{
 	
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
 	
+	@Override
 	public Object finish(Map m) throws WizardException {
 		return m;
 	}	

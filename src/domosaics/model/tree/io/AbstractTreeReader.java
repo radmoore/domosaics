@@ -73,6 +73,7 @@ public abstract class AbstractTreeReader implements TreeReader{
 	 * @return 
 	 * 		the Tree after it is parsed
 	 */
+	@Override
 	public TreeI getTreeFromFile(File file) {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(file)); 	
@@ -104,6 +105,7 @@ public abstract class AbstractTreeReader implements TreeReader{
 	 * @return 
 	 * 		the Tree after it is parsed
 	 */
+	@Override
 	public abstract TreeI getTreeFromString(String treeStr);
 	
 	/**

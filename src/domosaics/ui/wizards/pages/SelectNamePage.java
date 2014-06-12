@@ -83,7 +83,8 @@ public class SelectNamePage extends WizardPage {
      * 
      * Checks if all necessary inputs are made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
 		
 		String newName = name.getText().trim();
 		String projectName = (String) selectProject.getSelectedItem();

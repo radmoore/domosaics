@@ -132,6 +132,7 @@ public class WorkspaceSelectionManager implements TreeSelectionListener {
 	 * 					TreeSelectionListener methods				 *
 	 * ************************************************************* */
 
+	@Override
 	public void valueChanged(TreeSelectionEvent e) {
 		if(!(e.getSource() instanceof TreeSelectionModel))
 			return;

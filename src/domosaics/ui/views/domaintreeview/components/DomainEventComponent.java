@@ -55,6 +55,7 @@ public class DomainEventComponent extends AbstractViewComponent {
     /**
      * @see AbstractViewComponent
      */
+	@Override
 	public Shape getDisplayedShape () {
 		int x = getX();
 		int y = getY();

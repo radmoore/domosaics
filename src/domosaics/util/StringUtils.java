@@ -21,7 +21,7 @@ public class StringUtils {
 	/** formatter used to format strings into x.xx */
 	private static NumberFormat formatter;
 	{
-		formatter = DecimalFormat.getNumberInstance(Locale.ENGLISH);
+		formatter = NumberFormat.getNumberInstance(Locale.ENGLISH);
 		formatter.setMaximumFractionDigits(2);
 	}
 

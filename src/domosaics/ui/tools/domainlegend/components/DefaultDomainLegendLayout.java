@@ -58,6 +58,7 @@ public class DefaultDomainLegendLayout implements ViewLayout {
 	 * @param view
 	 * 		the view to be layouted
 	 */
+	@Override
 	public void setView(View view) {
 		this.view = (DomainLegendView) view;
 		domView = this.view.getDomView();
@@ -78,6 +79,7 @@ public class DefaultDomainLegendLayout implements ViewLayout {
 	 * @param parent
 	 * 		the parent container
 	 */
+	@Override
 	public void layoutContainer(Container parent) {
 		if (largestLabel == null)
 			getLargestLabel();

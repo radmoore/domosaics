@@ -19,6 +19,7 @@ import domosaics.ui.views.ViewType;
 public class SortAlphabeticallyAction extends AbstractMenuAction{
 	private static final long serialVersionUID = 1L;
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {		
 		if (!getState()) {
 			setState(!getState());

@@ -4,10 +4,6 @@ import java.rmi.RemoteException;
 
 import javax.xml.rpc.ServiceException;
 
-import java.rmi.RemoteException;
-import javax.xml.rpc.ServiceException;
-import org.apache.commons.cli.*;
-
 import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
 import domosaics.webservices.AbstractEBIWebservice;
@@ -98,12 +94,14 @@ public class ClustalW2ServiceII extends AbstractEBIWebservice {
 	 * ********************************************************************* */
 	
 	// change the class types here
+	@Override
 	protected void createService() throws ServiceException {
 		//WSClustalW2Service wsService = new WSClustalW2ServiceLocator();
 		//service = wsService.getWSClustalW2();
 	}
 	
 	// change the run method here depending on the service
+	@Override
 	protected String startService() throws RemoteException {
 		//return service.runClustalW2(params, content);
 		try {
@@ -122,6 +120,7 @@ public class ClustalW2ServiceII extends AbstractEBIWebservice {
 	}
 	
 	// no changes here
+	@Override
 	protected String processResults() throws RemoteException {
 		byte[] res;
 		//res = service.poll(jobId, outFormat);
@@ -146,6 +145,7 @@ public class ClustalW2ServiceII extends AbstractEBIWebservice {
 	}
 	
 	// no changes here
+	@Override
 	protected String getStatus() throws RemoteException{
 		return srvProxy.getStatus(jobId);
 		//return service.checkStatus(jobId);

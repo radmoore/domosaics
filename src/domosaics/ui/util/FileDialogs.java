@@ -1,7 +1,5 @@
 package domosaics.ui.util;
 
-import java.awt.Component;
-import java.awt.Frame;
 import java.io.File;
 
 import javax.swing.JFileChooser;
@@ -206,6 +204,7 @@ class DoMosaicsFileFilter extends FileFilter{
 	/**
 	 * checks whether or not the file has the correct extension
 	 */
+	@Override
 	public boolean accept(File f) {
 		if (f.isDirectory())	// display sub directories
 			return true;
@@ -215,6 +214,7 @@ class DoMosaicsFileFilter extends FileFilter{
 	/**
 	 * Returns the file extension for the filter
 	 */
+	@Override
 	public String getDescription() { 
 		return description; 
 	}  

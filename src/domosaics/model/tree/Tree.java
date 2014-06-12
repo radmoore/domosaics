@@ -8,7 +8,6 @@ import java.util.Map;
 
 import domosaics.model.arrangement.DomainArrangement;
 import domosaics.model.configuration.Configuration;
-import domosaics.util.StringUtils;
 
 
 
@@ -34,10 +33,12 @@ public class Tree implements TreeI {
 	protected List<TreeEdgeI> edges;
 	
 	
+	@Override
 	public void addNode(TreeNodeI node) {
 		nodes.add(node);
 	}
 	
+	@Override
 	public void addEdge(TreeEdgeI edge) {
 		addEdge(edge.getSource(), edge.getTarget(), edge); //edges.add(edge);
 	}
@@ -60,6 +61,7 @@ public class Tree implements TreeI {
 		edges.add(edge);
 	}
 	
+	@Override
 	public void removeNode(TreeNodeI node) {
 		if(node == null) 
 			return;
@@ -67,10 +69,12 @@ public class Tree implements TreeI {
 			nodes.remove(node);
 	}
 
+	@Override
 	public Iterator<TreeNodeI> getNodeIterator() {
 		return nodes.iterator();
 	}
 	
+	@Override
 	public int nodeCount () {
 		return nodes.size();
 	}
@@ -84,14 +88,17 @@ public class Tree implements TreeI {
 		maxDepth = -1;
 	}
 	
+	@Override
 	public void setRoot (TreeNodeI root) {
 		this.root = root;
 	}
 
+	@Override
 	public TreeNodeI getRoot() {
 		return this.root;
 	}
 	
+	@Override
 	public int countLeaves() {
 		int leaves = 0;
 		Iterator<TreeNodeI> iter = getNodeIterator();
@@ -112,6 +119,7 @@ public class Tree implements TreeI {
 		return ret;
 	}
 	
+	@Override
 	public int getMaxDepth() {
 		if (root == null) 
 			return -1;
@@ -136,7 +144,7 @@ public class Tree implements TreeI {
 		
 		if (!node.isLeaf()) {
 			for (int c = 0; c < node.childCount(); c++)
-				traverse((TreeNodeI) node.getChildAt(c), actDepth+1);
+				traverse(node.getChildAt(c), actDepth+1);
 		}
 	}
 	
@@ -146,6 +154,7 @@ public class Tree implements TreeI {
 	 * This method initializes the bootstrap values for edges, based on
 	 * the node labels.
 	 */
+	@Override
 	public void initBootstrapValues() {
 		Iterator<TreeNodeI> iter = getNodeIterator();
 		while (iter.hasNext()) {
@@ -156,7 +165,7 @@ public class Tree implements TreeI {
 						double bootstrap = Double.parseDouble(node.getLabel());
 						if (bootstrap >= 0 && bootstrap <= 100 && node.getEdgeToParent() != null) {
 							node.setLabel("");
-							((TreeEdgeI) node.getEdgeToParent()).setBootstrap(bootstrap);
+							node.getEdgeToParent().setBootstrap(bootstrap);
 						}
 					}
 				}
@@ -177,6 +186,7 @@ public class Tree implements TreeI {
 	 * are not in this tree.
 	 * 
 	 */	
+	@Override
 	public TreeNodeI findLastCommonAncestor(TreeNodeI nodeA, TreeNodeI nodeB) {
 		if(nodeA == null || nodeB == null) 
 			return null;
@@ -184,24 +194,25 @@ public class Tree implements TreeI {
 		/* set nodeA and nodeB to equal level */
 		if (nodeA.getLevel() < nodeB.getLevel()) {
 			while (nodeA.getLevel() != nodeB.getLevel()) {
-				nodeB = (TreeNode) nodeB.getParent();
+				nodeB = nodeB.getParent();
 
 			}
 		} else {			
 			while (nodeA.getLevel() != nodeB.getLevel()) {
-				nodeA = (TreeNode) nodeA.getParent();
+				nodeA = nodeA.getParent();
 			}
 		}
 		
 		/* set both nodes to their parent, until they are equal */
 		while (nodeA != nodeB) {
-			nodeA = (TreeNode) nodeA.getParent();
-			nodeB = (TreeNode) nodeB.getParent();
+			nodeA = nodeA.getParent();
+			nodeB = nodeB.getParent();
 		}
 		
 		return nodeA;
 	}
     
+	@Override
 	public TreeNodeI findLastCommonAncestor(List<TreeNodeI> nodes) {
 		if(nodes == null) 
 			return null;
@@ -221,6 +232,7 @@ public class Tree implements TreeI {
 	  }
 
 
+	@Override
 	public void reRoot(TreeNodeI outgroup) {
 		// if the new root and the actual root are the same, we are done already
 		if (getRoot().equals(outgroup))
@@ -253,7 +265,7 @@ public class Tree implements TreeI {
 		
 		if (newChild == null) {
 			parent.removeEdge(parent.getEdgeToChild(secondChild));
-			addEdge(new TreeEdge(parent, (TreeNodeI) secondChild.getChildAt(0)));
+			addEdge(new TreeEdge(parent, secondChild.getChildAt(0)));
 			removeNode(secondChild);
 		}
 		
@@ -261,6 +273,7 @@ public class Tree implements TreeI {
 		maxDepth = -1;
 	}
 	
+	@Override
 	public List<TreeNodeI> deleteNode(TreeNodeI node) {
 		List<TreeNodeI> deleted = new ArrayList<TreeNodeI>();
 		
@@ -321,6 +334,7 @@ public class Tree implements TreeI {
 	 *          			 DOMAIN TREE  METHODS				   *
 	 * *********************************************************** */
 	
+	@Override
 	public TreeNodeI getNode4DA(DomainArrangement da) {
 		Iterator<TreeNodeI> iter = getNodeIterator();
 		while(iter.hasNext()) {
@@ -334,6 +348,7 @@ public class Tree implements TreeI {
 	}
 	
 	
+	@Override
 	public DomainArrangement[] getDaSet() {
 		List<DomainArrangement> res = new ArrayList<DomainArrangement>();
 		
@@ -355,6 +370,7 @@ public class Tree implements TreeI {
 	 * @param daSet
 	 * 		set of domain arrengements
 	 */
+	@Override
 	public void loadDasIntoTree(DomainArrangement[] daSet) {
 		// map the labels to the DAs to speed up the creation process
 		Map<String, DomainArrangement> label2da = new HashMap<String, DomainArrangement>();
@@ -396,9 +412,10 @@ public class Tree implements TreeI {
 //TODO		InsertionDeletionAlgo.calcInDel(this);
 	}
 	
+	@Override
 	public List<DomainArrangement> gatherDAs4Subtree(List<DomainArrangement> res, TreeNodeI node) {
 		for (int i = 0; i < node.childCount(); i++)
-			gatherDAs4Subtree(res, (TreeNodeI) node.getChildAt(i));
+			gatherDAs4Subtree(res, node.getChildAt(i));
 			
 		if (node.hasArrangement())
 			res.add(node.getArrangement());

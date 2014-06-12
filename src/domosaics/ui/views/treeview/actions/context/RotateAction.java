@@ -36,6 +36,7 @@ public class RotateAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Rotates the children of this node");
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		TreeViewI view = ViewHandler.getInstance().getActiveView();
 		

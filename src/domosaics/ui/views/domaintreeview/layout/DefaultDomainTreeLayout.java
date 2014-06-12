@@ -25,6 +25,7 @@ public class DefaultDomainTreeLayout extends AbstractDomainTreeLayout {
 	/**
 	 * @see DomainLayout
 	 */
+	@Override
 	public void layoutArrangements(int x, int y, int width, int height) {
 		domlayout.getDomainParams().init(width, height);
 		
@@ -49,7 +50,7 @@ public class DefaultDomainTreeLayout extends AbstractDomainTreeLayout {
 				
 			}
 		}
-		calcNewSubtreeBounds(view.getTreeComponentManager().getComponent((TreeNodeI)domTree.getRoot()));
+		calcNewSubtreeBounds(view.getTreeComponentManager().getComponent(domTree.getRoot()));
 	}
 
 	/**

@@ -39,6 +39,7 @@ public class DefaultMenuActionManager implements MenuActionManager{
 	 * @param action
 	 * 		the automatically created action
 	 */
+	@Override
 	public void addAction(Class<?> clazz, AbstractMenuAction action) {
 		actions.put(clazz, action);
 	}
@@ -51,6 +52,7 @@ public class DefaultMenuActionManager implements MenuActionManager{
 	 * @return
 	 * 		the instanciated AbstractMenuAction for the class
 	 */	
+	@Override
 	public AbstractMenuAction getAction (Class<?> clazz) {
 		return actions.get(clazz);
 	}

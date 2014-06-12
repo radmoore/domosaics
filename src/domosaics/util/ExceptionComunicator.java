@@ -115,6 +115,7 @@ public class ExceptionComunicator{
 		connect();
 		
 		SwingWorker<Integer, Void> worker = new SwingWorker<Integer, Void>() {
+			@Override
 			protected Integer doInBackground() throws Exception {
 				isSending = true;
 				int sent = 0;
@@ -132,6 +133,7 @@ public class ExceptionComunicator{
 				return sent;	
 			}
 
+			@Override
 			public void done() {
 				reportedBugs = new ArrayList<Bug>();
 				isSending = false;

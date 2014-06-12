@@ -28,6 +28,7 @@ public class ChangeEdgeStyleAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Changes the edge style of branches");
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		TreeViewI view = (TreeViewI) ViewHandler.getInstance().getActiveView();
 

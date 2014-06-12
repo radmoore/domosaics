@@ -46,6 +46,7 @@ public class BackBoneArrangementRenderer extends AbstractArrangementRenderer {
 	 * 
 	 * @see ArrangementRenderer
 	 */
+	@Override
 	public void render(ArrangementComponent dac, DomainViewI view, Graphics2D g2) {
 		// get coordinates for the arrangement component
 		int x = dac.getX();

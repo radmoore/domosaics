@@ -62,7 +62,7 @@ public class NewickWriter {
 	
 	private static String getStringFromTree(TreeI tree) {
 		StringBuffer treeString = new StringBuffer();
-	    TreeNodeI root = (TreeNodeI) tree.getRoot();
+	    TreeNodeI root = tree.getRoot();
 	    appendNode(root, treeString);
 	    return treeString.toString() + ";";    	
 	}

@@ -13,7 +13,6 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 
 import domosaics.model.configuration.Configuration;
-import domosaics.model.workspace.CategoryElement;
 import domosaics.model.workspace.ProjectElement;
 import domosaics.ui.DoMosaicsUI;
 import domosaics.ui.ViewHandler;
@@ -155,6 +154,7 @@ public abstract class ViewImporter<V extends View> {
 		// collapse in csa mode (workaround because subtree bounds have to be
 		// initialized
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				if (view.getCSAInSubtreeManager().isActive()) {
 					List<NodeComponent> csaNodes = new ArrayList<NodeComponent>(

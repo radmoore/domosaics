@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.Action;
 
 import domosaics.model.workspace.ProjectElement;
-import domosaics.ui.WorkspaceManager;
 import domosaics.ui.io.menureader.AbstractMenuAction;
 import domosaics.ui.wizards.WizardManager;
 
@@ -27,6 +26,7 @@ public class ImportViewAction extends AbstractMenuAction{
 		this.project = project;
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		WizardManager.getInstance().startImportViewWizard(project);
 	}

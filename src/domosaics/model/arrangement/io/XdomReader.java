@@ -6,12 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import domosaics.model.GO.GeneOntology;
@@ -125,6 +122,7 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 	/**
 	 * Parses a xdom formatted file. See also {@link DataReader}.
 	 */
+	@Override
 	public DomainArrangement[] getData(Reader reader) throws IOException {
 		// store the parsed arrangements in here
 		List<DomainArrangement> res = new ArrayList<DomainArrangement>();

@@ -6,7 +6,6 @@ import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.TreeSelectionModel;
 
 import domosaics.model.workspace.Workspace;

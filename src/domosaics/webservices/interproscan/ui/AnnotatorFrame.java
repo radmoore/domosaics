@@ -1,7 +1,6 @@
 package domosaics.webservices.interproscan.ui;
 
 import java.awt.Frame;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -61,25 +60,32 @@ public class AnnotatorFrame extends JFrame implements WindowListener {
      * When the main frame is closed, the panel has to be disposed and therefore 
      * the thread spawner cancelled.
      */
+	@Override
 	public void windowClosing(WindowEvent e) {
 		annotatorPanel.cancel();
 		instance=null;
 	}
 		
+	@Override
 	public void windowActivated(WindowEvent e) {}
 	
+	@Override
 	public void windowClosed(WindowEvent e) { 
 		instance=null;
 	}
 
+	@Override
 	public void windowDeactivated(WindowEvent e) {}
 
+	@Override
 	public void windowDeiconified(WindowEvent e) { 
 		setState(Frame.NORMAL);
 	}
 
+	@Override
 	public void windowIconified(WindowEvent e) { }
 	
+	@Override
 	public void windowOpened(WindowEvent e) { }
     
 }

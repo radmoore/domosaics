@@ -35,6 +35,7 @@ public class NoteMarkRenderer implements Renderer {
 	 * Renders the note markings for all arrangements which have a 
 	 * note associated with them.
 	 */
+	@Override
 	public void render(Graphics2D g) {
 		// don't draw if no notes are assigned
 		if (!view.getNoteManager().isActive())

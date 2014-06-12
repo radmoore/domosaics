@@ -3,6 +3,7 @@ package domosaics.ui.views.domainview.components;
 import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.domainview.actions.context.AddNoteAction;
@@ -45,8 +46,8 @@ public class ArrangementPopupMenu extends JPopupMenu {
 		ArrangementComponent ac = arSel.getClickedComp();
 		String str = "<html><b>Arrangement for protein <i>"+ac.getLabel()+"</i></b></html>";
 		JLabel title = new JLabel(str);
-		title.setHorizontalAlignment(JLabel.CENTER);
-		title.setVerticalAlignment(JLabel.CENTER);
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setVerticalAlignment(SwingConstants.CENTER);
 		add(title);
 		add(new JSeparator());
 		

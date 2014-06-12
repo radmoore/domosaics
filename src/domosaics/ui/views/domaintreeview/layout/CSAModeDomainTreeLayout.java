@@ -24,6 +24,7 @@ public class CSAModeDomainTreeLayout extends DefaultDomainTreeLayout {
 	 * for all arrangements being collapsed (but remained visible) during
 	 * a csa node collapse.
 	 */
+	@Override
 	public void layoutArrangements(int x, int y, int width, int height) {
 		// first do a normal layout
 		super.layoutArrangements(x, y, width, height);
@@ -42,7 +43,7 @@ public class CSAModeDomainTreeLayout extends DefaultDomainTreeLayout {
 			
 			// change the start position so its centered to the subtree height
 			int space_BetweenDAs = (int) (getDomainParams().offsetY* height) - getDomainParams().da_height;
-			int maxHeight = (int) csaManager.getSubtreeBounds(csaNodes.get(i)).height;
+			int maxHeight = csaManager.getSubtreeBounds(csaNodes.get(i)).height;
 			int visible = csaManager.getArrangements(csaNodes.get(i)).size();
 			int neededHeight = (visible-1) * space_BetweenDAs + visible * getDomainParams().da_height;
 			int killSPace = getDomainParams().da_height /2 + (maxHeight - neededHeight) / 2;

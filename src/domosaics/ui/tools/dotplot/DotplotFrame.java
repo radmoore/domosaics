@@ -45,7 +45,8 @@ public class DotplotFrame extends ToolFrame {
     /**
      * @see ToolFrame
      */
-    public void addView(View view) {
+    @Override
+	public void addView(View view) {
     	setTitle(view.getViewInfo().getName());
     	componentHolder.add(view.getParentPane(), BorderLayout.CENTER);
     	this.setExtendedState( this.getExtendedState()|Frame.MAXIMIZED_BOTH );

@@ -34,6 +34,7 @@ public class WorkspaceMouseController extends MouseAdapter {
 		this.view = view;
 	}
 	
+	@Override
 	public void mouseClicked(MouseEvent me) {
 		
 		// on right click open the context menu

@@ -15,7 +15,6 @@ import net.miginfocom.swing.MigLayout;
 import org.netbeans.spi.wizard.WizardPage;
 
 import domosaics.model.workspace.ProjectElement;
-import domosaics.ui.WorkspaceManager;
 import domosaics.ui.wizards.GUIComponentFactory;
 import domosaics.ui.wizards.WizardManager;
 
@@ -66,6 +65,7 @@ public class ChooseProjectPage extends WizardPage implements ActionListener{
 	 * Starts the CreateProjectDialog and modifies the project
 	 * list afterwards.
 	 */
+	@Override
 	public void actionPerformed(ActionEvent evt) {
 		ProjectElement created = WizardManager.getInstance().showCreateProjectWizard(projectName);
 		if (created != null) {
@@ -77,7 +77,8 @@ public class ChooseProjectPage extends WizardPage implements ActionListener{
     /**
      * Checks if all necessary choices are made.
      */
-    protected String validateContents (Component component, Object o) {
+    @Override
+	protected String validateContents (Component component, Object o) {
     	if (list.getSelectedValue() == null)
 			return "Please select a project";
         return null;

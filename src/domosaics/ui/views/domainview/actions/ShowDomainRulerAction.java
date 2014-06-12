@@ -24,6 +24,7 @@ public class ShowDomainRulerAction extends AbstractMenuAction{
 	private static final String HELPMSG = 
 			"An amino acid ruler is drawn below all rendered arrangements.";
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		DomainViewI view = (DomainViewI) ViewHandler.getInstance().getActiveView();
 		

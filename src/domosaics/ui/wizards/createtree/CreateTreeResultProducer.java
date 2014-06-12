@@ -21,7 +21,6 @@ import domosaics.model.workspace.ViewElement;
 import domosaics.ui.ViewHandler;
 import domosaics.ui.WorkspaceManager;
 import domosaics.ui.views.ViewType;
-import domosaics.ui.views.domaintreeview.DomainTreeViewI;
 import domosaics.ui.views.domainview.DomainViewI;
 import domosaics.ui.views.sequenceview.SequenceView;
 import domosaics.ui.views.treeview.TreeViewI;
@@ -329,6 +328,7 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 	/**
 	 * @see WizardResultProducer
 	 */
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
@@ -336,6 +336,7 @@ public class CreateTreeResultProducer extends DeferredWizardResult  implements W
 	/**
 	 * @see WizardResultProducer
 	 */
+	@Override
 	public Object finish(Map m) throws WizardException {
 		return this;
 	}	

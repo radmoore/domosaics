@@ -177,7 +177,7 @@ public class Workspace extends WorkspaceElement {
 		
 		// start by removing all categorys inclusive views
 		if (project.getChildCount()>0) {
-			CategoryElement[] catElem = (CategoryElement[]) project.getChildren().toArray(new CategoryElement[project.getChildCount()]);
+			CategoryElement[] catElem = project.getChildren().toArray(new CategoryElement[project.getChildCount()]);
 			for (int i =0; i< catElem.length; i++) {
 				ViewElement[] dummy = project.removeCategory(catElem[i]);
 				for (int j = 0; j < dummy.length; j++)
@@ -257,6 +257,7 @@ public class Workspace extends WorkspaceElement {
 	 * @return
 	 * 		icon for the workspace element 
 	 */
+	@Override
 	public ImageIcon getIcon() {
 		return null;
 	}
@@ -264,6 +265,7 @@ public class Workspace extends WorkspaceElement {
 	/**
 	 * @see WorkspaceElement
 	 */
+	@Override
 	public ProjectElement getProject() {
 		return null;
 	}

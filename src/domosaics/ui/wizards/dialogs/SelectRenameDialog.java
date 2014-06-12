@@ -8,7 +8,6 @@ import org.netbeans.spi.wizard.WizardException;
 import org.netbeans.spi.wizard.WizardPage;
 import org.netbeans.spi.wizard.WizardPage.WizardResultProducer;
 
-import domosaics.model.workspace.ProjectElement;
 import domosaics.model.workspace.WorkspaceElement;
 import domosaics.ui.wizards.pages.SelectRenamePage;
 
@@ -60,10 +59,12 @@ public class SelectRenameDialog {
 
 class SelectViewRenameProgress implements WizardResultProducer{
 	
+	@Override
 	public boolean cancel(Map m) {
 		return true;
 	}
 	
+	@Override
 	public Object finish(Map m) throws WizardException {
 		return m.get(SelectRenamePage.ELEMENT_KEY);
 	}	
