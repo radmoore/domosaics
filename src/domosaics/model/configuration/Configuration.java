@@ -27,6 +27,8 @@ public class Configuration {
 	
 //	public static final String sep = System.getProperty("file.separator");
 	
+	
+	
 	public static final double CURRENT_PROGRAM_VERSION = 0.95;
 	
 	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
@@ -409,6 +411,10 @@ public class Configuration {
 		return this.labelTrunctationLength;
 	}
 	
+	public void test() {
+		boolean test = false;
+		if (test);
+	}
 	
 //	private static void getJarPath() {
 ////		File file = new File(Configuration.class.getProtectionDomain().getCodeSource().getLocation().getPath());
@@ -416,7 +422,7 @@ public class Configuration {
 //	
 //	}
 	
-
+	
 	
 }
 

@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -68,7 +66,7 @@ public class InterProScanResultParser {
 	
 	/*
 	 * 0.  protName 
-	 * 1.  ? 
+	 * 1.  MD5 of sequence 
 	 * 2.  length 
 	 * 3.  method 
 	 * 4.  pfamID 
@@ -84,12 +82,16 @@ public class InterProScanResultParser {
 	 * 14. GOID
 	 */
 	/**
+	 * 
 	 * The actual parsing is done here.
 	 * 
 	 * @param reader
 	 * 		The Reader generated from the raw format of WSInterProScan
 	 * @return
 	 * 		parsed domain arrangement.
+	 * 
+	 * 
+	 * 
 	 */
 	public DomainArrangement getArrangement(Reader reader) throws IOException {
 		DomainArrangement prot = new DomainArrangement();
@@ -109,8 +111,17 @@ public class InterProScanResultParser {
 			String acc = token[4];
 			String name = token[5];
 			//String scanMethod = token[3];
-			String interproEntry = token[11];
-
+			String interproEntry = "";
+			
+			// HERE: Interposcan issue
+			try {
+				interproEntry = token[11];
+			}
+			catch (Exception e)
+			{
+				System.out.println("Attempting to get the token at pos 11 in this line: ");
+				System.out.println(line);	
+			}
 			ArrayList<String> goStrings = null;
 			
 			if (token.length > 12) {
@@ -118,19 +129,16 @@ public class InterProScanResultParser {
 				for(int i = 13; i < token.length; i++)
 					goStrings.add(token[i]);
 			}
-	
-		
+			
 			DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(acc);
 			if (domFamily == null) {
 				
-				//domFamily = new DomainFamily(acc, name, domType);
 				domFamily = new DomainFamily(acc, name, DomainType.getType(acc));
 
 				GatheringThresholdsReader.add(domFamily);
 			}
 			if(domFamily.getInterproEntry()==null)
 				domFamily.setInterproEntry(interproEntry);
-				//GatheringThresholdsReader.getInstance().get(acc).setInterproEntry(interproEntry);
 			
 			if (! (goStrings == null) )
 				parseGOString(goStrings, domFamily);
@@ -143,7 +151,6 @@ public class InterProScanResultParser {
 			
 			prot.addDomain(dom);
 		}
-//		prot.killOverlaps();
 		prot.sortDomains();
 		return prot;
 	}

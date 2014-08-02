@@ -50,7 +50,7 @@ import domosaics.ui.util.MessageUtil;
  * PAL: An object-oriented programming library for molecular evolution and phylogenetics. 
  * Bioinformatics 17: 662-663, 2001 
  *
- * [2] Thasso Griebel, Malte Brinkmeyer, and Sebastian Böcker
+ * [2] Thasso Griebel, Malte Brinkmeyer, and Sebastian Baecker
  * EPoS: a modular software framework for phylogenetic analysis 
  * Bioinformatics 24(20): 2399-2400 2008
  *
@@ -73,8 +73,8 @@ public class DoMosaics {
 	 */
 	public static void main(String[] args) {
 		
-		Configuration.setDebug(false);
-		Configuration.setReportExceptionsMode(false);
+		Configuration.setDebug(true);
+		Configuration.setReportExceptionsMode(true);
 
 		if (args.length > 0) {
 			for(String a : args) {

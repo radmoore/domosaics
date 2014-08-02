@@ -5,23 +5,18 @@ package domosaics.webservices.interproscan;
  * annotations.
  * 
  * @author Andreas Held
+ * @author <a href="http://radm.info">Andrew D. Moore</a>
  *
  */
 public enum Method {
 
-	blastprodom 	("blastprodom",	false), 
-	gene3d			("gene3d",		false), 
-	hmmpanther		("hmmpanther",	false), 
-	hmmpir			("hmmpir",		false), 
-	hmmpfam			("hmmpfam",		true), 
-	hmmsmart		("hmmsmart",	false), 
-//	signalp			("signalp",		false), 
-//	tmhmm			("tmhmm",		false), 
-	hmmtigr			("hmmtigr",		false), 
-	fprintscan		("fprintscan",	false),
-//	scanregexp		("scanregexp",	false), 
-	profilescan		("profilescan",	false), 
-	superfamily		("superfamily",	false);
+	ProDom			("ProDom", false),
+	PRINTS			("PRINTS", false),
+	PIRSF			("PIRFS", false),
+	PfamA			("PfamA", true),
+	SMART			("SMART", false),
+	TIGRFAM			("TIGRFAM", false),
+	PrositeProfiles ("PrositeProfiles", false);
 
 	private String title;
 	private boolean state;
