@@ -79,7 +79,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	private JTextField seqPath, email, evalue;
 	
 	/** view selection box */
-	private JComboBox selectView, selectMethod;
+	private JComboBox<String> selectView, selectMethod;
 	
 	/** Buttons for load sequence file, submit job, apply results and cancel */
 	private JButton loadSeqs, submit, apply, cancel; //close;
@@ -289,25 +289,26 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			MessageUtil.showWarning(parent,"Please enter a valid email!");
 			//print("Please enter a correct email address! \n");
 			return;
-		} else {
-			if(Configuration.getInstance().getEmailAddr().equals("")) {
+		} 
+		else {
+			if ( Configuration.getInstance().getEmailAddr().equals("") ) {
 				Configuration.getInstance().setEmailAddr(email.getText());
 				if(Configuration.getInstance().getFrame()!=null)
 					Configuration.getInstance().getFrame().getConfigPanel().getEmailTF().setText(email.getText());
-			} else {
-				if(!email.getText().equals(Configuration.getInstance().getEmailAddr()))
-					if(MessageUtil.showDialog(parent,"A distinct email is saved in settings. Overwrite?"))
-					{
+			} 
+			else {
+				if ( !email.getText().equals(Configuration.getInstance().getEmailAddr()) ) {
+					if ( MessageUtil.showDialog(parent,"A distinct email is saved in settings. Overwrite?") ) {
 						Configuration.getInstance().setEmailAddr(email.getText());
 						if(Configuration.getInstance().getFrame()!=null)
 							Configuration.getInstance().getFrame().getConfigPanel().getEmailTF().setText(email.getText());
 					}
+				}
 			}
 		}
 		
 		if (!StringUtils.isNumber(evalue.getText())) {
 			MessageUtil.showWarning(parent,"Please enter a numeric E-value!");
-			//print("Please enter an E value! \n");
 			return;
 		}
 		
@@ -315,11 +316,11 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		annotationSpawner.setMethod(selectMethod.getSelectedItem().toString());
 		
 		// check inet connectivity
-		if (!CheckConnectivity.checkInternetConnectivity()) {
+		if ( !CheckConnectivity.checkInternetConnectivity() ) {
 			MessageUtil.showWarning(parent,"Please check your intenet connection (connection failed)");
 			return;
 		}
-		if (!CheckConnectivity.addressAvailable("http://www.ebi.ac.uk/Tools/services/soap/iprscan?wsdl")) {
+		if ( !CheckConnectivity.addressAvailable("http://www.ebi.ac.uk/Tools/services/soap/iprscan?wsdl") ) {
 			MessageUtil.showWarning(parent,"Cannot connect to EBI webservices. Please try again later.");
 			return;
 		}
@@ -341,14 +342,14 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * ************************************************************* */
 
 		private boolean isNumber(String word) {
-		try {
-			Double.parseDouble(word);
-			return true;
-		} 
-		catch (Exception e){
-			return false;
+			try {
+				Double.parseDouble(word);
+				return true;
+			} 
+			catch (Exception e){
+				return false;
+			}
 		}
-	}
 	
 	/* ************************************************************* *
 	 * 						LAYOUTING COMPONENTS					 *
@@ -398,9 +399,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	/* ************************************************************* *
 	 * 					COMPONENTS INITIALIZATION					 *
 	 * ************************************************************* */
-
-	
-	
 	
 	private void initFinalButtons() {
 		submit = new JButton("Submit Job");
@@ -425,13 +423,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				cancel();
 			}
 		});
-				
-//		close = new JButton ("Close");
-//		close.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent evt) {
-//				close();
-//			}
-//		});
 	}
 	
 	private void initSelectViewBox() {
@@ -479,7 +470,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 					submit.setEnabled(false);
 				}
 				File file = FileDialogs.showOpenDialog(parent);
-				if(file != null && file.canRead()) {
+				if (file != null && file.canRead()) {
 					parent.setAlwaysOnTop(false);
 					Object sequences = new FastaReader().getDataFromFile(file);
 					parent.setAlwaysOnTop(true);
@@ -494,8 +485,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	}
 	
 	private void initMethodSelection() {
-		selectMethod = new JComboBox(Method.values());
-		// preselect hmmpfam
+		selectMethod = new JComboBox(Method.getMethodNames());
 		selectMethod.setSelectedIndex(4);
 	}
 	

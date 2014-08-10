@@ -108,46 +108,44 @@ public class InterProScanResultParser {
 			if (prot.getName() == null)
 				prot.setName(token[0]);
 	
-			String acc = token[4];
-			String name = token[5];
-			//String scanMethod = token[3];
-			String interproEntry = "";
+			Method methodType = Method.valueOf( token[3] );
 			
-			// HERE: Interposcan issue
+			String acc = token[methodType.getDomainAccPosition()];
+			String name = token[methodType.getDomainNamePosition()];
+			String interproEntry;
+			int from = Integer.parseInt( token[methodType.getDomainFromPos()] );
+			int to = Integer.parseInt( token[methodType.getDomainToPos()] );
+			double evalue = Double.parseDouble( token[methodType.getDomainEvaluePos()] );
+
+			// Some hits do not have interpro IDs, so try			
 			try {
-				interproEntry = token[11];
+				interproEntry = token[methodType.getInterproIdPosition()];
 			}
-			catch (Exception e)
-			{
-				System.out.println("Attempting to get the token at pos 11 in this line: ");
-				System.out.println(line);	
+			catch (IndexOutOfBoundsException iobe) {
+				interproEntry = "";
 			}
+			
 			ArrayList<String> goStrings = null;
 			
 			if (token.length > 12) {
 				goStrings = new ArrayList<String>() ;
-				for(int i = 13; i < token.length; i++)
+				for (int i = 13; i < token.length; i++)
 					goStrings.add(token[i]);
 			}
-			
 			DomainFamily domFamily = GatheringThresholdsReader.getInstance().get(acc);
 			if (domFamily == null) {
-				
 				domFamily = new DomainFamily(acc, name, DomainType.getType(acc));
-
 				GatheringThresholdsReader.add(domFamily);
 			}
-			if(domFamily.getInterproEntry()==null)
+			if (domFamily.getInterproEntry() == null)
 				domFamily.setInterproEntry(interproEntry);
 			
 			if (! (goStrings == null) )
 				parseGOString(goStrings, domFamily);
 
-			int from = Integer.parseInt(token[6]);
-			int to = Integer.parseInt(token[7]);
-			double eval = Double.parseDouble(token[8]);
+
 			Domain dom = new Domain(from, to, domFamily);
-			dom.setEvalue(eval);
+			dom.setEvalue(evalue);
 			
 			prot.addDomain(dom);
 		}
