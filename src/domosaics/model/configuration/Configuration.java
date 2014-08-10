@@ -29,7 +29,7 @@ public class Configuration {
 	
 	
 	
-	public static final double CURRENT_PROGRAM_VERSION = 0.97;
+	public static final double CURRENT_PROGRAM_VERSION = 0.98;
 	
 	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
 	public static final String DEF_WORKSPACE = DEF_HOMEFOLDER_LOCATION + File.separator + "domosaics_workspace";
