@@ -59,6 +59,8 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
     				out.write(dom.getFrom()+"\t"+dom.getTo()+"\t"+StringUtils.convertSpaces(domInfo));
     				if (dom.getEvalue() != Double.POSITIVE_INFINITY)
     					out.write("\t"+dom.getEvalue());
+    				if (dom.getScore() != Double.NEGATIVE_INFINITY)
+    					out.write("\t;score="+dom.getScore());
                     if (dom.isPutative()) // Specifying the putative aspect
     					out.write("\t;putative");
     				else
@@ -84,6 +86,8 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
     				out.write(dom.getFrom()+"\t"+dom.getTo()+"\t"+StringUtils.convertSpaces(domInfo));
     				if (dom.getEvalue() != Double.POSITIVE_INFINITY)
     					out.write("\t"+dom.getEvalue());
+    				if (dom.getScore() != Double.NEGATIVE_INFINITY)
+    					out.write("\t;score="+dom.getScore());
                     if (dom.isPutative()) // Specifying the putative aspect
     					out.write("\t;putative");
     				else
@@ -147,9 +151,10 @@ public class XdomWriter extends AbstractDataWriter<DomainArrangement>{
     				//out.write(dom.getFrom()+"\t"+dom.getTo()+"\t"+StringUtils.convertSpaces(domInfo));
     				if (dom.getEvalue() != Double.POSITIVE_INFINITY)
     					out.write("\t"+dom.getEvalue());
+    				if (dom.getScore() != Double.NEGATIVE_INFINITY)
+    					out.write("\t;score="+dom.getScore());
     				out.write("\r\n");
     			}
-    			
     			/**
     			// write hidden domain lines		
     			for (Domain dom : daSet[i].getHiddenDoms()) {

@@ -330,8 +330,8 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 			String[] comment = token[actToken+4].split(";");
 			for (int i=0; i < comment.length; i++) {
 				String c = comment[i];
-				if ( c.equals("putative") || c.equals("asserted") ) {
-		//			dom.setPutative(c.equals("putative"));
+				if ( c.equals("putative") ) {
+					dom.setPutative(true);
 				}
 				else if ( Pattern.matches("GO:\\d+", c) ) {
 					
@@ -345,6 +345,8 @@ public class XdomReader extends AbstractDataReader<DomainArrangement> {
 				else if ( c.equals("hidden") ) {
 					prot.addDomain(dom);
 				    prot.hideDomain(dom);
+				} else if ( Pattern.matches("score=\\d+", c) ) {
+					dom.setScore(Double.parseDouble(c.substring(c.indexOf("="))));
 				}
 			}	
 		}
