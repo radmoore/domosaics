@@ -300,9 +300,9 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 						if(Configuration.getInstance().getFrame()!=null)
 							Configuration.getInstance().getFrame().getConfigPanel().getEmailTF().setText(email.getText());
 					}
+				}
 			}
 		}
-		
 		if (!StringUtils.isNumber(evalue.getText())) {
 			MessageUtil.showWarning(parent,"Please enter a numeric E-value!");
 
@@ -332,6 +332,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		email.setEnabled(false);
 		apply.setEnabled(true);
 	}
+	
 	
 
 	/* ************************************************************* *
