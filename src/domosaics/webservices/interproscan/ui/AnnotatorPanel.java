@@ -74,7 +74,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	private JTextField seqPath, email, evalue;
 	
 	/** view selection box */
-	private JComboBox selectView, selectMethod;
+	private JComboBox<String> selectView, selectMethod;
 	
 	/** Buttons for load sequence file, submit job, apply results and cancel */
 	private JButton loadSeqs, submit, apply, cancel; //close;
@@ -286,15 +286,16 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 			MessageUtil.showWarning(parent,"Please enter a valid email!");
 			//print("Please enter a correct email address! \n");
 			return;
-		} else {
+		} 
+		else {
 			if(Configuration.getInstance().getEmailAddr().equals("")) {
 				Configuration.getInstance().setEmailAddr(email.getText());
 				if(Configuration.getInstance().getFrame()!=null)
 					Configuration.getInstance().getFrame().getConfigPanel().getEmailTF().setText(email.getText());
-			} else {
-				if(!email.getText().equals(Configuration.getInstance().getEmailAddr()))
-					if(MessageUtil.showDialog(parent,"A distinct email is saved in settings. Overwrite?"))
-					{
+			} 
+			else {
+				if ( !email.getText().equals(Configuration.getInstance().getEmailAddr()) ) {
+					if ( MessageUtil.showDialog(parent,"A distinct email is saved in settings. Overwrite?") ) {
 						Configuration.getInstance().setEmailAddr(email.getText());
 						if(Configuration.getInstance().getFrame()!=null)
 							Configuration.getInstance().getFrame().getConfigPanel().getEmailTF().setText(email.getText());
@@ -304,7 +305,7 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 		
 		if (!StringUtils.isNumber(evalue.getText())) {
 			MessageUtil.showWarning(parent,"Please enter a numeric E-value!");
-			//print("Please enter an E value! \n");
+
 			return;
 		}
 		
@@ -396,9 +397,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	 * 					COMPONENTS INITIALIZATION					 *
 	 * ************************************************************* */
 
-	
-	
-	
 	private void initFinalButtons() {
 		submit = new JButton("Submit Job");
 		submit.setEnabled(false);
@@ -425,13 +423,6 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 				cancel();
 			}
 		});
-				
-//		close = new JButton ("Close");
-//		close.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent evt) {
-//				close();
-//			}
-//		});
 	}
 	
 	private void initSelectViewBox() {
@@ -496,8 +487,8 @@ public class AnnotatorPanel extends JPanel implements AnnotatorProcessWriter{
 	}
 	
 	private void initMethodSelection() {
-		selectMethod = new JComboBox(Method.values());
 		// preselect hmmpfam
+		selectMethod = new JComboBox(Method.getMethodNames());
 		selectMethod.setSelectedIndex(4);
 	}
 	

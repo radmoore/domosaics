@@ -27,8 +27,7 @@ public class Configuration {
 	
 //	public static final String sep = System.getProperty("file.separator");
 	
-	public static final double CURRENT_PROGRAM_VERSION = 0.95;
-	
+	public static final double CURRENT_PROGRAM_VERSION = 0.98;
 	public static final String DEF_HOMEFOLDER_LOCATION = System.getProperty("user.home");
 	public static final String DEF_WORKSPACE = DEF_HOMEFOLDER_LOCATION + File.separator + "domosaics_workspace";
 	public static final String DEF_PROGRAM_FOLDER = DEF_HOMEFOLDER_LOCATION + File.separator + "DoMosaics";
@@ -408,7 +407,6 @@ public class Configuration {
 	public int getLabelTruncationLength() {
 		return this.labelTrunctationLength;
 	}
-	
 	
 //	private static void getJarPath() {
 ////		File file = new File(Configuration.class.getProtectionDomain().getCodeSource().getLocation().getPath());

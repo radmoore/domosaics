@@ -8,11 +8,14 @@ import org.apache.axis.AxisFault;
 import domosaics.model.configuration.Configuration;
 import domosaics.model.sequence.SequenceI;
 
-import uk.ac.ebi.webservices.axis1.stubs.iprscan.InputParameters;
-import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_PortType;
-import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_Service;
-import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_ServiceLocator;
-import uk.ac.ebi.webservices.axis1.stubs.iprscan.WsResultType;
+import uk.ac.ebi.jdispatcher.soap.*;
+//
+//import uk.ac.ebi.webservices.axis1.stubs.iprscan.InputParameters;
+//import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_PortType;
+//import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_Service;
+//import uk.ac.ebi.webservices.axis1.stubs.iprscan.JDispatcherService_ServiceLocator;
+//import uk.ac.ebi.webservices.axis1.stubs.iprscan.WsResultType;
+
 
 
 /**
@@ -84,7 +87,9 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	public void setParams(String email, String methodname) {
 		this.email = email;
 		params = new InputParameters();
-		params.setNocrc(true);
+		// this no longer works in iprscan v. 5
+//		params.setNocrc(true);
+		params.setPathways(true);
 		params.setGoterms(true);
 		String[] methods = new String[1];
 		methods[0] = methodname;
@@ -143,18 +148,17 @@ public class AnnotationThread extends SwingWorker<String, Void> {
 	        	return null;
 	        }
 	        System.out.println(status);
-	        WsResultType[] test = srvProxy.getResultTypes(jobId);
+	        WsResultType[] resultTypes = srvProxy.getResultTypes(jobId);
 	        // AXIS exception can be thrown here
 	        byte[] resultBytes;
-	        for(int i=0; i<test.length ;i++) {
-	        	System.out.println(test[i].getLabel());
-	        	if(test[i].getIdentifier().equals("out")) {
-	        		resultBytes = srvProxy.getResult(jobId, "out", null);
+
+	       for ( int i=0; i < resultTypes.length ; i++ ) {
+	    	   	if ( resultTypes[i].getIdentifier().equals("tsv") ) {
+	        		resultBytes = srvProxy.getResult(jobId, "tsv", null);
 	    	        return (resultBytes == null) ? null : new String(resultBytes);
 	        	}
 	        }
-	        
-	       
+  
 		}
 		// axis fault caught, but not handled 
 		catch (AxisFault af) {

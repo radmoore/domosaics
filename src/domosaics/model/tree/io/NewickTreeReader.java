@@ -189,6 +189,7 @@ public class NewickTreeReader extends AbstractTreeReader {
 		}
 	
 		// kick the dummy root if necessary
+
 		if(tree.getRoot().childCount() == 1){
 			child = (tree.getRoot()).getChildAt(0);
 			child.removeEdge(child.getEdgeToParent());
